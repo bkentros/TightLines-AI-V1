@@ -54,7 +54,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +79,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,7 +100,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -118,7 +118,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -140,7 +140,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-09T19:45:00.000Z",
+            "localDate": "2026-08-09",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-09T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-08T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-06",
+                  "windowEndMonthDay": "08-12",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-09T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-08T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-09T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-08T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-06",
+                  "windowEndMonthDay": "08-12",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -429,7 +538,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -454,7 +563,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -475,7 +584,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -493,7 +602,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -515,7 +624,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -805,7 +1023,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -830,7 +1048,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -851,7 +1069,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -869,15 +1087,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles responsiveness is active, but dependable Coho presence has not begun.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already near Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Coho already near Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -897,7 +1115,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -907,7 +1127,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -917,7 +1139,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -927,10 +1151,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -951,7 +1177,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-20T19:45:00.000Z",
+            "localDate": "2026-08-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1240,7 +1575,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1283,7 +1618,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1318,7 +1653,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1336,15 +1671,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1364,7 +1699,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1374,7 +1711,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1384,7 +1723,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1394,10 +1735,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 7,
@@ -1418,7 +1761,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-01T19:45:00.000Z",
+            "localDate": "2026-09-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1708,7 +2160,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1751,7 +2203,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1786,7 +2238,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1804,15 +2256,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1832,7 +2284,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1842,7 +2296,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1852,7 +2308,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1862,10 +2320,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -1886,7 +2346,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2170,7 +2739,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2243,7 +2812,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2281,7 +2850,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2299,15 +2868,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2327,7 +2896,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2337,7 +2908,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2347,7 +2920,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2357,10 +2932,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 49,
@@ -2381,7 +2958,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2665,7 +3351,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2747,7 +3433,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2785,7 +3471,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2803,15 +3489,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2831,7 +3517,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2841,7 +3529,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2851,7 +3541,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2861,10 +3553,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -2885,7 +3579,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3175,7 +3978,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3263,7 +4066,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -3301,7 +4104,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3319,15 +4122,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3347,7 +4150,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-25T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3357,7 +4162,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-25T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3367,7 +4174,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3377,10 +4186,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 64,
@@ -3401,7 +4212,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-25T19:45:00.000Z",
+            "localDate": "2026-10-25",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-22",
+                  "windowEndMonthDay": "10-28",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-24T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-22",
+                  "windowEndMonthDay": "10-28",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3691,7 +4611,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3779,7 +4699,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -3817,7 +4737,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3835,15 +4755,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3864,7 +4784,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-08T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3874,7 +4796,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-08T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3884,7 +4808,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3894,10 +4820,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 49,
@@ -3918,7 +4846,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-08T19:45:00.000Z",
+            "localDate": "2026-11-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4202,7 +5239,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4290,7 +5327,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4328,7 +5365,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4346,15 +5383,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 47,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4375,7 +5412,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4385,7 +5424,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4395,7 +5436,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4405,10 +5448,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 30,
@@ -4429,7 +5474,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-20T19:45:00.000Z",
+            "localDate": "2026-11-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-17",
+                  "windowEndMonthDay": "11-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-17",
+                  "windowEndMonthDay": "11-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4713,7 +5867,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4801,7 +5955,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4825,7 +5979,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4843,15 +5997,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4872,7 +6026,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4882,7 +6038,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4892,7 +6050,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4902,10 +6062,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -4926,7 +6088,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-12-01T19:45:00.000Z",
+            "localDate": "2026-12-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-28",
+                  "windowEndMonthDay": "12-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-28",
+                  "windowEndMonthDay": "12-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5217,7 +6488,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5305,7 +6576,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5329,7 +6600,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5347,7 +6618,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -5369,7 +6640,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-12-06T19:45:00.000Z",
+            "localDate": "2026-12-06",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-12-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-03",
+                  "windowEndMonthDay": "12-09",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-12-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-05T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-03",
+                  "windowEndMonthDay": "12-09",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5665,7 +7045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -5690,7 +7070,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5711,7 +7091,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5729,7 +7109,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -5751,7 +7131,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-07-24T19:45:00.000Z",
+            "localDate": "2026-07-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6040,7 +7529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6065,7 +7554,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6086,7 +7575,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6104,7 +7593,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -6126,7 +7615,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-05T19:45:00.000Z",
+            "localDate": "2026-08-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6415,7 +8013,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6440,7 +8038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6461,7 +8059,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6479,7 +8077,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -6501,7 +8099,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6790,7 +8497,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6815,7 +8522,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6836,7 +8543,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6854,7 +8561,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -6876,7 +8583,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7165,7 +8981,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7190,7 +9006,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7211,7 +9027,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7229,7 +9045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7251,7 +9067,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7540,7 +9465,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7565,7 +9490,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7586,7 +9511,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7604,7 +9529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7626,7 +9551,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7915,7 +9949,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -8035,7 +10069,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_building_established",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Typical"
@@ -8073,7 +10107,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8091,15 +10125,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8119,7 +10153,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T09:00:00"
               },
               {
                 "id": "09-13",
@@ -8129,7 +10165,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T13:00:00"
               },
               {
                 "id": "13-17",
@@ -8139,7 +10177,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -8149,10 +10189,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 61,
@@ -8173,7 +10215,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-06T19:45:00.000Z",
+            "localDate": "2026-10-06",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8463,7 +10614,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8506,7 +10657,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8541,7 +10692,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8559,15 +10710,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8587,7 +10738,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -8597,7 +10750,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -8607,7 +10762,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -8617,10 +10774,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -8641,7 +10800,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8925,7 +11193,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -8968,7 +11236,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9004,7 +11272,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 57,
@@ -9022,15 +11290,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9051,7 +11319,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9061,7 +11331,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9071,7 +11343,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9081,10 +11355,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -9105,7 +11381,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9389,7 +11774,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9432,7 +11817,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9466,7 +11851,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -9484,15 +11869,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9512,7 +11897,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9522,7 +11909,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9532,7 +11921,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9542,10 +11933,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -9566,7 +11959,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1600,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 62,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9850,7 +12352,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9893,7 +12395,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9927,7 +12429,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -9945,15 +12447,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9973,7 +12475,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9983,7 +12487,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9993,7 +12499,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10003,10 +12511,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -10027,7 +12537,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10311,7 +12930,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10354,7 +12973,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10388,7 +13007,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 68,
@@ -10406,15 +13025,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10434,7 +13053,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10444,7 +13065,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10454,7 +13077,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10464,10 +13089,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -10488,7 +13115,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10772,7 +13508,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10815,7 +13551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10850,7 +13586,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -10868,15 +13604,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10896,7 +13632,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10906,7 +13644,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10916,7 +13656,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10926,10 +13668,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -10950,7 +13694,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11234,7 +14087,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11277,7 +14130,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11313,7 +14166,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -11334,15 +14187,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11362,7 +14215,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11372,7 +14227,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11382,7 +14239,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11392,10 +14251,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -11416,7 +14277,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11700,7 +14670,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11743,7 +14713,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11780,7 +14750,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -11801,15 +14771,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -11829,7 +14799,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11839,7 +14811,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11849,7 +14823,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11859,10 +14835,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -11883,7 +14861,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12167,7 +15254,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12210,7 +15297,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12247,7 +15334,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 0,
@@ -12267,15 +15354,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12296,7 +15383,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12306,7 +15395,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12316,7 +15407,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12326,10 +15419,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -12350,7 +15445,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 7000,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 500,
+                  "percentDelta": 16,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12634,7 +15838,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12677,7 +15881,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12698,7 +15902,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -12710,15 +15914,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12738,7 +15942,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12748,7 +15954,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12758,7 +15966,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12768,10 +15978,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -12792,7 +16004,93 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -13066,7 +16364,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13109,7 +16407,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13131,7 +16429,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -13149,15 +16447,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13177,7 +16475,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -13187,7 +16487,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -13197,7 +16499,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -13207,10 +16511,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -13231,7 +16537,96 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13498,7 +16893,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13523,7 +16918,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13544,7 +16939,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 60,
@@ -13562,7 +16957,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -13584,7 +16979,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 67,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13867,7 +17371,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -13892,7 +17396,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13913,7 +17417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -13931,7 +17435,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -13953,7 +17457,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 70,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14242,7 +17855,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14267,7 +17880,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14288,7 +17901,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -14306,7 +17919,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -14328,7 +17941,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 73,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14617,7 +18339,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14660,7 +18382,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14695,7 +18417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -14714,15 +18436,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 68,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14742,7 +18464,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -14752,7 +18476,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -14762,7 +18488,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -14772,10 +18500,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -14796,7 +18526,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1200,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15086,7 +18925,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15129,7 +18968,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15164,7 +19003,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 60,
@@ -15182,15 +19021,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15210,7 +19049,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -15220,7 +19061,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -15230,7 +19073,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -15240,10 +19085,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -15264,7 +19111,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1550,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15548,7 +19504,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15591,7 +19547,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15627,7 +19583,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -15646,15 +19602,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15675,7 +19631,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -15685,7 +19643,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -15695,7 +19655,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -15705,10 +19667,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -15729,7 +19693,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 7000,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16013,7 +20086,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16056,7 +20129,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16090,7 +20163,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 88,
@@ -16108,15 +20181,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16136,7 +20209,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16146,7 +20221,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16156,7 +20233,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16166,10 +20245,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -16190,7 +20271,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1700,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16474,7 +20664,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16517,7 +20707,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16551,7 +20741,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -16572,15 +20762,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16600,7 +20790,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16610,7 +20802,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16620,7 +20814,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16630,10 +20826,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -16654,7 +20852,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 4100,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 250,
+                  "percentDelta": 12.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16944,7 +21251,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16987,7 +21294,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17023,7 +21330,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -17044,15 +21351,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17072,7 +21379,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17082,7 +21391,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17092,7 +21403,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17102,10 +21415,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -17126,7 +21441,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17410,7 +21834,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17453,7 +21877,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17489,7 +21913,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -17510,15 +21934,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17538,7 +21962,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17548,7 +21974,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17558,7 +21986,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17568,10 +21998,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -17592,7 +22024,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17876,7 +22417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17919,7 +22460,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17940,7 +22481,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -17952,15 +22493,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -17980,7 +22521,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17990,7 +22533,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18000,7 +22545,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18010,10 +22557,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -18034,7 +22583,93 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -18308,7 +22943,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18351,7 +22986,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18386,7 +23021,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -18404,15 +23039,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18432,7 +23067,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18442,7 +23079,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18452,7 +23091,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18462,10 +23103,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -18486,7 +23129,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18770,7 +23522,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18813,7 +23565,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18848,7 +23600,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 73,
@@ -18866,15 +23618,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18894,7 +23646,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18904,7 +23658,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18914,7 +23670,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18924,10 +23682,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -18948,7 +23708,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 4100,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19232,7 +24101,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19275,7 +24144,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19310,7 +24179,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -19328,15 +24197,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19356,7 +24225,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19366,7 +24237,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19376,7 +24249,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19386,10 +24261,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -19410,7 +24287,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5800,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19701,7 +24687,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -19726,7 +24712,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19747,7 +24733,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -19765,15 +24751,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 27,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles responsiveness is reserved, but dependable Coho presence has not begun.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Coho already near Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. This applies only to an early Coho already near Niles.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19794,7 +24780,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19804,7 +24792,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19814,7 +24804,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19824,10 +24816,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -19848,7 +24842,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-20T19:45:00.000Z",
+            "localDate": "2026-08-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20137,7 +25240,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20180,7 +25283,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20215,7 +25318,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -20233,15 +25336,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 85,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Niles Coho responsiveness is highly active.",
-            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20261,7 +25364,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20271,7 +25376,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20281,7 +25388,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20291,10 +25400,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -20315,7 +25426,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 62.5,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20599,7 +25819,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20672,7 +25892,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -20710,7 +25930,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -20728,15 +25948,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 85,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Niles Coho responsiveness is highly active.",
-            "detail": "Conditions strongly support Coho responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions strongly support Coho responsiveness. 1–5 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 1–5 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20756,7 +25976,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-10-02T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20766,7 +25988,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-10-02T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20776,7 +26000,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20786,10 +26012,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 51,
@@ -20810,7 +26038,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 56,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21094,7 +26431,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21176,7 +26513,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -21214,7 +26551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -21232,15 +26569,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21260,7 +26597,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21270,7 +26609,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21280,7 +26621,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21290,10 +26633,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -21314,7 +26659,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21604,7 +27058,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21677,7 +27131,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -21715,7 +27169,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -21733,15 +27187,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 59,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21761,7 +27215,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21771,7 +27227,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21781,7 +27239,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21791,10 +27251,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 51,
@@ -21815,7 +27277,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5800,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 63,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22099,7 +27670,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22142,7 +27713,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22177,7 +27748,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -22195,15 +27766,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22224,7 +27795,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22234,7 +27807,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22244,7 +27819,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22254,10 +27831,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -22278,7 +27857,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 68,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22562,7 +28250,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22605,7 +28293,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22641,7 +28329,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -22659,15 +28347,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 20,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22688,7 +28376,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22698,7 +28388,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22708,7 +28400,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22718,10 +28412,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -22742,7 +28438,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 72,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23026,7 +28831,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23108,7 +28913,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -23147,7 +28952,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -23166,15 +28971,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 21,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23195,7 +29000,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23205,7 +29012,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23215,7 +29024,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23225,10 +29036,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -23249,7 +29062,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 7000,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23539,7 +29461,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -23627,7 +29549,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -23665,7 +29587,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -23683,15 +29605,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Niles Coho responsiveness is highly active.",
-            "detail": "Conditions strongly support Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions strongly support Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23712,7 +29634,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-08T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23722,7 +29646,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-08T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23732,7 +29658,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23742,10 +29670,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 49,
@@ -23766,7 +29696,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-08T19:45:00.000Z",
+            "localDate": "2026-11-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 52,
+                "unit": "°F",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24050,7 +30089,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24138,7 +30177,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24176,7 +30215,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -24194,15 +30233,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24223,7 +30262,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24233,7 +30274,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -24243,7 +30286,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -24253,10 +30298,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 30,
@@ -24277,7 +30324,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-20T19:45:00.000Z",
+            "localDate": "2026-11-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-17",
+                  "windowEndMonthDay": "11-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 50,
+                "unit": "°F",
+                "observedAt": "2026-11-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-17",
+                  "windowEndMonthDay": "11-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24561,7 +30717,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24649,7 +30805,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -24673,7 +30829,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -24691,15 +30847,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24720,7 +30876,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24730,7 +30888,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -24740,7 +30900,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -24750,10 +30912,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -24774,7 +30938,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-12-01T19:45:00.000Z",
+            "localDate": "2026-12-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-28",
+                  "windowEndMonthDay": "12-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 48,
+                "unit": "°F",
+                "observedAt": "2026-12-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-28",
+                  "windowEndMonthDay": "12-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25065,7 +31338,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25147,7 +31420,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -25172,7 +31445,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -25190,15 +31463,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25218,7 +31491,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25228,7 +31503,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25238,7 +31515,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25248,10 +31527,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -25272,7 +31553,96 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25539,7 +31909,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25621,7 +31991,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -25645,7 +32015,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -25657,15 +32027,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -25685,7 +32055,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25695,7 +32067,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25705,7 +32079,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25715,10 +32091,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -25739,7 +32117,93 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -26019,7 +32483,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -26044,7 +32508,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26065,7 +32529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26083,7 +32547,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -26105,7 +32569,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-19T19:45:00.000Z",
+            "localDate": "2026-08-19",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-16",
+                  "windowEndMonthDay": "08-22",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-18T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-16",
+                  "windowEndMonthDay": "08-22",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26394,7 +32967,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26437,7 +33010,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26472,7 +33045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26490,15 +33063,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26518,7 +33091,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -26528,7 +33103,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -26538,7 +33115,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -26548,10 +33127,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 7,
@@ -26572,7 +33153,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-01T19:45:00.000Z",
+            "localDate": "2026-09-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26862,7 +33552,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26905,7 +33595,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26940,7 +33630,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26958,15 +33648,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26986,7 +33676,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-11T09:00:00"
               },
               {
                 "id": "09-13",
@@ -26996,7 +33688,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-11T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27006,7 +33700,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27016,10 +33712,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 14,
@@ -27040,7 +33738,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-11T19:45:00.000Z",
+            "localDate": "2026-09-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-08",
+                  "windowEndMonthDay": "09-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-08",
+                  "windowEndMonthDay": "09-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -27330,7 +34137,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27373,7 +34180,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27408,7 +34215,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27426,15 +34233,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27454,7 +34261,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-21T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27464,7 +34273,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-21T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27474,7 +34285,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27484,10 +34297,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 30,
@@ -27508,7 +34323,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-21T19:45:00.000Z",
+            "localDate": "2026-09-21",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-18",
+                  "windowEndMonthDay": "09-24",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-18",
+                  "windowEndMonthDay": "09-24",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -27792,7 +34716,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27835,7 +34759,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27870,7 +34794,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27888,15 +34812,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27916,7 +34840,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27926,7 +34852,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27936,7 +34864,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27946,10 +34876,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 43,
@@ -27970,7 +34902,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-28T19:45:00.000Z",
+            "localDate": "2026-09-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-25",
+                  "windowEndMonthDay": "10-01",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-25",
+                  "windowEndMonthDay": "10-01",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -28254,7 +35295,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28327,7 +35368,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28365,7 +35406,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -28383,15 +35424,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28411,7 +35452,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28421,7 +35464,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28431,7 +35476,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28441,10 +35488,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 58,
@@ -28465,7 +35514,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-05T19:45:00.000Z",
+            "localDate": "2026-10-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -28749,7 +35907,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28822,7 +35980,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28860,7 +36018,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -28878,15 +36036,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28906,7 +36064,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-08T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28916,7 +36076,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-08T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28926,7 +36088,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28936,10 +36100,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 65,
@@ -28960,7 +36126,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-08T19:45:00.000Z",
+            "localDate": "2026-10-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-05",
+                  "windowEndMonthDay": "10-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-05",
+                  "windowEndMonthDay": "10-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29244,7 +36519,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29326,7 +36601,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29364,7 +36639,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29382,15 +36657,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29410,7 +36685,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29420,7 +36697,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29430,7 +36709,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29440,10 +36721,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -29464,7 +36747,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29754,7 +37146,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29836,7 +37228,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -29874,7 +37266,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29892,15 +37284,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29920,7 +37312,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-11T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29930,7 +37324,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-11T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29940,7 +37336,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29950,10 +37348,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -29974,7 +37374,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-11T19:45:00.000Z",
+            "localDate": "2026-10-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-08",
+                  "windowEndMonthDay": "10-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-08",
+                  "windowEndMonthDay": "10-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30264,7 +37773,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30352,7 +37861,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30390,7 +37899,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30408,15 +37917,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30436,7 +37945,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30446,7 +37957,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30456,7 +37969,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30466,10 +37981,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 63,
@@ -30490,7 +38007,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30780,7 +38406,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30868,7 +38494,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30906,7 +38532,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30924,15 +38550,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30953,7 +38579,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30963,7 +38591,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30973,7 +38603,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30983,10 +38615,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 55,
@@ -31007,7 +38641,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-04T19:45:00.000Z",
+            "localDate": "2026-11-04",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31291,7 +39034,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31379,7 +39122,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31417,7 +39160,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31435,15 +39178,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31464,7 +39207,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-13T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31474,7 +39219,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-13T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31484,7 +39231,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -31494,10 +39243,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 42,
@@ -31518,7 +39269,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-13T19:45:00.000Z",
+            "localDate": "2026-11-13",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-10",
+                  "windowEndMonthDay": "11-16",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-12T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-10",
+                  "windowEndMonthDay": "11-16",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31802,7 +39662,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31890,7 +39750,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -31928,7 +39788,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31946,15 +39806,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 44,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31975,7 +39835,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-21T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31985,7 +39847,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-21T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31995,7 +39859,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -32005,10 +39871,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -32029,7 +39897,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-21T19:45:00.000Z",
+            "localDate": "2026-11-21",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-18",
+                  "windowEndMonthDay": "11-24",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-20T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-18",
+                  "windowEndMonthDay": "11-24",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32313,7 +40290,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32401,7 +40378,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -32425,7 +40402,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -32443,15 +40420,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32472,7 +40449,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-29T09:00:00"
               },
               {
                 "id": "09-13",
@@ -32482,7 +40461,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-29T13:00:00"
               },
               {
                 "id": "13-17",
@@ -32492,7 +40473,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -32502,10 +40485,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 13,
@@ -32526,7 +40511,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-11-29T19:45:00.000Z",
+            "localDate": "2026-11-29",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-11-29T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-28T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-26",
+                  "windowEndMonthDay": "12-02",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-11-29T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-28T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-29T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-28T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-26",
+                  "windowEndMonthDay": "12-02",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32817,7 +40911,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32905,7 +40999,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -32929,7 +41023,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -32947,15 +41041,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 32,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32976,7 +41070,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -32986,7 +41082,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -32996,7 +41094,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33006,10 +41106,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -33030,7 +41132,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-12-05T19:45:00.000Z",
+            "localDate": "2026-12-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33321,7 +41532,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -33345,7 +41556,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33366,7 +41577,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -33384,7 +41595,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -33405,7 +41616,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-12-08T19:45:00.000Z",
+            "localDate": "2026-12-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-12-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-05",
+                  "windowEndMonthDay": "12-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-12-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-05",
+                  "windowEndMonthDay": "12-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33694,7 +42014,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33737,7 +42057,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33771,7 +42091,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 32,
@@ -33789,15 +42109,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33817,7 +42137,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -33827,7 +42149,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -33837,7 +42161,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33847,10 +42173,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -33871,7 +42199,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5800,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 180,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 59,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34161,7 +42598,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34204,7 +42641,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34240,7 +42677,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 57,
@@ -34258,15 +42695,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Niles Coho responsiveness is reserved.",
-            "detail": "Coho may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Coho may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify other sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34287,7 +42724,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -34297,7 +42736,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -34307,7 +42748,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -34317,10 +42760,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -34341,7 +42786,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34625,7 +43179,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34668,7 +43222,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34690,7 +43244,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -34708,15 +43262,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -34736,7 +43290,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -34746,7 +43302,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -34756,7 +43314,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -34766,10 +43326,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 28,
@@ -34790,7 +43352,96 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35057,7 +43708,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -35082,7 +43733,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35103,7 +43754,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -35121,7 +43772,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -35143,7 +43794,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35438,7 +44198,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35481,7 +44241,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35516,7 +44276,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -35534,15 +44294,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 77,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Niles Coho responsiveness is active.",
-            "detail": "Conditions support a meaningful Coho response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Flow and temperature represent only the Niles mainstem reach.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions support a meaningful Coho response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Flow and temperature represent only the Niles mainstem reach.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35562,7 +44322,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35572,7 +44334,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35582,7 +44346,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -35592,10 +44358,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -35616,7 +44384,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35900,7 +44777,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35943,7 +44820,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35979,7 +44856,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -36000,15 +44877,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36028,7 +44905,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -36038,7 +44917,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -36048,7 +44929,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36058,10 +44941,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -36082,7 +44967,116 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -36366,7 +45360,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36409,7 +45403,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36430,7 +45424,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -36442,15 +45436,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 51,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36470,7 +45464,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -36480,7 +45476,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -36490,7 +45488,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36500,10 +45500,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -36524,7 +45526,93 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 60.6,
+                  "p10": 54.6,
+                  "p25": 57.6,
+                  "median": 60.6,
+                  "p75": 63.6,
+                  "p90": 66.6,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -36798,7 +45886,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36841,7 +45929,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -36863,7 +45951,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -36881,15 +45969,15 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Niles Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify other sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only Niles.",
+            "tip": "Begin with 5–9 PM at Niles. Verify the Lower and Upper river directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -36909,7 +45997,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -36919,7 +46009,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -36929,7 +46021,9 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36939,10 +46033,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 47,
@@ -36963,7 +46059,96 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "st_joseph",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 2600,
+                  "p10": 1820,
+                  "p25": 2210,
+                  "median": 2600,
+                  "p75": 2990,
+                  "p90": 3380,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 95,
+                  "sampleCount": 665,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.38,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "st_joseph_niles_usgs",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI",
+                "siteId": "04101500",
+                "representedReach": "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "st_joseph_niles_temperature",
+                "provider": "USGS",
+                "stationName": "St. Joseph River at Niles, MI — measured water temperature",
+                "siteId": "04101500",
+                "representedReach": "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",

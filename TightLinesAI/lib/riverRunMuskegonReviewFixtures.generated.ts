@@ -55,7 +55,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +79,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,7 +100,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -118,7 +118,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -139,7 +139,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -422,7 +531,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -447,7 +556,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -468,7 +577,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -486,7 +595,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -508,7 +617,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-07-20T19:45:00.000Z",
+            "localDate": "2026-07-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-17",
+                  "windowEndMonthDay": "07-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-17",
+                  "windowEndMonthDay": "07-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -798,7 +1016,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -823,7 +1041,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -844,7 +1062,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -862,15 +1080,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -890,7 +1108,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-12T09:00:00"
               },
               {
                 "id": "09-13",
@@ -900,7 +1120,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-12T13:00:00"
               },
               {
                 "id": "13-17",
@@ -910,7 +1132,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -920,10 +1144,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -944,7 +1170,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-12T19:45:00.000Z",
+            "localDate": "2026-08-12",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-09",
+                  "windowEndMonthDay": "08-15",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-09",
+                  "windowEndMonthDay": "08-15",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1233,7 +1568,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1274,7 +1609,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1309,7 +1644,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1327,15 +1662,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1355,7 +1690,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1365,7 +1702,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1375,7 +1714,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1385,10 +1726,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 5,
@@ -1409,7 +1752,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-20T19:45:00.000Z",
+            "localDate": "2026-08-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1699,7 +2151,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1740,7 +2192,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1775,7 +2227,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1793,15 +2245,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1821,7 +2273,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1831,7 +2285,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1841,7 +2297,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1851,10 +2309,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 14,
@@ -1875,7 +2335,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-28T19:45:00.000Z",
+            "localDate": "2026-08-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2165,7 +2734,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2222,7 +2791,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -2260,7 +2829,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2278,15 +2847,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2306,7 +2875,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2316,7 +2887,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2326,7 +2899,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2336,10 +2911,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 27,
@@ -2360,7 +2937,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-05T19:45:00.000Z",
+            "localDate": "2026-09-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-02",
+                  "windowEndMonthDay": "09-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-02",
+                  "windowEndMonthDay": "09-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2650,7 +3336,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2707,7 +3393,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -2745,7 +3431,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2763,15 +3449,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2791,7 +3477,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2801,7 +3489,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2811,7 +3501,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2821,10 +3513,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 50,
@@ -2845,7 +3539,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3129,7 +3932,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3206,7 +4009,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -3244,7 +4047,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3262,15 +4065,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3290,7 +4093,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-25T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3300,7 +4105,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-25T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3310,7 +4117,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3320,10 +4129,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 74,
@@ -3344,7 +4155,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-25T19:45:00.000Z",
+            "localDate": "2026-09-25",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-22",
+                  "windowEndMonthDay": "09-28",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-22",
+                  "windowEndMonthDay": "09-28",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3628,7 +4548,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3705,7 +4625,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -3743,7 +4663,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3761,15 +4681,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3789,7 +4709,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3799,7 +4721,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3809,7 +4733,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3819,10 +4745,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -3843,7 +4771,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4133,7 +5170,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4222,7 +5259,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -4260,7 +5297,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4278,15 +5315,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4306,7 +5343,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4316,7 +5355,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4326,7 +5367,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4336,10 +5379,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 84,
@@ -4360,7 +5405,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-10T19:45:00.000Z",
+            "localDate": "2026-10-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-07",
+                  "windowEndMonthDay": "10-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4650,7 +5804,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4739,7 +5893,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -4777,7 +5931,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4795,15 +5949,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4824,7 +5978,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4834,7 +5990,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4844,7 +6002,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4854,10 +6014,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -4878,7 +6040,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-13T19:45:00.000Z",
+            "localDate": "2026-10-13",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5162,7 +6433,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5251,7 +6522,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -5289,7 +6560,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5307,15 +6578,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5336,7 +6607,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-24T09:00:00"
               },
               {
                 "id": "09-13",
@@ -5346,7 +6619,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-24T13:00:00"
               },
               {
                 "id": "13-17",
@@ -5356,7 +6631,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5366,10 +6643,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 52,
@@ -5390,7 +6669,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-24T19:45:00.000Z",
+            "localDate": "2026-10-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-21",
+                  "windowEndMonthDay": "10-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-21",
+                  "windowEndMonthDay": "10-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5674,7 +7062,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5763,7 +7151,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -5801,7 +7189,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5819,15 +7207,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5848,7 +7236,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-27T09:00:00"
               },
               {
                 "id": "09-13",
@@ -5858,7 +7248,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-27T13:00:00"
               },
               {
                 "id": "13-17",
@@ -5868,7 +7260,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5878,10 +7272,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 44,
@@ -5902,7 +7298,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-27T19:45:00.000Z",
+            "localDate": "2026-10-27",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-27T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-26T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-24",
+                  "windowEndMonthDay": "10-30",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-27T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-26T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-27T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-26T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-24",
+                  "windowEndMonthDay": "10-30",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6186,7 +7691,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6275,7 +7780,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -6313,7 +7818,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6331,15 +7836,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 40,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6360,7 +7865,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T09:00:00"
               },
               {
                 "id": "09-13",
@@ -6370,7 +7877,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T13:00:00"
               },
               {
                 "id": "13-17",
@@ -6380,7 +7889,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6390,10 +7901,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 21,
@@ -6414,7 +7927,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-04T19:45:00.000Z",
+            "localDate": "2026-11-04",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6704,7 +8326,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6793,7 +8415,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -6817,7 +8439,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6835,15 +8457,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -6864,7 +8486,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -6874,7 +8498,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -6884,7 +8510,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6894,10 +8522,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 5,
@@ -6918,7 +8548,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-10T19:45:00.000Z",
+            "localDate": "2026-11-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7215,7 +8954,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7240,7 +8979,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7261,7 +9000,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7279,7 +9018,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7301,7 +9040,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-07-24T19:45:00.000Z",
+            "localDate": "2026-07-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7590,7 +9438,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7615,7 +9463,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7636,7 +9484,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7654,7 +9502,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7676,7 +9524,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-05T19:45:00.000Z",
+            "localDate": "2026-08-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7966,7 +9923,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7991,7 +9948,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8012,7 +9969,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8030,15 +9987,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8058,7 +10015,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -8068,7 +10027,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -8078,7 +10039,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -8088,10 +10051,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -8112,7 +10077,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8402,7 +10476,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8427,7 +10501,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8448,7 +10522,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8466,15 +10540,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8494,7 +10568,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -8504,7 +10580,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -8514,7 +10592,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -8524,10 +10604,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -8548,7 +10630,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8838,7 +11029,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -8863,7 +11054,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8884,7 +11075,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8902,15 +11093,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -8930,7 +11121,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -8940,7 +11133,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -8950,7 +11145,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -8960,10 +11157,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -8984,7 +11183,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9274,7 +11582,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -9299,7 +11607,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9320,7 +11628,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -9338,15 +11646,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9366,7 +11674,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9376,7 +11686,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9386,7 +11698,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9396,10 +11710,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -9420,7 +11736,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9709,7 +12134,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9837,7 +12262,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Typical"
@@ -9875,7 +12300,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -9893,15 +12318,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9921,7 +12346,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9931,7 +12358,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9941,7 +12370,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9951,10 +12382,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -9975,7 +12408,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-06T19:45:00.000Z",
+            "localDate": "2026-10-06",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10271,7 +12813,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10348,7 +12890,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -10386,7 +12928,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -10404,15 +12946,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10432,7 +12974,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10442,7 +12986,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10452,7 +12998,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10462,10 +13010,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -10486,7 +13036,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10770,7 +13429,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10847,7 +13506,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -10886,7 +13545,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 90,
@@ -10904,15 +13563,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 28,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10933,7 +13592,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10943,7 +13604,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10953,7 +13616,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10963,10 +13628,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -10987,7 +13654,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11271,7 +14047,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11348,7 +14124,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -11385,7 +14161,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 88,
@@ -11403,15 +14179,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11431,7 +14207,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11441,7 +14219,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11451,7 +14231,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11461,10 +14243,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -11485,7 +14269,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1600,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 62,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11769,7 +14662,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11846,7 +14739,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -11883,7 +14776,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -11901,15 +14794,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11929,7 +14822,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11939,7 +14834,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11949,7 +14846,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11959,10 +14858,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -11983,7 +14884,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12267,7 +15277,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12344,7 +15354,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -12381,7 +15391,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 68,
@@ -12399,15 +15409,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12427,7 +15437,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12437,7 +15449,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12447,7 +15461,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12457,10 +15473,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -12481,7 +15499,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12765,7 +15892,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12842,7 +15969,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -12880,7 +16007,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -12898,15 +16025,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12926,7 +16053,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12936,7 +16065,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12946,7 +16077,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12956,10 +16089,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -12980,7 +16115,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13264,7 +16508,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13341,7 +16585,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -13380,7 +16624,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -13401,15 +16645,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13429,7 +16673,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -13439,7 +16685,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -13449,7 +16697,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -13459,10 +16709,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -13483,7 +16735,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13767,7 +17128,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13844,7 +17205,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -13884,7 +17245,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -13905,15 +17266,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13933,7 +17294,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -13943,7 +17306,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -13953,7 +17318,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -13963,10 +17330,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -13987,7 +17356,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14271,7 +17749,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14348,7 +17826,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -14388,7 +17866,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 0,
@@ -14408,15 +17886,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -14437,7 +17915,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -14447,7 +17927,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -14457,7 +17939,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -14467,10 +17951,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -14491,7 +17977,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5200,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 500,
+                  "percentDelta": 16,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14775,7 +18370,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14852,7 +18447,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -14876,7 +18471,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -14888,15 +18483,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14916,7 +18511,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -14926,7 +18523,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -14936,7 +18535,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -14946,10 +18547,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -14970,7 +18573,93 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -15244,7 +18933,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15321,7 +19010,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -15346,7 +19035,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -15364,15 +19053,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -15392,7 +19081,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -15402,7 +19093,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -15412,7 +19105,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -15422,10 +19117,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -15446,7 +19143,96 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15714,7 +19500,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -15739,7 +19525,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15760,7 +19546,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -15778,15 +19564,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area responsiveness is active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15806,7 +19592,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -15816,7 +19604,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -15826,7 +19616,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -15836,10 +19628,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -15860,7 +19654,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 67,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16150,7 +20053,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -16175,7 +20078,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16196,7 +20099,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -16214,15 +20117,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16243,7 +20146,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16253,7 +20158,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16263,7 +20170,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16273,10 +20182,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -16297,7 +20208,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 70,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16587,7 +20607,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -16612,7 +20632,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16633,7 +20653,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -16651,15 +20671,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16680,7 +20700,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16690,7 +20712,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16700,7 +20724,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16710,10 +20736,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -16734,7 +20762,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 73,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17023,7 +21160,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17100,7 +21237,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -17138,7 +21275,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -17157,15 +21294,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17185,7 +21322,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17195,7 +21334,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17205,7 +21346,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17215,10 +21358,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -17239,7 +21384,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 800,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17529,7 +21783,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17606,7 +21860,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -17644,7 +21898,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 60,
@@ -17662,15 +21916,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17690,7 +21944,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17700,7 +21956,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17710,7 +21968,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17720,10 +21980,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -17744,7 +22006,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1000,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18028,7 +22399,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18105,7 +22476,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -18144,7 +22515,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -18163,15 +22534,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 24,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18192,7 +22563,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18202,7 +22575,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18212,7 +22587,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18222,10 +22599,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -18246,7 +22625,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5200,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18530,7 +23018,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18607,7 +23095,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -18644,7 +23132,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 88,
@@ -18662,15 +23150,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18690,7 +23178,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18700,7 +23190,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18710,7 +23202,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18720,10 +23214,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -18744,7 +23240,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1700,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19028,7 +23633,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19105,7 +23710,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -19142,7 +23747,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -19163,15 +23768,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19191,7 +23796,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19201,7 +23808,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19211,7 +23820,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19221,10 +23832,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -19245,7 +23858,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 250,
+                  "percentDelta": 12.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19535,7 +24257,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19612,7 +24334,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -19651,7 +24373,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -19672,15 +24394,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19700,7 +24422,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19710,7 +24434,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19720,7 +24446,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19730,10 +24458,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -19754,7 +24484,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20038,7 +24877,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20115,7 +24954,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -20154,7 +24993,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -20175,15 +25014,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -20203,7 +25042,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20213,7 +25054,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20223,7 +25066,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20233,10 +25078,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -20257,7 +25104,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20541,7 +25497,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20618,7 +25574,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -20642,7 +25598,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -20654,15 +25610,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -20682,7 +25638,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20692,7 +25650,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20702,7 +25662,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20712,10 +25674,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -20736,7 +25700,93 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -21010,7 +26060,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21087,7 +26137,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -21125,7 +26175,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -21143,15 +26193,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21171,7 +26221,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21181,7 +26233,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21191,7 +26245,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21201,10 +26257,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -21225,7 +26283,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21509,7 +26676,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21586,7 +26753,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -21624,7 +26791,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 73,
@@ -21642,15 +26809,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 76,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21670,7 +26837,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21680,7 +26849,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21690,7 +26861,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21700,10 +26873,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -21724,7 +26899,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22008,7 +27292,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22085,7 +27369,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -22123,7 +27407,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -22141,15 +27425,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22169,7 +27453,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22179,7 +27465,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22189,7 +27477,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22199,10 +27489,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -22223,7 +27515,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 4000,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22514,7 +27915,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -22539,7 +27940,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22560,7 +27961,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -22578,15 +27979,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 29,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area responsiveness is reserved, but dependable Chinook presence has not begun.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22607,7 +28008,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-12T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22617,7 +28020,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-12T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22627,7 +28032,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22637,10 +28044,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -22661,7 +28070,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-12T19:45:00.000Z",
+            "localDate": "2026-08-12",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-09",
+                  "windowEndMonthDay": "08-15",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-08-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-09",
+                  "windowEndMonthDay": "08-15",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22950,7 +28468,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22991,7 +28509,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23026,7 +28544,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -23044,15 +28562,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23072,7 +28590,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23082,7 +28602,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23092,7 +28614,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23102,10 +28626,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 14,
@@ -23126,7 +28652,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-28T19:45:00.000Z",
+            "localDate": "2026-08-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 66.5,
+                "unit": "°F",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23416,7 +29051,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23473,7 +29108,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -23511,7 +29146,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -23529,15 +29164,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 87,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 1–5 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 1–5 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23557,7 +29192,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23567,7 +29204,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23577,7 +29216,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23587,10 +29228,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 50,
@@ -23611,7 +29254,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23895,7 +29647,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23972,7 +29724,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -24010,7 +29762,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -24028,15 +29780,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24056,7 +29808,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24066,7 +29820,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -24076,7 +29832,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -24086,10 +29844,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -24110,7 +29870,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24400,7 +30269,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24457,7 +30326,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -24495,7 +30364,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -24513,15 +30382,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24541,7 +30410,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24551,7 +30422,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -24561,7 +30434,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -24571,10 +30446,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 50,
@@ -24595,7 +30472,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 4000,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 67,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24879,7 +30865,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24920,7 +30906,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24955,7 +30941,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -24973,15 +30959,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 30,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25002,7 +30988,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25012,7 +31000,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25022,7 +31012,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25032,10 +31024,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 14,
@@ -25056,7 +31050,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-28T19:45:00.000Z",
+            "localDate": "2026-08-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 68,
+                "unit": "°F",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25346,7 +31449,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25387,7 +31490,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25423,7 +31526,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -25441,15 +31544,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25470,7 +31573,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25480,7 +31585,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-08-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25490,7 +31597,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25500,10 +31609,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 14,
@@ -25524,7 +31635,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-28T19:45:00.000Z",
+            "localDate": "2026-08-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 72,
+                "unit": "°F",
+                "observedAt": "2026-08-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-25",
+                  "windowEndMonthDay": "08-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25814,7 +32034,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25891,7 +32111,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -25930,7 +32150,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -25949,15 +32169,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 25,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25978,7 +32198,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25988,7 +32210,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25998,7 +32222,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -26008,10 +32234,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -26032,7 +32260,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 5200,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26322,7 +32659,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -26411,7 +32748,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -26449,7 +32786,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26467,15 +32804,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -26496,7 +32833,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-10-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -26506,7 +32845,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-10-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -26516,7 +32857,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -26526,10 +32869,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 62,
@@ -26550,7 +32895,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-20T19:45:00.000Z",
+            "localDate": "2026-10-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-17",
+                  "windowEndMonthDay": "10-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 52,
+                "unit": "°F",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-17",
+                  "windowEndMonthDay": "10-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26834,7 +33288,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -26923,7 +33377,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -26961,7 +33415,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26979,15 +33433,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27008,7 +33462,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27018,7 +33474,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27028,7 +33486,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27038,10 +33498,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 29,
@@ -27062,7 +33524,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-01T19:45:00.000Z",
+            "localDate": "2026-11-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 50,
+                "unit": "°F",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -27346,7 +33917,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -27435,7 +34006,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -27459,7 +34030,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27477,15 +34048,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27506,7 +34077,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27516,7 +34089,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27526,7 +34101,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27536,10 +34113,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 5,
@@ -27560,7 +34139,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-10T19:45:00.000Z",
+            "localDate": "2026-11-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 48,
+                "unit": "°F",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -27851,7 +34539,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27928,7 +34616,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -27953,7 +34641,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27971,15 +34659,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -27999,7 +34687,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28009,7 +34699,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28019,7 +34711,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28029,10 +34723,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -28053,7 +34749,96 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -28320,7 +35105,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28397,7 +35182,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -28421,7 +35206,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -28433,15 +35218,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -28461,7 +35246,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28471,7 +35258,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28481,7 +35270,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28491,10 +35282,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -28515,7 +35308,93 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -28795,7 +35674,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -28820,7 +35699,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28841,7 +35720,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -28859,7 +35738,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -28881,7 +35760,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-06-30T19:45:00.000Z",
+            "localDate": "2026-06-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-27",
+                  "windowEndMonthDay": "07-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-27",
+                  "windowEndMonthDay": "07-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29170,7 +36158,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29211,7 +36199,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -29246,7 +36234,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29264,15 +36252,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29292,7 +36280,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29302,7 +36292,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29312,7 +36304,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29322,10 +36316,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 5,
@@ -29346,7 +36342,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-20T19:45:00.000Z",
+            "localDate": "2026-08-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29636,7 +36741,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29677,7 +36782,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -29712,7 +36817,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29730,15 +36835,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29758,7 +36863,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-31T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29768,7 +36875,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-31T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29778,7 +36887,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29788,10 +36899,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 19,
@@ -29812,7 +36925,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-31T19:45:00.000Z",
+            "localDate": "2026-08-31",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-31T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-28",
+                  "windowEndMonthDay": "09-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-31T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-31T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-28",
+                  "windowEndMonthDay": "09-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30102,7 +37324,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30159,7 +37381,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -30197,7 +37419,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30215,15 +37437,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30243,7 +37465,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30253,7 +37477,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30263,7 +37489,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30273,10 +37501,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 38,
@@ -30297,7 +37527,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-10T19:45:00.000Z",
+            "localDate": "2026-09-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-07",
+                  "windowEndMonthDay": "09-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-07",
+                  "windowEndMonthDay": "09-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30581,7 +37920,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30638,7 +37977,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -30676,7 +38015,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30694,15 +38033,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30722,7 +38061,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-17T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30732,7 +38073,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-17T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30742,7 +38085,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30752,10 +38097,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 54,
@@ -30776,7 +38123,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-17T19:45:00.000Z",
+            "localDate": "2026-09-17",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-14",
+                  "windowEndMonthDay": "09-20",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-14",
+                  "windowEndMonthDay": "09-20",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31060,7 +38516,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31137,7 +38593,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -31175,7 +38631,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31193,15 +38649,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31221,7 +38677,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-25T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31231,7 +38689,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-25T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31241,7 +38701,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -31251,10 +38713,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 74,
@@ -31275,7 +38739,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-25T19:45:00.000Z",
+            "localDate": "2026-09-25",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-22",
+                  "windowEndMonthDay": "09-28",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-22",
+                  "windowEndMonthDay": "09-28",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31559,7 +39132,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31636,7 +39209,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -31674,7 +39247,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31692,15 +39265,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31720,7 +39293,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-28T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31730,7 +39305,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-28T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31740,7 +39317,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -31750,10 +39329,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 82,
@@ -31774,7 +39355,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-28T19:45:00.000Z",
+            "localDate": "2026-09-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-25",
+                  "windowEndMonthDay": "10-01",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-25",
+                  "windowEndMonthDay": "10-01",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32058,7 +39748,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32135,7 +39825,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -32173,7 +39863,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -32191,15 +39881,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32219,7 +39909,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -32229,7 +39921,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -32239,7 +39933,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -32249,10 +39945,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -32273,7 +39971,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32563,7 +40370,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32640,7 +40447,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -32678,7 +40485,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -32696,15 +40503,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32724,7 +40531,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T09:00:00"
               },
               {
                 "id": "09-13",
@@ -32734,7 +40543,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T13:00:00"
               },
               {
                 "id": "13-17",
@@ -32744,7 +40555,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -32754,10 +40567,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 89,
@@ -32778,7 +40593,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33068,7 +40992,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33157,7 +41081,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -33195,7 +41119,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -33213,15 +41137,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33242,7 +41166,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T09:00:00"
               },
               {
                 "id": "09-13",
@@ -33252,7 +41178,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T13:00:00"
               },
               {
                 "id": "13-17",
@@ -33262,7 +41190,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33272,10 +41202,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -33296,7 +41228,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-13T19:45:00.000Z",
+            "localDate": "2026-10-13",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33580,7 +41621,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -33669,7 +41710,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -33707,7 +41748,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -33725,15 +41766,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33754,7 +41795,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-17T09:00:00"
               },
               {
                 "id": "09-13",
@@ -33764,7 +41807,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-17T13:00:00"
               },
               {
                 "id": "13-17",
@@ -33774,7 +41819,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33784,10 +41831,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -33808,7 +41857,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-17T19:45:00.000Z",
+            "localDate": "2026-10-17",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-14",
+                  "windowEndMonthDay": "10-20",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-16T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-14",
+                  "windowEndMonthDay": "10-20",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34092,7 +42250,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -34181,7 +42339,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -34219,7 +42377,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -34237,15 +42395,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34266,7 +42424,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-24T09:00:00"
               },
               {
                 "id": "09-13",
@@ -34276,7 +42436,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-24T13:00:00"
               },
               {
                 "id": "13-17",
@@ -34286,7 +42448,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -34296,10 +42460,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 52,
@@ -34320,7 +42486,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-24T19:45:00.000Z",
+            "localDate": "2026-10-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-21",
+                  "windowEndMonthDay": "10-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-21",
+                  "windowEndMonthDay": "10-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34604,7 +42879,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -34693,7 +42968,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -34731,7 +43006,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -34749,15 +43024,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 52,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34778,7 +43053,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -34788,7 +43065,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -34798,7 +43077,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -34808,10 +43089,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 35,
@@ -34832,7 +43115,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-30T19:45:00.000Z",
+            "localDate": "2026-10-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-27",
+                  "windowEndMonthDay": "11-02",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-27",
+                  "windowEndMonthDay": "11-02",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35116,7 +43508,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -35205,7 +43597,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -35243,7 +43635,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -35261,15 +43653,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35290,7 +43682,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35300,7 +43694,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35310,7 +43706,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -35320,10 +43718,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 18,
@@ -35344,7 +43744,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-05T19:45:00.000Z",
+            "localDate": "2026-11-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-02",
+                  "windowEndMonthDay": "11-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-02",
+                  "windowEndMonthDay": "11-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35634,7 +44143,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -35723,7 +44232,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-25",
             "previousTimingLabel": "Insufficient evidence"
@@ -35747,7 +44256,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -35765,15 +44274,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 37,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -35794,7 +44303,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-12T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35804,7 +44315,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-12T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35814,7 +44327,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -35824,10 +44339,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -35848,7 +44365,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-11-12T19:45:00.000Z",
+            "localDate": "2026-11-12",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-11-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-09",
+                  "windowEndMonthDay": "11-15",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-11-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-11T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-12T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-11T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-09",
+                  "windowEndMonthDay": "11-15",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -36144,7 +44770,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36221,7 +44847,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -36258,7 +44884,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 32,
@@ -36276,15 +44902,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 72,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Croton-area Chinook responsiveness is active.",
-            "detail": "Conditions support a meaningful Chinook response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Chinook response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -36304,7 +44930,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -36314,7 +44942,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -36324,7 +44954,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36334,10 +44966,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -36358,7 +44992,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 4000,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 180,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 59,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -36648,7 +45391,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36725,7 +45468,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -36764,7 +45507,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 90,
@@ -36782,15 +45525,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 28,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Croton-area Chinook responsiveness is reserved.",
-            "detail": "Chinook may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Chinook may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -36811,7 +45554,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -36821,7 +45566,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -36831,7 +45578,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36841,10 +45590,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -36865,7 +45616,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -37149,7 +46009,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37206,7 +46066,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -37231,7 +46091,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -37249,15 +46109,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -37277,7 +46137,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -37287,7 +46149,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -37297,7 +46161,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -37307,10 +46173,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 62,
@@ -37331,7 +46199,96 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -37599,7 +46556,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -37624,7 +46581,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -37645,7 +46602,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -37663,15 +46620,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area responsiveness is highly active, but dependable Chinook presence has not begun.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Chinook already near Croton Dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Chinook already near Croton Dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -37691,7 +46648,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -37701,7 +46660,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-08-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -37711,7 +46672,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -37721,10 +46684,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -37745,7 +46710,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -38040,7 +47114,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38117,7 +47191,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -38155,7 +47229,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -38173,15 +47247,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Croton-area Chinook responsiveness is highly active.",
-            "detail": "Conditions strongly support Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Croton flow and temperature represent only the area near the dam.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Croton flow and temperature represent only the area near the dam.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -38201,7 +47275,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -38211,7 +47287,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -38221,7 +47299,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -38231,10 +47311,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 90,
@@ -38255,7 +47337,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -38545,7 +47736,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38622,7 +47813,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -38661,7 +47852,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -38682,15 +47873,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -38710,7 +47901,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -38720,7 +47913,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -38730,7 +47925,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -38740,10 +47937,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -38764,7 +47963,116 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -39048,7 +48356,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -39125,7 +48433,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -39149,7 +48457,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -39161,15 +48469,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 54,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -39189,7 +48497,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -39199,7 +48509,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -39209,7 +48521,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -39219,10 +48533,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -39243,7 +48559,93 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.8,
+                  "p10": 53.8,
+                  "p25": 56.8,
+                  "median": 59.8,
+                  "p75": 62.8,
+                  "p90": 65.8,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -39517,7 +48919,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -39594,7 +48996,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-05",
             "previousTimingLabel": "Insufficient evidence"
@@ -39619,7 +49021,7 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "muskegon-croton-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -39637,15 +49039,15 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "muskegon-croton-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Croton-area Chinook responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Chinook responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; river measurements still represent only the Croton Dam area.",
+            "tip": "Begin with 5–9 PM near Croton Dam. Verify every downstream section directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -39665,7 +49067,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -39675,7 +49079,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -39685,7 +49091,9 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -39695,10 +49103,12 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 87,
@@ -39719,7 +49129,96 @@ export const RIVER_RUN_MUSKEGON_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "muskegon",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1900,
+                  "p10": 1330,
+                  "p25": 1615,
+                  "median": 1900,
+                  "p75": 2185,
+                  "p90": 2470,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 30,
+                  "sampleCount": 210,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 4.76,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "muskegon_croton_usgs",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — below Croton Dam",
+                "siteId": "04121970",
+                "representedReach": "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "muskegon_croton_temperature",
+                "provider": "USGS",
+                "stationName": "Muskegon River near Croton, MI — measured water temperature",
+                "siteId": "04121970",
+                "representedReach": "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04121970 about 1,000 feet below Croton Dam. It represents the Croton Dam area within the Upper river (Newaygo–Croton Dam). Conditions can differ elsewhere in the Upper river, Middle river, Lower river, Muskegon Lake, and channel.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",

@@ -5,6 +5,7 @@ import type {
   SupabaseLikeClient,
 } from "./types.ts";
 import { storageError } from "./types.ts";
+import type { ActivityResult } from "../scoring/activity.ts";
 
 export const CONDITION_REFRESH_TABLE = "river_run_condition_refreshes";
 export const CONDITION_REFRESH_ON_CONFLICT =
@@ -144,6 +145,50 @@ export async function getConditionRefresh(
     found: true,
     error: null,
   };
+}
+
+export async function getLatestPriorActivity(
+  client: SupabaseLikeClient,
+  key: {
+    riverId: string;
+    runId: string;
+    localDate: string;
+    beforeRefreshSlot: string;
+    targetDate: string;
+  },
+): Promise<RiverRunStorageResult<ActivityResult>> {
+  const query = client
+    .from(CONDITION_REFRESH_TABLE)
+    .select("refresh_slot,condition_refresh_at,activity")
+    .eq("river_id", key.riverId)
+    .eq("run_id", key.runId)
+    .eq("local_date", key.localDate)
+    .order("refresh_slot", { ascending: false })
+    .limit(24);
+  const response = await (query as unknown as Promise<{
+    data: Partial<RiverRunConditionRefreshRow>[] | null;
+    error: null | { message?: string; code?: string; details?: unknown };
+  }>);
+  const error = storageError(response.error);
+  if (error) return { data: null, found: false, error };
+  const row = (response.data ?? [])
+    .filter((candidate) =>
+      typeof candidate.refresh_slot === "string" &&
+      candidate.refresh_slot < key.beforeRefreshSlot &&
+      candidate.activity?.targetDate === key.targetDate &&
+      Array.isArray(candidate.activity.blocks)
+    )
+    .sort((left, right) => {
+      const slotOrder = (right.refresh_slot ?? "").localeCompare(
+        left.refresh_slot ?? "",
+      );
+      if (slotOrder !== 0) return slotOrder;
+      return (right.condition_refresh_at ?? "").localeCompare(
+        left.condition_refresh_at ?? "",
+      );
+    })[0];
+  if (!row?.activity) return { data: null, found: false, error: null };
+  return { data: row.activity, found: true, error: null };
 }
 
 export async function getLastSupportivePushConditions(

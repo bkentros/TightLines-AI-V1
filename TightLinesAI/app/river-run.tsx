@@ -17,6 +17,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -47,6 +48,8 @@ import {
 } from "../lib/riverRunCatalogSelection";
 import type {
   RiverRunCatalogResponse,
+  RiverRunLiveConditionMetric,
+  RiverRunLiveConditions,
   RiverRunPrimitiveDisplay,
   RiverRunPushWindowRead,
   RiverRunSeason,
@@ -97,7 +100,10 @@ import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
-type PrimitiveTabId = RiverRunVisualKind;
+type PrimitiveTabId = Extract<
+  RiverRunVisualKind,
+  "run_stage" | "activity" | "fish_in_river" | "fishability"
+>;
 
 type PrimitiveTabDefinition = {
   id: PrimitiveTabId;
@@ -116,18 +122,18 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     icon: "calendar-outline",
   },
   {
-    id: "run_timing",
+    id: "activity",
     index: "02",
-    tabTitle: "TIMING",
-    cardTitle: "Migration Timing",
-    icon: "speedometer-outline",
+    tabTitle: "ACTIVITY",
+    cardTitle: "Activity Outlook",
+    icon: "flash-outline",
   },
   {
-    id: "push",
+    id: "fish_in_river",
     index: "03",
-    tabTitle: "PUSH",
-    cardTitle: "Push",
-    icon: "pulse-outline",
+    tabTitle: "PRESENCE",
+    cardTitle: "Fish In River",
+    icon: "fish-outline",
   },
   {
     id: "fishability",
@@ -136,29 +142,13 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     cardTitle: "Fishability",
     icon: "water-outline",
   },
-  {
-    id: "activity",
-    index: "05",
-    tabTitle: "ACTIVITY",
-    cardTitle: "Activity Outlook",
-    icon: "flash-outline",
-  },
-  {
-    id: "fish_in_river",
-    index: "06",
-    tabTitle: "PRESENCE",
-    cardTitle: "Fish In River",
-    icon: "fish-outline",
-  },
 ];
 
 const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
   run_stage: "run_stage",
-  conditions: "run_timing",
-  push: "push",
-  fishability: "fishability",
-  fish_in_river: "fish_in_river",
   activity: "activity",
+  fish_in_river: "fish_in_river",
+  fishability: "fishability",
 };
 
 // Generated review fixtures remain available only when a developer explicitly
@@ -522,7 +512,7 @@ export default function RiverRunScreen() {
   const resultScrollRef = useRef<ScrollView>(null);
   const primitiveTabsYRef = useRef(0);
 
-  const reviewGroups = selectedRiverId === "betsie" &&
+  const reviewGroups = (selectedRiverId === "betsie" &&
       selectedSpecies === "steelhead"
     ? RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS
     : selectedRiverId === "betsie" && selectedSpecies === "coho_salmon"
@@ -557,7 +547,9 @@ export default function RiverRunScreen() {
     ? RIVER_RUN_COHO_REVIEW_GROUPS
     : selectedSpecies === "steelhead"
     ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
-    : RIVER_RUN_REVIEW_GROUPS;
+    : RIVER_RUN_REVIEW_GROUPS).filter((group) =>
+      group.id !== "conditions" && group.id !== "push"
+    );
 
   const reviewGroup = useMemo(
     () =>
@@ -878,7 +870,7 @@ export default function RiverRunScreen() {
   const resultSnapshot = reviewMode
     ? reviewSnapshotMatchesSelection ? reviewSnapshot : undefined
     : snapshot;
-  const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 2 : 1;
+  const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 3 : 2;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
     selectedSpecies ??
@@ -1006,6 +998,16 @@ export default function RiverRunScreen() {
 
               {resultSnapshot
                 ? (
+                  <LiveRiverConditionsCard
+                    conditions={resultSnapshot.riverConditions ??
+                      unavailableRiverConditions(resultSnapshot)}
+                    reviewMode={reviewMode}
+                  />
+                )
+                : null}
+
+              {resultSnapshot
+                ? (
                   <PrimitiveTabBar
                     snapshot={resultSnapshot}
                     activeTab={activePrimitive}
@@ -1031,7 +1033,7 @@ export default function RiverRunScreen() {
                 )
                 : resultSnapshot
                 ? (
-                  <>
+                  <View>
                     <SnapshotView
                       snapshot={resultSnapshot}
                       activePrimitive={activePrimitive}
@@ -1065,7 +1067,7 @@ export default function RiverRunScreen() {
                         }`,
                       ]}
                     />
-                  </>
+                  </View>
                 )
                 : (
                   <MessageState
@@ -1579,8 +1581,8 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of movement, activity, river conditions, fishability,
-        and seasonal presence.
+        Today&apos;s read of migration stage, activity, fish presence, and
+        fishability.
       </Text>
       {speciesImage
         ? (
@@ -1610,6 +1612,524 @@ function ResultHero({
       </View>
     </View>
   );
+}
+
+function unavailableRiverConditions(
+  snapshot: RiverRunSnapshotResponse,
+): RiverRunLiveConditions {
+  return {
+    riverId: snapshot.riverId,
+    status: "unavailable",
+    refreshedAt: snapshot.conditionRefreshAt,
+    localDate: snapshot.localDate,
+    refreshSlot: snapshot.refreshSlot,
+    metrics: [],
+    limitation: snapshot.safety.gaugeBasis,
+    dataVersion: "river-live-conditions-missing-payload",
+  };
+}
+
+function LiveRiverConditionsCard({
+  conditions,
+  reviewMode,
+}: {
+  conditions: RiverRunLiveConditions;
+  reviewMode: boolean;
+}) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const { width, fontScale } = useWindowDimensions();
+  const metricColumns = fontScale >= 1.25 ? 1 : width >= 380 ? 3 : 2;
+  const hasMeasurements = conditions.metrics.some((metric) =>
+    metric.value != null
+  );
+  const orderedMetrics = [...conditions.metrics].sort((left, right) => {
+    const priority: Record<RiverRunLiveConditionMetric["metric"], number> = {
+      flow_cfs: 0,
+      water_temp_f: 1,
+      gage_height_ft: 2,
+    };
+    return priority[left.metric] - priority[right.metric];
+  });
+  return (
+    <View
+      style={styles.liveConditionsCard}
+      accessible={false}
+      testID="river-live-conditions"
+    >
+      <View style={styles.liveConditionsHeader}>
+        <View style={styles.liveConditionsIcon}>
+          <Ionicons
+            name="analytics-outline"
+            size={18}
+            color={paper.dashboardBlue}
+          />
+        </View>
+        <View style={styles.liveConditionsHeadingCopy}>
+          <Text style={styles.liveConditionsEyebrow}>
+            LIVE RIVER CONDITIONS
+          </Text>
+          <Text style={styles.liveConditionsTitle}>Gauge Read</Text>
+          <Text
+            style={styles.liveConditionsSubtitle}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.88}
+          >
+            Compared with past years on this date.
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.liveConditionsStatus,
+            reviewMode
+              ? styles.liveConditionsStatusFixture
+              : conditions.status === "available"
+              ? styles.liveConditionsStatusAvailable
+              : conditions.status === "partial"
+              ? styles.liveConditionsStatusPartial
+              : styles.liveConditionsStatusUnavailable,
+          ]}
+        >
+          <Text style={styles.liveConditionsStatusText}>
+            {reviewMode
+              ? "FIXTURE"
+              : conditions.status === "available"
+              ? "LIVE"
+              : conditions.status === "partial"
+              ? "PARTIAL"
+              : "NO GAUGE"}
+          </Text>
+        </View>
+      </View>
+
+      {hasMeasurements || conditions.metrics.length > 0
+        ? (
+          <View style={styles.liveMetricGrid}>
+            {orderedMetrics.map((metric) => (
+              <LiveMetricTile
+                key={metric.sourceId + ":" + metric.metric}
+                metric={metric}
+                columns={metricColumns}
+              />
+            ))}
+          </View>
+        )
+        : (
+          <View
+            style={styles.liveConditionsEmpty}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel="Live river measurements unavailable. No accepted gauge or water temperature sensor currently represents this river."
+          >
+            <Ionicons
+              name="cloud-offline-outline"
+              size={22}
+              color={paper.dashboardMuted}
+            />
+            <View style={styles.liveConditionsEmptyCopy}>
+              <Text style={styles.liveConditionsEmptyTitle}>
+                Live river measurements unavailable
+              </Text>
+              <Text style={styles.liveConditionsEmptyBody}>
+                No accepted gauge or water-temperature sensor currently
+                represents this river. Modeled weather is not substituted.
+              </Text>
+            </View>
+          </View>
+        )}
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.liveConditionsDetailsButton,
+          pressed && { opacity: 0.78 },
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setDetailsOpen((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: detailsOpen }}
+        accessibilityLabel={"Station and data details. " +
+          (detailsOpen ? "Collapse." : "Expand.")}
+      >
+        <View style={styles.liveConditionsDetailsButtonCopy}>
+          <Ionicons
+            name="location-outline"
+            size={15}
+            color={paper.dashboardBlue}
+          />
+          <Text style={styles.liveConditionsDetailsButtonText}>
+            SOURCES & DATA AGE
+          </Text>
+        </View>
+        <Ionicons
+          name={detailsOpen ? "chevron-up" : "chevron-down"}
+          size={16}
+          color={paper.dashboardBlue}
+        />
+      </Pressable>
+
+      {detailsOpen
+        ? (
+          <View style={styles.liveConditionsDetails}>
+            {orderedMetrics.map((metric) => (
+              <View
+                key={"details:" + metric.sourceId + ":" + metric.metric}
+                style={styles.liveConditionsDetailSection}
+              >
+                <View style={styles.liveConditionsDetailHeading}>
+                  <View
+                    style={[
+                      styles.liveConditionsDetailMetricIcon,
+                      {
+                        backgroundColor: liveMetricVisual(metric.metric).tint,
+                      },
+                    ]}
+                  >
+                    <Ionicons
+                      name={liveMetricVisual(metric.metric).icon}
+                      size={13}
+                      color={liveMetricVisual(metric.metric).accent}
+                    />
+                  </View>
+                  <View style={styles.liveConditionsDetailIdentity}>
+                    <Text style={styles.liveConditionsDetailLabel}>
+                      {metric.label.toUpperCase()} ·{" "}
+                      {liveMetricProviderLabel(metric.provider)}
+                    </Text>
+                  </View>
+                  <View style={styles.liveConditionsDetailFreshnessBadge}>
+                    <View
+                      style={[
+                        styles.liveConditionsDetailFreshnessDot,
+                        {
+                          backgroundColor: liveMetricFreshnessColor(
+                            metric.freshness,
+                          ),
+                        },
+                      ]}
+                    />
+                    <Text style={styles.liveConditionsDetailFreshnessText}>
+                      {liveMetricFreshnessLabel(metric.freshness)}
+                    </Text>
+                  </View>
+                </View>
+                <Text
+                  style={styles.liveConditionsDetailStation}
+                  numberOfLines={2}
+                >
+                  {metric.stationName}
+                </Text>
+                <View style={styles.liveConditionsDetailFacts}>
+                  <View style={styles.liveConditionsDetailFact}>
+                    <Ionicons
+                      name="time-outline"
+                      size={13}
+                      color={paper.dashboardMuted}
+                    />
+                    <Text style={styles.liveConditionsDetailMeta}>
+                      {liveMetricFreshnessCopy(metric)}
+                    </Text>
+                  </View>
+                  <View style={styles.liveConditionsDetailFact}>
+                    <Ionicons
+                      name="calendar-outline"
+                      size={13}
+                      color={paper.dashboardMuted}
+                    />
+                    <Text style={styles.liveConditionsDetailMeta}>
+                      {liveMetricBaselineCopy(metric)}
+                    </Text>
+                  </View>
+                </View>
+                <Text style={styles.liveConditionsAttribution}>
+                  {metric.attribution}
+                </Text>
+              </View>
+            ))}
+            <View style={styles.liveConditionsLimitation}>
+              <Text style={styles.liveConditionsDetailLabel}>
+                WHAT THIS GAUGE REPRESENTS
+              </Text>
+              <Text style={styles.liveConditionsDetailBody}>
+                {conditions.limitation}
+              </Text>
+            </View>
+            <Text style={styles.liveConditionsMethodNote}>
+              Date averages use approved observations from the same calendar
+              date ±3 days across prior years. Provider readings may be revised.
+            </Text>
+          </View>
+        )
+        : null}
+    </View>
+  );
+}
+
+function LiveMetricTile({
+  metric,
+  columns,
+}: {
+  metric: RiverRunLiveConditionMetric;
+  columns: 1 | 2 | 3;
+}) {
+  const visual = liveMetricVisual(metric.metric);
+  const freshness = `${liveMetricFreshnessLabel(metric.freshness)}. ${
+    liveMetricFreshnessCopy(metric)
+  }`;
+  const trend = liveMetricTrendCopy(metric);
+  const average = metric.seasonalContext
+    ? formatLiveMetricValue(metric, metric.seasonalContext.average)
+    : null;
+  const accessibilityLabel = [
+    metric.label,
+    metric.value == null
+      ? "Current reading unavailable"
+      : formatLiveMetricValue(metric, metric.value),
+    average ? "Average " + average : "Historical average unavailable",
+    liveMetricDetailedTrendCopy(metric),
+    metric.seasonalContext?.comparisonLabel,
+    freshness,
+  ].filter(Boolean).join(". ");
+  return (
+    <View
+      style={[
+        styles.liveMetricTile,
+        columns === 3
+          ? styles.liveMetricTileThree
+          : columns === 2
+          ? styles.liveMetricTileTwo
+          : styles.liveMetricTileSingle,
+        { borderTopColor: visual.accent },
+      ]}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={accessibilityLabel}
+    >
+      <View style={styles.liveMetricHeading}>
+        <View style={[styles.liveMetricIcon, { backgroundColor: visual.tint }]}>
+          <Ionicons name={visual.icon} size={14} color={visual.accent} />
+        </View>
+        <Text
+          style={styles.liveMetricLabel}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.78}
+        >
+          {liveMetricShortLabel(metric.metric)}
+        </Text>
+      </View>
+      {metric.value == null
+        ? <Text style={styles.liveMetricUnavailable}>Unavailable</Text>
+        : (
+          <Text
+            style={styles.liveMetricValue}
+            allowFontScaling={false}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.72}
+          >
+            {formatLiveMetricValue(metric, metric.value)}
+          </Text>
+        )}
+      <Text
+        style={styles.liveMetricAverage}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.8}
+      >
+        {`Date avg · ${average ?? "Unavailable"}`}
+      </Text>
+      {metric.seasonalContext
+        ? (
+          <View
+            style={[
+              styles.liveMetricComparisonPill,
+              { backgroundColor: visual.tint },
+            ]}
+          >
+            <Text
+              style={[styles.liveMetricComparison, { color: visual.accent }]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.76}
+            >
+              {liveMetricCompactComparison(
+                metric.seasonalContext.comparisonLabel,
+              )}
+            </Text>
+          </View>
+        )
+        : (
+          <View style={styles.liveMetricComparisonUnavailablePill}>
+            <Text style={styles.liveMetricComparisonUnavailable}>
+              NO AVERAGE
+            </Text>
+          </View>
+        )}
+      <View style={styles.liveMetricTrendRow}>
+        <Text style={styles.liveMetricTrendLabel}>24H</Text>
+        <Text
+          style={styles.liveMetricTrend}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.72}
+        >
+          {trend}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+function liveMetricShortLabel(
+  metric: RiverRunLiveConditionMetric["metric"],
+): string {
+  if (metric === "flow_cfs") return "FLOW";
+  if (metric === "water_temp_f") return "WATER TEMP";
+  return "GAUGE HEIGHT";
+}
+
+function liveMetricProviderLabel(
+  provider: RiverRunLiveConditionMetric["provider"],
+): string {
+  return provider === "USGS" ? "USGS" : "Monitor My Watershed";
+}
+
+function liveMetricCompactComparison(label?: string): string {
+  if (!label) return "DATE CONTEXT";
+  const normalized = label.toLowerCase();
+  if (normalized.includes("much colder")) return "MUCH COLDER";
+  if (normalized.includes("colder")) return "COLDER";
+  if (normalized.includes("much warmer")) return "MUCH WARMER";
+  if (normalized.includes("warmer")) return "WARMER";
+  if (normalized.includes("much below")) return "MUCH LOWER";
+  if (normalized.includes("below")) return "LOWER";
+  if (normalized.includes("much above")) return "MUCH HIGHER";
+  if (normalized.includes("above")) return "HIGHER";
+  if (normalized.includes("near") || normalized === "normal") return "NORMAL";
+  return label.toUpperCase();
+}
+
+function liveMetricVisual(metric: RiverRunLiveConditionMetric["metric"]): {
+  icon: keyof typeof Ionicons.glyphMap;
+  accent: string;
+  tint: string;
+} {
+  if (metric === "water_temp_f") {
+    return {
+      icon: "thermometer-outline",
+      accent: "#A85220",
+      tint: "#FFF0E6",
+    };
+  }
+  if (metric === "gage_height_ft") {
+    return { icon: "resize-outline", accent: "#236B63", tint: "#E8F5F2" };
+  }
+  return {
+    icon: "water-outline",
+    accent: paper.dashboardBlue,
+    tint: "#EAF2F7",
+  };
+}
+
+function formatLiveMetricValue(
+  metric: RiverRunLiveConditionMetric,
+  value: number,
+): string {
+  if (metric.metric === "flow_cfs") {
+    return Math.round(value).toLocaleString("en-US") + " CFS";
+  }
+  if (metric.metric === "gage_height_ft") return value.toFixed(2) + " ft";
+  return value.toFixed(1) + "°F";
+}
+
+function liveMetricTrendCopy(metric: RiverRunLiveConditionMetric): string {
+  const delta = metric.trend24h.delta;
+  if (delta == null) return "24-hour trend unavailable";
+  const sign = delta > 0 ? "+" : delta < 0 ? "−" : "";
+  const absolute = Math.abs(delta);
+  const formatted = metric.metric === "flow_cfs"
+    ? sign + Math.round(absolute).toLocaleString("en-US") + " CFS"
+    : metric.metric === "gage_height_ft"
+    ? sign + absolute.toFixed(2) + " ft"
+    : sign + absolute.toFixed(1) + "°F";
+  const direction = metric.trend24h.direction;
+  return formatted + " · " +
+    direction.charAt(0).toUpperCase() + direction.slice(1);
+}
+
+function liveMetricDetailedTrendCopy(
+  metric: RiverRunLiveConditionMetric,
+): string {
+  const trend = liveMetricTrendCopy(metric);
+  const percent = metric.metric === "flow_cfs" &&
+      metric.trend24h.percentDelta != null
+    ? ` · ${metric.trend24h.percentDelta >= 0 ? "+" : "−"}${
+      Math.abs(metric.trend24h.percentDelta).toFixed(1)
+    }%`
+    : "";
+  return `24-hour change · ${trend}${percent}`;
+}
+
+function liveMetricFreshnessLabel(
+  freshness: RiverRunLiveConditionMetric["freshness"],
+): string {
+  if (freshness === "fresh") return "CURRENT";
+  if (freshness === "delayed") return "DELAYED";
+  if (freshness === "older_than_24h") return "OLDER";
+  return "MISSING";
+}
+
+function liveMetricFreshnessColor(
+  freshness: RiverRunLiveConditionMetric["freshness"],
+): string {
+  if (freshness === "fresh") return "#207B53";
+  if (freshness === "delayed") return "#C49A24";
+  return paper.dashboardMuted;
+}
+
+function liveMetricBaselineCopy(metric: RiverRunLiveConditionMetric): string {
+  const context = metric.seasonalContext;
+  if (!context) return "Date average unavailable";
+  return `${context.historicalYears}-year date average · ${
+    formatMonthDay(context.windowStartMonthDay)
+  }–${formatMonthDay(context.windowEndMonthDay)}`;
+}
+
+function liveMetricFreshnessCopy(
+  metric: RiverRunLiveConditionMetric,
+): string {
+  if (!metric.observedAt || metric.freshness === "missing") {
+    return "No current observation";
+  }
+  const ageMinutes = Math.max(
+    0,
+    Math.floor((Date.now() - Date.parse(metric.observedAt)) / 60000),
+  );
+  const age = ageMinutes < 1
+    ? "Updated just now"
+    : ageMinutes < 60
+    ? "Updated " + ageMinutes + "m ago"
+    : ageMinutes < 24 * 60
+    ? "Updated " + Math.floor(ageMinutes / 60) + "h ago"
+    : "Observed " + formatLocalDate(metric.observedAt.slice(0, 10));
+  const provisional = metric.approvalStatus?.toLowerCase().includes(
+      "provisional",
+    )
+    ? " · Provisional"
+    : "";
+  return age + provisional;
+}
+
+function formatMonthDay(monthDay: string): string {
+  const [month, day] = monthDay.split("-").map(Number);
+  if (!month || !day) return monthDay;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(Date.UTC(2024, month - 1, day)));
 }
 
 function ReviewControl({
@@ -1810,7 +2330,7 @@ function PrimitiveTabBar({
             </Text>
           </View>
           <Text style={styles.primitiveTabPosition}>
-            {String(activeIndex + 1).padStart(2, "0")} / 06
+            {String(activeIndex + 1).padStart(2, "0")} / 04
           </Text>
         </View>
         <View style={styles.primitiveTabRow}>
@@ -1928,40 +2448,14 @@ function SnapshotView({
       <ActivePrimitivePanel key={tab.id}>
         <PrimitiveSection
           index={tab.index}
-          title={tab.id === "push" ? "Current Push" : tab.cardTitle}
+          title={tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
-          headerMeta={tab.id === "push"
-            ? formatCurrentPushWindow(snapshot)
-            : undefined}
-          contextLine={tab.id === "run_timing"
-            ? formatPreviousTimingRead(snapshot)
-            : undefined}
-          contextContent={tab.id === "push"
-            ? (
-              <PushHistoryDropdown
-                history={snapshot.pushHistory}
-                fallbackCurrentWindow={resolveCurrentPushWindow(snapshot)}
-              />
-            )
-            : tab.id === "activity" && snapshot.activity
+          contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
             : undefined}
         />
       </ActivePrimitivePanel>
-
-      {snapshot.interpretationNote
-        ? (
-          <EditorialNote
-            eyebrow="HOW TO READ TODAY"
-            title={snapshot.interpretationNote.headline}
-            body={snapshot.interpretationNote.detail}
-            icon="compass-outline"
-            tint="#FFF6E0"
-            accent="#C99B2D"
-          />
-        )
-        : null}
 
       <GaugeForecastDropdown snapshot={snapshot} />
 
@@ -2034,12 +2528,6 @@ function primitiveForTab(
   switch (tab) {
     case "run_stage":
       return snapshot.runStage;
-    case "run_timing":
-      return snapshot.conditionsSuggest;
-    case "push":
-      return snapshot.push;
-    case "fishability":
-      return snapshot.fishability;
     case "activity":
       if (snapshot.activity) return snapshot.activity;
       if (snapshot.runStage.label === "Fall entry complete") {
@@ -2076,6 +2564,8 @@ function primitiveForTab(
       };
     case "fish_in_river":
       return snapshot.fishInRiver;
+    case "fishability":
+      return snapshot.fishability;
   }
 }
 
@@ -2097,8 +2587,31 @@ function ActivityBreakdown(
 ) {
   const weatherOnly = activity.reasonCodes?.includes("activity_weather_only") ??
     false;
+  const forecast = activity.targetDayLabel === "Tomorrow" ||
+    activity.reasonCodes?.includes("activity_forecast") === true;
   return (
     <View style={styles.activityBreakdown}>
+      {forecast
+        ? (
+          <View
+            style={styles.activityForecastNotice}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel="Tomorrow forecast. Current river measurements are combined with forecast weather. This outlook updates after midnight and shortly after 4 AM."
+          >
+            <Ionicons name="calendar-outline" size={18} color="#1B4B68" />
+            <View style={styles.activityForecastCopy}>
+              <Text style={styles.activityForecastEyebrow}>
+                TOMORROW · FORECAST
+              </Text>
+              <Text style={styles.activityForecastBody}>
+                Current river measurements + forecast weather. Updates after
+                midnight and shortly after 4 AM.
+              </Text>
+            </View>
+          </View>
+        )
+        : null}
       {weatherOnly
         ? (
           <View
@@ -2145,68 +2658,97 @@ function ActivityBreakdown(
             : `${activity.confidence.toUpperCase()} DATA`}
         </Text>
       </View>
-      {activity.blocks.map((block) => (
-        <View
-          key={block.id}
-          style={[
-            styles.activityBlock,
-            {
-              borderColor: `${activityBlockColor(block.score)}66`,
-              backgroundColor: `${activityBlockColor(block.score)}0D`,
-            },
-          ]}
-          accessible
-          accessibilityLabel={`${block.label}. ${block.score} out of 100. ${block.activityLabel}.`}
-        >
-          <View style={styles.activityBlockHeading}>
-            <View style={styles.activityBlockIdentity}>
-              <View
-                style={[
-                  styles.activityBlockDot,
-                  { backgroundColor: activityBlockColor(block.score) },
-                ]}
-              />
-              <View>
-                <Text style={styles.activityBlockTime}>{block.label}</Text>
+      {activity.blocks.map((block) => {
+        const status = block.status ?? "upcoming";
+        return (
+          <View
+            key={block.id}
+            style={[
+              styles.activityBlock,
+              status === "ended" && styles.activityBlockEnded,
+              {
+                borderColor: `${activityBlockColor(block.score)}66`,
+                backgroundColor: `${activityBlockColor(block.score)}0D`,
+              },
+              status === "current" && styles.activityBlockCurrent,
+            ]}
+            accessible
+            accessibilityLabel={`${block.label}. ${status}. ${block.score} out of 100. ${block.activityLabel}.`}
+          >
+            <View style={styles.activityBlockHeading}>
+              <View style={styles.activityBlockIdentity}>
+                <View
+                  style={[
+                    styles.activityBlockDot,
+                    { backgroundColor: activityBlockColor(block.score) },
+                  ]}
+                />
+                <View>
+                  <View style={styles.activityBlockTimeRow}>
+                    <Text style={styles.activityBlockTime}>{block.label}</Text>
+                    <View
+                      style={[
+                        styles.activityBlockStatus,
+                        status === "current" &&
+                        styles.activityBlockStatusCurrent,
+                        status === "ended" && styles.activityBlockStatusEnded,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.activityBlockStatusText,
+                          status === "current" &&
+                          styles.activityBlockStatusTextCurrent,
+                        ]}
+                      >
+                        {status === "current"
+                          ? "NOW"
+                          : status === "ended"
+                          ? "ENDED"
+                          : "UPCOMING"}
+                      </Text>
+                    </View>
+                  </View>
+                  <Text
+                    style={[
+                      styles.activityBlockLabel,
+                      { color: activityBlockColor(block.score) },
+                    ]}
+                  >
+                    {block.activityLabel.toUpperCase()}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.activityBlockScoreRow}>
                 <Text
                   style={[
-                    styles.activityBlockLabel,
+                    styles.activityBlockScore,
                     { color: activityBlockColor(block.score) },
                   ]}
                 >
-                  {block.activityLabel.toUpperCase()}
+                  {block.score}
                 </Text>
+                <Text style={styles.activityBlockMaximum}>/100</Text>
               </View>
             </View>
-            <View style={styles.activityBlockScoreRow}>
-              <Text
+            <View style={styles.activityTrack}>
+              <View
                 style={[
-                  styles.activityBlockScore,
-                  { color: activityBlockColor(block.score) },
+                  styles.activityFill,
+                  {
+                    width: `${block.score}%`,
+                    backgroundColor: activityBlockColor(block.score),
+                  },
                 ]}
-              >
-                {block.score}
-              </Text>
-              <Text style={styles.activityBlockMaximum}>/100</Text>
+              />
+            </View>
+            <View style={styles.activityScaleLabels}>
+              <Text style={styles.activityScaleLabel}>LOW</Text>
+              <Text style={styles.activityScaleLabel}>HIGH</Text>
             </View>
           </View>
-          <View style={styles.activityTrack}>
-            <View
-              style={[
-                styles.activityFill,
-                {
-                  width: `${block.score}%`,
-                  backgroundColor: activityBlockColor(block.score),
-                },
-              ]}
-            />
-          </View>
-          <View style={styles.activityScaleLabels}>
-            <Text style={styles.activityScaleLabel}>LOW</Text>
-            <Text style={styles.activityScaleLabel}>HIGH</Text>
-          </View>
-        </View>
-      ))}
+        );
+      })}
     </View>
   );
 }
@@ -2635,12 +3177,13 @@ function GaugeForecastDropdown({
           {snapshot.safety.gaugeBasis}
         </Text>
       </View>
-      {snapshot.secondaryNote
+      {snapshot.weather?.forecastDaily?.length
         ? (
           <View style={styles.resultDropdownSection}>
             <Text style={styles.resultDropdownSectionLabel}>FORECAST NOTE</Text>
             <Text style={styles.resultDropdownBody}>
-              {snapshot.secondaryNote}
+              Forecast weather informs Activity Outlook only; Fishability
+              remains observation-led.
             </Text>
           </View>
         )
@@ -3613,6 +4156,359 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: paper.dashboardInk,
   },
+  liveConditionsCard: {
+    overflow: "hidden",
+    gap: 11,
+    padding: 13,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 13,
+    backgroundColor: "#FDFDFC",
+    ...paperShadows.hard,
+  },
+  liveConditionsHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+  },
+  liveConditionsIcon: {
+    width: 34,
+    height: 34,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 17,
+    backgroundColor: "#EAF2F7",
+  },
+  liveConditionsHeadingCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 2,
+  },
+  liveConditionsEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.35,
+    color: paper.dashboardBlue,
+  },
+  liveConditionsTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 19,
+    lineHeight: 22,
+    color: paper.dashboardInk,
+  },
+  liveConditionsSubtitle: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  liveConditionsStatus: {
+    flexShrink: 0,
+    minHeight: 21,
+    justifyContent: "center",
+    paddingHorizontal: 7,
+    borderWidth: 1,
+    borderRadius: 12,
+  },
+  liveConditionsStatusAvailable: {
+    borderColor: "rgba(32,123,83,0.28)",
+    backgroundColor: "#EAF6EF",
+  },
+  liveConditionsStatusFixture: {
+    borderColor: "rgba(27,75,104,0.24)",
+    backgroundColor: "#EAF2F7",
+  },
+  liveConditionsStatusPartial: {
+    borderColor: "rgba(196,154,36,0.35)",
+    backgroundColor: "#FFF7DD",
+  },
+  liveConditionsStatusUnavailable: {
+    borderColor: "rgba(117,126,133,0.28)",
+    backgroundColor: "#F0F2F3",
+  },
+  liveConditionsStatusText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: .9,
+    color: paper.dashboardInk,
+  },
+  liveMetricGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 7,
+  },
+  liveMetricTile: {
+    minWidth: 0,
+    gap: 6,
+    padding: 9,
+    borderWidth: 1,
+    borderTopWidth: 3,
+    borderColor: paper.dashboardLine,
+    borderRadius: 9,
+    backgroundColor: "#FCFCFA",
+  },
+  liveMetricTileThree: {
+    flexBasis: "31%",
+    flexGrow: 1,
+  },
+  liveMetricTileTwo: {
+    flexBasis: "47%",
+    flexGrow: 1,
+  },
+  liveMetricTileSingle: {
+    minWidth: "100%",
+    flexBasis: "100%",
+    flexGrow: 1,
+  },
+  liveMetricHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  liveMetricIcon: {
+    width: 23,
+    height: 23,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+  },
+  liveMetricLabel: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: .85,
+    color: paper.dashboardMuted,
+  },
+  liveMetricValue: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 21,
+    lineHeight: 24,
+    color: paper.dashboardInk,
+  },
+  liveMetricUnavailable: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 15,
+    lineHeight: 24,
+    color: paper.dashboardMuted,
+  },
+  liveMetricAverage: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    lineHeight: 13,
+    color: paper.dashboardInk,
+  },
+  liveMetricComparisonPill: {
+    maxWidth: "100%",
+    alignSelf: "flex-start",
+    justifyContent: "center",
+    minHeight: 19,
+    paddingHorizontal: 6,
+    borderRadius: 10,
+  },
+  liveMetricComparison: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: .45,
+  },
+  liveMetricComparisonUnavailablePill: {
+    alignSelf: "flex-start",
+    justifyContent: "center",
+    minHeight: 19,
+    paddingHorizontal: 6,
+    borderRadius: 10,
+    backgroundColor: "#F0F2F3",
+  },
+  liveMetricComparisonUnavailable: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: .45,
+    color: paper.dashboardMuted,
+  },
+  liveMetricTrendRow: {
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+  },
+  liveMetricTrendLabel: {
+    flexShrink: 0,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: .7,
+    color: paper.dashboardMuted,
+  },
+  liveMetricTrend: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 8.5,
+    lineHeight: 12,
+    color: paper.dashboardInk,
+  },
+  liveConditionsEmpty: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 11,
+    padding: 13,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 10,
+    backgroundColor: paper.dashboardCream,
+  },
+  liveConditionsEmptyCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 3,
+  },
+  liveConditionsEmptyTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  liveConditionsEmptyBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
+  liveConditionsDetailsButton: {
+    minHeight: 34,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.18)",
+    borderRadius: 8,
+    backgroundColor: "#F3F7F9",
+  },
+  liveConditionsDetailsButtonCopy: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  liveConditionsDetailsButtonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: .95,
+    color: paper.dashboardBlue,
+  },
+  liveConditionsDetails: {
+    gap: 8,
+    paddingTop: 2,
+  },
+  liveConditionsDetailSection: {
+    gap: 7,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 9,
+    backgroundColor: "#FAFAF8",
+  },
+  liveConditionsDetailLabel: {
+    minWidth: 0,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1,
+    color: paper.dashboardBlue,
+  },
+  liveConditionsDetailHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  liveConditionsDetailMetricIcon: {
+    width: 26,
+    height: 26,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 13,
+  },
+  liveConditionsDetailIdentity: {
+    minWidth: 0,
+    flex: 1,
+    gap: 1,
+  },
+  liveConditionsDetailFreshnessBadge: {
+    flexShrink: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 9,
+    backgroundColor: "#F0F3F2",
+  },
+  liveConditionsDetailFreshnessDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 3,
+  },
+  liveConditionsDetailFreshnessText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: .6,
+    color: paper.dashboardInk,
+  },
+  liveConditionsDetailMeta: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 9.5,
+    lineHeight: 13,
+    color: paper.dashboardMuted,
+  },
+  liveConditionsDetailFacts: {
+    gap: 4,
+    paddingLeft: 33,
+  },
+  liveConditionsDetailFact: {
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  liveConditionsDetailStation: {
+    paddingLeft: 33,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    lineHeight: 15,
+    color: paper.dashboardInk,
+  },
+  liveConditionsDetailBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
+  liveConditionsAttribution: {
+    fontFamily: paperFonts.body,
+    fontSize: 8.5,
+    lineHeight: 12,
+    paddingLeft: 33,
+    color: paper.dashboardMuted,
+  },
+  liveConditionsLimitation: {
+    gap: 3,
+    padding: 11,
+    borderRadius: 8,
+    backgroundColor: paper.dashboardCream,
+  },
+  liveConditionsMethodNote: {
+    fontFamily: paperFonts.body,
+    fontSize: 9.5,
+    lineHeight: 15,
+    color: paper.dashboardMuted,
+  },
   reviewControl: {
     overflow: "hidden",
     borderWidth: 1,
@@ -4397,6 +5293,30 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   activityBreakdown: { gap: 10, paddingTop: 4 },
+  activityForecastNotice: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.34)",
+    borderRadius: 10,
+    backgroundColor: "rgba(231,242,248,0.82)",
+  },
+  activityForecastCopy: { minWidth: 0, flex: 1, gap: 2 },
+  activityForecastEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1,
+    color: paper.dashboardBlue,
+  },
+  activityForecastBody: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 11,
+    lineHeight: 15,
+    color: "#4F6673",
+  },
   activityWeatherOnlyNotice: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -4458,6 +5378,15 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     borderWidth: 1,
   },
+  activityBlockEnded: { opacity: 0.58 },
+  activityBlockCurrent: {
+    borderWidth: 1.5,
+    shadowColor: "#1B4B68",
+    shadowOpacity: 0.08,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
+  },
   activityBlockHeading: {
     flexDirection: "row",
     alignItems: "center",
@@ -4468,6 +5397,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: paper.dashboardInk,
   },
+  activityBlockTimeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  activityBlockStatus: {
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 999,
+    backgroundColor: "rgba(27,75,104,0.09)",
+  },
+  activityBlockStatusCurrent: { backgroundColor: paper.dashboardBlue },
+  activityBlockStatusEnded: { backgroundColor: "rgba(73,88,96,0.13)" },
+  activityBlockStatusText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: 0.7,
+    color: paper.dashboardBlue,
+  },
+  activityBlockStatusTextCurrent: { color: "#FFFFFF" },
   activityBlockIdentity: {
     flexDirection: "row",
     alignItems: "center",

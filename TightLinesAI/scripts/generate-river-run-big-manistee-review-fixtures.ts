@@ -28,6 +28,7 @@ import {
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type { RiverRunSnapshotResponse } from "../lib/riverRunContracts.ts";
 import type { RiverRunReviewGroup } from "../lib/riverRunReviewFixtures.types.ts";
+import { buildReviewLiveConditionsFixture } from "./river-run-review-live-conditions-fixture.ts";
 
 const requestedRunId = argumentValue("--run-id") ??
   "big_manistee_fall_chinook";
@@ -1015,6 +1016,17 @@ function scenario(
     fishability: condition.fishability,
     activity: condition.activity,
     fishInRiver: condition.fishInRiver,
+    riverConditions: buildReviewLiveConditionsFixture({
+      river,
+      localDate,
+      refreshSlot: "16:00",
+      refreshedAt: `${localDate}T19:45:00.000Z`,
+      flowCfs: condition.sourceMetrics.gauge?.value ?? null,
+      flowDelta24h: condition.sourceMetrics.gauge?.absoluteChange24h ?? null,
+      flowPercentDelta24h: condition.sourceMetrics.gauge?.percentChange24h ??
+        null,
+      waterTempF: condition.sourceMetrics.waterTemperature?.waterTempF ?? null,
+    }),
     gauge: condition.sourceMetrics.gauge ?? null,
     weather: condition.sourceMetrics.weather ?? null,
     waterTemperature: condition.sourceMetrics.waterTemperature ?? null,

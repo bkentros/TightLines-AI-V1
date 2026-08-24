@@ -16,6 +16,7 @@ import {
   type NormalizedGaugeObservation,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+  PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   type RiverRunConditionRefreshRow,
   type RiverRunDailySnapshotRow,
@@ -608,6 +609,27 @@ Deno.test("production snapshot timing ignores caller query overrides", async () 
       now: new Date("2026-09-20T20:30:00.000Z"),
       gaugeObservations: [gaugeObservation],
       weatherSnapshot: envData,
+      seasonalContextsByMetric: {
+        flow_cfs: {
+          average: 540,
+          p10: 400,
+          p25: 470,
+          median: 540,
+          p75: 630,
+          p90: 800,
+          historicalYears: 87,
+          sampleCount: 609,
+          availableWindowDays: 7,
+          windowRadiusDays: 3,
+          windowStartMonthDay: "09-17",
+          windowEndMonthDay: "09-23",
+          recordKind: "long_term",
+          baselineVersion: "test-live-baseline",
+          source: "usgs_statistics",
+        },
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
       engineVersion: "test-engine",
       configVersion: "test-config",
     },
@@ -618,6 +640,35 @@ Deno.test("production snapshot timing ignores caller query overrides", async () 
   assertEquals(body.localDate, "2026-09-20");
   assertEquals(body.refreshSlot, "16:00");
   assertEquals(body.conditionRefreshAt, "2026-09-20T20:30:00.000Z");
+});
+
+Deno.test("live conditions use the active river cadence when the selected species is out of season", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun, PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE],
+      publicEnabled: true,
+      now: new Date("2026-12-01T17:30:00.000Z"),
+      gaugeObservations: [gaugeObservation],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: envData,
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.refreshSlot, "00:00");
+  assertEquals(body.riverConditions.refreshSlot, "12:00");
 });
 
 Deno.test("production snapshot ignores caller weather payload", async () => {
@@ -1865,6 +1916,27 @@ Deno.test("snapshot response includes quality, safety, freshness, and versions",
       runs: [enabledRun],
       gaugeObservations: [gaugeObservation],
       weatherSnapshot: envData,
+      seasonalContextsByMetric: {
+        flow_cfs: {
+          average: 540,
+          p10: 400,
+          p25: 470,
+          median: 540,
+          p75: 630,
+          p90: 800,
+          historicalYears: 87,
+          sampleCount: 609,
+          availableWindowDays: 7,
+          windowRadiusDays: 3,
+          windowStartMonthDay: "09-17",
+          windowEndMonthDay: "09-23",
+          recordKind: "long_term",
+          baselineVersion: "test-live-baseline",
+          source: "usgs_statistics",
+        },
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
       engineVersion: "test-engine",
       configVersion: "test-config",
     },
@@ -1879,6 +1951,15 @@ Deno.test("snapshot response includes quality, safety, freshness, and versions",
     ),
   );
   assert(body.freshness);
+  assert(body.riverConditions);
+  assertEquals(body.riverConditions.riverId, "pere_marquette");
+  assertEquals(body.riverConditions.metrics.length, 3);
+  assertEquals(
+    body.riverConditions.metrics.find((metric: { metric: string }) =>
+      metric.metric === "flow_cfs"
+    ).seasonalContext.average,
+    540,
+  );
   assertEquals(body.engineVersion, "test-engine");
   assertEquals(body.configVersion, "test-config");
 });

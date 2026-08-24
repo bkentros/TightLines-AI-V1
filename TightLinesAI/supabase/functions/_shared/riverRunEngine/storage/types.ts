@@ -1,7 +1,13 @@
 import type { RiverRunConditionRefresh } from "../snapshot/buildConditionRefresh.ts";
 import type { RiverRunDailySnapshot } from "../snapshot/buildDailySnapshot.ts";
 import type { ConditionsSuggestCheckpointId } from "../metrics/conditionsCheckpoints.ts";
-import type { RiverMetric, RiverRunReasonCode } from "../types.ts";
+import type {
+  RiverLiveConditions,
+  RiverLiveMetricId,
+  RiverLiveSeasonalContext,
+  RiverMetric,
+  RiverRunReasonCode,
+} from "../types.ts";
 
 export type RiverRunStorageError = {
   message: string;
@@ -180,6 +186,25 @@ export type RiverRunConditionRefreshRow = {
   reason_codes: RiverRunReasonCode[];
   engine_version: string;
   config_version: string;
+};
+
+export type RiverLiveConditionsRow = {
+  river_id: string;
+  local_date: string;
+  refresh_slot: string;
+  data_version: string;
+  refreshed_at: string;
+  conditions: RiverLiveConditions;
+};
+
+export type RiverMetricSeasonalContextRow = {
+  river_id: string;
+  source_id: string;
+  site_id: string;
+  metric: RiverLiveMetricId;
+  day_of_year: number;
+  baseline_version: string;
+  context: RiverLiveSeasonalContext;
 };
 
 export function storageError(

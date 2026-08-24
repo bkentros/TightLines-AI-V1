@@ -151,8 +151,8 @@ const preseason = resolveRunStage(
   "2026-08-07",
 );
 assert.equal(preseason.winterHoldingContext, false);
-assert.equal(preseason.label, "Fall entry complete");
-assert.match(preseason.tip ?? "", /late August/i);
+assert.equal(preseason.label, "Before migration");
+assert.match(preseason.tip ?? "", /staging begins/i);
 assert.equal(
   /winter holding|have transitioned/i.test(JSON.stringify(preseason)),
   false,

@@ -40,6 +40,8 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       maxValidF: 85,
       maxRateChangeFPerHour: 3,
       maxPeerDifferenceF: 5,
+      historicalStartYear: 2021,
+      historicalEndYear: 2025,
       reachNotes:
         "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
       attribution:
@@ -747,10 +749,18 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
       "Foundation reverified and owner-approved August 11, 2026. Public sections are Lower river (Muskegon Lake–M-120), Middle river (M-120–Newaygo), and Upper river (Newaygo–Croton Dam), with Croton-area emphasis inside the Upper river. Croton Dam is the impassable upstream migration boundary for all three target species; Newaygo Dam was removed in 1969. USGS 04121970 is about 1,000 feet below Croton Dam and represents only the immediate regulated tailwater. USGS 04122001 at Newaygo is partial-record high-water context and powers no primitive.",
   },
   conditionRefreshSchedule: {
-    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    activeSlots: [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+      "21:00",
+    ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "USGS 04121970 provides near-real-time discharge and measured water temperature. Six active daily refreshes preserve the regulated tailwater response during supported run windows.",
+      "USGS 04121970 provides near-real-time discharge and measured water temperature. Six active daily refreshes preserve the regulated tailwater response during supported run windows, and the 21:00 refresh publishes a clearly labeled next-day Activity forecast.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
@@ -1126,10 +1136,18 @@ export const ST_JOSEPH_RIVER_PROFILE: RiverProfile = {
       "Canonical foundation researched and release-reviewed August 2026. The five intermediate dams have fish passage and are not biological endpoints. Twin Branch is the only configured impassable upstream barrier. Coordinates marked provisional cannot drive beginner-facing access guidance until final official GIS verification.",
   },
   conditionRefreshSchedule: {
-    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    activeSlots: [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+      "21:00",
+    ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "USGS 04101500 reports near-real-time discharge and same-station measured water temperature. Six active daily refreshes reuse the regulated-river schedule while species windows remain unconfigured.",
+      "USGS 04101500 reports near-real-time discharge and same-station measured water temperature. Six active daily refreshes reuse the regulated-river schedule while species windows remain unconfigured, and the 21:00 refresh publishes a clearly labeled next-day Activity forecast.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },

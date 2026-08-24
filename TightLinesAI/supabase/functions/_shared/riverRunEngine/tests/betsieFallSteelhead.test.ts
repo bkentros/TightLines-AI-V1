@@ -45,7 +45,6 @@ Deno.test("Betsie Steelhead Activity has no floor, taper, or mortality semantics
     weather: 0.3,
   });
   assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
-  assertEquals(run.activity?.caps.tomorrow, 90);
   assertEquals(run.activity?.caps.lateRun, 100);
   assertEquals(run.activity?.caps.ending, 100);
   assertEquals(run.activity?.caps.taperingPenalty, undefined);

@@ -8,7 +8,7 @@ import {
   resolveTemperatureTrendSignal,
   type TemperatureTrendResult,
 } from "../metrics/temperature.ts";
-import type { RiverRunFetch } from "./usgs.ts";
+import { type RiverRunFetch, usgsApiRequestInit } from "./usgs.ts";
 
 export type NormalizedWaterTemperatureObservation = {
   sourceId: string;
@@ -84,6 +84,7 @@ export async function fetchUsgsWaterTemperature(input: {
   });
   const response = await input.fetchFn(
     `https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?${params.toString()}`,
+    usgsApiRequestInit(),
   );
   if (!response.ok) return null;
   return await response.json();

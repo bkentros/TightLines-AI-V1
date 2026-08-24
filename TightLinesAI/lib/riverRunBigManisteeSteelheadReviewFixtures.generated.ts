@@ -54,7 +54,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +79,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,7 +100,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -118,7 +118,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -140,7 +140,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-14T19:45:00.000Z",
+            "localDate": "2026-08-14",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-11",
+                  "windowEndMonthDay": "08-17",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-11",
+                  "windowEndMonthDay": "08-17",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -429,7 +538,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -454,7 +563,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -475,7 +584,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -493,7 +602,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -515,7 +624,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -805,7 +1023,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -830,7 +1048,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -851,7 +1069,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -869,15 +1087,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river responsiveness is active, but dependable Steelhead presence has not begun.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already in the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. This applies only to an early Steelhead already in the river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -897,7 +1115,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -907,7 +1127,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -917,7 +1139,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -927,10 +1151,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -951,7 +1177,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-01T19:45:00.000Z",
+            "localDate": "2026-09-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1240,7 +1575,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1285,7 +1620,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1321,7 +1656,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1339,15 +1674,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1367,7 +1702,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1377,7 +1714,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1387,7 +1726,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1397,10 +1738,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 4,
@@ -1421,7 +1764,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1711,7 +2163,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1756,7 +2208,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1792,7 +2244,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -1810,15 +2262,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -1838,7 +2290,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -1848,7 +2302,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -1858,7 +2314,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1868,10 +2326,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -1892,7 +2352,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2182,7 +2751,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2227,7 +2796,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2263,7 +2832,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2281,15 +2850,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2309,7 +2878,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2319,7 +2890,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2329,7 +2902,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2339,10 +2914,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 16,
@@ -2363,7 +2940,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2653,7 +3339,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2724,7 +3410,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -2763,7 +3449,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -2781,15 +3467,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -2809,7 +3495,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-11T09:00:00"
               },
               {
                 "id": "09-13",
@@ -2819,7 +3507,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-11T13:00:00"
               },
               {
                 "id": "13-17",
@@ -2829,7 +3519,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2839,10 +3531,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 30,
@@ -2863,7 +3557,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-11T19:45:00.000Z",
+            "localDate": "2026-10-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-08",
+                  "windowEndMonthDay": "10-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-08",
+                  "windowEndMonthDay": "10-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3147,7 +3950,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3222,7 +4025,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -3261,7 +4064,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3279,15 +4082,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3307,7 +4110,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3317,7 +4122,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3327,7 +4134,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3337,10 +4146,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 36,
@@ -3361,7 +4172,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-15T19:45:00.000Z",
+            "localDate": "2026-10-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-12",
+                  "windowEndMonthDay": "10-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-12",
+                  "windowEndMonthDay": "10-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3645,7 +4565,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3720,7 +4640,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -3759,7 +4679,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -3777,15 +4697,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -3805,7 +4725,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -3815,7 +4737,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -3825,7 +4749,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3835,10 +4761,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 60,
@@ -3859,7 +4787,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-01T19:45:00.000Z",
+            "localDate": "2026-11-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4143,7 +5180,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4249,7 +5286,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4288,7 +5325,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4306,15 +5343,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4334,7 +5371,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4344,7 +5383,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4354,7 +5395,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4364,10 +5407,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -4388,7 +5433,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4678,7 +5832,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4790,7 +5944,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4829,7 +5983,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -4847,15 +6001,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -4875,7 +6029,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-25T09:00:00"
               },
               {
                 "id": "09-13",
@@ -4885,7 +6041,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-25T13:00:00"
               },
               {
                 "id": "13-17",
@@ -4895,7 +6053,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4905,10 +6065,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -4929,7 +6091,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-25T19:45:00.000Z",
+            "localDate": "2026-11-25",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-22",
+                  "windowEndMonthDay": "11-28",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-24T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-25T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-24T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-22",
+                  "windowEndMonthDay": "11-28",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5219,7 +6490,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5331,7 +6602,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5370,7 +6641,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5388,15 +6659,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5416,7 +6687,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -5426,7 +6699,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -5436,7 +6711,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5446,10 +6723,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 79,
@@ -5470,7 +6749,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-05T19:45:00.000Z",
+            "localDate": "2026-12-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5754,7 +7142,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5866,7 +7254,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5905,7 +7293,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -5923,15 +7311,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -5951,7 +7339,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -5961,7 +7351,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -5971,7 +7363,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5981,10 +7375,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 71,
@@ -6005,7 +7401,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-20T19:45:00.000Z",
+            "localDate": "2026-12-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6290,7 +7795,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6402,7 +7907,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -6426,7 +7931,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6444,7 +7949,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": null,
@@ -6462,7 +7967,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": null,
@@ -6482,7 +7987,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-23T19:45:00.000Z",
+            "localDate": "2026-12-23",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6772,7 +8386,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -6797,7 +8411,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6818,7 +8432,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -6836,7 +8450,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -6858,7 +8472,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-07-24T19:45:00.000Z",
+            "localDate": "2026-07-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-07-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-21",
+                  "windowEndMonthDay": "07-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7147,7 +8870,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7172,7 +8895,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7193,7 +8916,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7211,7 +8934,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7233,7 +8956,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-05T19:45:00.000Z",
+            "localDate": "2026-08-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-02",
+                  "windowEndMonthDay": "08-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7522,7 +9354,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7547,7 +9379,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7568,7 +9400,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7586,7 +9418,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7608,7 +9440,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7897,7 +9838,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7922,7 +9863,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7943,7 +9884,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -7961,7 +9902,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -7983,7 +9924,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8272,7 +10322,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8297,7 +10347,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8318,7 +10368,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8336,7 +10386,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -8358,7 +10408,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8647,7 +10806,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8672,7 +10831,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8693,7 +10852,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -8711,7 +10870,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -8733,7 +10892,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9022,7 +11290,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9086,7 +11354,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9122,7 +11390,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -9140,15 +11408,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9168,7 +11436,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9178,7 +11448,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-06T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9188,7 +11460,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9198,10 +11472,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 23,
@@ -9222,7 +11498,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-06T19:45:00.000Z",
+            "localDate": "2026-10-06",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9518,7 +11903,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -9563,7 +11948,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9599,7 +11984,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -9617,15 +12002,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -9645,7 +12030,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -9655,7 +12042,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -9665,7 +12054,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9675,10 +12066,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -9699,7 +12092,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9989,7 +12491,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10034,7 +12536,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10070,7 +12572,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 90,
@@ -10088,15 +12590,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 7,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10117,7 +12619,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10127,7 +12631,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10137,7 +12643,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10147,10 +12655,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -10171,7 +12681,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10461,7 +13080,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10506,7 +13125,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10541,7 +13160,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 88,
@@ -10559,15 +13178,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -10587,7 +13206,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -10597,7 +13218,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -10607,7 +13230,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10617,10 +13242,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -10641,7 +13268,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1600,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 62,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10931,7 +13667,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10976,7 +13712,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11011,7 +13747,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -11029,15 +13765,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11057,7 +13793,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11067,7 +13805,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11077,7 +13817,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11087,10 +13829,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -11111,7 +13855,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11401,7 +14254,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11446,7 +14299,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11480,7 +14333,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 68,
@@ -11498,15 +14351,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 73,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because the measured water temperature is favorable for steelhead. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11526,7 +14379,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -11536,7 +14391,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -11546,7 +14403,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11556,10 +14415,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -11580,7 +14441,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11864,7 +14834,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11909,7 +14879,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11945,7 +14915,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -11963,15 +14933,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -11991,7 +14961,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12001,7 +14973,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12011,7 +14985,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12021,10 +14997,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -12045,7 +15023,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12335,7 +15422,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12380,7 +15467,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12417,7 +15504,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -12438,15 +15525,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -12466,7 +15553,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12476,7 +15565,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12486,7 +15577,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12496,10 +15589,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -12520,7 +15615,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12804,7 +16008,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12849,7 +16053,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12886,7 +16090,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -12907,15 +16111,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because the measured water temperature is favorable for steelhead. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -12935,7 +16139,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -12945,7 +16151,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -12955,7 +16163,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12965,10 +16175,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -12989,7 +16201,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1850,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 220,
+                  "percentDelta": 13.5,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13273,7 +16594,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13318,7 +16639,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13355,7 +16676,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 0,
@@ -13375,15 +16696,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 12,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -13404,7 +16725,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -13414,7 +16737,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -13424,7 +16749,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -13434,10 +16761,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -13458,7 +16787,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 3600,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 500,
+                  "percentDelta": 16,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13742,7 +17180,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13787,7 +17225,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13808,7 +17246,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -13820,15 +17258,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -13848,7 +17286,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -13858,7 +17298,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -13868,7 +17310,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -13878,10 +17322,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -13902,7 +17348,93 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -14176,7 +17708,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14221,7 +17753,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14243,7 +17775,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -14261,15 +17793,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -14289,7 +17821,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -14299,7 +17833,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -14309,7 +17845,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -14319,10 +17857,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -14343,7 +17883,96 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14616,7 +18245,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -14641,7 +18270,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14662,7 +18291,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -14680,7 +18309,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -14702,7 +18331,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1500,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 67,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14991,7 +18729,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15016,7 +18754,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15037,7 +18775,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -15055,7 +18793,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -15077,7 +18815,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 70,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15366,7 +19213,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -15391,7 +19238,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15412,7 +19259,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 80,
@@ -15430,7 +19277,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -15452,7 +19299,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 100,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 73,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15741,7 +19697,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15786,7 +19742,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15822,7 +19778,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -15841,15 +19797,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 57,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -15869,7 +19825,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -15879,7 +19837,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -15889,7 +19849,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -15899,10 +19861,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -15923,7 +19887,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1050,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16213,7 +20286,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16258,7 +20331,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16294,7 +20367,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 60,
@@ -16312,15 +20385,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16340,7 +20413,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16350,7 +20425,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16360,7 +20437,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16370,10 +20449,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -16394,7 +20475,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1200,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16678,7 +20868,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16723,7 +20913,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16760,7 +20950,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -16779,15 +20969,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 10,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -16808,7 +20998,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -16818,7 +21010,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -16828,7 +21022,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -16838,10 +21034,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -16862,7 +21060,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 3600,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17146,7 +21453,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17191,7 +21498,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17226,7 +21533,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 88,
@@ -17244,15 +21551,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17272,7 +21579,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17282,7 +21591,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17292,7 +21603,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17302,10 +21615,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -17326,7 +21641,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1700,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 50,
+                  "percentDelta": 3.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17616,7 +22040,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17661,7 +22085,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17696,7 +22120,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 40,
@@ -17717,15 +22141,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -17745,7 +22169,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -17755,7 +22181,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -17765,7 +22193,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -17775,10 +22205,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -17799,7 +22231,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 250,
+                  "percentDelta": 12.2,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18083,7 +22624,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18128,7 +22669,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18165,7 +22706,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 69,
@@ -18186,15 +22727,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -18214,7 +22755,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18224,7 +22767,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18234,7 +22779,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18244,10 +22791,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -18268,7 +22817,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18552,7 +23210,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18597,7 +23255,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18634,7 +23292,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -18655,15 +23313,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -18683,7 +23341,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -18693,7 +23353,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -18703,7 +23365,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -18713,10 +23377,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -18737,7 +23403,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19021,7 +23796,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19066,7 +23841,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19087,7 +23862,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -19099,15 +23874,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -19127,7 +23902,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19137,7 +23914,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19147,7 +23926,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19157,10 +23938,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -19181,7 +23964,93 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -19455,7 +24324,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19500,7 +24369,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19536,7 +24405,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -19554,15 +24423,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -19582,7 +24451,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -19592,7 +24463,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -19602,7 +24475,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -19612,10 +24487,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -19636,7 +24513,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19926,7 +24912,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19971,7 +24957,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20007,7 +24993,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 73,
@@ -20025,15 +25011,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 61,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20053,7 +25039,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20063,7 +25051,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20073,7 +25063,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20083,10 +25075,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -20107,7 +25101,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2300,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20397,7 +25500,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20442,7 +25545,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20478,7 +25581,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -20496,15 +25599,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 58,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20524,7 +25627,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20534,7 +25639,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20544,7 +25651,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20554,10 +25663,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -20578,7 +25689,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2800,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20869,7 +26089,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -20894,7 +26114,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20915,7 +26135,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -20933,15 +26153,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 8,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river responsiveness is inactive, but dependable Steelhead presence has not begun.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This applies only to an early Steelhead already in the river.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. This applies only to an early Steelhead already in the river.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -20962,7 +26182,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -20972,7 +26194,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -20982,7 +26206,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -20992,10 +26218,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -21016,7 +26244,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-01T19:45:00.000Z",
+            "localDate": "2026-09-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-29",
+                  "windowEndMonthDay": "09-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21305,7 +26642,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21350,7 +26687,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21385,7 +26722,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -21403,15 +26740,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Upper-river Steelhead responsiveness is highly active.",
-            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21431,7 +26768,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21441,7 +26780,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21451,7 +26792,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21461,10 +26804,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -21485,7 +26830,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21775,7 +27229,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21850,7 +27304,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -21888,7 +27342,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -21906,15 +27360,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 91,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Upper-river Steelhead responsiveness is highly active.",
-            "detail": "Conditions strongly support Steelhead responsiveness. 9 AM–1 PM and 1–5 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 9 AM–1 PM and 1–5 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -21934,7 +27388,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -21944,7 +27400,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-11-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -21954,7 +27412,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -21964,10 +27424,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 60,
@@ -21988,7 +27450,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-01T19:45:00.000Z",
+            "localDate": "2026-11-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 50,
+                "unit": "°F",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22272,7 +27843,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22378,7 +27949,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -22416,7 +27987,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -22434,15 +28005,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 74,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because the measured water temperature is favorable for steelhead. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22462,7 +28033,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22472,7 +28045,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22482,7 +28057,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22492,10 +28069,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 65,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -22516,7 +28095,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 58,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -22806,7 +28494,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22881,7 +28569,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -22919,7 +28607,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 45,
@@ -22937,15 +28625,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 60,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because the measured water temperature remains usable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -22965,7 +28653,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-01T09:00:00"
               },
               {
                 "id": "09-13",
@@ -22975,7 +28665,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-01T13:00:00"
               },
               {
                 "id": "13-17",
@@ -22985,7 +28677,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -22995,10 +28689,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 60,
@@ -23019,7 +28715,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-01T19:45:00.000Z",
+            "localDate": "2026-11-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2800,
+                "unit": "CFS",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 42,
+                "unit": "°F",
+                "observedAt": "2026-11-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-29",
+                  "windowEndMonthDay": "11-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23303,7 +29108,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23348,7 +29153,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23384,7 +29189,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -23402,15 +29207,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 23,
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Upper-river Steelhead responsiveness is reserved.",
-            "detail": "Steelhead may respond selectively under current limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Steelhead may respond selectively under current limitations. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23431,7 +29236,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23441,7 +29248,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23451,7 +29260,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23461,10 +29272,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -23485,7 +29298,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 64,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -23775,7 +29697,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23820,7 +29742,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23856,7 +29778,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -23874,15 +29796,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 9,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -23903,7 +29825,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -23913,7 +29837,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -23923,7 +29849,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -23933,10 +29861,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -23957,7 +29887,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 68,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24247,7 +30286,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24353,7 +30392,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -24393,7 +30432,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 20,
@@ -24412,15 +30451,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 11,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 1–5 PM and 5–9 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 1–5 PM and 5–9 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24441,7 +30480,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24451,7 +30492,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -24461,7 +30504,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -24471,10 +30516,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -24495,7 +30542,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 3600,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -24785,7 +30941,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -24897,7 +31053,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -24935,7 +31091,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -24953,15 +31109,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 93,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Upper-river Steelhead responsiveness is highly active.",
-            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -24981,7 +31137,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -24991,7 +31149,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25001,7 +31161,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25011,10 +31173,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 79,
@@ -25035,7 +31199,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-05T19:45:00.000Z",
+            "localDate": "2026-12-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 52,
+                "unit": "°F",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25319,7 +31592,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25431,7 +31704,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25469,7 +31742,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -25487,15 +31760,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 93,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Upper-river Steelhead responsiveness is highly active.",
-            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions strongly support Steelhead responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -25515,7 +31788,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -25525,7 +31800,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "ended",
+                "lockedAt": "2026-12-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -25535,7 +31812,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -25545,10 +31824,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature is favorable for Steelhead.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.08
+                "precipitationIn": 0.08,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 71,
@@ -25569,7 +31850,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-20T19:45:00.000Z",
+            "localDate": "2026-12-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 50,
+                "unit": "°F",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -25854,7 +32244,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -25966,7 +32356,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -25990,7 +32380,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26008,7 +32398,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": null,
@@ -26026,7 +32416,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": null,
@@ -26046,7 +32436,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-23T19:45:00.000Z",
+            "localDate": "2026-12-23",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 48,
+                "unit": "°F",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Colder than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26330,7 +32829,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26436,7 +32935,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26461,7 +32960,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -26479,15 +32978,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26507,7 +33006,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -26517,7 +33018,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -26527,7 +33030,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -26537,10 +33042,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -26561,7 +33068,96 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -26828,7 +33424,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26934,7 +33530,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -26958,7 +33554,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -26970,15 +33566,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 43,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -26998,7 +33594,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27008,7 +33606,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27018,7 +33618,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27028,10 +33630,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -27052,7 +33656,93 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -27332,7 +34022,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -27357,7 +34047,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27378,7 +34068,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27396,7 +34086,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -27418,7 +34108,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-14T19:45:00.000Z",
+            "localDate": "2026-08-14",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-11",
+                  "windowEndMonthDay": "08-17",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-11",
+                  "windowEndMonthDay": "08-17",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -27707,7 +34506,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27752,7 +34551,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27788,7 +34587,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -27806,15 +34605,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -27834,7 +34633,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -27844,7 +34645,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -27854,7 +34657,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -27864,10 +34669,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 4,
@@ -27888,7 +34695,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -28178,7 +35094,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28223,7 +35139,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28259,7 +35175,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -28277,15 +35193,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28305,7 +35221,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28315,7 +35233,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-02T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28325,7 +35245,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28335,10 +35257,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 17,
@@ -28359,7 +35283,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -28649,7 +35682,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28720,7 +35753,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -28759,7 +35792,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -28777,15 +35810,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -28805,7 +35838,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T09:00:00"
               },
               {
                 "id": "09-13",
@@ -28815,7 +35850,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-13T13:00:00"
               },
               {
                 "id": "13-17",
@@ -28825,7 +35862,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -28835,10 +35874,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 33,
@@ -28859,7 +35900,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-13T19:45:00.000Z",
+            "localDate": "2026-10-13",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29143,7 +36293,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29218,7 +36368,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29257,7 +36407,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29275,15 +36425,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29303,7 +36453,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-26T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29313,7 +36465,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-10-26T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29323,7 +36477,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29333,10 +36489,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 50,
@@ -29357,7 +36515,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-10-26T19:45:00.000Z",
+            "localDate": "2026-10-26",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-10-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-10-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-23",
+                  "windowEndMonthDay": "10-29",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-10-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-25T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-10-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-23",
+                  "windowEndMonthDay": "10-29",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -29641,7 +36908,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29716,7 +36983,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -29755,7 +37022,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -29773,15 +37040,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -29801,7 +37068,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T09:00:00"
               },
               {
                 "id": "09-13",
@@ -29811,7 +37080,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-04T13:00:00"
               },
               {
                 "id": "13-17",
@@ -29821,7 +37092,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -29831,10 +37104,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 64,
@@ -29855,7 +37130,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-04T19:45:00.000Z",
+            "localDate": "2026-11-04",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-04T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-03T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-01",
+                  "windowEndMonthDay": "11-07",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30139,7 +37523,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30214,7 +37598,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-11",
             "previousTimingLabel": "Insufficient evidence"
@@ -30253,7 +37637,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30271,15 +37655,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30299,7 +37683,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-10T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30309,7 +37695,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-10T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30319,7 +37707,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30329,10 +37719,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 72,
@@ -30353,7 +37745,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-10T19:45:00.000Z",
+            "localDate": "2026-11-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-07",
+                  "windowEndMonthDay": "11-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -30637,7 +38138,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30743,7 +38244,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -30782,7 +38283,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -30800,15 +38301,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -30828,7 +38329,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T09:00:00"
               },
               {
                 "id": "09-13",
@@ -30838,7 +38341,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-11-15T13:00:00"
               },
               {
                 "id": "13-17",
@@ -30848,7 +38353,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -30858,10 +38365,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 80,
@@ -30882,7 +38391,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-11-15T19:45:00.000Z",
+            "localDate": "2026-11-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-11-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-12",
+                  "windowEndMonthDay": "11-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31172,7 +38790,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31284,7 +38902,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -31323,7 +38941,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31341,15 +38959,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31369,7 +38987,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31379,7 +38999,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-05T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31389,7 +39011,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -31399,10 +39023,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 79,
@@ -31423,7 +39049,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-05T19:45:00.000Z",
+            "localDate": "2026-12-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-02",
+                  "windowEndMonthDay": "12-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -31707,7 +39442,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31819,7 +39554,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -31858,7 +39593,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -31876,15 +39611,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Cold late-fall water can shorten response windows without meaning Steelhead have left the river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -31904,7 +39639,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -31914,7 +39651,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-12-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -31924,7 +39663,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -31934,10 +39675,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 71,
@@ -31958,7 +39701,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-20T19:45:00.000Z",
+            "localDate": "2026-12-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-17",
+                  "windowEndMonthDay": "12-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32243,7 +40095,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32355,7 +40207,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-11-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -32379,7 +40231,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -32397,7 +40249,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": null,
@@ -32415,7 +40267,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "confidence": "Limited",
             "conditionalPresence": false,
             "blocks": [],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": null,
@@ -32435,7 +40287,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-12-23T19:45:00.000Z",
+            "localDate": "2026-12-23",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-12-23T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-12-22T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "12-20",
+                  "windowEndMonthDay": "12-26",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -32725,7 +40686,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -32770,7 +40731,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32804,7 +40765,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 32,
@@ -32822,15 +40783,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 65,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because the measured water temperature remains usable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32850,7 +40811,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -32860,7 +40823,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -32870,7 +40835,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -32880,10 +40847,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The measured water temperature remains usable.",
                 "limitingFactor": "The river level or its recent change is less favorable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -32904,7 +40873,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 2800,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 180,
+                  "percentDelta": 7,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Higher than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 59,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33194,7 +41272,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33239,7 +41317,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33275,7 +41353,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 90,
@@ -33293,15 +41371,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 7,
             "maximum": 100,
             "label": "Inactive",
             "headline": "Today’s Upper-river Steelhead responsiveness is inactive.",
-            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer little support for an aggressive Steelhead response. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -33322,7 +41400,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -33332,7 +41412,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -33342,7 +41424,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33352,10 +41436,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -33376,7 +41462,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1450,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "falling",
+                  "delta": -120,
+                  "percentDelta": -7.6,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 69,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -33666,7 +41861,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33711,7 +41906,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33733,7 +41928,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -33751,15 +41946,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -33779,7 +41974,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T09:00:00"
               },
               {
                 "id": "09-13",
@@ -33789,7 +41986,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-20T13:00:00"
               },
               {
                 "id": "13-17",
@@ -33799,7 +41998,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -33809,10 +42010,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 8,
@@ -33833,7 +42036,96 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34106,7 +42398,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -34131,7 +42423,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34152,7 +42444,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -34170,7 +42462,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -34192,7 +42484,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34487,7 +42888,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34532,7 +42933,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34568,7 +42969,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -34586,15 +42987,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Steelhead responsiveness is active.",
-            "detail": "Conditions support a meaningful Steelhead response. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions support a meaningful Steelhead response. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Wellston flow and temperature represent the Upper river, especially the Tippy Dam area.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -34614,7 +43015,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -34624,7 +43027,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -34634,7 +43039,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -34644,10 +43051,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -34668,7 +43077,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -34958,7 +43476,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35003,7 +43521,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35040,7 +43558,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 55,
@@ -35061,15 +43579,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35089,7 +43607,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35099,7 +43619,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35109,7 +43631,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -35119,10 +43643,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -35143,7 +43669,116 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "available",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -35427,7 +44062,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35472,7 +44107,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35493,7 +44128,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -35505,15 +44140,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 42,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35533,7 +44168,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35543,7 +44180,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35553,7 +44192,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -35563,10 +44204,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Current river behavior is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -35587,7 +44230,93 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 61,
+                "unit": "°F",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.1,
+                  "p10": 53.1,
+                  "p25": 56.1,
+                  "median": 59.1,
+                  "p75": 62.1,
+                  "p90": 65.1,
+                  "comparisonLabel": "Warmer than average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": {
@@ -35861,7 +44590,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35906,7 +44635,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35928,7 +44657,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-steelhead-push-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": 93,
@@ -35946,15 +44675,15 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Steelhead responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
-            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Steelhead responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Moderate confidence reflects missing or forecast inputs; Wellston still represents only the Upper river.",
+            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
@@ -35974,7 +44703,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T09:00:00"
               },
               {
                 "id": "09-13",
@@ -35984,7 +44715,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "ended",
+                "lockedAt": "2026-09-30T13:00:00"
               },
               {
                 "id": "13-17",
@@ -35994,7 +44727,9 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "current",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -36004,10 +44739,12 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 15,
@@ -36028,7 +44765,96 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "big_manistee",
+            "status": "partial",
+            "refreshedAt": "2026-09-30T19:45:00.000Z",
+            "localDate": "2026-09-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 1650,
+                "unit": "CFS",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 1800,
+                  "p10": 1260,
+                  "p25": 1530,
+                  "median": 1800,
+                  "p75": 2070,
+                  "p90": 2340,
+                  "comparisonLabel": "Lower than average",
+                  "historicalYears": 29,
+                  "sampleCount": 203,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-27",
+                  "windowEndMonthDay": "10-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 5.42,
+                "unit": "ft",
+                "observedAt": "2026-09-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "big_manistee_wellston_usgs",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — below Tippy Dam",
+                "siteId": "04125550",
+                "representedReach": "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "big_manistee_wellston_temperature",
+                "provider": "USGS",
+                "stationName": "Manistee River near Wellston, MI — measured water temperature",
+                "siteId": "04125550",
+                "representedReach": "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",

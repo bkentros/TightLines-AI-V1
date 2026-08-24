@@ -41,7 +41,6 @@ Deno.test("Betsie Coho Activity is species-specific and continuously lifecycle-a
     weather: 0.3,
   });
   assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
-  assertEquals(run.activity?.caps.tomorrow, 90);
   assertEquals(run.activity?.caps.lifecycleRamp, {
     peakEnd: "10-31",
     taperingEnd: "11-15",

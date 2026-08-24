@@ -1,6 +1,6 @@
 import type { NormalizedBaselineObservation } from "./baselineGeneration.ts";
 import type { NormalizedTemperatureBaselineObservation } from "./conditionsSuggestBaselineGeneration.ts";
-import type { RiverRunFetch } from "./usgs.ts";
+import { type RiverRunFetch, usgsApiRequestInit } from "./usgs.ts";
 
 const USGS_DV_URL =
   "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items";
@@ -25,7 +25,10 @@ export async function fetchUsgsDailyFlowBaselineObservations(input: {
     datetime: `${input.startDate}/${input.endDate}`,
     limit: "10000",
   });
-  const response = await input.fetchFn(`${USGS_DV_URL}?${params.toString()}`);
+  const response = await input.fetchFn(
+    `${USGS_DV_URL}?${params.toString()}`,
+    usgsApiRequestInit(),
+  );
   if (!response.ok) return [];
   return parseUsgsDailyFlowValues(await response.json(), {
     riverId: input.riverId,
@@ -50,7 +53,10 @@ export async function fetchUsgsDailyWaterTemperatureObservations(input: {
     datetime: `${input.startDate}/${input.endDate}`,
     limit: "10000",
   });
-  const response = await input.fetchFn(`${USGS_DV_URL}?${params.toString()}`);
+  const response = await input.fetchFn(
+    `${USGS_DV_URL}?${params.toString()}`,
+    usgsApiRequestInit(),
+  );
   if (!response.ok) return [];
   return parseUsgsDailyWaterTemperatureValues(await response.json(), input);
 }

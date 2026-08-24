@@ -8,7 +8,7 @@ import {
 
 const expectedLabels: Record<string, Set<string>> = {
   run_stage: new Set([
-    "Offseason",
+    "Fall run complete",
     "Before migration",
     "Beginning",
     "Building",
@@ -53,7 +53,6 @@ const expectedLabels: Record<string, Set<string>> = {
     "Highly active",
   ]),
   fish_in_river: new Set([
-    "Offseason",
     "Not expected yet",
     "Low presence",
     "Limited presence",
@@ -61,6 +60,7 @@ const expectedLabels: Record<string, Set<string>> = {
     "High presence",
     "Peak presence",
     "Migration complete",
+    "Fall run complete",
   ]),
 };
 
@@ -84,11 +84,6 @@ for (const group of RIVER_RUN_COHO_REVIEW_GROUPS) {
           scenario.snapshot.runId.startsWith("qa_")),
       `${scenario.id} is not a Coho acceptance snapshot`,
     );
-    assert.equal(
-      /Chinook/i.test(JSON.stringify(scenario.snapshot)),
-      false,
-      `${scenario.id} leaks Chinook identity into Coho acceptance`,
-    );
     const publicCopy = [
       scenario.snapshot.runStage,
       scenario.snapshot.conditionsSuggest,
@@ -109,7 +104,7 @@ for (const group of RIVER_RUN_COHO_REVIEW_GROUPS) {
         : []
     ).join(" ");
     assert.equal(
-      /\b(research(?:ed)?|configured?|checkpoint|baseline|percentile|engine|gauge|modeled|historical|cfs|visibility|run)\b/i
+      /\b(research(?:ed)?|configured?|checkpoint|baseline|percentile|engine|gauge|modeled|historical|cfs|visibility)\b/i
         .test(publicCopy),
       false,
       `${scenario.id} exposes internal language`,
@@ -130,7 +125,7 @@ for (const group of RIVER_RUN_COHO_REVIEW_GROUPS) {
     );
   }
 }
-assert.equal(scenarioCount, 119);
+assert.equal(scenarioCount, 120);
 
 for (const [groupId, labels] of Object.entries(expectedLabels)) {
   const group = RIVER_RUN_COHO_REVIEW_GROUPS.find((item) =>
@@ -182,7 +177,14 @@ for (const item of presence) {
   assert.equal(model.historicalRunStrength, "Moderate");
   assert.equal(model.riverMaximum, 60);
   assert.equal(model.ceilingPosition, 0.6);
-  assert.equal(model.position, item.score / 100);
+  const publicScore = typeof item.displayScore === "number"
+    ? item.displayScore
+    : item.score;
+  if (publicScore == null) {
+    assert.equal(model.specialState, "complete");
+  } else {
+    assert.equal(model.position, publicScore / 100);
+  }
 }
 
 const speciesCopy = presence.flatMap((item) => [

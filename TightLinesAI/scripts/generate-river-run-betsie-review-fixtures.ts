@@ -10,6 +10,7 @@ import {
   type RiverRunConditionRefresh,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type { RiverRunSnapshotResponse } from "../lib/riverRunContracts.ts";
+import { buildReviewLiveConditionsFixture } from "./river-run-review-live-conditions-fixture.ts";
 
 const runIdArgIndex = Deno.args.indexOf("--run-id");
 const requestedRunId = runIdArgIndex >= 0
@@ -456,6 +457,16 @@ function scenario(
     fishability: condition.fishability,
     activity: condition.activity,
     fishInRiver: condition.fishInRiver,
+    riverConditions: buildReviewLiveConditionsFixture({
+      river: BETSIE_RIVER_PROFILE,
+      localDate,
+      refreshSlot: "00:00",
+      refreshedAt: `${localDate}T12:00:00.000Z`,
+      flowCfs: null,
+      flowDelta24h: null,
+      flowPercentDelta24h: null,
+      waterTempF: null,
+    }),
     gauge: null,
     weather: null,
     waterTemperature: null,

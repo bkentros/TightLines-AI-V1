@@ -161,6 +161,8 @@ export type RiverRunActivity = RiverRunPrimitiveDisplay & {
     limitingFactor: string;
     cloudCoverPct: number | null;
     precipitationIn: number | null;
+    status?: "upcoming" | "current" | "ended";
+    lockedAt?: string | null;
   }>;
 };
 
@@ -198,6 +200,71 @@ export type RiverRunWaterTemperature = {
   sourceType?: string;
   isUpstreamFallback?: boolean;
   attribution?: string;
+};
+
+export type RiverRunLiveMetricId =
+  | "flow_cfs"
+  | "gage_height_ft"
+  | "water_temp_f";
+
+export type RiverRunLiveSeasonalContext = {
+  average: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  comparisonLabel?: string;
+  historicalYears: number;
+  sampleCount: number;
+  availableWindowDays: number;
+  windowRadiusDays: 3;
+  windowStartMonthDay: string;
+  windowEndMonthDay: string;
+  recordKind: "long_term" | "recent";
+  baselineVersion: string;
+  source: "usgs_statistics" | "monitor_my_watershed_history";
+};
+
+export type RiverRunLiveConditionMetric = {
+  metric: RiverRunLiveMetricId;
+  label: string;
+  value: number | null;
+  unit: "CFS" | "ft" | "°F";
+  observedAt?: string;
+  freshness: "fresh" | "delayed" | "older_than_24h" | "missing";
+  approvalStatus?: string;
+  qualifier?: string;
+  sourceId: string;
+  provider: "USGS" | "MONITOR_MY_WATERSHED";
+  stationName: string;
+  siteId: string;
+  representedReach: string;
+  attribution: string;
+  trend24h: {
+    direction:
+      | "rising"
+      | "falling"
+      | "warming"
+      | "cooling"
+      | "stable"
+      | "unknown";
+    delta: number | null;
+    percentDelta: number | null;
+    comparisonObservedAt?: string;
+  };
+  seasonalContext?: RiverRunLiveSeasonalContext;
+};
+
+export type RiverRunLiveConditions = {
+  riverId: string;
+  status: "available" | "partial" | "unavailable";
+  refreshedAt: string;
+  localDate: string;
+  refreshSlot: string;
+  metrics: RiverRunLiveConditionMetric[];
+  limitation: string;
+  dataVersion: string;
 };
 
 export type RiverRunFreshness = {
@@ -295,6 +362,7 @@ export type RiverRunSnapshotResponse = {
   fishability: RiverRunFishability;
   activity?: RiverRunActivity | null;
   fishInRiver: RiverRunFishInRiver;
+  riverConditions?: RiverRunLiveConditions;
   gauge?: RiverRunGauge | null;
   weather?: RiverRunWeather | null;
   waterTemperature?: RiverRunWaterTemperature | null;

@@ -6,6 +6,7 @@ import {
   resolveLatestRefreshSlot,
   resolveNextConditionRefresh,
   resolvePushReadWindow,
+  RIVER_RUN_RIVER_PROFILES,
 } from "../index.ts";
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
@@ -52,6 +53,16 @@ Deno.test("PM resolves four-hour slots plus the Activity rollover", () => {
     }),
     { localDate: "2026-09-20", refreshSlot: "21:00" },
   );
+});
+
+Deno.test("every configured river publishes the same 21:00 Activity forecast rollover", () => {
+  for (const river of RIVER_RUN_RIVER_PROFILES) {
+    assertEquals(
+      river.conditionRefreshSchedule.activeSlots,
+      ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
+      river.riverId,
+    );
+  }
 });
 
 Deno.test("Push read windows stay four hours and the Activity rollover updates the 8 PM window", () => {

@@ -16,6 +16,7 @@ import type {
 } from "../types.ts";
 import { scoreFishability } from "../scoring/fishability.ts";
 import {
+  type ActivityResult,
   type ActivityWeatherHour,
   scoreActivity,
 } from "../scoring/activity.ts";
@@ -115,6 +116,7 @@ export function buildConditionRefresh(input: {
   activityTargetDate?: string;
   activityTargetStage?: RiverRunDailySnapshot["runStage"]["stage"];
   activityStaging?: boolean;
+  previousActivity?: ActivityResult | null;
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
   waterTemperatureFreshness: GaugeFreshness;
@@ -217,13 +219,15 @@ export function buildConditionRefresh(input: {
       fishabilityBands: input.fishabilityBands,
       flowSignal: input.flowSignal,
       hourlyWeather: input.sourceMetrics.weather?.hourlyActivityWeather ?? [],
+      refreshSlot: input.refreshSlot,
+      previousActivity: input.previousActivity,
       copyStrategy: input.dailySnapshot.runStage.copyStrategy,
       fallEntryComplete:
         input.dailySnapshot.runStage.label === "Fall entry complete",
       seasonNotStarted: compareLocalDates(
-          input.localDate,
-          input.dailySnapshot.runStage.window.preRunStartDate,
-        ) < 0,
+        input.localDate,
+        input.dailySnapshot.runStage.window.preRunStartDate,
+      ) < 0,
       monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
     })
     : null;

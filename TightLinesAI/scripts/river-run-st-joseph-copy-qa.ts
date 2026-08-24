@@ -116,7 +116,7 @@ for (const [species, groups] of runs) {
         ].filter(Boolean).join(" ");
         assert.equal(
           primitive.copyVersion,
-          "river-run-copy-v35",
+          "river-run-copy-v36",
           `${species} ${group.id}/${scenario.id}: stale copy version`,
         );
         assert(
@@ -161,9 +161,12 @@ for (const [species, groups] of runs) {
     );
   }
 
-  const complete = stages.find((scenario) =>
-    scenario.snapshot.runStage.label ===
-      (species === "Steelhead" ? "Fall entry complete" : "Fall run complete")
+  const terminalLabel = species === "Steelhead"
+    ? "Fall entry complete"
+    : "Fall run complete";
+  const complete = groups.flatMap((group) => group.scenarios).find((scenario) =>
+    scenario.snapshot.runStage.label === terminalLabel ||
+    scenario.snapshot.fishInRiver.label === terminalLabel
   );
   assert(complete, `${species}: terminal review state`);
   assert.equal(complete.snapshot.fishInRiver.score, null);

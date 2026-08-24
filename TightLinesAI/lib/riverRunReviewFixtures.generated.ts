@@ -46,7 +46,7 @@ const BASE_SNAPSHOT = {
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v35"
+    "copyVersion": "river-run-copy-v36"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -152,7 +152,7 @@ const BASE_SNAPSHOT = {
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v35",
+    "copyVersion": "river-run-copy-v36",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-08-24",
     "previousTimingLabel": "Typical"
@@ -181,7 +181,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-chinook-push-v5",
-    "copyVersion": "river-run-copy-v35"
+    "copyVersion": "river-run-copy-v36"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -257,7 +257,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v35"
+    "copyVersion": "river-run-copy-v36"
   },
   "activity": null,
   "fishInRiver": {
@@ -279,7 +279,116 @@ const BASE_SNAPSHOT = {
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v35"
+    "copyVersion": "river-run-copy-v36"
+  },
+  "riverConditions": {
+    "riverId": "pere_marquette",
+    "status": "available",
+    "refreshedAt": "2026-09-01T19:45:00.000Z",
+    "localDate": "2026-09-01",
+    "refreshSlot": "16:00",
+    "metrics": [
+      {
+        "metric": "flow_cfs",
+        "label": "Discharge",
+        "value": 600,
+        "unit": "CFS",
+        "observedAt": "2026-09-01T19:45:00.000Z",
+        "freshness": "fresh",
+        "approvalStatus": "Provisional",
+        "sourceId": "pm_scottville_usgs",
+        "provider": "USGS",
+        "stationName": "Pere Marquette River at Scottville, MI",
+        "siteId": "04122500",
+        "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+        "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+        "trend24h": {
+          "direction": "rising",
+          "delta": 18,
+          "percentDelta": 3.1,
+          "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+        },
+        "seasonalContext": {
+          "average": 620,
+          "p10": 434,
+          "p25": 527,
+          "median": 620,
+          "p75": 713,
+          "p90": 806,
+          "comparisonLabel": "Near seasonal average",
+          "historicalYears": 86,
+          "sampleCount": 602,
+          "availableWindowDays": 7,
+          "windowRadiusDays": 3,
+          "windowStartMonthDay": "08-29",
+          "windowEndMonthDay": "09-04",
+          "recordKind": "long_term",
+          "baselineVersion": "river-live-conditions-review-baseline-v1",
+          "source": "usgs_statistics"
+        }
+      },
+      {
+        "metric": "gage_height_ft",
+        "label": "Gauge Height",
+        "value": 3.08,
+        "unit": "ft",
+        "observedAt": "2026-09-01T19:45:00.000Z",
+        "freshness": "fresh",
+        "approvalStatus": "Provisional",
+        "sourceId": "pm_scottville_usgs",
+        "provider": "USGS",
+        "stationName": "Pere Marquette River at Scottville, MI",
+        "siteId": "04122500",
+        "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+        "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+        "trend24h": {
+          "direction": "rising",
+          "delta": 0.04,
+          "percentDelta": null,
+          "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+        }
+      },
+      {
+        "metric": "water_temp_f",
+        "label": "Water Temperature",
+        "value": 60,
+        "unit": "°F",
+        "observedAt": "2026-09-01T19:45:00.000Z",
+        "freshness": "fresh",
+        "sourceId": "pm_maple_leaf_temperature",
+        "provider": "MONITOR_MY_WATERSHED",
+        "stationName": "Pere Marquette River at Maple Leaf",
+        "siteId": "Maple Leaf",
+        "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+        "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+        "trend24h": {
+          "direction": "cooling",
+          "delta": -1.2,
+          "percentDelta": null,
+          "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+        },
+        "seasonalContext": {
+          "average": 59.4,
+          "p10": 53.4,
+          "p25": 56.4,
+          "median": 59.4,
+          "p75": 62.4,
+          "p90": 65.4,
+          "comparisonLabel": "Near seasonal average",
+          "historicalYears": 5,
+          "sampleCount": 35,
+          "availableWindowDays": 7,
+          "windowRadiusDays": 3,
+          "windowStartMonthDay": "08-29",
+          "windowEndMonthDay": "09-04",
+          "recordKind": "recent",
+          "baselineVersion": "river-live-conditions-review-baseline-v1",
+          "source": "monitor_my_watershed_history"
+        }
+      }
+    ],
+    "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+    "dataVersion": "river-live-conditions-v2-review-fixture"
   },
   "gauge": {
     "provider": "USGS",
@@ -393,7 +502,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -417,7 +526,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -429,7 +538,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -508,7 +617,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-11-11T19:45:00.000Z",
+            "localDate": "2026-11-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -594,7 +812,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -619,7 +837,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -631,7 +849,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -661,7 +879,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-07-01T19:45:00.000Z",
+            "localDate": "2026-07-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-07-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-06-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-28",
+                  "windowEndMonthDay": "07-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-07-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-07-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-28",
+                  "windowEndMonthDay": "07-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -748,7 +1075,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -773,7 +1100,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -785,7 +1112,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -815,7 +1142,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-07-28T19:45:00.000Z",
+            "localDate": "2026-07-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-25",
+                  "windowEndMonthDay": "07-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-25",
+                  "windowEndMonthDay": "07-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -901,7 +1337,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -973,7 +1409,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1003,7 +1439,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1089,7 +1634,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -1179,7 +1724,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -1261,7 +1806,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-24T19:45:00.000Z",
+            "localDate": "2026-08-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-21",
+                  "windowEndMonthDay": "08-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-21",
+                  "windowEndMonthDay": "08-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1353,7 +2007,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1432,7 +2086,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-10T19:45:00.000Z",
+            "localDate": "2026-09-10",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-07",
+                  "windowEndMonthDay": "09-13",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-10T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-09T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-07",
+                  "windowEndMonthDay": "09-13",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1511,7 +2274,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1645,7 +2408,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -1727,7 +2490,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -1813,7 +2685,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -1969,7 +2841,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2051,7 +2923,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2130,7 +3111,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2286,7 +3267,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2368,7 +3349,116 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-19T19:45:00.000Z",
+            "localDate": "2026-10-19",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-16",
+                  "windowEndMonthDay": "10-22",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-16",
+                  "windowEndMonthDay": "10-22",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2447,7 +3537,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2603,7 +3693,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2618,7 +3708,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -2697,7 +3787,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2790,7 +3989,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2815,7 +4014,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2827,7 +4026,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2857,7 +4056,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-07-20T19:45:00.000Z",
+            "localDate": "2026-07-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-17",
+                  "windowEndMonthDay": "07-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-07-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-17",
+                  "windowEndMonthDay": "07-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -2944,7 +4252,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -2969,7 +4277,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2981,7 +4289,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -3011,7 +4319,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-01T19:45:00.000Z",
+            "localDate": "2026-08-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-29",
+                  "windowEndMonthDay": "08-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-29",
+                  "windowEndMonthDay": "08-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3097,7 +4514,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -3169,7 +4586,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3199,7 +4616,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3286,7 +4812,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3358,7 +4884,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3388,7 +4914,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3474,7 +5109,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3546,7 +5181,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3576,7 +5211,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3662,7 +5406,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3735,7 +5479,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3765,7 +5509,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -3851,7 +5704,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3941,7 +5794,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -4023,7 +5876,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-24T19:45:00.000Z",
+            "localDate": "2026-08-24",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-21",
+                  "windowEndMonthDay": "08-27",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-24T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-23T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-21",
+                  "windowEndMonthDay": "08-27",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4109,7 +6071,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4265,7 +6227,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4347,7 +6309,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-26T19:45:00.000Z",
+            "localDate": "2026-09-26",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-23",
+                  "windowEndMonthDay": "09-29",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-23",
+                  "windowEndMonthDay": "09-29",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4433,7 +6504,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4589,7 +6660,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4604,7 +6675,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -4683,7 +6754,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -4770,7 +6950,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4922,7 +7102,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5004,7 +7184,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-26T19:45:00.000Z",
+            "localDate": "2026-09-26",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-23",
+                  "windowEndMonthDay": "09-29",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-26T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-25T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-23",
+                  "windowEndMonthDay": "09-29",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5090,7 +7379,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5158,7 +7447,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5188,7 +7477,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5274,7 +7672,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5341,13 +7739,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
             "reasonCodes": [
+              "conditions_baseline_insufficient_years",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_baseline_insufficient_years",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5377,7 +7775,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5463,7 +7970,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5530,13 +8037,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
+              "conditions_baseline_version_mismatch",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_baseline_version_mismatch",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5566,7 +8073,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5652,7 +8268,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5719,13 +8335,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
             "reasonCodes": [
+              "conditions_baseline_window_mismatch",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_baseline_window_mismatch",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5755,7 +8371,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -5841,7 +8566,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5908,13 +8633,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable river-level reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
+              "conditions_missing_checkpoint_gauge",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_missing_checkpoint_gauge",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5944,7 +8669,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6030,7 +8864,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6097,13 +8931,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "A dependable water-temperature reading was missing when this seasonal timing read needed it.",
             "reasonCodes": [
+              "conditions_missing_checkpoint_temperature",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_missing_checkpoint_temperature",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6133,7 +8967,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6219,7 +9162,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6286,13 +9229,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "The available river and temperature readings do not line up cleanly with the long-term comparison, so the result stays blank.",
             "reasonCodes": [
+              "conditions_source_mismatch",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_source_mismatch",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6322,7 +9265,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6408,7 +9460,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6461,13 +9513,13 @@ const GROUP_SEEDS = [
             "tip": "Keep the PM section named by Migration Stage. Do not shift upstream or downstream from this timing read.",
             "detail": "Too many days are missing either river level or water temperature to make a dependable seasonal comparison.",
             "reasonCodes": [
+              "conditions_limited_source_days",
               "gauge_fresh",
               "temperature_measured",
-              "conditions_limited_source_days",
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6497,7 +9549,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -6577,7 +9738,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -6615,7 +9776,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6712,7 +9873,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6809,7 +9970,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6907,7 +10068,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7004,7 +10165,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7101,7 +10262,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7134,7 +10295,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7166,7 +10327,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7264,7 +10425,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7364,7 +10525,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7396,7 +10557,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7493,7 +10654,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7592,7 +10753,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7627,7 +10788,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7727,7 +10888,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7746,7 +10907,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7766,7 +10927,7 @@ const GROUP_SEEDS = [
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7785,7 +10946,7 @@ const GROUP_SEEDS = [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -7832,7 +10993,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7857,7 +11018,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -7869,7 +11030,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -7899,7 +11060,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-01T19:45:00.000Z",
+            "localDate": "2026-08-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-29",
+                  "windowEndMonthDay": "08-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-31T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-29",
+                  "windowEndMonthDay": "08-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -7986,7 +11256,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8010,7 +11280,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -8022,7 +11292,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -8101,7 +11371,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-11-11T19:45:00.000Z",
+            "localDate": "2026-11-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8187,7 +11566,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -8259,7 +11638,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8289,7 +11668,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8375,7 +11863,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8531,7 +12019,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -8546,7 +12034,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -8625,7 +12113,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -8698,7 +12295,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8723,7 +12320,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8748,7 +12345,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8779,7 +12376,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8804,7 +12401,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8830,7 +12427,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8855,7 +12452,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8880,7 +12477,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8905,7 +12502,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8933,7 +12530,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8961,7 +12558,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -8989,7 +12586,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -9008,7 +12605,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -9028,7 +12625,7 @@ const GROUP_SEEDS = [
               "baseline_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       }
@@ -9081,7 +12678,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -9106,7 +12703,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -9118,7 +12715,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -9155,7 +12752,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -9165,7 +12764,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -9175,7 +12776,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9185,10 +12788,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -9209,7 +12814,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-07-28T19:45:00.000Z",
+            "localDate": "2026-07-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-25",
+                  "windowEndMonthDay": "07-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-07-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-07-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "07-25",
+                  "windowEndMonthDay": "07-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9295,7 +13009,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9367,7 +13081,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9404,7 +13118,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -9414,7 +13130,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -9424,7 +13142,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9434,10 +13154,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -9458,7 +13180,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -9533,7 +13364,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -9543,7 +13376,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 25,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -9553,7 +13388,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 25,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9563,10 +13400,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Heavier precipitation can unsettle presentation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0.32
+                "precipitationIn": 0.32,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -9601,7 +13440,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -9611,7 +13452,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -9621,7 +13464,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9631,10 +13476,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -9680,7 +13527,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9814,7 +13661,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -9903,7 +13750,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -9913,7 +13762,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -9923,7 +13774,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -9933,10 +13786,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 75,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -9957,7 +13812,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10032,7 +13996,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 15,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -10042,7 +14008,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 15,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -10052,7 +14020,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 15,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10062,10 +14032,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 15,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -10111,7 +14083,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10245,7 +14217,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10335,7 +14307,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -10345,7 +14319,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -10355,7 +14331,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10365,10 +14343,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -10389,7 +14369,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10475,7 +14564,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10609,7 +14698,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10700,7 +14789,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0.3
+                "precipitationIn": 0.3,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -10710,7 +14801,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -10720,7 +14813,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -10730,10 +14825,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -10754,7 +14851,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -10840,7 +15046,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -10996,7 +15202,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11086,7 +15292,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -11096,7 +15304,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -11106,7 +15316,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11116,10 +15328,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 92,
@@ -11140,7 +15354,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-01T19:45:00.000Z",
+            "localDate": "2026-10-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-01T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-30T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-28",
+                  "windowEndMonthDay": "10-04",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11219,7 +15542,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11375,7 +15698,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11465,7 +15788,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -11475,7 +15800,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -11485,7 +15812,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11495,10 +15824,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 42,
@@ -11519,7 +15850,116 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-19T19:45:00.000Z",
+            "localDate": "2026-10-19",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-16",
+                  "windowEndMonthDay": "10-22",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-19T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-18T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-16",
+                  "windowEndMonthDay": "10-22",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11598,7 +16038,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11754,7 +16194,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11769,7 +16209,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -11856,7 +16296,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -11866,7 +16308,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -11876,7 +16320,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -11886,10 +16332,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 20,
@@ -11910,7 +16358,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -11961,15 +16518,16 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "activity": {
-            "score": 63,
+            "score": 80,
             "maximum": 100,
-            "label": "Active",
-            "headline": "Tomorrow’s PM Chinook responsiveness is active if fish are present.",
-            "detail": "Conditions support a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
+            "label": "Highly active",
+            "headline": "Tomorrow’s PM Chinook responsiveness is highly active if fish are present.",
+            "detail": "Conditions strongly support Chinook responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Moderate because one key input is missing or this is tomorrow’s outlook.",
             "tip": "Choose between 5–9 AM and 5–9 PM using actual light and access. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_tomorrow",
+              "activity_forecast",
               "activity_run_present"
             ],
             "rulesVersion": "pm-fall-chinook-activity-v7",
@@ -11981,45 +16539,53 @@ const GROUP_SEEDS = [
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 66,
-                "activityLabel": "Active",
+                "score": 84,
+                "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 56,
-                "activityLabel": "Moderate",
+                "score": 71,
+                "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 55,
-                "activityLabel": "Moderate",
+                "score": 69,
+                "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 65,
-                "activityLabel": "Active",
+                "score": 82,
+                "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -12054,7 +16620,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -12064,7 +16632,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -12074,7 +16644,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12084,10 +16656,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -12122,7 +16696,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0.01
+                "precipitationIn": 0.01,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -12132,7 +16708,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -12142,7 +16720,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12152,10 +16732,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
                 "cloudCoverPct": 80,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -12190,7 +16772,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Hourly light and weather data are unavailable.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -12200,7 +16784,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Hourly light and weather data are unavailable.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -12210,7 +16796,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Hourly light and weather data are unavailable.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12220,10 +16808,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Hourly light and weather data are unavailable.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -12260,7 +16850,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -12270,7 +16862,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -12280,7 +16874,9 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -12290,10 +16886,12 @@ const GROUP_SEEDS = [
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": null,
-                "precipitationIn": null
+                "precipitationIn": null,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       }
@@ -12345,7 +16943,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -12370,7 +16968,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -12382,7 +16980,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "not_started",
@@ -12412,7 +17010,116 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-06-30T19:45:00.000Z",
+            "localDate": "2026-06-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-27",
+                  "windowEndMonthDay": "07-03",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-06-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-06-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "06-27",
+                  "windowEndMonthDay": "07-03",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12498,7 +17205,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12570,7 +17277,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12600,7 +17307,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12686,7 +17502,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12758,7 +17574,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12823,7 +17639,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-20T19:45:00.000Z",
+            "localDate": "2026-08-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-17",
+                  "windowEndMonthDay": "08-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -12909,7 +17834,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -12999,7 +17924,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -13081,7 +18006,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-30T19:45:00.000Z",
+            "localDate": "2026-08-30",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-27",
+                  "windowEndMonthDay": "09-02",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-29T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-30T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-29T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-27",
+                  "windowEndMonthDay": "09-02",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13160,7 +18194,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13239,7 +18273,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-08T19:45:00.000Z",
+            "localDate": "2026-09-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-05",
+                  "windowEndMonthDay": "09-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-05",
+                  "windowEndMonthDay": "09-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13318,7 +18461,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13397,7 +18540,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-14T19:45:00.000Z",
+            "localDate": "2026-09-14",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13476,7 +18728,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13610,7 +18862,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13692,7 +18944,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-17T19:45:00.000Z",
+            "localDate": "2026-09-17",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-14",
+                  "windowEndMonthDay": "09-20",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-17T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-16T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-14",
+                  "windowEndMonthDay": "09-20",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -13771,7 +19132,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13905,7 +19266,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13987,7 +19348,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14073,7 +19543,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14207,7 +19677,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -14289,7 +19759,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-21T19:45:00.000Z",
+            "localDate": "2026-09-21",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-18",
+                  "windowEndMonthDay": "09-24",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-21T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-20T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-18",
+                  "windowEndMonthDay": "09-24",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14375,7 +19954,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14531,7 +20110,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14613,7 +20192,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -14692,7 +20380,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14848,7 +20536,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14930,7 +20618,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-06T19:45:00.000Z",
+            "localDate": "2026-10-06",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-06T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-05T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-03",
+                  "windowEndMonthDay": "10-09",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15009,7 +20806,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15165,7 +20962,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15247,7 +21044,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-13T19:45:00.000Z",
+            "localDate": "2026-10-13",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-13T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-12T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-10",
+                  "windowEndMonthDay": "10-16",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15326,7 +21232,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15482,7 +21388,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15564,7 +21470,116 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-20T19:45:00.000Z",
+            "localDate": "2026-10-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-17",
+                  "windowEndMonthDay": "10-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-17",
+                  "windowEndMonthDay": "10-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15643,7 +21658,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15799,7 +21814,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15814,7 +21829,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -15893,7 +21908,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-28T19:45:00.000Z",
+            "localDate": "2026-10-28",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-28T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-27T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-25",
+                  "windowEndMonthDay": "10-31",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -15980,7 +22104,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16136,7 +22260,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -16151,7 +22275,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -16230,7 +22354,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-11-08T19:45:00.000Z",
+            "localDate": "2026-11-08",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-11-08T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-07T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-05",
+                  "windowEndMonthDay": "11-11",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16317,7 +22550,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -16341,7 +22574,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -16353,7 +22586,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "complete",
@@ -16432,7 +22665,116 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-11-11T19:45:00.000Z",
+            "localDate": "2026-11-11",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-11-11T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-11-10T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "11-08",
+                  "windowEndMonthDay": "11-14",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16518,7 +22860,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16652,7 +22994,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -16734,7 +23076,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -16809,7 +23260,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -16856,7 +23307,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16990,7 +23441,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -17072,7 +23523,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17159,7 +23719,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17315,7 +23875,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -17397,7 +23957,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-05T19:45:00.000Z",
+            "localDate": "2026-10-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17477,7 +24146,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -17633,7 +24302,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -17715,7 +24384,116 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-22T19:45:00.000Z",
+            "localDate": "2026-10-22",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-19",
+                  "windowEndMonthDay": "10-25",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-19",
+                  "windowEndMonthDay": "10-25",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17795,7 +24573,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17874,7 +24652,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-14T19:45:00.000Z",
+            "localDate": "2026-09-14",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -17954,7 +24841,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -18088,7 +24975,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -18170,7 +25057,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18257,7 +25253,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -18413,7 +25409,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -18495,7 +25491,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18557,7 +25662,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           }
         }
       },
@@ -18604,7 +25709,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -18738,7 +25843,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -18820,7 +25925,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -18907,7 +26121,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19063,7 +26277,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -19145,7 +26359,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-05T19:45:00.000Z",
+            "localDate": "2026-10-05",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-05T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-04T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-02",
+                  "windowEndMonthDay": "10-08",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19225,7 +26548,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -19381,7 +26704,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -19463,7 +26786,116 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-22T19:45:00.000Z",
+            "localDate": "2026-10-22",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-19",
+                  "windowEndMonthDay": "10-25",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-22T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-21T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "10-19",
+                  "windowEndMonthDay": "10-25",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19543,7 +26975,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19622,7 +27054,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-14T19:45:00.000Z",
+            "localDate": "2026-09-14",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-14T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-13T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-11",
+                  "windowEndMonthDay": "09-17",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -19702,7 +27243,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -19836,7 +27377,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -19918,7 +27459,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20005,7 +27655,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -20161,7 +27811,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -20243,7 +27893,116 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-10-02T19:45:00.000Z",
+            "localDate": "2026-10-02",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-10-02T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-10-01T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-29",
+                  "windowEndMonthDay": "10-05",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20314,7 +28073,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -20397,7 +28156,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -20450,7 +28209,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -20584,7 +28343,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -20614,7 +28373,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20693,7 +28452,116 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-20T19:45:00.000Z",
+            "localDate": "2026-09-20",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-20T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-19T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-17",
+                  "windowEndMonthDay": "09-23",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20779,7 +28647,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -20851,7 +28719,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20878,7 +28746,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -20899,7 +28767,116 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-08-15T19:45:00.000Z",
+            "localDate": "2026-08-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-08-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-08-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "08-12",
+                  "windowEndMonthDay": "08-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -20985,7 +28962,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -21119,7 +29096,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v35",
+            "copyVersion": "river-run-copy-v36",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -21147,7 +29124,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "active_now",
@@ -21233,7 +29210,116 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "available",
+            "refreshedAt": "2026-09-15T19:45:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": 600,
+                "unit": "CFS",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 18,
+                  "percentDelta": 3.1,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 620,
+                  "p10": 434,
+                  "p25": 527,
+                  "median": 620,
+                  "p75": 713,
+                  "p90": 806,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 86,
+                  "sampleCount": 602,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "long_term",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "usgs_statistics"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": 3.08,
+                "unit": "ft",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "approvalStatus": "Provisional",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "rising",
+                  "delta": 0.04,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": 60,
+                "unit": "°F",
+                "observedAt": "2026-09-15T19:45:00.000Z",
+                "freshness": "fresh",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "cooling",
+                  "delta": -1.2,
+                  "percentDelta": null,
+                  "comparisonObservedAt": "2026-09-14T19:45:00.000Z"
+                },
+                "seasonalContext": {
+                  "average": 59.4,
+                  "p10": 53.4,
+                  "p25": 56.4,
+                  "median": 59.4,
+                  "p75": 62.4,
+                  "p90": 65.4,
+                  "comparisonLabel": "Near seasonal average",
+                  "historicalYears": 5,
+                  "sampleCount": 35,
+                  "availableWindowDays": 7,
+                  "windowRadiusDays": 3,
+                  "windowStartMonthDay": "09-12",
+                  "windowEndMonthDay": "09-18",
+                  "recordKind": "recent",
+                  "baselineVersion": "river-live-conditions-review-baseline-v1",
+                  "source": "monitor_my_watershed_history"
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": {
             "provider": "USGS",
@@ -21305,7 +29391,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishability": {
             "score": null,
@@ -21317,7 +29403,73 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "pere_marquette",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-01T19:45:00.000Z",
+            "localDate": "2026-09-01",
+            "refreshSlot": "16:00",
+            "metrics": [
+              {
+                "metric": "flow_cfs",
+                "label": "Discharge",
+                "value": null,
+                "unit": "CFS",
+                "freshness": "missing",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "stable",
+                  "delta": 0,
+                  "percentDelta": 0,
+                  "comparisonObservedAt": "2026-08-31T19:45:00.000Z"
+                }
+              },
+              {
+                "metric": "gage_height_ft",
+                "label": "Gauge Height",
+                "value": null,
+                "unit": "ft",
+                "freshness": "missing",
+                "sourceId": "pm_scottville_usgs",
+                "provider": "USGS",
+                "stationName": "Pere Marquette River at Scottville, MI",
+                "siteId": "04122500",
+                "representedReach": "Official USGS gauge in the Lower river at Scottville. It is the accepted hydraulic reference for lower-mainstem Fishability and measured river response; it does not directly measure middle- or upper-river fishing shape. Discharge is scored and gage height is context only.",
+                "attribution": "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              },
+              {
+                "metric": "water_temp_f",
+                "label": "Water Temperature",
+                "value": null,
+                "unit": "°F",
+                "freshness": "missing",
+                "sourceId": "pm_maple_leaf_temperature",
+                "provider": "MONITOR_MY_WATERSHED",
+                "stationName": "Pere Marquette River at Maple Leaf",
+                "siteId": "Maple Leaf",
+                "representedReach": "Furthest-downstream audited PMTU water-temperature station, at the approved Middle river/Upper river orientation boundary. It is the primary measured-water signal and must not be described as a lower-river temperature reading.",
+                "attribution": "Pere Marquette Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0.",
+                "trend24h": {
+                  "direction": "unknown",
+                  "delta": null,
+                  "percentDelta": null
+                }
+              }
+            ],
+            "limitation": "Flow and Fishability are based on the Lower river gauge at Scottville. The Middle river (Scottville–Maple Leaf) and Upper river (Maple Leaf–M-37) can differ and are not directly measured by that gauge.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,

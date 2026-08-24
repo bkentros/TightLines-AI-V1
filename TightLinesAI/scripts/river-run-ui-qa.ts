@@ -11,9 +11,11 @@ import {
   riverRunStateChoices,
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
+import { RIVER_RUN_BETSIE_REVIEW_GROUPS } from "../lib/riverRunBetsieReviewFixtures.generated";
 import { RIVER_RUN_MUSKEGON_REVIEW_GROUPS } from "../lib/riverRunMuskegonReviewFixtures.generated";
 import { RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS } from "../lib/riverRunMuskegonCohoReviewFixtures.generated";
 import { RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS } from "../lib/riverRunMuskegonSteelheadReviewFixtures.generated";
+import { RIVER_RUN_REVIEW_GROUPS } from "../lib/riverRunReviewFixtures.generated";
 
 const catalog: RiverRunCatalogResponse = {
   states: [
@@ -297,6 +299,139 @@ const riverRunScreen = readFileSync(
   "utf8",
 );
 
+const primitiveTabsBlock = riverRunScreen.match(
+  /const PRIMITIVE_TABS:[\s\S]*?\n\];/,
+);
+assert(primitiveTabsBlock, "Missing River Migration primitive tabs");
+assert.deepEqual(
+  [...primitiveTabsBlock[0].matchAll(/id: "([^"]+)"/g)].map((match) =>
+    match[1]
+  ),
+  ["run_stage", "activity", "fish_in_river", "fishability"],
+  "River Migration must show only Stage, Activity, Fish In River, and Fishability, in that order",
+);
+assert.match(
+  riverRunScreen,
+  /primitiveTabPosition[\s\S]*?\/ 04/,
+  "River Migration primitive navigation must report four visible reads",
+);
+assert.match(
+  riverRunScreen,
+  /TOMORROW · FORECAST[\s\S]*?Updates after[\s\S]*?midnight and shortly after 4 AM/,
+  "Tomorrow Activity must be unmistakably labeled with its refresh timing",
+);
+for (const lifecycleLabel of ["NOW", "ENDED", "UPCOMING"]) {
+  assert.match(
+    riverRunScreen,
+    new RegExp(`\\? \"${lifecycleLabel}\\"|: \"${lifecycleLabel}\\"`),
+    `Activity blocks must render the ${lifecycleLabel} lifecycle state`,
+  );
+}
+const snapshotViewBlock = riverRunScreen.match(
+  /function SnapshotView\([\s\S]*?\nfunction ActivePrimitivePanel/,
+);
+assert(snapshotViewBlock, "Missing River Migration snapshot view");
+assert.equal(
+  /snapshot\.(?:conditionsSuggest|push|pushHistory|interpretationNote)|PushHistoryDropdown|formatPreviousTimingRead/
+    .test(
+      snapshotViewBlock[0],
+    ),
+  false,
+  "Hidden Timing and Push reads must not be reachable from the result view",
+);
+assert.match(
+  riverRunScreen,
+  /RIVER_RUN_REVIEW_GROUPS\)\.filter\(\(group\) =>[\s\S]*?group\.id !== "conditions" && group\.id !== "push"/,
+  "Developer review navigation must also hide Timing and Push groups",
+);
+assert.match(
+  riverRunScreen,
+  /<LiveRiverConditionsCard[\s\S]*?<PrimitiveTabBar/,
+  "Live River Conditions must appear above the primitive navigation",
+);
+assert.match(
+  riverRunScreen,
+  /resultSnapshot\.riverConditions \?\?\s*unavailableRiverConditions\(resultSnapshot\)/,
+  "Live River Conditions must show an explicit unavailable card instead of disappearing when an older payload omits the field",
+);
+for (const group of RIVER_RUN_REVIEW_GROUPS) {
+  for (const scenario of group.scenarios) {
+    assert(
+      scenario.snapshot.riverConditions,
+      `Pere Marquette review fixture ${scenario.id} must include Live River Conditions`,
+    );
+  }
+}
+for (const group of RIVER_RUN_BETSIE_REVIEW_GROUPS) {
+  for (const scenario of group.scenarios) {
+    assert.equal(
+      scenario.snapshot.riverConditions?.status,
+      "unavailable",
+      `Betsie review fixture ${scenario.id} must show the honest no-gauge state`,
+    );
+  }
+}
+assert.match(
+  riverRunScreen,
+  /const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED \? 3 : 2;/,
+  "Primitive sticky-header indexing must account for the live conditions card",
+);
+assert.match(
+  riverRunScreen,
+  /: resultSnapshot\s*\?\s*\(\s*<View>\s*<SnapshotView[\s\S]*?<FeedbackCard[\s\S]*?<\/View>\s*\)/,
+  "Result content must use a native View so ScrollView layout props are not passed to a Fragment",
+);
+assert.match(
+  riverRunScreen,
+  /function LiveMetricTile[\s\S]*?Date avg ·[\s\S]*?liveMetricTrendCopy/,
+  "Every live metric tile must expose a date-specific average and 24-hour trend",
+);
+assert.match(
+  riverRunScreen,
+  /calendar\s+date ±3 days/,
+  "Live condition details must disclose the always-on plus-or-minus three-day baseline window",
+);
+assert.match(
+  riverRunScreen,
+  /const metricColumns = fontScale >= 1\.25 \? 1 : width >= 380 \? 3 : 2/,
+  "Live condition tiles must use three compact columns on standard phones, two on narrow phones, and one for large text",
+);
+assert.match(
+  riverRunScreen,
+  /style=\{styles\.liveConditionsSubtitle\}[\s\S]*?numberOfLines=\{1\}[\s\S]*?Compared with past years on this date\./,
+  "Gauge Read subtitle must keep its concise past-years comparison on one line",
+);
+assert.match(
+  riverRunScreen,
+  /SOURCES & DATA AGE[\s\S]*?liveMetricFreshnessCopy\(metric\)[\s\S]*?liveMetricBaselineCopy\(metric\)/,
+  "Live condition freshness and historical basis must live in the details disclosure",
+);
+assert.match(
+  riverRunScreen,
+  /liveMetricProviderLabel\(metric\.provider\)[\s\S]*?provider === "USGS" \? "USGS" : "Monitor My Watershed"/,
+  "Live condition source labels must translate internal provider enums into customer-facing names",
+);
+assert.match(
+  riverRunScreen,
+  /<\/View>\s*<Text\s+style=\{styles\.liveConditionsDetailStation\}\s+numberOfLines=\{2\}[\s\S]*?\{metric\.stationName\}/,
+  "Live condition station names must wrap on their own two-line row instead of truncating beside the freshness badge",
+);
+assert.match(
+  riverRunScreen,
+  /metric\.metric === "flow_cfs"[\s\S]*?Math\.round\(value\)[\s\S]*?metric\.metric === "gage_height_ft"[\s\S]*?value\.toFixed\(2\)[\s\S]*?value\.toFixed\(1\)/,
+  "Live condition precision must remain whole CFS, hundredths of a foot, and tenths of a degree Fahrenheit",
+);
+assert.match(
+  riverRunScreen,
+  /liveMetricComparisonPill[\s\S]*?liveMetricTrendRow/,
+  "Compact Live Condition tiles must retain seasonal comparison and 24-hour trend",
+);
+assert.match(
+  riverRunScreen,
+  /No accepted gauge or water-temperature sensor currently[\s\S]*?Modeled weather is not substituted/,
+  "Rivers without accepted sensors must receive an honest no-gauge state",
+);
+
 assert.match(
   riverRunScreen,
   /const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&[\s\S]*?process\.env\.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";/,
@@ -427,7 +562,7 @@ assert.match(
 );
 assert.match(
   homeScreen,
-  /title="River Migration"[\s\S]*?desc="Migration stage, river conditions, fishability & fish presence"[\s\S]*?descLines=\{2\}/,
+  /title="River Migration"[\s\S]*?desc="Migration stage, activity, fish presence & fishability"[\s\S]*?descLines=\{2\}/,
   "Authenticated-home River Migration description must remain concise",
 );
 assert.match(
@@ -676,8 +811,8 @@ assert.equal(
 );
 assert.match(
   riverRunScreen,
-  /function GaugeForecastDropdown[\s\S]*?GAUGE & FORECAST CONTEXT[\s\S]*?snapshot\.safety\.gaugeBasis[\s\S]*?snapshot\.secondaryNote/,
-  "Gauge basis and forecast notes must live together in a dedicated dropdown",
+  /function GaugeForecastDropdown[\s\S]*?GAUGE & FORECAST CONTEXT[\s\S]*?snapshot\.safety\.gaugeBasis[\s\S]*?Forecast weather informs Activity Outlook only; Fishability[\s\S]*?remains observation-led/,
+  "Gauge basis and visible-primitive forecast notes must live together in a dedicated dropdown",
 );
 assert.match(
   riverRunScreen,
@@ -711,11 +846,6 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /function formatPreviousTimingRead[\s\S]*?Previous timing read:[\s\S]*?previousTimingLabel[\s\S]*?formatLocalDate\(timing\.previousCheckpointDate\)/,
-  "Migration Timing must display the dated previous checkpoint read",
-);
-assert.match(
-  riverRunScreen,
   /function reviewScenarioDateCopy[\s\S]*?AUDIT ONLY[\s\S]*?State begins[\s\S]*?Push states are driven by live conditions[\s\S]*?Fishability states are driven by live flow/,
   "Review mode must expose effective or fixture dates without adding them to live cards",
 );
@@ -723,36 +853,6 @@ assert.match(
   riverRunScreen,
   /label=\{`\$\{scenario\.label\} · \$\{[\s\S]*?formatLocalDate\(scenario\.snapshot\.localDate\)/,
   "Every review-state chip must expose its audit date",
-);
-assert.match(
-  riverRunScreen,
-  /function PushHistoryDropdown[\s\S]*?todayReads[\s\S]*?TODAY&apos;S READS[\s\S]*?PREVIOUS DAYS · STRONGEST PUSH READ[\s\S]*?formatPushHistoryWindow/,
-  "Push must expose today's individual windows and prior-day strongest reads",
-);
-assert.match(
-  riverRunScreen,
-  /title=\{tab\.id === "push" \? "Current Push"[\s\S]*?formatCurrentPushWindow\(snapshot\)[\s\S]*?UPDATED/,
-  "Push must identify the current read with its local date, four-hour window, and update time",
-);
-assert.match(
-  riverRunScreen,
-  /value === "21:00" \? "20:00"[\s\S]*?\(hour \+ 4\) % 24/,
-  "The 9 PM Activity rollover must update the 8 PM-midnight Push window",
-);
-assert.equal(
-  /STRONGEST HIGH|HIGH PUSH|PEAK PUSH/i.test(riverRunScreen),
-  false,
-  "Push summaries must avoid ambiguous high or peak terminology",
-);
-assert.equal(
-  /PushHistoryDropdown[\s\S]*?\{read\.score\}/.test(riverRunScreen),
-  false,
-  "Push history must not expose internal numeric scores",
-);
-assert.match(
-  riverRunScreen,
-  /function formatLastSupportivePush[\s\S]*?Last supportive signal this season/,
-  "Push history must retain the last supportive signal as secondary context",
 );
 assert.match(
   riverRunScreen,

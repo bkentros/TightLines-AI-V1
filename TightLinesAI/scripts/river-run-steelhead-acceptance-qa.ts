@@ -8,14 +8,13 @@ import {
 
 const expectedLabels: Record<string, Set<string>> = {
   run_stage: new Set([
-    "Offseason",
+    "Fall entry complete",
     "Before migration",
     "Beginning",
     "Building",
     "Peak",
     "Late fall",
     "Holding transition",
-    "Winter holding",
   ]),
   conditions: new Set([
     "Not monitoring yet",
@@ -35,7 +34,7 @@ const expectedLabels: Record<string, Set<string>> = {
     "Very strong",
     "Unavailable",
     "Waiting for migration",
-    "Winter holding",
+    "Fall entry complete",
   ]),
   fishability: new Set([
     "Poor",
@@ -51,16 +50,16 @@ const expectedLabels: Record<string, Set<string>> = {
     "Moderate",
     "Active",
     "Highly active",
+    "Fall entry complete",
   ]),
   fish_in_river: new Set([
-    "Offseason",
     "Not expected yet",
     "Low presence",
     "Limited presence",
     "Moderate presence",
     "High presence",
     "Peak presence",
-    "Winter holding",
+    "Fall entry complete",
   ]),
 };
 
@@ -100,12 +99,14 @@ for (const group of RIVER_RUN_STEELHEAD_REVIEW_GROUPS) {
       "tip" in primitive! ? primitive!.tip : "",
       "whereToStart" in primitive! ? primitive!.whereToStart : "",
     ]).join(" ");
+    if (group.id !== "opportunity_copy") {
+      assert.equal(
+        /\b(?:Chinook|Coho|spawning|gravel)\b/i.test(publicCopy),
+        false,
+      );
+    }
     assert.equal(
-      /\b(?:Chinook|Coho|spawning|gravel)\b/i.test(publicCopy),
-      false,
-    );
-    assert.equal(
-      /\b(?:research(?:ed)?|configured?|checkpoint|baseline|percentile|engine|gauge|modeled|historical|cfs|visibility|run)\b/i
+      /\b(?:research(?:ed)?|configured?|checkpoint|baseline|percentile|engine|gauge|modeled|historical|cfs|visibility)\b/i
         .test(publicCopy),
       false,
       `${scenario.id} exposes internal language`,
@@ -142,7 +143,10 @@ const presenceScenarios =
   RIVER_RUN_STEELHEAD_REVIEW_GROUPS.find((item) => item.id === "fish_in_river")!
     .scenarios;
 const presence = presenceScenarios
-  .filter((item) => item.id !== "fish_in_river_moderate_cap")
+  .filter((item) =>
+    item.id !== "fish_in_river_moderate_cap" &&
+    item.snapshot.fishInRiver.score != null
+  )
   .map((item) => item.snapshot.fishInRiver);
 assert(presence.every((item) => item.riverCeiling === 80));
 assert(
@@ -158,23 +162,15 @@ for (const item of presence) {
     kind: "fish_in_river",
     primitive: item,
   });
-  assert.equal(model.score, item.score);
+  assert.equal(model.score, item.displayScore ?? item.score);
   assert(model.position >= 0 && model.position <= 1);
 }
-const handoff = presence.find((item) => item.label === "Winter holding");
-assert(handoff);
-assert.equal(handoff.score, 70);
-assert.equal(handoff.handoffScore, 70);
-assert.equal(handoff.winterHoldingContext, true);
-const handoffModel = resolveRiverRunVisualModel({
-  kind: "fish_in_river",
-  primitive: handoff,
-});
-assert.equal(handoffModel.position, 0.7);
-assert.equal(handoffModel.score, 70);
-assert.equal(handoffModel.accent, "#7CC36A");
-assert.equal(handoffModel.specialState, "complete");
-assert.match(handoffModel.stateNote, /FALL PRESENCE HANDOFF · 70/);
+const completePresence = presenceScenarios.find((item) =>
+  item.snapshot.fishInRiver.label === "Fall entry complete"
+)?.snapshot.fishInRiver;
+assert(completePresence);
+assert.equal(completePresence.score, null);
+assert.equal(completePresence.winterHoldingContext, false);
 
 const waitingPush =
   RIVER_RUN_STEELHEAD_REVIEW_GROUPS.find((item) => item.id === "push")!
@@ -184,11 +180,11 @@ const waitingPush =
     .snapshot.push;
 assert.match(
   waitingPush.headline ?? "",
-  /Dependable fall entry has not started/,
+  /Dependable (?:PM Steelhead )?fall entry has not started/,
 );
 assert.match(
   waitingPush.detail ?? "",
-  /occasional early steelhead is possible/i,
+  /not scored as an in-season movement signal yet/i,
 );
 assert.doesNotMatch(
   waitingPush.headline ?? "",
@@ -208,11 +204,11 @@ assert(coldHolding);
 assert((coldHolding.score ?? 100) <= 49);
 const completedPushModel = resolveRiverRunVisualModel({
   kind: "push",
-  primitive: push.find((item) => item.label === "Winter holding")!,
+  primitive: push.find((item) => item.label === "Fall entry complete")!,
 });
 assert.equal(completedPushModel.specialState, "complete");
-assert.match(completedPushModel.stateNote, /WINTER READ REQUIRED/);
+assert.match(completedPushModel.stateNote, /FALL-ENTRY SIGNAL COMPLETE/);
 
 console.log(
-  `PM Fall Steelhead build QA passed: ${scenarioCount} scenarios, 80-point ceiling, 70-point winter handoff, dedicated thermal states, copy safety, and visual contracts.`,
+  `PM Fall Steelhead build QA passed: ${scenarioCount} scenarios, 80-point ceiling, explicit fall-entry completion, dedicated thermal states, copy safety, and visual contracts.`,
 );

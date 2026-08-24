@@ -73,7 +73,6 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 59,
         ending: 49,
         taperingPenalty: 15,
@@ -283,7 +282,6 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 46,
         taperingPenalty: 15,
@@ -491,7 +489,6 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 42,
         taperingPenalty: 15,
@@ -642,7 +639,6 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 100,
       },
@@ -845,7 +841,6 @@ export const MUSKEGON_FALL_CHINOOK_RUN_PROFILE: AuditedObservedRiverRunProfile =
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 46,
         taperingPenalty: 15,
@@ -949,7 +944,6 @@ export const MUSKEGON_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
     caps: {
       noMeasuredRiverData: 69,
       noWaterTemperature: 69,
-      tomorrow: 79,
       lateRun: 100,
       ending: 42,
       taperingPenalty: 15,
@@ -1068,7 +1062,6 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 100,
       },
@@ -1293,7 +1286,6 @@ export const ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 49,
         taperingPenalty: 15,
@@ -1445,7 +1437,6 @@ export const ST_JOSEPH_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
     caps: {
       noMeasuredRiverData: 69,
       noWaterTemperature: 69,
-      tomorrow: 79,
       lateRun: 100,
       ending: 42,
       taperingPenalty: 15,
@@ -1596,7 +1587,6 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 100,
       },
@@ -1741,7 +1731,6 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     caps: {
       noMeasuredRiverData: 69,
       noWaterTemperature: 69,
-      tomorrow: 90,
       lateRun: 59,
       ending: 49,
       weatherOnlyMaximum: 95,
@@ -1865,7 +1854,6 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     caps: {
       noMeasuredRiverData: 69,
       noWaterTemperature: 69,
-      tomorrow: 90,
       lateRun: 59,
       ending: 42,
       weatherOnlyMaximum: 95,
@@ -1990,7 +1978,6 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     caps: {
       noMeasuredRiverData: 69,
       noWaterTemperature: 69,
-      tomorrow: 90,
       lateRun: 100,
       ending: 100,
       weatherOnlyMaximum: 95,
@@ -2091,7 +2078,6 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 56,
         ending: 42,
         taperingPenalty: 15,
@@ -2239,7 +2225,6 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
       caps: {
         noMeasuredRiverData: 69,
         noWaterTemperature: 69,
-        tomorrow: 79,
         lateRun: 100,
         ending: 100,
       },

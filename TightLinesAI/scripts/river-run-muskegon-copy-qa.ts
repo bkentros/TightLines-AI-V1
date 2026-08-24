@@ -85,7 +85,7 @@ for (const [species, groups] of runs) {
       for (const primitive of primitives) {
         assert.equal(
           primitive?.copyVersion,
-          "river-run-copy-v35",
+          "river-run-copy-v36",
           `${species}/${scenario.id}: stale copy version`,
         );
         assert(
@@ -121,24 +121,35 @@ for (const [species, groups] of runs) {
       }
 
       if (group.id === "activity" && snapshot.activity?.score != null) {
-        const sorted = [...snapshot.activity.blocks].sort((a, b) =>
-          b.score - a.score
+        const actionable = snapshot.activity.blocks.filter((block) =>
+          block.status !== "ended"
         );
+        const sorted = [
+          ...(actionable.length ? actionable : snapshot.activity.blocks),
+        ].sort((a, b) => b.score - a.score);
         const separated = sorted[0].score - sorted[1].score >= 3;
         if (separated) {
           assert.match(
             snapshot.activity.detail,
-            new RegExp(`${escapeRegExp(sorted[0].label)} is strongest`, "i"),
+            new RegExp(
+              `${
+                escapeRegExp(sorted[0].label)
+              } is (?:the strongest remaining window|strongest)`,
+              "i",
+            ),
           );
           assert.doesNotMatch(
             snapshot.activity.detail,
-            /leading windows, but neither/i,
+            /leading (?:remaining )?windows, but neither/i,
           );
         } else {
-          assert.doesNotMatch(snapshot.activity.detail, /\bis strongest\b/i);
+          assert.doesNotMatch(
+            snapshot.activity.detail,
+            /\bis (?:the strongest remaining window|strongest)\b/i,
+          );
           assert.match(
             snapshot.activity.detail,
-            /leading windows, but neither has a clear advantage/i,
+            /leading (?:remaining )?windows, but neither has a clear advantage/i,
           );
         }
       }

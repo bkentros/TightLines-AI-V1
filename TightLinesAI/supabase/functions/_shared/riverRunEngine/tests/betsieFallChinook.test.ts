@@ -66,7 +66,6 @@ Deno.test("Betsie Chinook Activity is capped weather context with continuous lif
     endingEnd: "11-03",
   });
   assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
-  assertEquals(run.activity?.caps.tomorrow, 90);
   const scoreFor = (
     date: string,
     stage: "peak" | "tapering" | "ending" | "post_run",

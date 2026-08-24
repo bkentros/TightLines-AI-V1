@@ -102,6 +102,7 @@
     "qa:river-run:big-manistee-coho-acceptance": "npm run check:river-run:big-manistee-coho-review-fixtures && tsx scripts/river-run-big-manistee-coho-acceptance-qa.ts",
     "qa:river-run:big-manistee-steelhead-acceptance": "npm run check:river-run:big-manistee-steelhead-review-fixtures && tsx scripts/river-run-big-manistee-steelhead-acceptance-qa.ts",
     "smoke:river-run:production": "deno run --allow-env --allow-net scripts/river-run-production-smoke.ts",
+    "smoke:river-run:live-conditions:production": "deno run --env-file=.env --allow-env --allow-net scripts/river-run-live-conditions-production-smoke.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
     "qa:google-auth-nonce": "tsx scripts/google-auth-nonce-qa.ts",

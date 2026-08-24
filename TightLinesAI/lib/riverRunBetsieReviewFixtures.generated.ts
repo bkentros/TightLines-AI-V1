@@ -54,7 +54,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -78,7 +78,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -89,7 +89,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -109,7 +109,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -131,7 +131,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-07-01T12:00:00.000Z",
+            "localDate": "2026-07-01",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -211,7 +221,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -235,7 +245,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -246,7 +256,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -266,7 +276,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -295,7 +305,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -305,7 +317,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -315,7 +329,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -325,10 +341,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -349,7 +367,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-07-28T12:00:00.000Z",
+            "localDate": "2026-07-28",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -428,7 +456,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -452,7 +480,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -463,7 +491,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -483,7 +511,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -512,7 +540,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -522,7 +552,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -532,7 +564,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -542,10 +576,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -566,7 +602,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-10T12:00:00.000Z",
+            "localDate": "2026-08-10",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -645,7 +691,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -669,7 +715,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -680,7 +726,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -700,7 +746,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -729,7 +775,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -739,7 +787,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -749,7 +799,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -759,10 +811,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 29,
@@ -783,7 +837,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-19T12:00:00.000Z",
+            "localDate": "2026-08-19",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -862,7 +926,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -886,7 +950,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -897,7 +961,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -917,7 +981,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -946,7 +1010,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -956,7 +1022,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -966,7 +1034,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -976,10 +1046,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 44,
@@ -1000,7 +1072,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-27T12:00:00.000Z",
+            "localDate": "2026-08-27",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -1079,7 +1161,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1103,7 +1185,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -1114,7 +1196,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1134,7 +1216,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -1163,7 +1245,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -1173,7 +1257,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -1183,7 +1269,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1193,10 +1281,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 69,
@@ -1217,7 +1307,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-05T12:00:00.000Z",
+            "localDate": "2026-09-05",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -1296,7 +1396,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1320,7 +1420,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -1331,7 +1431,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1351,7 +1451,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -1380,7 +1480,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -1390,7 +1492,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -1400,7 +1504,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1410,10 +1516,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -1434,7 +1542,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -1513,7 +1631,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1537,7 +1655,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -1548,7 +1666,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1568,7 +1686,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 70,
@@ -1598,7 +1716,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -1608,7 +1728,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -1618,7 +1740,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1628,10 +1752,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 92,
@@ -1652,7 +1778,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-26T12:00:00.000Z",
+            "localDate": "2026-09-26",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -1731,7 +1867,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1755,7 +1891,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -1766,7 +1902,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1786,7 +1922,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
@@ -1816,7 +1952,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -1826,7 +1964,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -1836,7 +1976,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -1846,10 +1988,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 42,
@@ -1870,7 +2014,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-14T12:00:00.000Z",
+            "localDate": "2026-10-14",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -1949,7 +2103,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1973,7 +2127,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -1984,7 +2138,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2004,7 +2158,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 46,
@@ -2034,7 +2188,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -2044,7 +2200,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -2054,7 +2212,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2064,10 +2224,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 20,
@@ -2088,7 +2250,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-23T12:00:00.000Z",
+            "localDate": "2026-10-23",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -2173,7 +2345,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2197,7 +2369,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2208,7 +2380,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2228,7 +2400,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": null,
           "fishInRiver": {
@@ -2249,7 +2421,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-11-06T12:00:00.000Z",
+            "localDate": "2026-11-06",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -2334,7 +2516,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2358,7 +2540,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2369,7 +2551,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2389,7 +2571,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -2418,7 +2600,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -2428,7 +2612,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -2438,7 +2624,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2448,10 +2636,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -2472,7 +2662,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -2557,7 +2757,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2581,7 +2781,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2592,7 +2792,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2612,7 +2812,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -2641,7 +2841,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -2651,7 +2853,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -2661,7 +2865,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2671,10 +2877,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -2695,7 +2903,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -2780,7 +2998,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2804,7 +3022,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -2815,7 +3033,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2835,7 +3053,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -2864,7 +3082,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -2874,7 +3094,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -2884,7 +3106,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -2894,10 +3118,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -2918,7 +3144,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -3004,7 +3240,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3028,7 +3264,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -3039,7 +3275,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3059,7 +3295,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 79,
@@ -3088,7 +3324,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -3098,7 +3336,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -3108,7 +3348,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3118,10 +3360,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 85,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -3142,7 +3386,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-07-28T12:00:00.000Z",
+            "localDate": "2026-07-28",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -3221,7 +3475,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3245,7 +3499,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -3256,7 +3510,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3276,7 +3530,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 62,
@@ -3305,7 +3559,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -3315,7 +3571,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -3325,7 +3583,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3335,10 +3595,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 5,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -3359,7 +3621,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-10T12:00:00.000Z",
+            "localDate": "2026-08-10",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -3438,7 +3710,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3462,7 +3734,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -3473,7 +3745,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3493,7 +3765,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 68,
@@ -3522,7 +3794,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 100,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -3532,7 +3806,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -3542,7 +3818,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Brighter conditions are the main limitation.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3552,10 +3830,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 0,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -3576,7 +3856,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-10T12:00:00.000Z",
+            "localDate": "2026-08-10",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -3655,7 +3945,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3679,7 +3969,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -3690,7 +3980,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3710,7 +4000,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 82,
@@ -3739,7 +4029,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -3749,7 +4041,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -3759,7 +4053,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3769,10 +4065,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 69,
@@ -3793,7 +4091,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-05T12:00:00.000Z",
+            "localDate": "2026-09-05",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -3872,7 +4180,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3896,7 +4204,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -3907,7 +4215,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3927,7 +4235,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 83,
@@ -3956,7 +4264,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -3966,7 +4276,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -3976,7 +4288,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -3986,10 +4300,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -4010,7 +4326,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -4089,7 +4415,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4113,7 +4439,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -4124,7 +4450,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4144,7 +4470,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 81,
@@ -4173,7 +4499,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -4183,7 +4511,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Heavier precipitation can unsettle presentation.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.4
+                "precipitationIn": 0.4,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -4193,7 +4523,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4203,10 +4535,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -4227,7 +4561,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -4306,7 +4650,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4330,7 +4674,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -4341,7 +4685,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4361,7 +4705,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 82,
@@ -4391,7 +4735,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -4401,7 +4747,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -4411,7 +4759,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4421,10 +4771,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 92,
@@ -4445,7 +4797,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-26T12:00:00.000Z",
+            "localDate": "2026-09-26",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -4524,7 +4886,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4548,7 +4910,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -4559,7 +4921,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4579,7 +4941,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 68,
@@ -4609,7 +4971,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -4619,7 +4983,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -4629,7 +4995,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4639,10 +5007,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 45,
@@ -4663,7 +5033,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-13T12:00:00.000Z",
+            "localDate": "2026-10-13",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -4742,7 +5122,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4766,7 +5146,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -4777,7 +5157,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4797,7 +5177,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 56,
@@ -4827,7 +5207,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -4837,7 +5219,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -4847,7 +5231,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -4857,10 +5243,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 21,
@@ -4881,7 +5269,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-22T12:00:00.000Z",
+            "localDate": "2026-10-22",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -4960,7 +5358,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4984,7 +5382,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -4995,7 +5393,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5015,7 +5413,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 55,
@@ -5045,7 +5443,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -5055,7 +5455,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0.02
+                "precipitationIn": 0.02,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -5065,7 +5467,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5075,10 +5479,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 20,
@@ -5099,7 +5505,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-23T12:00:00.000Z",
+            "localDate": "2026-10-23",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -5191,7 +5607,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5215,7 +5631,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -5226,7 +5642,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5246,7 +5662,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -5275,7 +5691,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -5285,7 +5703,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -5295,7 +5715,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5305,10 +5727,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -5329,7 +5753,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-09T12:00:00.000Z",
+            "localDate": "2026-08-09",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -5408,7 +5842,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5432,7 +5866,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -5443,7 +5877,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5463,7 +5897,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -5492,7 +5926,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -5502,7 +5938,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -5512,7 +5950,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5522,10 +5962,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 10,
@@ -5546,7 +5988,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-10T12:00:00.000Z",
+            "localDate": "2026-08-10",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -5625,7 +6077,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5649,7 +6101,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -5660,7 +6112,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5680,7 +6132,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -5709,7 +6161,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -5719,7 +6173,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -5729,7 +6185,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5739,10 +6197,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 25,
@@ -5763,7 +6223,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-17T12:00:00.000Z",
+            "localDate": "2026-08-17",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -5842,7 +6312,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5866,7 +6336,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -5877,7 +6347,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5897,7 +6367,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -5926,7 +6396,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -5936,7 +6408,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -5946,7 +6420,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -5956,10 +6432,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 50,
@@ -5980,7 +6458,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-08-30T12:00:00.000Z",
+            "localDate": "2026-08-30",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -6059,7 +6547,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6083,7 +6571,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -6094,7 +6582,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6114,7 +6602,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -6143,7 +6631,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -6153,7 +6643,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -6163,7 +6655,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6173,10 +6667,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 100,
@@ -6197,7 +6693,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-15T12:00:00.000Z",
+            "localDate": "2026-09-15",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -6276,7 +6782,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6300,7 +6806,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -6311,7 +6817,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6331,7 +6837,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 71,
@@ -6360,7 +6866,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -6370,7 +6878,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -6380,7 +6890,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6390,10 +6902,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 95,
@@ -6414,7 +6928,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-09-25T12:00:00.000Z",
+            "localDate": "2026-09-25",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -6493,7 +7017,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6517,7 +7041,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -6528,7 +7052,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6548,7 +7072,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 64,
@@ -6578,7 +7102,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -6588,7 +7114,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -6598,7 +7126,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6608,10 +7138,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 70,
@@ -6632,7 +7164,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-04T12:00:00.000Z",
+            "localDate": "2026-10-04",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -6711,7 +7253,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6735,7 +7277,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -6746,7 +7288,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6766,7 +7308,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 49,
@@ -6796,7 +7338,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -6806,7 +7350,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -6816,7 +7362,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -6826,10 +7374,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 25,
@@ -6850,7 +7400,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-10-20T12:00:00.000Z",
+            "localDate": "2026-10-20",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,
@@ -6929,7 +7489,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6953,7 +7513,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "push": {
             "score": null,
@@ -6964,7 +7524,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6984,7 +7544,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "activity": {
             "score": 35,
@@ -7014,7 +7574,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "09-13",
@@ -7024,7 +7586,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "13-17",
@@ -7034,7 +7598,9 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "The available light is workable in this window.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               },
               {
                 "id": "17-21",
@@ -7044,10 +7610,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
-                "precipitationIn": 0
+                "precipitationIn": 0,
+                "status": "upcoming",
+                "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
           },
           "fishInRiver": {
             "score": 0,
@@ -7068,7 +7636,17 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v35"
+            "copyVersion": "river-run-copy-v36"
+          },
+          "riverConditions": {
+            "riverId": "betsie",
+            "status": "unavailable",
+            "refreshedAt": "2026-11-03T12:00:00.000Z",
+            "localDate": "2026-11-03",
+            "refreshSlot": "00:00",
+            "metrics": [],
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
           "weather": null,

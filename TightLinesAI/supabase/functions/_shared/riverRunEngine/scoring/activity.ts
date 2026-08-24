@@ -12,6 +12,7 @@ import type {
 import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 
 export type ActivityConfidence = "Full" | "Moderate" | "Limited";
+export type ActivityBlockStatus = "upcoming" | "current" | "ended";
 
 export type ActivityWeatherHour = {
   time_local: string;
@@ -30,6 +31,8 @@ export type ActivityBlock = {
   limitingFactor: string;
   cloudCoverPct: number | null;
   precipitationIn: number | null;
+  status: ActivityBlockStatus;
+  lockedAt: string | null;
 };
 
 export type ActivityResult = {
@@ -71,6 +74,8 @@ export function scoreActivity(input: {
   fishabilityBands?: FishabilityBands;
   flowSignal: RawFlowTrendSignal;
   hourlyWeather: ActivityWeatherHour[];
+  refreshSlot?: string;
+  previousActivity?: ActivityResult | null;
   copyStrategy?: RunStageCopyStrategy;
   fallEntryComplete?: boolean;
   seasonNotStarted?: boolean;
@@ -165,6 +170,7 @@ export function scoreActivity(input: {
       ? "Moderate"
       : "Limited";
 
+  const refreshMinutes = parseRefreshMinutes(input.refreshSlot ?? "04:00");
   const blocks = BLOCKS.map((block) => {
     const hours = targetWeather.filter((hour) => {
       const parsedHour = Number(hour.time_local.slice(11, 13));
@@ -231,11 +237,6 @@ export function scoreActivity(input: {
     }
     if (input.flowBand === "blown_out") {
       score = proportionalCeiling(score, 19);
-    }
-    if (tomorrow) {
-      score = weatherOnly
-        ? Math.min(score, input.rules.caps.tomorrow)
-        : proportionalCeiling(score, input.rules.caps.tomorrow);
     }
     const floorStrength = salmonFloorStrength(
       input.rules,
@@ -349,20 +350,53 @@ export function scoreActivity(input: {
         }]
         : []),
     ].filter((factor) => factor.available).sort((a, b) => a.value - b.value);
+    const status = tomorrow
+      ? "upcoming" as const
+      : refreshMinutes >= block.end * 60
+      ? "ended" as const
+      : refreshMinutes >= block.start * 60
+      ? "current" as const
+      : "upcoming" as const;
+    const previousBlock = status === "ended" &&
+        input.previousActivity?.targetDate === input.targetDate
+      ? input.previousActivity.blocks.find((candidate) =>
+        candidate.id === block.id
+      )
+      : undefined;
     return {
       id: block.id,
       label: block.label,
-      score,
-      activityLabel: activityLabel(score),
-      positiveDriver: drivers[0]?.text ??
-        "No positive live driver is available.",
-      limitingFactor: limits[0]?.text ??
-        "No material limitation was identified.",
-      cloudCoverPct: cloud == null ? null : Math.round(cloud),
-      precipitationIn: precipitation == null ? null : round2(precipitation),
+      score: previousBlock ? previousBlock.score : score,
+      activityLabel: previousBlock
+        ? previousBlock.activityLabel
+        : activityLabel(score),
+      positiveDriver: previousBlock
+        ? previousBlock.positiveDriver
+        : drivers[0]?.text ?? "No positive live driver is available.",
+      limitingFactor: previousBlock
+        ? previousBlock.limitingFactor
+        : limits[0]?.text ?? "No material limitation was identified.",
+      cloudCoverPct: previousBlock
+        ? previousBlock.cloudCoverPct
+        : cloud == null
+        ? null
+        : Math.round(cloud),
+      precipitationIn: previousBlock
+        ? previousBlock.precipitationIn
+        : precipitation == null
+        ? null
+        : round2(precipitation),
+      status,
+      lockedAt: status === "ended"
+        ? previousBlock?.lockedAt ??
+          `${input.targetDate}T${String(block.end).padStart(2, "0")}:00:00`
+        : null,
     };
   });
   const sorted = [...blocks].sort((a, b) => b.score - a.score);
+  const actionable = blocks.filter((block) => block.status !== "ended");
+  const actionableSorted = [...actionable].sort((a, b) => b.score - a.score);
+  const copyLeaders = actionableSorted.length > 0 ? actionableSorted : sorted;
   const averageScore = blocks.reduce((total, block) => total + block.score, 0) /
     blocks.length;
   const score = Math.round(
@@ -373,7 +407,7 @@ export function scoreActivity(input: {
       input.runStage === "post_run");
   const conditionalPresence = input.staging;
   const label = activityLabel(score);
-  const copy = activityCopy({
+  const baseCopy = activityCopy({
     profile: input.rules.profile,
     scopeCopy: input.rules.scopeCopy,
     earlySeasonScopeCopy: input.rules.earlySeasonScopeCopy,
@@ -382,8 +416,8 @@ export function scoreActivity(input: {
     conditionalPresence,
     tomorrow,
     confidence,
-    bestBlock: sorted[0],
-    secondBlock: sorted[1],
+    bestBlock: copyLeaders[0],
+    secondBlock: copyLeaders[1] ?? copyLeaders[0],
     weatherOnly,
     pereMarquette: input.copyStrategy === "pere_marquette",
     betsieHomestead: input.copyStrategy === "betsie_homestead",
@@ -391,8 +425,13 @@ export function scoreActivity(input: {
     muskegon: input.copyStrategy === "muskegon_croton_tailwater",
     stJoseph: input.copyStrategy === "st_joseph_corridor",
     hasWeather,
-    blocksSeparated: hasWeather && sorted[0].score - sorted[1].score >= 3,
+    blocksSeparated: hasWeather &&
+      copyLeaders[0].score - (copyLeaders[1]?.score ?? copyLeaders[0].score) >=
+        3,
   });
+  const copy = !tomorrow && blocks.some((block) => block.status === "ended")
+    ? remainingWindowCopy(baseCopy)
+    : baseCopy;
   return {
     score,
     maximum: 100,
@@ -403,6 +442,7 @@ export function scoreActivity(input: {
     reasonCodes: [
       `activity_confidence_${confidence.toLowerCase()}`,
       tomorrow ? "activity_tomorrow" : "activity_today",
+      ...(tomorrow ? ["activity_forecast"] : []),
       conditionalPresence
         ? "activity_conditional_presence"
         : "activity_run_present",
@@ -425,6 +465,37 @@ export function scoreActivity(input: {
     blocks,
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function remainingWindowCopy<
+  T extends {
+    headline: string;
+    detail: string;
+    tip: string;
+  },
+>(copy: T): T {
+  const makeRemaining = (value: string) =>
+    value
+      .replace(/The strongest window is/g, "The strongest remaining window is")
+      .replace(
+        / is strongest because/g,
+        " is the strongest remaining window because",
+      )
+      .replace(
+        / are the leading windows/g,
+        " are the leading remaining windows",
+      );
+  return {
+    ...copy,
+    detail: makeRemaining(copy.detail),
+    tip: makeRemaining(copy.tip),
+  };
+}
+
+function parseRefreshMinutes(refreshSlot: string): number {
+  const match = /^(\d{2}):(\d{2})$/.exec(refreshSlot);
+  if (!match) return 0;
+  return Number(match[1]) * 60 + Number(match[2]);
 }
 
 function activityCopy(input: {

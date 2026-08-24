@@ -8,7 +8,7 @@ const home = readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8");
 
 assert.match(
   home,
-  /<Text style=\{styles\.howWorksEyebrow\}>NEW TO FINFINDR\?<\/Text>[\s\S]*?<Text style=\{styles\.howWorksTitle\}>How to get started<\/Text>/,
+  /style=\{styles\.howWorksEyebrow\}[\s\S]*?NEW TO FINFINDR\?[\s\S]*?style=\{styles\.howWorksTitle\}[\s\S]*?How to get started/,
   "The home entry point must clearly invite new users to get started",
 );
 
@@ -60,6 +60,12 @@ assert.match(
   guide,
   /When a supported migration is your main question, this is the primary read—not Today's Bite/,
   "River Migration must be positioned as the primary supported-migration tool",
+);
+
+assert.match(
+  guide,
+  /supported Great Lakes salmon and steelhead migrations—especially migration stage, fish presence, activity, and fishability/,
+  "River Migration guidance must describe only the four visible reads",
 );
 
 assert.doesNotMatch(

@@ -7,6 +7,8 @@ import {
   getConditionRefresh,
   getDailySnapshot,
   getLastSupportivePushConditions,
+  getLatestPriorActivity,
+  getLiveConditions,
   getPublishedConfiguration,
   getPushConditionsForDate,
   getRecentDailyPushConditions,
@@ -16,8 +18,10 @@ import {
   readConditionsSuggestBaselines,
   readGaugeBaselines,
   readTimingObservations,
+  type RiverLiveConditions,
   type RiverRunConditionsSuggestBaselineRow,
   type RiverRunGaugeBaselineRow,
+  scoreActivity,
   serializeConditionRefresh,
   serializeDailySnapshot,
   type StoredConditionRefresh,
@@ -25,6 +29,7 @@ import {
   upsertConditionRefresh,
   upsertDailySnapshot,
   upsertDraftConfiguration,
+  upsertLiveConditions,
   upsertTimingObservationFromConditionRefresh,
 } from "../index.ts";
 import type { SupabaseLikeClient } from "../storage/types.ts";
@@ -206,6 +211,40 @@ Deno.test("condition refresh upsert uses required unique-key columns", async () 
   );
 });
 
+Deno.test("river live conditions cache is species-independent and keyed by refresh slot", async () => {
+  const client = new MockSupabaseClient();
+  const conditions: RiverLiveConditions = {
+    riverId: "pere_marquette",
+    status: "available",
+    refreshedAt: "2026-09-20T20:10:00Z",
+    localDate: "2026-09-20",
+    refreshSlot: "16:00",
+    metrics: [],
+    limitation: "Scottville reach only.",
+    dataVersion: "test-live-v1",
+  };
+  await upsertLiveConditions(client, conditions);
+  assertEquals(client.upserts[0].table, "river_run_live_conditions");
+  assertEquals(
+    client.upserts[0].options?.onConflict,
+    "river_id,local_date,refresh_slot,data_version",
+  );
+
+  client.singleResponse = { data: null, error: null };
+  await getLiveConditions(client, {
+    riverId: conditions.riverId,
+    localDate: conditions.localDate,
+    refreshSlot: conditions.refreshSlot,
+    dataVersion: conditions.dataVersion,
+  });
+  assertEquals(
+    client.filters.filter((filter) =>
+      filter.table === "river_run_live_conditions"
+    ).map((filter) => filter.column),
+    ["river_id", "local_date", "refresh_slot", "data_version"],
+  );
+});
+
 Deno.test("Timing observations are stored independently of engine and copy versions", async () => {
   const client = new MockSupabaseClient();
   const refresh = storedConditionRefresh();
@@ -304,6 +343,72 @@ Deno.test("get condition refresh returns not-found cleanly", async () => {
   });
 
   assertEquals(result, { data: null, found: false, error: null });
+});
+
+Deno.test("prior Activity lookup carries the newest earlier slot across engine revisions", async () => {
+  const client = new MockSupabaseClient();
+  const targetDate = "2026-09-20";
+  const activity = scoreActivity({
+    rules: PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.activity!,
+    requestDate: targetDate,
+    targetDate,
+    runStage: "building",
+    staging: false,
+    waterTempF: 58,
+    temperatureTrend: "cooling",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "fresh",
+    flowBand: "ideal",
+    flowSignal: "stable",
+    refreshSlot: "08:00",
+    hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+      time_local: `${targetDate}T${String(hour).padStart(2, "0")}:00`,
+      cloud_cover_pct: 80,
+      shortwave_w_m2: 120,
+      clear_sky_shortwave_w_m2: 600,
+      precipitation_in: 0,
+    })),
+  });
+  client.listResponse = {
+    data: [
+      {
+        refresh_slot: "04:00",
+        condition_refresh_at: "2026-09-20T08:17:00Z",
+        activity: { ...activity, blocks: [] },
+      },
+      {
+        refresh_slot: "08:00",
+        condition_refresh_at: "2026-09-20T12:17:00Z",
+        engine_version: "older-engine",
+        activity,
+      },
+      {
+        refresh_slot: "16:00",
+        condition_refresh_at: "2026-09-20T20:17:00Z",
+        activity,
+      },
+    ],
+    error: null,
+  };
+
+  const result = await getLatestPriorActivity(client, {
+    riverId: "pere_marquette",
+    runId: "pere_marquette_fall_chinook",
+    localDate: targetDate,
+    beforeRefreshSlot: "12:00",
+    targetDate,
+  });
+
+  assertEquals(result.data, activity);
+  assertEquals(result.found, true);
+  assertEquals(
+    client.filters.map(({ column, value }) => ({ column, value })),
+    [
+      { column: "river_id", value: "pere_marquette" },
+      { column: "run_id", value: "pere_marquette_fall_chinook" },
+      { column: "local_date", value: targetDate },
+    ],
+  );
 });
 
 Deno.test("supportive Push history survives engine and configuration changes when its rules are compatible", async () => {

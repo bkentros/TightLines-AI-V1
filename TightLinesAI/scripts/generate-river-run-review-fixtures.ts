@@ -10,6 +10,7 @@ import {
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+  PERE_MARQUETTE_RIVER_PROFILE,
   type PrimitiveDisplay,
   resolveActiveRunWindow,
   resolveConditionsSuggestCheckpoints,
@@ -32,6 +33,7 @@ import type {
   RiverRunSnapshotResponse,
   RiverRunStage,
 } from "../lib/riverRunContracts.ts";
+import { buildReviewLiveConditionsFixture } from "./river-run-review-live-conditions-fixture.ts";
 
 type Scenario = {
   id: string;
@@ -1188,6 +1190,16 @@ function snapshotScenario(input: {
       fishability,
       activity: input.activity ?? null,
       fishInRiver,
+      riverConditions: buildReviewLiveConditionsFixture({
+        river: PERE_MARQUETTE_RIVER_PROFILE,
+        localDate,
+        refreshSlot: "16:00",
+        refreshedAt: `${localDate}T19:45:00.000Z`,
+        flowCfs: input.missingSources ? null : 600,
+        flowDelta24h: input.missingSources ? null : 18,
+        flowPercentDelta24h: input.missingSources ? null : 3.1,
+        waterTempF: input.missingSources ? null : 60,
+      }),
       gauge: input.missingSources ? null : {
         provider: "USGS",
         siteId: "04122500",

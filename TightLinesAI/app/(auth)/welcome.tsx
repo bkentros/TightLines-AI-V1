@@ -98,7 +98,7 @@ const FEATURES: {
     moduleId: "river-run",
     title: "River Migration",
     tag: "MIGRATION",
-    blurb: "Migration stage, river conditions, fishability, and estimated fish presence.",
+    blurb: "Migration stage, activity, estimated fish presence, and fishability.",
     iconBg: ["#FBE4E1", "#F3C2BC"],
     iconBorder: "#C0392B",
     iconColor: "#9A2B20",

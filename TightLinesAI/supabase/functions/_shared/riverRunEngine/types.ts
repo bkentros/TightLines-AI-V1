@@ -146,7 +146,6 @@ export type ActivityRules = {
   caps: {
     noMeasuredRiverData: number;
     noWaterTemperature: number;
-    tomorrow: number;
     lateRun: number;
     ending: number;
     /** True upper bound for weather-only scoring; unlike data ceilings, it is not a multiplier. */
@@ -252,8 +251,85 @@ export type WaterTemperatureSourceConfig = {
   maxRateChangeFPerHour: number;
   maxPeerDifferenceF: number;
   adjustmentF?: number;
+  /** Fixed audited record used when the provider does not publish normals. */
+  historicalStartYear?: number;
+  /** Fixed audited record used when the provider does not publish normals. */
+  historicalEndYear?: number;
   reachNotes: string;
   attribution: string;
+};
+
+export type RiverLiveMetricId =
+  | "flow_cfs"
+  | "gage_height_ft"
+  | "water_temp_f";
+
+export type RiverLiveMetricFreshness =
+  | "fresh"
+  | "delayed"
+  | "older_than_24h"
+  | "missing";
+
+export type RiverLiveMetricTrendDirection =
+  | "rising"
+  | "falling"
+  | "warming"
+  | "cooling"
+  | "stable"
+  | "unknown";
+
+export type RiverLiveSeasonalContext = {
+  average: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  comparisonLabel?: string;
+  historicalYears: number;
+  sampleCount: number;
+  availableWindowDays: number;
+  windowRadiusDays: 3;
+  windowStartMonthDay: string;
+  windowEndMonthDay: string;
+  recordKind: "long_term" | "recent";
+  baselineVersion: string;
+  source: "usgs_statistics" | "monitor_my_watershed_history";
+};
+
+export type RiverLiveConditionMetric = {
+  metric: RiverLiveMetricId;
+  label: string;
+  value: number | null;
+  unit: "CFS" | "ft" | "°F";
+  observedAt?: string;
+  freshness: RiverLiveMetricFreshness;
+  approvalStatus?: string;
+  qualifier?: string;
+  sourceId: string;
+  provider: "USGS" | "MONITOR_MY_WATERSHED";
+  stationName: string;
+  siteId: string;
+  representedReach: string;
+  attribution: string;
+  trend24h: {
+    direction: RiverLiveMetricTrendDirection;
+    delta: number | null;
+    percentDelta: number | null;
+    comparisonObservedAt?: string;
+  };
+  seasonalContext?: RiverLiveSeasonalContext;
+};
+
+export type RiverLiveConditions = {
+  riverId: string;
+  status: "available" | "partial" | "unavailable";
+  refreshedAt: string;
+  localDate: string;
+  refreshSlot: string;
+  metrics: RiverLiveConditionMetric[];
+  limitation: string;
+  dataVersion: string;
 };
 
 export type WeatherPointConfig = {

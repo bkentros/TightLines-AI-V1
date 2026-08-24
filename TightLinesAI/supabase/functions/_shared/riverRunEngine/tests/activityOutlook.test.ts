@@ -212,7 +212,7 @@ Deno.test("PM Activity keeps missing-weather copy separate from a near tie", () 
   assertEquals(/leading windows/i.test(result.detail), false);
 });
 
-Deno.test("PM Chinook Activity switches to tomorrow and caps forecast certainty", () => {
+Deno.test("PM Chinook Activity switches to a clearly identified uncapped tomorrow forecast", () => {
   const result = scoreActivity({
     rules,
     requestDate: "2026-09-10",
@@ -229,7 +229,12 @@ Deno.test("PM Chinook Activity switches to tomorrow and caps forecast certainty"
   });
   assertEquals(result.targetDayLabel, "Tomorrow");
   assertEquals(result.confidence, "Moderate");
-  assert(result.blocks.every((block) => block.score <= rules.caps.tomorrow));
+  assertEquals(result.reasonCodes.includes("activity_forecast"), true);
+  assertEquals(
+    result.blocks.every((block) => block.status === "upcoming"),
+    true,
+  );
+  assertEquals(result.blocks.every((block) => block.lockedAt === null), true);
 });
 
 Deno.test("late Chinook biology and missing measurements prevent false highs", () => {
@@ -966,7 +971,7 @@ Deno.test("late salmon best-case conditions remain biologically bounded and expl
   }
 });
 
-Deno.test("tomorrow Activity uses only target-day weather and remains forecast-capped", () => {
+Deno.test("tomorrow Activity uses only target-day weather without an artificial score cap", () => {
   const today = "2026-10-15";
   const tomorrow = "2026-10-16";
   const result = scoreActivity({
@@ -1000,8 +1005,114 @@ Deno.test("tomorrow Activity uses only target-day weather and remains forecast-c
   assertEquals(result, tomorrowOnly);
   assertEquals(result.targetDayLabel, "Tomorrow");
   assertEquals(result.confidence, "Moderate");
-  assert(
-    result.blocks.every((block) => block.score <= steelheadRules.caps.tomorrow),
-  );
+  assert(result.blocks.some((block) => block.score > 79));
   assertMatch(result.headline, /Tomorrow/i);
+});
+
+Deno.test("ended Activity blocks retain their last actionable score and evidence", () => {
+  const date = "2026-09-10";
+  const common = {
+    rules,
+    requestDate: date,
+    targetDate: date,
+    runStage: "building" as const,
+    staging: false,
+    waterTempF: 58,
+    temperatureTrend: "cooling" as const,
+    gaugeFreshness: "fresh" as const,
+    weatherFreshness: "fresh" as const,
+    flowBand: "ideal" as const,
+    flowSignal: "meaningful_rise" as const,
+  };
+  const eightAm = scoreActivity({
+    ...common,
+    refreshSlot: "08:00",
+    hourlyWeather: weather(date, 100),
+  });
+  const noon = scoreActivity({
+    ...common,
+    refreshSlot: "12:00",
+    previousActivity: eightAm,
+    hourlyWeather: weather(date, 0),
+  });
+
+  assertEquals(eightAm.blocks.map((block) => block.status), [
+    "current",
+    "upcoming",
+    "upcoming",
+    "upcoming",
+  ]);
+  assertEquals(noon.blocks.map((block) => block.status), [
+    "ended",
+    "current",
+    "upcoming",
+    "upcoming",
+  ]);
+  assertEquals(noon.blocks[0], {
+    ...eightAm.blocks[0],
+    status: "ended",
+    lockedAt: `${date}T09:00:00`,
+  });
+  assert(noon.blocks[1].score !== eightAm.blocks[1].score);
+  assertMatch(`${noon.detail} ${noon.tip}`, /remaining/i);
+});
+
+Deno.test("Activity transitions from the 21:00 forecast through midnight and the pre-dawn read", () => {
+  const today = "2026-09-10";
+  const tomorrow = "2026-09-11";
+  const common = {
+    rules,
+    runStage: "building" as const,
+    staging: false,
+    waterTempF: 58,
+    temperatureTrend: "cooling" as const,
+    gaugeFreshness: "fresh" as const,
+    weatherFreshness: "fresh" as const,
+    flowBand: "ideal" as const,
+    flowSignal: "stable" as const,
+    hourlyWeather: weather(tomorrow, 85),
+  };
+  const ninePm = scoreActivity({
+    ...common,
+    requestDate: today,
+    targetDate: tomorrow,
+    refreshSlot: "21:00",
+  });
+  const midnight = scoreActivity({
+    ...common,
+    requestDate: tomorrow,
+    targetDate: tomorrow,
+    refreshSlot: "00:00",
+  });
+  const fourAm = scoreActivity({
+    ...common,
+    requestDate: tomorrow,
+    targetDate: tomorrow,
+    refreshSlot: "04:00",
+  });
+  const eightAm = scoreActivity({
+    ...common,
+    requestDate: tomorrow,
+    targetDate: tomorrow,
+    refreshSlot: "08:00",
+  });
+
+  assertEquals(ninePm.targetDayLabel, "Tomorrow");
+  assertEquals(ninePm.confidence, "Moderate");
+  assertEquals(ninePm.reasonCodes.includes("activity_forecast"), true);
+  assertEquals(midnight.targetDayLabel, "Today");
+  assertEquals(midnight.confidence, "Full");
+  assertEquals(
+    midnight.blocks.every((block) => block.status === "upcoming"),
+    true,
+  );
+  assertEquals(
+    fourAm.blocks.every((block) => block.status === "upcoming"),
+    true,
+  );
+  assertEquals(eightAm.blocks[0].status, "current");
+  assertEquals(
+    eightAm.blocks.slice(1).every((block) => block.status === "upcoming"),
+    true,
+  );
 });

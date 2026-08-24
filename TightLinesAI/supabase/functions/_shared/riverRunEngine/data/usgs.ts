@@ -72,6 +72,7 @@ export async function fetchUsgsInstantaneousValues(input: {
     });
     const response = await input.fetchFn(
       `${USGS_CONTINUOUS_URL}?${params.toString()}`,
+      usgsApiRequestInit(),
     );
     if (!response.ok) return null;
     return await response.json();
@@ -85,6 +86,15 @@ export async function fetchUsgsInstantaneousValues(input: {
       )
     ),
   };
+}
+
+export function usgsApiRequestInit(): RequestInit | undefined {
+  try {
+    const apiKey = Deno.env.get("USGS_WATERDATA_API_KEY")?.trim();
+    return apiKey ? { headers: { "X-Api-Key": apiKey } } : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 export function parseUsgsInstantaneousValues(

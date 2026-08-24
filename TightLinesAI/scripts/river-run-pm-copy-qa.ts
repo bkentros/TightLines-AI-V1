@@ -128,7 +128,7 @@ function auditDisplay(
   check(wordCount(tip) <= 36, `${id}: Guide's Read exceeds 36 words`);
   check(guideOpening.test(tip), `${id}: Guide's Read lacks a direct opening`);
   check(
-    display.copyVersion === "river-run-copy-v35",
+    display.copyVersion === "river-run-copy-v36",
     `${id}: stale copy version`,
   );
   check(!foreignCopy.test(publicCopy), `${id}: foreign river geography leaked`);
@@ -224,7 +224,9 @@ function auditDisplay(
     if (hasHourlyWeather && ranked[0].score - ranked[1].score >= 3) {
       check(
         detail.includes(ranked[0].label) &&
-          /is strongest because/i.test(detail),
+          /is (?:the strongest remaining window|strongest) because/i.test(
+            detail,
+          ),
         `${id}: separated strongest block is not explained`,
       );
     }

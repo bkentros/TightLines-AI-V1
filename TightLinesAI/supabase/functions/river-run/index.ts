@@ -13,6 +13,7 @@ import {
   getConditionRefresh,
   getDailySnapshot,
   getLastSupportivePushConditions,
+  getLatestPriorActivity,
   getPrimaryHydraulicSource,
   getPrimaryWeatherPoint,
   getPushConditionsForDate,
@@ -33,6 +34,7 @@ import {
   PUSH_SUPPORTIVE_SCORE_MINIMUM,
   type PushWindowConditions,
   readConditionsSuggestBaselines,
+  readOrBuildRiverLiveConditions,
   readTimingObservations,
   type RecentDailyPushConditions,
   type RefreshSlot,
@@ -44,6 +46,9 @@ import {
   resolveWaterTemperatureRead,
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
+  type RiverLiveConditions,
+  type RiverLiveMetricId,
+  type RiverLiveSeasonalContext,
   type RiverProfile,
   type RiverRunConditionRefresh,
   type RiverRunConditionsSuggestBaseline,
@@ -72,7 +77,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.9.5";
+const ENGINE_VERSION = "river-run-v1.11.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -112,6 +117,9 @@ export type RiverRunHandlerDeps = {
     NormalizedWaterTemperatureObservation[]
   >;
   weatherSnapshot?: Record<string, unknown>;
+  seasonalContextsByMetric?: Partial<
+    Record<RiverLiveMetricId, RiverLiveSeasonalContext | null>
+  >;
   now?: Date;
   engineVersion?: string;
   configVersion?: string;
@@ -375,6 +383,14 @@ export async function handleRiverRunRequest(
     deps.now ?? new Date(),
     deps.allowTestOverrides === true,
   );
+  const liveConditionsTiming = resolveRiverLiveConditionsTiming({
+    url,
+    river,
+    runs: deps.runs ?? RIVER_RUN_RUN_PROFILES,
+    fallbackRun: run,
+    now: deps.now ?? new Date(),
+    allowTestOverrides: deps.allowTestOverrides === true,
+  });
   const freeTrialKey: FreeRiverRunTrialKey = {
     riverId,
     runId,
@@ -404,19 +420,34 @@ export async function handleRiverRunRequest(
     return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
   try {
-    const result = await readOrBuildSnapshot({
-      client,
-      river,
-      run,
-      timing,
-      engineVersion,
-      configVersion,
-      fetchFn: deps.fetchFn ?? fetch,
-      gaugeObservations: deps.gaugeObservations,
-      waterTemperatureObservationsBySource:
-        deps.waterTemperatureObservationsBySource,
-      weatherSnapshot: deps.weatherSnapshot,
-    });
+    const providerFetch = deps.fetchFn ?? fetch;
+    const [result, riverConditions] = await Promise.all([
+      readOrBuildSnapshot({
+        client,
+        river,
+        run,
+        timing,
+        engineVersion,
+        configVersion,
+        fetchFn: providerFetch,
+        gaugeObservations: deps.gaugeObservations,
+        waterTemperatureObservationsBySource:
+          deps.waterTemperatureObservationsBySource,
+        weatherSnapshot: deps.weatherSnapshot,
+      }),
+      readOrBuildRiverLiveConditions({
+        client,
+        river,
+        localDate: liveConditionsTiming.localDate,
+        refreshSlot: liveConditionsTiming.refreshSlot,
+        refreshAtUtc: liveConditionsTiming.refreshAtUtc,
+        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+        gaugeObservations: deps.gaugeObservations,
+        waterTemperatureObservationsBySource:
+          deps.waterTemperatureObservationsBySource,
+        seasonalContextsByMetric: deps.seasonalContextsByMetric,
+      }),
+    ]);
     const pushHistory = await resolvePushHistoryContext({
       client,
       dailySnapshot: result.dailySnapshot,
@@ -445,6 +476,7 @@ export async function handleRiverRunRequest(
         timing,
         pushHistory,
         presentation,
+        riverConditions,
       }),
       accessTier: tier === "free" ? "free_trial" : "angler",
     });
@@ -754,22 +786,45 @@ async function handleInternalRefresh(
       now,
       false,
     );
+    const liveConditionsTiming = resolveRiverLiveConditionsTiming({
+      url: new URL(req.url),
+      river: target.river,
+      runs: deps.runs,
+      fallbackRun: target.run,
+      now,
+      allowTestOverrides: false,
+    });
     try {
-      const snapshot = await readOrBuildSnapshot({
-        client,
-        river: target.river,
-        run: target.run,
-        timing,
-        engineVersion: deps.engineVersion,
-        configVersion: deps.configVersion ??
-          deps.configVersionByRun.get(target.run.runId) ??
-          CONFIG_VERSION,
-        fetchFn: deps.fetchFn ?? fetch,
-        gaugeObservations: deps.gaugeObservations,
-        waterTemperatureObservationsBySource:
-          deps.waterTemperatureObservationsBySource,
-        weatherSnapshot: deps.weatherSnapshot,
-      });
+      const providerFetch = deps.fetchFn ?? fetch;
+      const [snapshot, riverConditions] = await Promise.all([
+        readOrBuildSnapshot({
+          client,
+          river: target.river,
+          run: target.run,
+          timing,
+          engineVersion: deps.engineVersion,
+          configVersion: deps.configVersion ??
+            deps.configVersionByRun.get(target.run.runId) ??
+            CONFIG_VERSION,
+          fetchFn: providerFetch,
+          gaugeObservations: deps.gaugeObservations,
+          waterTemperatureObservationsBySource:
+            deps.waterTemperatureObservationsBySource,
+          weatherSnapshot: deps.weatherSnapshot,
+        }),
+        readOrBuildRiverLiveConditions({
+          client,
+          river: target.river,
+          localDate: liveConditionsTiming.localDate,
+          refreshSlot: liveConditionsTiming.refreshSlot,
+          refreshAtUtc: liveConditionsTiming.refreshAtUtc,
+          fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+          gaugeObservations: deps.gaugeObservations,
+          waterTemperatureObservationsBySource:
+            deps.waterTemperatureObservationsBySource,
+          seasonalContextsByMetric: deps.seasonalContextsByMetric,
+        }),
+      ]);
       results.push({
         riverId: target.river.riverId,
         runId: target.run.runId,
@@ -779,6 +834,7 @@ async function handleInternalRefresh(
         dataQuality: snapshot.condition.dataQuality.label,
         gaugeFreshness: snapshot.condition.freshness.gauge,
         weatherFreshness: snapshot.condition.freshness.weather,
+        liveConditionsStatus: riverConditions.status,
       });
     } catch (error) {
       failed++;
@@ -1069,13 +1125,23 @@ async function readOrBuildConditionRefresh(input: {
     return cached.data;
   }
 
+  const activityTargetDate = input.refreshSlot >= "21:00"
+    ? addDays(input.localDate, 1)
+    : input.localDate;
+  const previousActivityResult = await getLatestPriorActivity(input.client, {
+    riverId: input.river.riverId,
+    runId: input.run.runId,
+    localDate: input.localDate,
+    beforeRefreshSlot: input.refreshSlot,
+    targetDate: activityTargetDate,
+  });
+  throwOnStorageError("read prior Activity", previousActivityResult.error);
+  const previousActivity = previousActivityResult.data;
+
   const allCurrentPrimitivesUnavailable =
     input.run.primitiveCapabilities.push.status === "unavailable" &&
     input.run.primitiveCapabilities.fishability.status === "unavailable";
   if (allCurrentPrimitivesUnavailable) {
-    const activityTargetDate = input.refreshSlot >= "21:00"
-      ? addDays(input.localDate, 1)
-      : input.localDate;
     const activityTargetStage = resolveRunStage(input.run, activityTargetDate);
     const activityActive =
       input.run.primitiveCapabilities.activity?.status === "available" &&
@@ -1118,6 +1184,7 @@ async function readOrBuildConditionRefresh(input: {
             activityTargetDate,
             activityTargetStage.window.startDate,
           ) < 0,
+      previousActivity,
       gaugeFreshness: "missing",
       weatherFreshness: weather.weatherFreshness,
       waterTemperatureFreshness: "missing",
@@ -1234,9 +1301,6 @@ async function readOrBuildConditionRefresh(input: {
     conditionsWaterTemperature,
     weather,
   });
-  const activityTargetDate = input.refreshSlot >= "21:00"
-    ? addDays(input.localDate, 1)
-    : input.localDate;
   const activityTargetStage = resolveRunStage(observedRun, activityTargetDate);
   const activityActive = compareLocalDates(
         activityTargetDate,
@@ -1265,6 +1329,7 @@ async function readOrBuildConditionRefresh(input: {
           activityTargetDate,
           activityTargetStage.window.startDate,
         ) < 0,
+    previousActivity,
     ...conditionInputs,
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
@@ -1427,6 +1492,7 @@ function shapeSnapshotResponse(input: {
     refreshAtUtc: string;
     refreshSlot: RefreshSlot;
   };
+  riverConditions: RiverLiveConditions;
 }) {
   const next = resolveNextConditionRefresh({
     localDate: input.timing.localDate,
@@ -1455,6 +1521,7 @@ function shapeSnapshotResponse(input: {
     fishability: input.condition.fishability,
     activity: input.condition.activity,
     fishInRiver: input.dailySnapshot.fishInRiver,
+    riverConditions: input.riverConditions,
     gauge: input.condition.sourceMetrics.gauge,
     weather: input.condition.sourceMetrics.weather,
     waterTemperature: input.condition.sourceMetrics.waterTemperature,
@@ -1649,6 +1716,32 @@ function resolveRequestTiming(
     refreshAtUtc,
     refreshSlot: latest.refreshSlot,
   };
+}
+
+function resolveRiverLiveConditionsTiming(input: {
+  url: URL;
+  river: RiverProfile;
+  runs: RiverRunProfile[];
+  fallbackRun: RiverRunProfile;
+  now: Date;
+  allowTestOverrides: boolean;
+}): RequestTiming {
+  const riverRuns = input.runs.filter((run) =>
+    run.riverId === input.river.riverId
+  );
+  const candidates = (riverRuns.length ? riverRuns : [input.fallbackRun]).map(
+    (run) =>
+      resolveRequestTiming(
+        input.url,
+        input.river,
+        run,
+        input.now,
+        input.allowTestOverrides,
+      ),
+  );
+  return candidates.reduce((latest, candidate) =>
+    candidate.refreshSlot > latest.refreshSlot ? candidate : latest
+  );
 }
 
 function localDateInTz(timezone: string, date: Date): string {
