@@ -1,0 +1,175 @@
+# White River River Run Foundation
+
+**River ID:** `white`
+**State:** `MI`
+**Created / researched:** 2026-08-24
+**Status:** `owner_review_required`
+**Owner section approval:** `pending`
+
+> Phase A/B packet only. Do not configure runs, write state copy, add this river
+> to a runtime registry, deploy, or publicly enable it until the owner approves
+> the geography, species capabilities, and split-reach source strategy.
+
+## 1. Identity and corridor
+
+| Field | Researched value | Evidence ID | Status |
+| --- | --- | --- | --- |
+| Public river name | White River (the White Lake/Lake Michigan tributary in west-central Lower Michigan) | E-001, E-002 | verified |
+| State/jurisdictions | Michigan; Newaygo, Oceana, and Muskegon counties; lower public corridor is in Oceana and Muskegon counties; MDNR fisheries jurisdiction; USFS, municipal, township, and private lands occur along the corridor | E-001, E-002, E-005 | verified |
+| IANA timezone | `America/Detroit` | E-011 | verified |
+| Mouth waterbody | White Lake, a drowned river-mouth lake connected to Lake Michigan near Whitehall and Montague | E-001, E-002 | verified |
+| Mouth coordinates | Approx. 43.42251, -86.33701 at the river/White Lake transition; use Covell Park/Business US-31 as the recognizable product endpoint, not a marsh-channel coordinate | E-001, E-012 | qualified |
+| Downstream product boundary | Covell Park at the Business US-31 White River bridge, Whitehall (43.41379, -86.35087); immediately upstream of White Lake | E-001, E-004, E-012 | **owner approval required** |
+| Upstream migratory/product boundary | Downstream face of Hesperia Dam, Village of Hesperia | E-001, E-003 | verified biological limit; **owner wording approval required** |
+| Migratory corridor | 33 mainstem miles from White Lake to Hesperia Dam; the lower six miles are low-gradient and influenced by White Lake/Lake Michigan levels | E-001 | verified |
+| Whole river context | About 89.8 miles from Oxford Swamp headwaters to Lake Michigan; product scope is only the 33-mile accessible lower corridor | E-001, E-002 | verified |
+
+Flow direction is generally southwest from Hesperia through the lower river,
+then into White Lake and Lake Michigan. Lake-run fish enter through White Lake.
+
+## 2. Proposed public sections
+
+These are orientation ranges, not access or safety promises. They deliberately
+use three landmarks documented by agencies/operators rather than technical
+river miles.
+
+| Section ID | Proposed public label | Downstream boundary | Upstream boundary | Order | Migration access by species | Source coverage | Evidence IDs |
+| --- | --- | --- | --- | ---: | --- | --- | --- |
+| `lower_river` | Lower river | Covell Park / Business US-31 White River bridge | Fruitvale Road bridge / USGS 04122200 | 1 | Chinook: yes; Coho: yes but run is sparse; Steelhead: yes | Lower endpoint is lake-influenced; USGS hydraulics apply at the upstream endpoint and nearby free-flowing mainstem, not White Lake backwater | E-001, E-004, E-006, E-012 |
+| `forest_corridor` | Forest corridor | Fruitvale Road bridge / USGS 04122200 | Pines Point Campground river access | 2 | Chinook: yes; Coho: yes but sparse; Steelhead: yes | No accepted whole-section gauge; Fruitvale hydraulics are lower-end context only | E-001, E-004, E-006 |
+| `upper_accessible_corridor` | Upper accessible corridor | Pines Point Campground river access | Hesperia Dam downstream face | 3 | Chinook: yes below dam; Coho: yes below dam but sparse; Steelhead: yes below dam; no species has current passage at the dam | Weaver Street measured temperature represents only the immediate Hesperia tailwater | E-001, E-003, E-004, E-008 |
+
+Exact owner approval requested:
+
+- `Lower river — Covell Park/Business US-31 to Fruitvale Road`
+- `Forest corridor — Fruitvale Road to Pines Point`
+- `Upper accessible corridor — Pines Point to Hesperia Dam`
+- River Run guidance ends at the downstream face of Hesperia Dam.
+- White Lake may be named as entry/mouth context, but is outside the scored
+  river corridor.
+- Do not use `upper river` without `accessible`, and do not name water above
+  Hesperia Dam in fall-run starting guidance.
+
+## 3. Mandatory barrier, passage, closure, and upstream-limit inventory
+
+| Barrier ID | Official / alternate names | Type / status | Reach / location | Chinook passage | Coho passage | Steelhead passage | Public upstream limit | Closure / regulation | Last verified | Evidence IDs | Confidence |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `hesperia_dam` | Hesperia Dam; Hesperia Pond Dam; historic power/mill dam | Active municipal dam and Sea Lamprey barrier; reconstructed after failures; no fish-passage facility; repair/rebuild and future passage remain under discussion | Mainstem/South Branch in Village of Hesperia, approx. 43.5706, -86.0445 | No current passage | No current passage | No current passage | **Yes** | No separate dam exclusion zone found in the 2026 guide; current Type 4 and special-lure rules still apply below it. Reverify notices before release. | 2026-08-24 | E-001, E-003, E-005 | confirmed current limit |
+| `white_cloud_dam` | White Cloud Dam / Lake White Cloud Dam | Active structure above Hesperia; impoundment drawn down to base flow in 2025 because of structural deficiencies; repair/removal decision unresolved | Mainstem about 27 miles above Hesperia | Not reachable because Hesperia blocks first | Same | Same | No; outside public corridor | None material to lower River Run found; status can affect downstream temperature and must be rechecked | 2026-08-24 | E-001, E-003 | confirmed outside corridor; future status unresolved |
+| `historic_chinook_weir` | 1983 White River Chinook harvest weir | Temporary, removed; installed just upstream of White Lake only in fall 1983 and never operated again | Lower river near White Lake | No current effect | No current effect | No current effect | No | No current closure | 2026-08-24 | E-001 | confirmed historic only |
+| `silver_creek_dam` | Dam on Silver Creek; official structure name not supplied by current MDNR report | Active tributary barrier documented by MDNR | Accessible lower-river tributary | Blocks upper tributary | Blocks upper tributary | Blocks upper tributary | No mainstem effect; do not recommend unnamed tributary water | None found | 2026-08-24 | E-001 | qualified; exact structure metadata unresolved |
+| `sand_creek_dam` | Dam on Sand Creek; official structure name not supplied by current MDNR report | Active tributary barrier documented by MDNR | Accessible lower-river tributary | Blocks upper tributary | Blocks upper tributary | Blocks upper tributary | No mainstem effect; do not recommend unnamed tributary water | None found | 2026-08-24 | E-001 | qualified; exact structure metadata unresolved |
+| `cleveland_creek_dam` | Dam on Cleveland Creek; official structure name not supplied by current MDNR report | Active tributary barrier documented by MDNR | Accessible lower-river tributary | Blocks upper tributary | Blocks upper tributary | Blocks upper tributary | No mainstem effect; do not recommend unnamed tributary water | None found | 2026-08-24 | E-001 | qualified; exact structure metadata unresolved |
+
+No natural falls or rapids barrier is documented on the 33-mile mainstem
+corridor in the current MDNR survey, Natural River materials, current
+regulations, or access map reviewed. This is not a claim that no small habitat
+obstruction ever exists. Temporary woody debris and access closures are outside
+this biological inventory and must be checked at release.
+
+Species-specific conclusion: all three candidate salmonids use the corridor
+below Hesperia. All three stop at the dam today. MDNR explicitly calls for any
+future rebuild to pass Steelhead, Chinook, and Coho while retaining Sea Lamprey
+control; that proposal is not current passage.
+
+## 4. Current regulations and access scope
+
+| Jurisdiction | Regulation / version | River reach | Public reminder | Last verified | Evidence IDs |
+| --- | --- | --- | --- | --- | --- |
+| Michigan DNR | 2026 Michigan Fishing Regulations, effective through 2027-03-31 | White River from Hesperia Dam downstream to White Lake at Business US-31 | `Check the current Michigan Fishing Regulations and posted notices before fishing; section names orient you but do not establish access or legal methods.` | 2026-08-24 | E-005 |
+| Michigan DNR | Type 4 trout stream; special artificial-lure regulations Aug. 1-Nov. 15 | Same corridor; the special-lure list describes White River mouth to Hesperia Dam | Do not summarize terminal-tackle details in River Run copy; link the current guide because restrictions are date- and gear-specific | 2026-08-24 | E-005 |
+| Michigan Natural Rivers / local zoning | Mainstem generally designated except within White Cloud and Hesperia municipal limits | River corridor | Natural River status regulates development; it does not promise public fishing access | 2026-08-24 | E-002 |
+| USFS / municipalities / township / private owners | Site-specific land and facility rules | Interspersed corridor parcels and named access sites | Confirm ownership, parking, hours, and posted closures at the actual site | 2026-08-24 | E-001, E-004, E-012 |
+
+The 2026 MDNR lower-river report describes year-round fishing below Hesperia
+and current salmon/Steelhead harvest under Type 4 rules. The fishing guide and
+Fisheries Orders remain the legal sources. Nothing here is access, method,
+harvest, wading, boating, or personal-safety advice.
+
+## 5. Source coverage map
+
+| Source ID | Public station name | Provider / site / series | Metrics | Physical section | Represented reach | Role | Freshness | Historical record | Attribution / license | Evidence IDs | Accepted? |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `usgs_04122200` | White River near Whitehall, MI | USGS 04122200; 00060 discharge; 00065 gage height | CFS, ft | Lower river at Fruitvale Road bridge, 6.9 mi NE of Whitehall and 6.3 mi below North Branch | Fruitvale free-flowing mainstem and nearby lower corridor; excludes White Lake/backwater and does not directly represent Pines Point-Hesperia | Primary hydraulic | 15-minute feed; propose 2 h fresh, 2-24 h delayed, >24 h suppressed (**owner-calibrated**) | Daily discharge 1957-08-01-present, 25,223/25,225 days (99.99%); IV discharge 1989-present; stage 2017-present; no accepted stage normal | USGS public data; provisional current values subject to revision | E-006, E-007 | yes for discharge and gage height |
+| `mmw_weaver_st_temp` | South Branch White River at Weaver Street | Trout Unlimited / Monitor My Watershed `Weaver St`; result 5989; `Meter_Hydros21_Temp` | measured water temperature, °F | Upper accessible corridor, 0.25 mi below Hesperia Dam; 43.57027, -86.04446 | Immediate Hesperia tailwater only; does not measure Fruitvale or the full corridor | Primary temperature | 15-minute feed; propose 2 h fresh, 2-24 h delayed, >24 h suppressed (**owner-calibrated**) | 2022-09-08-present; 126,283 rows through probe, 90.98% interval coverage, 802 gaps >15 min, largest gap 92.08 d; raw/provisional | Trout Unlimited via Monitor My Watershed; CC BY-SA 4.0 | E-008, E-009 | yes for live temperature and trend; historical average needs baseline approval |
+| `usgs_04122195` | South Branch White River at Hesperia, MI | USGS 04122195 | No current accepted series identified | Hesperia | None | Rejected metadata-only candidate | No current usable series proved | USGS page reports no daily statistics | USGS | E-010 | no |
+
+Critical capability conclusion: White River **does have accepted hydraulics and
+accepted measured water temperature**, but not at the same reach. The USGS
+04122200 probe returned only discharge and gage height when parameter 00010 was
+requested; third-party claims that it publishes water temperature are false.
+The accepted temperature source is the separate Weaver Street tailwater
+station. Gauge Read can be partial and source-labeled. Any future
+observed-river Activity configuration needs explicit split-reach copy and owner
+approval; source existence alone does not approve a score.
+
+## 6. Weather strategy
+
+| Weather point ID | Latitude / longitude | Role | Basin / reach | Known limitations | Evidence ID | Accepted? |
+| --- | --- | --- | --- | --- | --- | --- |
+| `noaa_white_pines_point` | 43.5296, -86.1162 | Primary NWS hourly forecast point at Pines Point | Geographic center of the 33-mile public corridor; NWS GRR grid 24,72 | Modeled grid weather, not a river measurement; one point cannot capture lake breeze or localized rain across the entire corridor | E-011 | yes for weather context only |
+
+The actual NWS point and hourly endpoints returned current grid metadata and a
+seven-day hourly forecast on 2026-08-24. Rain remains same-block weather
+context and never proves a river rise or clarity change.
+
+## 7. Independent supported-species decision
+
+| Species | Independent support | Barrier response | Proposed Phase A decision | Evidence IDs |
+| --- | --- | --- | --- | --- |
+| Chinook salmon | Current 2026 MDNR report documents annual migration, a wild naturally reproducing run, destination fishery, and no need for stocking | Uses accessible mainstem/tributaries below Hesperia; cannot pass Hesperia today; future passage is only a proposal | `supported_candidate`; owner may approve fall Chinook for Phase C | E-001, E-003 |
+| Coho salmon | Current 2026 MDNR report documents annual migration and wild fish in accessible tributaries, but states Coho are only occasionally caught and a larger run would be desirable | Uses accessible water below Hesperia; cannot pass Hesperia today; would benefit from future passage | `supported_but_sparse_candidate`; do not infer Chinook strength or enable without owner accepting a low ceiling and conservative copy | E-001, E-003 |
+| Steelhead | Current 2026 MDNR report documents an extremely popular destination fishery with stocked and natural fish; stocking continuation is recommended | Uses accessible water below Hesperia; cannot pass Hesperia; unlike salmon, fish may overwinter and survive spawning, so no salmon mortality logic | `supported_candidate` for fall entry, with later lifecycle/handoff work reserved for Phase C | E-001, E-003, E-013 |
+
+The MDNR `Better Fishing Waters` list names White River Chinook and Steelhead
+but omits Coho. That is consistent with the current report's `occasional`
+Coho characterization, not evidence of zero Coho. Conservative product
+decision: keep Coho visible as a planned candidate but disabled pending the
+owner's acceptance of sparse-run treatment and Phase C evidence/calibration.
+
+## 8. Evidence ledger
+
+| ID | Authority / title | URL | Published / updated | Accessed | Facts supported | Geographic reach | Limitations |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| E-001 | Michigan DNR, *Status of the Fishery Resource Report 0460, 2026: Lower White River* | https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0460_2026_Lower_White_River.pdf | 2026; survey 2025 | 2026-08-24 | Identity, 89.8-mi river, 33-mi migratory corridor, lower-six-mile lake influence, access sequence, current fisheries, all three species, Hesperia passage, historic weir, tributary dams, temperature stations, regulations summary | Whole watershed, focused on Hesperia Dam-White Lake | Management report, not a live closure feed; tributary dam official names/coordinates absent |
+| E-002 | Michigan DNR, *Natural Rivers — White River* | https://www.michigan.gov/dnr/managing-resources/fisheries/natural-rivers | current page | 2026-08-24 | Oxford Swamp origin, southwest flow, White Lake/Lake Michigan mouth, counties, Natural River jurisdiction | Whole system | Zoning overview, not fishing-access or passage proof |
+| E-003 | Michigan DNR, *Status of the Fishery Report 2012-121: White River* | https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2012-121.pdf | 2012 | 2026-08-24 | Historic failed 1972 fish pass, Hesperia/White Cloud barrier effects, species records below Hesperia, management alternatives | Whole watershed | Older than E-001; used for history/second-source confirmation, not current status alone |
+| E-004 | Newaygo County Tourism Council, *White River Map and Access Guide* | https://s34427.pcdn.co/wp-content/uploads/2021/09/NCTC_White-River_Map_11x17_8-20-21_web.pdf | 2021-08-20 | 2026-08-24 | Recognizable access sequence including Covell, Diamond Point, Pines Point, Taylor Bridge, and Hesperia | White Lake to upper river | Tourism map; endpoints cross-checked against MDNR/USFS/USGS |
+| E-005 | Michigan DNR, *2026 Michigan Fishing Regulations* | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf | effective 2026-04-01 through 2027-03-31 | 2026-08-24 | Type 4 corridor Hesperia-White Lake/Business US-31; special artificial-lure period Aug. 1-Nov. 15; current regulatory authority | Lower public corridor | Summary guide; Fisheries Orders and posted emergency notices control; must recheck pre-release |
+| E-006 | U.S. Geological Survey, *White River near Whitehall, MI — USGS 04122200* | https://waterdata.usgs.gov/monitoring-location/USGS-04122200/ | live | 2026-08-24 | Site ID/name, coordinates, drainage area, series availability and record dates | Fruitvale Road / lower mainstem | Station measurement is not whole-river truth |
+| E-007 | USGS Water Services IV/DV endpoint probes | https://waterservices.usgs.gov/nwis/iv/?format=json&sites=04122200&parameterCd=00060,00065,00010&siteStatus=all | probe 2026-08-24 | 2026-08-24 | Live 217 CFS and 0.91 ft at 10:15 EST, provisional; no 00010 series; 15-min cadence; daily discharge record/gaps and qualifiers | USGS 04122200 | Current values change; raw/provisional; stage history not datum-normalized for averages |
+| E-008 | White River Watershed Partnership, *EnviroDIY Monitoring* | https://whiteriverwp.org/envirodiy-monitoring/ | current page; network described through 2024/2026 | 2026-08-24 | TU/WRWP station ownership, 15-min sensors, Weaver station C location 0.25 mi below Hesperia, intended temperature monitoring | White River watershed; Station C upper accessible corridor | Conservation-operator description; actual endpoint separately probed |
+| E-009 | Monitor My Watershed / Trout Unlimited, *South Branch White River (Weaver St)* and CSV result 5989 | https://monitormywatershed.org/sites/Weaver%20St/ | deployed 2022-09-08; live | 2026-08-24 | Coordinates, METER HYDROS 21, °F series, current value/freshness, provisional/QC warning, history schema, gaps, CC BY-SA license | Immediate Hesperia tailwater | Raw observations are provisional; 90.98% interval coverage and long gaps; no full-corridor representation |
+| E-010 | U.S. Geological Survey, *South Branch White River at Hesperia, MI — USGS 04122195* | https://waterdata.usgs.gov/monitoring-location/USGS-04122195/ | current metadata | 2026-08-24 | Candidate location and absence of accepted daily statistics/current series in probe | Hesperia | Metadata-only; rejected as live source |
+| E-011 | NOAA/NWS API point and hourly probes | https://api.weather.gov/points/43.5296,-86.1162 | probe 2026-08-24 | 2026-08-24 | `America/Detroit`; GRR 24,72; hourly endpoint; modeled forecast availability | Pines Point grid cell | Forecast, not measured river state |
+| E-012 | Michigan Water Trails, *Covell Park Access* | https://www.michiganwatertrails.org/location.asp?aid=160&ait=av | current page | 2026-08-24 | Covell Park coordinates, Business US-31/White River/White Lake identity, municipal access landmark | Downstream endpoint | Site information does not guarantee current availability; check posted notices |
+| E-013 | Michigan DNR, *Steelhead* | https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead | current page | 2026-08-24 | Great Lakes Steelhead commonly enter streams late October-May and may overwinter before spring spawning | Statewide biology | Not a White River calendar; Phase C must research river-specific timing |
+
+## 9. Contradictions, conservative decisions, and blockers
+
+| ID | Question / conflict | Evidence | Conservative resolution | Owner / status | Consequence |
+| --- | --- | --- | --- | --- | --- |
+| D-001 | Does USGS 04122200 publish water temperature? | Actual IV request for 00010 returned only 00060/00065; USGS catalog lists discharge, stage, elevation. Some third-party pages claim temperature. | Reject third-party claim. Use no USGS temperature at Fruitvale. | research resolved | Prevents fabricated/co-located temperature claim |
+| D-002 | Are hydraulics and measured temperature available? | USGS hydraulics are current at Fruitvale; TU temperature is current below Hesperia. | Yes, but as separate reach-labeled stations. | **owner approval required** | Gauge Read may show all three metrics; Activity cannot silently treat them as one reach |
+| D-003 | Is Coho a supported public fall run? | MDNR says annual migration and wild accessible-tributary fish, but also `only occasionally caught`; Better Fishing Waters omits Coho. | Keep candidate visible but disabled until owner accepts sparse support and Phase C establishes a low ceiling/calendar. | **owner approval required** | No Coho runtime enablement yet |
+| D-004 | Are proposed section endpoints product-recognizable? | All are named access/road/dam landmarks, but they are a product grouping rather than agency fisheries sections. | Propose three sections; do not write state copy until owner approves exact labels. | **owner approval required** | Foundation remains blocked from Phase C implementation |
+| D-005 | Can Weaver temperature have a date average? | Four-year raw history exists with 90.98% interval coverage, 802 gaps, and a 92-day maximum gap. | Accept current/trend capability; require a versioned daily aggregation, minimum-year, and gap policy before displaying date average. | **approval / implementation required** | Temperature historical context remains unavailable until accepted |
+| D-006 | Does Hesperia allow passage because passage is being considered? | Current MDNR says no passage and explicitly frames passage as future rebuild work. | Treat dam as the current hard upstream limit for all three species. | research resolved | No above-dam guidance |
+| D-007 | Is there a dam closure zone? | 2026 guide names gear rules but no Hesperia-specific distance closure; active 2026 enforcement at the dam confirms fishing occurs there. | Do not invent a closure; recheck Fisheries Orders, emergency notices, and signs immediately before release. | release-time check | Public reminder only; no closure copy now |
+
+## 10. Foundation gate
+
+- [x] Identity, timezone, mouth, and corridor verified.
+- [ ] Public sections recognizable and owner-approved.
+- [x] Mainstem barrier sequence and species passage resolved conservatively.
+- [x] Current regulations and source jurisdiction recorded.
+- [x] Gauge, temperature, and weather reach limitations explicit.
+- [x] Live Conditions source capabilities probed.
+- [x] Chinook, Coho, and Steelhead independently assessed.
+- [x] Material claims resolve to ledger entries.
+- [ ] Owner decides split-reach source strategy, Coho status, and exact sections.
+- [ ] Release-time regulation/closure recheck completed.
+
+**Foundation decision:** `blocked_pending_owner_foundation_approval`
+**Owner approval/date:** pending
+**Foundation version:** `white-foundation-research-v1-2026-08-24`
