@@ -26,6 +26,7 @@ const weatherOnlyRules = {
     noMeasuredRiverData: 69,
     noWaterTemperature: 69,
     weatherOnlyMaximum: 95,
+    weatherOnlyTomorrowMaximum: 85,
   },
 };
 
@@ -90,6 +91,25 @@ Deno.test("weather-only Activity uses each block's own light and precipitation w
     ),
     false,
   );
+});
+
+Deno.test("weather-only tomorrow forecasts honor their stricter true maximum", () => {
+  const result = scoreActivity({
+    rules: weatherOnlyRules,
+    requestDate: "2026-09-10",
+    targetDate: "2026-09-11",
+    runStage: "peak",
+    staging: false,
+    waterTempF: null,
+    temperatureTrend: "neutral_missing",
+    gaugeFreshness: "missing",
+    weatherFreshness: "fresh",
+    flowSignal: "unknown",
+    hourlyWeather: weather("2026-09-11", 100),
+  });
+  assert(result.blocks.every((block) => block.score <= 85));
+  assert((result.score ?? 0) <= 85);
+  assertEquals(result.targetDayLabel, "Tomorrow");
 });
 
 Deno.test("weather-only Activity rewards sustained light rain but not heavy precipitation", () => {

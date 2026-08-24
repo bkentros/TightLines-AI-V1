@@ -3,8 +3,8 @@
 **River ID:** `grand`
 **State:** `MI`
 **Created/researched:** 2026-08-24
-**Status:** `research_complete_decisions_blocked`
-**Owner section approval:** `pending`
+**Status:** `owner_approved_phase_c_authorized`
+**Owner section approval:** `approved_2026-08-24`
 
 > Stop gate: do not configure species runs, write state copy, or add the river
 > to the public catalog until the owner approves the proposed public sections
@@ -21,7 +21,7 @@
 | Mouth waterbody | Lake Michigan at Grand Haven | E-001, E-002 | verified |
 | Mouth coordinates | Approximately 43.057, -86.255 (Grand Haven pier/mouth orientation point; not an access promise) | E-002 | qualified |
 | Downstream product boundary | Lake Michigan-facing Grand Haven pierheads / river mouth. The port-specific November rule extends inland to the northbound US-31/Beacon Boulevard bridge. | E-002, E-013 | verified |
-| Upstream migratory/product boundary | **Owner-calibrated proposal:** Chinook guidance ends at Webber Dam pending modern upstream evidence; Coho and Steelhead guidance ends below Moores Park Dam. North Lansing passage is qualified, not unrestricted. | E-003, E-004, E-007 | approval_required |
+| Upstream migratory/product boundary | **Owner-approved boundary:** Chinook guidance ends at Webber Dam pending modern upstream evidence; Coho and Steelhead guidance ends below Moores Park Dam. North Lansing passage is qualified, not unrestricted. | E-003, E-004, E-007 | approved 2026-08-24; unresolved routes fail closed |
 | Approximate corridor length | Whole river is about 252 miles. Product corridor is about 102 river miles to Webber Dam for proposed Chinook scope and about 152 river miles to Lansing/Moores Park for proposed Coho/Steelhead scope. | E-001, E-004, E-009 | qualified |
 
 The river flows west and northwest from southern Michigan through Lansing,
@@ -29,7 +29,7 @@ Ionia, Grand Rapids, and Grand Haven to Lake Michigan. River Run covers only
 the migratory mainstem corridor defined here; tributaries are excluded unless a
 future version separately researches and names them.
 
-## 2. Proposed public sections — owner approval required
+## 2. Owner-approved public sections
 
 These are orientation ranges, not access or safety promises. The three-section
 model is intentionally stable despite the corridor's many structures.
@@ -38,7 +38,7 @@ model is intentionally stable despite the corridor's many structures.
 | --- | --- | --- | --- | ---: | --- | --- | --- |
 | `grand_lower` | Lower river | Grand Haven pierheads / Lake Michigan mouth | Sixth Street Dam, Grand Rapids | 1 | Chinook: yes. Coho: yes. Steelhead: yes. Four downtown beautification dams are under active removal and must be reverified. | USGS 04119000 describes only the downtown Grand Rapids reach near river mile 41, not the harbor or entire Lower river. | E-002, E-003, E-005, E-009, E-015 |
 | `grand_middle_passage` | Middle passage corridor | Sixth Street Dam | Webber Dam | 2 | All three species have direct historic passage evidence at Webber. Current Sixth Street ladder still exists, but corridor construction and current ladder-operation evidence require release-time verification. Lyons Dam was removed; Wagar remains/status require confirmation. | USGS 04118564 measures temperature at North Park Street just above Sixth Street. Neither accepted station represents the full route to Webber. | E-004, E-005, E-006, E-010 |
-| `grand_upper_accessible` | Upper accessible corridor | Webber Dam | Moores Park Dam, Lansing | 3 | Chinook: **no product guidance above Webber pending owner/current evidence**. Coho/Steelhead: current DNR destination support exists below Moores Impoundment, but North Lansing ladder is inefficient and passage is qualified. | No accepted live hydraulic or temperature source represents this section. | E-003, E-004, E-007 |
+| `grand_upper_accessible` | Upper accessible corridor | Webber Dam | Moores Park Dam, Lansing | 3 | Chinook: **no product guidance above Webber**. Coho/Steelhead: current DNR destination support exists below Moores Impoundment, but North Lansing ladder is inefficient and passage is qualified. | No accepted live hydraulic or temperature source represents this section. | E-003, E-004, E-007 |
 
 Exact wording proposed for owner decision:
 
@@ -107,7 +107,7 @@ though some stations publish them.
 
 | Species | Independent biological support | Source support | Planned run | Foundation status | Evidence IDs |
 | --- | --- | --- | --- | --- | --- |
-| Chinook salmon | Current DNR lists Chinook in Ottawa, Kent, and Ionia Grand River waters; 2008 DNR Webber monitoring directly counted Chinook ladder passage. DNR does not currently list Chinook in Eaton/Ingham Grand River reaches. | Hydraulics and temperature cover only Grand Rapids reaches | Fall | `supported_with_proposed_Webber_limit`; owner approval required | E-003, E-004 |
+| Chinook salmon | Current DNR lists Chinook in Ottawa, Kent, and Ionia Grand River waters; 2008 DNR Webber monitoring directly counted Chinook ladder passage. DNR does not currently list Chinook in Eaton/Ingham Grand River reaches. | Hydraulics and temperature cover only Grand Rapids reaches | Fall | `supported_with_owner_approved_Webber_limit` | E-003, E-004 |
 | Coho salmon | Current DNR lists Coho from Ottawa/Kent/Ionia through Grand River waters below Lansing/Moores Impoundment; direct Webber passage was counted independently. | Same reach-limited sources | Fall | `supported_to_below_Moores_subject_to_ladder_verification` | E-003, E-004, E-007 |
 | Steelhead | Current DNR independently lists Steelhead along the same lower-to-below-Moores corridor; direct Webber passage was counted independently. North Lansing project specifically names Steelhead. | Same reach-limited sources | Fall entry | `supported_to_below_Moores_subject_to_ladder_verification` | E-003, E-004, E-007 |
 
@@ -146,17 +146,17 @@ All sources accessed 2026-08-24 unless stated otherwise.
 | ID | Question/conflict | Evidence | Resolution/status | Owner/code consequence |
 | --- | --- | --- | --- | --- |
 | D-001 | Whole-river length is reported as both 252 and 270 miles. | E-001 says 252; City/EPA materials sometimes say 270. | Use current DNR 252-mile identity fact; product lengths use known river-mile stations, not 270. | no scoring consequence |
-| D-002 | Historic report says fish ladders extend salmon toward/into Lansing, but current DNR reach lists omit Chinook in Eaton/Ingham and all target salmonids above Moores. | E-003, E-004, E-007 | Species-specific conservative proposal: Chinook ends at Webber; Coho/Steelhead end below Moores, with North Lansing passage qualified. | **owner approval required** before section graph/run work |
+| D-002 | Historic report says fish ladders extend salmon toward/into Lansing, but current DNR reach lists omit Chinook in Eaton/Ingham and all target salmonids above Moores. | E-003, E-004, E-007 | Owner-approved species-specific boundary: Chinook ends at Webber; Coho/Steelhead end below Moores, with North Lansing passage qualified. | approved 2026-08-24; unresolved intermediate passage remains fail-closed |
 | D-003 | Ladder assets exist, but current operational windows and species efficiency are not published for Portland and Grand Ledge. | E-006 versus absence of current operational evidence | Leave unresolved; no above-structure recommendation until agency/operator confirmation. | foundation remains blocked |
 | D-004 | Ada and Wagar appear in historic records but current status is incomplete. | E-004, E-016 | Record both; historic Webber passage is not substituted for 2026 status. | foundation remains blocked; contact DNR/EGLE/owner |
 | D-005 | Four beautification dams are being removed while 04119000 is at the construction reach's downstream end. | E-005, E-009, E-015 | Accept 04119000 discharge/height for Phase B with downtown-only copy and mandatory rating/datum re-audit after each construction season or material removal. | source version must be time-bounded |
 | D-006 | One Grand Rapids weather point cannot describe a 100–150 mile corridor, and the live clear-sky input is null. | E-018 | Keep it as a proposed Grand Rapids modeled-context point only; do not claim basin coverage. Activity remains blocked. | provider/adapter and replay decision required later |
-| D-007 | Exact public labels/endpoints are research proposals, not owner facts. | playbook owner gate | No silent acceptance. | **owner approval required** |
+| D-007 | Exact public labels/endpoints required owner acceptance. | playbook owner gate | Owner approved the proposed labels/endpoints. | approved 2026-08-24 |
 
 ## 10. Foundation gate
 
 - [x] Identity, timezone, mouth, and corridor are documented, with qualified mouth coordinates.
-- [ ] Public sections are recognizable and owner-approved.
+- [x] Public sections are recognizable and owner-approved.
 - [ ] Barrier inventory is release-ready; Ada/Wagar and current Portland/Grand Ledge operation remain unresolved.
 - [x] Passage is species-qualified and unresolved cases fail closed.
 - [x] Current regulation and active construction sources are recorded.
@@ -166,6 +166,6 @@ All sources accessed 2026-08-24 unless stated otherwise.
 - [x] Every material claim resolves to the evidence ledger.
 - [ ] No unresolved blocking decision remains.
 
-**Foundation decision:** `blocked_pending_owner_and_passage_verification`
-**Owner approval/date:** pending
+**Foundation decision:** `owner_approved_with_fail_closed_passage_verification`
+**Owner approval/date:** approved / 2026-08-24
 **Foundation version:** `grand-foundation-research-v1-2026-08-24`

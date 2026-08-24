@@ -1,10 +1,10 @@
 import {
   addDays,
-  BETSIE_FALL_CHINOOK_RUN_PROFILE,
-  BETSIE_FALL_COHO_RUN_PROFILE,
-  BETSIE_FALL_STEELHEAD_RUN_PROFILE,
-  BETSIE_RIVER_PROFILE as river,
   resolveRunStage,
+  RIVER_RUN_DRAFT_RIVER_PROFILES,
+  RIVER_RUN_DRAFT_RUN_PROFILES,
+  RIVER_RUN_RIVER_PROFILES,
+  RIVER_RUN_RUN_PROFILES,
   scoreActivity,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type {
@@ -13,29 +13,35 @@ import type {
 } from "../supabase/functions/_shared/riverRunEngine/scoring/activity.ts";
 
 const requestedRunId = argumentValue("--run-id") ?? "betsie_fall_chinook";
-if (
-  requestedRunId !== "betsie_fall_chinook" &&
-  requestedRunId !== "betsie_fall_coho" &&
-  requestedRunId !== "betsie_fall_steelhead"
-) throw new Error(`Unsupported Betsie Activity replay: ${requestedRunId}`);
-const run = requestedRunId === "betsie_fall_steelhead"
-  ? BETSIE_FALL_STEELHEAD_RUN_PROFILE
-  : requestedRunId === "betsie_fall_coho"
-  ? BETSIE_FALL_COHO_RUN_PROFILE
-  : BETSIE_FALL_CHINOOK_RUN_PROFILE;
-const speciesSlug = requestedRunId === "betsie_fall_steelhead"
-  ? "steelhead"
-  : requestedRunId === "betsie_fall_coho"
+const allRuns = [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES];
+const allRivers = [
+  ...RIVER_RUN_RIVER_PROFILES,
+  ...RIVER_RUN_DRAFT_RIVER_PROFILES,
+];
+const run = allRuns.find((item) => item.runId === requestedRunId) ??
+  fail(`Unknown River Run profile: ${requestedRunId}`);
+const river = allRivers.find((item) => item.riverId === run.riverId) ??
+  fail(`River profile missing for ${requestedRunId}`);
+const speciesSlug = run.species === "chinook_salmon"
+  ? "chinook"
+  : run.species === "coho_salmon"
   ? "coho"
-  : "chinook";
+  : "steelhead";
 const steelhead = speciesSlug === "steelhead";
-if (!run.activity) {
-  throw new Error(`Betsie ${speciesSlug} Activity is unavailable.`);
+if (
+  run.primitiveCapabilities.activity.status !== "available" ||
+  !run.activity || run.activity.dataMode !== "weather_only"
+) {
+  throw new Error(
+    `${river.displayName} ${speciesSlug} does not have a weather-only Activity replay contract.`,
+  );
 }
 const weatherPoint = river.weatherPoints.find((point) =>
   point.role === "primary"
 );
-if (!weatherPoint) throw new Error("Betsie primary weather point is missing.");
+if (!weatherPoint) {
+  throw new Error(`${river.displayName} primary weather point is missing.`);
+}
 
 type Row = {
   date: string;
@@ -111,7 +117,9 @@ const lifecycle = steelhead
 const invariants = {
   incompleteBlocks: rows.filter((row) => row.blocks.length !== 4).length,
   scoreAboveWeatherOnlyCeiling:
-    blocks.filter((block) => block.score > 95).length,
+    blocks.filter((block) =>
+      block.score > (run.activity!.caps.weatherOnlyMaximum ?? 100)
+    ).length,
   dailyOutsideBlockRange: rows.filter((row) => {
     const values = row.blocks.map((block) => block.score);
     return row.score < Math.min(...values) || row.score > Math.max(...values);
@@ -151,7 +159,7 @@ const report = {
   rulesVersion: run.activity.version,
   replayYears: `${startYear}-${endYear}`,
   method:
-    `Historical mechanical Betsie ${speciesSlug} weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at the Homestead weather point. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.`,
+    `Historical mechanical ${river.displayName} ${speciesSlug} weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at ${weatherPoint.weatherPointId}. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.`,
   expectedDays:
     activeDayCount(run.runWindow.stagingStart, run.runWindow.lateEnd) *
     (endYear - startYear + 1),
@@ -197,7 +205,9 @@ const report = {
 if (Deno.args.includes("--write")) {
   await Deno.mkdir("docs/audits", { recursive: true });
   await Deno.writeTextFile(
-    `docs/audits/river-run-betsie-${speciesSlug}-weather-activity-replay.json`,
+    `docs/audits/river-run-${
+      river.riverId.replaceAll("_", "-")
+    }-${speciesSlug}-weather-activity-replay.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   );
 }
@@ -378,4 +388,8 @@ function round2(value: number): number {
 function argumentValue(name: string): string | undefined {
   const index = Deno.args.indexOf(name);
   return index >= 0 ? Deno.args[index + 1] : undefined;
+}
+
+function fail(message: string): never {
+  throw new Error(message);
 }

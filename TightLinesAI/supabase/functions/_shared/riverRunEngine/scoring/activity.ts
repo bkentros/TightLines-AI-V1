@@ -212,7 +212,10 @@ export function scoreActivity(input: {
     if (weatherOnly) {
       score = Math.min(
         score,
-        input.rules.caps.weatherOnlyMaximum ?? 95,
+        tomorrow
+          ? input.rules.caps.weatherOnlyTomorrowMaximum ??
+            input.rules.caps.weatherOnlyMaximum ?? 95
+          : input.rules.caps.weatherOnlyMaximum ?? 95,
       );
     } else {
       const dataCeilings = [

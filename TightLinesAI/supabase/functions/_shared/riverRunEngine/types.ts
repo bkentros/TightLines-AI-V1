@@ -112,13 +112,26 @@ export type PrimitiveCapability =
     status: "unavailable";
     reason: PrimitiveUnavailableReason;
     notes: string;
+    publicCopy?: {
+      headline: string;
+      detail: string;
+      tip: string;
+    };
   };
 
 export type RiverRunPrimitiveCapabilities = {
-  migrationTiming: PrimitiveCapability;
-  push: PrimitiveCapability;
+  /** Public seasonal phase card. */
+  migrationStage: PrimitiveCapability;
+  /** Public conditional responsiveness card. */
+  activity: PrimitiveCapability;
+  /** Public approximate seasonal-presence card. */
+  fishInRiver: PrimitiveCapability;
+  /** Public hydraulic presentation-shape card. */
   fishability: PrimitiveCapability;
-  activity?: PrimitiveCapability;
+  /** Legacy/internal observed timing signal retained during migration. */
+  migrationTiming: PrimitiveCapability;
+  /** Legacy/internal observed movement signal retained during migration. */
+  push: PrimitiveCapability;
 };
 
 export type ActivityRules = {
@@ -126,6 +139,14 @@ export type ActivityRules = {
   profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
+  /** Explicit reach/source eligibility; required when river-level sources exist but a run uses weather-only Activity. */
+  inputReach?: {
+    reachIds: string[];
+    hydraulicSourceIds: string[];
+    waterTemperatureSourceIds: string[];
+    weatherPointIds: string[];
+    notes: string;
+  };
   /** Optional river/reach limitation appended to every Activity explanation. */
   scopeCopy?: string;
   /** Optional reach guidance shown only during pre-run, beginning, and building. */
@@ -150,6 +171,8 @@ export type ActivityRules = {
     ending: number;
     /** True upper bound for weather-only scoring; unlike data ceilings, it is not a multiplier. */
     weatherOnlyMaximum?: number;
+    /** Optional stricter true upper bound for a next-day weather-only forecast. */
+    weatherOnlyTomorrowMaximum?: number;
     /** Optional point deduction used instead of the proportional taper ceiling. */
     taperingPenalty?: number;
     /** Optional calendar ramp that removes stage-boundary score discontinuities. */
@@ -672,9 +695,12 @@ export type AuditedRiverRunProfile = RiverRunProfile & {
 
 export type ObservedConditionRunProfile = RiverRunProfile & {
   primitiveCapabilities: {
+    migrationStage: { status: "available" };
+    activity: { status: "available" };
+    fishInRiver: { status: "available" };
+    fishability: { status: "available" };
     migrationTiming: { status: "available" };
     push: { status: "available" };
-    fishability: { status: "available" };
   };
   push: PushRules;
   fishabilityBands: FishabilityBands;

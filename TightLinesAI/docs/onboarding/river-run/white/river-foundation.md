@@ -3,8 +3,8 @@
 **River ID:** `white`
 **State:** `MI`
 **Created / researched:** 2026-08-24
-**Status:** `owner_review_required`
-**Owner section approval:** `pending`
+**Status:** `owner_approved_phase_c_authorized`
+**Owner section approval:** `approved_2026-08-24`
 
 > Phase A/B packet only. Do not configure runs, write state copy, add this river
 > to a runtime registry, deploy, or publicly enable it until the owner approves
@@ -19,7 +19,7 @@
 | IANA timezone | `America/Detroit` | E-011 | verified |
 | Mouth waterbody | White Lake, a drowned river-mouth lake connected to Lake Michigan near Whitehall and Montague | E-001, E-002 | verified |
 | Mouth coordinates | Approx. 43.42251, -86.33701 at the river/White Lake transition; use Covell Park/Business US-31 as the recognizable product endpoint, not a marsh-channel coordinate | E-001, E-012 | qualified |
-| Downstream product boundary | Covell Park at the Business US-31 White River bridge, Whitehall (43.41379, -86.35087); immediately upstream of White Lake | E-001, E-004, E-012 | **owner approval required** |
+| Downstream product boundary | Covell Park at the Business US-31 White River bridge, Whitehall (43.41379, -86.35087); immediately upstream of White Lake | E-001, E-004, E-012 | owner-approved 2026-08-24 |
 | Upstream migratory/product boundary | Downstream face of Hesperia Dam, Village of Hesperia | E-001, E-003 | verified biological limit; **owner wording approval required** |
 | Migratory corridor | 33 mainstem miles from White Lake to Hesperia Dam; the lower six miles are low-gradient and influenced by White Lake/Lake Michigan levels | E-001 | verified |
 | Whole river context | About 89.8 miles from Oxford Swamp headwaters to Lake Michigan; product scope is only the 33-mile accessible lower corridor | E-001, E-002 | verified |
@@ -150,9 +150,9 @@ owner's acceptance of sparse-run treatment and Phase C evidence/calibration.
 | ID | Question / conflict | Evidence | Conservative resolution | Owner / status | Consequence |
 | --- | --- | --- | --- | --- | --- |
 | D-001 | Does USGS 04122200 publish water temperature? | Actual IV request for 00010 returned only 00060/00065; USGS catalog lists discharge, stage, elevation. Some third-party pages claim temperature. | Reject third-party claim. Use no USGS temperature at Fruitvale. | research resolved | Prevents fabricated/co-located temperature claim |
-| D-002 | Are hydraulics and measured temperature available? | USGS hydraulics are current at Fruitvale; TU temperature is current below Hesperia. | Yes, but as separate reach-labeled stations. | **owner approval required** | Gauge Read may show all three metrics; Activity cannot silently treat them as one reach |
-| D-003 | Is Coho a supported public fall run? | MDNR says annual migration and wild accessible-tributary fish, but also `only occasionally caught`; Better Fishing Waters omits Coho. | Keep candidate visible but disabled until owner accepts sparse support and Phase C establishes a low ceiling/calendar. | **owner approval required** | No Coho runtime enablement yet |
-| D-004 | Are proposed section endpoints product-recognizable? | All are named access/road/dam landmarks, but they are a product grouping rather than agency fisheries sections. | Propose three sections; do not write state copy until owner approves exact labels. | **owner approval required** | Foundation remains blocked from Phase C implementation |
+| D-002 | Are hydraulics and measured temperature available? | USGS hydraulics are current at Fruitvale; TU temperature is current below Hesperia. | Yes, but as separate reach-labeled stations. | approved 2026-08-24 | Gauge Read may show all three metrics; Activity cannot silently treat them as one reach |
+| D-003 | Is Coho a supported public fall run? | MDNR says annual migration and wild accessible-tributary fish, but also `only occasionally caught`; Better Fishing Waters omits Coho. | Keep candidate visible but disabled for this pass. | approved 2026-08-24 | No Coho Phase C/runtime enablement in this pass |
+| D-004 | Are proposed section endpoints product-recognizable? | All are named access/road/dam landmarks, but they are a product grouping rather than agency fisheries sections. | Use the three owner-approved sections. | approved 2026-08-24 | Phase C authorized |
 | D-005 | Can Weaver temperature have a date average? | Four-year raw history exists with 90.98% interval coverage, 802 gaps, and a 92-day maximum gap. | Accept current/trend capability; require a versioned daily aggregation, minimum-year, and gap policy before displaying date average. | **approval / implementation required** | Temperature historical context remains unavailable until accepted |
 | D-006 | Does Hesperia allow passage because passage is being considered? | Current MDNR says no passage and explicitly frames passage as future rebuild work. | Treat dam as the current hard upstream limit for all three species. | research resolved | No above-dam guidance |
 | D-007 | Is there a dam closure zone? | 2026 guide names gear rules but no Hesperia-specific distance closure; active 2026 enforcement at the dam confirms fishing occurs there. | Do not invent a closure; recheck Fisheries Orders, emergency notices, and signs immediately before release. | release-time check | Public reminder only; no closure copy now |
@@ -160,16 +160,16 @@ owner's acceptance of sparse-run treatment and Phase C evidence/calibration.
 ## 10. Foundation gate
 
 - [x] Identity, timezone, mouth, and corridor verified.
-- [ ] Public sections recognizable and owner-approved.
+- [x] Public sections recognizable and owner-approved.
 - [x] Mainstem barrier sequence and species passage resolved conservatively.
 - [x] Current regulations and source jurisdiction recorded.
 - [x] Gauge, temperature, and weather reach limitations explicit.
 - [x] Live Conditions source capabilities probed.
 - [x] Chinook, Coho, and Steelhead independently assessed.
 - [x] Material claims resolve to ledger entries.
-- [ ] Owner decides split-reach source strategy, Coho status, and exact sections.
+- [x] Owner approved split-reach Gauge Read, disabled Coho, and exact sections.
 - [ ] Release-time regulation/closure recheck completed.
 
-**Foundation decision:** `blocked_pending_owner_foundation_approval`
-**Owner approval/date:** pending
+**Foundation decision:** `owner_approved_split_reach_capability`
+**Owner approval/date:** approved / 2026-08-24
 **Foundation version:** `white-foundation-research-v1-2026-08-24`

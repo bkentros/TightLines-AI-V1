@@ -1,183 +1,88 @@
-# White River Fall coho River Run Profile
+# White River Fall Coho River Run Profile
 
 **River ID:** `white`
+
 **Species slug:** `coho`
-**Created:** 2026-08-24
-**Status:** `research_incomplete`
 
-> Prerequisite: the river foundation and public section wording are approved.
-> Do not copy dates, thresholds, Activity weights, ceilings, or state prose
-> from another river without independent evidence and replay acceptance.
+**Created / researched:** 2026-08-24
 
-## 1. Species/run truth
+**Status:** `visible_disabled_owner_decision`
 
-| Field | Researched value | Evidence IDs | Status |
-| --- | --- | --- | --- |
-| Public species name |  |  | unresolved |
-| Run type |  |  | unresolved |
-| Migration purpose |  |  | unresolved |
-| Lifecycle after spawning |  |  | unresolved |
-| Shared biology profile fit |  |  | unresolved |
-| Distribution scope |  |  | unresolved |
-| Historical opportunity tier/ceiling |  |  | unresolved |
-| Barrier response differences |  |  | unresolved |
+## 1. Owner decision
 
-## 2. Seasonal calendar
+Coho remains visible in the White River species catalog but disabled for this
+pass. The owner approved this treatment on 2026-08-24.
 
-All dates are month-day values in the river timezone. Explain each boundary;
-do not infer dates solely from a nearby river.
+Public label: `Not available`
 
-| Boundary | Date | Meaning | Evidence IDs | Owner calibration? |
-| --- | --- | --- | --- | --- |
-| Pre-run monitoring start |  |  |  | no |
-| Staging start |  |  |  | no |
-| River-run start |  |  |  | no |
-| Beginning end |  |  |  | no |
-| Established building start |  |  |  | no |
-| Broad building start, if used |  |  |  | no |
-| Peak start |  |  |  | no |
-| Peak anchor |  |  |  | no |
-| Peak end |  |  |  | no |
-| Tapering end |  |  |  | no |
-| Main run end |  |  |  | no |
-| Historical-presence tail end |  |  |  | no |
-| Late-copy end |  |  |  | no |
+Public reason: `White River Coho are documented only occasionally, so a
+dependable fall run profile is not available.`
 
-## 3. Migration Stage copy matrix
+This is not a claim that Coho are absent. Current MDNR evidence documents annual
+migration and wild fish in accessible tributaries, but says Coho are only
+occasionally caught. MDNR's current Better Fishing Waters list names White
+River Chinook and Steelhead but not Coho. That evidence is insufficient for a
+defensible public calendar, curve, opportunity ceiling, or section progression.
 
-For every reachable substate record the expected section plan and copy intent.
-Stage uses seasonal expectation, never live confirmation.
+## 2. Disabled capability contract
 
-| State key | Trigger/date | Label | Primary section | Conditional secondary section | Headline intent | Why points | Guide action | Limitation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| offseason |  |  |  |  |  |  |  |  |
-| staging |  |  |  |  |  |  |  |  |
-| beginning |  |  |  |  |  |  |  |  |
-| building |  |  |  |  |  |  |  |  |
-| peak |  |  |  |  |  |  |  |  |
-| tapering |  |  |  |  |  |  |  |  |
-| ending |  |  |  |  |  |  |  |  |
-| terminal/handoff |  |  |  |  |  |  |  |  |
-
-## 4. Fish In River profile
-
-- Historical maximum (1–10):
-- Public opportunity tier:
-- Distribution scope:
-- Curve version:
-- Direction transitions:
-- Terminal behavior:
-- Handoff behavior, only if a destination experience exists:
-
-| Day offset from run start | Fraction of maximum | Biological/observational reason | Evidence IDs |
-| ---: | ---: | --- | --- |
-|  |  |  |  |
-
-Acceptance:
-
-- Public values use state-preserving five-point rounding and `≈` where required.
-- The marker and copy use the same public value.
-- Complete is not displayed as zero.
-- The value is a seasonal estimate, never a live fish count.
-
-## 5. Activity calibration
-
-Read `docs/river_run_activity_onboarding_standard.md` completely.
-
-### Evidence and mode
-
-- Mode: `observed_river` / `weather_only` / unresolved
-- Temperature source and represented reach:
-- Hydraulic source and represented reach:
-- Weather point:
-- Species lifecycle evidence:
-- Direct evidence versus owner-calibrated values:
-
-### Proposed rules
-
-| Component | Weight | Rationale | Evidence/calibration IDs |
-| --- | ---: | --- | --- |
-| Effective light |  |  |  |
-| Measured water temperature |  |  |  |
-| River behavior |  |  |  |
-| Precipitation context |  |  |  |
-
-| Temperature/lifecycle control | Value/dates | Rationale |
+| Capability | Decision | Public/runtime requirement |
 | --- | --- | --- |
-| Cold-side transition |  |  |
-| Preferred minimum/maximum |  |  |
-| Warm constraint |  |  |
-| Barrier constraint |  |  |
-| Tapering transition |  |  |
-| Ending transition |  |  |
-| Residual/holding behavior |  |  |
+| Species catalog row | visible-disabled | Show the public label and reason; do not route into a River Run detail surface |
+| Seasonal calendar | not applicable | No inferred dates or states |
+| Migration Stage | not applicable | No label, section recommendation, score, or marker |
+| Fish In River | not applicable | No ceiling, curve, value, direction, or marker |
+| Activity | not applicable | No score or time-block recommendation; do not reuse Chinook or Steelhead rules |
+| Fishability | not applicable for this disabled run | Do not expose a run-specific primitive |
+| Gauge Read | river-level capability only | If shown elsewhere, retain separate Fruitvale flow and below-Hesperia temperature attribution; never imply a Coho Activity score |
+| Barrier | hard endpoint | Any future run remains below the downstream face of Hesperia Dam |
+| Handoff | none | No destination experience exists |
 
-### Required Activity replay report
+No foreign dates, rules, copy, curves, weights, caps, or thresholds may be
+borrowed to make the disabled row appear complete.
 
-- Replay years and coverage percentage.
-- Missing flow, prior flow, temperature, lookback, and weather counts.
-- Daily and block min/p10/median/p90/max.
-- Label distribution by lifecycle phase.
-- Best-block distribution and block-spread distribution.
-- Warm, cold, extreme-flow, and missing-data distributions.
-- Controlled isolated-variable tests.
-- Lifecycle boundary continuity tests.
-- Complete copy and reach-scope invariants.
-- Calibration changes made after replay and why.
+## 3. Required disabled-state acceptance
 
-Activity remains blocked until the replay is reviewed. A plausible anecdotal
-day is not sufficient acceptance.
+- [ ] White River species selection shows Coho as visible and disabled.
+- [ ] The exact public reason fits supported narrow-screen layouts.
+- [ ] Disabled control cannot be selected by tap, keyboard, deep link, saved
+      state, notification, or stale cache.
+- [ ] No Stage, Activity, Fish In River, Fishability, score, marker, section,
+      or best-time block is rendered.
+- [ ] No analytics event records a Coho run as enabled or viewed.
+- [ ] Public copy does not say Coho are absent, extinct, closed, unsafe, or
+      prohibited.
+- [ ] Hesperia Dam remains the hard upstream endpoint in any internal metadata.
+- [ ] Fresh, partial, delayed, stale, and missing Gauge Read states cannot
+      accidentally enable Coho or produce an Activity score.
+- [ ] Foreign river/species denylist and enabled-species registry tests pass.
 
-## 6. Fishability profile
+No historical Activity or Fishability replay is required for a disabled run.
+The acceptance artifact must instead prove the disabled contract above.
 
-If no accepted local hydraulic source exists, configure the deterministic
-unavailable state and do not borrow another river’s gauge.
+## 4. Evidence ledger
 
-| Boundary | Value | Evidence/calibration rationale |
-| --- | ---: | --- |
-| Too low maximum |  |  |
-| Low fishable |  |  |
-| Ideal |  |  |
-| High fishable |  |  |
-| Blown out minimum |  |  |
+| ID | Authority / title | Published / accessed | Facts supported | Limitations |
+| --- | --- | --- | --- | --- |
+| CO-001 | Michigan DNR, [Lower White River Status Report 0460](https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0460_2026_Lower_White_River.pdf) | 2026 / 2026-08-24 | Annual Coho migration, wild tributary fish, occasional catch, desire for a larger run, corridor and Hesperia barrier | Presence evidence does not establish a dependable public opportunity profile |
+| CO-002 | Michigan DNR, [Better Fishing Waters](https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters) | current / 2026-08-24 | White River list includes Chinook and Steelhead but omits Coho | Curated list; omission is corroboration of sparse status, not proof of absence |
+| CO-003 | Michigan DNR, [White Lake Status Report](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Status/2024/White-Lake-Muskegon-County-2024-360.pdf) | 2024 / 2026-08-24 | Migratory Coho use White Lake/White River system; Hesperia limits migration | System-level presence, no White River opportunity curve |
 
-- Metric/source/reach:
-- Trend behavior:
-- Freshness and unknown-trend caps:
-- Permanent scope note:
-- Extreme-state guidance:
+## 5. Run gate
 
-Fishability describes presentation shape, not abundance, access, or safety.
+**Run decision:** `disabled_for_this_pass`
 
-## 7. Four-primitive copy acceptance
+**Configuration version:** `not_implemented`
 
-For Stage, Activity, Fish In River, and Fishability:
+**Activity rules version:** `not_applicable`
 
-- [ ] Every reachable state and material variant has a fixture.
-- [ ] Headline is one conclusion with the material qualifier.
-- [ ] Why This Read has one to three independent points.
-- [ ] Guide’s Read gives one prioritized action.
-- [ ] Permanent limitations are not repeated as filler.
-- [ ] Geography uses approved section labels only.
-- [ ] No internal scores, thresholds, reason codes, provider IDs, or workflow
-      language leaks publicly.
-- [ ] Copy does not claim fish arrival, catch probability, or safety.
-- [ ] Terminal behavior matches species lifecycle.
-- [ ] Valid cross-primitive tensions remain intact.
-- [ ] Foreign river, landmark, dam, gauge, and species denylist passes.
+**Presence curve version:** `not_applicable`
 
-## 8. Research evidence ledger
+**Copy version:** `white_coho_visible_disabled_v1_research`
 
-| Evidence ID | Authority/title | URL/path | Published/updated | Accessed | Facts supported | Limitations |
-| --- | --- | --- | --- | --- | --- | --- |
-| R-001 |  |  |  |  |  |  |
+**Replay artifact:** `disabled_contract_fixture_not_generated`
 
-## 9. Run gate
+**Owner acceptance/date:** `approved_visible_disabled / 2026-08-24`
 
-**Run decision:** `blocked`
-**Configuration version:**
-**Activity rules version:**
-**Presence curve version:**
-**Copy version:**
-**Replay artifact:**
-**Owner acceptance/date:**
+Reconsideration requires new White-specific evidence, a defensible calendar and
+ceiling, full Phase C replay/copy acceptance, and a new explicit owner decision.

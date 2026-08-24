@@ -2,7 +2,7 @@
 
 **River ID:** `white`
 **Created / probed:** 2026-08-24
-**Status:** `owner_review_required`
+**Status:** `owner_approved_implementation_pending`
 **Audit version:** `white-live-conditions-research-v1-2026-08-24`
 
 Live Conditions / Gauge Read is a river-level measurement surface, not a score
@@ -183,8 +183,8 @@ owner approval.
 | ID | Issue | Decision / required action | Status |
 | --- | --- | --- | --- |
 | LC-001 | Third-party sites say USGS 04122200 has temperature; USGS endpoint does not | Reject the claim and use Weaver temperature only | resolved |
-| LC-002 | Hydraulic and temperature stations are ~corridor-apart, not co-located | Render actual station per metric and permanent split-reach limitation | **owner approval required** |
-| LC-003 | Temperature history exists but is raw, short, and gappy | Accept live/trend; keep date average unavailable pending versioned baseline policy | **owner approval required** |
+| LC-002 | Hydraulic and temperature stations are ~corridor-apart, not co-located | Render actual station per metric and permanent split-reach limitation | approved 2026-08-24 |
+| LC-003 | Temperature history exists but is raw, short, and gappy | Accept live/trend; keep date average unavailable pending versioned baseline policy | approved 2026-08-24 |
 | LC-004 | Station timestamps display fixed UTC-05 while river timezone observes EDT | Normalize instants to UTC internally and render in `America/Detroit`; test DST boundaries | implementation gate |
 | LC-005 | Hesperia/White Cloud operations can alter upper-reach temperature | Do not extrapolate Weaver temperature downstream; re-audit if dam operations/status change | ongoing limitation |
 | LC-006 | Split reach may technically satisfy observed-river input presence while misrepresenting a single reach | Activity must remain unapproved until a river/species calibration explicitly accepts or rejects the split-reach contract | Phase C owner gate |
@@ -197,11 +197,11 @@ owner approval.
 - [x] Hydraulic daily-history span and gaps quantified.
 - [x] Temperature interval coverage and material gaps quantified.
 - [x] NOAA point and hourly endpoint probed.
-- [ ] Owner accepts split-reach Gauge Read presentation.
-- [ ] Owner accepts freshness thresholds.
+- [x] Owner accepts split-reach Gauge Read presentation.
+- [x] Owner accepts freshness thresholds and automatic recovery from provider outages.
 - [ ] Temperature date-average baseline implemented/accepted (otherwise deterministic unavailable).
 - [ ] Fresh, partial, delayed, >24h, missing, trend-missing, and narrow-screen fixtures pass.
 - [ ] Long station names and attribution pass iOS/Android visual QA.
 
-**Live Conditions decision:** `blocked_pending_owner_source_reach_approval`
-**Owner acceptance/date:** pending
+**Live Conditions decision:** `owner_approved_source_capability_QA_pending`
+**Owner acceptance/date:** approved / 2026-08-24

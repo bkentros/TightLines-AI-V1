@@ -2534,7 +2534,7 @@ function primitiveForTab(
         return {
           score: null,
           label: "Fall entry complete",
-          headline: "PM Steelhead fall-entry Activity is complete.",
+          headline: "Steelhead fall-entry Activity is complete.",
           detail:
             "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
           tip:
@@ -2542,15 +2542,15 @@ function primitiveForTab(
         };
       }
       if (snapshot.runStage.label === "Fall run complete") {
-        const checkpoint = pmFallReturnCheckpoint(snapshot.runId);
+        const checkpoint = fallReturnCheckpoint(snapshot.runId);
         return {
           score: null,
           label: "Fall run complete",
-          headline: `PM ${checkpoint.species} fall Activity is complete.`,
+          headline: `${checkpoint.species} fall Activity is complete.`,
           detail:
             `${checkpoint.species} staging typically begins in ${checkpoint.window}. This Activity model is inactive until then.`,
           tip:
-            `Check back in ${checkpoint.window} when PM ${checkpoint.species} fall monitoring resumes.`,
+            `Check back in ${checkpoint.window} when ${checkpoint.species} fall monitoring resumes.`,
         };
       }
       return {
@@ -2569,7 +2569,7 @@ function primitiveForTab(
   }
 }
 
-function pmFallReturnCheckpoint(runId: string): {
+function fallReturnCheckpoint(runId: string): {
   species: string;
   window: string;
 } {

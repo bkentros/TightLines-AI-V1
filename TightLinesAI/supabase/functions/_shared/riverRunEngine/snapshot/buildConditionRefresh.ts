@@ -27,6 +27,7 @@ import { resolveDataQuality } from "./dataQuality.ts";
 import { resolveInterpretationNote } from "../copy/interpretation.ts";
 import { compareLocalDates } from "../metrics/dateWindow.ts";
 import {
+  unavailableActivity,
   unavailableFishability,
   unavailablePush,
 } from "../scoring/unavailablePrimitives.ts";
@@ -203,7 +204,17 @@ export function buildConditionRefresh(input: {
       localDate: input.localDate,
       copyStrategy: input.dailySnapshot.runStage.copyStrategy,
     });
-  const activity = input.activityRules && input.activityTargetDate
+  const activityCapability = input.primitiveCapabilities?.activity ?? {
+    status: "available" as const,
+  };
+  const activity = activityCapability.status === "unavailable"
+    ? unavailableActivity({
+      reason: activityCapability.reason,
+      requestDate: input.localDate,
+      targetDate: input.activityTargetDate,
+      publicCopy: activityCapability.publicCopy,
+    })
+    : input.activityRules && input.activityTargetDate
     ? scoreActivity({
       rules: input.activityRules,
       requestDate: input.localDate,

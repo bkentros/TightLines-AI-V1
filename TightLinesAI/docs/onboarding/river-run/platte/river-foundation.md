@@ -3,8 +3,8 @@
 **River ID:** `platte`
 **State:** `MI`
 **Created/researched:** 2026-08-24
-**Status:** `owner_review_required`
-**Owner section approval:** `pending`
+**Status:** `owner_approved_phase_c_authorized`
+**Owner section approval:** `approved_2026-08-24`
 
 > Phase A/B research only. Do not configure runs, write state copy, or publish
 > this river. Exact public sections, the mixed hydraulic/no-temperature
@@ -30,8 +30,8 @@
 | IANA timezone | `America/Detroit` (Eastern Time with DST). USGS timestamps this station in fixed `EST` and explicitly says it does not observe DST; runtime must not use that provider flag as the river timezone. | E-003, P-001 | verified |
 | Mouth waterbody | Platte Bay, Lake Michigan, at Platte River Point | E-001, E-009 | verified |
 | Mouth coordinates | `44.7296, -86.1562` (NPS coordinates for Platte River Point at the river mouth/access; orientation precision, not a surveyed thalweg coordinate) | E-001 | verified with stated limitation |
-| Downstream product boundary | Platte River mouth at Platte River Point | E-001 | proposed; owner approval required |
-| Upstream migratory/product boundary | Downstream edge of the current signed 300-foot lower-weir closure whenever the Lower Platte River Weir is installed; do not direct users through or above the weir | E-002, E-005, E-006 | conservative proposal; owner approval required |
+| Downstream product boundary | Platte River mouth at Platte River Point | E-001 | owner-approved 2026-08-24 |
+| Upstream migratory/product boundary | Downstream edge of the current signed 300-foot lower-weir closure whenever the Lower Platte River Weir is installed; do not direct users through or above the weir | E-002, E-005, E-006 | owner-approved conservative boundary 2026-08-24 |
 | Approximate product corridor length | About 2 river miles by NPS trip descriptions: El Dorado is about 1 mile above the mouth and the lower weir is about a 2-hour float above the mouth. This is orientation only; no authoritative surveyed river-mile figure was found. | E-001 | approximate; do not publish as exact |
 
 The full hydrologic corridor continues from Lake Michigan through the lower
@@ -62,9 +62,9 @@ Exact wording proposed for owner approval:
 - Landmarks prohibited from public run copy: any upper-river landmark unless a
   later passage audit and owner decision expands the product boundary.
 
-**Approval-required decision A-01:** Approve these two public labels and exact
-endpoints. Alternative broader sections are not recommended until current
-species-specific lower-weir passage/harvest operations are documented.
+**Decision A-01:** The owner approved these two public labels and exact
+endpoints on 2026-08-24. Alternative broader sections remain prohibited until
+current species-specific lower-weir passage/harvest operations are documented.
 
 ## 3. Mandatory barrier, passage, and closure inventory
 
@@ -179,27 +179,27 @@ All web sources accessed 2026-08-24.
 
 | ID | Question/conflict | Evidence | Resolution/proposal | Owner/status | Consequence |
 | --- | --- | --- | --- | --- | --- |
-| D-001 | Hydraulics exist but measured temperature does not; existing Activity standard defines observed-river as requiring both and weather-only as requiring neither | E-003; P-001–P-004; normative Activity §§4.1–4.2 | Do not mislabel as observed-river or weather-only. Add/approve a principled mixed-capability mode before Activity implementation, with zero temperature weight, explicit missing-temperature scope, conservative confidence/cap, replay, and fail-closed validation | Product/engine owner; **blocking** | No Platte Activity profile yet; Stage and Fish In River may proceed only after foundation approval; Gauge Read may show hydraulics independently |
-| D-002 | Gauge is accepted but sits upstream of Platte Lake while proposed run sections are below Loon Lake | E-003, E-004, E-009, E-014 | Gauge Read may state only `US-31 at Honor`; do not claim the lower salmon corridor. Fishability for lower sections remains unavailable unless owner accepts a defensible reach transformation/source | Product owner; **blocking for Fishability** | Gauge Read and Fishability capability must remain separate |
-| D-003 | Chinook occur historically, but current DNR opportunity guidance omits them | E-011, E-012 | Keep Fall Chinook visible but disabled; require current river-specific DNR run/stocking evidence before enabling | Research decision; owner confirmation required | No Chinook Phase C work yet |
-| D-006 | Steelhead are directly documented in Platte, but reviewed evidence is spring-specific and does not prove the planned fall-entry run | E-011, E-013 | Keep Fall Steelhead disabled until current Platte-specific fall-entry timing evidence is accepted | Research decision; owner confirmation required | Species support does not authorize a fall run packet |
-| D-004 | NPS says the lower weir stops migrating salmon; DNR calls it a harvest/passage facility; species handling differs | E-001, E-005, E-006, E-013 | Product ends below signed closure. Do not claim biological impassability year-round or infer one species from another | Conservative research decision; owner approval required | Two lower sections only; no routine upstream guidance |
+| D-001 | Hydraulics exist at Honor but do not represent the lower run corridor; measured temperature is absent | E-003; P-001–P-004; normative Activity §§4.1–4.2 | Owner approved reach-based capability: Honor remains Gauge Read only; lower-corridor Activity may use a dedicated weather-only model with zero river/temperature credit, Limited confidence, and species replay | approved 2026-08-24; implementation/replay pending | No mixed hydraulic score; lower Fishability remains unavailable |
+| D-002 | Gauge is accepted but sits upstream of Platte Lake while proposed run sections are below Loon Lake | E-003, E-004, E-009, E-014 | Gauge Read may state only `US-31 at Honor`; do not claim the lower salmon corridor. Fishability for lower sections remains unavailable unless a later defensible reach transformation/source is accepted | approved 2026-08-24 | Gauge Read and Fishability capability remain separate |
+| D-003 | Chinook occur historically, but current DNR opportunity guidance omits them | E-011, E-012 | Keep Fall Chinook visible but disabled; require current river-specific DNR run/stocking evidence before enabling | approved 2026-08-24 | No Chinook Phase C implementation |
+| D-006 | Steelhead are directly documented in Platte, but reviewed evidence is spring-specific and does not prove the planned fall-entry run | E-011, E-013 | Keep Fall Steelhead disabled until current Platte-specific fall-entry timing evidence is accepted | approved 2026-08-24 | Species support does not authorize a fall run implementation |
+| D-004 | NPS says the lower weir stops migrating salmon; DNR calls it a harvest/passage facility; species handling differs | E-001, E-005, E-006, E-013 | Product ends below signed closure. Do not claim biological impassability year-round or infer one species from another | approved 2026-08-24 | Two lower sections only; no routine upstream guidance |
 | D-005 | River timezone observes DST, but USGS metadata says fixed EST/no DST | E-003; P-001 | Use `America/Detroit` for product time. Parse provider offsets as supplied; never use USGS site timezone as the UI timezone | Technical fact; integration owner later | Prevents one-hour rollover/attribution errors |
 
 ## 10. Foundation gate
 
 - [x] Identity, timezone, mouth, and conservative corridor verified.
-- [ ] Public section labels/endpoints owner-approved.
+- [x] Public section labels/endpoints owner-approved.
 - [x] Material barriers/closures inventoried for the proposed corridor; wider
   biological passage remains explicitly outside scope.
 - [x] Passage conclusions are species-qualified and unresolved cases fail closed.
 - [x] Current regulation jurisdictions and recheck duty recorded.
 - [x] Gauge, absent temperature, weather, and reach limitations explicit.
-- [ ] Mixed Live Conditions/Activity/Fishability capability owner-approved.
+- [x] Reach-based Live Conditions/Activity/Fishability capability owner-approved.
 - [x] Species assessed independently: Fall Coho supported; Fall Chinook unsupported; Steelhead species supported but Fall Steelhead unresolved.
 - [x] Every material claim resolves to evidence/probe ledger.
-- [ ] Blocking decisions D-001/D-002 and approvals A-01/D-003 resolved.
+- [x] Owner decisions A-01/D-001/D-002/D-003/D-004/D-006 are resolved; implementation and acceptance QA remain.
 
-**Foundation decision:** `blocked_pending_owner_decisions`
-**Owner approval/date:**
+**Foundation decision:** `owner_approved_reach_scoped_capabilities`
+**Owner approval/date:** approved / 2026-08-24
 **Foundation version:** `platte-foundation-research-v1`

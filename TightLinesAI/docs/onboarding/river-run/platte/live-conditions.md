@@ -2,7 +2,7 @@
 
 **River ID:** `platte`
 **Created/researched:** 2026-08-24
-**Status:** `owner_review_required`
+**Status:** `owner_approved_implementation_pending`
 
 Gauge Read is a river-level measurement surface, not a fifth scored primitive.
 It may report accepted station measurements, station-specific 24-hour change,
@@ -122,18 +122,18 @@ The current normative Activity modes do not describe this river:
   temperature;
 - `weather_only` requires neither and cannot be used while hydraulics exist.
 
-**Approval-required/blocking decision LC-01:** introduce or approve a
-principled hydraulic-plus-weather/no-measured-temperature capability model
-before Platte Activity work. It must assign zero temperature credit, expose
-the missing measured-temperature limitation, constrain confidence/output,
-retain hydraulic reach truth, replay independently by species, and fail closed.
-This audit does not authorize validation or runtime changes.
+**Owner decision LC-01 (approved 2026-08-24):** capability is evaluated by
+represented run reach. Honor hydraulics remain Gauge Read measurements but are
+not Activity inputs for the lower corridor. A supported Platte run may use a
+dedicated weather-only Activity model with zero hydraulic/temperature credit,
+Limited confidence, explicit limitations, independent species replay, and
+fail-closed validation.
 
-**Approval-required/blocking decision LC-02:** decide whether the upstream
-US-31 hydraulic shape may influence Fishability for any public lower section.
-Research recommendation: no; keep lower-corridor Fishability deterministically
-unavailable unless a lower-reach source or validated transformation is found.
-Gauge Read may still show the upstream measurements with the explicit label.
+**Owner decision LC-02 (approved 2026-08-24):** the upstream US-31 hydraulic
+shape cannot influence lower-corridor Fishability. Keep Fishability
+deterministically unavailable unless a lower-reach source or validated
+transformation is found. Gauge Read may still show the upstream measurements
+with the explicit label.
 
 ## 8. Phase B acceptance matrix (required later)
 
@@ -156,8 +156,8 @@ Gauge Read may still show the upstream measurements with the explicit label.
 
 **Gauge Read source decision:** `hydraulics_accepted_temperature_unavailable`
 **Current probe state:** `unavailable_equipment_malfunction`
-**Activity capability decision:** `blocked_pending_mixed_capability_model`
-**Fishability reach decision:** `blocked_pending_owner_decision`
-**Live Conditions decision:** `owner_review_required`
+**Activity capability decision:** `owner_approved_reach_based_weather_only_for_supported_runs`
+**Fishability reach decision:** `owner_approved_unavailable_for_lower_corridor`
+**Live Conditions decision:** `owner_approved_source_capability_QA_pending`
 **Audit version:** `platte-live-conditions-research-v1`
-**Owner acceptance/date:**
+**Owner acceptance/date:** approved / 2026-08-24

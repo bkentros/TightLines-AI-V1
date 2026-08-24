@@ -978,18 +978,7 @@ export function validateRunProfile(
   const timingAvailable =
     run.primitiveCapabilities?.migrationTiming.status === "available";
   const activityAvailable =
-    run.primitiveCapabilities?.activity?.status === "available";
-  if (
-    new Set([pushAvailable, fishabilityAvailable, timingAvailable]).size > 1
-  ) {
-    issues.push(
-      issue(
-        "primitiveCapabilities",
-        "Mixed observed and seasonal-only primitive capability profiles are not implemented yet.",
-        "config_invalid_value",
-      ),
-    );
-  }
+    run.primitiveCapabilities?.activity.status === "available";
   if (river) {
     if (
       (pushAvailable || fishabilityAvailable || timingAvailable) &&
@@ -998,7 +987,7 @@ export function validateRunProfile(
       issues.push(
         issue(
           "primitiveCapabilities",
-          "Observed primitives require an accepted river hydraulic source.",
+          "Available Push, Fishability, or Migration Timing requires an accepted river hydraulic source.",
           "config_source_reference_missing",
         ),
       );
@@ -1011,6 +1000,20 @@ export function validateRunProfile(
         issue(
           "primitiveCapabilities",
           "Push and Migration Timing require accepted measured water temperature.",
+          "config_source_reference_missing",
+        ),
+      );
+    }
+    if (
+      activityAvailable &&
+      (run.activity?.dataMode ?? "observed_river") === "observed_river" &&
+      (river.conditionDataCapabilities.hydraulics.status !== "available" ||
+        river.conditionDataCapabilities.waterTemperature.status !== "available")
+    ) {
+      issues.push(
+        issue(
+          "primitiveCapabilities.activity",
+          "Observed-river Activity requires accepted reach-representative hydraulics and measured water temperature.",
           "config_source_reference_missing",
         ),
       );
@@ -1098,6 +1101,39 @@ function validateActivityRules(
         "config_invalid_value",
       ),
     );
+  }
+  if (
+    rules.dataMode === "weather_only" &&
+    rules.caps.weatherOnlyTomorrowMaximum !== undefined &&
+    (!Number.isFinite(rules.caps.weatherOnlyTomorrowMaximum) ||
+      rules.caps.weatherOnlyTomorrowMaximum < 1 ||
+      rules.caps.weatherOnlyTomorrowMaximum >
+        (rules.caps.weatherOnlyMaximum ?? 100))
+  ) {
+    issues.push(
+      issue(
+        "activity.caps.weatherOnlyTomorrowMaximum",
+        "The weather-only tomorrow maximum must be between 1 and today's maximum.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (rules.dataMode === "weather_only" && rules.inputReach) {
+    if (
+      rules.inputReach.reachIds.length === 0 ||
+      rules.inputReach.weatherPointIds.length === 0 ||
+      rules.inputReach.hydraulicSourceIds.length > 0 ||
+      rules.inputReach.waterTemperatureSourceIds.length > 0 ||
+      !hasText(rules.inputReach.notes)
+    ) {
+      issues.push(
+        issue(
+          "activity.inputReach",
+          "Weather-only Activity must name its represented reach and weather point, omit river/temperature sources, and document the reach limitation.",
+          "config_invalid_value",
+        ),
+      );
+    }
   }
   const temperatures = rules.temperature;
   if (
@@ -1203,7 +1239,14 @@ function validatePrimitiveCapabilities(
     "no_accepted_activity_calibration",
   ]);
   for (
-    const field of ["migrationTiming", "push", "fishability"] as const
+    const field of [
+      "migrationStage",
+      "activity",
+      "fishInRiver",
+      "fishability",
+      "migrationTiming",
+      "push",
+    ] as const
   ) {
     const capability = run.primitiveCapabilities?.[field];
     if (
@@ -1226,6 +1269,20 @@ function validatePrimitiveCapabilities(
         issue(
           `primitiveCapabilities.${field}`,
           "Unavailable primitives require a supported reason and evidence note.",
+          "audit_notes_missing",
+        ),
+      );
+    }
+    if (
+      capability.status === "unavailable" && capability.publicCopy &&
+      (!hasText(capability.publicCopy.headline) ||
+        !hasText(capability.publicCopy.detail) ||
+        !hasText(capability.publicCopy.tip))
+    ) {
+      issues.push(
+        issue(
+          `primitiveCapabilities.${field}.publicCopy`,
+          "Unavailable primitive public copy requires a headline, detail, and tip.",
           "audit_notes_missing",
         ),
       );

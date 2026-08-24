@@ -1,19 +1,15 @@
 import {
   addDays,
-  BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
-  BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
-  BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
-  BIG_MANISTEE_RIVER_PROFILE as river,
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
-  MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
-  MUSKEGON_FALL_COHO_RUN_PROFILE,
-  MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
-  MUSKEGON_RIVER_PROFILE,
   resolveAdminOverrideBand,
   resolveFlowTrendSignal,
   resolveRunStage,
   resolveTemperatureTrendSignal,
+  RIVER_RUN_DRAFT_RIVER_PROFILES,
+  RIVER_RUN_DRAFT_RUN_PROFILES,
+  RIVER_RUN_RIVER_PROFILES,
+  RIVER_RUN_RUN_PROFILES,
   scoreActivity,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type {
@@ -42,43 +38,39 @@ type Row = {
 
 const requestedRunId = argumentValue("--run-id") ??
   "big_manistee_fall_chinook";
+const allRuns = [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES];
+const allRivers = [
+  ...RIVER_RUN_RIVER_PROFILES,
+  ...RIVER_RUN_DRAFT_RIVER_PROFILES,
+];
+const run = allRuns.find((item) => item.runId === requestedRunId) ??
+  fail(`Unknown River Run profile: ${requestedRunId}`);
+const selectedRiver = allRivers.find((item) => item.riverId === run.riverId) ??
+  fail(`River profile missing for ${requestedRunId}`);
+const speciesSlug = run.species === "chinook_salmon"
+  ? "chinook"
+  : run.species === "coho_salmon"
+  ? "coho"
+  : "steelhead";
+
 if (
-  requestedRunId !== "big_manistee_fall_chinook" &&
-  requestedRunId !== "big_manistee_fall_coho" &&
-  requestedRunId !== "big_manistee_fall_steelhead" &&
-  requestedRunId !== "muskegon_fall_chinook" &&
-  requestedRunId !== "muskegon_fall_coho" &&
-  requestedRunId !== "muskegon_fall_steelhead"
+  run.primitiveCapabilities.activity.status !== "available" ||
+  !run.activity || run.activity.dataMode === "weather_only" || !run.push ||
+  !run.fishabilityBands
 ) {
   throw new Error(
-    `Unsupported Big Manistee Activity replay: ${requestedRunId}`,
-  );
-}
-const isMuskegon = requestedRunId.startsWith("muskegon_");
-const selectedRiver = isMuskegon ? MUSKEGON_RIVER_PROFILE : river;
-const run = isMuskegon
-  ? requestedRunId === "muskegon_fall_steelhead"
-    ? MUSKEGON_FALL_STEELHEAD_RUN_PROFILE
-    : requestedRunId === "muskegon_fall_coho"
-    ? MUSKEGON_FALL_COHO_RUN_PROFILE
-    : MUSKEGON_FALL_CHINOOK_RUN_PROFILE
-  : requestedRunId === "big_manistee_fall_steelhead"
-  ? BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE
-  : requestedRunId === "big_manistee_fall_coho"
-  ? BIG_MANISTEE_FALL_COHO_RUN_PROFILE
-  : BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE;
-const speciesSlug = requestedRunId.endsWith("_steelhead")
-  ? "steelhead"
-  : requestedRunId.endsWith("_coho")
-  ? "coho"
-  : "chinook";
-
-if (!run.activity || !run.push || !run.fishabilityBands) {
-  throw new Error(
-    `${selectedRiver.displayName} ${speciesSlug} Activity rules are unavailable.`,
+    `${selectedRiver.displayName} ${speciesSlug} does not have an observed-river Activity replay contract.`,
   );
 }
 const gauge = getPrimaryHydraulicSource(selectedRiver);
+const temperatureSource = selectedRiver.waterTemperatureSources.find((source) =>
+  source.provider === "USGS" && source.siteId === gauge.siteId
+);
+if (!temperatureSource) {
+  throw new Error(
+    `${selectedRiver.displayName} does not have same-station USGS daily water temperature for this replay.`,
+  );
+}
 const weatherPoint = selectedRiver.weatherPoints.find((point) =>
   point.role === "primary"
 );
@@ -194,6 +186,14 @@ for (let year = startYear; year <= endYear; year++) {
 }
 
 const blocks = rows.flatMap((row) => row.blocks);
+const activityScopeCopy = run.activity.scopeCopy;
+const foreignRiverPattern = new RegExp(
+  allRivers
+    .filter((item) => item.riverId !== selectedRiver.riverId)
+    .map((item) => item.displayName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|"),
+  "i",
+);
 const invariants = {
   incompleteBlocks: rows.filter((row) => row.blocks.length !== 4).length,
   incompleteCopy:
@@ -203,17 +203,11 @@ const invariants = {
     ).length,
   missingTailwaterScope:
     rows.filter((row) =>
-      isMuskegon
-        ? !/Croton tailwater/i.test(row.detail)
-        : !/Wellston\/Tippy tailwater/i.test(row.detail)
+      activityScopeCopy ? !row.detail.includes(activityScopeCopy) : false
     ).length,
   prohibitedGeography:
     rows.filter((row) =>
-      (isMuskegon
-        ? /Tippy|Wellston|Scottville|Pere Marquette|Walhalla|Baldwin/i
-        : /Scottville|Pere Marquette|Walhalla|Baldwin/i).test(
-          `${row.headline} ${row.detail} ${row.tip}`,
-        )
+      foreignRiverPattern.test(`${row.headline} ${row.detail} ${row.tip}`)
     ).length,
   dailyOutsideBlockRange: rows.filter((row) => {
     const values = row.blocks.map((block) => block.score);
@@ -321,8 +315,8 @@ const report = {
   replayYears: `${startYear}-${endYear}`,
   method:
     `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the ${
-      isMuskegon ? "Croton" : "Tippy"
-    } tailwater and validates scoring behavior and copy, not catch rates.`,
+      run.activity.scopeCopy ?? selectedRiver.gaugeLimitationCopy
+    } It validates scoring behavior and copy, not catch rates.`,
   expectedDays:
     activeDayCount(run.runWindow.stagingStart, run.runWindow.lateEnd) *
     (endYear - startYear + 1),
@@ -365,13 +359,13 @@ if (Deno.args.includes("--write")) {
   await Deno.mkdir("docs/audits", { recursive: true });
   await Deno.writeTextFile(
     `docs/audits/river-run-${
-      isMuskegon ? "muskegon" : "big-manistee"
+      selectedRiver.riverId.replaceAll("_", "-")
     }-${speciesSlug}-activity-replay.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   );
   await Deno.writeTextFile(
     `docs/audits/river-run-${
-      isMuskegon ? "muskegon" : "big-manistee"
+      selectedRiver.riverId.replaceAll("_", "-")
     }-${speciesSlug}-activity-review-100.csv`,
     reviewCsv(reviewRows),
   );
@@ -643,4 +637,7 @@ function argumentValue(flag: string) {
   if (inline) return inline.slice(flag.length + 1) || null;
   const index = Deno.args.indexOf(flag);
   return index >= 0 ? Deno.args[index + 1] ?? null : null;
+}
+function fail(message: string): never {
+  throw new Error(message);
 }

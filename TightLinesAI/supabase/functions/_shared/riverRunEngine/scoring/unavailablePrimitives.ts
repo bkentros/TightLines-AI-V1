@@ -6,6 +6,39 @@ import type {
 import type { ConditionsSuggestResult } from "./conditionsSuggest.ts";
 import type { FishabilityScoreResult } from "./fishability.ts";
 import type { PushScoreResult } from "./push.ts";
+import type { ActivityResult } from "./activity.ts";
+
+export function unavailableActivity(input: {
+  reason: PrimitiveUnavailableReason;
+  requestDate: string;
+  targetDate?: string;
+  publicCopy?: { headline: string; detail: string; tip: string };
+}): ActivityResult {
+  const calibrationMissing =
+    input.reason === "no_accepted_activity_calibration";
+  const targetDate = input.targetDate ?? input.requestDate;
+  return {
+    score: null,
+    maximum: 100,
+    label: "Unavailable",
+    headline: input.publicCopy?.headline ??
+      "Activity is unavailable for this river and run.",
+    detail: input.publicCopy?.detail ??
+      (calibrationMissing
+        ? "FinFindr does not yet have an accepted Activity calibration for this river, species, and fishing corridor."
+        : "The accepted inputs do not support a reliable current responsiveness read for this fishing corridor."),
+    tip: input.publicCopy?.tip ??
+      "Use Migration Stage and Fish In River for seasonal context, and check Gauge Read for the measurements that are currently available.",
+    reasonCodes: ["primitive_activity_unavailable_for_run"],
+    rulesVersion: "unavailable-v1",
+    targetDate,
+    targetDayLabel: targetDate === input.requestDate ? "Today" : "Tomorrow",
+    confidence: "Limited",
+    conditionalPresence: false,
+    blocks: [],
+    copyVersion: RIVER_RUN_COPY_VERSION,
+  };
+}
 
 export function unavailableMigrationTiming(
   _reason: PrimitiveUnavailableReason,

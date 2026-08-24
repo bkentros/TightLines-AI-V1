@@ -1,0 +1,50 @@
+import type {
+  AuditedRiverRunProfile,
+  RiverProfile,
+  RiverRunConfigurationDocument,
+} from "../../types.ts";
+import {
+  GRAND_CONFIGURATION_DOCUMENT,
+  GRAND_FALL_CHINOOK_RUN_PROFILE,
+  GRAND_FALL_COHO_RUN_PROFILE,
+  GRAND_FALL_STEELHEAD_RUN_PROFILE,
+  GRAND_RIVER_PROFILE,
+} from "./grand.ts";
+import {
+  PLATTE_CONFIGURATION_DOCUMENT,
+  PLATTE_FALL_COHO_RUN_PROFILE,
+  PLATTE_RIVER_PROFILE,
+} from "./platte.ts";
+import {
+  WHITE_CONFIGURATION_DOCUMENT,
+  WHITE_FALL_CHINOOK_RUN_PROFILE,
+  WHITE_FALL_STEELHEAD_RUN_PROFILE,
+  WHITE_RIVER_PROFILE,
+} from "./white.ts";
+
+/** Hidden onboarding candidates, intentionally excluded from public registries. */
+export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [
+  GRAND_RIVER_PROFILE,
+  PLATTE_RIVER_PROFILE,
+  WHITE_RIVER_PROFILE,
+];
+
+export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [
+  GRAND_FALL_CHINOOK_RUN_PROFILE,
+  GRAND_FALL_COHO_RUN_PROFILE,
+  GRAND_FALL_STEELHEAD_RUN_PROFILE,
+  PLATTE_FALL_COHO_RUN_PROFILE,
+  WHITE_FALL_CHINOOK_RUN_PROFILE,
+  WHITE_FALL_STEELHEAD_RUN_PROFILE,
+];
+
+export const RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS:
+  RiverRunConfigurationDocument[] = [
+    GRAND_CONFIGURATION_DOCUMENT,
+    PLATTE_CONFIGURATION_DOCUMENT,
+    WHITE_CONFIGURATION_DOCUMENT,
+  ];
+
+export * from "./grand.ts";
+export * from "./platte.ts";
+export * from "./white.ts";

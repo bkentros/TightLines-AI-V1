@@ -2,6 +2,13 @@ import {
   auditCurrentRiverRunPortfolio,
   PUBLIC_RIVER_RUN_PRIMITIVES,
 } from "./lib/river-run-onboarding.ts";
+import {
+  RIVER_RUN_DRAFT_RIVER_PROFILES,
+  RIVER_RUN_DRAFT_RUN_PROFILES,
+  RIVER_RUN_RUN_PROFILES,
+  validateRiverProfile,
+  validateRunProfile,
+} from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
 const report = auditCurrentRiverRunPortfolio(
   undefined,
@@ -73,6 +80,31 @@ assert(
   expectedRivers.size === 0,
   `Missing rivers: ${[...expectedRivers].join(", ")}`,
 );
+assert(
+  RIVER_RUN_DRAFT_RIVER_PROFILES.length === 3,
+  "Expected Grand, Platte, and White hidden draft foundations.",
+);
+assert(
+  RIVER_RUN_DRAFT_RUN_PROFILES.length === 6,
+  "Expected six supported hidden draft runs.",
+);
+for (const river of RIVER_RUN_DRAFT_RIVER_PROFILES) {
+  const result = validateRiverProfile(river);
+  assert(result.valid, `${river.riverId} draft foundation is invalid.`);
+}
+for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
+  const river = RIVER_RUN_DRAFT_RIVER_PROFILES.find((item) =>
+    item.riverId === run.riverId
+  );
+  assert(river, `${run.runId} draft river is missing.`);
+  const result = validateRunProfile(run, river);
+  assert(result.valid, `${run.runId} draft is invalid.`);
+  assert(!result.publicVisible, `${run.runId} must remain hidden.`);
+  assert(
+    !RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
+    `${run.runId} leaked into the public run registry.`,
+  );
+}
 
 const requiredDocuments: Record<string, RegExp[]> = {
   "docs/river_run_rapid_onboarding_playbook.md": [
@@ -144,7 +176,7 @@ assert(
   "Onboarding primitive order must match the actual River Run UI registry.",
 );
 console.log(
-  `River Run onboarding QA passed: ${report.riverCount} rivers, ${report.runCount} runs, four public primitives, Live Conditions capability checks, canonical standards, and scaffold templates.`,
+  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs plus ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} hidden draft rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} hidden draft runs, four public primitives, Live Conditions capability checks, canonical standards, and scaffold templates.`,
 );
 
 function assert(condition: unknown, message: string): asserts condition {

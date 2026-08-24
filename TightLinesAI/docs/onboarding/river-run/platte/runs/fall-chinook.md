@@ -1,183 +1,52 @@
-# Platte River Fall chinook River Run Profile
+# Platte River Fall Chinook River Run Profile
 
 **River ID:** `platte`
 **Species slug:** `chinook`
-**Created:** 2026-08-24
-**Status:** `research_incomplete`
+**Created/researched:** 2026-08-24
+**Status:** `visible_disabled_unsupported`
 
-> Prerequisite: the river foundation and public section wording are approved.
-> Do not copy dates, thresholds, Activity weights, ceilings, or state prose
-> from another river without independent evidence and replay acceptance.
+## Truth decision
 
-## 1. Species/run truth
-
-| Field | Researched value | Evidence IDs | Status |
-| --- | --- | --- | --- |
-| Public species name |  |  | unresolved |
-| Run type |  |  | unresolved |
-| Migration purpose |  |  | unresolved |
-| Lifecycle after spawning |  |  | unresolved |
-| Shared biology profile fit |  |  | unresolved |
-| Distribution scope |  |  | unresolved |
-| Historical opportunity tier/ceiling |  |  | unresolved |
-| Barrier response differences |  |  | unresolved |
-
-## 2. Seasonal calendar
-
-All dates are month-day values in the river timezone. Explain each boundary;
-do not infer dates solely from a nearby river.
-
-| Boundary | Date | Meaning | Evidence IDs | Owner calibration? |
-| --- | --- | --- | --- | --- |
-| Pre-run monitoring start |  |  |  | no |
-| Staging start |  |  |  | no |
-| River-run start |  |  |  | no |
-| Beginning end |  |  |  | no |
-| Established building start |  |  |  | no |
-| Broad building start, if used |  |  |  | no |
-| Peak start |  |  |  | no |
-| Peak anchor |  |  |  | no |
-| Peak end |  |  |  | no |
-| Tapering end |  |  |  | no |
-| Main run end |  |  |  | no |
-| Historical-presence tail end |  |  |  | no |
-| Late-copy end |  |  |  | no |
-
-## 3. Migration Stage copy matrix
-
-For every reachable substate record the expected section plan and copy intent.
-Stage uses seasonal expectation, never live confirmation.
-
-| State key | Trigger/date | Label | Primary section | Conditional secondary section | Headline intent | Why points | Guide action | Limitation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| offseason |  |  |  |  |  |  |  |  |
-| staging |  |  |  |  |  |  |  |  |
-| beginning |  |  |  |  |  |  |  |  |
-| building |  |  |  |  |  |  |  |  |
-| peak |  |  |  |  |  |  |  |  |
-| tapering |  |  |  |  |  |  |  |  |
-| ending |  |  |  |  |  |  |  |  |
-| terminal/handoff |  |  |  |  |  |  |  |  |
-
-## 4. Fish In River profile
-
-- Historical maximum (1–10):
-- Public opportunity tier:
-- Distribution scope:
-- Curve version:
-- Direction transitions:
-- Terminal behavior:
-- Handoff behavior, only if a destination experience exists:
-
-| Day offset from run start | Fraction of maximum | Biological/observational reason | Evidence IDs |
-| ---: | ---: | --- | --- |
-|  |  |  |  |
-
-Acceptance:
-
-- Public values use state-preserving five-point rounding and `≈` where required.
-- The marker and copy use the same public value.
-- Complete is not displayed as zero.
-- The value is a seasonal estimate, never a live fish count.
-
-## 5. Activity calibration
-
-Read `docs/river_run_activity_onboarding_standard.md` completely.
-
-### Evidence and mode
-
-- Mode: `observed_river` / `weather_only` / unresolved
-- Temperature source and represented reach:
-- Hydraulic source and represented reach:
-- Weather point:
-- Species lifecycle evidence:
-- Direct evidence versus owner-calibrated values:
-
-### Proposed rules
-
-| Component | Weight | Rationale | Evidence/calibration IDs |
-| --- | ---: | --- | --- |
-| Effective light |  |  |  |
-| Measured water temperature |  |  |  |
-| River behavior |  |  |  |
-| Precipitation context |  |  |  |
-
-| Temperature/lifecycle control | Value/dates | Rationale |
+| Field | Decision | Evidence IDs |
 | --- | --- | --- |
-| Cold-side transition |  |  |
-| Preferred minimum/maximum |  |  |
-| Warm constraint |  |  |
-| Barrier constraint |  |  |
-| Tapering transition |  |  |
-| Ending transition |  |  |
-| Residual/holding behavior |  |  |
+| Public catalog behavior | Remain visible with an unavailable/unsupported state; do not silently remove and do not enable | C-001 |
+| Species occurrence | Historic Lower Platte collections exist, including records from 1991–2007; a 2022 record is only Benzie/HUC scoped | C-002 |
+| Current fall-run support | Not established. Current Michigan DNR Better Fishing Waters lists Platte for Coho and Steelhead but not Chinook | C-001, C-003 |
+| Hatchery inference | Platte Hatchery producing Chinook does not prove those fish are stocked into or support a current Platte river run | C-004 |
+| Barrier response | Lower-weir Chinook handling/passage is unresolved; guidance may not cross the signed closure | C-005, C-006 |
+| Seasonal calendar | None accepted; do not borrow Coho or another river's dates | C-001–C-006 |
+| Presence ceiling/curve | None accepted | C-001–C-006 |
+| Activity | Unavailable; no calibration or replay authorized for an unsupported run | C-001 |
+| Fishability | Unavailable; lower corridor has no accepted local hydraulics, independent of species support | C-001 |
+| Terminal/handoff | Static unavailable state only; no seasonal score or destination handoff | C-001 |
 
-### Required Activity replay report
+## Required public truth
 
-- Replay years and coverage percentage.
-- Missing flow, prior flow, temperature, lookback, and weather counts.
-- Daily and block min/p10/median/p90/max.
-- Label distribution by lifecycle phase.
-- Best-block distribution and block-spread distribution.
-- Warm, cold, extreme-flow, and missing-data distributions.
-- Controlled isolated-variable tests.
-- Lifecycle boundary continuity tests.
-- Complete copy and reach-scope invariants.
-- Calibration changes made after replay and why.
+- Label: `Not supported for this river`.
+- Headline: `A current Platte fall Chinook run is not supported by the accepted evidence.`
+- Why points: historic occurrence does not establish a current dependable run;
+  current DNR guidance does not list Platte Chinook; lower-weir handling is unresolved.
+- Guide's Read: `Choose a supported Platte species and check current Michigan
+  DNR information.`
+- Scope: do not claim Chinook never enter the river. Do not show Stage,
+  Activity, Fish In River, or Fishability scores, dates, sections, or meter
+  markers. Do not expose internal research/approval wording in production.
 
-Activity remains blocked until the replay is reviewed. A plausible anecdotal
-day is not sufficient acceptance.
+## Evidence ledger
 
-## 6. Fishability profile
+| ID | Authority/title | URL/path | Published/updated | Accessed | Facts/limitations |
+| --- | --- | --- | --- | --- | --- |
+| C-001 | Owner-approved Platte foundation | ../river-foundation.md | 2026-08-24 | 2026-08-24 | Chinook disabled; exact sections/capability decisions |
+| C-002 | USGS NAS/GLANSIS — Chinook collections, HUC 04060104 | https://nas.er.usgs.gov/queries/CollectionInfo.aspx?HUCNumber=04060104&SpeciesID=920&State=MI | Records through 2022 | 2026-08-24 | Proves occurrence only; records do not establish current abundance/run/calendar; 2022 locality is not Platte-specific |
+| C-003 | Michigan DNR — Better Fishing Waters | https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters | Current 2026 page | 2026-08-24 | Platte lists Coho/Steelhead, not Chinook; omission is conservative evidence, not proof of absence |
+| C-004 | Michigan DNR — Platte River Hatchery & Weir | https://www.michigan.gov/dnr/managing-resources/fisheries/hatcheries/platte | Current 2026 page | 2026-08-24 | Hatchery produces Chinook, but page does not establish a Platte Chinook run/stocking destination |
+| C-005 | National Park Service — Platte River Point Water Access | https://www.nps.gov/places/000/platte-river-point-water-access.htm | Updated 2025-08-28 | 2026-08-24 | Lower weir can stop migrating salmon; no species handling detail |
+| C-006 | Michigan DNR — 2026 Michigan Fishing Regulations | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf | Effective 2026-04-01–2027-03-31 | 2026-08-24 | Signed 300-ft weir closure rule; regulation coverage does not prove run support |
 
-If no accepted local hydraulic source exists, configure the deterministic
-unavailable state and do not borrow another river’s gauge.
-
-| Boundary | Value | Evidence/calibration rationale |
-| --- | ---: | --- |
-| Too low maximum |  |  |
-| Low fishable |  |  |
-| Ideal |  |  |
-| High fishable |  |  |
-| Blown out minimum |  |  |
-
-- Metric/source/reach:
-- Trend behavior:
-- Freshness and unknown-trend caps:
-- Permanent scope note:
-- Extreme-state guidance:
-
-Fishability describes presentation shape, not abundance, access, or safety.
-
-## 7. Four-primitive copy acceptance
-
-For Stage, Activity, Fish In River, and Fishability:
-
-- [ ] Every reachable state and material variant has a fixture.
-- [ ] Headline is one conclusion with the material qualifier.
-- [ ] Why This Read has one to three independent points.
-- [ ] Guide’s Read gives one prioritized action.
-- [ ] Permanent limitations are not repeated as filler.
-- [ ] Geography uses approved section labels only.
-- [ ] No internal scores, thresholds, reason codes, provider IDs, or workflow
-      language leaks publicly.
-- [ ] Copy does not claim fish arrival, catch probability, or safety.
-- [ ] Terminal behavior matches species lifecycle.
-- [ ] Valid cross-primitive tensions remain intact.
-- [ ] Foreign river, landmark, dam, gauge, and species denylist passes.
-
-## 8. Research evidence ledger
-
-| Evidence ID | Authority/title | URL/path | Published/updated | Accessed | Facts supported | Limitations |
-| --- | --- | --- | --- | --- | --- | --- |
-| R-001 |  |  |  |  |  |  |
-
-## 9. Run gate
-
-**Run decision:** `blocked`
-**Configuration version:**
-**Activity rules version:**
-**Presence curve version:**
-**Copy version:**
-**Replay artifact:**
-**Owner acceptance/date:**
+**Run decision:** `visible_disabled_unsupported`
+**Configuration/presence/Activity versions:** none
+**Disabled-state copy proposal:** `platte-fall-chinook-disabled-v1`
+**Replay:** not applicable until new direct evidence changes the truth decision
+**Owner acceptance:** disabled decision approved 2026-08-24
+**Reopen trigger:** current river-specific DNR run/stocking/monitoring evidence
+and a documented species-specific lower-weir response.

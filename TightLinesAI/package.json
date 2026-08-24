@@ -45,6 +45,8 @@
     "build:river-run:big-manistee-steelhead-conditions-baseline": "deno run --allow-read --allow-write --allow-net=api.waterdata.usgs.gov scripts/river-run-big-manistee-conditions-baseline.ts --run-id big_manistee_fall_steelhead",
     "backfill:river-run:timing": "deno run --env-file=.env --allow-env=SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY --allow-net scripts/river-run-timing-observation-backfill.ts",
     "replay:river-run:pm-push": "deno run --allow-net=api.waterdata.usgs.gov,monitormywatershed.org,archive-api.open-meteo.com scripts/river-run-pm-push-replay.ts",
+    "replay:river-run:observed-activity": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com --allow-read --allow-write scripts/river-run-big-manistee-chinook-activity-replay.ts --write",
+    "replay:river-run:weather-activity": "deno run --allow-net=archive-api.open-meteo.com --allow-read --allow-write scripts/river-run-betsie-chinook-activity-replay.ts --write",
     "replay:river-run:big-manistee-push": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com scripts/river-run-big-manistee-push-replay.ts",
     "replay:river-run:big-manistee-chinook-activity": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com --allow-read --allow-write scripts/river-run-big-manistee-chinook-activity-replay.ts --write",
     "replay:river-run:big-manistee-coho-activity": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com --allow-read --allow-write scripts/river-run-big-manistee-chinook-activity-replay.ts --run-id big_manistee_fall_coho --write",

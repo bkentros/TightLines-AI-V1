@@ -50,6 +50,7 @@ export const RIVER_RUN_REASON_CODES = [
   "primitive_push_unavailable_for_river",
   "primitive_fishability_unavailable_for_river",
   "primitive_migration_timing_unavailable_for_river",
+  "primitive_activity_unavailable_for_run",
   "push_low_flow_context",
   "push_normal_flow_context",
   "push_high_flow_context",

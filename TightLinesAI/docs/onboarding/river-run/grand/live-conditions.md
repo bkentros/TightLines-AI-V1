@@ -2,7 +2,7 @@
 
 **River ID:** `grand`
 **Created/researched:** 2026-08-24
-**Status:** `capability_researched_owner_acceptance_pending`
+**Status:** `owner_approved_implementation_pending`
 
 Gauge Read is an unscored measurement surface. It does not determine Stage,
 Activity, Fish In River, Fishability, clarity, access, or safety. Evidence IDs
@@ -129,7 +129,7 @@ Trend describes only the named station measurement. It never claims fish
 movement, migration, clarity, safety, or a whole-river change. No prior
 observation means unknown, not stable.
 
-## 5. Public copy lock (proposed; owner acceptance required)
+## 5. Public copy lock (owner approved; implementation QA pending)
 
 - Gauge Read limitation sentence: `Grand Rapids readings describe the Fulton Street and North Park reaches, not the full Grand River.`
 - Discharge public station label: `Grand River at Grand Rapids`.
@@ -187,6 +187,6 @@ observation means unknown, not stable.
 - [ ] Lower Reach construction fixture makes no safety/access claim.
 - [ ] Post-2026 and post-2027 dam-removal rating/datum/source re-audit completed.
 
-**Live Conditions decision:** `source_capability_accepted_owner_and_QA_blocked`
+**Live Conditions decision:** `owner_approved_source_capability_QA_pending`
 **Audit version:** `grand-live-conditions-research-v1-2026-08-24`
-**Owner acceptance/date:** pending
+**Owner acceptance/date:** approved / 2026-08-24

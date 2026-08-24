@@ -68,6 +68,23 @@ Deno.test("USGS parser maps discharge to flow_cfs and gauge height to gage_heigh
   assertEquals(latest.gage_height_ft, 4.25);
 });
 
+Deno.test("USGS equipment faults fail closed and fresh numeric readings recover automatically", () => {
+  const payload = usgsPayload();
+  const series = payload.value.timeSeries[0].values[0].value;
+  series.push(
+    { dateTime: "2026-09-21T10:15:00-04:00", value: "Eqp" },
+    { dateTime: "2026-09-21T10:30:00-04:00", value: "615" },
+  );
+
+  const observations = parseUsgsInstantaneousValues(payload, "04126740");
+  assertEquals(
+    observations.some((item) => item.observedAt.includes("14:15")),
+    false,
+  );
+  assertEquals(observations.at(-1)?.flow_cfs, 615);
+  assertEquals(observations.at(-1)?.observedAt, "2026-09-21T14:30:00.000Z");
+});
+
 Deno.test("Gauge freshness resolves fresh, stale, older_than_24h, and missing", () => {
   const observation: NormalizedGaugeObservation = {
     provider: "USGS",

@@ -358,8 +358,18 @@ function auditRun(
       "Every run requires research notes and source notes.",
     ));
   }
+  for (const field of ["migrationStage", "fishInRiver"] as const) {
+    if (run.primitiveCapabilities[field].status !== "available") {
+      findings.push(finding(
+        "error",
+        "acceptance",
+        `primitiveCapabilities.${field}`,
+        `Every enabled public run requires an accepted ${field} truth profile.`,
+      ));
+    }
+  }
   const activityAvailable =
-    run.primitiveCapabilities.activity?.status === "available";
+    run.primitiveCapabilities.activity.status === "available";
   if (activityAvailable && !run.activity) {
     findings.push(finding(
       "error",
@@ -391,14 +401,20 @@ function auditRun(
       ));
     }
     if (
-      river.hydraulicSources.length > 0 ||
-      river.waterTemperatureSources.length > 0
+      (river.hydraulicSources.length > 0 ||
+        river.waterTemperatureSources.length > 0) &&
+      (!run.activity?.inputReach ||
+        run.activity.inputReach.reachIds.length === 0 ||
+        run.activity.inputReach.weatherPointIds.length === 0 ||
+        run.activity.inputReach.hydraulicSourceIds.length > 0 ||
+        run.activity.inputReach.waterTemperatureSourceIds.length > 0 ||
+        !run.activity.inputReach.notes.trim())
     ) {
       findings.push(finding(
-        "warning",
+        "error",
         "activity",
-        "activity.dataMode",
-        "Weather-only mode is configured even though measured sources exist; document why they are not accepted.",
+        "activity.inputReach",
+        "Reach-mismatched river sources require an explicit weather-only input contract naming the run reach, weather point, excluded source types, and limitation.",
       ));
     }
   } else if (
@@ -426,7 +442,7 @@ function activityMode(
   run: AuditedRiverRunProfile,
 ): "observed_river" | "weather_only" | "unavailable" {
   if (
-    run.primitiveCapabilities.activity?.status !== "available" || !run.activity
+    run.primitiveCapabilities.activity.status !== "available" || !run.activity
   ) {
     return "unavailable";
   }

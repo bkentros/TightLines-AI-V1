@@ -15,6 +15,8 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
     movementEngineId: "fall_cooling",
     runStageCopyStrategy: "pere_marquette",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -218,6 +220,8 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
     movementEngineId: "fall_cooling",
     runStageCopyStrategy: "big_manistee_tailwater",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -426,6 +430,8 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
     movementEngineId: "fall_cooling",
     runStageCopyStrategy: "big_manistee_tailwater",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -576,6 +582,8 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
     movementEngineId: "fall_entry_cooling",
     runStageCopyStrategy: "big_manistee_tailwater",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -1224,6 +1232,8 @@ export const ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE:
     movementEngineId: "fall_cooling",
     runStageCopyStrategy: "st_joseph_corridor",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -1376,6 +1386,8 @@ export const ST_JOSEPH_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
   movementEngineId: "fall_cooling",
   runStageCopyStrategy: "st_joseph_corridor",
   primitiveCapabilities: {
+    migrationStage: { status: "available" },
+    fishInRiver: { status: "available" },
     migrationTiming: { status: "available" },
     push: { status: "available" },
     fishability: { status: "available" },
@@ -1526,6 +1538,8 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
     movementEngineId: "fall_entry_cooling",
     runStageCopyStrategy: "st_joseph_corridor",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -1654,6 +1668,8 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
   primitiveCapabilities: {
+    migrationStage: { status: "available" },
+    fishInRiver: { status: "available" },
     migrationTiming: {
       status: "unavailable",
       reason: "no_accepted_historical_baseline",
@@ -1776,6 +1792,8 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
   primitiveCapabilities: {
+    migrationStage: { status: "available" },
+    fishInRiver: { status: "available" },
     migrationTiming: {
       status: "unavailable",
       reason: "no_accepted_historical_baseline",
@@ -1899,6 +1917,8 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   runType: "fall_entry",
   movementEngineId: "fall_entry_cooling",
   primitiveCapabilities: {
+    migrationStage: { status: "available" },
+    fishInRiver: { status: "available" },
     migrationTiming: {
       status: "unavailable",
       reason: "no_accepted_historical_baseline",
@@ -2019,6 +2039,8 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
     movementEngineId: "fall_cooling",
     runStageCopyStrategy: "pere_marquette",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
@@ -2165,6 +2187,8 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
     movementEngineId: "fall_entry_cooling",
     runStageCopyStrategy: "pere_marquette",
     primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      fishInRiver: { status: "available" },
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },

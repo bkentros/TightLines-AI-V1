@@ -12,9 +12,22 @@ import {
   scoreFishability,
   scoreFishInRiver,
   scorePush,
+  unavailableActivity,
 } from "../index.ts";
 
 const pmRun = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+
+Deno.test("unavailable Activity is explicit, deterministic, and river-neutral", () => {
+  const result = unavailableActivity({
+    reason: "no_accepted_activity_calibration",
+    requestDate: "2026-09-20",
+  });
+  assertEquals(result.score, null);
+  assertEquals(result.label, "Unavailable");
+  assertEquals(result.targetDate, "2026-09-20");
+  assertEquals(result.blocks, []);
+  assert(!`${result.headline} ${result.detail} ${result.tip}`.includes("PM"));
+});
 
 function runWith(overrides: Partial<RiverRunProfile>): RiverRunProfile {
   return {

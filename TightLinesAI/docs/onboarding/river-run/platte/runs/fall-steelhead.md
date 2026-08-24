@@ -1,183 +1,49 @@
-# Platte River Fall steelhead River Run Profile
+# Platte River Fall Steelhead River Run Profile
 
 **River ID:** `platte`
 **Species slug:** `steelhead`
-**Created:** 2026-08-24
-**Status:** `research_incomplete`
+**Created/researched:** 2026-08-24
+**Status:** `visible_disabled_run_unresolved`
 
-> Prerequisite: the river foundation and public section wording are approved.
-> Do not copy dates, thresholds, Activity weights, ceilings, or state prose
-> from another river without independent evidence and replay acceptance.
+## Truth decision
 
-## 1. Species/run truth
-
-| Field | Researched value | Evidence IDs | Status |
-| --- | --- | --- | --- |
-| Public species name |  |  | unresolved |
-| Run type |  |  | unresolved |
-| Migration purpose |  |  | unresolved |
-| Lifecycle after spawning |  |  | unresolved |
-| Shared biology profile fit |  |  | unresolved |
-| Distribution scope |  |  | unresolved |
-| Historical opportunity tier/ceiling |  |  | unresolved |
-| Barrier response differences |  |  | unresolved |
-
-## 2. Seasonal calendar
-
-All dates are month-day values in the river timezone. Explain each boundary;
-do not infer dates solely from a nearby river.
-
-| Boundary | Date | Meaning | Evidence IDs | Owner calibration? |
-| --- | --- | --- | --- | --- |
-| Pre-run monitoring start |  |  |  | no |
-| Staging start |  |  |  | no |
-| River-run start |  |  |  | no |
-| Beginning end |  |  |  | no |
-| Established building start |  |  |  | no |
-| Broad building start, if used |  |  |  | no |
-| Peak start |  |  |  | no |
-| Peak anchor |  |  |  | no |
-| Peak end |  |  |  | no |
-| Tapering end |  |  |  | no |
-| Main run end |  |  |  | no |
-| Historical-presence tail end |  |  |  | no |
-| Late-copy end |  |  |  | no |
-
-## 3. Migration Stage copy matrix
-
-For every reachable substate record the expected section plan and copy intent.
-Stage uses seasonal expectation, never live confirmation.
-
-| State key | Trigger/date | Label | Primary section | Conditional secondary section | Headline intent | Why points | Guide action | Limitation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| offseason |  |  |  |  |  |  |  |  |
-| staging |  |  |  |  |  |  |  |  |
-| beginning |  |  |  |  |  |  |  |  |
-| building |  |  |  |  |  |  |  |  |
-| peak |  |  |  |  |  |  |  |  |
-| tapering |  |  |  |  |  |  |  |  |
-| ending |  |  |  |  |  |  |  |  |
-| terminal/handoff |  |  |  |  |  |  |  |  |
-
-## 4. Fish In River profile
-
-- Historical maximum (1–10):
-- Public opportunity tier:
-- Distribution scope:
-- Curve version:
-- Direction transitions:
-- Terminal behavior:
-- Handoff behavior, only if a destination experience exists:
-
-| Day offset from run start | Fraction of maximum | Biological/observational reason | Evidence IDs |
-| ---: | ---: | --- | --- |
-|  |  |  |  |
-
-Acceptance:
-
-- Public values use state-preserving five-point rounding and `≈` where required.
-- The marker and copy use the same public value.
-- Complete is not displayed as zero.
-- The value is a seasonal estimate, never a live fish count.
-
-## 5. Activity calibration
-
-Read `docs/river_run_activity_onboarding_standard.md` completely.
-
-### Evidence and mode
-
-- Mode: `observed_river` / `weather_only` / unresolved
-- Temperature source and represented reach:
-- Hydraulic source and represented reach:
-- Weather point:
-- Species lifecycle evidence:
-- Direct evidence versus owner-calibrated values:
-
-### Proposed rules
-
-| Component | Weight | Rationale | Evidence/calibration IDs |
-| --- | ---: | --- | --- |
-| Effective light |  |  |  |
-| Measured water temperature |  |  |  |
-| River behavior |  |  |  |
-| Precipitation context |  |  |  |
-
-| Temperature/lifecycle control | Value/dates | Rationale |
+| Field | Decision | Evidence IDs |
 | --- | --- | --- |
-| Cold-side transition |  |  |
-| Preferred minimum/maximum |  |  |
-| Warm constraint |  |  |
-| Barrier constraint |  |  |
-| Tapering transition |  |  |
-| Ending transition |  |  |
-| Residual/holding behavior |  |  |
+| Public catalog behavior | Remain visible with an unavailable/not-yet-supported state; do not silently remove and do not enable | S-001 |
+| Species support | Verified: current DNR opportunity guidance lists Platte Steelhead and spring 2026 Platte weirs collected Steelhead | S-002, S-003 |
+| Planned fall-entry support | Unresolved. Direct Platte operation evidence is spring-specific and cannot establish fall entry dates, strength, or distribution | S-001–S-003 |
+| Lifecycle | Steelhead are iteroparous and were returned alive after egg take; never inherit Coho mortality/taper logic | S-003 |
+| Barrier response | The emergency spring 2026 lower-weir deployment blocked/diverted Steelhead; normal fall passage and release reach were not established | S-003, S-004 |
+| Seasonal calendar | None accepted; do not borrow another river or infer fall timing from spring capture | S-001–S-004 |
+| Presence ceiling/curve | None accepted | S-001–S-004 |
+| Activity | Unavailable; weather-only Activity requires an accepted Fall Steelhead run and its own calibration/replay | S-001 |
+| Fishability | Unavailable; lower corridor has no accepted local hydraulic source | S-001 |
+| Terminal/handoff | Static unavailable state only; do not expose a fall or winter score/handoff | S-001 |
 
-### Required Activity replay report
+## Required public truth
 
-- Replay years and coverage percentage.
-- Missing flow, prior flow, temperature, lookback, and weather counts.
-- Daily and block min/p10/median/p90/max.
-- Label distribution by lifecycle phase.
-- Best-block distribution and block-spread distribution.
-- Warm, cold, extreme-flow, and missing-data distributions.
-- Controlled isolated-variable tests.
-- Lifecycle boundary continuity tests.
-- Complete copy and reach-scope invariants.
-- Calibration changes made after replay and why.
+- Label: `Fall run not yet supported`.
+- Headline: `Steelhead use the Platte, but an accepted fall-entry profile is not available.`
+- Why points: current evidence verifies Steelhead in the river; the direct
+  operation evidence is spring-specific; normal fall weir response is unresolved.
+- Guide's Read: `Use a supported Platte run and check current Michigan DNR
+  information for Steelhead regulations and weir operations.`
+- Scope: never say Steelhead are absent or die after spawning. Show no Stage,
+  Activity, Fish In River, Fishability score, date, section plan, or meter.
 
-Activity remains blocked until the replay is reviewed. A plausible anecdotal
-day is not sufficient acceptance.
+## Evidence ledger
 
-## 6. Fishability profile
+| ID | Authority/title | URL/path | Published/updated | Accessed | Facts/limitations |
+| --- | --- | --- | --- | --- | --- |
+| S-001 | Owner-approved Platte foundation | ../river-foundation.md | 2026-08-24 | 2026-08-24 | Steelhead species supported; Fall Steelhead disabled; reach/capability decisions |
+| S-002 | Michigan DNR — Better Fishing Waters | https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters | Current 2026 page | 2026-08-24 | Lists Platte River for Steelhead; does not supply a fall calendar/ceiling |
+| S-003 | Michigan DNR — Steelhead egg collection after lightning damage | https://www.michigan.gov/dnr/about/newsroom/releases/2026/05/14/dnr-staff-successfully-complete-steelhead-egg-collection-after-lightning-strike-damage | 2026-05-14 | 2026-08-24 | Spring Platte capture/egg take; lower weir blocked/diverted fish; adults iteroparous and returned alive; release reach unstated |
+| S-004 | Michigan DNR — 2026 Michigan Fishing Regulations | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf | Effective 2026-04-01–2027-03-31 | 2026-08-24 | Rainbow Trout limit and 300-ft weir closures; regulations do not prove fall timing |
 
-If no accepted local hydraulic source exists, configure the deterministic
-unavailable state and do not borrow another river’s gauge.
-
-| Boundary | Value | Evidence/calibration rationale |
-| --- | ---: | --- |
-| Too low maximum |  |  |
-| Low fishable |  |  |
-| Ideal |  |  |
-| High fishable |  |  |
-| Blown out minimum |  |  |
-
-- Metric/source/reach:
-- Trend behavior:
-- Freshness and unknown-trend caps:
-- Permanent scope note:
-- Extreme-state guidance:
-
-Fishability describes presentation shape, not abundance, access, or safety.
-
-## 7. Four-primitive copy acceptance
-
-For Stage, Activity, Fish In River, and Fishability:
-
-- [ ] Every reachable state and material variant has a fixture.
-- [ ] Headline is one conclusion with the material qualifier.
-- [ ] Why This Read has one to three independent points.
-- [ ] Guide’s Read gives one prioritized action.
-- [ ] Permanent limitations are not repeated as filler.
-- [ ] Geography uses approved section labels only.
-- [ ] No internal scores, thresholds, reason codes, provider IDs, or workflow
-      language leaks publicly.
-- [ ] Copy does not claim fish arrival, catch probability, or safety.
-- [ ] Terminal behavior matches species lifecycle.
-- [ ] Valid cross-primitive tensions remain intact.
-- [ ] Foreign river, landmark, dam, gauge, and species denylist passes.
-
-## 8. Research evidence ledger
-
-| Evidence ID | Authority/title | URL/path | Published/updated | Accessed | Facts supported | Limitations |
-| --- | --- | --- | --- | --- | --- | --- |
-| R-001 |  |  |  |  |  |  |
-
-## 9. Run gate
-
-**Run decision:** `blocked`
-**Configuration version:**
-**Activity rules version:**
-**Presence curve version:**
-**Copy version:**
-**Replay artifact:**
-**Owner acceptance/date:**
+**Run decision:** `visible_disabled_run_unresolved`
+**Configuration/presence/Activity versions:** none
+**Disabled-state copy proposal:** `platte-fall-steelhead-disabled-v1`
+**Replay:** not applicable until fall-run evidence is accepted
+**Owner acceptance:** disabled decision approved 2026-08-24
+**Reopen trigger:** current Platte-specific fall-entry timing/distribution
+evidence plus documented normal fall lower-weir response.

@@ -4,6 +4,7 @@
 **Branch:** `develop/cross-platform-next`
 **Baseline:** `dc00b3ca7beb92254dd153b7b8d7851efc1391e9`
 **Scope:** Phase A river foundations and Phase B source capability only
+**Owner decision:** approved 2026-08-24
 **Runtime status:** unchanged; all three rivers remain disabled
 **Release status:** no deployment, publication, public enablement, or store-version change
 
@@ -222,7 +223,7 @@ copy acceptance, and onboarding scope.
 
 ## 5. Exact approval requested
 
-Please approve or revise this single bundle:
+The owner approved this single bundle on 2026-08-24:
 
 1. Grand's three section labels and intended species-specific endpoints,
    retaining fail-closed clamps until the listed current passage checks pass.
@@ -234,7 +235,7 @@ Please approve or revise this single bundle:
    Fruitvale hydraulics with Hesperia temperature for observed Activity.
 4. The explicit visible-capability/refactored tooling plan in Section 4.
 
-Approval authorizes continued research and hidden implementation on
+This approval authorizes continued research and hidden implementation on
 `develop/cross-platform-next`; it does **not** authorize deployment,
 publication, public enablement, release-branch changes, or store-version
 changes.

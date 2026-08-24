@@ -9,6 +9,7 @@ export * from "./config/runs.ts";
 export * from "./config/movementEngines.ts";
 export * from "./config/sources.ts";
 export * from "./config/catalog.ts";
+export * from "./config/onboarding/index.ts";
 export * from "./validation.ts";
 export * from "./metrics/dateWindow.ts";
 export * from "./metrics/conditionsCheckpoints.ts";

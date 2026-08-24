@@ -1,0 +1,244 @@
+{
+  "runId": "platte_fall_coho",
+  "rulesVersion": "platte-fall-coho-weather-activity-v1-draft",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical Platte River coho weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at platte_el_dorado_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1729,
+  "usableDays": 1729,
+  "missingWeatherDays": 0,
+  "dayScore": {
+    "min": 27,
+    "p10": 49,
+    "median": 72,
+    "p90": 88,
+    "max": 90,
+    "mean": 70.77
+  },
+  "blockScore": {
+    "min": 19,
+    "p10": 45,
+    "median": 69,
+    "p90": 89,
+    "max": 90,
+    "mean": 67.8
+  },
+  "uniqueDayScores": 63,
+  "uniqueBlockScores": 72,
+  "dayLabels": {
+    "Active": 820,
+    "Highly active": 591,
+    "Moderate": 262,
+    "Reserved": 56
+  },
+  "byStage": {
+    "beginning": {
+      "days": 304,
+      "scores": {
+        "min": 62,
+        "p10": 63,
+        "median": 75,
+        "p90": 88,
+        "max": 90,
+        "mean": 75.39
+      },
+      "labels": {
+        "Active": 189,
+        "Highly active": 115
+      }
+    },
+    "building": {
+      "days": 399,
+      "scores": {
+        "min": 62,
+        "p10": 64,
+        "median": 81,
+        "p90": 89,
+        "max": 90,
+        "mean": 78.73
+      },
+      "labels": {
+        "Active": 185,
+        "Highly active": 214
+      }
+    },
+    "ending": {
+      "days": 190,
+      "scores": {
+        "min": 39,
+        "p10": 48,
+        "median": 60,
+        "p90": 69,
+        "max": 73,
+        "mean": 59.11
+      },
+      "labels": {
+        "Active": 96,
+        "Moderate": 92,
+        "Reserved": 2
+      }
+    },
+    "peak": {
+      "days": 133,
+      "scores": {
+        "min": 62,
+        "p10": 65,
+        "median": 85,
+        "p90": 89,
+        "max": 90,
+        "mean": 81.31
+      },
+      "labels": {
+        "Active": 43,
+        "Highly active": 90
+      }
+    },
+    "post_run": {
+      "days": 190,
+      "scores": {
+        "min": 27,
+        "p10": 36,
+        "median": 44,
+        "p90": 51,
+        "max": 55,
+        "mean": 43.31
+      },
+      "labels": {
+        "Moderate": 136,
+        "Reserved": 54
+      }
+    },
+    "pre_run": {
+      "days": 266,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 74,
+        "p90": 89,
+        "max": 90,
+        "mean": 74.68
+      },
+      "labels": {
+        "Active": 165,
+        "Highly active": 101
+      }
+    },
+    "tapering": {
+      "days": 247,
+      "scores": {
+        "min": 47,
+        "p10": 56,
+        "median": 75,
+        "p90": 85,
+        "max": 89,
+        "mean": 72.43
+      },
+      "labels": {
+        "Active": 142,
+        "Highly active": 71,
+        "Moderate": 34
+      }
+    }
+  },
+  "precipitationDays": {
+    "dry": {
+      "days": 943,
+      "scores": {
+        "min": 27,
+        "p10": 48,
+        "median": 67,
+        "p90": 84,
+        "max": 89,
+        "mean": 67.23
+      }
+    },
+    "traceToLight": {
+      "days": 528,
+      "scores": {
+        "min": 31,
+        "p10": 48,
+        "median": 76,
+        "p90": 89,
+        "max": 90,
+        "mean": 73.05
+      }
+    },
+    "moderateToHeavy": {
+      "days": 258,
+      "scores": {
+        "min": 38,
+        "p10": 58,
+        "median": 85,
+        "p90": 90,
+        "max": 90,
+        "mean": 79.04
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 903,
+    "09-13": 228,
+    "13-17": 222,
+    "17-21": 376
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 17,
+    "p90": 31,
+    "max": 44,
+    "mean": 16.45
+  },
+  "daysWithSpreadAtLeast10": 1172,
+  "lifecycleContinuity": {
+    "startDate": "2026-10-28",
+    "endDate": "2026-11-30",
+    "scores": [
+      85,
+      84,
+      83,
+      82,
+      80,
+      79,
+      78,
+      77,
+      76,
+      75,
+      73,
+      72,
+      71,
+      70,
+      68,
+      67,
+      65,
+      63,
+      62,
+      60,
+      58,
+      56,
+      55,
+      53,
+      51,
+      50,
+      48,
+      46,
+      45,
+      43,
+      41,
+      39,
+      38,
+      36
+    ],
+    "maximumAdjacentDelta": 2
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "scoreAboveWeatherOnlyCeiling": 0,
+    "dailyOutsideBlockRange": 0,
+    "incompleteCopy": 0,
+    "missingWeatherOnlyDisclosure": 0,
+    "inferredRiverCondition": 0,
+    "prohibitedClaims": 0,
+    "lifecycleCalendarCliff": 0,
+    "lifecycleNotDeclining": 0
+  }
+}
