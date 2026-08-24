@@ -47,7 +47,7 @@ gcloud run deploy water-reader-heavy-generator \
   --cpu 2 \
   --memory 4Gi \
   --concurrency 1 \
-  --min-instances 1 \
+  --min-instances 0 \
   --max-instances 10 \
   --timeout 1800s \
   --set-env-vars SUPABASE_URL="<supabase-url>" \
@@ -55,6 +55,14 @@ gcloud run deploy water-reader-heavy-generator \
 ```
 
 For larger launch windows, `--max-instances 20` is reasonable after watching Supabase load. Memory should be 2-4Gi; start at 4Gi for large polygons and reduce only after worker memory metrics look calm.
+
+Keep request-based billing enabled and keep minimum instances at `0` for the
+normal production workload. Water Reader generation is request-bound, completed
+reads are cached, and the queue runner invokes the worker every minute; a
+permanently warm 4Gi instance adds continuous idle-memory charges without being
+required for correctness. Raise the minimum only for a short, measured launch
+window when cold-start latency is demonstrably harming users, then return it to
+`0` after the window.
 
 The compatibility endpoint is `POST /water-reader/generate` and requires header `x-water-reader-internal-key`. Production queue draining should use `POST /water-reader/jobs/drain`.
 
