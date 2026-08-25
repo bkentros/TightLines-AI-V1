@@ -285,13 +285,13 @@ Or do icon/legal yourself and ask agent only for technical steps.
 https://finfindr.app/download
 ```
 
-Opens the App Store directly (302 redirect). Use this for the shortest funnel.
+Opens Google Play on Android and the App Store on iPhone/iPad (302 redirect). Use this for the shortest funnel.
 
-**Personal TikTok (if `/download` is rejected in bio):** use `https://finfindr.app/get` — mobile link-in-bio page with one **Download on the App Store** tap. Or try the raw App Store link: `https://apps.apple.com/app/id6769178136`.
+**Personal TikTok (if `/download` is rejected in bio):** use `https://finfindr.app/get` — mobile link-in-bio page with the correct store button for Android or iPhone.
 
-**Instant redirect short link:** `https://finfindr.app/app` also 302s straight to the App Store.
+**Instant redirect short link:** `https://finfindr.app/app` uses the same platform-aware redirect.
 
-**Permanent App Store URL (same destination):** `https://apps.apple.com/app/id6769178136`
+**Permanent store URLs:** App Store: `https://apps.apple.com/app/id6769178136`; Google Play: `https://play.google.com/store/apps/details?id=com.finseekr.finfindr`
 
 ### Cloudflare — deploy download page (you do this)
 

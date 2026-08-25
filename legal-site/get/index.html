@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Get FinFindr</title>
-    <meta name="description" content="Get FinFindr on the App Store." />
+    <meta name="description" content="Get FinFindr on the App Store or Google Play." />
     <meta name="theme-color" content="#d8ebf8" />
     <style>
       :root {
@@ -228,19 +228,32 @@
       </a>
       <p class="after-copy" id="after-copy" hidden>You're in Safari now. One tap left.</p>
 
-      <p class="fine">Free · iPhone · United States</p>
+      <p class="fine" id="platform-copy">Free · iPhone and Android · United States</p>
     </main>
     <script>
       (function () {
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua);
+        var isAndroid = /Android/i.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
         var inBrowserStep = new URLSearchParams(window.location.search).get("open") === "store";
+        var appStoreUrl = "https://apps.apple.com/app/id6769178136";
+        var playStoreUrl = "https://play.google.com/store/apps/details?id=com.finseekr.finfindr";
 
         var tiktokSteps = document.getElementById("tiktok-steps");
         var storeCta = document.getElementById("store-cta");
         var afterCopy = document.getElementById("after-copy");
         var tagline = document.getElementById("tagline");
+        var platformCopy = document.getElementById("platform-copy");
+
+        if (isAndroid) {
+          storeCta.href = playStoreUrl;
+          storeCta.textContent = "Get it on Google Play";
+          platformCopy.textContent = "Free · Android · United States";
+        } else if (isIOS) {
+          storeCta.href = appStoreUrl;
+          platformCopy.textContent = "Free · iPhone · United States";
+        }
 
         if (inBrowserStep && !isTikTok) {
           tagline.textContent = "You're almost there.";
