@@ -43,7 +43,7 @@ import {
   resolveWaterTemperatureRead,
 } from "./waterTemperature.ts";
 
-export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v2";
+export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v3";
 const USGS_ATTRIBUTION =
   "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.";
 
@@ -498,6 +498,9 @@ async function fetchGaugeObservations(
       fetchFn,
       siteId: source.siteId,
       metrics: source.availableMetrics,
+      // Retain the last readable observation during a multi-day provider fault
+      // so the UI can show when the station last produced usable data.
+      period: "P7D",
       endAtUtc: refreshAtUtc,
     });
     return parseUsgsInstantaneousValues(payload ?? {}, source.siteId);

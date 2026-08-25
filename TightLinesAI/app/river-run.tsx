@@ -1822,6 +1822,16 @@ function LiveRiverConditionsCard({
   const hasMeasurements = conditions.metrics.some((metric) =>
     metric.value != null
   );
+  const readableMetrics = conditions.metrics.filter((metric) =>
+    metric.value != null
+  );
+  const displayStatus = conditions.metrics.length > 0 && !hasMeasurements
+    ? "unreadable"
+    : conditions.status === "partial"
+    ? "partial"
+    : readableMetrics.some((metric) => metric.freshness !== "fresh")
+    ? "delayed"
+    : "current";
   const orderedMetrics = [...conditions.metrics].sort((left, right) => {
     const priority: Record<RiverRunLiveConditionMetric["metric"], number> = {
       flow_cfs: 0,
@@ -1856,26 +1866,28 @@ function LiveRiverConditionsCard({
             minimumFontScale={0.88}
           >
             {ownerReviewLive
-              ? "Live provider readings · owner review."
-              : "Compared with past years on this date."}
+              ? "Real provider readings · owner review."
+              : "Real provider readings · observation age shown."}
           </Text>
         </View>
         <View
           style={[
             styles.liveConditionsStatus,
-            conditions.status === "available"
+            displayStatus === "current"
               ? styles.liveConditionsStatusAvailable
-              : conditions.status === "partial"
+              : displayStatus === "partial" || displayStatus === "delayed"
               ? styles.liveConditionsStatusPartial
               : styles.liveConditionsStatusUnavailable,
           ]}
         >
           <Text style={styles.liveConditionsStatusText}>
-            {conditions.status === "available"
-              ? "LIVE"
-              : conditions.status === "partial"
+            {displayStatus === "current"
+              ? "CURRENT"
+              : displayStatus === "partial"
               ? "PARTIAL"
-              : "NO GAUGE"}
+              : displayStatus === "delayed"
+              ? "DELAYED"
+              : "UNREADABLE"}
           </Text>
         </View>
       </View>
@@ -2098,7 +2110,7 @@ function LiveMetricTile({
         </Text>
       </View>
       {metric.value == null
-        ? <Text style={styles.liveMetricUnavailable}>Unavailable</Text>
+        ? <Text style={styles.liveMetricUnavailable}>Unreadable</Text>
         : (
           <Text
             style={styles.liveMetricValue}
@@ -2110,6 +2122,16 @@ function LiveMetricTile({
             {formatLiveMetricValue(metric, metric.value)}
           </Text>
         )}
+      <Text
+        style={styles.liveMetricFreshness}
+        numberOfLines={2}
+        adjustsFontSizeToFit
+        minimumFontScale={0.78}
+      >
+        {`${liveMetricFreshnessLabel(metric.freshness)} · ${
+          liveMetricFreshnessCopy(metric)
+        }`}
+      </Text>
       <Text
         style={styles.liveMetricAverage}
         numberOfLines={1}
@@ -2255,8 +2277,8 @@ function liveMetricFreshnessLabel(
 ): string {
   if (freshness === "fresh") return "CURRENT";
   if (freshness === "delayed") return "DELAYED";
-  if (freshness === "older_than_24h") return "OLDER";
-  return "MISSING";
+  if (freshness === "older_than_24h") return "STALE";
+  return "UNREADABLE";
 }
 
 function liveMetricFreshnessColor(
@@ -2279,25 +2301,39 @@ function liveMetricFreshnessCopy(
   metric: RiverRunLiveConditionMetric,
 ): string {
   if (!metric.observedAt || metric.freshness === "missing") {
-    return "No current observation";
+    return "Provider reading currently unreadable";
   }
   const ageMinutes = Math.max(
     0,
     Math.floor((Date.now() - Date.parse(metric.observedAt)) / 60000),
   );
-  const age = ageMinutes < 1
+  const observed = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "UTC",
+    timeZoneName: "short",
+  }).format(new Date(metric.observedAt));
+  const age = metric.freshness === "older_than_24h"
+    ? `Last readable ${observed}`
+    : ageMinutes < 1
     ? "Updated just now"
     : ageMinutes < 60
     ? "Updated " + ageMinutes + "m ago"
     : ageMinutes < 24 * 60
     ? "Updated " + Math.floor(ageMinutes / 60) + "h ago"
-    : "Observed " + formatLocalDate(metric.observedAt.slice(0, 10));
+    : "Updated " + observed;
+  const withObservedTime = metric.freshness === "older_than_24h" ||
+      ageMinutes >= 24 * 60
+    ? age
+    : `${age} · ${observed}`;
   const provisional = metric.approvalStatus?.toLowerCase().includes(
       "provisional",
     )
     ? " · Provisional"
     : "";
-  return age + provisional;
+  return withObservedTime + provisional;
 }
 
 function formatMonthDay(monthDay: string): string {
@@ -4511,6 +4547,12 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
     lineHeight: 24,
+    color: paper.dashboardMuted,
+  },
+  liveMetricFreshness: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 8.5,
+    lineHeight: 11,
     color: paper.dashboardMuted,
   },
   liveMetricAverage: {

@@ -713,7 +713,7 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v2",
+    "river-live-conditions-v3",
   );
   assertEquals(body.activity.label, "Unavailable");
 });
@@ -889,7 +889,7 @@ Deno.test("production snapshot timing ignores caller query overrides", async () 
   assertEquals(body.conditionRefreshAt, "2026-09-20T20:30:00.000Z");
 });
 
-Deno.test("live conditions use the active river cadence when the selected species is out of season", async () => {
+Deno.test("live conditions refresh hourly independently of primitive cadence", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook",
@@ -898,7 +898,7 @@ Deno.test("live conditions use the active river cadence when the selected specie
       createAdminClient: () => new MockClient(),
       runs: [enabledRun, PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE],
       publicEnabled: true,
-      now: new Date("2026-12-01T17:30:00.000Z"),
+      now: new Date("2026-12-01T18:30:00.000Z"),
       gaugeObservations: [gaugeObservation],
       waterTemperatureObservationsBySource: {},
       weatherSnapshot: envData,
@@ -915,7 +915,7 @@ Deno.test("live conditions use the active river cadence when the selected specie
 
   assertEquals(response.status, 200);
   assertEquals(body.refreshSlot, "00:00");
-  assertEquals(body.riverConditions.refreshSlot, "12:00");
+  assertEquals(body.riverConditions.refreshSlot, "13:00");
 });
 
 Deno.test("production snapshot ignores caller weather payload", async () => {

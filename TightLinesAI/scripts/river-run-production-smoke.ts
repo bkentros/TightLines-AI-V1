@@ -5,7 +5,8 @@ const anonKey = Deno.env.get("EXPO_PUBLIC_SUPABASE_ANON_KEY")?.trim() ||
   requiredEnv("SUPABASE_ANON_KEY");
 const internalKey = requiredEnv("RIVER_RUN_INTERNAL_KEY");
 const userToken = Deno.env.get("RIVER_RUN_USER_ACCESS_TOKEN")?.trim() || null;
-const freeUserToken = Deno.env.get("RIVER_RUN_FREE_USER_ACCESS_TOKEN")?.trim() ||
+const freeUserToken =
+  Deno.env.get("RIVER_RUN_FREE_USER_ACCESS_TOKEN")?.trim() ||
   null;
 const expectPublic = Deno.env.get("EXPECT_RIVER_RUN_PUBLIC") === "true";
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
@@ -55,6 +56,15 @@ const expectedPublicTargets = [
   "MI:st_joseph:st_joseph_fall_chinook",
   "MI:st_joseph:st_joseph_fall_coho",
   "MI:st_joseph:st_joseph_fall_steelhead",
+  "MI:grand:grand_fall_chinook",
+  "MI:grand:grand_fall_coho",
+  "MI:grand:grand_fall_steelhead",
+  "MI:platte:platte_fall_chinook",
+  "MI:platte:platte_fall_coho",
+  "MI:platte:platte_fall_steelhead",
+  "MI:white:white_fall_chinook",
+  "MI:white:white_fall_coho",
+  "MI:white:white_fall_steelhead",
 ];
 if (expectPublic && !firstTarget) {
   throw new Error("River Run was expected to be public, but catalog is empty.");
@@ -258,7 +268,9 @@ function assertStringArraysEqual(
   const expectedSorted = [...expected].sort();
   if (JSON.stringify(actual) !== JSON.stringify(expectedSorted)) {
     throw new Error(
-      `${label} mismatch. Expected ${JSON.stringify(expectedSorted)}, received ${JSON.stringify(actual)}.`,
+      `${label} mismatch. Expected ${
+        JSON.stringify(expectedSorted)
+      }, received ${JSON.stringify(actual)}.`,
     );
   }
 }

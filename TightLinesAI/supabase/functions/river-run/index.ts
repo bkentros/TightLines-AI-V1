@@ -1990,22 +1990,28 @@ function resolveRiverLiveConditionsTiming(input: {
   now: Date;
   allowTestOverrides: boolean;
 }): RequestTiming {
-  const riverRuns = input.runs.filter((run) =>
-    run.riverId === input.river.riverId
-  );
-  const candidates = (riverRuns.length ? riverRuns : [input.fallbackRun]).map(
-    (run) =>
-      resolveRequestTiming(
-        input.url,
-        input.river,
-        run,
-        input.now,
-        input.allowTestOverrides,
-      ),
-  );
-  return candidates.reduce((latest, candidate) =>
-    candidate.refreshSlot > latest.refreshSlot ? candidate : latest
-  );
+  const refreshAtUtc = input.allowTestOverrides
+    ? input.url.searchParams.get("refreshAtUtc") ?? input.now.toISOString()
+    : input.now.toISOString();
+  const dateForDefaults = new Date(refreshAtUtc);
+  const localDate = input.allowTestOverrides
+    ? input.url.searchParams.get("localDate") ??
+      localDateInTz(input.river.timezone, dateForDefaults)
+    : localDateInTz(input.river.timezone, dateForDefaults);
+  const localTime = input.allowTestOverrides
+    ? input.url.searchParams.get("localTime") ??
+      localTimeInTz(input.river.timezone, dateForDefaults)
+    : localTimeInTz(input.river.timezone, dateForDefaults);
+  const hour = localTime.slice(0, 2);
+  return {
+    localDate,
+    localTime,
+    refreshAtUtc,
+    // Gauge Read is intentionally independent of the four-hour primitive
+    // scoring cadence. The existing hourly protected job warms this key, and
+    // the first in-hour request safely fills it if the job has not run yet.
+    refreshSlot: `${hour}:00`,
+  };
 }
 
 function localDateInTz(timezone: string, date: Date): string {

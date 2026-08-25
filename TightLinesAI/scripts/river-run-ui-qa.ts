@@ -398,13 +398,13 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /style=\{styles\.liveConditionsSubtitle\}[\s\S]*?numberOfLines=\{1\}[\s\S]*?Compared with past years on this date\./,
-  "Gauge Read subtitle must keep its concise past-years comparison on one line",
+  /style=\{styles\.liveConditionsSubtitle\}[\s\S]*?numberOfLines=\{1\}[\s\S]*?Real provider readings · observation age shown\./,
+  "Gauge Read subtitle must identify real provider data and visible observation age",
 );
 assert.match(
   riverRunScreen,
   /SOURCES & DATA AGE[\s\S]*?liveMetricFreshnessCopy\(metric\)[\s\S]*?liveMetricBaselineCopy\(metric\)/,
-  "Live condition freshness and historical basis must live in the details disclosure",
+  "Live condition details must retain freshness and historical-basis explanations",
 );
 assert.match(
   riverRunScreen,
@@ -464,7 +464,7 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /Live provider readings · owner review\./,
+  /Real provider readings · owner review\./,
   "Owner-review Gauge Read must visibly identify its live-provider provenance",
 );
 assert.match(
@@ -583,6 +583,26 @@ assert.match(
   riverRunScreen,
   /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS/,
   "Betsie Coho must use its own production-derived review fixture catalog",
+);
+assert.match(
+  riverRunScreen,
+  /Real provider readings · observation age shown\./,
+  "Gauge Read must disclose that provider observation age is visible",
+);
+assert.match(
+  riverRunScreen,
+  /Provider reading currently unreadable/,
+  "A configured source without a readable value must say it is unreadable",
+);
+assert.match(
+  riverRunScreen,
+  /Last readable \$\{observed\}/,
+  "A stale source must retain its last readable observation time",
+);
+assert.match(
+  riverRunScreen,
+  /displayStatus === "delayed"[\s\S]*?"DELAYED"[\s\S]*?"UNREADABLE"/,
+  "Gauge Read status must distinguish current, delayed, and unreadable data",
 );
 const homeScreen = readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8");
 const welcomeScreen = readFileSync(
