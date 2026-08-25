@@ -351,7 +351,7 @@ export const BETSIE_RIVER_PROFILE: RiverProfile = {
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+    "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
   regulationReminderCopy:
     "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
 };

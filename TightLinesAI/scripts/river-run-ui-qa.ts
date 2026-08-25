@@ -4,6 +4,10 @@ import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
+const riverRunVisualSources = [
+  "lib/riverRunVisuals.ts",
+  "components/river-run/RiverRunVisual.tsx",
+].map((path) => readFileSync(resolve(root, path), "utf8")).join("\n");
 const packageJson = JSON.parse(
   readFileSync(resolve(root, "package.json"), "utf8"),
 ) as { scripts?: Record<string, string> };
@@ -18,6 +22,7 @@ const prohibitedRuntimePatterns: Array<[RegExp, string]> = [
   [/\bAudit Only\b/i, "audit-only UI copy"],
   [/\bPrimitive or Test Area\b/i, "test-area UI copy"],
   [/\bDevelopment Review\b/i, "development-review UI copy"],
+  [/\bPushHistoryDropdown\b/, "the retired Push-history control"],
 ];
 
 for (const [pattern, label] of prohibitedRuntimePatterns) {
@@ -25,6 +30,21 @@ for (const [pattern, label] of prohibitedRuntimePatterns) {
     riverRunScreen,
     pattern,
     `Release River Migration UI must not contain ${label}`,
+  );
+}
+
+for (
+  const [pattern, label] of [
+    [/"run_timing"/, "the retired Migration Timing visual kind"],
+    [/case\s+"push"/, "the retired Push visual kind"],
+    [/\bTimingArt\b/, "the retired Migration Timing artwork"],
+    [/\bPushArt\b/, "the retired Push artwork"],
+  ] as Array<[RegExp, string]>
+) {
+  assert.doesNotMatch(
+    riverRunVisualSources,
+    pattern,
+    `Release River Migration visuals must not contain ${label}`,
   );
 }
 

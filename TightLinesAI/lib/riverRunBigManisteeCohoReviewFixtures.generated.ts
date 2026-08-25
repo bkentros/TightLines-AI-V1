@@ -55,7 +55,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +79,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,7 +100,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -118,7 +118,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -139,7 +139,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -531,7 +531,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -556,7 +556,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -577,7 +577,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -595,7 +595,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -617,7 +617,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -1011,12 +1011,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "headline": "Coho salmon may be staging near the river entrance.",
             "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
             "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
-            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from calendar timing alone.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from Migration Stage alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -1041,7 +1041,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1062,7 +1062,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -1080,7 +1080,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -1149,7 +1149,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -1170,7 +1170,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -1568,7 +1568,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1608,7 +1608,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1643,7 +1643,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -1661,7 +1661,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -1730,7 +1730,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 5,
@@ -1751,7 +1751,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -2150,7 +2150,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2190,7 +2190,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2225,7 +2225,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -2243,7 +2243,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -2312,7 +2312,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -2333,7 +2333,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -2732,7 +2732,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2793,7 +2793,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2831,7 +2831,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -2849,7 +2849,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -2918,7 +2918,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 20,
@@ -2939,7 +2939,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -3332,7 +3332,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3393,7 +3393,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -3431,7 +3431,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -3449,7 +3449,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -3518,7 +3518,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 33,
@@ -3539,7 +3539,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -3932,7 +3932,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4007,7 +4007,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -4045,7 +4045,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -4063,7 +4063,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -4132,7 +4132,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 45,
@@ -4153,7 +4153,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -4546,7 +4546,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4621,7 +4621,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -4659,7 +4659,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -4677,7 +4677,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -4746,7 +4746,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -4767,7 +4767,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -5166,7 +5166,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5252,7 +5252,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5290,7 +5290,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -5308,7 +5308,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -5377,7 +5377,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -5398,7 +5398,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -5797,7 +5797,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5883,7 +5883,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -5921,7 +5921,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -5939,7 +5939,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 74,
@@ -6009,7 +6009,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 44,
@@ -6030,7 +6030,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -6423,7 +6423,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6509,7 +6509,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -6547,7 +6547,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -6565,7 +6565,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 65,
@@ -6635,7 +6635,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 35,
@@ -6656,7 +6656,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -7049,7 +7049,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -7135,7 +7135,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -7173,7 +7173,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -7191,7 +7191,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 59,
@@ -7261,7 +7261,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 29,
@@ -7282,7 +7282,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -7675,7 +7675,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -7761,7 +7761,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -7799,7 +7799,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -7817,7 +7817,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 46,
@@ -7887,7 +7887,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 20,
@@ -7908,7 +7908,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -8301,7 +8301,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8387,7 +8387,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -8411,7 +8411,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -8429,7 +8429,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -8499,7 +8499,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 9,
@@ -8520,7 +8520,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -8926,7 +8926,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8951,7 +8951,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8972,7 +8972,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -8990,7 +8990,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -9012,7 +9012,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -9410,7 +9410,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -9435,7 +9435,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9456,7 +9456,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -9474,7 +9474,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -9496,7 +9496,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -9894,7 +9894,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -9919,7 +9919,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9940,7 +9940,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -9958,7 +9958,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -9980,7 +9980,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -10378,7 +10378,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -10403,7 +10403,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10424,7 +10424,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -10442,7 +10442,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -10464,7 +10464,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -10862,7 +10862,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -10887,7 +10887,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10908,7 +10908,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -10926,7 +10926,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -10948,7 +10948,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -11346,7 +11346,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -11371,7 +11371,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11392,7 +11392,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -11410,7 +11410,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -11432,7 +11432,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -11830,7 +11830,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -11926,7 +11926,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_building_established",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Typical"
@@ -11964,7 +11964,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -11982,7 +11982,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -12051,7 +12051,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 27,
@@ -12072,7 +12072,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -12471,7 +12471,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12511,7 +12511,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12546,7 +12546,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -12564,7 +12564,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -12633,7 +12633,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -12654,7 +12654,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -13047,7 +13047,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13087,7 +13087,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13123,7 +13123,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 90,
@@ -13141,7 +13141,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 19,
@@ -13211,7 +13211,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -13232,7 +13232,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -13625,7 +13625,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13665,7 +13665,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13699,7 +13699,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 88,
@@ -13717,7 +13717,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -13786,7 +13786,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -13807,7 +13807,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -14200,7 +14200,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14240,7 +14240,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14274,7 +14274,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -14292,7 +14292,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -14361,7 +14361,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -14382,7 +14382,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -14775,7 +14775,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14815,7 +14815,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14849,7 +14849,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 68,
@@ -14867,7 +14867,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -14936,7 +14936,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -14957,7 +14957,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -15350,7 +15350,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15390,7 +15390,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15425,7 +15425,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -15443,7 +15443,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -15512,7 +15512,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -15533,7 +15533,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -15926,7 +15926,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15966,7 +15966,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16002,7 +16002,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 69,
@@ -16023,7 +16023,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -16092,7 +16092,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -16113,7 +16113,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -16506,7 +16506,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16546,7 +16546,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16583,7 +16583,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -16604,7 +16604,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -16673,7 +16673,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -16694,7 +16694,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -17087,7 +17087,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17127,7 +17127,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17164,7 +17164,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 0,
@@ -17184,7 +17184,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -17254,7 +17254,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -17275,7 +17275,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -17668,7 +17668,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -17708,7 +17708,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17729,7 +17729,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -17741,7 +17741,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 50,
@@ -17810,7 +17810,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -17831,7 +17831,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -18191,7 +18191,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18231,7 +18231,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18253,7 +18253,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -18271,7 +18271,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -18340,7 +18340,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -18361,7 +18361,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -18717,7 +18717,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -18742,7 +18742,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18763,7 +18763,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -18781,7 +18781,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -18803,7 +18803,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -19201,7 +19201,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -19226,7 +19226,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19247,7 +19247,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -19265,7 +19265,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -19287,7 +19287,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -19685,7 +19685,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -19710,7 +19710,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19731,7 +19731,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -19749,7 +19749,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -19771,7 +19771,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -20169,7 +20169,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20209,7 +20209,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20244,7 +20244,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 40,
@@ -20263,7 +20263,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 68,
@@ -20332,7 +20332,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -20353,7 +20353,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -20752,7 +20752,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20792,7 +20792,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20827,7 +20827,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 60,
@@ -20845,7 +20845,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -20914,7 +20914,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -20935,7 +20935,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -21328,7 +21328,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21368,7 +21368,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21404,7 +21404,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 20,
@@ -21423,7 +21423,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -21493,7 +21493,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -21514,7 +21514,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -21907,7 +21907,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21947,7 +21947,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21981,7 +21981,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 88,
@@ -21999,7 +21999,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -22068,7 +22068,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -22089,7 +22089,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -22482,7 +22482,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22522,7 +22522,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22556,7 +22556,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 40,
@@ -22577,7 +22577,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -22646,7 +22646,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -22667,7 +22667,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -23066,7 +23066,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23106,7 +23106,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23142,7 +23142,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 69,
@@ -23163,7 +23163,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -23232,7 +23232,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -23253,7 +23253,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -23646,7 +23646,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23686,7 +23686,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23722,7 +23722,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -23743,7 +23743,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 50,
@@ -23812,7 +23812,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -23833,7 +23833,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -24226,7 +24226,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24266,7 +24266,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24287,7 +24287,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -24299,7 +24299,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 50,
@@ -24368,7 +24368,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -24389,7 +24389,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -24749,7 +24749,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24789,7 +24789,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24824,7 +24824,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -24842,7 +24842,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -24911,7 +24911,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -24932,7 +24932,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -25325,7 +25325,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25365,7 +25365,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25400,7 +25400,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 73,
@@ -25418,7 +25418,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 72,
@@ -25487,7 +25487,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -25508,7 +25508,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -25901,7 +25901,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25941,7 +25941,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25976,7 +25976,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 45,
@@ -25994,7 +25994,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 68,
@@ -26063,7 +26063,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -26084,7 +26084,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -26479,12 +26479,12 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "headline": "Coho salmon may be staging near the river entrance.",
             "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
             "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
-            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from calendar timing alone.",
+            "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from Migration Stage alone.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -26509,7 +26509,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -26530,7 +26530,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -26548,7 +26548,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -26618,7 +26618,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -26639,7 +26639,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -27037,7 +27037,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27077,7 +27077,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27112,7 +27112,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -27130,7 +27130,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 83,
@@ -27199,7 +27199,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -27220,7 +27220,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -27619,7 +27619,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27680,7 +27680,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -27718,7 +27718,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -27736,7 +27736,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 85,
@@ -27805,7 +27805,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 33,
@@ -27826,7 +27826,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -28219,7 +28219,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28294,7 +28294,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28332,7 +28332,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -28350,7 +28350,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 79,
@@ -28419,7 +28419,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -28440,7 +28440,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -28839,7 +28839,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28900,7 +28900,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28938,7 +28938,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 45,
@@ -28956,7 +28956,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -29025,7 +29025,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 33,
@@ -29046,7 +29046,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -29439,7 +29439,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -29479,7 +29479,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -29514,7 +29514,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -29532,7 +29532,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 29,
@@ -29602,7 +29602,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -29623,7 +29623,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -30022,7 +30022,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30062,7 +30062,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -30097,7 +30097,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -30115,7 +30115,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -30185,7 +30185,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -30206,7 +30206,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -30605,7 +30605,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -30680,7 +30680,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -30719,7 +30719,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 20,
@@ -30738,7 +30738,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -30808,7 +30808,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -30829,7 +30829,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -31228,7 +31228,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31314,7 +31314,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -31352,7 +31352,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -31370,7 +31370,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 81,
@@ -31440,7 +31440,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 38,
@@ -31461,7 +31461,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -31854,7 +31854,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -31940,7 +31940,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -31978,7 +31978,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -31996,7 +31996,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -32066,7 +32066,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 20,
@@ -32087,7 +32087,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -32480,7 +32480,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -32566,7 +32566,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -32590,7 +32590,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -32608,7 +32608,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 37,
@@ -32678,7 +32678,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 9,
@@ -32699,7 +32699,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -33099,7 +33099,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33174,7 +33174,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -33199,7 +33199,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -33217,7 +33217,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -33286,7 +33286,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -33307,7 +33307,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -33663,7 +33663,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33738,7 +33738,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -33762,7 +33762,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -33774,7 +33774,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 52,
@@ -33843,7 +33843,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -33864,7 +33864,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -34230,7 +34230,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -34255,7 +34255,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34276,7 +34276,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -34294,7 +34294,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -34316,7 +34316,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -34714,7 +34714,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34754,7 +34754,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34789,7 +34789,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -34807,7 +34807,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -34876,7 +34876,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 5,
@@ -34897,7 +34897,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -35296,7 +35296,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35336,7 +35336,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -35371,7 +35371,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -35389,7 +35389,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -35458,7 +35458,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 11,
@@ -35479,7 +35479,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -35878,7 +35878,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35939,7 +35939,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -35977,7 +35977,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -35995,7 +35995,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -36064,7 +36064,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 21,
@@ -36085,7 +36085,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -36478,7 +36478,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36539,7 +36539,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -36577,7 +36577,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -36595,7 +36595,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -36664,7 +36664,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 31,
@@ -36685,7 +36685,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -37078,7 +37078,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37139,7 +37139,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -37177,7 +37177,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -37195,7 +37195,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -37264,7 +37264,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 40,
@@ -37285,7 +37285,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -37678,7 +37678,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37753,7 +37753,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -37791,7 +37791,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -37809,7 +37809,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -37878,7 +37878,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 45,
@@ -37899,7 +37899,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -38292,7 +38292,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38367,7 +38367,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -38405,7 +38405,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -38423,7 +38423,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -38492,7 +38492,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -38513,7 +38513,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -38912,7 +38912,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -38987,7 +38987,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -39025,7 +39025,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -39043,7 +39043,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 75,
@@ -39112,7 +39112,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 50,
@@ -39133,7 +39133,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -39532,7 +39532,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -39618,7 +39618,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -39656,7 +39656,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -39674,7 +39674,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 74,
@@ -39744,7 +39744,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 44,
@@ -39765,7 +39765,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -40158,7 +40158,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -40244,7 +40244,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -40282,7 +40282,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -40300,7 +40300,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 69,
@@ -40370,7 +40370,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 39,
@@ -40391,7 +40391,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -40784,7 +40784,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -40870,7 +40870,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -40908,7 +40908,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -40926,7 +40926,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 60,
@@ -40996,7 +40996,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -41017,7 +41017,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -41410,7 +41410,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -41496,7 +41496,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -41534,7 +41534,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -41552,7 +41552,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 46,
@@ -41622,7 +41622,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 20,
@@ -41643,7 +41643,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -42036,7 +42036,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -42122,7 +42122,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -42160,7 +42160,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -42178,7 +42178,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -42248,7 +42248,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -42269,7 +42269,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -42668,7 +42668,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -42754,7 +42754,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -42778,7 +42778,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_complete"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -42796,7 +42796,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -42866,7 +42866,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -42887,7 +42887,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -43287,7 +43287,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -43311,7 +43311,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -43332,7 +43332,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_offseason"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -43350,7 +43350,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -43371,7 +43371,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -43769,7 +43769,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -43809,7 +43809,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -43843,7 +43843,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 32,
@@ -43861,7 +43861,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 72,
@@ -43930,7 +43930,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -43951,7 +43951,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -44350,7 +44350,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -44390,7 +44390,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -44426,7 +44426,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 90,
@@ -44444,7 +44444,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 19,
@@ -44514,7 +44514,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -44535,7 +44535,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -44928,7 +44928,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -44968,7 +44968,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -44990,7 +44990,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -45008,7 +45008,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -45077,7 +45077,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 10,
@@ -45098,7 +45098,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -45460,7 +45460,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -45485,7 +45485,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -45506,7 +45506,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "push_tracking_not_started"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -45524,7 +45524,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -45546,7 +45546,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -45950,7 +45950,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -45990,7 +45990,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -46025,7 +46025,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -46043,7 +46043,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 76,
@@ -46112,7 +46112,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -46133,7 +46133,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -46526,7 +46526,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -46566,7 +46566,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -46602,7 +46602,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -46623,7 +46623,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               ]
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 50,
@@ -46692,7 +46692,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -46713,7 +46713,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -47106,7 +47106,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -47146,7 +47146,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -47167,7 +47167,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -47179,7 +47179,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "gauge_missing"
             ],
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 50,
@@ -47248,7 +47248,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -47269,7 +47269,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",
@@ -47629,7 +47629,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -47669,7 +47669,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -47691,7 +47691,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "temperature_unavailable"
             ],
             "rulesVersion": "big-manistee-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -47709,7 +47709,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "appliedCaps": []
             },
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -47778,7 +47778,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 19,
@@ -47799,7 +47799,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "big_manistee",

@@ -782,9 +782,9 @@ function pereMarquetteFishInRiverCopy(input: {
     headline:
       `${input.species} seasonal presence is ${input.label.toLowerCase()} and ${direction}.`,
     detail:
-      `Calendar timing places ${input.species} presence ${relativeLevel}, ${levelContext}. ${strengthAndScope} This is not a live fish count or today’s conditions.`,
+      `The seasonal calendar places ${input.species} presence ${relativeLevel}, ${levelContext}. ${strengthAndScope} This is not a live fish count or today’s conditions.`,
     tip:
-      "Use Migration Stage to choose a section. Use Push and Activity for current movement support and responsiveness.",
+      "Use Migration Stage to choose a section and Activity to judge likely responsiveness. Refine the plan with current river conditions and direct fish activity.",
   };
 }
 
@@ -902,19 +902,19 @@ function presenceHeadline(
   }
   if (direction === "falling") {
     if (label === "Peak presence") {
-      return `Seasonal timing still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
+      return `The current Migration Stage still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
     }
     if (label === "High presence") {
       if (fractionOfRiverMaximum >= 0.8) {
-        return `Seasonal timing still supports strong ${species} presence across much of the river, even as the usual peak window may be easing.`;
+        return `The current Migration Stage still supports strong ${species} presence across much of the river, even as the usual peak window may be easing.`;
       }
-      return `Seasonal timing still supports ${species} being well distributed, although fresh arrivals may be less consistent than near peak.`;
+      return `The current Migration Stage still supports ${species} being well distributed, although fresh arrivals may be less consistent than near peak.`;
     }
     if (label === "Moderate presence") {
-      return `Seasonal timing still supports meaningful ${species} presence, especially in established holding water.`;
+      return `The current Migration Stage still supports meaningful ${species} presence, especially in established holding water.`;
     }
     if (label === "Limited presence") {
-      return `Seasonal timing still supports some ${species} in established holding water, but they are less likely to be spread throughout the river.`;
+      return `The current Migration Stage still supports some ${species} in established holding water, but they are less likely to be spread throughout the river.`;
     }
     return `Some ${species} may still be in the river, with seasonal presence more likely to be scattered.`;
   }
@@ -1074,31 +1074,31 @@ function scaledPresenceHeadline(
   }
   if (direction === "falling") {
     if (label === "Peak presence") {
-      return `Seasonal timing still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
+      return `The current Migration Stage still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
     }
     if (label === "High presence") {
       if (fractionOfRiverMaximum >= 0.8) {
         return limited
-          ? `Seasonal timing still supports this limited ${species} presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.`
+          ? `The current Migration Stage still supports this limited ${species} presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.`
           : strong
-          ? `Seasonal timing still supports strong ${species} presence through the river's dependable water, even as the usual peak window may be easing.`
-          : `Seasonal timing still supports meaningful ${species} presence through dependable river sections, even as the usual peak window may be easing.`;
+          ? `The current Migration Stage still supports strong ${species} presence through the river's dependable water, even as the usual peak window may be easing.`
+          : `The current Migration Stage still supports meaningful ${species} presence through dependable river sections, even as the usual peak window may be easing.`;
       }
       return limited
-        ? `Seasonal timing still supports a smaller number of ${species} in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.`
+        ? `The current Migration Stage still supports a smaller number of ${species} in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.`
         : strong
-        ? `Seasonal timing still supports ${species} being well established through the river's dependable water, although fresh arrivals may be less consistent than near peak.`
-        : `Seasonal timing still supports ${species} through dependable river sections, although fresh arrivals may be less consistent than near peak.`;
+        ? `The current Migration Stage still supports ${species} being well established through the river's dependable water, although fresh arrivals may be less consistent than near peak.`
+        : `The current Migration Stage still supports ${species} through dependable river sections, although fresh arrivals may be less consistent than near peak.`;
     }
     if (label === "Moderate presence") {
       return limited
-        ? `Seasonal timing still supports a smaller number of ${species}, especially in the river's most dependable holding water.`
-        : `Seasonal timing still supports meaningful ${species} presence, especially in established holding water.`;
+        ? `The current Migration Stage still supports a smaller number of ${species}, especially in the river's most dependable holding water.`
+        : `The current Migration Stage still supports meaningful ${species} presence, especially in established holding water.`;
     }
     if (label === "Limited presence") {
       return limited
-        ? `Seasonal timing still supports a few ${species} in the river's most dependable holding water, but this limited opportunity is thinning.`
-        : `Seasonal timing still supports some ${species} in established holding water, but they are less likely to occupy every dependable section.`;
+        ? `The current Migration Stage still supports a few ${species} in the river's most dependable holding water, but this limited opportunity is thinning.`
+        : `The current Migration Stage still supports some ${species} in established holding water, but they are less likely to occupy every dependable section.`;
     }
     return limited
       ? `A few ${species} may still be in the river, with this limited seasonal presence increasingly scattered.`

@@ -186,7 +186,7 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
         false,
         `${scenario.id} has suppressed Why This Read copy`,
       );
-      assert.equal(primitive.copyVersion, "river-run-copy-v36");
+      assert.equal(primitive.copyVersion, "river-run-copy-v38");
       assert.equal("copyVariant" in primitive, false);
       const copy = [
         primitive.label,

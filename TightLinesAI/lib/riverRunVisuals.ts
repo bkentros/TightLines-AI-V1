@@ -2,8 +2,6 @@ import type { RiverRunPrimitiveDisplay } from "./riverRunContracts";
 
 export type RiverRunVisualKind =
   | "run_stage"
-  | "run_timing"
-  | "push"
   | "fishability"
   | "activity"
   | "fish_in_river";
@@ -48,14 +46,6 @@ export type RiverRunVisualModel = {
   accent: string;
 };
 
-const QUALITY_FIVE: RiverRunMeterStop[] = [
-  { label: "Weak", shortLabel: "WEAK", color: "#D94B3A" },
-  { label: "No clear", shortLabel: "NO CLEAR", color: "#E89647" },
-  { label: "Possible", shortLabel: "POSSIBLE", color: "#E8C547" },
-  { label: "Strong", shortLabel: "STRONG", color: "#7CC36A" },
-  { label: "Very strong", shortLabel: "VERY STRONG", color: "#3DA85F" },
-];
-
 const FISHABILITY_FIVE: RiverRunMeterStop[] = [
   { label: "Poor", shortLabel: "POOR", color: "#D94B3A" },
   { label: "Tough", shortLabel: "TOUGH", color: "#E89647" },
@@ -72,12 +62,6 @@ const RUN_STAGE_SEVEN: RiverRunMeterStop[] = [
   { label: "Tapering", shortLabel: "TAPER", color: "#91A75B" },
   { label: "Ending", shortLabel: "END", color: "#C08B45" },
   { label: "After migration", shortLabel: "AFTER", color: "#85756A" },
-];
-
-const RUN_TIMING_THREE: RiverRunMeterStop[] = [
-  { label: "Delayed", shortLabel: "DELAYED", color: "#C94A42" },
-  { label: "Typical", shortLabel: "TYPICAL", color: "#D6AA32" },
-  { label: "Ahead", shortLabel: "AHEAD", color: "#3DA85F" },
 ];
 
 const PRESENCE_INDEX_FIVE: RiverRunMeterStop[] = [
@@ -109,7 +93,6 @@ export function resolveRiverRunVisualModel(input: {
   kind: RiverRunVisualKind;
   primitive: RiverRunPrimitiveDisplay & {
     stage?: string;
-    timingLabel?: string | null;
     curveDirection?: string;
     handoffScore?: number;
     historicalRunStrength?: "limited" | "moderate" | "strong";
@@ -118,10 +101,6 @@ export function resolveRiverRunVisualModel(input: {
   switch (input.kind) {
     case "run_stage":
       return runStageModel(input.primitive);
-    case "run_timing":
-      return runTimingModel(input.primitive);
-    case "push":
-      return pushModel(input.primitive);
     case "fishability":
       return fishabilityModel(input.primitive);
     case "activity":
@@ -132,12 +111,9 @@ export function resolveRiverRunVisualModel(input: {
 }
 
 export function formatRiverRunTabStatus(
-  kind: RiverRunVisualKind,
-  primitive: RiverRunPrimitiveDisplay & { timingLabel?: string | null },
+  _kind: RiverRunVisualKind,
+  primitive: RiverRunPrimitiveDisplay,
 ): string {
-  if (kind === "run_timing" && primitive.label === "Timing complete") {
-    return "COMPLETE";
-  }
   return primitive.label
     .replace("Fall run complete", "Complete")
     .replace("Fall entry complete", "Complete")
@@ -147,7 +123,6 @@ export function formatRiverRunTabStatus(
     .replace("After migration", "After")
     .replace("Migration complete", "Complete")
     .replace(" presence", "")
-    .replace("No clear push", "No clear")
     .replace("Waiting for migration", "Waiting")
     .replace("Insufficient evidence", "No read")
     .toUpperCase();
@@ -195,94 +170,6 @@ function runStageModel(
       : undefined,
   });
   return model;
-}
-
-function runTimingModel(
-  primitive: RiverRunPrimitiveDisplay & { timingLabel?: string | null },
-): RiverRunVisualModel {
-  const timingLabel = primitive.label === "Timing complete"
-    ? primitive.timingLabel
-    : primitive.label;
-  const selectedIndex = indexFor(
-    ["delayed", "typical", "ahead"],
-    normalize(timingLabel ?? ""),
-  );
-  const specialState = primitive.label === "Not monitoring yet" ||
-      primitive.label === "Evaluating"
-    ? "waiting"
-    : primitive.label === "Insufficient evidence"
-    ? "unavailable"
-    : primitive.label === "Timing complete"
-    ? "complete"
-    : undefined;
-  const model = baseModel({
-    kind: "run_timing",
-    kicker: "SEASON PACE",
-    artLabel: "MIGRATION TIMING",
-    icon: "speedometer-outline",
-    stops: RUN_TIMING_THREE,
-    selectedIndex,
-    stateLabel: primitive.label,
-    stateNote: primitive.label === "Not monitoring yet"
-      ? "SEASONAL MONITORING WINDOW INACTIVE"
-      : specialState === "waiting"
-      ? "SEASON PACE IS STILL DEVELOPING"
-      : specialState === "unavailable"
-      ? "NOT ENOUGH DATA FOR A TIMING CALL"
-      : specialState === "complete"
-      ? timingLabel
-        ? `FINAL READ · ${timingLabel.toUpperCase()}`
-        : "FINAL TIMING READ"
-      : "PACE OF THIS MIGRATION SO FAR",
-    specialState,
-  });
-  return specialState === "complete" ? { ...model, accent: "#8B98A5" } : model;
-}
-
-function pushModel(
-  primitive: RiverRunPrimitiveDisplay,
-): RiverRunVisualModel {
-  const selectedIndex = indexFor(
-    ["weak", "no_clear_push", "possible", "strong", "very_strong"],
-    normalize(primitive.label),
-  );
-  const specialState = primitive.label === "Waiting for migration"
-    ? "waiting"
-    : primitive.label === "Migration complete" ||
-        primitive.label === "Fall entry complete" ||
-        primitive.label === "Fall run complete" ||
-        primitive.label === "Winter holding" ||
-        primitive.label === "Offseason"
-    ? "complete"
-    : primitive.label === "Unavailable"
-    ? "unavailable"
-    : undefined;
-  return baseModel({
-    kind: "push",
-    kicker: "CURRENT PUSH SIGNAL",
-    artLabel: "FRESH MOVEMENT",
-    icon: "pulse-outline",
-    stops: QUALITY_FIVE,
-    selectedIndex,
-    stateLabel: primitive.label,
-    stateNote: primitive.label === "Fall entry complete"
-      ? "FALL-ENTRY SIGNAL COMPLETE"
-      : primitive.label === "Fall run complete"
-      ? "FALL-MOVEMENT SIGNAL COMPLETE"
-      : primitive.label === "Offseason"
-      ? "FRESH-MOVEMENT WINDOW INACTIVE"
-      : primitive.label === "Winter holding"
-      ? "FALL-ENTRY SIGNAL COMPLETE · WINTER READ REQUIRED"
-      : specialState === "waiting"
-      ? "FISH HAVE NOT STARTED ENTERING"
-      : specialState === "complete"
-      ? "THE MIGRATION IS COMPLETE"
-      : specialState === "unavailable"
-      ? "WAITING FOR REQUIRED WATER DATA"
-      : "SUPPORT FOR FRESH MOVEMENT · NOT PROOF OF ARRIVALS",
-    specialState,
-    score: primitive.score,
-  });
 }
 
 function fishabilityModel(

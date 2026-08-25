@@ -65,8 +65,6 @@ const expectedLabels: Record<string, Set<string>> = {
 
 const targets = {
   run_stage: ["run_stage", "runStage"],
-  conditions: ["run_timing", "conditionsSuggest"],
-  push: ["push", "push"],
   fishability: ["fishability", "fishability"],
   activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],
@@ -125,11 +123,21 @@ for (const [groupId, labels] of Object.entries(expectedLabels)) {
     item.id === groupId
   );
   assert(group, `Missing Steelhead group ${groupId}`);
-  const [kind, primitiveKey] = targets[groupId as keyof typeof targets];
+  const target = targets[groupId as keyof typeof targets];
   const actual = new Set(
-    group.scenarios.map((scenario) => scenario.snapshot[primitiveKey].label),
+    group.scenarios.map((scenario) =>
+      scenario.snapshot[
+        group.id === "conditions"
+          ? "conditionsSuggest"
+          : group.id === "push"
+          ? "push"
+          : target![1]
+      ].label
+    ),
   );
   assert.deepEqual(actual, labels, `${groupId} state coverage changed`);
+  if (!target) continue;
+  const [kind, primitiveKey] = target;
   for (const scenario of group.scenarios) {
     const model = resolveRiverRunVisualModel({
       kind: kind as RiverRunVisualKind,
@@ -202,13 +210,6 @@ const coldHolding = push.find((item) =>
 );
 assert(coldHolding);
 assert((coldHolding.score ?? 100) <= 49);
-const completedPushModel = resolveRiverRunVisualModel({
-  kind: "push",
-  primitive: push.find((item) => item.label === "Fall entry complete")!,
-});
-assert.equal(completedPushModel.specialState, "complete");
-assert.match(completedPushModel.stateNote, /FALL-ENTRY SIGNAL COMPLETE/);
-
 console.log(
   `PM Fall Steelhead build QA passed: ${scenarioCount} scenarios, 80-point ceiling, explicit fall-entry completion, dedicated thermal states, copy safety, and visual contracts.`,
 );

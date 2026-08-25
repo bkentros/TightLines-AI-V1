@@ -13,14 +13,9 @@ const TARGETS = {
     primitive: "runStage",
     expectedStops: 7,
   },
-  conditions: {
-    kind: "run_timing",
-    primitive: "conditionsSuggest",
-    expectedStops: 3,
-  },
-  push: {
-    kind: "push",
-    primitive: "push",
+  activity: {
+    kind: "activity",
+    primitive: "activity",
     expectedStops: 5,
   },
   fishability: {
@@ -54,24 +49,12 @@ const EXPECTED_SELECTED_INDEX: Record<
     Ending: 5,
     "After migration": 6,
   },
-  run_timing: {
-    "Not monitoring yet": null,
-    Delayed: 0,
-    Typical: 1,
-    Ahead: 2,
-    Evaluating: null,
-    "Insufficient evidence": null,
-  },
-  push: {
-    Offseason: null,
-    Weak: 0,
-    "No clear push": 1,
-    Possible: 2,
-    Strong: 3,
-    "Very strong": 4,
-    Unavailable: null,
-    "Waiting for migration": null,
-    "Migration complete": null,
+  activity: {
+    Inactive: 0,
+    Reserved: 1,
+    Moderate: 2,
+    Active: 3,
+    "Highly active": 4,
     "Fall run complete": null,
     "Fall entry complete": null,
   },
@@ -159,9 +142,7 @@ for (const [groupId, target] of Object.entries(TARGETS)) {
           `${scenario.id} must identify its relative within-run state`,
         );
       }
-    } else if (
-      !(target.kind === "run_timing" && primitive.label === "Timing complete")
-    ) {
+    } else {
       assert.equal(
         model.selectedIndex,
         EXPECTED_SELECTED_INDEX[target.kind][primitive.label],
@@ -218,29 +199,13 @@ assert.deepEqual(
   ]),
 );
 assert.deepEqual(
-  seen.get("run_timing"),
+  seen.get("activity"),
   new Set([
-    "Not monitoring yet",
-    "Evaluating",
-    "Ahead",
-    "Typical",
-    "Delayed",
-    "Insufficient evidence",
-    "Timing complete",
-  ]),
-);
-assert.deepEqual(
-  seen.get("push"),
-  new Set([
-    "Offseason",
-    "Weak",
-    "No clear push",
-    "Possible",
-    "Strong",
-    "Very strong",
-    "Unavailable",
-    "Waiting for migration",
-    "Migration complete",
+    "Inactive",
+    "Reserved",
+    "Moderate",
+    "Active",
+    "Highly active",
   ]),
 );
 assert.deepEqual(
@@ -267,89 +232,6 @@ assert.deepEqual(
     "Migration complete",
   ]),
 );
-
-const conditionsGroup = RIVER_RUN_REVIEW_GROUPS.find((item) =>
-  item.id === "conditions"
-)!;
-const timingScale = resolveRiverRunVisualModel({
-  kind: "run_timing",
-  primitive: conditionsGroup.scenarios.find((scenario) =>
-    scenario.snapshot.conditionsSuggest.label === "Typical"
-  )!.snapshot.conditionsSuggest,
-}).stops;
-assert.deepEqual(
-  timingScale.map((stop) => [stop.label, stop.color]),
-  [
-    ["Delayed", "#C94A42"],
-    ["Typical", "#D6AA32"],
-    ["Ahead", "#3DA85F"],
-  ],
-  "Migration Timing must read red, yellow, green from left to right",
-);
-for (const scenario of conditionsGroup.scenarios) {
-  const model = resolveRiverRunVisualModel({
-    kind: "run_timing",
-    primitive: scenario.snapshot.conditionsSuggest,
-  });
-  const label = scenario.snapshot.conditionsSuggest.label;
-  if (label === "Not monitoring yet" || label === "Evaluating") {
-    assert.equal(model.specialState, "waiting");
-  }
-  if (label === "Insufficient evidence") {
-    assert.equal(model.specialState, "unavailable");
-  }
-  if (label === "Timing complete") {
-    assert.equal(model.specialState, "complete");
-    assert.equal(model.accent, "#8B98A5");
-    assert.equal(
-      formatRiverRunTabStatus(
-        "run_timing",
-        scenario.snapshot.conditionsSuggest,
-      ),
-      "COMPLETE",
-    );
-    const finalRead = scenario.snapshot.conditionsSuggest.timingLabel;
-    if (finalRead && ["Ahead", "Typical", "Delayed"].includes(finalRead)) {
-      assert.notEqual(
-        model.selectedIndex,
-        null,
-        `${scenario.id} must preserve its final timing read`,
-      );
-    } else {
-      assert.equal(
-        model.selectedIndex,
-        null,
-        `${scenario.id} must not invent a final timing read`,
-      );
-    }
-  }
-}
-
-const pushGroup = RIVER_RUN_REVIEW_GROUPS.find((item) => item.id === "push")!;
-for (const scenario of pushGroup.scenarios) {
-  const model = resolveRiverRunVisualModel({
-    kind: "push",
-    primitive: scenario.snapshot.push,
-  });
-  assert.equal(model.kicker, "CURRENT PUSH SIGNAL");
-  assert.equal(model.artLabel, "FRESH MOVEMENT");
-  const label = scenario.snapshot.push.label;
-  if (label === "Waiting for migration") {
-    assert.equal(model.specialState, "waiting");
-  }
-  if (label === "Migration complete" || label === "Offseason") {
-    assert.equal(model.specialState, "complete");
-  }
-  if (label === "Unavailable") {
-    assert.equal(model.specialState, "unavailable");
-  }
-  if (!model.specialState) {
-    assert.equal(
-      model.stateNote,
-      "SUPPORT FOR FRESH MOVEMENT · NOT PROOF OF ARRIVALS",
-    );
-  }
-}
 
 const fishabilityGroup = RIVER_RUN_REVIEW_GROUPS.find((item) =>
   item.id === "fishability"
@@ -538,12 +420,9 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
       scenario.snapshot.runStage.headline,
       scenario.snapshot.runStage.detail,
       scenario.snapshot.runStage.tip,
-      scenario.snapshot.conditionsSuggest.headline,
-      scenario.snapshot.conditionsSuggest.detail,
-      scenario.snapshot.conditionsSuggest.tip,
-      scenario.snapshot.push.headline,
-      scenario.snapshot.push.detail,
-      scenario.snapshot.push.tip,
+      scenario.snapshot.activity?.headline,
+      scenario.snapshot.activity?.detail,
+      scenario.snapshot.activity?.tip,
       scenario.snapshot.fishability.headline,
       scenario.snapshot.fishability.detail,
       scenario.snapshot.fishability.tip,
@@ -566,5 +445,5 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
 }
 
 console.log(
-  `River Run visual QA passed: ${visualCount} generated primitive states, all scales, special states, directions, and river caps.`,
+  `River Run visual QA passed: ${visualCount} generated public primitive states, all scales, special states, directions, and river caps.`,
 );

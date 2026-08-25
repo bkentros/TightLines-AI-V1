@@ -8,8 +8,6 @@ import {
 
 const targets = {
   run_stage: ["run_stage", "runStage"],
-  conditions: ["run_timing", "conditionsSuggest"],
-  push: ["push", "push"],
   fishability: ["fishability", "fishability"],
   activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],

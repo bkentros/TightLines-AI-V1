@@ -85,7 +85,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.14.0";
+const ENGINE_VERSION = "river-run-v1.16.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },

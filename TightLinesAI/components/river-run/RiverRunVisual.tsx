@@ -29,7 +29,6 @@ import { paper, paperFonts } from "../../lib/theme";
 
 type VisualPrimitive = RiverRunPrimitiveDisplay & {
   stage?: string;
-  timingLabel?: string | null;
   curveDirection?: string;
   historicalRunStrength?: "limited" | "moderate" | "strong";
 };
@@ -38,11 +37,9 @@ const ART_HEIGHT = 76;
 const MARKER_SIZE = 28;
 const KIND_STAGGER: Record<RiverRunVisualKind, number> = {
   run_stage: 0,
-  run_timing: 460,
-  push: 920,
+  activity: 460,
+  fish_in_river: 920,
   fishability: 1380,
-  activity: 1840,
-  fish_in_river: 2300,
 };
 
 export function RiverRunVisual({
@@ -553,29 +550,6 @@ function VisualArt({
           driftY={driftY}
         />
       );
-    case "run_timing":
-      return (
-        <TimingArt
-          position={position}
-          accent={model.accent}
-          pulseScale={pulseScale}
-          pulseOpacity={pulseOpacity}
-          special={model.specialState}
-          hasRead={model.selectedIndex != null}
-        />
-      );
-    case "push":
-      return (
-        <PushArt
-          accent={model.accent}
-          score={model.score}
-          pulse={pulse}
-          pulseScale={pulseScale}
-          pulseOpacity={pulseOpacity}
-          driftY={driftY}
-          special={model.specialState}
-        />
-      );
     case "fishability":
       return (
         <FishabilityArt
@@ -652,143 +626,6 @@ function StageArt({
       >
         <Ionicons name="fish" size={24} color="#FFFFFF" />
       </Animated.View>
-    </View>
-  );
-}
-
-function TimingArt({
-  position,
-  accent,
-  pulseScale,
-  pulseOpacity,
-  special,
-  hasRead,
-}: {
-  position: Animated.Value;
-  accent: string;
-  pulseScale: Animated.AnimatedInterpolation<number>;
-  pulseOpacity: Animated.AnimatedInterpolation<number>;
-  special?: RiverRunVisualModel["specialState"];
-  hasRead: boolean;
-}) {
-  const rotation = position.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: ["-48deg", "0deg", "48deg"],
-  });
-  return (
-    <View style={styles.centerArt}>
-      <View style={styles.timingDial}>
-        <View style={styles.timingArc} />
-        {[-46, -23, 0, 23, 46].map((rotationValue) => (
-          <View
-            key={rotationValue}
-            style={[
-              styles.timingTick,
-              { transform: [{ rotate: `${rotationValue}deg` }] },
-            ]}
-          />
-        ))}
-        {hasRead
-          ? (
-            <>
-              <Animated.View
-                style={[
-                  styles.timingHand,
-                  {
-                    backgroundColor: special ? "#93A3AF" : accent,
-                    transform: [{ rotate: rotation }],
-                  },
-                ]}
-              />
-              <Animated.View
-                style={[
-                  styles.timingPulse,
-                  {
-                    borderColor: accent,
-                    opacity: pulseOpacity,
-                    transform: [{ scale: pulseScale }],
-                  },
-                ]}
-              />
-              <View style={[styles.timingHub, { backgroundColor: accent }]} />
-            </>
-          )
-          : (
-            <View style={styles.timingSpecial}>
-              <Ionicons
-                name={specialStateIcon(special)}
-                size={17}
-                color="#DCE6EC"
-              />
-            </View>
-          )}
-      </View>
-      <View style={styles.timingLabels}>
-        <Text style={styles.artMiniLabel}>DELAYED</Text>
-        <Text style={styles.artMiniLabel}>TYPICAL</Text>
-        <Text style={styles.artMiniLabel}>AHEAD</Text>
-      </View>
-    </View>
-  );
-}
-
-function PushArt({
-  accent,
-  score,
-  pulse,
-  pulseScale,
-  pulseOpacity,
-  driftY,
-  special,
-}: {
-  accent: string;
-  score?: number | null;
-  pulse: Animated.Value;
-  pulseScale: Animated.AnimatedInterpolation<number>;
-  pulseOpacity: Animated.AnimatedInterpolation<number>;
-  driftY: Animated.AnimatedInterpolation<number>;
-  special?: RiverRunVisualModel["specialState"];
-}) {
-  const normalizedScore = Math.max(0, Math.min(100, score ?? 0)) / 100;
-  const signalTravel = special ? 0 : 3 + normalizedScore * 34;
-  const signalX = pulse.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-signalTravel / 2, signalTravel / 2],
-  });
-  return (
-    <View style={styles.pushArt}>
-      <View style={styles.lakeOrb}>
-        <Ionicons name="water" size={22} color="#A9E3F2" />
-        <Animated.View
-          style={[
-            styles.lakePulse,
-            {
-              borderColor: accent,
-              opacity: pulseOpacity,
-              transform: [{ scale: pulseScale }],
-            },
-          ]}
-        />
-      </View>
-      <View style={styles.pushChannel}>
-        <View style={styles.pushChannelLine} />
-        <Animated.View
-          style={[
-            styles.pushArrow,
-            {
-              backgroundColor: special ? "#81909C" : accent,
-              opacity: special ? 0.48 : 0.58 + normalizedScore * 0.42,
-              transform: [{ translateX: signalX }, { translateY: driftY }],
-            },
-          ]}
-        >
-          <Ionicons name="chevron-forward" size={15} color="#FFFFFF" />
-        </Animated.View>
-        <View style={[styles.pushEventDot, { backgroundColor: accent }]} />
-      </View>
-      <View style={styles.riverGate}>
-        <Ionicons name="git-merge-outline" size={24} color="#FFFFFF" />
-      </View>
     </View>
   );
 }
@@ -1098,11 +935,6 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   fill: { ...StyleSheet.absoluteFillObject },
-  centerArt: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   stageFish: {
     position: "absolute",
     top: 24,
@@ -1312,146 +1144,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 48,
     right: 18,
-  },
-  timingDial: {
-    position: "relative",
-    width: 104,
-    height: 58,
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  timingArc: {
-    position: "absolute",
-    bottom: 0,
-    width: 92,
-    height: 46,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderColor: "rgba(255,255,255,0.36)",
-    borderTopLeftRadius: 48,
-    borderTopRightRadius: 48,
-  },
-  timingTick: {
-    position: "absolute",
-    bottom: 5,
-    width: 1,
-    height: 40,
-    backgroundColor: "rgba(255,255,255,0.17)",
-    transformOrigin: "center bottom",
-  },
-  timingHand: {
-    position: "absolute",
-    bottom: 7,
-    width: 3,
-    height: 39,
-    borderRadius: 2,
-    transformOrigin: "center bottom",
-  },
-  timingHub: {
-    position: "absolute",
-    bottom: 1,
-    width: 14,
-    height: 14,
-    borderWidth: 3,
-    borderColor: "#FFFFFF",
-    borderRadius: 7,
-  },
-  timingSpecial: {
-    position: "absolute",
-    bottom: -1,
-    width: 28,
-    height: 28,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1.5,
-    borderColor: "rgba(220,230,236,0.48)",
-    borderRadius: 14,
-    backgroundColor: "rgba(7,24,41,0.88)",
-  },
-  timingPulse: {
-    position: "absolute",
-    bottom: -4,
-    width: 24,
-    height: 24,
-    borderWidth: 1.5,
-    borderRadius: 12,
-  },
-  timingLabels: {
-    width: 178,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 2,
-  },
-  artMiniLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6,
-    letterSpacing: 0.65,
-    color: "rgba(255,255,255,0.48)",
-  },
-  pushArt: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-  },
-  lakeOrb: {
-    position: "relative",
-    width: 49,
-    height: 49,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "rgba(169,227,242,0.56)",
-    borderRadius: 25,
-    backgroundColor: "rgba(42,110,150,0.33)",
-  },
-  lakePulse: {
-    position: "absolute",
-    width: 57,
-    height: 57,
-    borderWidth: 1.5,
-    borderRadius: 29,
-  },
-  pushChannel: {
-    position: "relative",
-    width: 124,
-    height: 38,
-    justifyContent: "center",
-  },
-  pushChannelLine: {
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: "rgba(169,227,242,0.55)",
-  },
-  pushArrow: {
-    position: "absolute",
-    left: 49,
-    width: 27,
-    height: 27,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 14,
-  },
-  pushEventDot: {
-    position: "absolute",
-    right: 4,
-    width: 8,
-    height: 8,
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-    borderRadius: 4,
-  },
-  riverGate: {
-    width: 44,
-    height: 49,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.32)",
-    borderRadius: 12,
-    backgroundColor: "rgba(255,255,255,0.08)",
   },
   presenceArt: {
     flex: 1,

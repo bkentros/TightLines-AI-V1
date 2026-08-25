@@ -53,7 +53,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -77,7 +77,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -88,7 +88,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -108,7 +108,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -130,7 +130,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -139,7 +139,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-10",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -163,7 +163,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -219,7 +219,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -243,7 +243,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -254,7 +254,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -274,7 +274,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -344,7 +344,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -365,7 +365,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -374,7 +374,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-20",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -398,7 +398,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -453,7 +453,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -477,7 +477,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -488,7 +488,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -508,7 +508,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -578,7 +578,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 3,
@@ -599,7 +599,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -608,7 +608,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-27",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -632,7 +632,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -687,7 +687,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -711,7 +711,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -722,7 +722,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -742,7 +742,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -812,7 +812,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 9,
@@ -833,7 +833,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -842,7 +842,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-09-16",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -866,7 +866,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -921,7 +921,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -945,7 +945,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -956,7 +956,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -976,7 +976,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -1046,7 +1046,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 15,
@@ -1067,7 +1067,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -1076,7 +1076,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-09-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -1100,7 +1100,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -1155,7 +1155,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1179,7 +1179,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -1190,7 +1190,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1210,7 +1210,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -1280,7 +1280,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -1301,7 +1301,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -1310,7 +1310,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -1334,7 +1334,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -1389,7 +1389,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1413,7 +1413,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -1424,7 +1424,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1444,7 +1444,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 69,
@@ -1515,7 +1515,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 26,
@@ -1536,7 +1536,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -1545,7 +1545,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-01",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -1569,7 +1569,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -1624,7 +1624,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1648,7 +1648,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -1659,7 +1659,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1679,7 +1679,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -1750,7 +1750,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 17,
@@ -1771,7 +1771,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -1780,7 +1780,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-16",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -1804,7 +1804,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -1859,7 +1859,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1883,7 +1883,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -1894,7 +1894,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1914,7 +1914,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 48,
@@ -1985,7 +1985,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 12,
@@ -2006,7 +2006,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -2015,7 +2015,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -2045,7 +2045,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -2100,7 +2100,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2124,7 +2124,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -2135,7 +2135,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2155,7 +2155,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -2176,7 +2176,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -2185,7 +2185,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-12-29",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -2209,7 +2209,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -2270,7 +2270,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2294,7 +2294,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -2305,7 +2305,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2325,7 +2325,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -2395,7 +2395,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -2416,7 +2416,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -2425,7 +2425,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -2449,7 +2449,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -2510,7 +2510,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2534,7 +2534,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -2545,7 +2545,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2565,7 +2565,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -2635,7 +2635,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -2656,7 +2656,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -2665,7 +2665,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -2689,7 +2689,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -2750,7 +2750,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2774,7 +2774,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -2785,7 +2785,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2805,7 +2805,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -2875,7 +2875,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -2896,7 +2896,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -2905,7 +2905,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -2929,7 +2929,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -2991,7 +2991,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3015,7 +3015,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -3026,7 +3026,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3046,7 +3046,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 78,
@@ -3116,7 +3116,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -3137,7 +3137,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -3146,7 +3146,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-20",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -3170,7 +3170,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -3225,7 +3225,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3249,7 +3249,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -3260,7 +3260,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3280,7 +3280,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 62,
@@ -3350,7 +3350,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 3,
@@ -3371,7 +3371,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -3380,7 +3380,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-27",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -3404,7 +3404,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -3459,7 +3459,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3483,7 +3483,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -3494,7 +3494,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3514,7 +3514,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 68,
@@ -3584,7 +3584,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 3,
@@ -3605,7 +3605,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -3614,7 +3614,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-27",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -3638,7 +3638,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -3693,7 +3693,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3717,7 +3717,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -3728,7 +3728,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3748,7 +3748,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 80,
@@ -3818,7 +3818,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 15,
@@ -3839,7 +3839,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -3848,7 +3848,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-09-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -3872,7 +3872,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -3927,7 +3927,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3951,7 +3951,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -3962,7 +3962,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3982,7 +3982,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 82,
@@ -4052,7 +4052,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -4073,7 +4073,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -4082,7 +4082,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -4106,7 +4106,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -4161,7 +4161,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4185,7 +4185,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -4196,7 +4196,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4216,7 +4216,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 79,
@@ -4286,7 +4286,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -4307,7 +4307,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -4316,7 +4316,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -4340,7 +4340,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -4395,7 +4395,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4419,7 +4419,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -4430,7 +4430,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4450,7 +4450,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 81,
@@ -4521,7 +4521,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 26,
@@ -4542,7 +4542,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -4551,7 +4551,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-01",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -4575,7 +4575,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -4630,7 +4630,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4654,7 +4654,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -4665,7 +4665,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4685,7 +4685,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 67,
@@ -4756,7 +4756,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 18,
@@ -4777,7 +4777,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -4786,7 +4786,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -4810,7 +4810,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -4865,7 +4865,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4889,7 +4889,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -4900,7 +4900,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4920,7 +4920,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 59,
@@ -4991,7 +4991,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 12,
@@ -5012,7 +5012,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -5021,7 +5021,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-25",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -5045,7 +5045,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -5100,7 +5100,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5124,7 +5124,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -5135,7 +5135,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5155,7 +5155,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 34,
@@ -5226,7 +5226,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -5247,7 +5247,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -5256,7 +5256,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-12-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -5280,7 +5280,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -5342,7 +5342,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5366,7 +5366,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -5377,7 +5377,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5397,7 +5397,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -5467,7 +5467,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -5488,7 +5488,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -5497,7 +5497,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -5521,7 +5521,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -5576,7 +5576,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5600,7 +5600,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -5611,7 +5611,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5631,7 +5631,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -5701,7 +5701,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 3,
@@ -5722,7 +5722,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -5731,7 +5731,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-08-27",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -5755,7 +5755,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -5810,7 +5810,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5834,7 +5834,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -5845,7 +5845,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5865,7 +5865,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -5935,7 +5935,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 6,
@@ -5956,7 +5956,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -5965,7 +5965,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-09-10",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -5989,7 +5989,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -6044,7 +6044,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6068,7 +6068,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -6079,7 +6079,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6099,7 +6099,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -6169,7 +6169,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 15,
@@ -6190,7 +6190,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -6199,7 +6199,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-09-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -6223,7 +6223,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -6278,7 +6278,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6302,7 +6302,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -6313,7 +6313,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6333,7 +6333,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -6403,7 +6403,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -6424,7 +6424,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -6433,7 +6433,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -6457,7 +6457,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -6512,7 +6512,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6536,7 +6536,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -6547,7 +6547,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6567,7 +6567,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 70,
@@ -6637,7 +6637,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 27,
@@ -6658,7 +6658,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -6667,7 +6667,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-10-31",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -6691,7 +6691,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -6746,7 +6746,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6770,7 +6770,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -6781,7 +6781,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6801,7 +6801,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -6872,7 +6872,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 18,
@@ -6893,7 +6893,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -6902,7 +6902,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-15",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -6926,7 +6926,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -6981,7 +6981,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -7005,7 +7005,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -7016,7 +7016,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -7036,7 +7036,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 49,
@@ -7107,7 +7107,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 12,
@@ -7128,7 +7128,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -7137,7 +7137,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-11-25",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -7161,7 +7161,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -7216,7 +7216,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -7240,7 +7240,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -7251,7 +7251,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -7271,7 +7271,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 40,
@@ -7342,7 +7342,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 6,
@@ -7363,7 +7363,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -7372,7 +7372,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-12-10",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -7402,7 +7402,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "post_run_residual_presence"
             ]
           },
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",
@@ -7457,7 +7457,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "score": null,
@@ -7481,7 +7481,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "push": {
             "score": null,
@@ -7492,7 +7492,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -7512,7 +7512,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 30,
@@ -7583,7 +7583,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -7604,7 +7604,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "betsie",
@@ -7613,7 +7613,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "localDate": "2026-12-26",
             "refreshSlot": "00:00",
             "metrics": [],
-            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+            "limitation": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
             "dataVersion": "river-live-conditions-v2-review-fixture"
           },
           "gauge": null,
@@ -7637,7 +7637,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. As a result, live river-condition guidance is unavailable. Activity is a Limited-confidence weather-only outlook; Migration Stage and Fish In River provide seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No live gauge reliably represents the two Betsie River Run reaches; Fishability is unavailable.",

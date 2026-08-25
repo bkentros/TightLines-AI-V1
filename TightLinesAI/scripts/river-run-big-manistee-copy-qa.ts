@@ -85,7 +85,7 @@ for (const [species, groups] of runs) {
       for (const primitive of primitives) {
         assert.equal(
           primitive?.copyVersion,
-          "river-run-copy-v36",
+          "river-run-copy-v38",
           `${species}/${scenario.id}: stale copy version`,
         );
         assert(

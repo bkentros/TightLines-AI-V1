@@ -542,7 +542,7 @@ function onboardingCorridorRoute(input: {
             "White Lake connection and the Lower river as monitoring context only.",
           limit,
           tip:
-            "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+            "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
         }
         : {
           whereToStart:
@@ -557,7 +557,7 @@ function onboardingCorridorRoute(input: {
         whereToStart: "Lower river from the White Lake connection upstream.",
         limit,
         tip:
-          "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+          "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
       };
     }
     if (stage === "building" && !input.establishedBuildingContext) {
@@ -754,7 +754,7 @@ function stJosephFallSpawnStageCopy(input: {
             ? `Staging does not confirm dependable river entry. This remains a limited, sectional ${input.species} run.`
             : "Staging does not confirm dependable river entry or inland distribution.",
           tip:
-            "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "Keep the inland check brief. Do not move upriver from Migration Stage alone.",
         }
         : {
           ...base,
@@ -810,7 +810,7 @@ function stJosephFallSpawnStageCopy(input: {
         detail:
           "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
         tip:
-          "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+          "Start in proven holding water. Check the Lower river only when current river conditions or direct fish activity suggest fresh arrivals.",
       };
     case "ending":
       return {
@@ -878,7 +878,7 @@ function muskegonCrotonStageCopy(input: {
             limited ? " Coho opportunity remains limited and sectional." : ""
           }`,
           tip:
-            `Keep the river check brief. Do not move into the ${middle} or ${upper} from calendar timing alone.`,
+            `Keep the river check brief. Do not move into the ${middle} or ${upper} from Migration Stage alone.`,
         }
         : {
           headline:
@@ -1043,7 +1043,7 @@ function bigManisteeTailwaterStageCopy(input: {
             sectional ? " Coho opportunity remains sectional." : ""
           }`,
           tip:
-            `Keep the river check brief. Do not move into the ${middle} or ${upper} from calendar timing alone.`,
+            `Keep the river check brief. Do not move into the ${middle} or ${upper} from Migration Stage alone.`,
         }
         : {
           headline:
@@ -1214,21 +1214,21 @@ function pereMarquetteStageCopy(input: {
           headline:
             `${input.species} may be staging near the PM mouth, but dependable river entry has not begun.`,
           detail:
-            `Seasonal timing supports nearby-lake staging. Any ${input.species} already in the Lower river would be an early exception.`,
+            `The seasonal calendar supports nearby-lake staging. Any ${input.species} already in the Lower river would be an early exception.`,
           tip:
-            "Keep the river check brief. Do not move into the Middle or Upper river from calendar timing alone.",
+            "Keep the river check brief. Do not move into the Middle or Upper river from Migration Stage alone.",
         }
         : {
           headline: `The PM ${input.species} fall run has not started.`,
           detail:
-            `Seasonal timing does not support dependable ${input.species} presence in the PM river yet.`,
+            `The seasonal calendar does not support dependable ${input.species} presence in the PM river yet.`,
           tip:
             "Keep effort in the lake, harbor, and Pere Marquette Lake until staging begins.",
         };
     case "beginning":
       return {
         headline:
-          `Seasonal timing supports the first ${input.species} entering the Lower river.`,
+          `Migration Stage supports the first ${input.species} entering the Lower river.`,
         detail:
           `This is the opening river phase. Presence is expected to be scattered and uneven.`,
         tip:
@@ -1240,7 +1240,7 @@ function pereMarquetteStageCopy(input: {
           headline:
             `The PM ${input.species} run is building beyond its earliest entry phase.`,
           detail:
-            `Seasonal timing keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.`,
+            `Migration Stage keeps the Lower river primary. Earlier arrivals may begin reaching the Middle river.`,
           tip:
             "Start low, then make one Middle river check if direct fish activity supports the move.",
         };
@@ -1248,7 +1248,7 @@ function pereMarquetteStageCopy(input: {
       if (input.broadBuildingContext) {
         return {
           headline:
-            `Seasonal timing supports a broader PM ${input.species} distribution.`,
+            `Migration Stage supports a broader PM ${input.species} distribution.`,
           detail:
             `The Middle river is the dependable calendar choice. Earlier arrivals may also occupy the Upper river.`,
           tip:
@@ -1259,7 +1259,7 @@ function pereMarquetteStageCopy(input: {
         headline:
           `The PM ${input.species} run is becoming established in the Middle river.`,
         detail:
-          `Seasonal timing now favors the Middle river. The Upper river remains a conditional secondary choice.`,
+          `Migration Stage now favors the Middle river. The Upper river remains a conditional secondary choice.`,
         tip:
           "Begin in the Middle river. Add the Upper river only after direct fish activity supports it.",
       };
@@ -1271,12 +1271,12 @@ function pereMarquetteStageCopy(input: {
           ? "This is typically the PM’s strongest Coho window, within a moderate river-specific run."
           : `This is typically the PM’s strongest ${input.species} migration window.`,
         detail: input.opportunity.distributionScope === "concentrated"
-          ? `Seasonal timing favors the most dependable ${input.species} holding water. Expected distribution is concentrated and uneven.`
+          ? `Migration Stage favors the most dependable ${input.species} holding water. Expected distribution is concentrated and uneven.`
           : input.opportunity.distributionScope === "sectional"
-          ? `Seasonal timing supports the PM’s core ${input.species} sections. Concentrations may remain uneven between them.`
+          ? `Migration Stage supports the PM’s core ${input.species} sections. Concentrations may remain uneven between them.`
           : moderateRun
-          ? "Seasonal timing supports the widest dependable Coho distribution. It does not make Coho abundance equal to the PM Chinook run."
-          : `Seasonal timing supports the widest dependable ${input.species} distribution. It does not confirm fish in every section.`,
+          ? "Migration Stage supports the widest dependable Coho distribution. It does not make Coho abundance equal to the PM Chinook run."
+          : `Migration Stage supports the widest dependable ${input.species} distribution. It does not confirm fish in every section.`,
         tip:
           "Start in the Middle river. Compare the Upper river only after a complete first pass.",
       };
@@ -1286,7 +1286,7 @@ function pereMarquetteStageCopy(input: {
         detail:
           `Seasonal presence is declining. Established Middle river holding water is more dependable than broad travel-water searches.`,
         tip:
-          "Start in established Middle river water. Shift lower only when Push supports fresh movement.",
+          "Start in established Middle river water. Shift lower only when current river conditions or direct fish activity suggest fresh arrivals.",
       };
     case "ending":
       return {
@@ -1303,7 +1303,7 @@ function pereMarquetteStageCopy(input: {
           headline:
             `The main PM ${input.species} migration is over, though isolated late fish may remain.`,
           detail:
-            `Seasonal timing no longer supports a broad river search. Any remaining ${input.species} are exceptions.`,
+            `Migration Stage no longer supports a broad river search. Any remaining ${input.species} are exceptions.`,
           tip:
             "Do not chase isolated reports across sections. Leave actively spawning fish undisturbed.",
         }
@@ -1346,9 +1346,9 @@ function pereMarquetteFallEntryStageCopy(input: {
     return {
       headline: "PM Steelhead fall entry remains strong but is slowing.",
       detail:
-        "Seasonal timing still supports broad fall presence. Colder water makes established holding water more important than new entry.",
+        "Migration Stage still supports broad fall presence. Colder water makes established holding water more important than new entry.",
       tip:
-        "Start in the Middle river. Shift lower only when Push supports fresh movement.",
+        "Start in the Middle river. Shift lower only when current river conditions or direct fish activity suggest fresh arrivals.",
     };
   }
   if (input.stage === "ending") {
@@ -1409,7 +1409,7 @@ function pereMarquetteWhereToStartCopy(
     case "peak":
       return "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.";
     case "tapering":
-      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when current river conditions or direct fish activity suggest fresh arrivals.";
     case "ending":
       return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late holding water.";
     case "post_run":
@@ -1443,7 +1443,7 @@ function pereMarquetteFallEntryWhereToStartCopy(input: {
     case "peak":
       return "Start in the Middle river (Scottville–Maple Leaf). Compare the Upper river (Maple Leaf–M-37) when direct fish activity favors it.";
     case "tapering":
-      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when Push supports fresh movement.";
+      return "Start in the Middle river (Scottville–Maple Leaf). Add the Lower river (Pere Marquette Lake–Scottville) only when current river conditions or direct fish activity suggest fresh arrivals.";
     case "ending":
       return "Start in the Middle river (Scottville–Maple Leaf). Add the Upper river (Maple Leaf–M-37) only for established late-fall holding water.";
     case "post_run":
@@ -1568,7 +1568,7 @@ function bigManisteeFallEntryStageCopy(input: {
         detail:
           "Colder water increasingly favors established holding positions over continuous upstream travel.",
         tip:
-          "Keep fresh-entry travel water secondary unless Push supports a new movement period.",
+          "Keep fresh-entry travel water secondary unless current river conditions or direct fish activity point to a new movement period.",
       };
     case "ending":
       return {
@@ -1577,7 +1577,7 @@ function bigManisteeFallEntryStageCopy(input: {
         detail:
           "Steelhead may remain in the river, but this model's fresh-entry phase is ending.",
         tip:
-          "Prioritize controlled presentations and use Push only as a fresh-arrival check.",
+          "Prioritize controlled presentations; use lower travel lanes only when current river conditions or direct fish activity suggest fresh arrivals.",
       };
     case "post_run":
       return {
@@ -1644,7 +1644,7 @@ function muskegonFallEntryStageCopy(input: {
           detail:
             "An early Steelhead is possible, but one fish does not establish the broader fall-entry build.",
           tip:
-            "Keep the river check brief and do not infer a separate strain from timing alone.",
+            "Keep the river check brief and do not infer a separate strain from the seasonal calendar alone.",
         }
         : {
           headline: "Dependable Muskegon Steelhead fall entry has not started.",
@@ -1693,7 +1693,7 @@ function muskegonFallEntryStageCopy(input: {
         detail:
           "Many fish may remain, but this card only describes the slowing fall-entry phase.",
         tip:
-          "Use Push to judge current movement support; Stage does not confirm a fresh wave.",
+          "Use current river conditions and direct fish activity to judge movement support; Migration Stage does not confirm a fresh wave.",
       };
     case "ending":
       return {
@@ -2040,11 +2040,11 @@ function fallEntryStageCopy(input: {
           headline:
             `${input.species} are now broadly established through the accessible river.`,
           whereToStart:
-            "Middle and upper river holding water, with lower travel lanes added when Push supports fresh arrivals.",
+            "Middle and upper river holding water, with lower travel lanes added when current river conditions or direct fish activity suggest fresh arrivals.",
           detail:
             "By November, multiple entry periods have given steelhead time to spread through lower, middle, and upper sections wherever passage is open. The upper river is now a primary option, even though dependable concentrations can remain in lower and middle holding water.",
           tip:
-            "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when Push supports a fresh wave entering the river.",
+            "Choose a middle- or upper-river section and cover its substantial holes, deep bends, and current breaks. Shift extra attention lower only when current river conditions or direct fish activity suggest a fresh wave entering the river.",
         };
       }
       return input.establishedBuildingContext
@@ -2056,7 +2056,7 @@ function fallEntryStageCopy(input: {
           detail:
             "By this stage, earlier arrivals have had time to reach lower, middle, and upper sections while newer fish continue entering. Fish may be distributed broadly, but the most dependable concentrations are often still in lower- and middle-river holding water.",
           tip:
-            "Begin in dependable lower- or middle-river holding water and work deep holes, outside bends, and current breaks. Move into upper sections when direct fish activity or local knowledge supports it, and use Push to decide whether lower travel lanes deserve extra attention.",
+            "Begin in dependable lower- or middle-river holding water and work deep holes, outside bends, and current breaks. Move into upper sections when direct fish activity or local knowledge supports it, and give lower travel lanes extra attention only when current river conditions suggest fresh arrivals.",
         }
         : {
           headline:
@@ -2077,7 +2077,7 @@ function fallEntryStageCopy(input: {
         detail:
           "Multiple waves have had time to spread from lower travel lanes into established middle- and upper-river holding water. Fish can be broadly distributed wherever passage is open.",
         tip:
-          "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Let Push decide whether lower travel lanes deserve extra time.",
+          "Choose an accessible section and cover each substantial hole from the head through its seams and tail. Give lower travel lanes extra time only when current river conditions or direct fish activity suggest fresh arrivals.",
       };
     case "tapering":
       return {
@@ -2088,7 +2088,7 @@ function fallEntryStageCopy(input: {
         detail:
           "Fish remain broadly available, but colder water gradually shifts the balance from active upstream movement toward established holding. Fresh arrivals can still occur without defining the whole fishery.",
         tip:
-          "Start with dependable holding water. Check lower travel lanes only when Push shows a credible movement signal.",
+          "Start with dependable holding water. Check lower travel lanes only when current river conditions or direct fish activity provide a credible fresh-arrival signal.",
       };
     case "ending":
       return {
@@ -2099,7 +2099,7 @@ function fallEntryStageCopy(input: {
         detail:
           "The fish have not simply left the river. Colder water reduces the importance of fresh upstream movement and increases the importance of where steelhead can hold efficiently through winter.",
         tip:
-          "Prioritize deep, speed-controlled holding water and use Push only as a secondary fresh-arrival check. The winter fishery read takes over after this stage.",
+          "Prioritize deep, speed-controlled holding water. Treat lower travel lanes as a secondary check only when current river conditions or direct fish activity suggest fresh arrivals; the winter fishery read takes over after this stage.",
       };
     case "post_run":
       return {
@@ -2228,9 +2228,9 @@ function stJosephFallEntryTip(input: {
     case "peak":
       return "Choose one substantial holding section and cover it completely before changing reaches.";
     case "tapering":
-      return "Start in established holding water. Add Lower-river travel lanes only when Niles Push supports fresh movement.";
+      return "Start in established holding water. Add Lower-river travel lanes only when Niles river conditions or direct fish activity suggest fresh arrivals.";
     case "ending":
-      return "Prioritize controlled presentations. Do not interpret a weak Push as fish leaving the river.";
+      return "Prioritize controlled presentations. Stable river conditions or quiet fish activity do not mean Steelhead have left; use Fish In River for seasonal presence.";
     case "post_run":
       return "Check back around September 10 when St. Joseph fall-entry tracking resumes.";
   }
@@ -2477,7 +2477,7 @@ function establishedBuildingCopy(
         detail:
           `Earlier waves have had time to reach upper holding water while later ${species} may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.`,
         tip:
-          "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+          "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Give fresh lower-river travel lanes extra time only when current river conditions or direct fish activity support it.",
       };
     }
     return {
@@ -2507,8 +2507,8 @@ function establishedBuildingCopy(
     detail:
       `Earlier arrivals have had time to move upstream while later ${species} may continue to enter. ${amount} may now be distributed ${distribution}, wherever passage is open.`,
     tip: opportunity.distributionScope === "concentrated"
-      ? "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. If Push is Possible or stronger, finish with one deliberate lower-river travel-lane check."
-      : "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
+      ? "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. Finish with one deliberate lower-river travel-lane check only when current river conditions or direct fish activity suggest fresh arrivals."
+      : "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. Finish with a deliberate lower-river travel-lane check only when current river conditions or direct fish activity suggest fresh arrivals.",
   };
 }
 
@@ -2569,10 +2569,10 @@ function taperingCopy(
     ? `${amount} may still be present through the river's dependable sections.`
     : `${amount} may still be concentrated in the river's most dependable holding water.`;
   const tip = opportunity.distributionScope === "broad"
-    ? "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave."
+    ? "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. Finish with lower travel lanes only when current river conditions or direct fish activity suggest a fresh late wave."
     : opportunity.distributionScope === "sectional"
-    ? "Begin in the river's established holding sections, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave."
-    : "Begin in the river's most dependable deep holes and slower holding edges. If Push is Possible or stronger, finish with one lower travel-lane check for a fresh late arrival.";
+    ? "Begin in the river's established holding sections, especially deep holes and slower edges. Finish with lower travel lanes only when current river conditions or direct fish activity suggest a fresh late wave."
+    : "Begin in the river's most dependable deep holes and slower holding edges. Finish with one lower travel-lane check only when current river conditions or direct fish activity suggest a fresh late arrival.";
   return {
     headline: opportunity.strength === "limited"
       ? `This can still offer a limited ${species} opportunity, even as fresh arrivals typically become less consistent.`

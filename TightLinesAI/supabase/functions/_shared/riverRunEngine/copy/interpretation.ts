@@ -31,7 +31,7 @@ export function resolveInterpretationNote(
       headline:
         "Steelhead are still in the river, but winter conditions now control the day.",
       detail:
-        "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
+        "The fall-entry period ended with strong retained presence. Steelhead may still hold in the river, but this fall model no longer scores their current responsiveness. Use current river conditions and direct observations to plan the day.",
       reasonCodes: ["winter_holding_read_required"],
     };
   }

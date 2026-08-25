@@ -54,7 +54,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -79,7 +79,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -100,7 +100,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -118,7 +118,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -140,7 +140,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -538,7 +538,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -563,7 +563,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -584,7 +584,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -602,7 +602,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -624,7 +624,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -1017,13 +1017,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Before migration",
             "headline": "Coho salmon may be staging near the St. Joseph River entrance.",
             "detail": "Staging does not confirm dependable river entry or inland distribution.",
-            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "tip": "Keep the inland check brief. Do not move upriver from Migration Stage alone.",
             "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -1048,7 +1048,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1069,7 +1069,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -1087,7 +1087,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -1156,7 +1156,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -1177,7 +1177,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -1575,7 +1575,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -1618,7 +1618,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -1653,7 +1653,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -1671,7 +1671,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -1740,7 +1740,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 7,
@@ -1761,7 +1761,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -2160,7 +2160,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2203,7 +2203,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2238,7 +2238,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -2256,7 +2256,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -2325,7 +2325,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -2346,7 +2346,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -2739,7 +2739,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -2812,7 +2812,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -2850,7 +2850,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -2868,7 +2868,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -2937,7 +2937,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 49,
@@ -2958,7 +2958,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -3351,7 +3351,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -3433,7 +3433,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -3471,7 +3471,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -3489,7 +3489,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -3558,7 +3558,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -3579,7 +3579,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -3978,7 +3978,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4066,7 +4066,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4104,7 +4104,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -4122,7 +4122,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -4191,7 +4191,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 64,
@@ -4212,7 +4212,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -4606,12 +4606,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
-            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "tip": "Start in proven holding water. Check the Lower river only when current river conditions or direct fish activity suggest fresh arrivals.",
             "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4699,7 +4699,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4737,7 +4737,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -4755,7 +4755,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 69,
@@ -4825,7 +4825,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 49,
@@ -4846,7 +4846,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -5239,7 +5239,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5327,7 +5327,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5365,7 +5365,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -5383,7 +5383,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 47,
@@ -5453,7 +5453,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -5474,7 +5474,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -5867,7 +5867,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -5955,7 +5955,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -5979,7 +5979,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -5997,7 +5997,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -6067,7 +6067,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 8,
@@ -6088,7 +6088,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -6488,7 +6488,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -6576,7 +6576,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -6600,7 +6600,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -6618,7 +6618,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -6640,7 +6640,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -7045,7 +7045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7070,7 +7070,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7091,7 +7091,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -7109,7 +7109,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -7131,7 +7131,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -7529,7 +7529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7554,7 +7554,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7575,7 +7575,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -7593,7 +7593,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -7615,7 +7615,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -8013,7 +8013,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8038,7 +8038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8059,7 +8059,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -8077,7 +8077,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -8099,7 +8099,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -8497,7 +8497,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8522,7 +8522,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8543,7 +8543,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -8561,7 +8561,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -8583,7 +8583,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -8981,7 +8981,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -9006,7 +9006,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9027,7 +9027,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -9045,7 +9045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -9067,7 +9067,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -9465,7 +9465,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -9490,7 +9490,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9511,7 +9511,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -9529,7 +9529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -9551,7 +9551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -9949,7 +9949,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -10069,7 +10069,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_building_established",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Typical"
@@ -10107,7 +10107,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -10125,7 +10125,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -10194,7 +10194,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 61,
@@ -10215,7 +10215,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -10614,7 +10614,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -10657,7 +10657,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -10692,7 +10692,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -10710,7 +10710,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -10779,7 +10779,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -10800,7 +10800,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -11193,7 +11193,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11236,7 +11236,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11272,7 +11272,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 57,
@@ -11290,7 +11290,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 24,
@@ -11360,7 +11360,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -11381,7 +11381,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -11774,7 +11774,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -11817,7 +11817,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -11851,7 +11851,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -11869,7 +11869,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 73,
@@ -11938,7 +11938,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -11959,7 +11959,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -12352,7 +12352,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12395,7 +12395,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -12429,7 +12429,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -12447,7 +12447,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 78,
@@ -12516,7 +12516,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -12537,7 +12537,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -12930,7 +12930,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -12973,7 +12973,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13007,7 +13007,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 68,
@@ -13025,7 +13025,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -13094,7 +13094,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -13115,7 +13115,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -13508,7 +13508,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -13551,7 +13551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -13586,7 +13586,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -13604,7 +13604,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 78,
@@ -13673,7 +13673,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -13694,7 +13694,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -14087,7 +14087,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14130,7 +14130,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14166,7 +14166,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 69,
@@ -14187,7 +14187,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 78,
@@ -14256,7 +14256,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -14277,7 +14277,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -14670,7 +14670,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -14713,7 +14713,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14750,7 +14750,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -14771,7 +14771,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -14840,7 +14840,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -14861,7 +14861,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -15254,7 +15254,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15297,7 +15297,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15334,7 +15334,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 0,
@@ -15354,7 +15354,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -15424,7 +15424,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -15445,7 +15445,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -15838,7 +15838,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -15881,7 +15881,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15902,7 +15902,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -15914,7 +15914,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 51,
@@ -15983,7 +15983,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -16004,7 +16004,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -16364,7 +16364,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -16407,7 +16407,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16429,7 +16429,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -16447,7 +16447,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -16516,7 +16516,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -16537,7 +16537,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -16893,7 +16893,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -16918,7 +16918,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16939,7 +16939,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 60,
@@ -16957,7 +16957,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -16979,7 +16979,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -17371,7 +17371,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -17396,7 +17396,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17417,7 +17417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -17435,7 +17435,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -17457,7 +17457,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -17855,7 +17855,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -17880,7 +17880,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17901,7 +17901,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 80,
@@ -17919,7 +17919,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -17941,7 +17941,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -18339,7 +18339,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18382,7 +18382,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -18417,7 +18417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 40,
@@ -18436,7 +18436,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 68,
@@ -18505,7 +18505,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -18526,7 +18526,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -18925,7 +18925,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -18968,7 +18968,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19003,7 +19003,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 60,
@@ -19021,7 +19021,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 72,
@@ -19090,7 +19090,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -19111,7 +19111,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -19504,7 +19504,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -19547,7 +19547,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -19583,7 +19583,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 20,
@@ -19602,7 +19602,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -19672,7 +19672,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -19693,7 +19693,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -20086,7 +20086,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20129,7 +20129,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20163,7 +20163,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 88,
@@ -20181,7 +20181,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 74,
@@ -20250,7 +20250,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -20271,7 +20271,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -20664,7 +20664,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -20707,7 +20707,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -20741,7 +20741,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 40,
@@ -20762,7 +20762,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 72,
@@ -20831,7 +20831,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -20852,7 +20852,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -21251,7 +21251,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21294,7 +21294,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21330,7 +21330,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 69,
@@ -21351,7 +21351,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -21420,7 +21420,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -21441,7 +21441,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -21834,7 +21834,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -21877,7 +21877,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -21913,7 +21913,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -21934,7 +21934,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 51,
@@ -22003,7 +22003,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -22024,7 +22024,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -22417,7 +22417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22460,7 +22460,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -22481,7 +22481,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -22493,7 +22493,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 51,
@@ -22562,7 +22562,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -22583,7 +22583,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -22943,7 +22943,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -22986,7 +22986,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23021,7 +23021,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -23039,7 +23039,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -23108,7 +23108,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -23129,7 +23129,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -23522,7 +23522,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -23565,7 +23565,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -23600,7 +23600,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 73,
@@ -23618,7 +23618,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 73,
@@ -23687,7 +23687,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -23708,7 +23708,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -24101,7 +24101,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -24144,7 +24144,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24179,7 +24179,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 45,
@@ -24197,7 +24197,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 69,
@@ -24266,7 +24266,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -24287,7 +24287,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -24681,13 +24681,13 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Before migration",
             "headline": "Coho salmon may be staging near the St. Joseph River entrance.",
             "detail": "Staging does not confirm dependable river entry or inland distribution.",
-            "tip": "Keep the inland check brief. Do not move upriver from calendar timing alone.",
+            "tip": "Keep the inland check brief. Do not move upriver from Migration Stage alone.",
             "whereToStart": "Start at the St. Joseph harbor and river mouth. Add the Lower river (St. Joseph harbor–Berrien Springs) only for an early-fish check.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -24712,7 +24712,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -24733,7 +24733,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -24751,7 +24751,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 27,
@@ -24821,7 +24821,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -24842,7 +24842,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -25240,7 +25240,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25283,7 +25283,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -25318,7 +25318,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -25336,7 +25336,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 85,
@@ -25405,7 +25405,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -25426,7 +25426,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -25819,7 +25819,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -25892,7 +25892,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -25930,7 +25930,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -25948,7 +25948,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 85,
@@ -26017,7 +26017,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 51,
@@ -26038,7 +26038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -26431,7 +26431,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -26513,7 +26513,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -26551,7 +26551,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -26569,7 +26569,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 79,
@@ -26638,7 +26638,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -26659,7 +26659,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -27058,7 +27058,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27131,7 +27131,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -27169,7 +27169,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 45,
@@ -27187,7 +27187,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 59,
@@ -27256,7 +27256,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 51,
@@ -27277,7 +27277,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -27670,7 +27670,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -27713,7 +27713,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -27748,7 +27748,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -27766,7 +27766,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 29,
@@ -27836,7 +27836,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -27857,7 +27857,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -28250,7 +28250,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28293,7 +28293,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -28329,7 +28329,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -28347,7 +28347,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 20,
@@ -28417,7 +28417,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -28438,7 +28438,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -28831,7 +28831,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -28913,7 +28913,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -28952,7 +28952,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 20,
@@ -28971,7 +28971,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 21,
@@ -29041,7 +29041,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -29062,7 +29062,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -29456,12 +29456,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
-            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "tip": "Start in proven holding water. Check the Lower river only when current river conditions or direct fish activity suggest fresh arrivals.",
             "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -29549,7 +29549,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -29587,7 +29587,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -29605,7 +29605,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 80,
@@ -29675,7 +29675,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 49,
@@ -29696,7 +29696,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -30089,7 +30089,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30177,7 +30177,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30215,7 +30215,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -30233,7 +30233,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -30303,7 +30303,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -30324,7 +30324,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -30717,7 +30717,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -30805,7 +30805,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -30829,7 +30829,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -30847,7 +30847,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 37,
@@ -30917,7 +30917,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 8,
@@ -30938,7 +30938,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -31338,7 +31338,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31420,7 +31420,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -31445,7 +31445,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -31463,7 +31463,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 55,
@@ -31532,7 +31532,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -31553,7 +31553,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -31909,7 +31909,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -31991,7 +31991,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -32015,7 +32015,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -32027,7 +32027,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -32096,7 +32096,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -32117,7 +32117,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -32483,7 +32483,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -32508,7 +32508,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -32529,7 +32529,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -32547,7 +32547,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -32569,7 +32569,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -32967,7 +32967,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33010,7 +33010,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33045,7 +33045,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -33063,7 +33063,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -33132,7 +33132,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 7,
@@ -33153,7 +33153,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -33552,7 +33552,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -33595,7 +33595,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -33630,7 +33630,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -33648,7 +33648,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -33717,7 +33717,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 14,
@@ -33738,7 +33738,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -34137,7 +34137,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34180,7 +34180,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34215,7 +34215,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -34233,7 +34233,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -34302,7 +34302,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 30,
@@ -34323,7 +34323,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -34716,7 +34716,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -34759,7 +34759,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -34794,7 +34794,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -34812,7 +34812,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -34881,7 +34881,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 43,
@@ -34902,7 +34902,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -35295,7 +35295,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35368,7 +35368,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -35406,7 +35406,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -35424,7 +35424,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -35493,7 +35493,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 58,
@@ -35514,7 +35514,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -35907,7 +35907,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -35980,7 +35980,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_building_established"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_start",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -36018,7 +36018,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -36036,7 +36036,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -36105,7 +36105,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 65,
@@ -36126,7 +36126,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -36519,7 +36519,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -36601,7 +36601,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -36639,7 +36639,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -36657,7 +36657,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -36726,7 +36726,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -36747,7 +36747,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -37146,7 +37146,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -37228,7 +37228,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_peak_start"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Insufficient evidence"
@@ -37266,7 +37266,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -37284,7 +37284,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -37353,7 +37353,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 70,
@@ -37374,7 +37374,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -37773,7 +37773,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -37861,7 +37861,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -37899,7 +37899,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -37917,7 +37917,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -37986,7 +37986,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 63,
@@ -38007,7 +38007,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -38401,12 +38401,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
-            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "tip": "Start in proven holding water. Check the Lower river only when current river conditions or direct fish activity suggest fresh arrivals.",
             "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -38494,7 +38494,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -38532,7 +38532,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -38550,7 +38550,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 73,
@@ -38620,7 +38620,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 55,
@@ -38641,7 +38641,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -39029,12 +39029,12 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Tapering",
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Fresh entry is slowing, so established holding water matters more than Lower-river travel lanes.",
-            "tip": "Start in proven holding water. Check the Lower river only when Push supports fresh movement.",
+            "tip": "Start in proven holding water. Check the Lower river only when current river conditions or direct fish activity suggest fresh arrivals.",
             "whereToStart": "Start in established Middle river (Berrien Springs–Niles) or Upper river (Niles–Twin Branch Dam) holding water.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -39122,7 +39122,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -39160,7 +39160,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -39178,7 +39178,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 64,
@@ -39248,7 +39248,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 42,
@@ -39269,7 +39269,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -39662,7 +39662,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -39750,7 +39750,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -39788,7 +39788,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -39806,7 +39806,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 44,
@@ -39876,7 +39876,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -39897,7 +39897,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -40290,7 +40290,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -40378,7 +40378,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -40402,7 +40402,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -40420,7 +40420,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -40490,7 +40490,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 13,
@@ -40511,7 +40511,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -40911,7 +40911,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -40999,7 +40999,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v36",
+            "copyVersion": "river-run-copy-v38",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -41023,7 +41023,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_complete"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -41041,7 +41041,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 32,
@@ -41111,7 +41111,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 0,
@@ -41132,7 +41132,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -41532,7 +41532,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -41556,7 +41556,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -41577,7 +41577,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -41595,7 +41595,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -41616,7 +41616,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -42014,7 +42014,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -42057,7 +42057,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -42091,7 +42091,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 32,
@@ -42109,7 +42109,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 72,
@@ -42178,7 +42178,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -42199,7 +42199,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -42598,7 +42598,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -42641,7 +42641,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -42677,7 +42677,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 57,
@@ -42695,7 +42695,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 24,
@@ -42765,7 +42765,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -42786,7 +42786,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -43179,7 +43179,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -43222,7 +43222,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -43244,7 +43244,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -43262,7 +43262,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -43331,7 +43331,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 28,
@@ -43352,7 +43352,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -43708,7 +43708,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -43733,7 +43733,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -43754,7 +43754,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -43772,7 +43772,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
           "fishInRiver": {
@@ -43794,7 +43794,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -44198,7 +44198,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -44241,7 +44241,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -44276,7 +44276,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -44294,7 +44294,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 77,
@@ -44363,7 +44363,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -44384,7 +44384,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -44777,7 +44777,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -44820,7 +44820,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -44856,7 +44856,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 55,
@@ -44877,7 +44877,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               ]
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 51,
@@ -44946,7 +44946,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -44967,7 +44967,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -45360,7 +45360,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -45403,7 +45403,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -45424,7 +45424,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": null,
@@ -45436,7 +45436,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "gauge_missing"
             ],
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 51,
@@ -45505,7 +45505,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -45526,7 +45526,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",
@@ -45886,7 +45886,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -45929,7 +45929,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -45951,7 +45951,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "temperature_unavailable"
             ],
             "rulesVersion": "st-joseph-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
             "score": 93,
@@ -45969,7 +45969,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "appliedCaps": []
             },
             "rulesVersion": "st-joseph-niles-fishability-v1",
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "activity": {
             "score": 53,
@@ -46038,7 +46038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "lockedAt": null
               }
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "fishInRiver": {
             "score": 47,
@@ -46059,7 +46059,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v36"
+            "copyVersion": "river-run-copy-v38"
           },
           "riverConditions": {
             "riverId": "st_joseph",

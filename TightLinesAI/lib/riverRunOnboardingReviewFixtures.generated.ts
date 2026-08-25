@@ -55,7 +55,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -79,7 +79,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -90,7 +90,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -117,7 +117,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -138,7 +138,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -536,7 +536,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -560,7 +560,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -571,7 +571,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -598,7 +598,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -619,7 +619,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -1018,7 +1018,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -1042,7 +1042,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -1053,7 +1053,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -1080,7 +1080,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 91,
@@ -1149,7 +1149,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -1169,7 +1169,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -1567,7 +1567,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -1591,7 +1591,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -1602,7 +1602,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -1629,7 +1629,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -1698,7 +1698,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 7,
@@ -1718,7 +1718,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -2116,7 +2116,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -2140,7 +2140,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -2151,7 +2151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -2178,7 +2178,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -2247,7 +2247,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -2267,7 +2267,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -2665,7 +2665,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -2689,7 +2689,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -2700,7 +2700,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -2727,7 +2727,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -2796,7 +2796,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 21,
@@ -2816,7 +2816,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -3214,7 +3214,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -3238,7 +3238,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -3249,7 +3249,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -3276,7 +3276,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -3345,7 +3345,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 42,
@@ -3365,7 +3365,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -3757,7 +3757,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -3781,7 +3781,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -3792,7 +3792,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -3819,7 +3819,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -3888,7 +3888,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -3908,7 +3908,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -4300,7 +4300,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -4324,7 +4324,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -4335,7 +4335,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -4362,7 +4362,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -4431,7 +4431,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -4444,14 +4444,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -4843,7 +4843,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -4867,7 +4867,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -4878,7 +4878,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -4905,7 +4905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 75,
@@ -4975,7 +4975,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 56,
@@ -4988,14 +4988,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports Chinook salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
+              "headline": "The current Migration Stage still supports Chinook salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
               "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -5387,7 +5387,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -5411,7 +5411,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -5422,7 +5422,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -5449,7 +5449,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -5519,7 +5519,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 29,
@@ -5532,14 +5532,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -5931,7 +5931,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -5955,7 +5955,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -5966,7 +5966,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -5993,7 +5993,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 62,
@@ -6063,7 +6063,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 28,
@@ -6076,14 +6076,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -6475,7 +6475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -6499,7 +6499,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -6510,7 +6510,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -6537,7 +6537,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 42,
@@ -6607,7 +6607,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 10,
@@ -6627,7 +6627,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -7025,7 +7025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -7049,7 +7049,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -7060,7 +7060,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -7087,7 +7087,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 45,
@@ -7157,7 +7157,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 9,
@@ -7177,7 +7177,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -7576,7 +7576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -7600,7 +7600,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -7611,7 +7611,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -7638,7 +7638,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 37,
@@ -7708,7 +7708,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -7728,7 +7728,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -8127,7 +8127,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -8151,7 +8151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -8162,7 +8162,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -8189,7 +8189,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -8210,7 +8210,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -8608,7 +8608,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -8632,7 +8632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -8643,7 +8643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -8670,7 +8670,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -8691,7 +8691,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -9090,7 +9090,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -9114,7 +9114,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -9125,7 +9125,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -9152,7 +9152,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -9173,7 +9173,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -9577,7 +9577,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -9601,7 +9601,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -9612,7 +9612,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -9639,7 +9639,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -9708,7 +9708,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -9728,7 +9728,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -10120,7 +10120,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -10144,7 +10144,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -10155,7 +10155,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -10182,7 +10182,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -10251,7 +10251,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -10271,7 +10271,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -10663,7 +10663,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -10687,7 +10687,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -10698,7 +10698,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -10725,7 +10725,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -10794,7 +10794,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -10814,7 +10814,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -11206,7 +11206,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -11230,7 +11230,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -11241,7 +11241,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -11268,7 +11268,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -11288,7 +11288,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -11308,7 +11308,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -11523,7 +11523,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -11547,7 +11547,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -11558,7 +11558,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -11585,7 +11585,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -11655,7 +11655,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -11675,7 +11675,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -12067,7 +12067,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -12091,7 +12091,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -12102,7 +12102,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -12129,7 +12129,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -12198,7 +12198,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -12218,7 +12218,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -12572,7 +12572,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -12596,7 +12596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -12607,7 +12607,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -12628,7 +12628,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -12697,7 +12697,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -12717,7 +12717,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -13076,7 +13076,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -13100,7 +13100,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -13111,7 +13111,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -13132,7 +13132,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -13151,7 +13151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -13171,7 +13171,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -13499,7 +13499,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -13523,7 +13523,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -13534,7 +13534,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -13561,7 +13561,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 91,
@@ -13630,7 +13630,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -13650,7 +13650,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -14048,7 +14048,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -14072,7 +14072,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -14083,7 +14083,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -14110,7 +14110,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -14179,7 +14179,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 7,
@@ -14199,7 +14199,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -14597,7 +14597,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -14621,7 +14621,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -14632,7 +14632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -14659,7 +14659,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -14728,7 +14728,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 21,
@@ -14748,7 +14748,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -15146,7 +15146,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -15170,7 +15170,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -15181,7 +15181,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -15208,7 +15208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -15277,7 +15277,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 42,
@@ -15297,7 +15297,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -15689,7 +15689,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -15713,7 +15713,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -15724,7 +15724,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -15751,7 +15751,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -15820,7 +15820,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -15840,7 +15840,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -16232,7 +16232,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -16256,7 +16256,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -16267,7 +16267,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -16294,7 +16294,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -16363,7 +16363,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -16376,14 +16376,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -16775,7 +16775,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -16799,7 +16799,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -16810,7 +16810,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -16837,7 +16837,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -16907,7 +16907,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 29,
@@ -16920,14 +16920,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through several dependable river sections, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -17319,7 +17319,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -17343,7 +17343,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -17354,7 +17354,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -17381,7 +17381,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 42,
@@ -17451,7 +17451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 10,
@@ -17471,7 +17471,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -17869,7 +17869,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -17893,7 +17893,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -17904,7 +17904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -17931,7 +17931,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 37,
@@ -18001,7 +18001,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -18021,7 +18021,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -18420,7 +18420,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -18444,7 +18444,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -18455,7 +18455,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -18482,7 +18482,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -18503,7 +18503,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -18901,7 +18901,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -18925,7 +18925,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -18936,7 +18936,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -18963,7 +18963,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -18984,7 +18984,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -19388,7 +19388,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -19412,7 +19412,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -19423,7 +19423,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -19451,7 +19451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 92,
@@ -19520,7 +19520,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -19540,7 +19540,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -19932,7 +19932,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -19956,7 +19956,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -19967,7 +19967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -19994,7 +19994,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 94,
@@ -20063,7 +20063,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -20083,7 +20083,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -20475,7 +20475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -20499,7 +20499,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -20510,7 +20510,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -20537,7 +20537,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -20606,7 +20606,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -20626,7 +20626,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -21018,7 +21018,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -21042,7 +21042,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -21053,7 +21053,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -21080,7 +21080,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -21149,7 +21149,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -21169,7 +21169,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -21561,7 +21561,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -21585,7 +21585,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -21596,7 +21596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -21624,7 +21624,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 19,
@@ -21694,7 +21694,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -21714,7 +21714,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -22106,7 +22106,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -22130,7 +22130,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -22141,7 +22141,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -22169,7 +22169,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 19,
@@ -22239,7 +22239,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -22259,7 +22259,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -22651,7 +22651,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -22675,7 +22675,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -22686,7 +22686,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -22707,7 +22707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -22776,7 +22776,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -22796,7 +22796,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -23161,7 +23161,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -23185,7 +23185,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -23196,7 +23196,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -23223,7 +23223,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -23292,7 +23292,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -23312,7 +23312,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -23704,7 +23704,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -23728,7 +23728,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -23739,7 +23739,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -23760,7 +23760,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -23829,7 +23829,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -23849,7 +23849,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -24208,7 +24208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -24232,7 +24232,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -24243,7 +24243,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -24270,7 +24270,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -24339,7 +24339,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -24359,7 +24359,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -24713,7 +24713,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -24737,7 +24737,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -24748,7 +24748,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -24775,7 +24775,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-chinook-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -24844,7 +24844,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -24864,7 +24864,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -25264,7 +25264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -25288,7 +25288,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -25299,7 +25299,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -25326,7 +25326,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -25347,7 +25347,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -25745,7 +25745,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -25769,7 +25769,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -25780,7 +25780,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -25807,7 +25807,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -25828,7 +25828,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -26227,7 +26227,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -26251,7 +26251,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -26262,7 +26262,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -26289,7 +26289,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 89,
@@ -26358,7 +26358,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -26378,7 +26378,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -26776,7 +26776,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -26800,7 +26800,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -26811,7 +26811,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -26838,7 +26838,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -26907,7 +26907,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -26927,7 +26927,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -27325,7 +27325,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -27349,7 +27349,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -27360,7 +27360,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -27387,7 +27387,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -27456,7 +27456,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 29,
@@ -27476,7 +27476,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -27868,7 +27868,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -27892,7 +27892,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -27903,7 +27903,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -27930,7 +27930,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -27999,7 +27999,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 32,
@@ -28019,7 +28019,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -28411,7 +28411,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -28435,7 +28435,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -28446,7 +28446,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -28473,7 +28473,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -28542,7 +28542,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -28562,7 +28562,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -28954,7 +28954,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -28978,7 +28978,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -28989,7 +28989,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -29016,7 +29016,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -29085,7 +29085,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -29105,7 +29105,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -29497,7 +29497,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -29521,7 +29521,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -29532,7 +29532,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -29559,7 +29559,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -29628,7 +29628,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 72,
@@ -29641,14 +29641,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -30040,7 +30040,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -30064,7 +30064,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -30075,7 +30075,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -30102,7 +30102,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -30172,7 +30172,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -30185,14 +30185,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -30584,7 +30584,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -30608,7 +30608,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -30619,7 +30619,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -30646,7 +30646,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 46,
@@ -30716,7 +30716,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 37,
@@ -30729,14 +30729,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Coho salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -31128,7 +31128,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -31152,7 +31152,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -31163,7 +31163,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -31190,7 +31190,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -31260,7 +31260,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 36,
@@ -31273,14 +31273,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Coho salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -31672,7 +31672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -31696,7 +31696,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -31707,7 +31707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -31734,7 +31734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 41,
@@ -31804,7 +31804,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 19,
@@ -31817,14 +31817,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
               "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -32222,7 +32222,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -32246,7 +32246,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -32257,7 +32257,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -32284,7 +32284,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 47,
@@ -32354,7 +32354,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -32367,14 +32367,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
               "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -32773,7 +32773,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -32797,7 +32797,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -32808,7 +32808,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -32835,7 +32835,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 32,
@@ -32905,7 +32905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -32925,7 +32925,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -33324,7 +33324,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -33348,7 +33348,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -33359,7 +33359,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -33386,7 +33386,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -33407,7 +33407,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -33805,7 +33805,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -33829,7 +33829,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -33840,7 +33840,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -33867,7 +33867,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -33888,7 +33888,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -34287,7 +34287,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -34311,7 +34311,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -34322,7 +34322,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -34349,7 +34349,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -34370,7 +34370,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -34774,7 +34774,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -34798,7 +34798,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -34809,7 +34809,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -34836,7 +34836,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -34905,7 +34905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -34925,7 +34925,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -35317,7 +35317,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -35341,7 +35341,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -35352,7 +35352,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -35379,7 +35379,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -35448,7 +35448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -35468,7 +35468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -35860,7 +35860,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -35884,7 +35884,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -35895,7 +35895,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -35922,7 +35922,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -35991,7 +35991,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -36011,7 +36011,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -36403,7 +36403,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -36427,7 +36427,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -36438,7 +36438,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -36465,7 +36465,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -36485,7 +36485,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -36505,7 +36505,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -36720,7 +36720,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -36744,7 +36744,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -36755,7 +36755,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -36782,7 +36782,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -36852,7 +36852,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -36872,7 +36872,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -37264,7 +37264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -37288,7 +37288,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -37299,7 +37299,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -37326,7 +37326,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -37395,7 +37395,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -37415,7 +37415,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -37769,7 +37769,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -37793,7 +37793,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -37804,7 +37804,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -37825,7 +37825,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -37894,7 +37894,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -37914,7 +37914,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -38273,7 +38273,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -38297,7 +38297,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -38308,7 +38308,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -38329,7 +38329,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -38348,7 +38348,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -38368,7 +38368,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -38696,7 +38696,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -38720,7 +38720,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -38731,7 +38731,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -38758,7 +38758,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 89,
@@ -38827,7 +38827,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -38847,7 +38847,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -39245,7 +39245,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -39269,7 +39269,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -39280,7 +39280,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -39307,7 +39307,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -39376,7 +39376,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -39396,7 +39396,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -39794,7 +39794,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -39818,7 +39818,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -39829,7 +39829,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -39856,7 +39856,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -39925,7 +39925,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 32,
@@ -39945,7 +39945,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -40337,7 +40337,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -40361,7 +40361,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -40372,7 +40372,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -40399,7 +40399,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -40468,7 +40468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -40488,7 +40488,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -40880,7 +40880,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -40904,7 +40904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -40915,7 +40915,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -40942,7 +40942,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -41011,7 +41011,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -41031,7 +41031,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -41423,7 +41423,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -41447,7 +41447,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -41458,7 +41458,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -41485,7 +41485,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -41555,7 +41555,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -41568,14 +41568,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports strong Coho salmon presence across much of the river, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -41967,7 +41967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -41991,7 +41991,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -42002,7 +42002,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -42029,7 +42029,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 56,
@@ -42099,7 +42099,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 54,
@@ -42112,14 +42112,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports Coho salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
               "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -42511,7 +42511,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -42535,7 +42535,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -42546,7 +42546,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -42573,7 +42573,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 49,
@@ -42643,7 +42643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 46,
@@ -42656,14 +42656,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Coho salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Coho salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -43055,7 +43055,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -43079,7 +43079,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -43090,7 +43090,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -43117,7 +43117,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 41,
@@ -43187,7 +43187,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 19,
@@ -43200,14 +43200,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to be spread throughout the river.",
               "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -43605,7 +43605,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -43629,7 +43629,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -43640,7 +43640,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -43667,7 +43667,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 32,
@@ -43737,7 +43737,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -43757,7 +43757,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -44156,7 +44156,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -44180,7 +44180,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -44191,7 +44191,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -44218,7 +44218,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -44239,7 +44239,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -44637,7 +44637,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -44661,7 +44661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -44672,7 +44672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -44699,7 +44699,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -44720,7 +44720,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -45124,7 +45124,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -45148,7 +45148,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -45159,7 +45159,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -45187,7 +45187,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 94,
@@ -45256,7 +45256,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -45276,7 +45276,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -45668,7 +45668,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -45692,7 +45692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -45703,7 +45703,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -45730,7 +45730,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 95,
@@ -45799,7 +45799,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -45819,7 +45819,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -46211,7 +46211,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -46235,7 +46235,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -46246,7 +46246,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -46273,7 +46273,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -46342,7 +46342,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -46362,7 +46362,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -46754,7 +46754,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -46778,7 +46778,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -46789,7 +46789,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -46816,7 +46816,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -46885,7 +46885,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -46905,7 +46905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -47297,7 +47297,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -47321,7 +47321,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -47332,7 +47332,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -47360,7 +47360,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 19,
@@ -47430,7 +47430,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -47450,7 +47450,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -47842,7 +47842,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -47866,7 +47866,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -47877,7 +47877,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -47905,7 +47905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 19,
@@ -47975,7 +47975,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -47995,7 +47995,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -48387,7 +48387,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -48411,7 +48411,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -48422,7 +48422,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -48443,7 +48443,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -48512,7 +48512,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -48532,7 +48532,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -48897,7 +48897,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -48921,7 +48921,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -48932,7 +48932,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -48959,7 +48959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -49028,7 +49028,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -49048,7 +49048,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -49440,7 +49440,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -49464,7 +49464,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -49475,7 +49475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -49496,7 +49496,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -49565,7 +49565,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -49585,7 +49585,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -49944,7 +49944,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -49968,7 +49968,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -49979,7 +49979,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -50006,7 +50006,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -50075,7 +50075,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -50095,7 +50095,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -50449,7 +50449,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -50473,7 +50473,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -50484,7 +50484,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -50511,7 +50511,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-coho-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -50580,7 +50580,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 80,
@@ -50600,7 +50600,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -51000,7 +51000,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -51024,7 +51024,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -51035,7 +51035,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -51062,7 +51062,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -51083,7 +51083,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -51481,7 +51481,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -51505,7 +51505,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -51516,7 +51516,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -51543,7 +51543,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -51564,7 +51564,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -51963,7 +51963,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -51987,7 +51987,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -51998,7 +51998,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -52025,7 +52025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 88,
@@ -52094,7 +52094,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -52114,7 +52114,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -52512,7 +52512,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -52536,7 +52536,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -52547,7 +52547,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -52574,7 +52574,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -52643,7 +52643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -52663,7 +52663,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -53061,7 +53061,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -53085,7 +53085,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -53096,7 +53096,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -53123,7 +53123,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -53192,7 +53192,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -53212,7 +53212,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -53610,7 +53610,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -53634,7 +53634,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -53645,7 +53645,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -53672,7 +53672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -53741,7 +53741,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 9,
@@ -53761,7 +53761,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -54159,7 +54159,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -54183,7 +54183,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -54194,7 +54194,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -54221,7 +54221,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -54290,7 +54290,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 28,
@@ -54310,7 +54310,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -54702,7 +54702,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -54726,7 +54726,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -54737,7 +54737,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -54764,7 +54764,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -54833,7 +54833,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -54853,7 +54853,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -55245,7 +55245,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -55269,7 +55269,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -55280,7 +55280,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -55307,7 +55307,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -55376,7 +55376,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -55396,7 +55396,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -55788,7 +55788,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -55812,7 +55812,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -55823,7 +55823,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -55850,7 +55850,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -55919,7 +55919,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -55939,7 +55939,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -56331,7 +56331,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -56355,7 +56355,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -56366,7 +56366,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -56393,7 +56393,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 76,
@@ -56462,7 +56462,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 61,
@@ -56482,7 +56482,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -56874,7 +56874,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -56898,7 +56898,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -56909,7 +56909,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -56936,7 +56936,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 76,
@@ -57005,7 +57005,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -57025,7 +57025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -57417,7 +57417,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -57441,7 +57441,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -57452,7 +57452,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -57479,7 +57479,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 69,
@@ -57548,7 +57548,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -57568,7 +57568,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -57960,7 +57960,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -57984,7 +57984,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -57995,7 +57995,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -58022,7 +58022,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 69,
@@ -58091,7 +58091,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 43,
@@ -58111,7 +58111,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -58504,7 +58504,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -58528,7 +58528,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -58539,7 +58539,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -58566,7 +58566,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -58584,7 +58584,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -58604,7 +58604,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -58997,7 +58997,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -59021,7 +59021,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -59032,7 +59032,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -59059,7 +59059,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -59077,7 +59077,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -59097,7 +59097,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -59490,7 +59490,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -59514,7 +59514,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -59525,7 +59525,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -59552,7 +59552,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -59573,7 +59573,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -59966,7 +59966,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -59990,7 +59990,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -60001,7 +60001,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -60028,7 +60028,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -60049,7 +60049,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -60442,7 +60442,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -60466,7 +60466,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -60477,7 +60477,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -60504,7 +60504,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -60525,7 +60525,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -60923,7 +60923,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -60947,7 +60947,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -60958,7 +60958,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -60985,7 +60985,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 77,
@@ -61054,7 +61054,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -61074,7 +61074,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -61466,7 +61466,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -61490,7 +61490,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -61501,7 +61501,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -61528,7 +61528,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 83,
@@ -61597,7 +61597,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -61617,7 +61617,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -62009,7 +62009,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -62033,7 +62033,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -62044,7 +62044,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -62071,7 +62071,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 84,
@@ -62140,7 +62140,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -62160,7 +62160,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -62552,7 +62552,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -62576,7 +62576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -62587,7 +62587,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -62614,7 +62614,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -62634,7 +62634,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -62654,7 +62654,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -62869,7 +62869,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -62893,7 +62893,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -62904,7 +62904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -62931,7 +62931,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 84,
@@ -63001,7 +63001,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -63021,7 +63021,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -63413,7 +63413,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -63437,7 +63437,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -63448,7 +63448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -63475,7 +63475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -63544,7 +63544,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -63564,7 +63564,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -63918,7 +63918,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -63942,7 +63942,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -63953,7 +63953,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -63974,7 +63974,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 46,
@@ -64043,7 +64043,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -64063,7 +64063,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -64422,7 +64422,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -64446,7 +64446,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -64457,7 +64457,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -64478,7 +64478,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -64497,7 +64497,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -64517,7 +64517,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -64845,7 +64845,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -64869,7 +64869,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -64880,7 +64880,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -64907,7 +64907,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 88,
@@ -64976,7 +64976,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -64996,7 +64996,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -65394,7 +65394,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -65418,7 +65418,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -65429,7 +65429,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -65456,7 +65456,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -65525,7 +65525,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -65545,7 +65545,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -65943,7 +65943,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -65967,7 +65967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -65978,7 +65978,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -66005,7 +66005,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 96,
@@ -66074,7 +66074,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -66094,7 +66094,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -66492,7 +66492,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -66516,7 +66516,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -66527,7 +66527,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -66554,7 +66554,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -66623,7 +66623,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 21,
@@ -66643,7 +66643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -67041,7 +67041,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -67065,7 +67065,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -67076,7 +67076,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -67103,7 +67103,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -67172,7 +67172,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 35,
@@ -67192,7 +67192,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -67584,7 +67584,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -67608,7 +67608,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -67619,7 +67619,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -67646,7 +67646,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -67715,7 +67715,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -67735,7 +67735,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -68127,7 +68127,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -68151,7 +68151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -68162,7 +68162,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -68189,7 +68189,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -68258,7 +68258,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -68278,7 +68278,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -68670,7 +68670,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -68694,7 +68694,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -68705,7 +68705,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -68732,7 +68732,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -68801,7 +68801,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -68821,7 +68821,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -69213,7 +69213,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -69237,7 +69237,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -69248,7 +69248,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -69275,7 +69275,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 76,
@@ -69344,7 +69344,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -69364,7 +69364,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -69756,7 +69756,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -69780,7 +69780,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -69791,7 +69791,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -69818,7 +69818,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 69,
@@ -69887,7 +69887,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 43,
@@ -69907,7 +69907,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -70300,7 +70300,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -70324,7 +70324,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -70335,7 +70335,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -70362,7 +70362,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -70380,7 +70380,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -70400,7 +70400,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -70793,7 +70793,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -70817,7 +70817,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -70828,7 +70828,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -70855,7 +70855,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -70876,7 +70876,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -71269,7 +71269,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -71293,7 +71293,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -71304,7 +71304,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -71331,7 +71331,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -71352,7 +71352,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -71750,7 +71750,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -71774,7 +71774,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -71785,7 +71785,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -71813,7 +71813,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -71882,7 +71882,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -71902,7 +71902,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -72294,7 +72294,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -72318,7 +72318,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -72329,7 +72329,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -72356,7 +72356,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -72425,7 +72425,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -72445,7 +72445,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -72837,7 +72837,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -72861,7 +72861,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -72872,7 +72872,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -72899,7 +72899,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -72968,7 +72968,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -72988,7 +72988,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -73380,7 +73380,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -73404,7 +73404,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -73415,7 +73415,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -73442,7 +73442,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 78,
@@ -73511,7 +73511,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -73531,7 +73531,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -73923,7 +73923,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -73947,7 +73947,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -73958,7 +73958,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -73986,7 +73986,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 15,
@@ -74056,7 +74056,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -74076,7 +74076,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -74468,7 +74468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -74492,7 +74492,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -74503,7 +74503,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -74531,7 +74531,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 15,
@@ -74601,7 +74601,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -74621,7 +74621,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -75013,7 +75013,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -75037,7 +75037,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -75048,7 +75048,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -75069,7 +75069,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 46,
@@ -75138,7 +75138,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -75158,7 +75158,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -75523,7 +75523,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -75547,7 +75547,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -75558,7 +75558,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -75585,7 +75585,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -75654,7 +75654,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -75674,7 +75674,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -76066,7 +76066,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -76090,7 +76090,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -76101,7 +76101,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -76122,7 +76122,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 46,
@@ -76191,7 +76191,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -76211,7 +76211,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -76570,7 +76570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -76594,7 +76594,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -76605,7 +76605,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -76632,7 +76632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 61,
@@ -76701,7 +76701,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -76721,7 +76721,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -77075,7 +77075,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -77099,7 +77099,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -77110,7 +77110,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -77137,7 +77137,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "grand-steelhead-fulton-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -77206,7 +77206,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -77226,7 +77226,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "grand",
@@ -77626,7 +77626,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -77650,7 +77650,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -77661,7 +77661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -77681,7 +77681,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -77702,7 +77702,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -78038,7 +78038,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -78062,7 +78062,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -78073,7 +78073,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -78093,7 +78093,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -78114,7 +78114,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -78451,7 +78451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -78475,7 +78475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -78486,7 +78486,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -78506,7 +78506,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -78576,7 +78576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -78596,7 +78596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -78932,7 +78932,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -78956,7 +78956,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -78967,7 +78967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -78987,7 +78987,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -79057,7 +79057,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 2,
@@ -79077,7 +79077,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -79413,7 +79413,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -79437,7 +79437,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -79448,7 +79448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -79468,7 +79468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -79538,7 +79538,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -79558,7 +79558,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -79894,7 +79894,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -79918,7 +79918,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -79929,7 +79929,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -79949,7 +79949,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -80019,7 +80019,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 19,
@@ -80039,7 +80039,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -80375,7 +80375,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -80399,7 +80399,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -80410,7 +80410,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -80430,7 +80430,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -80500,7 +80500,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 29,
@@ -80520,7 +80520,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -80856,7 +80856,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -80880,7 +80880,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -80891,7 +80891,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -80911,7 +80911,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -80981,7 +80981,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -81001,7 +81001,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -81337,7 +81337,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -81361,7 +81361,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -81372,7 +81372,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -81392,7 +81392,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -81462,7 +81462,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 32,
@@ -81475,14 +81475,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established within a smaller set of dependable holding areas, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -81818,7 +81818,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -81842,7 +81842,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -81853,7 +81853,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -81873,7 +81873,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 73,
@@ -81944,7 +81944,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 31,
@@ -81957,14 +81957,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports Chinook salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
+              "headline": "The current Migration Stage still supports Chinook salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
               "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established within a smaller set of dependable holding areas, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -82300,7 +82300,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -82324,7 +82324,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -82335,7 +82335,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -82355,7 +82355,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 59,
@@ -82426,7 +82426,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 14,
@@ -82439,14 +82439,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -82782,7 +82782,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -82806,7 +82806,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -82817,7 +82817,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -82837,7 +82837,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 58,
@@ -82908,7 +82908,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 13,
@@ -82921,14 +82921,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -83264,7 +83264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -83288,7 +83288,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -83299,7 +83299,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -83319,7 +83319,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 43,
@@ -83390,7 +83390,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -83410,7 +83410,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -83746,7 +83746,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -83770,7 +83770,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -83781,7 +83781,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -83801,7 +83801,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 42,
@@ -83872,7 +83872,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -83892,7 +83892,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -84234,7 +84234,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -84258,7 +84258,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -84269,7 +84269,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -84289,7 +84289,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 36,
@@ -84360,7 +84360,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -84380,7 +84380,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -84716,7 +84716,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -84740,7 +84740,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -84751,7 +84751,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -84771,7 +84771,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -84792,7 +84792,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -85128,7 +85128,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -85152,7 +85152,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -85163,7 +85163,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -85183,7 +85183,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -85204,7 +85204,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -85541,7 +85541,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -85565,7 +85565,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -85576,7 +85576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -85596,7 +85596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -85617,7 +85617,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -85959,7 +85959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -85983,7 +85983,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -85994,7 +85994,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -86014,7 +86014,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 62,
@@ -86084,7 +86084,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -86104,7 +86104,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -86440,7 +86440,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -86464,7 +86464,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -86475,7 +86475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -86495,7 +86495,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 82,
@@ -86565,7 +86565,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -86585,7 +86585,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -86921,7 +86921,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -86945,7 +86945,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -86956,7 +86956,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -86976,7 +86976,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 90,
@@ -87046,7 +87046,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -87066,7 +87066,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -87402,7 +87402,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -87426,7 +87426,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -87437,7 +87437,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -87457,7 +87457,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -87478,7 +87478,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -87498,7 +87498,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -87657,7 +87657,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -87681,7 +87681,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -87692,7 +87692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -87712,7 +87712,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 85,
@@ -87783,7 +87783,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -87803,7 +87803,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -88146,7 +88146,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -88170,7 +88170,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -88181,7 +88181,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -88201,7 +88201,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -88271,7 +88271,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -88291,7 +88291,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -88627,7 +88627,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -88651,7 +88651,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -88662,7 +88662,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -88682,7 +88682,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -88752,7 +88752,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 2,
@@ -88772,7 +88772,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -89108,7 +89108,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -89132,7 +89132,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -89143,7 +89143,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -89163,7 +89163,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -89233,7 +89233,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -89253,7 +89253,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -89589,7 +89589,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -89613,7 +89613,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -89624,7 +89624,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -89644,7 +89644,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -89714,7 +89714,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -89734,7 +89734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -90070,7 +90070,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -90094,7 +90094,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -90105,7 +90105,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -90125,7 +90125,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -90195,7 +90195,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 32,
@@ -90208,14 +90208,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established within a smaller set of dependable holding areas, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -90551,7 +90551,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -90575,7 +90575,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -90586,7 +90586,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -90606,7 +90606,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 59,
@@ -90677,7 +90677,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 14,
@@ -90690,14 +90690,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -91033,7 +91033,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -91057,7 +91057,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -91068,7 +91068,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -91088,7 +91088,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 43,
@@ -91159,7 +91159,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -91179,7 +91179,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -91515,7 +91515,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -91539,7 +91539,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -91550,7 +91550,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -91570,7 +91570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 36,
@@ -91641,7 +91641,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -91661,7 +91661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -91997,7 +91997,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -92021,7 +92021,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -92032,7 +92032,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -92052,7 +92052,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -92073,7 +92073,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -92415,7 +92415,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -92439,7 +92439,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -92450,7 +92450,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -92470,7 +92470,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -92540,7 +92540,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -92560,7 +92560,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -92902,7 +92902,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -92926,7 +92926,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -92937,7 +92937,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -92957,7 +92957,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -93027,7 +93027,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -93047,7 +93047,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -93383,7 +93383,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -93407,7 +93407,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -93418,7 +93418,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -93438,7 +93438,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -93508,7 +93508,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -93528,7 +93528,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -93832,7 +93832,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -93856,7 +93856,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -93867,7 +93867,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -93887,7 +93887,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -93957,7 +93957,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -93977,7 +93977,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -94321,7 +94321,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -94345,7 +94345,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -94356,7 +94356,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -94376,7 +94376,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -94397,7 +94397,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -94733,7 +94733,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -94757,7 +94757,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -94768,7 +94768,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -94788,7 +94788,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -94809,7 +94809,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -95146,7 +95146,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -95170,7 +95170,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -95181,7 +95181,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -95201,7 +95201,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -95271,7 +95271,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -95291,7 +95291,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -95627,7 +95627,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -95651,7 +95651,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -95662,7 +95662,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -95682,7 +95682,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -95752,7 +95752,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -95772,7 +95772,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -96108,7 +96108,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -96132,7 +96132,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -96143,7 +96143,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -96163,7 +96163,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -96233,7 +96233,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -96253,7 +96253,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -96589,7 +96589,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -96613,7 +96613,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -96624,7 +96624,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -96644,7 +96644,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -96714,7 +96714,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 28,
@@ -96734,7 +96734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -97070,7 +97070,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -97094,7 +97094,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -97105,7 +97105,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -97125,7 +97125,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -97195,7 +97195,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -97215,7 +97215,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -97551,7 +97551,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -97575,7 +97575,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -97586,7 +97586,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -97606,7 +97606,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -97676,7 +97676,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 90,
@@ -97696,7 +97696,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -98032,7 +98032,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -98056,7 +98056,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -98067,7 +98067,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -98087,7 +98087,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -98157,7 +98157,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -98177,7 +98177,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -98513,7 +98513,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -98537,7 +98537,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -98548,7 +98548,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -98568,7 +98568,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -98638,7 +98638,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 90,
@@ -98651,14 +98651,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence within a smaller set of dependable holding areas. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -98994,7 +98994,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -99018,7 +99018,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -99029,7 +99029,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -99049,7 +99049,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -99120,7 +99120,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 89,
@@ -99133,14 +99133,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports strong Coho salmon presence through the river's dependable water, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports strong Coho salmon presence through the river's dependable water, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established within a smaller set of dependable holding areas, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -99476,7 +99476,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -99500,7 +99500,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -99511,7 +99511,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -99531,7 +99531,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -99602,7 +99602,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -99615,14 +99615,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -99958,7 +99958,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -99982,7 +99982,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -99993,7 +99993,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -100013,7 +100013,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 56,
@@ -100084,7 +100084,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 38,
@@ -100097,14 +100097,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -100440,7 +100440,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -100464,7 +100464,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -100475,7 +100475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -100495,7 +100495,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 39,
@@ -100566,7 +100566,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -100586,7 +100586,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -100922,7 +100922,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -100946,7 +100946,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -100957,7 +100957,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -100977,7 +100977,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 38,
@@ -101048,7 +101048,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -101068,7 +101068,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -101404,7 +101404,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -101428,7 +101428,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -101439,7 +101439,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -101459,7 +101459,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 30,
@@ -101530,7 +101530,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -101550,7 +101550,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -101886,7 +101886,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -101910,7 +101910,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -101921,7 +101921,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -101941,7 +101941,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -101962,7 +101962,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -102298,7 +102298,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -102322,7 +102322,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -102333,7 +102333,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -102353,7 +102353,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -102374,7 +102374,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -102711,7 +102711,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -102735,7 +102735,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -102746,7 +102746,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -102766,7 +102766,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -102787,7 +102787,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -103129,7 +103129,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -103153,7 +103153,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -103164,7 +103164,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -103184,7 +103184,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 62,
@@ -103254,7 +103254,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -103274,7 +103274,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -103610,7 +103610,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -103634,7 +103634,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -103645,7 +103645,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -103665,7 +103665,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -103735,7 +103735,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -103755,7 +103755,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -104091,7 +104091,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -104115,7 +104115,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -104126,7 +104126,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -104146,7 +104146,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 90,
@@ -104216,7 +104216,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -104236,7 +104236,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -104572,7 +104572,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -104596,7 +104596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -104607,7 +104607,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -104627,7 +104627,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -104648,7 +104648,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -104668,7 +104668,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -104827,7 +104827,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -104851,7 +104851,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -104862,7 +104862,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -104882,7 +104882,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 85,
@@ -104953,7 +104953,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -104973,7 +104973,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -105316,7 +105316,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -105340,7 +105340,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -105351,7 +105351,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -105371,7 +105371,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -105441,7 +105441,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -105461,7 +105461,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -105797,7 +105797,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -105821,7 +105821,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -105832,7 +105832,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -105852,7 +105852,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -105922,7 +105922,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -105942,7 +105942,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -106278,7 +106278,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -106302,7 +106302,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -106313,7 +106313,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -106333,7 +106333,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -106403,7 +106403,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -106423,7 +106423,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -106759,7 +106759,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -106783,7 +106783,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -106794,7 +106794,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -106814,7 +106814,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -106884,7 +106884,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -106904,7 +106904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -107240,7 +107240,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -107264,7 +107264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -107275,7 +107275,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -107295,7 +107295,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -107365,7 +107365,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 90,
@@ -107385,7 +107385,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -107721,7 +107721,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -107745,7 +107745,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -107756,7 +107756,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -107776,7 +107776,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -107846,7 +107846,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -107866,7 +107866,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -108202,7 +108202,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -108226,7 +108226,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -108237,7 +108237,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -108257,7 +108257,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -108327,7 +108327,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 90,
@@ -108340,14 +108340,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence within a smaller set of dependable holding areas. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -108683,7 +108683,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -108707,7 +108707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -108718,7 +108718,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -108738,7 +108738,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 64,
@@ -108809,7 +108809,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 65,
@@ -108822,14 +108822,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports Coho salmon being well established through the river's dependable water, although fresh arrivals may be less consistent than near peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being well established through the river's dependable water, although fresh arrivals may be less consistent than near peak.",
               "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established within a smaller set of dependable holding areas, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -109165,7 +109165,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -109189,7 +109189,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -109200,7 +109200,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -109220,7 +109220,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -109291,7 +109291,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 40,
@@ -109304,14 +109304,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Coho salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -109647,7 +109647,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -109671,7 +109671,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -109682,7 +109682,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -109702,7 +109702,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 48,
@@ -109773,7 +109773,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 15,
@@ -109793,7 +109793,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -110129,7 +110129,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -110153,7 +110153,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -110164,7 +110164,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -110184,7 +110184,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 39,
@@ -110255,7 +110255,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -110275,7 +110275,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -110611,7 +110611,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -110635,7 +110635,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -110646,7 +110646,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -110666,7 +110666,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -110687,7 +110687,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -111029,7 +111029,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -111053,7 +111053,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -111064,7 +111064,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -111084,7 +111084,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -111154,7 +111154,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -111174,7 +111174,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -111516,7 +111516,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -111540,7 +111540,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -111551,7 +111551,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -111571,7 +111571,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -111641,7 +111641,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -111661,7 +111661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -111997,7 +111997,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -112021,7 +112021,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -112032,7 +112032,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -112052,7 +112052,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -112122,7 +112122,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -112142,7 +112142,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -112446,7 +112446,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -112470,7 +112470,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -112481,7 +112481,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -112501,7 +112501,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -112571,7 +112571,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 100,
@@ -112591,7 +112591,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -112935,7 +112935,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -112959,7 +112959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -112970,7 +112970,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -112990,7 +112990,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -113011,7 +113011,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -113347,7 +113347,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -113371,7 +113371,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -113382,7 +113382,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -113402,7 +113402,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -113423,7 +113423,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -113760,7 +113760,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -113784,7 +113784,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -113795,7 +113795,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -113815,7 +113815,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -113885,7 +113885,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -113905,7 +113905,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -114241,7 +114241,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -114265,7 +114265,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -114276,7 +114276,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -114296,7 +114296,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -114366,7 +114366,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 6,
@@ -114386,7 +114386,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -114722,7 +114722,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -114746,7 +114746,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -114757,7 +114757,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -114777,7 +114777,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -114847,7 +114847,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -114867,7 +114867,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -115203,7 +115203,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -115227,7 +115227,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -115238,7 +115238,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -115258,7 +115258,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -115328,7 +115328,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 21,
@@ -115348,7 +115348,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -115684,7 +115684,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -115708,7 +115708,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -115719,7 +115719,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -115739,7 +115739,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -115809,7 +115809,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -115829,7 +115829,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -116165,7 +116165,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -116189,7 +116189,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -116200,7 +116200,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -116220,7 +116220,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -116290,7 +116290,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -116310,7 +116310,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -116646,7 +116646,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -116670,7 +116670,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -116681,7 +116681,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -116701,7 +116701,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -116771,7 +116771,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -116791,7 +116791,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -117127,7 +117127,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -117151,7 +117151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -117162,7 +117162,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -117182,7 +117182,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -117252,7 +117252,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -117272,7 +117272,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -117608,7 +117608,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -117632,7 +117632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -117643,7 +117643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -117663,7 +117663,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -117733,7 +117733,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -117753,7 +117753,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -118089,7 +118089,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -118113,7 +118113,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -118124,7 +118124,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -118144,7 +118144,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -118214,7 +118214,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 43,
@@ -118234,7 +118234,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -118570,7 +118570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -118594,7 +118594,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -118605,7 +118605,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -118625,7 +118625,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -118695,7 +118695,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 43,
@@ -118715,7 +118715,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -119051,7 +119051,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -119075,7 +119075,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -119086,7 +119086,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -119106,7 +119106,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -119176,7 +119176,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -119196,7 +119196,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -119533,7 +119533,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -119557,7 +119557,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -119568,7 +119568,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -119588,7 +119588,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -119606,7 +119606,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -119626,7 +119626,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -119963,7 +119963,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -119987,7 +119987,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -119998,7 +119998,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -120018,7 +120018,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -120036,7 +120036,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -120056,7 +120056,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -120393,7 +120393,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -120417,7 +120417,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -120428,7 +120428,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -120448,7 +120448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -120469,7 +120469,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -120806,7 +120806,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -120830,7 +120830,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -120841,7 +120841,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -120861,7 +120861,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -120882,7 +120882,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -121219,7 +121219,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -121243,7 +121243,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -121254,7 +121254,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -121274,7 +121274,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -121295,7 +121295,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -121637,7 +121637,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -121661,7 +121661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -121672,7 +121672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -121692,7 +121692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 50,
@@ -121762,7 +121762,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -121782,7 +121782,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -122118,7 +122118,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -122142,7 +122142,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -122153,7 +122153,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -122173,7 +122173,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 65,
@@ -122243,7 +122243,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -122263,7 +122263,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -122599,7 +122599,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -122623,7 +122623,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -122634,7 +122634,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -122654,7 +122654,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 73,
@@ -122724,7 +122724,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -122744,7 +122744,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -123080,7 +123080,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -123104,7 +123104,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -123115,7 +123115,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -123135,7 +123135,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -123156,7 +123156,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -123176,7 +123176,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -123335,7 +123335,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -123359,7 +123359,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -123370,7 +123370,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -123390,7 +123390,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -123461,7 +123461,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -123481,7 +123481,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -123824,7 +123824,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -123848,7 +123848,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -123859,7 +123859,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -123879,7 +123879,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -123949,7 +123949,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -123969,7 +123969,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -124305,7 +124305,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -124329,7 +124329,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -124340,7 +124340,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -124360,7 +124360,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -124430,7 +124430,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 6,
@@ -124450,7 +124450,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -124786,7 +124786,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -124810,7 +124810,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -124821,7 +124821,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -124841,7 +124841,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -124911,7 +124911,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 13,
@@ -124931,7 +124931,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -125267,7 +125267,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -125291,7 +125291,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -125302,7 +125302,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -125322,7 +125322,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -125392,7 +125392,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 21,
@@ -125412,7 +125412,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -125748,7 +125748,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -125772,7 +125772,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -125783,7 +125783,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -125803,7 +125803,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -125873,7 +125873,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -125893,7 +125893,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -126229,7 +126229,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -126253,7 +126253,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -126264,7 +126264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -126284,7 +126284,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -126354,7 +126354,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 50,
@@ -126374,7 +126374,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -126710,7 +126710,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -126734,7 +126734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -126745,7 +126745,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -126765,7 +126765,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -126835,7 +126835,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -126855,7 +126855,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -127191,7 +127191,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -127215,7 +127215,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -127226,7 +127226,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -127246,7 +127246,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -127316,7 +127316,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -127336,7 +127336,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -127672,7 +127672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -127696,7 +127696,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -127707,7 +127707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -127727,7 +127727,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -127797,7 +127797,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 43,
@@ -127817,7 +127817,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -128153,7 +128153,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -128177,7 +128177,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -128188,7 +128188,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -128208,7 +128208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -128278,7 +128278,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -128298,7 +128298,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -128635,7 +128635,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -128659,7 +128659,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -128670,7 +128670,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -128690,7 +128690,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -128708,7 +128708,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -128728,7 +128728,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -129065,7 +129065,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -129089,7 +129089,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -129100,7 +129100,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -129120,7 +129120,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -129141,7 +129141,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -129483,7 +129483,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -129507,7 +129507,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -129518,7 +129518,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -129538,7 +129538,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -129608,7 +129608,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -129628,7 +129628,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -129970,7 +129970,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -129994,7 +129994,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -130005,7 +130005,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -130025,7 +130025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -130095,7 +130095,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -130115,7 +130115,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -130451,7 +130451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -130475,7 +130475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -130486,7 +130486,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -130506,7 +130506,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -130576,7 +130576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -130596,7 +130596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -130900,7 +130900,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -130924,7 +130924,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -130935,7 +130935,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -130955,7 +130955,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_fishability_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -131025,7 +131025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -131045,7 +131045,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "platte",
@@ -131389,7 +131389,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -131413,7 +131413,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -131424,7 +131424,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -131451,7 +131451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -131472,7 +131472,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -131852,7 +131852,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -131876,7 +131876,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -131887,7 +131887,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -131914,7 +131914,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -131935,7 +131935,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -132310,13 +132310,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
               "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable opportunity in the river has not developed yet. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -132340,7 +132340,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -132351,7 +132351,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -132378,7 +132378,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -132448,7 +132448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -132468,7 +132468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -132843,12 +132843,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Chinook salmon are beginning to enter the river.",
               "detail": "Fresh Chinook salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -132872,7 +132872,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -132883,7 +132883,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -132910,7 +132910,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -132980,7 +132980,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -133000,7 +133000,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -133375,12 +133375,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Chinook salmon are beginning to enter the river.",
               "detail": "Fresh Chinook salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -133404,7 +133404,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -133415,7 +133415,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -133442,7 +133442,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -133512,7 +133512,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 6,
@@ -133532,7 +133532,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -133912,7 +133912,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -133936,7 +133936,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -133947,7 +133947,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -133974,7 +133974,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -134044,7 +134044,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 6,
@@ -134064,7 +134064,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -134444,7 +134444,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -134468,7 +134468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -134479,7 +134479,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -134506,7 +134506,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -134576,7 +134576,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -134596,7 +134596,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -134976,7 +134976,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -135000,7 +135000,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -135011,7 +135011,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -135038,7 +135038,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -135108,7 +135108,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -135128,7 +135128,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -135508,7 +135508,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -135532,7 +135532,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -135543,7 +135543,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -135570,7 +135570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -135640,7 +135640,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 49,
@@ -135660,7 +135660,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -136034,7 +136034,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -136058,7 +136058,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -136069,7 +136069,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -136096,7 +136096,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -136166,7 +136166,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -136186,7 +136186,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -136560,7 +136560,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -136584,7 +136584,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -136595,7 +136595,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -136622,7 +136622,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -136692,7 +136692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 67,
@@ -136705,14 +136705,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -137086,7 +137086,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -137110,7 +137110,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -137121,7 +137121,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -137148,7 +137148,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 73,
@@ -137219,7 +137219,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 65,
@@ -137232,14 +137232,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -137613,7 +137613,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -137637,7 +137637,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -137648,7 +137648,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -137675,7 +137675,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 59,
@@ -137746,7 +137746,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -137759,14 +137759,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -138140,7 +138140,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -138164,7 +138164,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -138175,7 +138175,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -138202,7 +138202,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -138273,7 +138273,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 36,
@@ -138286,14 +138286,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -138667,7 +138667,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -138691,7 +138691,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -138702,7 +138702,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -138729,7 +138729,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 44,
@@ -138800,7 +138800,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -138813,14 +138813,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -139200,7 +139200,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -139224,7 +139224,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -139235,7 +139235,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -139262,7 +139262,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 42,
@@ -139333,7 +139333,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 15,
@@ -139346,14 +139346,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -139734,7 +139734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -139758,7 +139758,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -139769,7 +139769,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -139796,7 +139796,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 36,
@@ -139867,7 +139867,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -139887,7 +139887,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -140268,7 +140268,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -140292,7 +140292,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -140303,7 +140303,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -140330,7 +140330,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -140351,7 +140351,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -140731,7 +140731,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -140755,7 +140755,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -140766,7 +140766,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -140793,7 +140793,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -140814,7 +140814,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -141195,7 +141195,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -141219,7 +141219,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -141230,7 +141230,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -141257,7 +141257,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -141278,7 +141278,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -141664,7 +141664,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -141688,7 +141688,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -141699,7 +141699,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -141726,7 +141726,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 62,
@@ -141796,7 +141796,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -141816,7 +141816,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -142190,7 +142190,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -142214,7 +142214,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -142225,7 +142225,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -142252,7 +142252,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 82,
@@ -142322,7 +142322,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -142342,7 +142342,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -142716,7 +142716,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -142740,7 +142740,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -142751,7 +142751,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -142778,7 +142778,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 90,
@@ -142848,7 +142848,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -142868,7 +142868,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -143242,7 +143242,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -143266,7 +143266,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -143277,7 +143277,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -143304,7 +143304,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -143325,7 +143325,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -143345,7 +143345,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -143542,7 +143542,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -143566,7 +143566,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -143577,7 +143577,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -143604,7 +143604,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 85,
@@ -143675,7 +143675,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -143695,7 +143695,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -144070,13 +144070,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Chinook salmon may be gathering near the river mouth, and a few early fish could be in the river.",
               "detail": "Most Chinook salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable opportunity in the river has not developed yet. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -144100,7 +144100,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -144111,7 +144111,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -144138,7 +144138,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -144208,7 +144208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -144228,7 +144228,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -144603,12 +144603,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Chinook salmon are beginning to enter the river.",
               "detail": "Fresh Chinook salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -144632,7 +144632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -144643,7 +144643,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -144670,7 +144670,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -144740,7 +144740,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -144760,7 +144760,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -145135,12 +145135,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Chinook salmon are beginning to enter the river.",
               "detail": "Fresh Chinook salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -145164,7 +145164,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -145175,7 +145175,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -145202,7 +145202,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -145272,7 +145272,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 6,
@@ -145292,7 +145292,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -145672,7 +145672,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -145696,7 +145696,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -145707,7 +145707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -145734,7 +145734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -145804,7 +145804,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -145824,7 +145824,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -146204,7 +146204,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -146228,7 +146228,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -146239,7 +146239,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -146266,7 +146266,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -146336,7 +146336,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -146356,7 +146356,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -146736,7 +146736,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -146760,7 +146760,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -146771,7 +146771,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -146798,7 +146798,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -146868,7 +146868,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 49,
@@ -146888,7 +146888,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -147262,7 +147262,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -147286,7 +147286,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -147297,7 +147297,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -147324,7 +147324,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -147394,7 +147394,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -147414,7 +147414,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -147788,7 +147788,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -147812,7 +147812,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -147823,7 +147823,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -147850,7 +147850,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -147920,7 +147920,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 67,
@@ -147933,14 +147933,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -148314,7 +148314,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -148338,7 +148338,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -148349,7 +148349,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -148376,7 +148376,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 67,
@@ -148447,7 +148447,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 56,
@@ -148460,14 +148460,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence through dependable river sections, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -148841,7 +148841,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -148865,7 +148865,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -148876,7 +148876,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -148903,7 +148903,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 59,
@@ -148974,7 +148974,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -148987,14 +148987,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+              "headline": "The current Migration Stage still supports meaningful Chinook salmon presence, especially in established holding water.",
               "detail": "This part of the season usually supports moderate presence through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -149368,7 +149368,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -149392,7 +149392,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -149403,7 +149403,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -149430,7 +149430,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 44,
@@ -149501,7 +149501,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -149514,14 +149514,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
+              "headline": "The current Migration Stage still supports some Chinook salmon in established holding water, but they are less likely to occupy every dependable section.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -149901,7 +149901,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -149925,7 +149925,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -149936,7 +149936,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -149963,7 +149963,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 36,
@@ -150034,7 +150034,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -150054,7 +150054,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -150435,7 +150435,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -150459,7 +150459,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -150470,7 +150470,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -150497,7 +150497,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -150518,7 +150518,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -150904,7 +150904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -150928,7 +150928,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -150939,7 +150939,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -150967,7 +150967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -151037,7 +151037,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -151057,7 +151057,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -151431,7 +151431,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -151455,7 +151455,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -151466,7 +151466,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -151493,7 +151493,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -151563,7 +151563,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -151583,7 +151583,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -151957,7 +151957,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -151981,7 +151981,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -151992,7 +151992,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -152019,7 +152019,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -152089,7 +152089,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -152109,7 +152109,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -152483,7 +152483,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -152507,7 +152507,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -152518,7 +152518,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -152545,7 +152545,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -152615,7 +152615,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -152635,7 +152635,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -153009,7 +153009,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -153033,7 +153033,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -153044,7 +153044,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -153071,7 +153071,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -153141,7 +153141,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -153161,7 +153161,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -153535,7 +153535,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -153559,7 +153559,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -153570,7 +153570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -153598,7 +153598,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 25,
@@ -153669,7 +153669,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -153689,7 +153689,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -154063,7 +154063,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -154087,7 +154087,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -154098,7 +154098,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -154119,7 +154119,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -154189,7 +154189,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -154209,7 +154209,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -154556,7 +154556,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -154580,7 +154580,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -154591,7 +154591,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -154618,7 +154618,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -154688,7 +154688,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -154708,7 +154708,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -155082,7 +155082,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -155106,7 +155106,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -155117,7 +155117,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -155138,7 +155138,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -155208,7 +155208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -155228,7 +155228,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -155569,7 +155569,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -155593,7 +155593,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -155604,7 +155604,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -155631,7 +155631,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -155701,7 +155701,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -155721,7 +155721,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -156075,7 +156075,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -156099,7 +156099,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -156110,7 +156110,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -156137,7 +156137,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 74,
@@ -156207,7 +156207,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -156227,7 +156227,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -156609,7 +156609,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -156633,7 +156633,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -156644,7 +156644,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -156671,7 +156671,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -156692,7 +156692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -157072,7 +157072,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -157096,7 +157096,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -157107,7 +157107,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -157134,7 +157134,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -157155,7 +157155,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -157530,13 +157530,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Coho salmon may be gathering near the river mouth, and a few early fish could be in the river.",
               "detail": "Most Coho salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable river opportunity—even a limited one—has not developed yet. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -157560,7 +157560,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -157571,7 +157571,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -157598,7 +157598,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -157668,7 +157668,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -157688,7 +157688,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -158063,12 +158063,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Coho salmon are beginning to enter the river.",
               "detail": "A small number of fresh Coho salmon may be entering the river, but this limited opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -158092,7 +158092,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -158103,7 +158103,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -158130,7 +158130,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -158200,7 +158200,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 1,
@@ -158220,7 +158220,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -158595,12 +158595,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Coho salmon are beginning to enter the river.",
               "detail": "A small number of fresh Coho salmon may be entering the river, but this limited opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -158624,7 +158624,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -158635,7 +158635,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -158662,7 +158662,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -158732,7 +158732,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -158752,7 +158752,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -159132,7 +159132,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -159156,7 +159156,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -159167,7 +159167,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -159194,7 +159194,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -159264,7 +159264,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -159284,7 +159284,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -159664,7 +159664,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -159688,7 +159688,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -159699,7 +159699,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -159726,7 +159726,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -159796,7 +159796,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -159816,7 +159816,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -160190,7 +160190,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -160214,7 +160214,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -160225,7 +160225,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -160252,7 +160252,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -160322,7 +160322,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 12,
@@ -160342,7 +160342,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -160716,7 +160716,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -160740,7 +160740,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -160751,7 +160751,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -160778,7 +160778,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -160848,7 +160848,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -160868,7 +160868,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -161242,7 +161242,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -161266,7 +161266,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -161277,7 +161277,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -161304,7 +161304,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -161374,7 +161374,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -161387,14 +161387,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -161768,7 +161768,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -161792,7 +161792,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -161803,7 +161803,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -161830,7 +161830,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 71,
@@ -161901,7 +161901,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -161914,14 +161914,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "High presence",
-              "headline": "Seasonal timing still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
+              "headline": "The current Migration Stage still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
               "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -162295,7 +162295,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -162319,7 +162319,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -162330,7 +162330,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -162357,7 +162357,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -162428,7 +162428,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 11,
@@ -162441,14 +162441,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
+              "headline": "The current Migration Stage still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
               "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -162822,7 +162822,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -162846,7 +162846,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -162857,7 +162857,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -162884,7 +162884,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 56,
@@ -162955,7 +162955,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 10,
@@ -162968,14 +162968,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
+              "headline": "The current Migration Stage still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
               "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -163349,7 +163349,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -163373,7 +163373,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -163384,7 +163384,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -163411,7 +163411,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 44,
@@ -163482,7 +163482,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -163495,14 +163495,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
+              "headline": "The current Migration Stage still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -163882,7 +163882,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -163906,7 +163906,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -163917,7 +163917,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -163944,7 +163944,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 43,
@@ -164015,7 +164015,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -164028,14 +164028,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
+              "headline": "The current Migration Stage still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -164416,7 +164416,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -164440,7 +164440,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -164451,7 +164451,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -164478,7 +164478,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 30,
@@ -164549,7 +164549,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 1,
@@ -164569,7 +164569,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -164950,7 +164950,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -164974,7 +164974,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -164985,7 +164985,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -165012,7 +165012,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -165033,7 +165033,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -165413,7 +165413,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -165437,7 +165437,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -165448,7 +165448,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -165475,7 +165475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -165496,7 +165496,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -165877,7 +165877,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -165901,7 +165901,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -165912,7 +165912,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -165939,7 +165939,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -165960,7 +165960,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -166346,7 +166346,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -166370,7 +166370,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -166381,7 +166381,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -166408,7 +166408,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 62,
@@ -166478,7 +166478,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -166498,7 +166498,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -166872,7 +166872,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -166896,7 +166896,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -166907,7 +166907,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -166934,7 +166934,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 80,
@@ -167004,7 +167004,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -167024,7 +167024,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -167398,7 +167398,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -167422,7 +167422,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -167433,7 +167433,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -167460,7 +167460,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 90,
@@ -167530,7 +167530,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -167550,7 +167550,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -167924,7 +167924,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -167948,7 +167948,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -167959,7 +167959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -167986,7 +167986,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -168007,7 +168007,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -168027,7 +168027,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -168224,7 +168224,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -168248,7 +168248,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -168259,7 +168259,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -168286,7 +168286,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 85,
@@ -168357,7 +168357,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -168377,7 +168377,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -168752,13 +168752,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Coho salmon may be gathering near the river mouth, and a few early fish could be in the river.",
               "detail": "Most Coho salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable river opportunity—even a limited one—has not developed yet. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -168782,7 +168782,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -168793,7 +168793,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -168820,7 +168820,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -168890,7 +168890,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -168910,7 +168910,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -169285,12 +169285,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Coho salmon are beginning to enter the river.",
               "detail": "A small number of fresh Coho salmon may be entering the river, but this limited opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -169314,7 +169314,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -169325,7 +169325,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -169352,7 +169352,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -169422,7 +169422,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 1,
@@ -169442,7 +169442,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -169817,12 +169817,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Coho salmon are beginning to enter the river.",
               "detail": "A small number of fresh Coho salmon may be entering the river, but this limited opportunity can still be scattered and inconsistent this early. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -169846,7 +169846,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -169857,7 +169857,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -169884,7 +169884,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -169954,7 +169954,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 3,
@@ -169974,7 +169974,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -170354,7 +170354,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -170378,7 +170378,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -170389,7 +170389,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -170416,7 +170416,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -170486,7 +170486,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 7,
@@ -170506,7 +170506,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -170880,7 +170880,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -170904,7 +170904,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -170915,7 +170915,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -170942,7 +170942,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -171012,7 +171012,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 12,
@@ -171032,7 +171032,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -171406,7 +171406,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -171430,7 +171430,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -171441,7 +171441,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -171468,7 +171468,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -171538,7 +171538,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -171558,7 +171558,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -171932,7 +171932,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -171956,7 +171956,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -171967,7 +171967,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -171994,7 +171994,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -172064,7 +172064,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 18,
@@ -172077,14 +172077,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Peak presence",
-              "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+              "headline": "The current Migration Stage still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
               "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -172458,7 +172458,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -172482,7 +172482,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -172493,7 +172493,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -172520,7 +172520,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -172591,7 +172591,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 11,
@@ -172604,14 +172604,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Moderate presence",
-              "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
+              "headline": "The current Migration Stage still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
               "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
               "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -172985,7 +172985,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -173009,7 +173009,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -173020,7 +173020,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -173047,7 +173047,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 44,
@@ -173118,7 +173118,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 5,
@@ -173131,14 +173131,14 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "curveDirection": "falling",
               "winterHoldingContext": false,
               "label": "Limited presence",
-              "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
+              "headline": "The current Migration Stage still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
               "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
               "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
               "reasonCodes": [
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -173518,7 +173518,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -173542,7 +173542,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -173553,7 +173553,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -173580,7 +173580,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 30,
@@ -173651,7 +173651,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 1,
@@ -173671,7 +173671,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -174052,7 +174052,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_post_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -174076,7 +174076,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -174087,7 +174087,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -174114,7 +174114,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -174135,7 +174135,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -174521,7 +174521,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -174545,7 +174545,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -174556,7 +174556,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -174584,7 +174584,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -174654,7 +174654,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -174674,7 +174674,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -175048,7 +175048,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -175072,7 +175072,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -175083,7 +175083,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -175110,7 +175110,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -175180,7 +175180,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -175200,7 +175200,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -175574,7 +175574,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -175598,7 +175598,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -175609,7 +175609,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -175636,7 +175636,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -175706,7 +175706,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -175726,7 +175726,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -176100,7 +176100,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -176124,7 +176124,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -176135,7 +176135,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -176162,7 +176162,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -176232,7 +176232,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -176252,7 +176252,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -176626,7 +176626,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -176650,7 +176650,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -176661,7 +176661,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -176688,7 +176688,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -176758,7 +176758,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -176778,7 +176778,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -177152,7 +177152,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -177176,7 +177176,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -177187,7 +177187,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -177215,7 +177215,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 21,
@@ -177286,7 +177286,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -177306,7 +177306,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -177680,7 +177680,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -177704,7 +177704,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -177715,7 +177715,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -177736,7 +177736,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -177806,7 +177806,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -177826,7 +177826,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -178173,7 +178173,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -178197,7 +178197,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -178208,7 +178208,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -178235,7 +178235,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -178305,7 +178305,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -178325,7 +178325,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -178699,7 +178699,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -178723,7 +178723,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -178734,7 +178734,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -178755,7 +178755,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -178825,7 +178825,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -178845,7 +178845,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -179186,7 +179186,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -179210,7 +179210,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -179221,7 +179221,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -179248,7 +179248,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -179318,7 +179318,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -179338,7 +179338,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -179692,7 +179692,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -179716,7 +179716,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -179727,7 +179727,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -179754,7 +179754,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -179824,7 +179824,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 20,
@@ -179844,7 +179844,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -180226,7 +180226,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -180250,7 +180250,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -180261,7 +180261,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -180288,7 +180288,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -180309,7 +180309,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -180689,7 +180689,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_pre_run"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -180713,7 +180713,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -180724,7 +180724,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -180751,7 +180751,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -180772,7 +180772,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -181147,13 +181147,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
               "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -181177,7 +181177,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -181188,7 +181188,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -181215,7 +181215,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -181285,7 +181285,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -181305,7 +181305,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -181680,12 +181680,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Steelhead are beginning to enter the river.",
               "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -181709,7 +181709,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -181720,7 +181720,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -181747,7 +181747,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -181817,7 +181817,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -181837,7 +181837,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -182212,12 +182212,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Steelhead are beginning to enter the river.",
               "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -182241,7 +182241,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -182252,7 +182252,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -182279,7 +182279,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -182349,7 +182349,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 14,
@@ -182369,7 +182369,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -182749,7 +182749,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -182773,7 +182773,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -182784,7 +182784,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -182811,7 +182811,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -182881,7 +182881,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 15,
@@ -182901,7 +182901,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -183281,7 +183281,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -183305,7 +183305,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -183316,7 +183316,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -183343,7 +183343,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -183413,7 +183413,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -183433,7 +183433,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -183807,7 +183807,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -183831,7 +183831,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -183842,7 +183842,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -183869,7 +183869,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -183939,7 +183939,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 53,
@@ -183959,7 +183959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -184333,7 +184333,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -184357,7 +184357,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -184368,7 +184368,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -184395,7 +184395,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -184465,7 +184465,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -184485,7 +184485,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -184859,7 +184859,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -184883,7 +184883,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -184894,7 +184894,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -184921,7 +184921,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -184991,7 +184991,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 67,
@@ -185011,7 +185011,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -185385,7 +185385,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -185409,7 +185409,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -185420,7 +185420,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -185447,7 +185447,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -185517,7 +185517,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 66,
@@ -185537,7 +185537,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -185911,7 +185911,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -185935,7 +185935,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -185946,7 +185946,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -185973,7 +185973,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -186043,7 +186043,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -186063,7 +186063,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -186437,7 +186437,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -186461,7 +186461,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -186472,7 +186472,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -186499,7 +186499,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -186569,7 +186569,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 61,
@@ -186589,7 +186589,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -186963,7 +186963,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -186987,7 +186987,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -186998,7 +186998,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -187025,7 +187025,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -187095,7 +187095,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -187115,7 +187115,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -187490,7 +187490,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -187514,7 +187514,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -187525,7 +187525,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -187552,7 +187552,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -187570,7 +187570,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -187590,7 +187590,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -187965,7 +187965,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -187989,7 +187989,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -188000,7 +188000,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -188027,7 +188027,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -188045,7 +188045,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -188065,7 +188065,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -188440,7 +188440,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -188464,7 +188464,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -188475,7 +188475,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -188502,7 +188502,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -188523,7 +188523,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -188898,7 +188898,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -188922,7 +188922,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -188933,7 +188933,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -188960,7 +188960,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -188981,7 +188981,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -189356,7 +189356,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -189380,7 +189380,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -189391,7 +189391,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -189418,7 +189418,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -189439,7 +189439,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -189819,7 +189819,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -189843,7 +189843,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -189854,7 +189854,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -189881,7 +189881,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 50,
@@ -189951,7 +189951,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -189971,7 +189971,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -190345,7 +190345,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -190369,7 +190369,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -190380,7 +190380,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -190407,7 +190407,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 65,
@@ -190477,7 +190477,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -190497,7 +190497,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -190871,7 +190871,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -190895,7 +190895,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -190906,7 +190906,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -190933,7 +190933,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 73,
@@ -191003,7 +191003,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -191023,7 +191023,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -191397,7 +191397,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -191421,7 +191421,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -191432,7 +191432,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -191459,7 +191459,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -191480,7 +191480,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -191500,7 +191500,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -191697,7 +191697,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -191721,7 +191721,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -191732,7 +191732,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -191759,7 +191759,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 72,
@@ -191830,7 +191830,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -191850,7 +191850,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -192225,13 +192225,13 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Before migration",
               "headline": "Steelhead may be gathering near the river mouth, and an occasional early fish could enter the lower river.",
               "detail": "An early fish is possible, especially as late September approaches, but dependable fall presence has not developed yet. Treat an isolated catch as an exception, not proof that the river has filled in. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+              "tip": "Watch the lake connection and Lower river, and require direct fish activity before treating the river as established.",
               "whereToStart": "White Lake connection and the Lower river as monitoring context only.",
               "reasonCodes": [
                 "stage_pre_run",
                 "stage_pre_run_staging"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -192255,7 +192255,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -192266,7 +192266,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -192293,7 +192293,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -192363,7 +192363,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 0,
@@ -192383,7 +192383,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_pre_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -192758,12 +192758,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Steelhead are beginning to enter the river.",
               "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -192787,7 +192787,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -192798,7 +192798,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -192825,7 +192825,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -192895,7 +192895,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 4,
@@ -192915,7 +192915,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -193290,12 +193290,12 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "label": "Beginning",
               "headline": "The first Steelhead are beginning to enter the river.",
               "detail": "Fresh fish may be present, but numbers are still scattered and can arrive in uneven waves before the broader fall fishery develops. All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.",
-              "tip": "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+              "tip": "Keep the first search in the Lower river; this early Migration Stage does not yet support a broad inland search.",
               "whereToStart": "Lower river from the White Lake connection upstream.",
               "reasonCodes": [
                 "stage_beginning"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -193319,7 +193319,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -193330,7 +193330,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -193357,7 +193357,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -193427,7 +193427,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 8,
@@ -193447,7 +193447,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_beginning",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -193827,7 +193827,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -193851,7 +193851,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -193862,7 +193862,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -193889,7 +193889,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -193959,7 +193959,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 15,
@@ -193979,7 +193979,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -194359,7 +194359,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -194383,7 +194383,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -194394,7 +194394,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -194421,7 +194421,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -194491,7 +194491,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 28,
@@ -194511,7 +194511,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -194885,7 +194885,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -194909,7 +194909,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -194920,7 +194920,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -194947,7 +194947,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -195017,7 +195017,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 39,
@@ -195037,7 +195037,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -195411,7 +195411,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_building"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -195435,7 +195435,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -195446,7 +195446,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -195473,7 +195473,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -195543,7 +195543,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 53,
@@ -195563,7 +195563,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_building",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -195937,7 +195937,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -195961,7 +195961,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -195972,7 +195972,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -195999,7 +195999,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -196069,7 +196069,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -196089,7 +196089,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -196463,7 +196463,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -196487,7 +196487,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -196498,7 +196498,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -196525,7 +196525,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -196595,7 +196595,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 67,
@@ -196615,7 +196615,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -196989,7 +196989,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_tapering"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -197013,7 +197013,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -197024,7 +197024,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -197051,7 +197051,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -197121,7 +197121,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 62,
@@ -197141,7 +197141,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_tapering",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -197515,7 +197515,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_ending"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -197539,7 +197539,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -197550,7 +197550,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -197577,7 +197577,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -197647,7 +197647,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 57,
@@ -197667,7 +197667,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_ending",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -198042,7 +198042,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -198066,7 +198066,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -198077,7 +198077,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -198104,7 +198104,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": null,
@@ -198122,7 +198122,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "confidence": "Limited",
               "conditionalPresence": false,
               "blocks": [],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": null,
@@ -198142,7 +198142,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -198517,7 +198517,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "stage_offseason"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -198541,7 +198541,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -198552,7 +198552,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -198579,7 +198579,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": null,
             "fishInRiver": {
@@ -198600,7 +198600,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_post_run",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -198980,7 +198980,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -199004,7 +199004,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -199015,7 +199015,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -199043,7 +199043,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -199113,7 +199113,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -199133,7 +199133,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -199507,7 +199507,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -199531,7 +199531,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -199542,7 +199542,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -199569,7 +199569,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -199639,7 +199639,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -199659,7 +199659,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -200033,7 +200033,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -200057,7 +200057,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -200068,7 +200068,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -200095,7 +200095,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -200165,7 +200165,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -200185,7 +200185,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -200559,7 +200559,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -200583,7 +200583,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -200594,7 +200594,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -200621,7 +200621,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -200691,7 +200691,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -200711,7 +200711,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -201085,7 +201085,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -201109,7 +201109,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -201120,7 +201120,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -201147,7 +201147,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -201217,7 +201217,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -201237,7 +201237,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -201611,7 +201611,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -201635,7 +201635,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -201646,7 +201646,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -201674,7 +201674,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 11,
@@ -201745,7 +201745,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -201765,7 +201765,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -202139,7 +202139,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -202163,7 +202163,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -202174,7 +202174,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -202195,7 +202195,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -202265,7 +202265,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -202285,7 +202285,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -202632,7 +202632,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -202656,7 +202656,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -202667,7 +202667,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -202694,7 +202694,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -202764,7 +202764,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -202784,7 +202784,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -203158,7 +203158,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -203182,7 +203182,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -203193,7 +203193,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -203214,7 +203214,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "gauge_missing"
               ],
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -203284,7 +203284,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -203304,7 +203304,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -203645,7 +203645,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -203669,7 +203669,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -203680,7 +203680,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -203707,7 +203707,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -203777,7 +203777,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -203797,7 +203797,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",
@@ -204151,7 +204151,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "stage_peak"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "conditionsSuggest": {
               "score": null,
@@ -204175,7 +204175,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_migration_timing_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "push": {
               "score": null,
@@ -204186,7 +204186,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
               "reasonCodes": [
                 "primitive_push_unavailable_for_river"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "pushHistory": {
               "status": "none_recorded",
@@ -204213,7 +204213,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "appliedCaps": []
               },
               "rulesVersion": "white-fruitvale-fishability-v1-draft",
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "activity": {
               "score": 57,
@@ -204283,7 +204283,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                   "lockedAt": null
                 }
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "fishInRiver": {
               "score": 70,
@@ -204303,7 +204303,7 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
                 "stage_peak",
                 "historical_presence_curve"
               ],
-              "copyVersion": "river-run-copy-v36"
+              "copyVersion": "river-run-copy-v38"
             },
             "riverConditions": {
               "riverId": "white",

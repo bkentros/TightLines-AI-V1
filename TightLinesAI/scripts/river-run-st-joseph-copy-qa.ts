@@ -116,7 +116,7 @@ for (const [species, groups] of runs) {
         ].filter(Boolean).join(" ");
         assert.equal(
           primitive.copyVersion,
-          "river-run-copy-v36",
+          "river-run-copy-v38",
           `${species} ${group.id}/${scenario.id}: stale copy version`,
         );
         assert(
