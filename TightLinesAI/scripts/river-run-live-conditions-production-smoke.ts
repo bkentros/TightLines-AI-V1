@@ -4,7 +4,7 @@ const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
 const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
-const expectedEngineVersion = "river-run-v1.11.0";
+const expectedEngineVersion = "river-run-v1.14.0";
 const expectedDataVersion = "river-live-conditions-v2";
 const expectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -12,6 +12,19 @@ const expectedMetricsByRiver: Record<string, string[]> = {
   big_manistee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   muskegon: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   st_joseph: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  grand: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  platte: ["flow_cfs", "gage_height_ft"],
+  white: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+};
+const expectedSeasonalMetricsByRiver: Record<string, string[]> = {
+  pere_marquette: ["flow_cfs", "water_temp_f"],
+  betsie: [],
+  big_manistee: ["flow_cfs", "water_temp_f"],
+  muskegon: ["flow_cfs", "water_temp_f"],
+  st_joseph: ["flow_cfs", "water_temp_f"],
+  grand: ["flow_cfs"],
+  platte: ["flow_cfs"],
+  white: ["flow_cfs"],
 };
 
 let userToken: string | null = null;
@@ -95,11 +108,18 @@ for (const target of targets) {
     `${target.riverId} metric coverage`,
   );
   const metricResults = metrics.map((metric) =>
-    auditMetric(target.riverId, metric)
+    auditMetric(
+      target.riverId,
+      metric,
+      !(["grand", "white"].includes(target.riverId) &&
+        requiredString(metric, "metric") === "water_temp_f"),
+    )
   );
-  if (target.riverId === "betsie") {
+  if (["betsie", "platte"].includes(target.riverId)) {
     if (stringField(firstConditions, "status") !== "unavailable") {
-      throw new Error("Betsie must retain its honest unavailable gauge state.");
+      throw new Error(
+        `${target.riverId} must retain its honest unavailable gauge state.`,
+      );
     }
   } else if (!metrics.some((metric) => numberOrNull(metric.value) != null)) {
     throw new Error(`${target.riverId} returned no usable live measurements.`);
@@ -128,9 +148,11 @@ for (const riverId of Object.keys(expectedMetricsByRiver)) {
     );
   }
 }
-if (currentLiveRows.length !== Object.keys(expectedMetricsByRiver).length) {
+if (cachedRivers.size !== Object.keys(expectedMetricsByRiver).length) {
   throw new Error(
-    `Expected one current-version river cache row per river, received ${currentLiveRows.length}.`,
+    `Expected current-version cache coverage for ${
+      Object.keys(expectedMetricsByRiver).length
+    } rivers, received ${cachedRivers.size}.`,
   );
 }
 const seasonalPairs = new Set(
@@ -139,11 +161,9 @@ const seasonalPairs = new Set(
   ),
 );
 for (
-  const riverId of Object.keys(expectedMetricsByRiver).filter((id) =>
-    id !== "betsie"
-  )
+  const [riverId, metrics] of Object.entries(expectedSeasonalMetricsByRiver)
 ) {
-  for (const metric of ["flow_cfs", "water_temp_f"]) {
+  for (const metric of metrics) {
     if (!seasonalPairs.has(`${riverId}:${metric}`)) {
       throw new Error(
         `No persisted ${metric} seasonal context exists for ${riverId}.`,
@@ -185,7 +205,11 @@ function latestStoredConditions(
   return objectField(candidates[0], "conditions");
 }
 
-function auditMetric(riverId: string, metric: JsonObject): JsonObject {
+function auditMetric(
+  riverId: string,
+  metric: JsonObject,
+  requireSeasonalComparison: boolean,
+): JsonObject {
   const id = requiredString(metric, "metric");
   const value = numberOrNull(metric.value);
   const freshness = requiredString(metric, "freshness");
@@ -222,9 +246,20 @@ function auditMetric(riverId: string, metric: JsonObject): JsonObject {
         `${riverId} gauge height must not claim a seasonal average.`,
       );
     }
-  } else if (value != null) {
+  } else if (value != null && requireSeasonalComparison) {
     if (average == null || !stringField(seasonal, "comparisonLabel")) {
       throw new Error(`${riverId} ${id} is missing its seasonal comparison.`);
+    }
+    if (numberField(seasonal, "windowRadiusDays") !== 3) {
+      throw new Error(
+        `${riverId} ${id} is not using the required ±3-day window.`,
+      );
+    }
+  } else if (Object.keys(seasonal).length) {
+    if (average == null || !stringField(seasonal, "comparisonLabel")) {
+      throw new Error(
+        `${riverId} ${id} has an incomplete seasonal comparison.`,
+      );
     }
     if (numberField(seasonal, "windowRadiusDays") !== 3) {
       throw new Error(

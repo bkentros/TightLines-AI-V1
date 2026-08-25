@@ -48,22 +48,28 @@ const migration = readFileSync(
 );
 const app = readFileSync("app/river-run.tsx", "utf8");
 
-for (const identity of [
-  "riverId",
-  "runId",
-  "presentationState",
-  "localDate",
-  "refreshSlot",
-  "engineVersion",
-  "configVersion",
-]) {
+for (
+  const identity of [
+    "riverId",
+    "runId",
+    "presentationState",
+    "localDate",
+    "refreshSlot",
+    "engineVersion",
+    "configVersion",
+  ]
+) {
   assert.match(
     server,
     new RegExp(`profile\\.free_river_run_trial_[\\s\\S]*?key\\.${identity}`),
     `server replay identity must include ${identity}`,
   );
 }
-assert.match(server, /const result = await readOrBuildSnapshot[\s\S]*?claimFreeRiverRunTrial/);
+assert.match(
+  server,
+  /const \[result, riverConditions\] = await Promise\.all\([\s\S]*?readOrBuildSnapshot[\s\S]*?readOrBuildRiverLiveConditions[\s\S]*?claimFreeRiverRunTrial/,
+  "the free trial must be claimed only after both the snapshot and live conditions are available",
+);
 assert.match(server, /freeTrialUnused[\s\S]*?claimFreeRiverRunTrial/);
 assert.match(server, /"subscription_required"/);
 assert.match(migration, /profiles_free_river_run_trial_complete_check/);

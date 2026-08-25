@@ -33,7 +33,6 @@ import { FeedbackCard } from "../components/FeedbackCard";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
   fetchRiverRunCatalog,
-  fetchRiverRunOwnerReviewSnapshot,
   fetchRiverRunSnapshot,
   RiverRunRequestError,
 } from "../lib/riverRun";
@@ -56,26 +55,6 @@ import type {
   RiverRunSeason,
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
-import {
-  RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS,
-  RIVER_RUN_BETSIE_REVIEW_GROUPS,
-  RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS,
-  RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS,
-  RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS,
-  RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS,
-  RIVER_RUN_COHO_REVIEW_GROUPS,
-  RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS,
-  RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
-  RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS,
-  RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID,
-  RIVER_RUN_REVIEW_GROUPS,
-  RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS,
-  RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS,
-  RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS,
-  RIVER_RUN_STEELHEAD_REVIEW_GROUPS,
-  type RiverRunReviewGroup,
-  type RiverRunReviewScenario,
-} from "../lib/riverRunReviewFixtures";
 import {
   formatRiverRunTabStatus,
   resolveRiverRunVisualModel,
@@ -102,7 +81,6 @@ import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
-type ReviewDataMode = "live" | "fixture";
 type PrimitiveTabId = Extract<
   RiverRunVisualKind,
   "run_stage" | "activity" | "fish_in_river" | "fishability"
@@ -147,26 +125,11 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
   },
 ];
 
-const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
-  run_stage: "run_stage",
-  activity: "activity",
-  fish_in_river: "fish_in_river",
-  fishability: "fishability",
-};
-
-// Generated review fixtures remain available only when a developer explicitly
-// starts Metro with the River Migration review-mode flag. Ordinary development
-// builds must exercise the live API and its server-authoritative free-tier
-// limits; silently defaulting every __DEV__ build to fixtures bypasses those
-// limits and makes subscription QA misleading.
-const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
-  process.env.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
 const ATLANTIC_IMAGE = getRiverRunSpeciesImage("atlantic_salmon");
 const RIVER_RUN_TAB_BLUE = "#1B4B68";
-const BIG_MANISTEE_RIVER_ID = "big_manistee";
 
 type ChoiceIconTheme = {
   background: string;
@@ -220,311 +183,6 @@ const SEASON_ICON_THEMES: Record<
     foreground: "#D3A42F",
     icon: "sunny",
   },
-};
-
-const REVIEW_CATALOG: RiverRunCatalogResponse = {
-  states: [
-    {
-      state: "MI",
-      displayName: "Michigan",
-      rivers: [
-        {
-          riverId: "pere_marquette",
-          displayName: "Pere Marquette River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "pere_marquette_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "pere_marquette_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "pere_marquette_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "betsie",
-          displayName: "Betsie River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "betsie_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "betsie_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "betsie_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "big_manistee",
-          displayName: "Big Manistee River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "big_manistee_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "big_manistee_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "big_manistee_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "muskegon",
-          displayName: "Muskegon River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "muskegon_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "muskegon_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "muskegon_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "st_joseph",
-          displayName: "St. Joseph River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "st_joseph_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "st_joseph_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "st_joseph_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "grand",
-          displayName: "Grand River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "grand_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "grand_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "grand_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "platte",
-          displayName: "Platte River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "platte_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "platte_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "platte_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-        {
-          riverId: "white",
-          displayName: "White River",
-          state: "MI",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "white_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "white_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "white_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      state: "IN",
-      displayName: "Indiana",
-      rivers: [
-        {
-          riverId: "st_joseph",
-          displayName: "St. Joseph River",
-          state: "IN",
-          timezone: "America/Detroit",
-          runs: [
-            {
-              runId: "st_joseph_fall_chinook",
-              displayName: "Fall Chinook",
-              species: "chinook_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "st_joseph_fall_coho",
-              displayName: "Fall Coho",
-              species: "coho_salmon",
-              season: "fall",
-              runType: "fall_spawn",
-              supportStatus: "beta",
-            },
-            {
-              runId: "st_joseph_fall_steelhead",
-              displayName: "Fall Steelhead",
-              species: "steelhead",
-              season: "fall",
-              runType: "fall_entry",
-              supportStatus: "beta",
-            },
-          ],
-        },
-      ],
-    },
-  ],
 };
 
 const STEP_CONFIG: Record<
@@ -582,20 +240,12 @@ export default function RiverRunScreen() {
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
-  const [reviewMode, setReviewMode] = useState(RIVER_RUN_REVIEW_ENABLED);
-  const [reviewDataMode, setReviewDataMode] = useState<ReviewDataMode>("live");
-  const [reviewGroupId, setReviewGroupId] = useState(
-    RIVER_RUN_REVIEW_GROUPS[0]?.id ?? "",
-  );
-  const [reviewScenarioId, setReviewScenarioId] = useState(
-    RIVER_RUN_REVIEW_GROUPS[0]?.scenarios[0]?.id ?? "",
-  );
   const [activePrimitive, setActivePrimitive] = useState<PrimitiveTabId>(
     "run_stage",
   );
   const [catalog, setCatalog] = useState<RiverRunCatalogResponse | null>(null);
   const [catalogError, setCatalogError] = useState<string | null>(null);
-  const [loadingCatalog, setLoadingCatalog] = useState(!reviewMode);
+  const [loadingCatalog, setLoadingCatalog] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [selectedSeason, setSelectedSeason] = useState<RiverRunSeason | null>(
@@ -606,80 +256,11 @@ export default function RiverRunScreen() {
   const [snapshot, setSnapshot] = useState<RiverRunSnapshotResponse | null>(
     null,
   );
-  const [reviewLiveSnapshot, setReviewLiveSnapshot] = useState<
-    RiverRunSnapshotResponse | null
-  >(null);
-  const [reviewLiveError, setReviewLiveError] = useState<string | null>(null);
-  const [loadingReviewLive, setLoadingReviewLive] = useState(false);
   const [snapshotError, setSnapshotError] = useState<string | null>(null);
   const [loadingSnapshot, setLoadingSnapshot] = useState(false);
   const snapshotRequestRef = useRef(0);
   const resultScrollRef = useRef<ScrollView>(null);
   const primitiveTabsYRef = useRef(0);
-
-  const onboardingReviewRunId = selectedRiverId && selectedSpecies
-    ? `${selectedRiverId}_fall_${
-      selectedSpecies === "chinook_salmon"
-        ? "chinook"
-        : selectedSpecies === "coho_salmon"
-        ? "coho"
-        : selectedSpecies
-    }`
-    : "";
-  const reviewGroups = (RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID[
-    onboardingReviewRunId
-  ] ?? (selectedRiverId === "betsie" &&
-      selectedSpecies === "steelhead"
-    ? RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS
-    : selectedRiverId === "betsie" && selectedSpecies === "coho_salmon"
-    ? RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS
-    : selectedRiverId === "betsie"
-    ? RIVER_RUN_BETSIE_REVIEW_GROUPS
-    : selectedRiverId === BIG_MANISTEE_RIVER_ID &&
-        selectedSpecies === "coho_salmon"
-    ? RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS
-    : selectedRiverId === BIG_MANISTEE_RIVER_ID &&
-        selectedSpecies === "steelhead"
-    ? RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS
-    : selectedRiverId === BIG_MANISTEE_RIVER_ID
-    ? RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS
-    : selectedRiverId === "muskegon" && selectedSpecies === "steelhead"
-    ? RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS
-    : selectedRiverId === "muskegon" && selectedSpecies === "coho_salmon"
-    ? RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS
-    : selectedRiverId === "muskegon" && selectedSpecies === "chinook_salmon"
-    ? RIVER_RUN_MUSKEGON_REVIEW_GROUPS
-    : selectedRiverId === "muskegon"
-    ? []
-    : selectedRiverId === "st_joseph" && selectedSpecies === "steelhead"
-    ? RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS
-    : selectedRiverId === "st_joseph" && selectedSpecies === "coho_salmon"
-    ? RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS
-    : selectedRiverId === "st_joseph" && selectedSpecies === "chinook_salmon"
-    ? RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS
-    : selectedRiverId === "st_joseph"
-    ? []
-    : selectedSpecies === "coho_salmon"
-    ? RIVER_RUN_COHO_REVIEW_GROUPS
-    : selectedSpecies === "steelhead"
-    ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
-    : RIVER_RUN_REVIEW_GROUPS)).filter((group) =>
-      group.id !== "conditions" && group.id !== "push" &&
-      group.id !== "live_conditions"
-    );
-
-  const reviewGroup = useMemo(
-    () =>
-      reviewGroups.find((group) => group.id === reviewGroupId) ??
-        reviewGroups[0],
-    [reviewGroupId, reviewGroups],
-  );
-  const reviewScenario = useMemo(
-    () =>
-      reviewGroup?.scenarios.find((item) => item.id === reviewScenarioId) ??
-        reviewGroup?.scenarios[0],
-    [reviewGroup, reviewScenarioId],
-  );
 
   const loadCatalog = useCallback(async (isRefresh = false) => {
     if (!isRefresh) setLoadingCatalog(true);
@@ -698,14 +279,10 @@ export default function RiverRunScreen() {
   }, []);
 
   useEffect(() => {
-    if (reviewMode) {
-      setLoadingCatalog(false);
-      return;
-    }
     void loadCatalog();
-  }, [loadCatalog, reviewMode]);
+  }, [loadCatalog]);
 
-  const activeCatalog = reviewMode ? REVIEW_CATALOG : catalog;
+  const activeCatalog = catalog;
   const stateChoices = useMemo(
     () => activeCatalog ? riverRunStateChoices(activeCatalog) : [],
     [activeCatalog],
@@ -758,7 +335,7 @@ export default function RiverRunScreen() {
   );
 
   const loadSnapshot = useCallback(async (showLoading = true) => {
-    if (reviewMode || screenState !== "result") {
+    if (screenState !== "result") {
       setLoadingSnapshot(false);
       return;
     }
@@ -806,34 +383,7 @@ export default function RiverRunScreen() {
         setLoadingSnapshot(false);
       }
     }
-  }, [fetchProfile, reviewMode, screenState, selectedTarget, user?.id]);
-
-  const loadOwnerReviewSnapshot = useCallback(async (showLoading = true) => {
-    if (!reviewMode || screenState !== "result" || !selectedTarget) {
-      setLoadingReviewLive(false);
-      return;
-    }
-    if (showLoading) setLoadingReviewLive(true);
-    setReviewLiveError(null);
-    try {
-      setReviewLiveSnapshot(
-        await fetchRiverRunOwnerReviewSnapshot({
-          riverId: selectedTarget.river.riverId,
-          runId: selectedTarget.run.runId,
-          presentationState: selectedTarget.state.state,
-        }),
-      );
-    } catch (error) {
-      setReviewLiveSnapshot(null);
-      setReviewLiveError(
-        error instanceof Error
-          ? error.message
-          : "Current owner-review data failed to load.",
-      );
-    } finally {
-      setLoadingReviewLive(false);
-    }
-  }, [reviewMode, screenState, selectedTarget]);
+  }, [fetchProfile, screenState, selectedTarget, user?.id]);
 
   useFocusEffect(
     useCallback(() => {
@@ -842,33 +392,17 @@ export default function RiverRunScreen() {
           snapshotRequestRef.current++;
         };
       }
-      if (reviewMode) void loadOwnerReviewSnapshot();
-      else void loadSnapshot();
+      void loadSnapshot();
       const subscription = AppState.addEventListener("change", (nextState) => {
         if (nextState !== "active") return;
-        if (reviewMode) void loadOwnerReviewSnapshot(false);
-        else void loadSnapshot(false);
+        void loadSnapshot(false);
       });
       return () => {
         snapshotRequestRef.current++;
         subscription.remove();
       };
-    }, [loadOwnerReviewSnapshot, loadSnapshot, reviewMode, screenState]),
+    }, [loadSnapshot, screenState]),
   );
-
-  const resetSelection = useCallback(() => {
-    snapshotRequestRef.current++;
-    setSnapshot(null);
-    setReviewLiveSnapshot(null);
-    setReviewLiveError(null);
-    setSnapshotError(null);
-    setSelectedState(null);
-    setSelectedSeason(null);
-    setSelectedSpecies(null);
-    setSelectedRiverId(null);
-    setActivePrimitive("run_stage");
-    setWizardStep(1);
-  }, []);
 
   const returnToSetup = useCallback(() => {
     hapticSelection();
@@ -957,8 +491,8 @@ export default function RiverRunScreen() {
     setSnapshot(null);
     setSnapshotError(null);
     setScreenState("result");
-    if (!reviewMode) setLoadingSnapshot(true);
-  }, [reviewMode]);
+    setLoadingSnapshot(true);
+  }, []);
 
   const handleContinue = useCallback(() => {
     if (!canContinue) return;
@@ -978,7 +512,7 @@ export default function RiverRunScreen() {
         }
         : null,
     );
-    if (!reviewMode && !canAttemptReport) {
+    if (!canAttemptReport) {
       hapticSelection();
       setShowSubscribePrompt(true);
       return;
@@ -989,18 +523,9 @@ export default function RiverRunScreen() {
     effectiveTier,
     openSelectedReport,
     profile,
-    reviewMode,
     selectedTarget,
     wizardStep,
   ]);
-
-  const handleModeChange = useCallback((nextReviewMode: boolean) => {
-    if (nextReviewMode === reviewMode) return;
-    hapticSelection();
-    setReviewMode(nextReviewMode);
-    setScreenState("setup");
-    resetSelection();
-  }, [resetSelection, reviewMode]);
 
   const handlePrimitiveTabChange = useCallback((tab: PrimitiveTabId) => {
     setActivePrimitive(tab);
@@ -1012,25 +537,13 @@ export default function RiverRunScreen() {
     });
   }, []);
 
-  const reviewSnapshot = reviewScenario?.snapshot;
-  const reviewSnapshotMatchesSelection = !!reviewSnapshot && !!selectedTarget &&
-    reviewSnapshot.riverId === selectedTarget.river.riverId &&
-    reviewSnapshot.runId === selectedTarget.run.runId;
-  const resultSnapshot = reviewMode
-    ? reviewDataMode === "live"
-      ? reviewLiveSnapshot ?? undefined
-      : reviewSnapshotMatchesSelection
-      ? reviewSnapshot
-      : undefined
-    : snapshot;
+  const resultSnapshot = snapshot;
   const publicRiverConditions = resultSnapshot
     ? resultSnapshot.riverConditions ??
       unavailableRiverConditions(resultSnapshot)
     : undefined;
-  const resultRiverConditions = reviewMode
-    ? reviewLiveSnapshot?.riverConditions
-    : publicRiverConditions;
-  const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 3 : 2;
+  const resultRiverConditions = publicRiverConditions;
+  const primitiveTabStickyIndex = 2;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
     selectedSpecies ??
@@ -1090,7 +603,7 @@ export default function RiverRunScreen() {
         {screenState === "setup"
           ? (
             <SetupView
-              loading={loadingCatalog && !reviewMode}
+              loading={loadingCatalog}
               error={catalogError}
               choices={currentChoices}
               selectedId={currentSelection}
@@ -1100,7 +613,6 @@ export default function RiverRunScreen() {
               onContinue={handleContinue}
               canContinue={canContinue}
               onRetry={() => void loadCatalog()}
-              reviewMode={reviewMode}
               profile={profile}
               user={user}
               coverageContextLines={coverageContextLines}
@@ -1120,12 +632,10 @@ export default function RiverRunScreen() {
                   refreshing={refreshing}
                   onRefresh={() => {
                     setRefreshing(true);
-                    const refresh = reviewMode
-                      ? loadOwnerReviewSnapshot(false)
-                      : Promise.all([
-                        loadCatalog(true),
-                        loadSnapshot(false),
-                      ]);
+                    const refresh = Promise.all([
+                      loadCatalog(true),
+                      loadSnapshot(false),
+                    ]);
                     void refresh.finally(() => setRefreshing(false));
                   }}
                   tintColor={paper.dashboardInk}
@@ -1139,49 +649,10 @@ export default function RiverRunScreen() {
                 readDate={currentDeviceLocalDate()}
               />
 
-              {RIVER_RUN_REVIEW_ENABLED
-                ? (
-                  <ReviewControl
-                    groups={reviewGroups}
-                    reviewMode={reviewMode}
-                    reviewDataMode={reviewDataMode}
-                    loadingReviewLive={loadingReviewLive}
-                    reviewLiveError={reviewLiveError}
-                    activeGroup={reviewGroup}
-                    activeScenario={reviewScenario}
-                    onModeChange={handleModeChange}
-                    onReviewDataModeChange={setReviewDataMode}
-                    onGroupChange={(group) => {
-                      setReviewGroupId(group.id);
-                      setReviewScenarioId(group.scenarios[0]?.id ?? "");
-                      const matchingTab = REVIEW_GROUP_TAB[group.id];
-                      if (matchingTab) setActivePrimitive(matchingTab);
-                    }}
-                    onScenarioChange={(scenario) =>
-                      setReviewScenarioId(scenario.id)}
-                  />
-                )
-                : null}
-
               {resultRiverConditions
                 ? (
                   <LiveRiverConditionsCard
                     conditions={resultRiverConditions}
-                    ownerReviewLive={reviewMode}
-                  />
-                )
-                : null}
-
-              {reviewMode && loadingReviewLive && !reviewLiveSnapshot
-                ? <LoadingState label="Reading current provider data" compact />
-                : reviewMode && reviewLiveError
-                ? (
-                  <MessageState
-                    icon="cloud-offline-outline"
-                    title="Live review data unavailable"
-                    body={`${reviewLiveError} Fixture values are not being substituted.`}
-                    actionLabel="TRY AGAIN"
-                    onAction={() => void loadOwnerReviewSnapshot()}
                   />
                 )
                 : null}
@@ -1199,7 +670,7 @@ export default function RiverRunScreen() {
                 )
                 : null}
 
-              {loadingSnapshot && !reviewMode
+              {loadingSnapshot
                 ? <LoadingState label="Reading current river conditions" />
                 : snapshotError
                 ? (
@@ -1302,7 +773,6 @@ function SetupView({
   onContinue,
   canContinue,
   onRetry,
-  reviewMode,
   profile,
   user,
   coverageContextLines,
@@ -1317,7 +787,6 @@ function SetupView({
   onContinue: () => void;
   canContinue: boolean;
   onRetry: () => void;
-  reviewMode: boolean;
   profile: ReturnType<typeof useAuthStore.getState>["profile"];
   user: ReturnType<typeof useAuthStore.getState>["user"];
   coverageContextLines: string[];
@@ -1340,21 +809,6 @@ function SetupView({
           measured river read.
         </Text>
       </View>
-
-      {reviewMode
-        ? (
-          <View style={styles.fixtureNotice}>
-            <Ionicons
-              name="flask-outline"
-              size={14}
-              color={paper.redDk}
-            />
-            <Text style={styles.fixtureNoticeText}>
-              OWNER REVIEW · CURRENT LIVE DATA + ISOLATED SCENARIO FIXTURES
-            </Text>
-          </View>
-        )
-        : null}
 
       <WizardProgress current={step} />
 
@@ -1786,7 +1240,7 @@ function ResultHero({
         <View style={styles.resultHeroMetaItem}>
           <Text style={styles.resultHeroMetaLabel}>DATA</Text>
           <Text style={styles.resultHeroMetaValue}>
-            {snapshot?.dataQuality.label ?? "Review"}
+            {snapshot?.dataQuality.label ?? "Pending"}
           </Text>
         </View>
       </View>
@@ -1809,12 +1263,8 @@ function unavailableRiverConditions(
   };
 }
 
-function LiveRiverConditionsCard({
-  conditions,
-  ownerReviewLive,
-}: {
+function LiveRiverConditionsCard({ conditions }: {
   conditions: RiverRunLiveConditions;
-  ownerReviewLive: boolean;
 }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { width, fontScale } = useWindowDimensions();
@@ -1865,9 +1315,7 @@ function LiveRiverConditionsCard({
             adjustsFontSizeToFit
             minimumFontScale={0.88}
           >
-            {ownerReviewLive
-              ? "Real provider readings · owner review."
-              : "Real provider readings · observation age shown."}
+            Real provider readings · observation age shown.
           </Text>
         </View>
         <View
@@ -2344,216 +1792,6 @@ function formatMonthDay(monthDay: string): string {
     day: "numeric",
     timeZone: "UTC",
   }).format(new Date(Date.UTC(2024, month - 1, day)));
-}
-
-function ReviewControl({
-  groups,
-  reviewMode,
-  reviewDataMode,
-  loadingReviewLive,
-  reviewLiveError,
-  activeGroup,
-  activeScenario,
-  onModeChange,
-  onReviewDataModeChange,
-  onGroupChange,
-  onScenarioChange,
-}: {
-  groups: RiverRunReviewGroup[];
-  reviewMode: boolean;
-  reviewDataMode: ReviewDataMode;
-  loadingReviewLive: boolean;
-  reviewLiveError: string | null;
-  activeGroup?: RiverRunReviewGroup;
-  activeScenario?: RiverRunReviewScenario;
-  onModeChange: (enabled: boolean) => void;
-  onReviewDataModeChange: (mode: ReviewDataMode) => void;
-  onGroupChange: (group: RiverRunReviewGroup) => void;
-  onScenarioChange: (scenario: RiverRunReviewScenario) => void;
-}) {
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <View style={styles.reviewControl}>
-      <Pressable
-        style={({ pressed }) => [
-          styles.reviewSummary,
-          pressed && { opacity: 0.84 },
-        ]}
-        onPress={() => {
-          hapticSelection();
-          setExpanded((current) => !current);
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ expanded }}
-      >
-        <View style={styles.reviewSummaryIcon}>
-          <Ionicons name="flask" size={15} color={paper.redDk} />
-        </View>
-        <View style={styles.reviewSummaryCopy}>
-          <Text style={styles.reviewSummaryEyebrow}>
-            DEVELOPMENT REVIEW · {reviewMode
-              ? reviewDataMode === "live" ? "OWNER LIVE" : "SCENARIO FIXTURE"
-              : "PUBLIC LIVE API"}
-          </Text>
-          <Text style={styles.reviewSummaryTitle} numberOfLines={1}>
-            {reviewMode
-              ? reviewDataMode === "live"
-                ? loadingReviewLive
-                  ? "Loading current provider-backed snapshot"
-                  : reviewLiveError
-                  ? "Current provider-backed snapshot unavailable"
-                  : "Current provider-backed River Migration snapshot"
-                : `${activeGroup?.label ?? "River Migration"} · ${
-                  activeScenario?.label ?? "State"
-                } · ${
-                  activeScenario
-                    ? formatLocalDate(activeScenario.snapshot.localDate)
-                    : "Date unavailable"
-                }`
-              : "Current-date River Migration response"}
-          </Text>
-        </View>
-        <Ionicons
-          name={expanded ? "chevron-up" : "chevron-down"}
-          size={17}
-          color={paper.dashboardInk}
-        />
-      </Pressable>
-
-      {expanded
-        ? (
-          <View style={styles.reviewExpanded}>
-            <Text style={styles.reviewHelp}>
-              Owner Live runs the selected configuration through current
-              providers and the production snapshot path. Scenario Fixtures are
-              isolated deterministic boundary tests.
-            </Text>
-            <ReviewChipRow>
-              <ReviewChip
-                label="Owner review"
-                active={reviewMode}
-                onPress={() => onModeChange(true)}
-              />
-              <ReviewChip
-                label="Public API"
-                active={!reviewMode}
-                onPress={() => onModeChange(false)}
-              />
-            </ReviewChipRow>
-            {reviewMode
-              ? (
-                <>
-                  <Text style={styles.reviewSectionLabel}>REVIEW DATA</Text>
-                  <ReviewChipRow>
-                    <ReviewChip
-                      label="Current live"
-                      active={reviewDataMode === "live"}
-                      onPress={() => onReviewDataModeChange("live")}
-                    />
-                    <ReviewChip
-                      label="Scenario fixtures"
-                      active={reviewDataMode === "fixture"}
-                      onPress={() => onReviewDataModeChange("fixture")}
-                    />
-                  </ReviewChipRow>
-                  {reviewDataMode === "fixture"
-                    ? (
-                      <>
-                        <Text style={styles.reviewSectionLabel}>
-                          PRIMITIVE OR TEST AREA
-                        </Text>
-                        <ReviewChipRow>
-                          {groups.map((group) => (
-                            <ReviewChip
-                              key={group.id}
-                              label={group.label}
-                              active={group.id === activeGroup?.id}
-                              onPress={() => onGroupChange(group)}
-                            />
-                          ))}
-                        </ReviewChipRow>
-                        <Text style={styles.reviewSectionLabel}>STATE</Text>
-                        <ReviewChipRow>
-                          {(activeGroup?.scenarios ?? []).map((scenario) => (
-                            <ReviewChip
-                              key={scenario.id}
-                              label={`${scenario.label} · ${
-                                formatLocalDate(scenario.snapshot.localDate)
-                              }`}
-                              active={scenario.id === activeScenario?.id}
-                              onPress={() => onScenarioChange(scenario)}
-                            />
-                          ))}
-                        </ReviewChipRow>
-                        {activeScenario?.note
-                          ? (
-                            <Text style={styles.reviewHelp}>
-                              {activeScenario.note}
-                            </Text>
-                          )
-                          : null}
-                        {activeScenario
-                          ? (
-                            <Text style={styles.reviewHelp}>
-                              {reviewScenarioDateCopy(
-                                activeGroup?.id,
-                                activeScenario,
-                              )}
-                            </Text>
-                          )
-                          : null}
-                      </>
-                    )
-                    : (
-                      <Text style={styles.reviewHelp}>
-                        Gauge Read and every condition-sensitive primitive use
-                        the current server/provider response. No fixture value
-                        is substituted when a provider is missing or delayed.
-                      </Text>
-                    )}
-                </>
-              )
-              : null}
-          </View>
-        )
-        : null}
-    </View>
-  );
-}
-
-function ReviewChip({
-  label,
-  active,
-  onPress,
-}: {
-  label: string;
-  active?: boolean;
-  onPress: () => void;
-}) {
-  return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.reviewChip,
-        active && styles.reviewChipActive,
-        pressed && { opacity: 0.82 },
-      ]}
-      onPress={onPress}
-      accessibilityRole="button"
-    >
-      <Text
-        style={[
-          styles.reviewChipText,
-          active && styles.reviewChipTextActive,
-        ]}
-      >
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
-
-function ReviewChipRow({ children }: { children: ReactNode }) {
-  return <View style={styles.reviewChipRow}>{children}</View>;
 }
 
 function PrimitiveTabBar({
@@ -3880,42 +3118,6 @@ function formatLocalDate(value: string): string {
   return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
 }
 
-function reviewScenarioDateCopy(
-  groupId: string | undefined,
-  scenario: RiverRunReviewScenario,
-): string {
-  const date = formatLocalDate(scenario.snapshot.localDate);
-  switch (groupId) {
-    case "run_stage":
-      if (
-        scenario.snapshot.runId === "pere_marquette_fall_steelhead" &&
-        scenario.id === "stage_offseason"
-      ) {
-        return `AUDIT ONLY · Representative offseason review date: ${date}.`;
-      }
-      return `AUDIT ONLY · State begins ${date}.`;
-    case "conditions":
-      if (scenario.snapshot.conditionsSuggest.label === "Unavailable") {
-        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
-      }
-      return `AUDIT ONLY · Checkpoint or review date: ${date}.`;
-    case "push":
-      if (scenario.snapshot.push.label === "Unavailable") {
-        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
-      }
-      return `AUDIT ONLY · Condition example dated ${date}; Push states are driven by live conditions, not a fixed calendar date.`;
-    case "fishability":
-      if (scenario.snapshot.fishability.label === "Unavailable") {
-        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
-      }
-      return `AUDIT ONLY · Condition example dated ${date}; Fishability states are driven by live flow, not a fixed calendar date.`;
-    case "fish_in_river":
-      return `AUDIT ONLY · Seasonal curve date: ${date}; the value can change daily between configured anchors.`;
-    default:
-      return `AUDIT ONLY · Review fixture date: ${date}.`;
-  }
-}
-
 function currentDeviceLocalDate(date = new Date()): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -3999,28 +3201,6 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     textAlign: "center",
     color: paper.dashboardMuted,
-  },
-  fixtureNotice: {
-    minHeight: 38,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    borderWidth: 1,
-    borderColor: "rgba(192,57,43,0.22)",
-    borderRadius: 8,
-    backgroundColor: "#FBE8E4",
-  },
-  fixtureNoticeText: {
-    flexShrink: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    lineHeight: 13,
-    letterSpacing: 1.1,
-    textAlign: "center",
-    color: paper.redDk,
   },
   progressRow: {
     flexDirection: "row",
@@ -4471,10 +3651,6 @@ const styles = StyleSheet.create({
     borderColor: "rgba(32,123,83,0.28)",
     backgroundColor: "#EAF6EF",
   },
-  liveConditionsStatusFixture: {
-    borderColor: "rgba(27,75,104,0.24)",
-    backgroundColor: "#EAF2F7",
-  },
   liveConditionsStatusPartial: {
     borderColor: "rgba(196,154,36,0.35)",
     backgroundColor: "#FFF7DD",
@@ -4771,90 +3947,6 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     color: paper.dashboardMuted,
   },
-  reviewControl: {
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "rgba(192,57,43,0.25)",
-    borderRadius: 10,
-    backgroundColor: "#FFF7F2",
-  },
-  reviewSummary: {
-    minHeight: 58,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 11,
-    paddingHorizontal: 13,
-    paddingVertical: 10,
-  },
-  reviewSummaryIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FBE4E1",
-  },
-  reviewSummaryCopy: {
-    minWidth: 0,
-    flex: 1,
-    gap: 2,
-  },
-  reviewSummaryEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 1,
-    color: paper.redDk,
-  },
-  reviewSummaryTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 12.5,
-    color: paper.dashboardInk,
-  },
-  reviewExpanded: {
-    gap: 12,
-    paddingHorizontal: 13,
-    paddingTop: 12,
-    paddingBottom: 14,
-    borderTopWidth: 1,
-    borderTopColor: "rgba(192,57,43,0.18)",
-  },
-  reviewHelp: {
-    fontFamily: paperFonts.body,
-    fontSize: 12,
-    lineHeight: 17,
-    color: paper.dashboardMuted,
-  },
-  reviewSectionLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.2,
-    color: paper.dashboardMuted,
-  },
-  reviewChipRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 7,
-  },
-  reviewChip: {
-    minHeight: 37,
-    justifyContent: "center",
-    paddingHorizontal: 11,
-    paddingVertical: 7,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 7,
-    backgroundColor: paper.dashboardWhite,
-  },
-  reviewChipActive: {
-    borderColor: paper.dashboardInk,
-    backgroundColor: paper.dashboardInk,
-  },
-  reviewChipText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11.5,
-    color: paper.dashboardInk,
-  },
-  reviewChipTextActive: { color: "#FFFFFF" },
   primitiveTabSticky: {
     zIndex: 30,
     marginHorizontal: -18,
