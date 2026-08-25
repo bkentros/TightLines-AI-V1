@@ -6,6 +6,14 @@
     <title>Get FinFindr</title>
     <meta name="description" content="Get FinFindr on the App Store or Google Play." />
     <meta name="theme-color" content="#d8ebf8" />
+    <meta property="og:title" content="Get FinFindr" />
+    <meta property="og:description" content="Fishing intelligence for when to go, where to fish, and what to throw." />
+    <meta property="og:image" content="https://finfindr.app/assets/app-icon-current.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://finfindr.app/get/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/assets/app-icon-current.png" />
+    <link rel="apple-touch-icon" href="/assets/app-icon-current.png" />
     <style>
       :root {
         --ink: #07192b;
@@ -179,6 +187,14 @@
         transform: scale(0.98);
       }
 
+      .cta.secondary {
+        margin-top: 10px;
+        background: #fff;
+        color: var(--ink) !important;
+        border: 1px solid #c9deec;
+        box-shadow: 0 8px 20px rgba(7, 25, 43, 0.1);
+      }
+
       .after-copy {
         margin: 12px 0 0;
         font-size: 14px;
@@ -195,7 +211,13 @@
   </head>
   <body>
     <main class="card">
-      <img class="icon" src="/assets/app-icon.png" width="100" height="100" alt="FinFindr app icon" />
+      <img
+        class="icon"
+        src="/assets/app-icon-current.png"
+        width="100"
+        height="100"
+        alt="FinFindr app icon"
+      />
       <p class="eyebrow">FinFindr</p>
       <h1>Get the app</h1>
       <p class="tagline" id="tagline">Bite forecasts, tackle picks, and Water Read maps for anglers.</p>
@@ -210,11 +232,13 @@
         </div>
         <div class="step">
           <span class="num">2</span>
-          <p class="step-copy">
+          <p class="step-copy" id="browser-step">
             Tap <strong>Open in browser</strong> or <strong>Open in Safari</strong>.
           </p>
         </div>
-        <p class="arrow-hint">Safari opens next. Then tap <strong>Download on the App Store</strong>.</p>
+        <p class="arrow-hint" id="browser-hint">
+          Your browser opens next and takes you to the correct app store.
+        </p>
       </section>
 
       <a
@@ -226,49 +250,81 @@
       >
         Download on the App Store
       </a>
-      <p class="after-copy" id="after-copy" hidden>You're in Safari now. One tap left.</p>
+      <a
+        class="cta secondary"
+        id="alternate-store-cta"
+        href="https://play.google.com/store/apps/details?id=com.finseekr.finfindr"
+        rel="noopener noreferrer"
+        hidden
+      >
+        Get it on Google Play
+      </a>
+      <p class="after-copy" id="after-copy" hidden>
+        If the store does not open automatically, tap the button above.
+      </p>
 
       <p class="fine" id="platform-copy">Free · iPhone and Android · United States</p>
     </main>
     <script>
       (function () {
         var ua = navigator.userAgent || "";
-        var isIOS = /iPad|iPhone|iPod/.test(ua);
+        var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
         var isAndroid = /Android/i.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
-        var inBrowserStep = new URLSearchParams(window.location.search).get("open") === "store";
         var appStoreUrl = "https://apps.apple.com/app/id6769178136";
         var playStoreUrl = "https://play.google.com/store/apps/details?id=com.finseekr.finfindr";
 
         var tiktokSteps = document.getElementById("tiktok-steps");
         var storeCta = document.getElementById("store-cta");
+        var alternateStoreCta = document.getElementById("alternate-store-cta");
         var afterCopy = document.getElementById("after-copy");
         var tagline = document.getElementById("tagline");
         var platformCopy = document.getElementById("platform-copy");
+        var browserStep = document.getElementById("browser-step");
+        var browserHint = document.getElementById("browser-hint");
+        var storeUrl = null;
 
         if (isAndroid) {
+          storeUrl = playStoreUrl;
           storeCta.href = playStoreUrl;
           storeCta.textContent = "Get it on Google Play";
           platformCopy.textContent = "Free · Android · United States";
         } else if (isIOS) {
+          storeUrl = appStoreUrl;
           storeCta.href = appStoreUrl;
           platformCopy.textContent = "Free · iPhone · United States";
         }
 
-        if (inBrowserStep && !isTikTok) {
-          tagline.textContent = "You're almost there.";
-          storeCta.hidden = false;
-          afterCopy.hidden = false;
-          return;
-        }
-
-        if (isTikTok && isIOS) {
-          tagline.textContent = "Two quick steps, then you're in the App Store.";
+        if (isTikTok) {
+          if (isAndroid) {
+            tagline.textContent = "Two quick steps, then you're in Google Play.";
+            browserStep.innerHTML = "Tap <strong>Open in browser</strong> or <strong>Open in Chrome</strong>.";
+            browserHint.innerHTML = "Chrome opens next and takes you to <strong>Google Play</strong>.";
+          } else if (isIOS) {
+            tagline.textContent = "Two quick steps, then you're in the App Store.";
+            browserStep.innerHTML = "Tap <strong>Open in browser</strong> or <strong>Open in Safari</strong>.";
+            browserHint.innerHTML = "Safari opens next and takes you to the <strong>App Store</strong>.";
+          } else {
+            tagline.textContent = "Two quick steps, then you're in your app store.";
+          }
           tiktokSteps.hidden = false;
           return;
         }
 
+        if (storeUrl) {
+          tagline.textContent = isAndroid ? "Opening Google Play…" : "Opening the App Store…";
+          storeCta.hidden = false;
+          afterCopy.hidden = false;
+          window.setTimeout(function () {
+            window.location.replace(storeUrl);
+          }, 450);
+          return;
+        }
+
+        tagline.textContent = "Choose your app store.";
         storeCta.hidden = false;
+        alternateStoreCta.hidden = false;
       })();
     </script>
   </body>
