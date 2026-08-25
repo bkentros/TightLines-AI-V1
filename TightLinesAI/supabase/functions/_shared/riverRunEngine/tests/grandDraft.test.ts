@@ -5,14 +5,13 @@ import {
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
   GRAND_RIVER_PROFILE,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   validateConfigurationRevision,
   validateRiverProfile,
   validateRunProfile,
 } from "../index.ts";
 
-Deno.test("Grand draft foundation preserves species endpoints and split station scope", () => {
+Deno.test("Grand foundation preserves species endpoints and split station scope", () => {
   const result = validateRiverProfile(GRAND_RIVER_PROFILE);
   assertEquals(
     result.valid,
@@ -31,7 +30,7 @@ Deno.test("Grand draft foundation preserves species endpoints and split station 
   assertMatch(GRAND_RIVER_PROFILE.gaugeLimitationCopy, /above Sixth Street/i);
 });
 
-Deno.test("Grand supported drafts keep Activity unavailable and Fulton Fishability local", () => {
+Deno.test("Grand public runs use reach-scoped observed Activity and Fulton Fishability", () => {
   for (
     const run of [
       GRAND_FALL_CHINOOK_RUN_PROFILE,
@@ -45,14 +44,37 @@ Deno.test("Grand supported drafts keep Activity unavailable and Fulton Fishabili
       true,
       `${run.runId}: ${result.issues.map((item) => item.message).join("\n")}`,
     );
-    assertEquals(result.publicVisible, false);
-    assertEquals(run.primitiveCapabilities.activity.status, "unavailable");
+    assertEquals(result.publicVisible, true);
+    assertEquals(run.primitiveCapabilities.activity.status, "available");
+    assertEquals(run.activity?.dataMode, "observed_river");
+    assertEquals(
+      run.activity?.minimumInputContract,
+      "weather_and_one_measured_river_input",
+    );
+    assertEquals(run.activity?.inputReach?.reachIds, ["grand_lower"]);
+    assertEquals(run.activity?.inputReach?.hydraulicSourceIds, [
+      "grand_fulton_usgs",
+    ]);
+    assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, [
+      "grand_north_park_temperature",
+    ]);
+    assertEquals(run.waterTemperature?.sourcePriority, [
+      "grand_north_park_temperature",
+    ]);
+    assertMatch(
+      run.activity?.scopeCopy ?? "",
+      /downtown Grand Rapids mainstem/i,
+    );
+    assertMatch(
+      run.activity?.scopeCopy ?? "",
+      /does not directly measure Grand Haven/i,
+    );
     assertEquals(run.primitiveCapabilities.fishability.status, "available");
     assertEquals(run.fishabilityBands?.sourceLabel, "Fulton Street");
   }
 });
 
-Deno.test("Grand drafts validate but remain outside public registries", () => {
+Deno.test("Grand release validates and is present in public registries", () => {
   for (
     const runId of [
       "grand_fall_chinook",
@@ -62,20 +84,16 @@ Deno.test("Grand drafts validate but remain outside public registries", () => {
   ) {
     assertEquals(
       RIVER_RUN_RUN_PROFILES.some((run) => run.runId === runId),
-      false,
-    );
-    assertEquals(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((run) => run.runId === runId),
       true,
     );
   }
   const issues = validateConfigurationRevision({
     configKey: "grand",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: GRAND_CONFIGURATION_DOCUMENT,
     evidenceNotes:
-      "Hidden Grand Phase C drafts with fail-closed passage and Activity capabilities.",
+      "Released Grand configuration with fail-closed passage and independently replayed downtown observed Activity.",
   });
   assert(issues.every((issue) => issue.severity !== "error"));
 });

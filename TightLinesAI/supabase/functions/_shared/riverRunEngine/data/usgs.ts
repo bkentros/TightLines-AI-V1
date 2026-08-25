@@ -161,6 +161,8 @@ function parseModernUsgsContinuousValues(
     const value = toFiniteNumber(properties.value);
     if (!metric || !observedAt || value == null) continue;
     if (!isExpectedUsgsUnit(metric, properties.unit_of_measure)) continue;
+    const qualifier = String(properties.qualifier ?? "").trim();
+    if (hasEquipmentFaultQualifier(qualifier)) continue;
 
     const observation = byTimestamp.get(observedAt) ?? {
       provider: "USGS" as const,
@@ -171,7 +173,6 @@ function parseModernUsgsContinuousValues(
     observation[metric] = value;
     const approvalStatus = String(properties.approval_status ?? "").trim();
     if (approvalStatus) observation.approvalStatus = approvalStatus;
-    const qualifier = String(properties.qualifier ?? "").trim();
     if (qualifier) observation.qualifier = qualifier;
     const timeSeriesId = String(properties.time_series_id ?? "").trim();
     if (timeSeriesId) observation.timeSeriesId = timeSeriesId;
@@ -180,6 +181,12 @@ function parseModernUsgsContinuousValues(
   return [...byTimestamp.values()].toSorted((a, b) =>
     Date.parse(a.observedAt) - Date.parse(b.observedAt)
   );
+}
+
+function hasEquipmentFaultQualifier(qualifier: string): boolean {
+  return qualifier
+    .split(/[\s,;|]+/)
+    .some((part) => part.toUpperCase() === "EQUIP");
 }
 
 export function selectLatestUsableGaugeObservation(

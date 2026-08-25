@@ -1,0 +1,1153 @@
+{
+  "runId": "grand_fall_steelhead",
+  "rulesVersion": "grand-fall-steelhead-observed-activity-v3-draft",
+  "replayYears": "2020-2025",
+  "method": "Historical mechanical steelhead replay using Grand River at Grand Rapids — Fulton Street USGS 04119000 daily mean discharge, Grand River at North Park Street — measured water temperature USGS 04118564 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 768,
+  "usableDays": 724,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 23,
+    "temperatureHistory": 37,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 9,
+    "p10": 29,
+    "median": 66,
+    "p90": 95,
+    "max": 96,
+    "mean": 63.35
+  },
+  "blockScore": {
+    "min": 8,
+    "p10": 28,
+    "median": 65,
+    "p90": 94,
+    "max": 96,
+    "mean": 62.74
+  },
+  "uniqueDayScores": 78,
+  "uniqueBlockScores": 86,
+  "dayLabels": {
+    "Active": 173,
+    "Highly active": 226,
+    "Inactive": 22,
+    "Moderate": 153,
+    "Reserved": 150
+  },
+  "blockLabels": {
+    "Active": 709,
+    "Highly active": 866,
+    "Inactive": 95,
+    "Moderate": 630,
+    "Reserved": 596
+  },
+  "daysAtLeast90": 134,
+  "blocksAtLeast90": 480,
+  "byStage": {
+    "beginning": {
+      "days": 96,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 39,
+        "p90": 39,
+        "max": 96,
+        "mean": 36.51
+      },
+      "labels": {
+        "Highly active": 4,
+        "Reserved": 92
+      }
+    },
+    "building": {
+      "days": 270,
+      "scores": {
+        "min": 9,
+        "p10": 21,
+        "median": 85,
+        "p90": 96,
+        "max": 96,
+        "mean": 73.58
+      },
+      "labels": {
+        "Active": 41,
+        "Highly active": 168,
+        "Inactive": 20,
+        "Moderate": 11,
+        "Reserved": 30
+      }
+    },
+    "ending": {
+      "days": 95,
+      "scores": {
+        "min": 43,
+        "p10": 54,
+        "median": 58,
+        "p90": 73,
+        "max": 84,
+        "mean": 60.95
+      },
+      "labels": {
+        "Active": 31,
+        "Highly active": 5,
+        "Moderate": 59
+      }
+    },
+    "peak": {
+      "days": 73,
+      "scores": {
+        "min": 58,
+        "p10": 69,
+        "median": 83,
+        "p90": 95,
+        "max": 96,
+        "mean": 82.9
+      },
+      "labels": {
+        "Active": 26,
+        "Highly active": 46,
+        "Moderate": 1
+      }
+    },
+    "post_run": {
+      "days": 84,
+      "scores": {
+        "min": 44,
+        "p10": 50,
+        "median": 56,
+        "p90": 66,
+        "max": 79,
+        "mean": 57
+      },
+      "labels": {
+        "Active": 21,
+        "Moderate": 63
+      }
+    },
+    "pre_run": {
+      "days": 30,
+      "scores": {
+        "min": 19,
+        "p10": 21,
+        "median": 24,
+        "p90": 37,
+        "max": 39,
+        "mean": 26.5
+      },
+      "labels": {
+        "Inactive": 2,
+        "Reserved": 28
+      }
+    },
+    "tapering": {
+      "days": 76,
+      "scores": {
+        "min": 42,
+        "p10": 54,
+        "median": 70,
+        "p90": 75,
+        "max": 86,
+        "mean": 66.75
+      },
+      "labels": {
+        "Active": 54,
+        "Highly active": 3,
+        "Moderate": 19
+      }
+    }
+  },
+  "backHalf": {},
+  "byTemperature": {
+    "below42F": {
+      "days": 298,
+      "scores": {
+        "min": 42,
+        "p10": 52,
+        "median": 61,
+        "p90": 79,
+        "max": 95,
+        "mean": 63.84
+      },
+      "labels": {
+        "Active": 128,
+        "Highly active": 28,
+        "Moderate": 142
+      }
+    },
+    "from42To55F": {
+      "days": 192,
+      "scores": {
+        "min": 16,
+        "p10": 79,
+        "median": 92,
+        "p90": 96,
+        "max": 96,
+        "mean": 88.65
+      },
+      "labels": {
+        "Active": 17,
+        "Highly active": 172,
+        "Inactive": 3
+      }
+    },
+    "from55To60F": {
+      "days": 65,
+      "scores": {
+        "min": 52,
+        "p10": 57,
+        "median": 76,
+        "p90": 91,
+        "max": 96,
+        "mean": 75.32
+      },
+      "labels": {
+        "Active": 28,
+        "Highly active": 26,
+        "Moderate": 11
+      }
+    },
+    "from60To68F": {
+      "days": 97,
+      "scores": {
+        "min": 16,
+        "p10": 20,
+        "median": 39,
+        "p90": 39,
+        "max": 39,
+        "mean": 31.96
+      },
+      "labels": {
+        "Inactive": 10,
+        "Reserved": 87
+      }
+    },
+    "atLeast68F": {
+      "days": 72,
+      "scores": {
+        "min": 9,
+        "p10": 19,
+        "median": 29,
+        "p90": 29,
+        "max": 29,
+        "mean": 25.39
+      },
+      "labels": {
+        "Inactive": 9,
+        "Reserved": 63
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 150,
+        "percent": 8
+      },
+      "meaningfulRise24h": {
+        "absolute": 300,
+        "percent": 15
+      },
+      "sharpRise24h": {
+        "absolute": 700,
+        "percent": 30
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 10,
+      "p10": 20,
+      "median": 120,
+      "p90": 500,
+      "max": 1830,
+      "mean": 216.95
+    },
+    "positivePercentChange": {
+      "min": 0.23,
+      "p10": 0.79,
+      "median": 4.96,
+      "p90": 20.1,
+      "max": 56.36,
+      "mean": 8.09
+    },
+    "signals": {
+      "falling": 20,
+      "meaningful_rise": 34,
+      "rising": 44,
+      "sharp_rise": 11,
+      "stable": 615
+    }
+  },
+  "bestBlocks": {
+    "05-09": 454,
+    "09-13": 95,
+    "13-17": 83,
+    "17-21": 92
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 2,
+    "p90": 8,
+    "max": 13,
+    "mean": 3.22
+  },
+  "daysWithSpreadAtLeast10": 32,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2022-10-11",
+      "stage": "building",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 55.4,
+      "flowCfs": 1510,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 10,
+      "flowPercentChange24h": 0.67,
+      "temperatureSignal": "neutral",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-11-03",
+      "stage": "building",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": 48.74,
+      "flowCfs": 1560,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -10,
+      "flowPercentChange24h": -0.64,
+      "temperatureSignal": "neutral",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2024-12-30",
+      "stage": "ending",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 39.02,
+      "flowCfs": 3490,
+      "flowBand": "ideal",
+      "flowSignal": "sharp_rise",
+      "flowAbsoluteChange24h": 830,
+      "flowPercentChange24h": 31.2,
+      "temperatureSignal": "neutral",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 44,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2020-12-01",
+      "stage": "tapering",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 38.66,
+      "flowCfs": 3290,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -90,
+      "flowPercentChange24h": -2.66,
+      "temperatureSignal": "cooling",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2021-11-06",
+      "stage": "building",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 44.6,
+      "flowCfs": 6080,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -490,
+      "flowPercentChange24h": -7.46,
+      "temperatureSignal": "cooling",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 55,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-01-02",
+      "stage": "post_run",
+      "staging": false,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": 34.16,
+      "flowCfs": 4960,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 200,
+      "flowPercentChange24h": 4.2,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 75,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 43,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 78,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Water temperature limits responsiveness. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2022-10-09",
+      "stage": "building",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": 53.6,
+      "flowCfs": 1520,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 80,
+      "flowPercentChange24h": 5.56,
+      "temperatureSignal": "strong_cooling",
+      "spread": 11,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "building",
+      "staging": false,
+      "score": 90,
+      "label": "Highly active",
+      "waterTempF": 47.12,
+      "flowCfs": 2190,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -50,
+      "flowPercentChange24h": -2.23,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 95,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-11-16",
+      "stage": "peak",
+      "staging": false,
+      "score": 90,
+      "label": "Highly active",
+      "waterTempF": 42.08,
+      "flowCfs": 2010,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 80,
+      "flowPercentChange24h": 4.15,
+      "temperatureSignal": "cooling",
+      "spread": 11,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2023-01-10",
+      "stage": "post_run",
+      "staging": false,
+      "score": 62,
+      "label": "Active",
+      "waterTempF": 36.86,
+      "flowCfs": 3350,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -210,
+      "flowPercentChange24h": -5.9,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 83,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 35,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Water temperature limits responsiveness. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2023-11-11",
+      "stage": "building",
+      "staging": false,
+      "score": 88,
+      "label": "Highly active",
+      "waterTempF": 45.68,
+      "flowCfs": 5170,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 350,
+      "flowPercentChange24h": 7.26,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 77,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2024-10-25",
+      "stage": "building",
+      "staging": false,
+      "score": 75,
+      "label": "Active",
+      "waterTempF": 55.04,
+      "flowCfs": 1470,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 20,
+      "flowPercentChange24h": 1.38,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.15,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 88,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    }
+  ]
+}

@@ -101,7 +101,7 @@ though some stations publish them.
 
 | Weather point ID | Latitude/longitude | Role | Basin/reach represented | Known limitations | Evidence ID | Accepted? |
 | --- | --- | --- | --- | --- | --- | --- |
-| `grand_grand_rapids_weather` | 42.963082, -85.677253 | primary proposal | Modeled hourly context centered on the Grand Rapids/Fulton Street source reach | One point cannot represent Grand Haven–Lansing precipitation. Production-shaped Open-Meteo probe returned precipitation, cloud cover, and shortwave radiation for 168 hourly rows in `America/Detroit`, but `shortwave_radiation_clear_sky` was all null with unit `undefined`. Activity use is blocked until provider/adapter resolution and replay; weather never proves river response or clarity. | E-018 | coordinate_yes; activity_capability_blocked |
+| `grand_grand_rapids_weather` | 42.963082, -85.677253 | primary | Modeled hourly context centered on the downtown Grand Rapids Activity reach | One point cannot represent Grand Haven–Lansing precipitation. The current adapter supplies actual/clear-sky radiation, cloud, and precipitation per local hour and passed the six-season replay. Weather never proves river response or clarity and missing target-day hours fail Activity closed. | E-018; `docs/audits/river-run-grand-observed-activity-2026-08-25.md` | accepted_for_downtown_activity_only |
 
 ## 7. Supported species decision (foundation capability only)
 
@@ -150,7 +150,7 @@ All sources accessed 2026-08-24 unless stated otherwise.
 | D-003 | Ladder assets exist, but current operational windows and species efficiency are not published for Portland and Grand Ledge. | E-006 versus absence of current operational evidence | Leave unresolved; no above-structure recommendation until agency/operator confirmation. | foundation remains blocked |
 | D-004 | Ada and Wagar appear in historic records but current status is incomplete. | E-004, E-016 | Record both; historic Webber passage is not substituted for 2026 status. | foundation remains blocked; contact DNR/EGLE/owner |
 | D-005 | Four beautification dams are being removed while 04119000 is at the construction reach's downstream end. | E-005, E-009, E-015 | Accept 04119000 discharge/height for Phase B with downtown-only copy and mandatory rating/datum re-audit after each construction season or material removal. | source version must be time-bounded |
-| D-006 | One Grand Rapids weather point cannot describe a 100–150 mile corridor, and the live clear-sky input is null. | E-018 | Keep it as a proposed Grand Rapids modeled-context point only; do not claim basin coverage. Activity remains blocked. | provider/adapter and replay decision required later |
+| D-006 | One Grand Rapids weather point cannot describe a 100–150 mile corridor; the original clear-sky probe failed. | E-018; 2026-08-25 Activity audit | The current adapter/replay resolves the input defect only for a narrow downtown Activity model. Do not claim basin coverage or extend the score downstream/upstream. | accepted downtown; downstream model blocked pending dependable temperature and replay |
 | D-007 | Exact public labels/endpoints required owner acceptance. | playbook owner gate | Owner approved the proposed labels/endpoints. | approved 2026-08-24 |
 
 ## 10. Foundation gate
@@ -161,7 +161,7 @@ All sources accessed 2026-08-24 unless stated otherwise.
 - [x] Passage is species-qualified and unresolved cases fail closed.
 - [x] Current regulation and active construction sources are recorded.
 - [x] Gauge, temperature, and weather reach limitations are explicit.
-- [x] Gauge Read capability is decided; weather/Activity capability is separately blocked.
+- [x] Gauge Read and downtown Activity capability are decided; broader-corridor Activity remains blocked.
 - [x] All three candidate species are independently evidence-backed within bounded reaches.
 - [x] Every material claim resolves to the evidence ledger.
 - [ ] No unresolved blocking decision remains.

@@ -2,7 +2,6 @@ import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   buildConditionRefresh,
   buildDailySnapshot,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   validateConfigurationRevision,
   validateRiverProfile,
@@ -14,7 +13,7 @@ import {
   WHITE_RIVER_PROFILE,
 } from "../index.ts";
 
-Deno.test("White draft foundation keeps split Gauge Read stations explicitly scoped", () => {
+Deno.test("White foundation keeps split Gauge Read stations explicitly scoped", () => {
   const result = validateRiverProfile(WHITE_RIVER_PROFILE);
   assertEquals(
     result.valid,
@@ -27,7 +26,7 @@ Deno.test("White draft foundation keeps split Gauge Read stations explicitly sco
   assertMatch(WHITE_RIVER_PROFILE.gaugeLimitationCopy, /below Hesperia Dam/i);
 });
 
-Deno.test("White supported drafts expose seasonal primitives and fail Activity closed", () => {
+Deno.test("White public runs expose weather-only Activity without blending split reaches", () => {
   for (
     const run of [
       WHITE_FALL_CHINOOK_RUN_PROFILE,
@@ -41,16 +40,18 @@ Deno.test("White supported drafts expose seasonal primitives and fail Activity c
       true,
       result.issues.map((item) => item.message).join("\n"),
     );
-    assertEquals(result.publicVisible, false);
+    assertEquals(result.publicVisible, true);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(run.primitiveCapabilities.fishability.status, "available");
-    assertEquals(run.primitiveCapabilities.activity.status, "unavailable");
-    assertEquals("activity" in run, false);
+    assertEquals(run.primitiveCapabilities.activity.status, "available");
+    assertEquals(run.activity?.dataMode, "weather_only");
+    assertEquals(run.activity?.inputReach?.hydraulicSourceIds, []);
+    assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, []);
   }
 });
 
-Deno.test("White drafts validate but remain outside public registries", () => {
+Deno.test("White release validates and is present in public registries", () => {
   for (
     const runId of [
       "white_fall_chinook",
@@ -60,25 +61,21 @@ Deno.test("White drafts validate but remain outside public registries", () => {
   ) {
     assertEquals(
       RIVER_RUN_RUN_PROFILES.some((run) => run.runId === runId),
-      false,
-    );
-    assertEquals(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((run) => run.runId === runId),
       true,
     );
   }
   const issues = validateConfigurationRevision({
     configKey: "white",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: WHITE_CONFIGURATION_DOCUMENT,
     evidenceNotes:
-      "Hidden Phase C White drafts for Fishability replay and production-shaped acceptance.",
+      "Released White configuration after Fishability and production-shaped acceptance.",
   });
   assert(issues.every((issue) => issue.severity !== "error"));
 });
 
-Deno.test("White condition refresh returns deterministic unavailable Activity", () => {
+Deno.test("White condition refresh scores only weather and keeps split river inputs unknown", () => {
   const run = WHITE_FALL_CHINOOK_RUN_PROFILE;
   const daily = buildDailySnapshot({
     river: WHITE_RIVER_PROFILE,
@@ -96,6 +93,10 @@ Deno.test("White condition refresh returns deterministic unavailable Activity", 
     movementEngineId: run.movementEngineId,
     primitiveCapabilities: run.primitiveCapabilities,
     fishabilityBands: run.fishabilityBands,
+    activityRules: run.activity,
+    activityTargetDate: "2026-10-08",
+    activityTargetStage: daily.runStage.stage,
+    activityStaging: false,
     gaugeFreshness: "fresh",
     weatherFreshness: "fresh",
     waterTemperatureFreshness: "fresh",
@@ -108,19 +109,32 @@ Deno.test("White condition refresh returns deterministic unavailable Activity", 
     temperatureSourceType: "nearby_gauge",
     waterTempF: 55,
     flowBand: "ideal",
-    sourceMetrics: {},
+    sourceMetrics: {
+      weather: {
+        provider: "OPEN_METEO",
+        evidenceType: "modeled_grid",
+        weatherPointId: "white_pines_point_weather",
+        hourlyActivityWeather: Array.from({ length: 24 }, (_, hour) => ({
+          time_local: `2026-10-08T${String(hour).padStart(2, "0")}:00`,
+          cloud_cover_pct: 85,
+          shortwave_w_m2: hour >= 7 && hour < 19 ? 100 : 0,
+          clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+          precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
+        })),
+      },
+    },
     engineVersion: "test-engine",
     configVersion: WHITE_CONFIGURATION_DOCUMENT.configVersion,
   });
-  assertEquals(refresh.activity?.label, "Unavailable");
-  assertEquals(refresh.activity?.score, null);
-  assertEquals(refresh.activity?.blocks, []);
+  assertEquals(refresh.activity?.confidence, "Limited");
+  assertEquals(refresh.activity?.blocks.length, 4);
+  assert((refresh.activity?.score ?? 101) <= 90);
   assertMatch(
     refresh.activity?.headline ?? "",
-    /different White River reaches/i,
+    /weather-only Chinook activity outlook/i,
   );
   assertMatch(
     refresh.activity?.detail ?? "",
-    /do not describe one shared reach/i,
+    /River level, clarity, and measured water temperature are unknown/i,
   );
 });

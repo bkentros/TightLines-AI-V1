@@ -1,10 +1,8 @@
 # River Run Live Conditions Onboarding Standard
 
-**Status:** Normative
-**Version:** 1.0
-**Established:** 2026-08-24
-**Applies to:** Gauge Read configuration, source research, storage, API output,
-public copy, visual presentation, and onboarding acceptance
+**Status:** Normative **Version:** 1.1 **Established:** 2026-08-24 **Applies
+to:** Gauge Read configuration, source research, storage, API output, public
+copy, visual presentation, and onboarding acceptance
 
 ## 1. Product meaning
 
@@ -24,8 +22,8 @@ Current public metrics are:
 - Measured water temperature in °F.
 - Gauge height in feet.
 
-Only render metrics available from an accepted source. Do not create empty
-tiles to force a three-column layout.
+Only render metrics available from an accepted source. Do not create empty tiles
+to force a three-column layout.
 
 Additional metrics require a separate product contract before onboarding:
 
@@ -59,6 +57,13 @@ For every candidate source verify:
 
 Probe the real endpoint. Station metadata alone is insufficient.
 
+The probe must validate returned timestamps and numeric observations, not only
+HTTP success. Record parameter codes, units, null/sentinel behavior, timezone,
+cadence, and the probe date. A provider outage or malfunction fails closed to
+the appropriate delayed/missing state. Once complete valid observations resume,
+the normal refresh path must automatically restore the metric without a code or
+configuration change.
+
 ### Source roles
 
 - One primary hydraulic source.
@@ -78,15 +83,24 @@ All configured metrics have accepted current values.
 ### Partial
 
 At least one accepted metric has a displayable value and another configured
-metric is unavailable. Available measurements remain useful; missing metrics
-are not fabricated.
+metric is unavailable. Available measurements remain useful; missing metrics are
+not fabricated.
 
 ### Unavailable
 
 No accepted metric is displayable. The UI gives a compact honest explanation.
-This does not make the entire River Run unsupported. Stage and Fish In River
-may remain available, Activity may use an accepted weather-only model, and
+This does not make the entire River Run unsupported. Stage and Fish In River may
+remain available, Activity may use an accepted weather-only model, and
 Fishability remains deterministically unavailable without hydraulics.
+
+Primitive fallback is evaluated independently from Gauge Read. A configured
+observed Activity model may be capped Moderate with one fresh measured river
+input, but must follow its declared minimum-input contract; missing weather or
+all required measured river inputs may make Activity Unavailable even while
+Gauge Read is Partial. When a provider resumes with a valid fresh value, the
+next refresh must automatically restore the corresponding metric and scoring
+state. Do not require a configuration change, carry forward a fault sentinel,
+or substitute a seasonal average.
 
 ## 5. Current-value precision
 
@@ -98,9 +112,9 @@ Display precision follows real source resolution and processing:
 - Water temperature: normally one decimal after the accepted conversion and
   smoothing contract.
 
-Precision communicates measurement resolution, not certainty. Do not expose
-more decimal places than the observation supports. Preserve normalized raw
-values internally for calculations.
+Precision communicates measurement resolution, not certainty. Do not expose more
+decimal places than the observation supports. Preserve normalized raw values
+internally for calculations.
 
 ## 6. Freshness
 
@@ -141,8 +155,8 @@ Contract:
 
 - Use the target calendar date ±3 days.
 - Search prior years only.
-- Use approved/accepted daily observations under the provider-specific
-  baseline contract.
+- Use approved/accepted daily observations under the provider-specific baseline
+  contract.
 - Record sample count, historical years, record kind, baseline version, and the
   exact month-day window.
 - Do not silently shrink the ±3-day rule because the exact day exists.
@@ -174,9 +188,9 @@ contains:
 - What the gauge represents.
 - A single date-average methodology note.
 
-Avoid repeating the same long provider disclaimer for every tile when one
-shared note is sufficient. Station titles wrap; they are not truncated merely
-to keep a status badge on the same line.
+Avoid repeating the same long provider disclaimer for every tile when one shared
+note is sufficient. Station titles wrap; they are not truncated merely to keep a
+status badge on the same line.
 
 Approved public provider naming examples:
 
@@ -208,6 +222,11 @@ Required automated and visual cases:
 
 - All metrics fresh.
 - Each single metric missing.
+- Provider fault followed by a valid recovered numeric reading.
+- Hidden owner review uses the authenticated current-provider path. Fixture
+  primitive scenarios cannot replace the visible Gauge Read, and a failed live
+  review request must remain unavailable rather than falling back to synthetic
+  measurements.
 - Partial state.
 - All metrics unavailable.
 - Delayed state.

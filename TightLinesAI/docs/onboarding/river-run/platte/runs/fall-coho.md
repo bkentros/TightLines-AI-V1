@@ -136,14 +136,16 @@ public value and call it a seasonal estimate, never a count.
 
 ### Versioned proposed rules
 
-Proposed ruleset: `platte-fall-coho-weather-activity-v1`.
+Current hidden ruleset: `platte-fall-coho-weather-activity-v2-draft`. The final
+2007–2025 replay and 0.75/0.25 sensitivity comparison are recorded in
+`docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
 
-| Component                      | Weight | Rationale                                                                                                                    | Evidence/calibration IDs |
-| ------------------------------ | -----: | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| Effective light                |   0.75 | Primary supported block-separating weather variable; stronger share limits precipitation from dominating an unmeasured river | C-001, R-007             |
-| Measured water temperature     |   0.00 | No accepted lower-reach measured source; missing evidence earns no credit                                                    | F-P-003, C-001           |
-| River behavior                 |   0.00 | Honor hydraulics do not represent the lower corridor                                                                         | F-E-003, F-D-001, C-001  |
-| In-block precipitation context |   0.25 | Restrained cover context only; cannot imply a rise or clarity change                                                         | C-001, R-007             |
+| Component                      | Weight | Rationale                                                                                                                     | Evidence/calibration IDs |
+| ------------------------------ | -----: | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| Effective light                |   0.70 | Primary supported block-separating weather variable; final replay showed useful separation without the extra optimism of 0.75 | C-001, R-007             |
+| Measured water temperature     |   0.00 | No accepted lower-reach measured source; missing evidence earns no credit                                                     | F-P-003, C-001           |
+| River behavior                 |   0.00 | Honor hydraulics do not represent the lower corridor                                                                          | F-E-003, F-D-001, C-001  |
+| In-block precipitation context |   0.30 | Restrained cover context only; cannot imply a rise or clarity change; accepted after the fixed sensitivity replay             | C-001, R-007             |
 
 | Control                         | Proposed value/date                                                                                                         | Rationale                                                                                                                    |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -166,15 +168,18 @@ display tolerance.
 
 ### Required fixed replay and controlled tests
 
-Activity remains blocked until a production-shaped replay is generated and
-owner-reviewed. The Open-Meteo archive probe returned all required time,
-precipitation, cloud-cover, and shortwave arrays for September 15–16, 2007, but
-returned the requested clear-sky-radiation array entirely `null`. The existing
-engine can fall back to cloud cover plus shortwave, but replay must treat this
-as an explicit source mode and verify it rather than claiming normalized
-actual-versus-clear-sky light. Lock 2007–2025 before examining distributions; if
-the full audit finds a material schema/method discontinuity, document and
-version the longest reliable >=5-year interval rather than cherry-picking.
+The production-shaped 2007–2025 replay is complete with 1,957 of 1,957 usable
+dates, the full stage-by-block report, and zero scoring/copy invariant failures.
+Activity remains hidden until fixtures, device QA, owner copy/visual review, and
+explicit enablement are complete. The earlier Open-Meteo archive probe returned
+all required time, precipitation, cloud-cover, and shortwave arrays for
+September 15–16, 2007, but returned the requested clear-sky-radiation array
+entirely `null`. The existing engine can fall back to cloud cover plus
+shortwave, but replay must treat this as an explicit source mode and verify it
+rather than claiming normalized actual-versus-clear-sky light. Lock 2007–2025
+before examining distributions; if the full audit finds a material schema/method
+discontinuity, document and version the longest reliable >=5-year interval
+rather than cherry-picking.
 
 The replay artifact must report:
 

@@ -64,25 +64,85 @@ for (
   }
 
   const activity = groups.find((group) => group.id === "activity")!;
-  if (runId === "platte_fall_coho") {
+  assert(
+    activity.scenarios.some((scenario) =>
+      typeof scenario.snapshot.activity?.score === "number"
+    ),
+  );
+  if (runId.startsWith("grand_")) {
     assert(
       activity.scenarios.some((scenario) =>
-        typeof scenario.snapshot.activity?.score === "number"
+        scenario.snapshot.activity?.confidence === "Full"
       ),
     );
     assert(
       activity.scenarios.every((scenario) =>
-        scenario.snapshot.activity?.score == null ||
-        scenario.snapshot.activity.score <= 90
+        /downtown Grand Rapids mainstem/i.test(
+          scenario.snapshot.activity?.detail ?? "",
+        )
       ),
     );
+    for (
+      const id of [
+        "activity_missing_temperature",
+        "activity_missing_hydraulics",
+      ]
+    ) {
+      const partial = activity.scenarios.find((scenario) => scenario.id === id);
+      assert.equal(partial?.snapshot.activity?.confidence, "Moderate");
+      assert(
+        typeof partial?.snapshot.activity?.score === "number" &&
+          partial.snapshot.activity.score <= 64,
+      );
+    }
+    const noRiverInputs = activity.scenarios.find((scenario) =>
+      scenario.id === "activity_missing_both_river_inputs"
+    );
+    assert.equal(noRiverInputs?.snapshot.activity?.label, "Unavailable");
+    assert.equal(noRiverInputs?.snapshot.activity?.score, null);
   } else {
     assert(
       activity.scenarios.every((scenario) =>
-        scenario.snapshot.activity?.label === "Unavailable" &&
-        scenario.snapshot.activity.score === null
+        scenario.snapshot.activity?.confidence === "Limited" &&
+        (scenario.snapshot.activity.score == null ||
+          scenario.snapshot.activity.score <=
+            (runId.endsWith("steelhead") ? 80 : 90))
       ),
-      `${runId} Activity must fail closed in owner review`,
+    );
+    assert(
+      activity.scenarios.every((scenario) =>
+        /weather-only/i.test(scenario.snapshot.activity?.headline ?? "") &&
+        /River level, clarity, and measured water temperature are unknown/i
+          .test(
+            scenario.snapshot.activity?.detail ?? "",
+          )
+      ),
+    );
+  }
+  const missingWeather = activity.scenarios.find((scenario) =>
+    scenario.id === "activity_missing_weather"
+  );
+  assert.equal(missingWeather?.snapshot.activity?.label, "Unavailable");
+  assert.equal(missingWeather?.snapshot.activity?.score, null);
+  assert.deepEqual(missingWeather?.snapshot.activity?.blocks, []);
+
+  const stages = groups.find((group) => group.id === "run_stage")!;
+  const stageDates = new Set(
+    stages.scenarios.map((scenario) => scenario.snapshot.localDate),
+  );
+  const window = stages.scenarios[0].snapshot.runStage.window;
+  for (
+    const boundaryDate of [
+      addOneDay(window.beginningEndDate),
+      addOneDay(window.peakEndDate),
+      addOneDay(window.taperingEndDate),
+      addOneDay(window.endDate),
+      addOneDay(window.postRunLateCopyEndDate),
+    ]
+  ) {
+    assert(
+      stageDates.has(boundaryDate),
+      `${runId} review fixtures omit copy transition ${boundaryDate}`,
     );
   }
 
@@ -156,3 +216,9 @@ console.log(
     )
   } private scenarios across ${expectedRuns.size} supported runs.`,
 );
+
+function addOneDay(localDate: string): string {
+  const value = new Date(`${localDate}T12:00:00Z`);
+  value.setUTCDate(value.getUTCDate() + 1);
+  return value.toISOString().slice(0, 10);
+}

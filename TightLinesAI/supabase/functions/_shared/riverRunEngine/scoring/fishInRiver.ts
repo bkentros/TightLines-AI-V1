@@ -46,6 +46,7 @@ export function scoreFishInRiver(
   run: Pick<
     RiverRunProfile,
     | "runWindow"
+    | "riverId"
     | "historicalPresence"
     | "species"
     | "runType"
@@ -71,7 +72,8 @@ export function scoreFishInRiver(
       run.runStageCopyStrategy === "betsie_homestead" ||
       run.runStageCopyStrategy === "big_manistee_tailwater" ||
       run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
-      run.runStageCopyStrategy === "st_joseph_corridor") &&
+      run.runStageCopyStrategy === "st_joseph_corridor" ||
+      run.runStageCopyStrategy === "onboarding_corridor") &&
     run.runType === "fall_entry" && stage === "post_run"
   ) {
     const betsie = run.runStageCopyStrategy === "betsie_homestead";
@@ -79,6 +81,12 @@ export function scoreFishInRiver(
     const muskegon = run.runStageCopyStrategy ===
       "muskegon_croton_tailwater";
     const stJoseph = run.runStageCopyStrategy === "st_joseph_corridor";
+    const onboarding = run.runStageCopyStrategy === "onboarding_corridor";
+    const onboardingName = run.riverId === "grand"
+      ? "Grand"
+      : run.riverId === "platte"
+      ? "Platte"
+      : "White";
     return {
       score: null,
       displayScore: undefined,
@@ -99,6 +107,8 @@ export function scoreFishInRiver(
         ? "Muskegon Steelhead fall entry is complete."
         : stJoseph
         ? "St. Joseph Steelhead fall entry is complete."
+        : onboarding
+        ? `${onboardingName} Steelhead fall entry is complete.`
         : "PM Steelhead fall entry is complete.",
       detail:
         "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
@@ -113,6 +123,8 @@ export function scoreFishInRiver(
           ? "Muskegon"
           : stJoseph
           ? "St. Joseph"
+          : onboarding
+          ? onboardingName
           : "PM"
       } fall movement tracking resumes.`,
       reasonCodes: [

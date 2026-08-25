@@ -1,4 +1,5 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
   FishabilityBands,
   HistoricalPresenceConfig,
@@ -11,6 +12,64 @@ import {
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
+
+const GRAND_RAPIDS_ACTIVITY_SCOPE =
+  "This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park.";
+
+function grandObservedActivity(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  weights: ActivityRules["weights"];
+  temperature: ActivityRules["temperature"];
+  stageResponseAdjustment: NonNullable<
+    ActivityRules["stageResponseAdjustment"]
+  >;
+  ending: number;
+  lifecycle?: NonNullable<ActivityRules["caps"]["lifecycleRamp"]>;
+  evidenceNotes: string;
+}): ActivityRules {
+  return {
+    version: input.version,
+    profile: input.profile,
+    dataMode: "observed_river",
+    minimumInputContract: "weather_and_one_measured_river_input",
+    inputReach: {
+      reachIds: ["grand_lower"],
+      hydraulicSourceIds: ["grand_fulton_usgs"],
+      waterTemperatureSourceIds: ["grand_north_park_temperature"],
+      weatherPointIds: ["grand_rapids_weather"],
+      notes:
+        "A reach-scoped downtown model: Fulton and North Park are 4.2 straight-line miles apart and bracket the former Sixth Street temperature site. It is not a composite for the entire Lower Grand.",
+    },
+    scopeCopy: GRAND_RAPIDS_ACTIVITY_SCOPE,
+    weights: input.weights,
+    temperature: input.temperature,
+    stageResponseAdjustment: input.stageResponseAdjustment,
+    hydraulicTrend: {
+      rising24h: { absolute: 150, percent: 8 },
+      meaningfulRise24h: { absolute: 300, percent: 15 },
+      sharpRise24h: { absolute: 700, percent: 30 },
+    },
+    caps: {
+      noMeasuredRiverData: 64,
+      noWaterTemperature: 64,
+      lateRun: 100,
+      ending: input.ending,
+      stageResponseMaximum: 96,
+      ...(input.lifecycle
+        ? { taperingPenalty: 15, lifecycleRamp: input.lifecycle }
+        : {}),
+    },
+    evidenceNotes: input.evidenceNotes,
+  };
+}
+
+const GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE = {
+  sourcePriority: ["grand_north_park_temperature"],
+  upstreamFallbackPositiveSignalCap: 1 as const,
+  notes:
+    "North Park is the sole accepted measured-temperature input for the downtown Grand Rapids Activity scope. It is a reach proxy, not a Grand Haven or whole-river temperature.",
+};
 
 export const GRAND_RIVER_PROFILE: RiverProfile = {
   riverId: "grand",
@@ -51,7 +110,7 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
     historicalStartYear: 2020,
     historicalEndYear: 2026,
     reachNotes:
-      "North Park Street is above Sixth Street and represents only that Grand Rapids reach. It is not co-located with Fulton hydraulics and is never blended into Activity in this draft.",
+      "North Park Street is above the former Sixth Street site and represents the downtown Grand Rapids reach. It is paired with Fulton only in the explicitly scoped downtown Activity model after direct 2022-2024 validation against the archived Sixth Street sensor; it does not represent Grand Haven or the full river.",
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
@@ -130,7 +189,7 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
       mode: "single_point",
       primaryWeatherPointId: "grand_rapids_weather",
       basinRepresentation:
-        "Modeled Grand Rapids weather is local context only. It does not represent the full corridor, and Activity remains unavailable while reach pairing and effective-light inputs are unresolved.",
+        "Modeled Grand Rapids weather supplies the hourly block component of the downtown Grand Rapids Activity model. Fulton flow and North Park measured temperature remain independent live inputs; none represents the full corridor.",
       sourceNotes:
         "Production-shaped Open-Meteo probe at Fulton Street context coordinates, 2026-08-24.",
     },
@@ -160,7 +219,7 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
     ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "Gauge Read refreshes Fulton hydraulics and North Park temperature independently. Activity remains unavailable and no cross-reach composite is produced.",
+      "Gauge Read refreshes Fulton hydraulics and North Park temperature independently. Reach-scoped Activity requires Grand Rapids hourly weather plus at least one fresh river measurement, and reports Full confidence only when all three inputs are present.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
@@ -219,12 +278,12 @@ const unavailableCapabilities = (fishabilityAvailable = true) => ({
     status: "unavailable" as const,
     reason: "no_accepted_activity_calibration" as const,
     notes:
-      "Fulton hydraulics and North Park temperature are split across Sixth Street, and the effective-light provider contract is unresolved. No cross-reach or weather-only fallback is accepted.",
+      "No unconfigured Grand run may inherit the downtown observed Activity model. Each species requires explicit rules, source scope, replay, and failure behavior.",
     publicCopy: {
       headline:
-        "Activity is unavailable because the accepted Grand River measurements do not describe one shared reach.",
+        "Activity is unavailable because this Grand River run has no accepted reach-scoped calibration.",
       detail:
-        "Fulton Street flow and North Park water temperature remain useful as separately labeled Gauge Read measurements, but FinFindr does not combine them into one responsiveness score.",
+        "Fulton Street flow and North Park water temperature remain separately labeled Gauge Read measurements unless this run explicitly accepts the audited downtown model.",
       tip:
         "Use each Gauge Read only for its named Grand Rapids reach; do not infer a whole-river response.",
     },
@@ -276,7 +335,11 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
-  primitiveCapabilities: unavailableCapabilities(),
+  runStageCopyStrategy: "onboarding_corridor",
+  primitiveCapabilities: {
+    ...unavailableCapabilities(),
+    activity: { status: "available" },
+  },
   runWindow: {
     preRunStart: "08-01",
     stagingStart: "08-10",
@@ -309,6 +372,41 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     ],
     "Draft 7/10 Lower-first sectional curve combines historic Webber passage with the recurring lower-river fishery and current direct Chinook stocking. The ceiling remains below signature 8-10 calibrations because Webber is 102 river miles upstream and passage declines at successive ladders. Chinook guidance never extends above Webber and Middle remains conditional on the current complete route.",
   ),
+  activity: grandObservedActivity({
+    version: "grand-fall-chinook-observed-activity-v3-draft",
+    profile: "chinook_fall_reaction",
+    weights: {
+      light: .35,
+      waterTemperature: .35,
+      riverBehavior: .25,
+      weather: .05,
+    },
+    temperature: {
+      coldF: 45,
+      preferredMinF: 48,
+      preferredMaxF: 60,
+      warmF: 64,
+      barrierF: 70,
+    },
+    stageResponseAdjustment: {
+      pre_run: 3,
+      beginning: 8,
+      building: 20,
+      peak: 18,
+      tapering: -12,
+      ending: -10,
+      post_run: -6,
+    },
+    ending: 49,
+    lifecycle: {
+      peakEnd: "09-30",
+      taperingEnd: "10-20",
+      endingEnd: "11-15",
+    },
+    evidenceNotes:
+      "Observed downtown Grand Rapids candidate for Chinook already present. Fulton hydraulics, North Park measured temperature, and hourly Grand Rapids weather are independently freshness-gated; the model never extends those observations to Grand Haven or the full corridor. The 35/35/25/5 calibration preserves meaningful light and temperature influence while retaining a distinct river-response component and restrained same-block precipitation. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. It does not infer migration, abundance, catch probability, access, or safety.",
+  }),
+  waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(
     "grand-chinook-fulton-fishability-v1-draft",
     1200,
@@ -322,9 +420,10 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-chinook.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "grand-fall-chinook-phase-c-draft-v1",
-    notes: "Hidden until every Phase C gate passes.",
+    isEnabled: true,
+    auditVersion: "grand-fall-chinook-release-audit-v1",
+    notes:
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
@@ -337,7 +436,11 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
-  primitiveCapabilities: unavailableCapabilities(),
+  runStageCopyStrategy: "onboarding_corridor",
+  primitiveCapabilities: {
+    ...unavailableCapabilities(),
+    activity: { status: "available" },
+  },
   runWindow: {
     preRunStart: "08-15",
     stagingStart: "08-25",
@@ -371,6 +474,41 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     ],
     "Draft 8/10 curve reflects strong historic Webber Coho passage and a long November shoulder. Upper distribution remains withheld until every intermediate facility is current and species-supported.",
   ),
+  activity: grandObservedActivity({
+    version: "grand-fall-coho-observed-activity-v3-draft",
+    profile: "coho_fall_reaction",
+    weights: {
+      light: .25,
+      waterTemperature: .4,
+      riverBehavior: .3,
+      weather: .05,
+    },
+    temperature: {
+      coldF: 42,
+      preferredMinF: 45,
+      preferredMaxF: 58,
+      warmF: 62,
+      barrierF: 68,
+    },
+    stageResponseAdjustment: {
+      pre_run: 4,
+      beginning: 10,
+      building: 20,
+      peak: 25,
+      tapering: -24,
+      ending: -12,
+      post_run: -4,
+    },
+    ending: 42,
+    lifecycle: {
+      peakEnd: "09-29",
+      taperingEnd: "11-15",
+      endingEnd: "12-15",
+    },
+    evidenceNotes:
+      "Observed downtown Grand Rapids candidate for Coho already present. The 25/40/30/5 calibration makes measured temperature the leading input, followed by Fulton river behavior, while hourly light separates fishing windows. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It does not infer migration, abundance, catch probability, access, or safety.",
+  }),
+  waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(
     "grand-coho-fulton-fishability-v1-draft",
     1300,
@@ -380,13 +518,14 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   ),
   baselineCoverage: GRAND_BASELINE,
   researchNotes:
-    "Hidden Phase C candidate with fail-closed passage routing and unavailable cross-reach Activity.",
+    "Hidden Phase D candidate with fail-closed passage routing and independently replayed downtown observed Activity. Extrapolation to Grand Haven, the full Lower river, or upstream reaches remains prohibited.",
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-coho.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "grand-fall-coho-phase-c-draft-v1",
-    notes: "Hidden until every Phase C gate passes.",
+    isEnabled: true,
+    auditVersion: "grand-fall-coho-release-audit-v1",
+    notes:
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
@@ -399,7 +538,11 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_entry",
   movementEngineId: "fall_entry_cooling",
-  primitiveCapabilities: unavailableCapabilities(),
+  runStageCopyStrategy: "onboarding_corridor",
+  primitiveCapabilities: {
+    ...unavailableCapabilities(),
+    activity: { status: "available" },
+  },
   runWindow: {
     preRunStart: "09-01",
     stagingStart: "09-10",
@@ -434,6 +577,36 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     ],
     "Draft 7/10 fall-entry curve recognizes the Grand as a major recurring Steelhead fishery, including current stocking, documented fall passage, and current spring-run enforcement observations. September remains sparse, November is the fall high, and the curve retains a holding shoulder. The ceiling does not treat spring abundance as fall abundance. Terminal copy ends the fall model without claiming Steelhead left or died.",
   ),
+  activity: grandObservedActivity({
+    version: "grand-fall-steelhead-observed-activity-v3-draft",
+    profile: "steelhead_feeding",
+    weights: {
+      light: .2,
+      waterTemperature: .4,
+      riverBehavior: .35,
+      weather: .05,
+    },
+    temperature: {
+      coldF: 40,
+      preferredMinF: 42,
+      preferredMaxF: 55,
+      warmF: 60,
+      barrierF: 68,
+    },
+    stageResponseAdjustment: {
+      pre_run: 14,
+      beginning: 24,
+      building: 4,
+      peak: 6,
+      tapering: 2,
+      ending: -5,
+      post_run: -6,
+    },
+    ending: 100,
+    evidenceNotes:
+      "Observed downtown Grand Rapids candidate for a living Steelhead already present. The 20/40/35/5 calibration makes measured temperature and Fulton river behavior dominant while hourly light separates response windows. Audited stage-response adjustments soften the warm-season cliff and preserve a Peak-led fall response shoulder; they do not imply salmon mortality and cannot bypass warm, barrier, or blown-out caps. The profile deliberately has no salmon mortality ramp, taper penalty, or ending cap. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It cannot infer migration, abundance, catch probability, access, or safety.",
+  }),
+  waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(
     "grand-steelhead-fulton-fishability-v1-draft",
     1400,
@@ -447,15 +620,16 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-steelhead.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "grand-fall-steelhead-phase-c-draft-v1",
-    notes: "Hidden until every Phase C gate passes.",
+    isEnabled: true,
+    auditVersion: "grand-fall-steelhead-release-audit-v1",
+    notes:
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-24-grand-phase-c-draft.2",
+  configVersion: "2026-08-25-grand-release.1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

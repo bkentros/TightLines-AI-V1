@@ -979,6 +979,8 @@ export function validateRunProfile(
     run.primitiveCapabilities?.migrationTiming.status === "available";
   const activityAvailable =
     run.primitiveCapabilities?.activity.status === "available";
+  const observedActivityAvailable = activityAvailable &&
+    (run.activity?.dataMode ?? "observed_river") === "observed_river";
   if (river) {
     if (
       (pushAvailable || fishabilityAvailable || timingAvailable) &&
@@ -1021,11 +1023,16 @@ export function validateRunProfile(
   }
   if (pushAvailable || timingAvailable) {
     validatePushRules(run, river, issues);
-    validateRunTemperaturePolicy(run, river, issues);
   } else {
     validateUnsupportedField(run.push, "push", issues);
-    validateUnsupportedField(run.waterTemperature, "waterTemperature", issues);
   }
+  if (pushAvailable || timingAvailable || observedActivityAvailable) {
+    validateRunTemperaturePolicy(run, river, issues);
+  } else {validateUnsupportedField(
+      run.waterTemperature,
+      "waterTemperature",
+      issues,
+    );}
   if (fishabilityAvailable) {
     validateFishabilityBasis(run, river, issues);
   } else {
@@ -1041,7 +1048,7 @@ export function validateRunProfile(
       issues,
     );
   }
-  if (activityAvailable) validateActivityRules(run, issues);
+  if (activityAvailable) validateActivityRules(run, river, issues);
   else validateUnsupportedField(run.activity, "activity", issues);
   validateAuditFields(run, issues);
   validatePublicAuditGate(run, visibilityIssues);
@@ -1061,6 +1068,7 @@ export function validateRunProfile(
 
 function validateActivityRules(
   run: RiverRunProfile,
+  river: RiverProfile | undefined,
   issues: RiverRunValidationIssue[],
 ): void {
   const rules = run.activity;
@@ -1103,6 +1111,21 @@ function validateActivityRules(
     );
   }
   if (
+    rules.caps.weatherOnlyEvidenceScale !== undefined &&
+    (rules.dataMode !== "weather_only" ||
+      !Number.isFinite(rules.caps.weatherOnlyEvidenceScale) ||
+      rules.caps.weatherOnlyEvidenceScale <= 0 ||
+      rules.caps.weatherOnlyEvidenceScale > 1)
+  ) {
+    issues.push(
+      issue(
+        "activity.caps.weatherOnlyEvidenceScale",
+        "The weather-only evidence scale must be greater than 0 and at most 1, and is valid only in weather-only mode.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
     rules.dataMode === "weather_only" &&
     rules.caps.weatherOnlyTomorrowMaximum !== undefined &&
     (!Number.isFinite(rules.caps.weatherOnlyTomorrowMaximum) ||
@@ -1133,6 +1156,90 @@ function validateActivityRules(
           "config_invalid_value",
         ),
       );
+    }
+  }
+  if ((rules.dataMode ?? "observed_river") === "observed_river") {
+    if (
+      rules.minimumInputContract !== undefined &&
+      !["adaptive", "weather_and_one_measured_river_input"].includes(
+        rules.minimumInputContract,
+      )
+    ) {
+      issues.push(issue(
+        "activity.minimumInputContract",
+        "Observed Activity has an invalid minimum input contract.",
+        "config_invalid_value",
+      ));
+    }
+    if (
+      rules.minimumInputContract === "weather_and_one_measured_river_input" &&
+      !rules.inputReach
+    ) {
+      issues.push(issue(
+        "activity.inputReach",
+        "A fail-closed observed Activity contract must explicitly name its reach and scoring sources.",
+        "config_required_field_missing",
+      ));
+    } else if (
+      rules.inputReach && (
+        rules.inputReach.reachIds.length === 0 ||
+        rules.inputReach.hydraulicSourceIds.length === 0 ||
+        rules.inputReach.waterTemperatureSourceIds.length === 0 ||
+        rules.inputReach.weatherPointIds.length === 0 ||
+        !hasText(rules.inputReach.notes)
+      )
+    ) {
+      issues.push(issue(
+        "activity.inputReach",
+        "Observed Activity must name its represented reach and every scoring source.",
+        "config_invalid_value",
+      ));
+    } else if (rules.inputReach && river) {
+      const missingReference = rules.inputReach.reachIds.some((id) =>
+        !river.foundation?.reaches.some((reach) =>
+          reach.reachId === id
+        )
+      ) ||
+        rules.inputReach.hydraulicSourceIds.some((id) =>
+          !river.hydraulicSources.some((source) => source.sourceId === id)
+        ) ||
+        rules.inputReach.waterTemperatureSourceIds.some((id) =>
+          !river.waterTemperatureSources.some((source) =>
+            source.sourceId === id
+          )
+        ) ||
+        rules.inputReach.weatherPointIds.some((id) =>
+          !river.weatherPoints.some((point) => point.weatherPointId === id)
+        );
+      if (missingReference) {
+        issues.push(issue(
+          "activity.inputReach",
+          "Observed Activity input scope references an unknown reach or source.",
+          "config_source_reference_missing",
+        ));
+      }
+    }
+  }
+  if (rules.hydraulicTrend) {
+    const ordered = [
+      rules.hydraulicTrend.rising24h,
+      rules.hydraulicTrend.meaningfulRise24h,
+      rules.hydraulicTrend.sharpRise24h,
+    ];
+    if (
+      ordered.some((threshold) =>
+        !Number.isFinite(threshold.absolute) || threshold.absolute <= 0 ||
+        !Number.isFinite(threshold.percent) || threshold.percent <= 0
+      ) || ordered[0].absolute > ordered[1].absolute ||
+      ordered[1].absolute > ordered[2].absolute ||
+      ordered[0].percent > ordered[1].percent ||
+      ordered[1].percent > ordered[2].percent
+    ) {
+      issues.push(issue(
+        "activity.hydraulicTrend",
+        "Activity hydraulic thresholds must be positive and ordered from rising through sharp rise.",
+        "config_invalid_value",
+      ));
     }
   }
   const temperatures = rules.temperature;
@@ -1192,6 +1299,45 @@ function validateActivityRules(
         "config_invalid_value",
       ),
     );
+  }
+  if (rules.stageResponseAdjustment) {
+    const allowedStages = new Set([
+      "pre_run",
+      "beginning",
+      "building",
+      "peak",
+      "tapering",
+      "ending",
+      "post_run",
+    ]);
+    const invalid = Object.entries(rules.stageResponseAdjustment).some(
+      ([stage, value]) =>
+        !allowedStages.has(stage) || !Number.isFinite(value) || value < -40 ||
+        value > 40,
+    );
+    if (invalid) {
+      issues.push(
+        issue(
+          "activity.stageResponseAdjustment",
+          "Activity stage response adjustments must use known stages and stay between -40 and 40 points.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    if (
+      rules.caps.stageResponseMaximum === undefined ||
+      !Number.isFinite(rules.caps.stageResponseMaximum) ||
+      rules.caps.stageResponseMaximum < 1 ||
+      rules.caps.stageResponseMaximum > 100
+    ) {
+      issues.push(
+        issue(
+          "activity.caps.stageResponseMaximum",
+          "Activity with stage response adjustments requires a true maximum between 1 and 100.",
+          "config_invalid_value",
+        ),
+      );
+    }
   }
   if (
     rules.dataMode === "weather_only" &&

@@ -114,8 +114,18 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
-- Mode candidate: `observed_river`, **blocked** by unresolved clear-sky weather
-  input and replay.
+> **Implementation update (2026-08-25):** The current hidden candidate is
+> `grand-fall-steelhead-observed-activity-v3-draft`. It combines Fulton flow,
+> North Park measured temperature, and Grand Rapids hourly weather only for the
+> downtown Grand Rapids mainstem, with no salmon mortality logic. See
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
+> The accepted v3 stage means are Pre-run 26.50, Beginning 36.51, Building
+> 73.58, Peak 82.90, Tapering 66.75, Ending 60.95, and Post-run 57.00. The
+> bounded stage-response adjustment softens the warm-season cliff while
+> retaining warm/barrier/blown-out caps, a true 96-point maximum, and living-
+> fish late-season semantics.
+
+- Mode: `observed_river`, implemented for hidden review.
 - Temperature: North Park Street/Middle Grand Rapids reach only.
 - Hydraulics: Fulton Street/downtown Lower reach only.
 - Weather: one Grand Rapids point, not corridor-wide.
@@ -150,10 +160,10 @@ Public scope note:
 fresh entry, or catch probability. Grand Rapids inputs describe the Fulton
 Street and North Park reaches, not the full Grand River.`
 
-Acceptance requires weather-input resolution, fixed five-plus-year replay,
-coverage/distribution/subset reporting, isolated block tests, missing/extreme
-caps, distinct Steelhead terminal tests, Today/Tomorrow/DST/block-freeze tests,
-complete intended-state copy fixtures, and owner acceptance.
+The corrected cross-year 2020–2025 replay has 724/768 complete dates and zero
+scoring/copy/cap/mortality invariants. Automated Full/Moderate/Unavailable,
+block, terminal, and generated fixture gates pass. Rendered device review and
+owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
@@ -190,8 +200,8 @@ use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
 - [ ] Exact calendar, ceiling, curve, weights, caps, and bands are
       owner-accepted.
 - [ ] Every displayed upstream route has current passage support.
-- [ ] Activity/Fishability replays, controlled tests, fixtures, automated gates,
-      and device review pass.
+- [x] Activity replay, controlled tests, fixtures, and automated gates pass.
+- [ ] Fishability replay and rendered device/owner review pass.
 
 ## 8. Research evidence ledger
 
@@ -203,6 +213,7 @@ use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
 | S-R004  | Workman, Hayes & Coon, _A Model of Steelhead Movement in Relation to Water Temperature in Two Lake Michigan Tributaries_ | https://doi.org/10.1577/1548-8659(2002)131%3C0463:AMOSMI%3E2.0.CO;2                                                                     | 2002               | Lake Michigan tributary adult movement was temperature-dependent; ~4 °C movement threshold reported   | Pere Marquette/St. Joseph; movement is not Activity responsiveness                        |                                   |
 | S-R005  | USGS 04119000 daily discharge endpoint                                                                                   | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 3,888 seasonal observations and percentile scaffolding                                                | hydrology does not establish fishability                                                  |                                   |
 | S-CAL01 | FinFindr Grand Steelhead Phase C proposal                                                                                | this file                                                                                                                               | 2026-08-24         | dates, curve, ceiling, weights, thresholds, caps, copy intent                                         | owner/replay/QA pending                                                                   |                                   |
+| S-ACT01 | FinFindr Grand observed Activity audit                                                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                            | 2026-08-25         | Downtown proxy validation, cross-year 724/768-date replay, source failure states, downstream decision | not catch-rate validation or whole-river evidence                                        |                                   |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-007, E-009, E-010,
 E-018.
@@ -210,14 +221,15 @@ E-018.
 ## 9. Run gate
 
 **Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `grand-steelhead-fall-config-v2-draft` **Activity rules version:**
-`grand-steelhead-fall-activity-v1-proposed` **Presence curve version:**
+version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+`grand-fall-steelhead-observed-activity-v3-draft` **Presence curve version:**
 `grand-steelhead-fall-presence-v2-draft` **Copy version:**
-`grand-steelhead-fall-copy-v1-proposed` **Replay artifact:** pending **Owner
+`grand-steelhead-fall-copy-v1-proposed` **Replay artifact:**
+`docs/audits/river-run-grand-steelhead-activity-replay.json` **Owner
 acceptance/date:** numeric/research candidate approved for hidden app review /
 2026-08-24
 
-Blocking items: current passage through every displayed section; weather
-clear-sky capability; numeric owner decisions; replays, controlled tests,
-fixtures/gates/device review; construction-era source re-audit; no implemented
+Blocking items: current passage through every displayed section; Fishability
+replay; rendered device/owner review; release authorization;
+construction-era source/station-pair re-audit; no implemented
 spring destination for a handoff.

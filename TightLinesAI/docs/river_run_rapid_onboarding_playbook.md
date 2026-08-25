@@ -1,9 +1,23 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth **Version:** 1.0 **Established:**
+**Status:** Normative source of truth **Version:** 1.1 **Established:**
 2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
 Researching, configuring, validating, reviewing, and handing off a new River Run
 river and its supported fall Chinook, Coho, and Steelhead runs
+
+**Version 1.1 learning source:** Grand, Platte, and White onboarding and
+Activity audit. It adds full-calendar evidence classification, ordinal strength
+comparison, species-specific passage chains, same-reach Activity decisions,
+provider recovery, cross-year replay, fast execution, and post-review learning
+requirements.
+
+**Current runtime boundary:** River Run presently supports the Great Lakes
+region, its configured state enum, and the implemented run/biology engines. A
+river in another state is not automatically a supported biological region.
+Expanding beyond those types requires a separately reviewed schema, biology,
+movement-engine, regulations, catalog, and copy-model expansion before this
+river workflow can be applied. Never disguise a new-region build as ordinary
+configuration onboarding.
 
 ## 1. Authority
 
@@ -108,6 +122,26 @@ Never repeat river geography research independently for each species. Never
 assume shared geography means shared calendar, presence, passage, Activity, or
 lifecycle.
 
+### 4.1 Evidence questions that must remain separate
+
+For each species, answer these independently:
+
+1. Does the species occur in the connected system?
+2. Is there a recurring migratory run in the configured river?
+3. Is it a dependable public opportunity, or sparse/occasional?
+4. Where can that species actually pass, and what is the conservative product
+   endpoint?
+5. When do first entry, building, peak, decline, and the terminal tail occur?
+6. How strong is the run relative to the accepted portfolio, and how widely is
+   it distributed?
+7. How good is the evidence for each conclusion?
+
+Do not let a strong answer to one substitute for another. Stocking can support
+occurrence without proving adult strength. A weir collection date can document
+mature fish without identifying initial entry. One ladder count can prove
+passage at that structure without describing the whole river. A famous river
+name does not establish every species.
+
 ## 5. Create the onboarding workspace
 
 From the repository root:
@@ -132,6 +166,10 @@ docs/onboarding/river-run/example_river/
     └── fall-steelhead.md
 ```
 
+The scaffolder currently accepts only the state codes implemented by the Great
+Lakes runtime types. A rejected state is an engine-expansion signal, not a
+reason to edit around the guard.
+
 The scaffolder never overwrites an existing workspace. Do not rename packet
 files; automation and reviewers rely on the stable layout.
 
@@ -143,6 +181,30 @@ Absence of a result in one current summary page is never proof that a run does
 not exist. A disabled or unsupported decision has a higher evidence burden than
 a supported-but-conservative draft because a false negative removes a real
 fishery from the product.
+
+### 5.1 Fast-start research bundle
+
+Before opening many browser tabs, create one shared river evidence bundle and
+one species comparison matrix. Search and capture authoritative sources once,
+then route each supported fact into the foundation and affected run packets.
+
+The shared bundle should contain:
+
+- Current agency river/fishery assessments and regulations.
+- Official barrier, ladder, weir, removal, and passage records.
+- Live and historical station metadata plus actual endpoint probes.
+- Stocking, creel, harvest, passage, egg-take, enforcement, and technical-report
+  archives for all candidate species and aliases.
+- Accepted portfolio runs used only for comparison.
+
+The species matrix should place Chinook, Coho, and Steelhead side by side for
+occurrence, recurrence, strength evidence, dates, distribution, barriers,
+lifecycle, source quality, contradictions, and unresolved facts. This exposes
+cross-species inconsistencies early and prevents repeated river research.
+
+Store exact report titles, URLs, publication/event dates, relevant pages or
+tables, and limitations immediately. Do not rely on remembered search snippets
+or plan to reconstruct citations after configuration.
 
 ## 6. Phase A — river foundation lock
 
@@ -209,6 +271,13 @@ Verify structure status and fish passage separately. A ladder is not proof of
 unrestricted, year-round, species-neutral passage. When passage affects where
 the app sends users, use a second authoritative source when possible.
 
+Record a separate endpoint decision for each species. Different endpoints are
+expected when ladder design, operations, attraction, documented passage, or the
+evidence chain differs. Inventory every intervening structure from mouth to
+endpoint; proving passage at the last dam does not prove passage through all
+earlier dams. Temporary weirs and signed exclusion zones can be product limits
+even when they are not permanent biological barriers.
+
 An unresolved barrier ends the public corridor below it. Limited passage is not
 rewritten as impassable; product scope and biological passage remain distinct.
 
@@ -253,6 +322,14 @@ For each plausible source verify the real endpoint and parameter:
 
 Do not accept a source because a station exists on a map. Prove that the exact
 series and needed live/history endpoints work.
+
+Probe returned timestamps and numeric values, not only HTTP success. Record
+parameter codes, null/sentinel behavior, timezone, unit conversion, cadence,
+rating or datum changes, provider maintenance notices, and a reproducible probe
+date. When a source temporarily fails, the app must automatically resume normal
+fresh display and scoring after valid readings return; ordinary provider
+recovery must not require a code change. While the provider is faulty, fail
+closed and show the truthful stale/missing state.
 
 ### B2. Select source roles
 
@@ -302,7 +379,48 @@ For each species:
 9. Configure Fishability or deterministic unavailability.
 10. Complete the dedicated Activity track.
 
-### C0. Mandatory configuration-field inventory
+### C0. Calendar evidence protocol
+
+Research the complete curve, not only start/peak/end. Prefer direct river
+records that expose dates or weekly distributions: weir/ladder daily counts,
+harvest tables, creel timing, egg-take operations, enforcement observations, and
+agency fishery descriptions. Record the event year separately from the
+publication year.
+
+Distinguish:
+
+- Fish concentrating near the mouth from entering the river.
+- Sparse first arrivals from dependable beginning.
+- Peak migration/passage from peak harvest, spawning, egg take, or agency
+  operations.
+- One unusual year from the intended multi-year calendar.
+- A structure becoming effective from the fish actually arriving that day.
+
+When only a biased or incomplete operation exists, use it as a bounded anchor,
+state the limitation, and avoid false day-level certainty. Calendar anchors are
+product dates informed by evidence; label them as calibrations unless the source
+directly establishes the same boundary.
+
+### C1. Strength and distribution protocol
+
+The 1–10 maximum is an ordinal portfolio calibration, not a population count.
+Complete a portfolio comparison before selecting it. At minimum compare:
+
+- Direct adult counts and their years/coverage.
+- Creel/harvest and destination-fishery evidence.
+- Current and historic stocking in the receiving river.
+- Natural reproduction and tributary contribution.
+- Corridor length, concentration, and passage attrition.
+- Recency, trend, and whether evidence represents the mouth, one ladder, one
+  reach, or the whole accessible river.
+
+Set `maximum` and `distributionScope` independently. A small run can be broad; a
+strong run can be concentrated. Record the closest lower and higher accepted
+portfolio comparators and why the proposed run belongs between them. If the
+evidence cannot distinguish adjacent ratings, choose conservatively and mark the
+calibration confidence instead of manufacturing precision.
+
+### C2. Mandatory configuration-field inventory
 
 Before implementation, copy the current engine/profile schema into the run
 packet as a field inventory. Complete it for every species independently. The
@@ -344,7 +462,7 @@ any packet value not reflected in code, blocks review.
 Do not infer Coho dates from Chinook, Steelhead lifecycle from salmon, or run
 strength from river size or reputation.
 
-### C1. Mandatory candidate capability audit
+### C3. Mandatory candidate capability audit
 
 Before either `supported` or `unsupported` is allowed, search each candidate
 independently using the scientific name and local aliases such as `king`,
@@ -411,6 +529,47 @@ Minimum deliverables per river/species:
 - State copy and foreign-geography checks.
 
 Activity remains blocked until historical replay and owner review pass.
+
+### D1. Same-reach source decision
+
+Observed-river Activity requires accepted hydraulics and measured water
+temperature that describe the same represented reach, plus the accepted weather
+point. Nearby stations on opposite sides of a dam, lake, major tributary,
+tailwater boundary, or long corridor cannot be combined merely because both are
+on the named river. Live Conditions may still display each separately with its
+own reach label.
+
+If two nearby mainstem stations could represent a narrow reach, run a proxy
+validation before rejecting or accepting the pair: map the distance and every
+intervening control; compare simultaneous observations against any archived or
+co-located reference; report signed bias and absolute-error percentiles; check
+construction-era changes; then bind the score to the narrowest defensible
+reach. This evidence authorizes only that reach, never the whole named section.
+
+When the sources do not pair, decide explicitly between:
+
+- A narrower observed reach with truly compatible inputs.
+- An independently calibrated weather-only profile.
+- Activity unavailable while research continues.
+
+Never silently fall back from observed-river to weather-only at runtime.
+Observed models must also state whether one missing river input is capped
+Moderate and which combinations are Unavailable. Full confidence requires all
+configured measured inputs plus usable target-day hourly weather.
+
+### D2. Missing-primary-evidence calibration
+
+Weather-only weights must total one using only supported weather inputs. If the
+omitted input is the species' primary accepted response driver—measured water
+temperature for current Steelhead profiles, for example—review whether a
+versioned proportional evidence scale or stricter true maximum is necessary.
+Such a control requires a biological/product rationale, sensitivity replay,
+before/after ledger, and owner review. It cannot be introduced only to create a
+prettier label histogram, and it must not be copied to other species.
+
+Missing required hourly weather returns `Unavailable`, no score, no blocks, and
+no strongest-window language. It is not an Inactive zero. Provider recovery must
+restore scoring automatically when complete valid hours resume.
 
 ## 10. Phase E — write public copy
 
@@ -494,14 +653,26 @@ The replay must evaluate all four blocks for every usable day. Report overall,
 per-stage, per-block, and stage-by-block counts and min/p10/mean/median/p90/max,
 plus label shares, cap frequency, confidence states, missing-input states,
 best-block frequency, and block spread. Review stage means as diagnostics: they
-must be biologically coherent, but they are not target scores to force. If a
-stage or block is too sparse to interpret, extend the fixed reliable record or
-leave calibration blocked.
+must be biologically coherent, but they are not arbitrary numeric targets to
+force. Peak must be the highest mean; Building and Tapering must sit below and
+normally within 20 points of Peak; Pre-run, Beginning, Ending, and residual
+stages must be lower without unexplained cliffs. If accepted environmental
+history masks that lifecycle shape, verify calendar/source/threshold accuracy
+before testing a bounded, versioned stage-response adjustment. Such an
+adjustment requires a true maximum and must not bypass warm, barrier,
+extreme-flow, or missing-data caps. If a stage or block is too sparse to
+interpret, extend the fixed reliable record or leave calibration blocked.
 
 After any weight, breakpoint, cap, lifecycle, calendar, source, or scoring-code
 change, rerun the complete fixed interval and attach before/after results. A
 single attractive day, an overall mean, compile success, or fixture generation
 cannot accept Activity.
+
+Replay date iteration must use local seasonal intervals, not lexical month-day
+loops. Runs that cross December into January must advance the end and all
+affected stage/lifecycle dates into the following calendar year. The replay must
+prove its expected-day calculation and include a cross-year controlled test
+whenever `lateEnd` is earlier than `stagingStart`.
 
 ### G3. Fishability replay
 
@@ -524,6 +695,41 @@ Cover:
   today/tomorrow states, lifecycle phases, caps, and missing modes.
 - Representative valid cross-primitive tensions.
 - Live Conditions fresh/partial/stale/missing/history states.
+
+When a primitive changes from unavailable to an implemented candidate,
+regenerate its private fixtures and update assertions so review cannot pass
+against stale unavailable snapshots. Fixture generation, current-fixture
+checking, and intended-state QA are separate commands and all must pass.
+
+Every hidden run approved for owner review must also be selectable in the
+development review catalog. Verify the complete State → Season → Species → River
+path for every supported combination. A current generated fixture that cannot be
+reached through the app is not review-ready.
+
+Review copy cadence separately from score cadence. Fish In River curves must
+interpolate through the configured anchors, but a daily-changing number does not
+make multi-week reach guidance adequate. During every active run, replay each
+calendar day and verify that Lower → Middle/Forest → Upper/terminal progression
+changes when the evidence supports it, names the river's real sections, and
+never jumps past an unresolved barrier. Add an intermediate boundary when one
+stage would otherwise hold stale starting-reach advice through a meaningful
+migration transition.
+
+The owner-review Stage selector must expose every date on which Stage copy can
+change, not only the headline configuration anchors. Include the last day and
+first day on both sides of `beginningEnd`, `peakEnd`, `taperingEnd`, `end`, and
+`postRunLateCopyEnd`, plus every configured established/broad/peak checkpoint.
+This prevents a valid intermediate transition—such as a Lower-first corridor
+opening to a secondary inland check—from existing in production code while
+remaining invisible to the owner reviewing fixtures.
+
+Owner review has two separate modes. **Current Live** must run the selected
+hidden configuration through the authenticated server/provider path used by
+production. **Scenario Fixtures** remain isolated deterministic inputs for
+boundary testing. The visible Gauge Read in either owner-review mode comes from
+the current live response and fails closed when that request fails; fixture
+measurements are never substituted. Synthetic gauge/temperature cases remain
+automated acceptance artifacts, not a current-looking device read.
 
 ### G5. Cross-platform visual review
 
@@ -556,7 +762,40 @@ A river is onboarding-complete only when:
 - The product owner accepts public geography, copy, and visual output.
 - Deployment and enablement remain unperformed unless separately authorized.
 
-## 14. Multi-agent operating protocol
+## 14. Fast execution protocol
+
+Speed comes from eliminating duplicate work and catching wrong assumptions
+early—not from skipping evidence or replay.
+
+Use this critical path:
+
+1. Scaffold the packet and inspect current schema/tests.
+2. Build the shared source bundle and three-species comparison matrix in one
+   research pass.
+3. Lock geography, every barrier, species endpoints, regulations, and source
+   reaches once.
+4. Probe live/history providers concurrently and record reusable results.
+5. Complete all three capability/calendar/strength packets side by side.
+6. Reconcile every configuration field before writing code.
+7. Implement hidden river/run profiles with shared helpers only for genuinely
+   identical mechanics; keep evidence and versioning species/river-specific.
+8. Run structural QA before expensive historical downloads.
+9. Batch independent replays by source/weather point, cache immutable archive
+   responses where tooling supports it, and never change the fixed interval
+   after seeing results without a documented data-quality reason.
+10. Review compact summary tables first, then inspect stage-by-block and
+    boundary outliers before tuning.
+11. Rerun the full interval after accepted changes, generate private fixtures,
+    and run copy/visual QA once scoring is stable.
+12. Present one consolidated owner review covering all species and explicitly
+    list what remains hidden.
+
+Avoid repeated broad web searches, per-species duplication of river facts,
+manual editing of generated fixtures, one-day score tuning, and premature dev
+builds. Record reusable commands in `package.json` or the audit so another agent
+can reproduce the work without reconstructing the process.
+
+## 15. Multi-agent operating protocol
 
 The preferred future team structure is:
 
@@ -574,7 +813,7 @@ isolated files. Only the integration owner edits shared registries. A handoff
 must state files changed, commands/results, citations, owner-calibrated
 decisions, unresolved issues, and whether deployment or enablement occurred.
 
-## 15. Required agent start response
+## 16. Required agent start response
 
 Before changing a future river, an agent must be able to state in its own words:
 
@@ -582,10 +821,41 @@ Before changing a future river, an agent must be able to state in its own words:
 - Why Live Conditions is separate and unscored.
 - The river-level versus run-level split.
 - The barrier/passage fail-closed rule.
+- Why endpoints can differ by species and require a complete passage chain.
+- Why migration, harvest, spawning, egg-take, and operations dates are not
+  interchangeable.
+- Why run strength and distribution scope are separate portfolio calibrations.
 - The difference between observed-river and weather-only Activity.
 - Why Activity requires a river/species replay.
+- Why cross-year seasons require year-aware replay dates.
 - The date-average ±3-day rule.
+- How provider faults fail closed and valid readings automatically recover.
 - The separation of acceptance, deployment, and public enablement.
 
 If the agent cannot do so after reading the standards, it is not ready to
 onboard the river.
+
+## 17. Post-review correction and continuous-learning protocol
+
+Owner review is an evidence gate, not an informal cleanup. For every reported
+error:
+
+1. Reproduce the exact state and classify the cause: missing research, source
+   misread, calendar interpretation, strength comparison, passage/endpoint,
+   source reach, scoring mechanics, copy, fixture, or visual layout.
+2. Correct the river/run packet, configuration, audit artifact, fixtures, and
+   tests together. Never fix only the displayed sentence when the underlying
+   structured truth is wrong.
+3. Rerun every gate affected by the change, including full historical replay for
+   calendar, weight, cap, lifecycle, source, or scoring changes.
+4. Add an acceptance-ledger row with before/after behavior and reviewer/date.
+5. Ask whether the cause could recur on another river. If yes, update the
+   canonical playbook, relevant standard/template, packet validator, and QA in
+   the same change whenever practical.
+6. Record why the generalized rule is correct and which cases it must not
+   overgeneralize to.
+
+Do not add a vague lesson such as “research more.” Convert it into a concrete
+required question, template field, validation rule, test, or reproducible
+command. Future agents should encounter the safeguard before they can repeat the
+mistake.

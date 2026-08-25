@@ -91,7 +91,7 @@ const targets: DraftTarget[] = [
   })),
 ];
 
-const engineVersion = "river-run-v1.5.3-onboarding-review";
+const engineVersion = "river-run-v1.13.0-onboarding-review";
 const groupsByRunId = Object.fromEntries(
   targets.map((target) => [target.run.runId, buildGroups(target)]),
 );
@@ -134,15 +134,21 @@ function buildGroups(target: DraftTarget): RiverRunReviewGroup[] {
     window.preRunStartDate,
     window.stagingStartDate,
     window.startDate,
+    window.beginningEndDate,
+    addDays(window.beginningEndDate, 1),
     window.buildingEstablishedStartDate,
     window.buildingBroadStartDate,
     window.peakStartDate,
     window.peakDate,
     window.peakEndDate,
+    addDays(window.peakEndDate, 1),
     window.taperingEndDate,
+    addDays(window.taperingEndDate, 1),
     window.endDate,
+    addDays(window.endDate, 1),
     window.lateEndDate,
     addDays(window.lateEndDate, 1),
+    window.postRunLateCopyEndDate,
     addDays(window.postRunLateCopyEndDate, 1),
   ]);
   const presenceDates = uniqueDates([
@@ -206,6 +212,37 @@ function buildGroups(target: DraftTarget): RiverRunReviewGroup[] {
         rainSignal: "light_rain",
         activityTargetDate: addDays(reviewDate, 1),
       }),
+      ...(run.activity?.dataMode !== "weather_only"
+        ? [
+          scenario(
+            target,
+            "activity_missing_temperature",
+            "Moderate · temperature unavailable",
+            reviewDate,
+            { waterTempF: null, waterTemperatureFreshness: "missing" },
+          ),
+          scenario(
+            target,
+            "activity_missing_hydraulics",
+            "Moderate · hydraulics unavailable",
+            reviewDate,
+            { flowCfs: null, gaugeFreshness: "missing", flowSignal: "unknown" },
+          ),
+          scenario(
+            target,
+            "activity_missing_both_river_inputs",
+            "Unavailable · river inputs unavailable",
+            reviewDate,
+            {
+              flowCfs: null,
+              gaugeFreshness: "missing",
+              flowSignal: "unknown",
+              waterTempF: null,
+              waterTemperatureFreshness: "missing",
+            },
+          ),
+        ]
+        : []),
     ];
   const fishabilityScenarios = run.primitiveCapabilities.fishability.status ===
         "unavailable" || !run.fishabilityBands

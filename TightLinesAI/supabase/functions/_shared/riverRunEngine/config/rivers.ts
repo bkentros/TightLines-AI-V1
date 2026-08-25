@@ -1,4 +1,9 @@
 import type { RiverProfile } from "../types.ts";
+import {
+  GRAND_RIVER_PROFILE,
+  PLATTE_RIVER_PROFILE,
+  WHITE_RIVER_PROFILE,
+} from "./onboarding/index.ts";
 
 export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
   riverId: "pere_marquette",
@@ -1166,4 +1171,7 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   BIG_MANISTEE_RIVER_PROFILE,
   MUSKEGON_RIVER_PROFILE,
   ST_JOSEPH_RIVER_PROFILE,
+  GRAND_RIVER_PROFILE,
+  PLATTE_RIVER_PROFILE,
+  WHITE_RIVER_PROFILE,
 ];

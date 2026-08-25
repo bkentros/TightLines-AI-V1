@@ -163,6 +163,68 @@ export function scoreActivity(input: {
   );
   const hasWeather = input.weatherFreshness !== "missing" &&
     targetWeather.length > 0;
+  if (weatherOnly && !hasWeather) {
+    const tomorrowLabel = tomorrow ? "Tomorrow’s" : "Today’s";
+    const scope = input.rules.scopeCopy ? ` ${input.rules.scopeCopy}` : "";
+    return {
+      score: null,
+      maximum: 100,
+      label: "Unavailable",
+      headline:
+        `${tomorrowLabel} weather-only ${species} activity outlook is unavailable.`,
+      detail:
+        `Required hourly weather is unavailable, so no four-hour block can be scored or ranked. River level, clarity, and measured water temperature are unknown.${scope}`,
+      tip:
+        "Check back after hourly weather resumes, and independently verify actual river conditions before fishing.",
+      reasonCodes: [
+        "activity_confidence_limited",
+        tomorrow ? "activity_tomorrow" : "activity_today",
+        "activity_weather_only",
+        "activity_weather_missing",
+      ],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: tomorrow ? "Tomorrow" : "Today",
+      confidence: "Limited",
+      conditionalPresence: input.staging,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (
+    !weatherOnly &&
+    input.rules.minimumInputContract ===
+      "weather_and_one_measured_river_input" &&
+    (!hasWeather || (!hasTemperature && !hasRiver))
+  ) {
+    const tomorrowLabel = tomorrow ? "Tomorrow’s" : "Today’s";
+    const scope = input.rules.scopeCopy ? ` ${input.rules.scopeCopy}` : "";
+    const missing = !hasWeather
+      ? "Required hourly weather is unavailable, so no four-hour block can be scored or ranked."
+      : "Both measured river inputs are unavailable, so the model cannot produce an observed-river score.";
+    return {
+      score: null,
+      maximum: 100,
+      label: "Unavailable",
+      headline: `${tomorrowLabel} ${species} activity outlook is unavailable.`,
+      detail:
+        `${missing} The model does not substitute neutral values for a failed source.${scope}`,
+      tip:
+        "Check back after the required live sources resume, and independently verify actual river conditions before fishing.",
+      reasonCodes: [
+        "activity_confidence_limited",
+        tomorrow ? "activity_tomorrow" : "activity_today",
+        ...(!hasWeather ? ["activity_weather_missing" as const] : []),
+      ],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: tomorrow ? "Tomorrow" : "Today",
+      confidence: "Limited",
+      conditionalPresence: input.staging,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   const confidence: ActivityConfidence =
     hasWeather && hasTemperature && hasRiver && !tomorrow
       ? "Full"
@@ -210,6 +272,9 @@ export function scoreActivity(input: {
     });
     let score = Math.round(weighted);
     if (weatherOnly) {
+      score = Math.round(
+        score * (input.rules.caps.weatherOnlyEvidenceScale ?? 1),
+      );
       score = Math.min(
         score,
         tomorrow
@@ -266,6 +331,35 @@ export function scoreActivity(input: {
       input.targetDate,
       score,
     );
+    score = applyStageResponseAdjustment(
+      input.rules,
+      input.runStage,
+      score,
+    );
+    // A stage prior may soften an otherwise over-dominant environmental
+    // distribution, but it must never bypass the accepted hard-condition caps.
+    if (input.rules.stageResponseAdjustment) {
+      const finalDataCeilings = [
+        ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
+        ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
+        ...(confidence === "Limited" ? [69] : []),
+      ];
+      if (finalDataCeilings.length) {
+        score = Math.min(score, ...finalDataCeilings);
+      }
+      if (
+        input.waterTempF != null &&
+        input.waterTempF >= input.rules.temperature.barrierF
+      ) {
+        score = Math.min(score, 29);
+      } else if (
+        input.waterTempF != null &&
+        input.waterTempF >= input.rules.temperature.warmF
+      ) {
+        score = Math.min(score, 39);
+      }
+      if (input.flowBand === "blown_out") score = Math.min(score, 19);
+    }
     const drivers = [
       {
         value: weightedImpact(light, input.rules.weights.light),
@@ -1258,6 +1352,18 @@ function applySalmonLifecycleAdjustment(
   return stage === "ending" || stage === "post_run"
     ? proportionalCeiling(score, rules.caps.ending)
     : score;
+}
+
+function applyStageResponseAdjustment(
+  rules: ActivityRules,
+  stage: RunStage,
+  score: number,
+): number {
+  const adjustment = rules.stageResponseAdjustment?.[stage] ?? 0;
+  return Math.min(
+    rules.caps.stageResponseMaximum ?? 100,
+    clamp(score + adjustment),
+  );
 }
 
 function blendScore(from: number, to: number, progress: number): number {

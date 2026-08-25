@@ -22,6 +22,7 @@ import {
   type LastSupportivePushConditions,
   listPublishedConfigurations,
   listVisibleRiverRuns,
+  metricValue,
   type NormalizedGaugeObservation,
   type NormalizedWaterTemperatureObservation,
   normalizeGaugeRead,
@@ -39,11 +40,15 @@ import {
   type RecentDailyPushConditions,
   type RefreshSlot,
   resolveConditionsSuggestCheckpointState,
+  resolveFlowBand,
   resolveLatestRefreshSlot,
   resolveNextConditionRefresh,
   resolvePushReadWindow,
   resolveRunStage,
   resolveWaterTemperatureRead,
+  RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS,
+  RIVER_RUN_DRAFT_RIVER_PROFILES,
+  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   type RiverLiveConditions,
@@ -68,7 +73,10 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
-import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  isAdminEmail,
+  resolveServerSubscriptionTier,
+} from "../_shared/appAccess.ts";
 import {
   FREE_TRIAL_PROFILE_SELECT,
   freeRiverRunTrialAvailable,
@@ -77,7 +85,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.11.0";
+const ENGINE_VERSION = "river-run-v1.14.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -270,6 +278,11 @@ export async function handleRiverRunRequest(
     return new Response(null, { headers: corsHeaders() });
   }
   const url = new URL(req.url);
+  if (
+    req.method === "GET" && url.pathname.endsWith("/review/snapshot")
+  ) {
+    return await handleOwnerReviewSnapshot(req, url, deps);
+  }
   const catalog = await resolveRuntimeCatalog(deps);
   if (catalog instanceof Response) return catalog;
   const rivers = deps.rivers ?? catalog.rivers;
@@ -489,6 +502,131 @@ export async function handleRiverRunRequest(
     return jsonError(
       "River Run is temporarily unavailable.",
       "river_run_temporarily_unavailable",
+      503,
+    );
+  }
+}
+
+async function handleOwnerReviewSnapshot(
+  req: Request,
+  url: URL,
+  deps: RiverRunHandlerDeps,
+): Promise<Response> {
+  const riverId = url.searchParams.get("riverId") ?? "";
+  const runId = url.searchParams.get("runId") ?? "";
+  const requestedPresentationState =
+    url.searchParams.get("presentationState")?.trim().toUpperCase() ?? "";
+  const reviewRivers = [
+    ...RIVER_RUN_RIVER_PROFILES,
+    ...RIVER_RUN_DRAFT_RIVER_PROFILES,
+  ];
+  const reviewRuns = [
+    ...RIVER_RUN_RUN_PROFILES,
+    ...RIVER_RUN_DRAFT_RUN_PROFILES,
+  ];
+  const river = reviewRivers.find((item) => item.riverId === riverId);
+  const run = reviewRuns.find((item) =>
+    item.runId === runId && item.riverId === riverId
+  );
+  if (!river || !run) {
+    return jsonError(
+      "Owner-review River Run profile not found.",
+      "river_run_review_not_found",
+      404,
+    );
+  }
+
+  const presentation = resolveSnapshotPresentation(
+    river,
+    requestedPresentationState,
+  );
+  if (!presentation) {
+    return jsonError(
+      "A valid state presentation is required for this owner-review River Run.",
+      "river_run_review_presentation_not_found",
+      400,
+    );
+  }
+
+  const client = deps.createAdminClient?.() ?? createDefaultAdminClient();
+  const auth = await authenticateSnapshotRequest(req, client);
+  if (auth instanceof Response) return auth;
+  if (!isAdminEmail(auth.email)) {
+    return jsonError(
+      "Owner-review access is restricted.",
+      "river_run_review_forbidden",
+      403,
+    );
+  }
+
+  const now = deps.now ?? new Date();
+  const timing = resolveRequestTiming(url, river, run, now, false);
+  const liveConditionsTiming = resolveRiverLiveConditionsTiming({
+    url,
+    river,
+    runs: reviewRuns,
+    fallbackRun: run,
+    now,
+    allowTestOverrides: false,
+  });
+  const configVersion = RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.find(
+    (document) => document.river.riverId === riverId,
+  )?.configVersion ?? staticConfigurationVersionForRun(runId);
+  const engineVersion = deps.engineVersion ?? ENGINE_VERSION;
+  const providerFetch = deps.fetchFn ?? fetch;
+
+  try {
+    const [result, riverConditions] = await Promise.all([
+      readOrBuildSnapshot({
+        client,
+        river,
+        run,
+        timing,
+        engineVersion,
+        configVersion,
+        fetchFn: providerFetch,
+        gaugeObservations: deps.gaugeObservations,
+        waterTemperatureObservationsBySource:
+          deps.waterTemperatureObservationsBySource,
+        weatherSnapshot: deps.weatherSnapshot,
+      }),
+      readOrBuildRiverLiveConditions({
+        client,
+        river,
+        localDate: liveConditionsTiming.localDate,
+        refreshSlot: liveConditionsTiming.refreshSlot,
+        refreshAtUtc: liveConditionsTiming.refreshAtUtc,
+        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+        gaugeObservations: deps.gaugeObservations,
+        waterTemperatureObservationsBySource:
+          deps.waterTemperatureObservationsBySource,
+        seasonalContextsByMetric: deps.seasonalContextsByMetric,
+      }),
+    ]);
+    const pushHistory = await resolvePushHistoryContext({
+      client,
+      dailySnapshot: result.dailySnapshot,
+      condition: result.condition,
+      rulesVersion: run.push?.version ?? "",
+    });
+    return jsonResponse(shapeSnapshotResponse({
+      ...result,
+      river,
+      run,
+      timing,
+      pushHistory,
+      presentation,
+      riverConditions,
+    }));
+  } catch (error) {
+    console.error("[river-run] owner-review snapshot failed", {
+      riverId,
+      runId,
+      message: error instanceof Error ? error.message : String(error),
+    });
+    return jsonError(
+      "Owner-review River Run is temporarily unavailable.",
+      "river_run_review_temporarily_unavailable",
       503,
     );
   }
@@ -1138,10 +1276,9 @@ async function readOrBuildConditionRefresh(input: {
   throwOnStorageError("read prior Activity", previousActivityResult.error);
   const previousActivity = previousActivityResult.data;
 
-  const allCurrentPrimitivesUnavailable =
-    input.run.primitiveCapabilities.push.status === "unavailable" &&
-    input.run.primitiveCapabilities.fishability.status === "unavailable";
-  if (allCurrentPrimitivesUnavailable) {
+  const pushUnavailable =
+    input.run.primitiveCapabilities.push.status === "unavailable";
+  if (pushUnavailable) {
     const activityTargetStage = resolveRunStage(input.run, activityTargetDate);
     const activityActive =
       input.run.primitiveCapabilities.activity?.status === "available" &&
@@ -1154,6 +1291,55 @@ async function readOrBuildConditionRefresh(input: {
           activityTargetStage.window.lateEndDate,
         ) <= 0;
     const boundedFetch = withTimeoutFetch(input.fetchFn, PROVIDER_TIMEOUT_MS);
+    const fishabilityAvailable =
+      input.run.primitiveCapabilities.fishability.status === "available";
+    const observedActivity = activityActive &&
+      input.run.activity?.dataMode !== "weather_only";
+    const primaryHydraulicSource = fishabilityAvailable || observedActivity
+      ? getPrimaryHydraulicSource(input.river)
+      : null;
+    const gaugeObservations = primaryHydraulicSource
+      ? input.gaugeObservations ?? await fetchLiveGaugeOrEmpty({
+        fetchFn: boundedFetch,
+        river: input.river,
+        refreshAtUtc: input.refreshAtUtc,
+      })
+      : [];
+    const gauge = primaryHydraulicSource
+      ? normalizeGaugeRead({
+        observations: gaugeObservations,
+        siteId: primaryHydraulicSource.siteId,
+        primaryMetric: primaryHydraulicSource.primaryMetric,
+        refreshAtUtc: input.refreshAtUtc,
+        maxAgeHours: primaryHydraulicSource.maxAgeHours,
+        riseThresholds: input.run.activity?.hydraulicTrend
+          ? {
+            rising24hAbsolute:
+              input.run.activity.hydraulicTrend.rising24h.absolute,
+            rising24hPercent:
+              input.run.activity.hydraulicTrend.rising24h.percent,
+            meaningfulRise24hAbsolute:
+              input.run.activity.hydraulicTrend.meaningfulRise24h.absolute,
+            meaningfulRise24hPercent:
+              input.run.activity.hydraulicTrend.meaningfulRise24h.percent,
+            sharpRise24hAbsolute:
+              input.run.activity.hydraulicTrend.sharpRise24h.absolute,
+            sharpRise24hPercent:
+              input.run.activity.hydraulicTrend.sharpRise24h.percent,
+          }
+          : undefined,
+      })
+      : null;
+    const currentHydraulicValue = gauge?.current && primaryHydraulicSource
+      ? metricValue(gauge.current, primaryHydraulicSource.primaryMetric)
+      : null;
+    const flowBand = currentHydraulicValue != null && input.run.fishabilityBands
+      ? resolveFlowBand({
+        metric: primaryHydraulicSource!.primaryMetric,
+        value: currentHydraulicValue,
+        fishabilityBands: input.run.fishabilityBands,
+      })?.band
+      : undefined;
     const weatherSnapshot = activityActive
       ? input.weatherSnapshot ?? await fetchLiveWeatherOrNull({
         fetchFn: boundedFetch,
@@ -1166,6 +1352,38 @@ async function readOrBuildConditionRefresh(input: {
       refreshAtUtc: input.refreshAtUtc,
       localDate: input.localDate,
     });
+    const temperatureSources = observedActivity && input.run.waterTemperature
+      ? getRunTemperatureSources(input.river, {
+        waterTemperature: input.run.waterTemperature,
+      })
+      : [];
+    const temperaturePayload = temperatureSources.length === 0
+      ? { observationsBySource: {}, rejectedBySource: {} }
+      : input.waterTemperatureObservationsBySource
+      ? {
+        observationsBySource: input.waterTemperatureObservationsBySource,
+        rejectedBySource: {},
+      }
+      : await fetchLiveWaterTemperatures({
+        fetchFn: boundedFetch,
+        sources: temperatureSources,
+        refreshAtUtc: input.refreshAtUtc,
+      });
+    const waterTemperature = temperatureSources.length > 0 &&
+        input.run.waterTemperature
+      ? resolveWaterTemperatureRead({
+        sources: temperatureSources,
+        sourcePriority: input.run.waterTemperature.sourcePriority,
+        observationsBySource: temperaturePayload.observationsBySource,
+        rejectedBySource: temperaturePayload.rejectedBySource,
+        refreshAtUtc: input.refreshAtUtc,
+      })
+      : null;
+    const measuredTemperature = waterTemperature?.current &&
+        waterTemperature.freshness === "fresh" &&
+        waterTemperature.smoothedWaterTempF != null
+      ? waterTemperature
+      : null;
     const primaryWeatherPoint = getPrimaryWeatherPoint(input.river);
     const built = buildConditionRefresh({
       dailySnapshot: input.dailySnapshot,
@@ -1185,26 +1403,49 @@ async function readOrBuildConditionRefresh(input: {
             activityTargetStage.window.startDate,
           ) < 0,
       previousActivity,
-      gaugeFreshness: "missing",
+      fishabilityBands: input.run.fishabilityBands,
+      gaugeFreshness: gauge?.gaugeFreshness ?? "missing",
       weatherFreshness: weather.weatherFreshness,
-      waterTemperatureFreshness: "missing",
+      waterTemperatureFreshness: waterTemperature?.freshness ?? "missing",
       conditionsWaterTemperatureFreshness: "missing",
-      currentHydraulicValue: null,
-      hydraulicAbsoluteChange24h: null,
-      hydraulicPercentChange24h: null,
+      flowBand,
+      currentHydraulicValue,
+      hydraulicAbsoluteChange24h: gauge?.flowTrend.absoluteChange24h ?? null,
+      hydraulicPercentChange24h: gauge?.flowTrend.percentChange24h ?? null,
       rainSignal: "missing_rain_data",
-      flowSignal: "unknown",
-      temperatureSignal: "neutral_missing",
-      temperatureSourceType: "unavailable",
-      waterTempF: null,
-      missingNonGaugeInputCount: 2,
+      flowSignal: gauge?.flowTrend.rawSignal ?? "unknown",
+      temperatureSignal: measuredTemperature?.trend.rawSignal ??
+        "neutral_missing",
+      temperatureSourceType: measuredTemperature?.sourceType ?? "unavailable",
+      temperatureIsUpstreamFallback: measuredTemperature?.isUpstreamFallback ??
+        false,
+      waterTempF: measuredTemperature?.smoothedWaterTempF ?? null,
+      missingNonGaugeInputCount:
+        (weather.weatherFreshness === "missing" ? 1 : 0) +
+        (measuredTemperature ? 0 : 1),
       rainReasonCodes: ["rain_missing"],
-      flowReasonCodes: ["gauge_missing", "flow_trend_unknown"],
-      temperatureReasonCodes: [
+      flowReasonCodes: gauge?.flowTrend.reasonCodes ?? [
+        "gauge_missing",
+        "flow_trend_unknown",
+      ],
+      temperatureReasonCodes: measuredTemperature?.reasonCodes ?? [
         "temperature_unavailable",
         "temperature_neutral_missing",
       ],
       sourceMetrics: {
+        gauge: gauge && primaryHydraulicSource
+          ? {
+            provider: gauge.provider,
+            siteId: gauge.siteId,
+            observedAt: gauge.current?.observedAt,
+            primaryMetric: primaryHydraulicSource.primaryMetric,
+            value: currentHydraulicValue,
+            band: flowBand,
+            trend: gauge.flowTrend.rawSignal,
+            absoluteChange24h: gauge.flowTrend.absoluteChange24h,
+            percentChange24h: gauge.flowTrend.percentChange24h,
+          }
+          : undefined,
         weather: {
           provider: "OPEN_METEO",
           evidenceType: "modeled_grid",
@@ -1215,6 +1456,29 @@ async function readOrBuildConditionRefresh(input: {
           forecastDaily: weather.forecastDaily,
           hourlyActivityWeather: weather.hourlyActivityWeather,
         },
+        ...(observedActivity
+          ? {
+            waterTemperature: measuredTemperature
+              ? {
+                provider: measuredTemperature.current?.provider,
+                sourceId: measuredTemperature.sourceId,
+                siteId: measuredTemperature.current?.siteId,
+                seriesId: measuredTemperature.current?.seriesId,
+                observedAt: measuredTemperature.current?.observedAt,
+                waterTempF: measuredTemperature.smoothedWaterTempF,
+                trend: measuredTemperature.trend.rawSignal,
+                sourceType: measuredTemperature.sourceType,
+                isUpstreamFallback: measuredTemperature.isUpstreamFallback,
+                attribution: temperatureSources.find((source) =>
+                  source.sourceId === measuredTemperature.sourceId
+                )?.attribution,
+              }
+              : {
+                sourceType: "unavailable" as const,
+                trend: "neutral_missing" as const,
+              },
+          }
+          : {}),
       },
       engineVersion: input.engineVersion,
       configVersion: input.configVersion,

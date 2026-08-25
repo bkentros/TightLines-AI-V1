@@ -71,6 +71,14 @@ not confirm live fish, access, catch, or safety.
 
 ## 5. Activity calibration
 
+> **Implementation update (2026-08-24):** The unavailable statement below is
+> superseded for weather-only mode while the split-reach observed composite
+> remains prohibited. The current hidden candidate is
+> `white-fall-coho-weather-activity-v1-draft`: 0.70 effective light / 0.30
+> same-block precipitation, Limited confidence, below-Hesperia Pines Point
+> weather scope, and no Fruitvale/Weaver scoring inputs. See
+> `docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
+
 `unavailable`. Fruitvale hydraulics and Weaver Street temperature represent
 different reaches, and no White Coho weather-only calibration/replay is
 accepted. Do not borrow Chinook or Steelhead behavior.

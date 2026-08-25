@@ -43,7 +43,15 @@ the run unresolved and hidden.
 | Historical opportunity tier/ceiling |                  |              | unresolved |
 | Barrier response differences        |                  |              | unresolved |
 
-### 1.1 Complete configuration-field inventory
+### 1.1 Species-specific endpoint decision
+
+- Proposed product endpoint:
+- Direct evidence this species reaches/passes each intervening structure:
+- Structures with limited, seasonal, operational, or uncertain passage:
+- Biological endpoint versus regulation/access/product endpoint:
+- Independent verifier/date:
+
+### 1.2 Complete configuration-field inventory
 
 Reconcile this table with the current `RiverRunProfile`, selected biology
 profile, river profile, and any run-specific scoring rules. Add rows until every
@@ -64,26 +72,47 @@ schema.
 
 **Code-to-packet reconciliation reviewer/date:**
 
+### 1.3 Portfolio strength comparison
+
+The 1–10 maximum is ordinal product calibration, never a fish count. Compare
+both weaker and stronger accepted runs before selecting it.
+
+| Comparator run                | Maximum | Direct counts/years | Creel/destination evidence | Stocking/reproduction | Corridor/concentration/passage | Why comparable or not | Proposed consequence |
+| ----------------------------- | ------: | ------------------- | -------------------------- | --------------------- | ------------------------------ | --------------------- | -------------------- |
+| Closest weaker accepted run   |         |                     |                            |                       |                                |                       |                      |
+| Proposed run                  |         |                     |                            |                       |                                |                       |                      |
+| Closest stronger accepted run |         |                     |                            |                       |                                |                       |                      |
+
+- Maximum confidence:
+- Distribution-scope confidence:
+- Evidence representing only one reach/ladder/weir:
+- Why adjacent ratings were accepted or rejected:
+
 ## 2. Seasonal calendar
 
 All dates are month-day values in the river timezone. Explain each boundary; do
 not infer dates solely from a nearby river.
 
-| Boundary                      | Date | Meaning | Evidence IDs | Owner calibration? |
-| ----------------------------- | ---- | ------- | ------------ | ------------------ |
-| Pre-run monitoring start      |      |         |              | no                 |
-| Staging start                 |      |         |              | no                 |
-| River-run start               |      |         |              | no                 |
-| Beginning end                 |      |         |              | no                 |
-| Established building start    |      |         |              | no                 |
-| Broad building start, if used |      |         |              | no                 |
-| Peak start                    |      |         |              | no                 |
-| Peak anchor                   |      |         |              | no                 |
-| Peak end                      |      |         |              | no                 |
-| Tapering end                  |      |         |              | no                 |
-| Main run end                  |      |         |              | no                 |
-| Historical-presence tail end  |      |         |              | no                 |
-| Late-copy end                 |      |         |              | no                 |
+| Boundary                      | Date | Meaning | Evidence IDs | Evidence kind: entry/passage/harvest/spawn/egg-take/operation | Bias/limitations | Owner calibration? | Confidence |
+| ----------------------------- | ---- | ------- | ------------ | ------------------------------------------------------------- | ---------------- | ------------------ | ---------- |
+| Pre-run monitoring start      |      |         |              |                                                               |                  | no                 |            |
+| Staging start                 |      |         |              |                                                               |                  | no                 |            |
+| River-run start               |      |         |              |                                                               |                  | no                 |            |
+| Beginning end                 |      |         |              |                                                               |                  | no                 |            |
+| Established building start    |      |         |              |                                                               |                  | no                 |            |
+| Broad building start, if used |      |         |              |                                                               |                  | no                 |            |
+| Peak start                    |      |         |              |                                                               |                  | no                 |            |
+| Peak anchor                   |      |         |              |                                                               |                  | no                 |            |
+| Peak end                      |      |         |              |                                                               |                  | no                 |            |
+| Tapering end                  |      |         |              |                                                               |                  | no                 |            |
+| Main run end                  |      |         |              |                                                               |                  | no                 |            |
+| Historical-presence tail end  |      |         |              |                                                               |                  | no                 |            |
+| Late-copy end                 |      |         |              |                                                               |                  | no                 |            |
+
+Explicitly reconcile first mouth concentration, first river entry, dependable
+beginning, migration/passage peak, harvest peak, spawning/egg-take peak, and
+terminal tail. A weir becoming effective or an agency beginning collection does
+not prove fish first arrived that day.
 
 ## 3. Migration Stage copy matrix
 
@@ -135,6 +164,33 @@ Read `docs/river_run_activity_onboarding_standard.md` completely.
 - Species lifecycle evidence:
 - Direct evidence versus owner-calibrated values:
 
+### Source pairing decision
+
+| Input                      | Source/reach | Same scoring reach as other observed inputs? | Included? | Reason |
+| -------------------------- | ------------ | -------------------------------------------- | --------- | ------ |
+| Hydraulics                 |              |                                              |           |        |
+| Measured water temperature |              |                                              |           |        |
+| Weather point              |              |                                              |           |        |
+
+Stations separated by a dam, lake, major tributary, tailwater transition, or
+materially different corridor cannot form observed-river Activity. If mode is
+weather-only, list every excluded river source explicitly.
+
+If a narrow observed reach uses nearby rather than co-located stations, record
+distance/intervening controls and the simultaneous-pair validation: dates,
+sample count, signed bias, mean/median/p90/p99/max absolute error, reference
+station, construction/channel caveats, and excluded geography.
+
+### Observed input/fallback contract
+
+| Available inputs | Confidence/result | Cap | Recovery behavior |
+| ---------------- | ----------------- | --- | ----------------- |
+| Weather + hydraulics + measured temperature | Full | | |
+| Weather + hydraulics only | Moderate / Unavailable | | |
+| Weather + measured temperature only | Moderate / Unavailable | | |
+| Weather only | Unavailable unless separately accepted weather-only rules exist | none | |
+| River inputs without target-day hourly weather | Unavailable | none | |
+
 ### Proposed rules
 
 | Component                  | Weight | Rationale | Evidence/calibration IDs |
@@ -144,24 +200,34 @@ Read `docs/river_run_activity_onboarding_standard.md` completely.
 | River behavior             |        |           |                          |
 | Precipitation context      |        |           |                          |
 
-| Temperature/lifecycle control | Value/dates | Rationale |
-| ----------------------------- | ----------- | --------- |
-| Cold-side transition          |             |           |
-| Preferred minimum/maximum     |             |           |
-| Warm constraint               |             |           |
-| Barrier constraint            |             |           |
-| Tapering transition           |             |           |
-| Ending transition             |             |           |
-| Residual/holding behavior     |             |           |
+| Temperature/lifecycle control          | Value/dates                              | Rationale                      |
+| -------------------------------------- | ---------------------------------------- | ------------------------------ |
+| Cold-side transition                   |                                          |                                |
+| Preferred minimum/maximum              |                                          |                                |
+| Warm constraint                        |                                          |                                |
+| Barrier constraint                     |                                          |                                |
+| Tapering transition                    |                                          |                                |
+| Ending transition                      |                                          |                                |
+| Residual/holding behavior              |                                          |                                |
+| Weather-only true maxima               |                                          |                                |
+| Missing-primary-evidence scale, if any |                                          |                                |
+| Missing hourly weather                 | Unavailable; no score, blocks, or leader | Required for any four-block model |
 
 ### Required Activity replay report
 
 - Replay years and coverage percentage.
+- Exact local start/end dates, expected-day calculation, and whether the run
+  crosses New Year.
 - Missing flow, prior flow, temperature, lookback, and weather counts.
 - Daily and block min/p10/mean/median/p90/max.
 - Beginning, Building, Peak, Tapering, Ending, and residual/holding
   stage-by-four-hour-block counts, min/p10/mean/median/p90/max, label shares,
   cap frequency, and confidence/missing-state notes.
+- Lifecycle-shape proof: Peak has the highest daily mean; Building and
+  Tapering are below and normally within 20 points of Peak; all outside-stage
+  means are lower without unexplained cliffs.
+- Any stage-response adjustment, its true maximum, before/after means, and
+  proof that warm, barrier, extreme-flow, and missing-data caps still hold.
 - Label distribution by lifecycle phase.
 - Best-block distribution and block-spread distribution.
 - Warm, cold, extreme-flow, and missing-data distributions.
@@ -169,6 +235,7 @@ Read `docs/river_run_activity_onboarding_standard.md` completely.
 - Lifecycle boundary continuity tests.
 - Complete copy and reach-scope invariants.
 - Calibration changes made after replay and why.
+- Provider recovery and missing-weather fail-closed tests.
 
 | Stage     | Block      | Usable days | Samples | Min | p10 | Mean | Median | p90 | Max | Label shares | Cap/confidence notes |
 | --------- | ---------- | ----------: | ------: | --: | --: | ---: | -----: | --: | --: | ------------ | -------------------- |
@@ -228,12 +295,18 @@ For Stage, Activity, Fish In River, and Fishability:
 
 ## 8. Research evidence ledger
 
-| Evidence ID | Authority/title | URL/path | Published/updated | Accessed | Facts supported | Limitations |
-| ----------- | --------------- | -------- | ----------------- | -------- | --------------- | ----------- |
-| R-001       |                 |          |                   |          |                 |             |
+| Evidence ID | Authority/title | URL/path | Published/updated | Event/data year(s) | Relevant page/table | Accessed | Facts supported | Limitations |
+| ----------- | --------------- | -------- | ----------------- | ------------------ | ------------------- | -------- | --------------- | ----------- |
+| R-001       |                 |          |                   |                    |                     |          |                 |             |
 
 ## 9. Run gate
 
 **Run decision:** `blocked` **Configuration version:** **Activity rules
 version:** **Presence curve version:** **Copy version:** **Replay artifact:**
 **Owner acceptance/date:**
+
+### Post-review correction record
+
+| Review finding | Root-cause class | Structured truth/config corrected | Artifact/tests rerun | Generalizable? | Canonical guide/template/QA updated | Reviewer/date |
+| -------------- | ---------------- | --------------------------------- | -------------------- | -------------- | ----------------------------------- | ------------- |
+|                |                  |                                   |                      |                |                                     |               |

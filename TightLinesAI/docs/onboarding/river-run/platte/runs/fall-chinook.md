@@ -29,7 +29,7 @@ by/date:** required before public enablement
 | Barrier response         | Lower-weir Chinook handling/passage is unresolved; guidance may not cross the signed closure                                                                          | C-005, C-006        |
 | Seasonal calendar        | Direct 1990 peak Sep. 23 and dominant Sep. 23–Oct. 17 interval support the corrected local calendar                                                                   | C-007               |
 | Presence ceiling/curve   | Conservative 4/10 concentrated profile; exact anchors are documented product calibration                                                                              | C-007               |
-| Activity                 | Unavailable pending a lower-corridor species-specific calibration                                                                                                     | C-007               |
+| Activity                 | Hidden weather-only candidate implemented and replayed; pending fixtures, owner review, and enablement                                                                | C-007               |
 | Fishability              | Unavailable; lower corridor has no accepted local hydraulics, independent of species support                                                                          | C-001               |
 | Terminal/handoff         | Semelparous ending with no destination handoff                                                                                                                        | C-007               |
 
@@ -65,6 +65,11 @@ by/date:** required before public enablement
 
 **Run decision:** `supported_hidden_review`; the earlier unsupported decision is
 withdrawn. **Configuration version:** `platte-phase-c-draft.3` **Presence
-version:** `platte-fall-chinook-presence-v3-draft` **Activity:** unavailable
+version:** `platte-fall-chinook-presence-v3-draft` **Activity:**
+`platte-fall-chinook-weather-activity-v1-draft`, Limited weather-only lower
+corridor candidate. Final replay:
+`docs/audits/river-run-platte-chinook-weather-activity-replay.json`. Calibration
+decision record:
+`docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
 pending local calibration **Owner acceptance:** corrected profile available for
 renewed hidden review 2026-08-24.

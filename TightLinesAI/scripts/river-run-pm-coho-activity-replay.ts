@@ -222,10 +222,11 @@ const invariants = {
 };
 
 function lifecycleMaximum(date: string, stage: string): number {
-  if (stage === "post_run") return run.activity!.caps.ending;
-  const ramp = run.activity!.caps.lifecycleRamp;
-  const penalty = run.activity!.caps.taperingPenalty ?? 0;
-  if (!ramp) return run.activity!.caps.ending;
+  const activity = run!.activity!;
+  if (stage === "post_run") return activity.caps.ending;
+  const ramp = activity.caps.lifecycleRamp;
+  const penalty = activity.caps.taperingPenalty ?? 0;
+  if (!ramp) return activity.caps.ending;
   const year = Number(date.slice(0, 4));
   const start = Date.parse(`${year}-${ramp.taperingEnd}T00:00:00Z`);
   const end = Date.parse(`${year}-${ramp.endingEnd}T00:00:00Z`);
@@ -235,7 +236,7 @@ function lifecycleMaximum(date: string, stage: string): number {
   );
   return Math.round(
     (100 - penalty) +
-      (run.activity!.caps.ending - (100 - penalty)) * progress,
+      (activity.caps.ending - (100 - penalty)) * progress,
   );
 }
 const reviewRows = stratifiedReview(rows, 100);
@@ -276,6 +277,16 @@ const report = {
         rows.filter((row) => row.stage === stage).map((row) => row.label),
       ),
     ]),
+  ),
+  byStage: Object.fromEntries(
+    [...new Set(rows.map((row) => row.stage))].toSorted().map((stage) => {
+      const stageRows = rows.filter((row) => row.stage === stage);
+      return [stage, {
+        days: stageRows.length,
+        scores: summary(stageRows.map((row) => row.score)),
+        labels: counts(stageRows.map((row) => row.label)),
+      }];
+    }),
   ),
   stages: counts(rows.map((row) => row.stage)),
   bestBlocks: counts(rows.map((row) => row.bestBlock)),

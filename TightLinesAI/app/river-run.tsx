@@ -33,6 +33,7 @@ import { FeedbackCard } from "../components/FeedbackCard";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
   fetchRiverRunCatalog,
+  fetchRiverRunOwnerReviewSnapshot,
   fetchRiverRunSnapshot,
   RiverRunRequestError,
 } from "../lib/riverRun";
@@ -101,6 +102,7 @@ import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
+type ReviewDataMode = "live" | "fixture";
 type PrimitiveTabId = Extract<
   RiverRunVisualKind,
   "run_stage" | "activity" | "fish_in_river" | "fishability"
@@ -425,11 +427,27 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
           timezone: "America/Detroit",
           runs: [
             {
+              runId: "platte_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
               runId: "platte_fall_coho",
               displayName: "Fall Coho",
               species: "coho_salmon",
               season: "fall",
               runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "platte_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
               supportStatus: "beta",
             },
           ],
@@ -444,6 +462,14 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
               runId: "white_fall_chinook",
               displayName: "Fall Chinook",
               species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "white_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
               season: "fall",
               runType: "fall_spawn",
               supportStatus: "beta",
@@ -557,6 +583,7 @@ export default function RiverRunScreen() {
   const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
   const [reviewMode, setReviewMode] = useState(RIVER_RUN_REVIEW_ENABLED);
+  const [reviewDataMode, setReviewDataMode] = useState<ReviewDataMode>("live");
   const [reviewGroupId, setReviewGroupId] = useState(
     RIVER_RUN_REVIEW_GROUPS[0]?.id ?? "",
   );
@@ -579,6 +606,11 @@ export default function RiverRunScreen() {
   const [snapshot, setSnapshot] = useState<RiverRunSnapshotResponse | null>(
     null,
   );
+  const [reviewLiveSnapshot, setReviewLiveSnapshot] = useState<
+    RiverRunSnapshotResponse | null
+  >(null);
+  const [reviewLiveError, setReviewLiveError] = useState<string | null>(null);
+  const [loadingReviewLive, setLoadingReviewLive] = useState(false);
   const [snapshotError, setSnapshotError] = useState<string | null>(null);
   const [loadingSnapshot, setLoadingSnapshot] = useState(false);
   const snapshotRequestRef = useRef(0);
@@ -632,7 +664,8 @@ export default function RiverRunScreen() {
     : selectedSpecies === "steelhead"
     ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
     : RIVER_RUN_REVIEW_GROUPS)).filter((group) =>
-      group.id !== "conditions" && group.id !== "push"
+      group.id !== "conditions" && group.id !== "push" &&
+      group.id !== "live_conditions"
     );
 
   const reviewGroup = useMemo(
@@ -775,27 +808,59 @@ export default function RiverRunScreen() {
     }
   }, [fetchProfile, reviewMode, screenState, selectedTarget, user?.id]);
 
+  const loadOwnerReviewSnapshot = useCallback(async (showLoading = true) => {
+    if (!reviewMode || screenState !== "result" || !selectedTarget) {
+      setLoadingReviewLive(false);
+      return;
+    }
+    if (showLoading) setLoadingReviewLive(true);
+    setReviewLiveError(null);
+    try {
+      setReviewLiveSnapshot(
+        await fetchRiverRunOwnerReviewSnapshot({
+          riverId: selectedTarget.river.riverId,
+          runId: selectedTarget.run.runId,
+          presentationState: selectedTarget.state.state,
+        }),
+      );
+    } catch (error) {
+      setReviewLiveSnapshot(null);
+      setReviewLiveError(
+        error instanceof Error
+          ? error.message
+          : "Current owner-review data failed to load.",
+      );
+    } finally {
+      setLoadingReviewLive(false);
+    }
+  }, [reviewMode, screenState, selectedTarget]);
+
   useFocusEffect(
     useCallback(() => {
-      if (reviewMode || screenState !== "result") {
+      if (screenState !== "result") {
         return () => {
           snapshotRequestRef.current++;
         };
       }
-      void loadSnapshot();
+      if (reviewMode) void loadOwnerReviewSnapshot();
+      else void loadSnapshot();
       const subscription = AppState.addEventListener("change", (nextState) => {
-        if (nextState === "active") void loadSnapshot(false);
+        if (nextState !== "active") return;
+        if (reviewMode) void loadOwnerReviewSnapshot(false);
+        else void loadSnapshot(false);
       });
       return () => {
         snapshotRequestRef.current++;
         subscription.remove();
       };
-    }, [loadSnapshot, reviewMode, screenState]),
+    }, [loadOwnerReviewSnapshot, loadSnapshot, reviewMode, screenState]),
   );
 
   const resetSelection = useCallback(() => {
     snapshotRequestRef.current++;
     setSnapshot(null);
+    setReviewLiveSnapshot(null);
+    setReviewLiveError(null);
     setSnapshotError(null);
     setSelectedState(null);
     setSelectedSeason(null);
@@ -952,8 +1017,19 @@ export default function RiverRunScreen() {
     reviewSnapshot.riverId === selectedTarget.river.riverId &&
     reviewSnapshot.runId === selectedTarget.run.runId;
   const resultSnapshot = reviewMode
-    ? reviewSnapshotMatchesSelection ? reviewSnapshot : undefined
+    ? reviewDataMode === "live"
+      ? reviewLiveSnapshot ?? undefined
+      : reviewSnapshotMatchesSelection
+      ? reviewSnapshot
+      : undefined
     : snapshot;
+  const publicRiverConditions = resultSnapshot
+    ? resultSnapshot.riverConditions ??
+      unavailableRiverConditions(resultSnapshot)
+    : undefined;
+  const resultRiverConditions = reviewMode
+    ? reviewLiveSnapshot?.riverConditions
+    : publicRiverConditions;
   const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 3 : 2;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
@@ -1039,19 +1115,22 @@ export default function RiverRunScreen() {
               stickyHeaderIndices={resultSnapshot
                 ? [primitiveTabStickyIndex]
                 : undefined}
-              refreshControl={reviewMode ? undefined : (
+              refreshControl={
                 <RefreshControl
                   refreshing={refreshing}
                   onRefresh={() => {
                     setRefreshing(true);
-                    void Promise.all([
-                      loadCatalog(true),
-                      loadSnapshot(false),
-                    ]).finally(() => setRefreshing(false));
+                    const refresh = reviewMode
+                      ? loadOwnerReviewSnapshot(false)
+                      : Promise.all([
+                        loadCatalog(true),
+                        loadSnapshot(false),
+                      ]);
+                    void refresh.finally(() => setRefreshing(false));
                   }}
                   tintColor={paper.dashboardInk}
                 />
-              )}
+              }
             >
               <ResultHero
                 season={resultSeason}
@@ -1065,9 +1144,13 @@ export default function RiverRunScreen() {
                   <ReviewControl
                     groups={reviewGroups}
                     reviewMode={reviewMode}
+                    reviewDataMode={reviewDataMode}
+                    loadingReviewLive={loadingReviewLive}
+                    reviewLiveError={reviewLiveError}
                     activeGroup={reviewGroup}
                     activeScenario={reviewScenario}
                     onModeChange={handleModeChange}
+                    onReviewDataModeChange={setReviewDataMode}
                     onGroupChange={(group) => {
                       setReviewGroupId(group.id);
                       setReviewScenarioId(group.scenarios[0]?.id ?? "");
@@ -1080,12 +1163,25 @@ export default function RiverRunScreen() {
                 )
                 : null}
 
-              {resultSnapshot
+              {resultRiverConditions
                 ? (
                   <LiveRiverConditionsCard
-                    conditions={resultSnapshot.riverConditions ??
-                      unavailableRiverConditions(resultSnapshot)}
-                    reviewMode={reviewMode}
+                    conditions={resultRiverConditions}
+                    ownerReviewLive={reviewMode}
+                  />
+                )
+                : null}
+
+              {reviewMode && loadingReviewLive && !reviewLiveSnapshot
+                ? <LoadingState label="Reading current provider data" compact />
+                : reviewMode && reviewLiveError
+                ? (
+                  <MessageState
+                    icon="cloud-offline-outline"
+                    title="Live review data unavailable"
+                    body={`${reviewLiveError} Fixture values are not being substituted.`}
+                    actionLabel="TRY AGAIN"
+                    onAction={() => void loadOwnerReviewSnapshot()}
                   />
                 )
                 : null}
@@ -1254,7 +1350,7 @@ function SetupView({
               color={paper.redDk}
             />
             <Text style={styles.fixtureNoticeText}>
-              REVIEW BUILD · LOCAL FIXTURES · NO LIVE RIVER MIGRATION REQUESTS
+              OWNER REVIEW · CURRENT LIVE DATA + ISOLATED SCENARIO FIXTURES
             </Text>
           </View>
         )
@@ -1715,10 +1811,10 @@ function unavailableRiverConditions(
 
 function LiveRiverConditionsCard({
   conditions,
-  reviewMode,
+  ownerReviewLive,
 }: {
   conditions: RiverRunLiveConditions;
-  reviewMode: boolean;
+  ownerReviewLive: boolean;
 }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { width, fontScale } = useWindowDimensions();
@@ -1759,15 +1855,15 @@ function LiveRiverConditionsCard({
             adjustsFontSizeToFit
             minimumFontScale={0.88}
           >
-            Compared with past years on this date.
+            {ownerReviewLive
+              ? "Live provider readings · owner review."
+              : "Compared with past years on this date."}
           </Text>
         </View>
         <View
           style={[
             styles.liveConditionsStatus,
-            reviewMode
-              ? styles.liveConditionsStatusFixture
-              : conditions.status === "available"
+            conditions.status === "available"
               ? styles.liveConditionsStatusAvailable
               : conditions.status === "partial"
               ? styles.liveConditionsStatusPartial
@@ -1775,9 +1871,7 @@ function LiveRiverConditionsCard({
           ]}
         >
           <Text style={styles.liveConditionsStatusText}>
-            {reviewMode
-              ? "FIXTURE"
-              : conditions.status === "available"
+            {conditions.status === "available"
               ? "LIVE"
               : conditions.status === "partial"
               ? "PARTIAL"
@@ -2219,17 +2313,25 @@ function formatMonthDay(monthDay: string): string {
 function ReviewControl({
   groups,
   reviewMode,
+  reviewDataMode,
+  loadingReviewLive,
+  reviewLiveError,
   activeGroup,
   activeScenario,
   onModeChange,
+  onReviewDataModeChange,
   onGroupChange,
   onScenarioChange,
 }: {
   groups: RiverRunReviewGroup[];
   reviewMode: boolean;
+  reviewDataMode: ReviewDataMode;
+  loadingReviewLive: boolean;
+  reviewLiveError: string | null;
   activeGroup?: RiverRunReviewGroup;
   activeScenario?: RiverRunReviewScenario;
   onModeChange: (enabled: boolean) => void;
+  onReviewDataModeChange: (mode: ReviewDataMode) => void;
   onGroupChange: (group: RiverRunReviewGroup) => void;
   onScenarioChange: (scenario: RiverRunReviewScenario) => void;
 }) {
@@ -2253,17 +2355,25 @@ function ReviewControl({
         </View>
         <View style={styles.reviewSummaryCopy}>
           <Text style={styles.reviewSummaryEyebrow}>
-            DEVELOPMENT REVIEW · {reviewMode ? "LOCAL FIXTURE" : "LIVE API"}
+            DEVELOPMENT REVIEW · {reviewMode
+              ? reviewDataMode === "live" ? "OWNER LIVE" : "SCENARIO FIXTURE"
+              : "PUBLIC LIVE API"}
           </Text>
           <Text style={styles.reviewSummaryTitle} numberOfLines={1}>
             {reviewMode
-              ? `${activeGroup?.label ?? "River Migration"} · ${
-                activeScenario?.label ?? "State"
-              } · ${
-                activeScenario
-                  ? formatLocalDate(activeScenario.snapshot.localDate)
-                  : "Date unavailable"
-              }`
+              ? reviewDataMode === "live"
+                ? loadingReviewLive
+                  ? "Loading current provider-backed snapshot"
+                  : reviewLiveError
+                  ? "Current provider-backed snapshot unavailable"
+                  : "Current provider-backed River Migration snapshot"
+                : `${activeGroup?.label ?? "River Migration"} · ${
+                  activeScenario?.label ?? "State"
+                } · ${
+                  activeScenario
+                    ? formatLocalDate(activeScenario.snapshot.localDate)
+                    : "Date unavailable"
+                }`
               : "Current-date River Migration response"}
           </Text>
         </View>
@@ -2278,17 +2388,18 @@ function ReviewControl({
         ? (
           <View style={styles.reviewExpanded}>
             <Text style={styles.reviewHelp}>
-              Fixtures stay on this phone and make no River Migration API
-              request.
+              Owner Live runs the selected configuration through current
+              providers and the production snapshot path. Scenario Fixtures are
+              isolated deterministic boundary tests.
             </Text>
             <ReviewChipRow>
               <ReviewChip
-                label="Review fixtures"
+                label="Owner review"
                 active={reviewMode}
                 onPress={() => onModeChange(true)}
               />
               <ReviewChip
-                label="Live API"
+                label="Public API"
                 active={!reviewMode}
                 onPress={() => onModeChange(false)}
               />
@@ -2296,49 +2407,74 @@ function ReviewControl({
             {reviewMode
               ? (
                 <>
-                  <Text style={styles.reviewSectionLabel}>
-                    PRIMITIVE OR TEST AREA
-                  </Text>
+                  <Text style={styles.reviewSectionLabel}>REVIEW DATA</Text>
                   <ReviewChipRow>
-                    {groups.map((group) => (
-                      <ReviewChip
-                        key={group.id}
-                        label={group.label}
-                        active={group.id === activeGroup?.id}
-                        onPress={() => onGroupChange(group)}
-                      />
-                    ))}
+                    <ReviewChip
+                      label="Current live"
+                      active={reviewDataMode === "live"}
+                      onPress={() => onReviewDataModeChange("live")}
+                    />
+                    <ReviewChip
+                      label="Scenario fixtures"
+                      active={reviewDataMode === "fixture"}
+                      onPress={() => onReviewDataModeChange("fixture")}
+                    />
                   </ReviewChipRow>
-                  <Text style={styles.reviewSectionLabel}>STATE</Text>
-                  <ReviewChipRow>
-                    {(activeGroup?.scenarios ?? []).map((scenario) => (
-                      <ReviewChip
-                        key={scenario.id}
-                        label={`${scenario.label} · ${
-                          formatLocalDate(scenario.snapshot.localDate)
-                        }`}
-                        active={scenario.id === activeScenario?.id}
-                        onPress={() => onScenarioChange(scenario)}
-                      />
-                    ))}
-                  </ReviewChipRow>
-                  {activeScenario?.note
+                  {reviewDataMode === "fixture"
                     ? (
-                      <Text style={styles.reviewHelp}>
-                        {activeScenario.note}
-                      </Text>
+                      <>
+                        <Text style={styles.reviewSectionLabel}>
+                          PRIMITIVE OR TEST AREA
+                        </Text>
+                        <ReviewChipRow>
+                          {groups.map((group) => (
+                            <ReviewChip
+                              key={group.id}
+                              label={group.label}
+                              active={group.id === activeGroup?.id}
+                              onPress={() => onGroupChange(group)}
+                            />
+                          ))}
+                        </ReviewChipRow>
+                        <Text style={styles.reviewSectionLabel}>STATE</Text>
+                        <ReviewChipRow>
+                          {(activeGroup?.scenarios ?? []).map((scenario) => (
+                            <ReviewChip
+                              key={scenario.id}
+                              label={`${scenario.label} · ${
+                                formatLocalDate(scenario.snapshot.localDate)
+                              }`}
+                              active={scenario.id === activeScenario?.id}
+                              onPress={() => onScenarioChange(scenario)}
+                            />
+                          ))}
+                        </ReviewChipRow>
+                        {activeScenario?.note
+                          ? (
+                            <Text style={styles.reviewHelp}>
+                              {activeScenario.note}
+                            </Text>
+                          )
+                          : null}
+                        {activeScenario
+                          ? (
+                            <Text style={styles.reviewHelp}>
+                              {reviewScenarioDateCopy(
+                                activeGroup?.id,
+                                activeScenario,
+                              )}
+                            </Text>
+                          )
+                          : null}
+                      </>
                     )
-                    : null}
-                  {activeScenario
-                    ? (
+                    : (
                       <Text style={styles.reviewHelp}>
-                        {reviewScenarioDateCopy(
-                          activeGroup?.id,
-                          activeScenario,
-                        )}
+                        Gauge Read and every condition-sensitive primitive use
+                        the current server/provider response. No fixture value
+                        is substituted when a provider is missing or delayed.
                       </Text>
-                    )
-                    : null}
+                    )}
                 </>
               )
               : null}

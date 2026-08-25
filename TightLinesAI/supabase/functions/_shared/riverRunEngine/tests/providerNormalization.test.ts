@@ -85,6 +85,24 @@ Deno.test("USGS equipment faults fail closed and fresh numeric readings recover 
   assertEquals(observations.at(-1)?.observedAt, "2026-09-21T14:30:00.000Z");
 });
 
+Deno.test("modern USGS EQUIP-qualified zeros fail closed", () => {
+  const observations = parseUsgsInstantaneousValues({
+    features: [{
+      properties: {
+        monitoring_location_id: "USGS-04126740",
+        parameter_code: "00060",
+        time: "2026-08-24T23:00:00.000Z",
+        value: 0,
+        unit_of_measure: "ft^3/s",
+        approval_status: "Provisional",
+        qualifier: "EQUIP",
+      },
+    }],
+  }, "04126740");
+
+  assertEquals(observations, []);
+});
+
 Deno.test("Gauge freshness resolves fresh, stale, older_than_24h, and missing", () => {
   const observation: NormalizedGaugeObservation = {
     provider: "USGS",

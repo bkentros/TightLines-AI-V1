@@ -114,16 +114,27 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
+> **Implementation update (2026-08-25):** The current hidden candidate is
+> `grand-fall-chinook-observed-activity-v3-draft`. It combines Fulton flow,
+> North Park measured temperature, and Grand Rapids hourly weather only for the
+> downtown Grand Rapids mainstem. The proxy validation, six-season replay,
+> source-outage contract, and downstream rejection are recorded in
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
+> The accepted v3 stage means are Pre-run 26.42, Beginning 29.33, Building
+> 37.39, Peak 54.03, Tapering 48.11, Ending 45.94, and Post-run 38.43. The
+> bounded stage-response adjustment retains warm/barrier/blown-out caps and a
+> true 96-point maximum.
+
 ### Evidence and mode
 
-- Mode candidate: `observed_river`, **not runnable/accepted yet**.
+- Mode: `observed_river`, implemented for hidden review.
 - Temperature: measured at North Park Street above Sixth Street; it describes
   that Grand Rapids reach only.
 - Hydraulics: discharge at Fulton Street below Sixth Street; it describes the
   downtown Lower reach only.
-- Weather: Grand Rapids point at 42.963082, -85.677253. The production-shaped
-  probe returned all-null clear-sky radiation, so required effective-light input
-  is unresolved and Activity remains blocked.
+- Weather: Grand Rapids point at 42.963082, -85.677253. The current adapter and
+  replay provide actual and clear-sky radiation, cloud, and precipitation for
+  each local block.
 - Biology: DNR identifies Chinook as somewhat light-sensitive and confirms
   late-summer migration; external telemetry literature establishes warm-water
   migration constraint, but not Grand-specific responsiveness breakpoints.
@@ -155,12 +166,9 @@ Public Activity scope note:
 abundance or catch probability. Grand Rapids inputs describe the Fulton Street
 and North Park reaches, not the full Grand River.`
 
-Required before acceptance: repair or replace the clear-sky weather input;
-freeze a minimum five-year interval; report complete-date coverage and all
-daily/block distributions; test isolated light and rain, warm/cold/barrier caps,
-missing inputs, lifecycle continuity, four-block leakage, leader/tie copy,
-Today/Tomorrow rollover, and `America/Detroit` block freezing. All public states
-and reach limitations require intended-state fixtures and owner review.
+The 2020–2025 replay has 584/588 complete dates and zero scoring/copy/cap
+invariants. Automated Full/Moderate/Unavailable, block, lifecycle, and generated
+fixture gates pass. Rendered device review and owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
@@ -200,9 +208,9 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 - [x] Chinook terminal behavior reflects post-spawn death.
 - [ ] Exact calendar, ceiling, curve, weights, caps, and Fishability bands are
       owner-accepted.
-- [ ] Activity provider issue is resolved and five-plus-year replay passes.
+- [x] Activity provider issue is resolved and five-plus-year replay passes.
 - [ ] Fishability replay and local presentation review pass.
-- [ ] Every reachable state/material variant has an intended-state fixture.
+- [x] Every Activity source/fallback state has an intended-state fixture.
 - [ ] Copy/geography/foreign-landmark/capability/contradiction/safety gates
       pass.
 - [ ] Today/Tomorrow, DST, block freezing, missing-data, and device review pass.
@@ -217,19 +225,21 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 | C-R004  | Strange, _Upper Thermal Limits to Migration in Adult Chinook Salmon_                      | https://doi.org/10.1577/T09-171.1                                                                                                       | 2010               | Warm water can inhibit adult upstream migration; reported initiation after inhibition around 21.8–24.0 °C | Klamath population/geography; does not define Grand Activity breakpoints               |                                                   |
 | C-R005  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,392 daily observations in Aug. 1–Nov. 30 seasonal slices; percentile scaffolding                        | hydrology only; does not establish fishability                                         |                                                   |
 | C-CAL01 | FinFindr Grand Chinook calibration decision                                               | `docs/audits/river-run-grand-platte-white-calendar-strength-audit-2026-08-24.md`                                                        | 2026-08-24         | Exact dates, cross-river comparison, current stocking context, and corrected 7/10 ceiling                 | hidden review; Activity and Fishability replay remain pending                          |                                                   |
+| C-ACT01 | FinFindr Grand observed Activity audit                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                           | 2026-08-25         | Downtown station-pair validation, 584/588-date replay, input fallback contract, downstream source decision | conditional response model; not catch-rate validation or whole-river evidence          |                                                   |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-009, E-010, E-018.
 
 ## 9. Run gate
 
 **Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `grand-chinook-config-v2-draft` **Activity rules version:**
-`grand-chinook-activity-v1-proposed` **Presence curve version:**
+version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+`grand-fall-chinook-observed-activity-v3-draft` **Presence curve version:**
 `grand-chinook-presence-v2-draft` **Copy version:**
-`grand-chinook-copy-v1-proposed` **Replay artifact:** pending **Owner
+`grand-chinook-copy-v1-proposed` **Replay artifact:**
+`docs/audits/river-run-grand-chinook-activity-replay.json` **Owner
 acceptance/date:** numeric/research candidate approved for hidden app review /
 2026-08-24
 
-Blocking items: current Sixth/Ada/Wagar passage verification; weather clear-sky
-capability; Activity and Fishability replay; rendered fixtures, device review,
-and post-dam-work source/rating re-audit.
+Blocking items: current Sixth/Ada/Wagar passage verification; Fishability replay;
+rendered device/owner review; release authorization; and post-dam-work
+source/rating and station-pair re-audit.

@@ -113,6 +113,15 @@ is a seasonal fall-entry opportunity estimate, never a live fish count.
 
 ## 5. Activity contract
 
+> **Implementation update (2026-08-24):** The split-reach unavailable contract
+> below remains the correct rejection of an observed-river composite, but its
+> rejection of weather-only mode is superseded. The current hidden candidate is
+> `white-fall-steelhead-weather-activity-v1-draft`: 0.70 effective light / 0.30
+> same-block precipitation, a 0.80 missing-primary-evidence scale, Limited
+> confidence, no salmon mortality logic, below-Hesperia Pines Point weather
+> scope, and no Fruitvale/Weaver scoring inputs. See
+> `docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
+
 **Mode:** `unavailable_split_reach`.
 
 - Flow/height: USGS 04122200 at Fruitvale Road in the Lower river.

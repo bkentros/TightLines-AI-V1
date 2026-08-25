@@ -5,14 +5,13 @@ import {
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,
   PLATTE_RIVER_PROFILE,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   validateConfigurationRevision,
   validateRiverProfile,
   validateRunProfile,
 } from "../index.ts";
 
-Deno.test("Platte draft foundation keeps Honor Gauge Read separate from the lower run reach", () => {
+Deno.test("Platte foundation keeps Honor Gauge Read separate from the lower run reach", () => {
   const result = validateRiverProfile(PLATTE_RIVER_PROFILE);
   assertEquals(
     result.valid,
@@ -29,7 +28,7 @@ Deno.test("Platte draft foundation keeps Honor Gauge Read separate from the lowe
   );
 });
 
-Deno.test("Platte Chinook and Fall Steelhead are valid hidden seasonal drafts", () => {
+Deno.test("Platte Chinook and Fall Steelhead are valid public weather-only runs", () => {
   for (
     const run of [
       PLATTE_FALL_CHINOOK_RUN_PROFILE,
@@ -42,14 +41,17 @@ Deno.test("Platte Chinook and Fall Steelhead are valid hidden seasonal drafts", 
       true,
       result.issues.map((issue) => issue.message).join("\n"),
     );
-    assertEquals(result.publicVisible, false);
+    assertEquals(result.publicVisible, true);
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
-    assertEquals(run.primitiveCapabilities.activity.status, "unavailable");
+    assertEquals(run.primitiveCapabilities.activity.status, "available");
+    assertEquals(run.activity?.dataMode, "weather_only");
+    assertEquals(run.activity?.weights.riverBehavior, 0);
+    assertEquals(run.activity?.weights.waterTemperature, 0);
     assertEquals(run.primitiveCapabilities.fishability.status, "unavailable");
   }
 });
 
-Deno.test("Platte Coho is a valid hidden weather-only draft with unavailable Fishability", () => {
+Deno.test("Platte Coho is a valid public weather-only run with unavailable Fishability", () => {
   const result = validateRunProfile(
     PLATTE_FALL_COHO_RUN_PROFILE,
     PLATTE_RIVER_PROFILE,
@@ -59,7 +61,7 @@ Deno.test("Platte Coho is a valid hidden weather-only draft with unavailable Fis
     true,
     result.issues.map((issue) => issue.message).join("\n"),
   );
-  assertEquals(result.publicVisible, false);
+  assertEquals(result.publicVisible, true);
   assertEquals(PLATTE_FALL_COHO_RUN_PROFILE.activity?.dataMode, "weather_only");
   assertEquals(PLATTE_FALL_COHO_RUN_PROFILE.activity?.weights.riverBehavior, 0);
   assertEquals(
@@ -72,29 +74,18 @@ Deno.test("Platte Coho is a valid hidden weather-only draft with unavailable Fis
   );
 });
 
-Deno.test("Platte stays outside public registries while draft replay can discover it", () => {
+Deno.test("Platte release is present in public registries", () => {
   assertEquals(
     RIVER_RUN_RUN_PROFILES.some((run) => run.runId === "platte_fall_coho"),
-    false,
-  );
-  assertEquals(
-    RIVER_RUN_DRAFT_RUN_PROFILES.some((run) =>
-      run.runId === "platte_fall_coho"
-    ),
     true,
-  );
-  assertEquals(
-    RIVER_RUN_DRAFT_RUN_PROFILES.filter((run) => run.riverId === "platte")
-      .map((run) => run.runId),
-    ["platte_fall_chinook", "platte_fall_coho", "platte_fall_steelhead"],
   );
   const issues = validateConfigurationRevision({
     configKey: "platte",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: PLATTE_CONFIGURATION_DOCUMENT,
     evidenceNotes:
-      "Hidden Phase C draft for fixed replay and production-shaped acceptance.",
+      "Released Platte configuration with fixed replay and production-shaped acceptance.",
   });
   assert(issues.every((issue) => issue.severity !== "error"));
 });

@@ -444,6 +444,31 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
+  /fetchRiverRunOwnerReviewSnapshot\([\s\S]*?riverId:[\s\S]*?runId:[\s\S]*?presentationState:/,
+  "Owner review must request the current authenticated provider-backed snapshot",
+);
+assert.match(
+  riverRunScreen,
+  /const resultRiverConditions = reviewMode[\s\S]*?reviewLiveSnapshot\?\.riverConditions/,
+  "Review Gauge Read must come only from the live owner-review response",
+);
+assert.match(
+  riverRunScreen,
+  /Fixture values are not being substituted/,
+  "A failed review provider request must fail closed without fixture substitution",
+);
+assert.match(
+  riverRunScreen,
+  /group\.id !== "live_conditions"/,
+  "Interactive review controls must not present synthetic Gauge Read scenarios as current data",
+);
+assert.match(
+  riverRunScreen,
+  /Live provider readings · owner review\./,
+  "Owner-review Gauge Read must visibly identify its live-provider provenance",
+);
+assert.match(
+  riverRunScreen,
   /state: "MI"[\s\S]*?riverId: "st_joseph"[\s\S]*?st_joseph_fall_chinook[\s\S]*?st_joseph_fall_coho[\s\S]*?st_joseph_fall_steelhead/,
   "Michigan review catalog must enable all three St. Joseph reports",
 );
@@ -452,6 +477,15 @@ assert.match(
   /state: "IN"[\s\S]*?riverId: "st_joseph"[\s\S]*?st_joseph_fall_chinook[\s\S]*?st_joseph_fall_coho[\s\S]*?st_joseph_fall_steelhead/,
   "Indiana review catalog must enable all three St. Joseph reports",
 );
+for (const riverId of ["grand", "platte", "white"]) {
+  assert.match(
+    riverRunScreen,
+    new RegExp(
+      `riverId: "${riverId}"(?:(?!\\n\\s+riverId:)[\\s\\S])*?${riverId}_fall_chinook(?:(?!\\n\\s+riverId:)[\\s\\S])*?${riverId}_fall_coho(?:(?!\\n\\s+riverId:)[\\s\\S])*?${riverId}_fall_steelhead`,
+    ),
+    `${riverId} review catalog must expose every implemented onboarding run`,
+  );
+}
 assert.match(
   riverRunScreen,
   /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS/,

@@ -9,6 +9,7 @@ import {
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
+import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
 
 export const PLATTE_RIVER_PROFILE: RiverProfile = {
   riverId: "platte",
@@ -193,7 +194,11 @@ export const PLATTE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
-  primitiveCapabilities: PLATTE_SEASONAL_ONLY_CAPABILITIES,
+  runStageCopyStrategy: "onboarding_corridor",
+  primitiveCapabilities: {
+    ...PLATTE_SEASONAL_ONLY_CAPABILITIES,
+    activity: { status: "available" },
+  },
   runWindow: {
     preRunStart: "08-15",
     stagingStart: "08-20",
@@ -227,14 +232,32 @@ export const PLATTE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 76, fractionOfMaximum: 0 },
     ],
   },
+  activity: buildWeatherOnlyActivity({
+    version: "platte-fall-chinook-weather-activity-v1-draft",
+    profile: "chinook_fall_reaction",
+    reachIds: ["platte_lower_entry", "platte_weir_approach"],
+    weatherPointId: "platte_el_dorado_weather",
+    inputNotes:
+      "Honor hydraulics are intentionally excluded because Platte and Loon lakes separate that station from the lower run corridor. No accepted measured lower-corridor temperature exists.",
+    scopeCopy:
+      "This Limited weather-only read covers the lower corridor from Platte River Point to the signed Lower Weir closure; Honor measurements are not scoring inputs.",
+    lifecycle: {
+      peakEnd: "10-17",
+      taperingEnd: "10-31",
+      endingEnd: "11-30",
+    },
+    evidenceNotes:
+      "Draft Chinook response candidate for a fish already present below the Lower Platte weir. It scores effective light and same-block precipitation only, with conservative true ceilings and a continuous Chinook lifecycle decline. It never infers lower-river flow, clarity, temperature, migration, abundance, catch probability, access, or safety.",
+  }),
   researchNotes:
     "Hidden correction candidate. The earlier unsupported verdict was withdrawn after direct DNR lower-weir records were found.",
   sourceNotes:
     "docs/onboarding/river-run/platte/runs/fall-chinook.md; research corrected 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "platte-fall-chinook-phase-c-draft-v2",
-    notes: "Hidden until corrected fixtures and owner review pass.",
+    isEnabled: true,
+    auditVersion: "platte-fall-chinook-release-audit-v1",
+    notes:
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
@@ -247,6 +270,7 @@ export const PLATTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
+  runStageCopyStrategy: "onboarding_corridor",
   primitiveCapabilities: {
     migrationStage: { status: "available" },
     activity: { status: "available" },
@@ -306,59 +330,32 @@ export const PLATTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 79, fractionOfMaximum: 0 },
     ],
   },
-  activity: {
-    version: "platte-fall-coho-weather-activity-v1-draft",
+  activity: buildWeatherOnlyActivity({
+    version: "platte-fall-coho-weather-activity-v2-draft",
     profile: "coho_fall_reaction",
-    dataMode: "weather_only",
-    inputReach: {
-      reachIds: ["platte_lower_entry", "platte_weir_approach"],
-      hydraulicSourceIds: [],
-      waterTemperatureSourceIds: [],
-      weatherPointIds: ["platte_el_dorado_weather"],
-      notes:
-        "Honor hydraulics are intentionally excluded because Platte and Loon lakes separate that station from the lower run corridor.",
-    },
+    reachIds: ["platte_lower_entry", "platte_weir_approach"],
+    weatherPointId: "platte_el_dorado_weather",
+    inputNotes:
+      "Honor hydraulics are intentionally excluded because Platte and Loon lakes separate that station from the lower run corridor. No accepted measured lower-corridor temperature exists.",
     scopeCopy:
-      "This weather-only read is limited to the lower corridor from Platte River Point to the signed Lower Weir closure; Honor river measurements are not scoring inputs.",
-    weights: {
-      light: 0.75,
-      waterTemperature: 0,
-      riverBehavior: 0,
-      weather: 0.25,
-    },
-    temperature: {
-      coldF: 38,
-      preferredMinF: 46,
-      preferredMaxF: 58,
-      warmF: 65,
-      barrierF: 70,
-    },
-    caps: {
-      noMeasuredRiverData: 90,
-      noWaterTemperature: 90,
-      weatherOnlyMaximum: 90,
-      weatherOnlyTomorrowMaximum: 85,
-      lateRun: 75,
-      ending: 42,
-      taperingPenalty: 15,
-      lifecycleRamp: {
-        peakEnd: "09-30",
-        taperingEnd: "10-31",
-        endingEnd: "11-30",
-      },
+      "This Limited weather-only read covers the lower corridor from Platte River Point to the signed Lower Weir closure; Honor measurements are not scoring inputs.",
+    lifecycle: {
+      peakEnd: "09-30",
+      taperingEnd: "10-31",
+      endingEnd: "11-30",
     },
     evidenceNotes:
-      "Draft lower-reach weather-only model scores only effective light and in-block precipitation for Coho already present. It never infers flow, clarity, temperature, migration, abundance, catch probability, access, or safety. Fixed 2007–2025 replay must validate archive fallback behavior where clear-sky radiation is null, distributions, lifecycle continuity, and copy invariants before acceptance.",
-  },
+      "Draft lower-reach weather-only model scores only effective light and restrained same-block precipitation for a Coho already present. The 70/30 candidate replaces the unevaluated 75/25 draft so the accepted Coho baseline can be compared explicitly in replay. It never infers flow, clarity, temperature, migration, abundance, catch probability, access, or safety.",
+  }),
   researchNotes:
-    "Hidden Phase C implementation candidate. Calendar, 10/10 concentrated presence curve, and 75/25 weather-only Activity rules are proposals pending fixed replay, production-derived fixtures, device review, and owner acceptance.",
+    "Hidden Phase D implementation candidate. The corrected calendar, 10/10 concentrated presence curve, and 70/30 weather-only Activity rules passed the fixed replay and controlled QA; production-derived fixtures, device review, and owner acceptance remain required.",
   sourceNotes:
     "Research packet docs/onboarding/river-run/platte/runs/fall-coho.md and its cited Michigan DNR/NPS/provider evidence, completed 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "platte-fall-coho-phase-c-draft-v1",
+    isEnabled: true,
+    auditVersion: "platte-fall-coho-release-audit-v1",
     notes:
-      "Hidden until replay, runtime validation, fixtures, iOS/Android review, smoke testing, and separate owner run/copy/visual acceptance pass.",
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
@@ -371,7 +368,11 @@ export const PLATTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   season: "fall",
   runType: "fall_entry",
   movementEngineId: "fall_entry_cooling",
-  primitiveCapabilities: PLATTE_SEASONAL_ONLY_CAPABILITIES,
+  runStageCopyStrategy: "onboarding_corridor",
+  primitiveCapabilities: {
+    ...PLATTE_SEASONAL_ONLY_CAPABILITIES,
+    activity: { status: "available" },
+  },
   runWindow: {
     preRunStart: "08-15",
     stagingStart: "08-25",
@@ -408,20 +409,33 @@ export const PLATTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 134, fractionOfMaximum: 0.45 },
     ],
   },
+  activity: buildWeatherOnlyActivity({
+    version: "platte-fall-steelhead-weather-activity-v1-draft",
+    profile: "steelhead_feeding",
+    reachIds: ["platte_lower_entry", "platte_weir_approach"],
+    weatherPointId: "platte_el_dorado_weather",
+    inputNotes:
+      "Honor hydraulics are intentionally excluded because Platte and Loon lakes separate that station from the lower run corridor. No accepted measured lower-corridor temperature exists.",
+    scopeCopy:
+      "This Limited weather-only read covers the lower corridor from Platte River Point to the signed Lower Weir closure; Honor measurements are not scoring inputs.",
+    evidenceNotes:
+      "Draft Steelhead response candidate for a living fish already present below the Lower Platte weir. It scores only effective light and restrained same-block precipitation and deliberately has no salmon mortality ramp, taper penalty, or ending cap. Because measured water temperature normally leads accepted Steelhead Activity at 50%, the explicit 0.80 weather-only evidence scale prevents secondary inputs from claiming highly active response by themselves; this is a product uncertainty calibration validated by the fixed 2007-2025 replay, not a biological constant. It cannot infer temperature-led feeding quality, flow, clarity, migration, abundance, catch probability, access, or safety.",
+  }),
   researchNotes:
     "Hidden correction candidate. Terminal behavior ends the fall-entry model without saying Steelhead left or died.",
   sourceNotes:
     "docs/onboarding/river-run/platte/runs/fall-steelhead.md; research corrected 2026-08-24.",
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "platte-fall-steelhead-phase-c-draft-v2",
-    notes: "Hidden until corrected fixtures and owner review pass.",
+    isEnabled: true,
+    auditVersion: "platte-fall-steelhead-release-audit-v1",
+    notes:
+      "Owner accepted the reviewed run and production release on 2026-08-25.",
   },
 };
 
 export const PLATTE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-24-platte-phase-c-draft.3",
+  configVersion: "2026-08-25-platte-release.1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

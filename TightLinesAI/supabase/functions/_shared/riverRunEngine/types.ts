@@ -139,6 +139,13 @@ export type ActivityRules = {
   profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
+  /**
+   * Optional fail-closed contract for reach-scoped observed models. Full
+   * scoring still requires weather, temperature, and hydraulics; this policy
+   * additionally prevents a weather-less or entirely unmeasured river read
+   * from being presented as a scored outlook.
+   */
+  minimumInputContract?: "adaptive" | "weather_and_one_measured_river_input";
   /** Explicit reach/source eligibility; required when river-level sources exist but a run uses weather-only Activity. */
   inputReach?: {
     reachIds: string[];
@@ -157,6 +164,12 @@ export type ActivityRules = {
     riverBehavior: number;
     weather: number;
   };
+  /** Species/run-specific hydraulic change thresholds when Push is unavailable. */
+  hydraulicTrend?: {
+    rising24h: { absolute: number; percent: number };
+    meaningfulRise24h: { absolute: number; percent: number };
+    sharpRise24h: { absolute: number; percent: number };
+  };
   temperature: {
     coldF: number;
     preferredMinF: number;
@@ -164,6 +177,11 @@ export type ActivityRules = {
     warmF: number;
     barrierF: number;
   };
+  /**
+   * Optional, audited point adjustments for conditional response propensity by
+   * lifecycle stage. These shape Activity without changing migration presence.
+   */
+  stageResponseAdjustment?: Partial<Record<RunStage, number>>;
   caps: {
     noMeasuredRiverData: number;
     noWaterTemperature: number;
@@ -173,8 +191,15 @@ export type ActivityRules = {
     weatherOnlyMaximum?: number;
     /** Optional stricter true upper bound for a next-day weather-only forecast. */
     weatherOnlyTomorrowMaximum?: number;
+    /**
+     * Optional proportional reduction when the weather-only inputs cannot
+     * observe a species' primary response driver. Applied before true maxima.
+     */
+    weatherOnlyEvidenceScale?: number;
     /** Optional point deduction used instead of the proportional taper ceiling. */
     taperingPenalty?: number;
+    /** True ceiling applied after an audited stage-response adjustment. */
+    stageResponseMaximum?: number;
     /** Optional calendar ramp that removes stage-boundary score discontinuities. */
     lifecycleRamp?: {
       peakEnd: string;
@@ -191,7 +216,8 @@ export type RunStageCopyStrategy =
   | "betsie_homestead"
   | "big_manistee_tailwater"
   | "muskegon_croton_tailwater"
-  | "st_joseph_corridor";
+  | "st_joseph_corridor"
+  | "onboarding_corridor";
 
 export type DataQuality = {
   label: "Fresh" | "Partial" | "Stale" | "Limited";

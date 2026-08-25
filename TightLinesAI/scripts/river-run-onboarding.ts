@@ -77,17 +77,50 @@ async function validatePacket(): Promise<void> {
     if (
       relative.startsWith("runs/") &&
       (!content.includes("## 0. Candidate capability audit") ||
-        !content.includes("### 1.1 Complete configuration-field inventory") ||
+        !content.includes("Complete configuration-field inventory") ||
+        !content.includes("Species-specific endpoint decision") ||
+        !content.includes("Portfolio strength comparison") ||
+        !content.includes(
+          "Evidence kind: entry/passage/harvest/spawn/egg-take/operation",
+        ) ||
+        !content.includes("Source pairing decision") ||
+        !content.includes("Missing hourly weather") ||
+        !content.includes("Post-review correction record") ||
         !content.includes("**Code-to-packet reconciliation reviewer/date:**") ||
         !/^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m
           .test(content) ||
         !/^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m.test(content) ||
         !/\*\*Capability decision:\*\*/.test(content) ||
-        !/\*\*Contradiction search\s+completed by\/date:\*\*/.test(content) ||
+        !/\*\*Contradiction search\s+completed\s+by\/date:\*\*/.test(content) ||
         !/\*\*Independent falsification review\s+by\/date:\*\*/.test(content))
     ) {
       console.error(
-        `ERROR ${relative}: missing mandatory capability, complete-config, Activity stage/block, calibration-ledger, or contradiction audit.`,
+        `ERROR ${relative}: missing mandatory capability, endpoint, calendar-bias, strength-comparison, complete-config, Activity source/missing/replay, learning-ledger, or contradiction audit.`,
+      );
+      errors++;
+    }
+    if (
+      relative === "river-foundation.md" &&
+      (!content.includes("Species endpoint and passage-chain decision") ||
+        !content.includes(
+          "Supported species decision and shared comparison matrix",
+        ) ||
+        !content.includes("automatically without a code/configuration change"))
+    ) {
+      console.error(
+        `ERROR ${relative}: missing species passage-chain, shared comparison, or provider-recovery contract.`,
+      );
+      errors++;
+    }
+    if (
+      relative === "live-conditions.md" &&
+      (!content.includes("Provider malfunction fails closed") ||
+        !content.includes(
+          "Recovered valid numeric reading automatically restores",
+        ))
+    ) {
+      console.error(
+        `ERROR ${relative}: missing provider-fault and automatic-recovery acceptance cases.`,
       );
       errors++;
     }
@@ -96,6 +129,9 @@ async function validatePacket(): Promise<void> {
       (!content.includes("Code-to-packet configuration-field reconciliation") ||
         !content.includes(
           "Activity stage-by-block distributions and iteration ledger",
+        ) ||
+        !content.includes(
+          "Post-review correction and generalized-learning ledger",
         ))
     ) {
       console.error(
@@ -204,7 +240,7 @@ async function scaffold(): Promise<void> {
   );
   console.log(`Created River Run onboarding workspace: ${root}`);
   console.log(
-    "Next gate: complete and approve river-foundation.md before run implementation.",
+    "Next gate: build the shared source/species matrix, then complete and approve river-foundation.md before run implementation.",
   );
 }
 

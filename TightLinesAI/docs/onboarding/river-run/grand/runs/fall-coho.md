@@ -111,8 +111,17 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
-- Mode candidate: `observed_river`, **blocked** by the all-null Open-Meteo
-  clear-sky input and by missing replay.
+> **Implementation update (2026-08-25):** The current hidden candidate is
+> `grand-fall-coho-observed-activity-v3-draft`. It combines Fulton flow, North
+> Park measured temperature, and Grand Rapids hourly weather only for the
+> downtown Grand Rapids mainstem. See
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
+> The accepted v3 stage means are Pre-run 22.76, Beginning 29.21, Building
+> 33.65, Peak 44.02, Tapering 40.00, Ending 36.90, and Post-run 26.18. The
+> bounded stage-response adjustment retains warm/barrier/blown-out caps and a
+> true 96-point maximum.
+
+- Mode: `observed_river`, implemented for hidden review.
 - Measured temperature: North Park Street/Middle Grand Rapids reach only.
 - Hydraulics: Fulton Street/downtown Lower reach only.
 - Weather: proposed Grand Rapids point only; not basin-wide.
@@ -144,10 +153,9 @@ Public scope note:
 probability. Grand Rapids inputs describe the Fulton Street and North Park
 reaches, not the full Grand River.`
 
-Acceptance requires weather-input resolution; fixed five-plus-year replay with
-coverage and distribution report; missing/warm/cold/extreme/lifecycle subsets;
-isolated block light/rain tests; caps, leakage, leader/tie, Today/Tomorrow, DST,
-and freeze tests; complete public-copy fixtures and owner acceptance.
+The 2020–2025 replay has 641/678 complete dates and zero scoring/copy/cap
+invariants. Automated Full/Moderate/Unavailable, block, lifecycle, and generated
+fixture gates pass. Rendered device review and owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
@@ -184,7 +192,8 @@ scaffolding; they do not apply to Middle/Upper water.
 - [ ] Exact calendar, ceiling, curve, weights, caps, and bands are
       owner-accepted.
 - [ ] Intermediate passage is current for every section that could be shown.
-- [ ] Activity and Fishability replays and controlled tests pass.
+- [x] Activity replay and controlled tests pass.
+- [ ] Fishability replay and rendered owner review pass.
 - [ ] Complete intended-state fixtures, automated gates, and device review pass.
 
 ## 8. Research evidence ledger
@@ -196,6 +205,7 @@ scaffolding; they do not apply to Middle/Upper water.
 | H-R003  | Bowlby & Roff, _Salmonid Spawning Runs and Estimated Ova Production in Normandale Creek_  | https://doi.org/10.1016/S0380-1330(81)72041-0                                                                                           | 1981               | observed Coho spawning at 1–10 °C and flow association              | Lake Erie creek; not Grand responsiveness or exact thresholds                     |                               |
 | H-R004  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,428 seasonal observations and percentile scaffolding              | hydrology does not establish fishability                                          |                               |
 | H-CAL01 | FinFindr Grand Coho Phase C proposal                                                      | this file                                                                                                                               | 2026-08-24         | dates, curve, ceiling, weights, thresholds, caps, copy intent       | owner/replay/QA pending                                                           |                               |
+| H-ACT01 | FinFindr Grand observed Activity audit                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                            | 2026-08-25         | Downtown proxy validation, 641/678-date replay, source failure states, downstream source decision | not catch-rate validation or whole-river evidence | |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-007, E-009, E-010,
 E-018.
@@ -203,13 +213,14 @@ E-018.
 ## 9. Run gate
 
 **Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `grand-coho-config-v1-proposed` **Activity rules version:**
-`grand-coho-activity-v1-proposed` **Presence curve version:**
+version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+`grand-fall-coho-observed-activity-v3-draft` **Presence curve version:**
 `grand-coho-presence-v1-proposed` **Copy version:**
-`grand-coho-copy-v1-proposed` **Replay artifact:** pending **Owner
+`grand-coho-copy-v1-proposed` **Replay artifact:**
+`docs/audits/river-run-grand-coho-activity-replay.json` **Owner
 acceptance/date:** numeric/research candidate approved for hidden app review /
 2026-08-24
 
-Blocking items: current passage through every displayed section; weather
-clear-sky capability; numeric owner decisions; replays, controlled tests,
-fixtures/gates/device review; construction-era source re-audit.
+Blocking items: current passage through every displayed section; Fishability
+replay; rendered device/owner review; release authorization; and
+construction-era source/station-pair re-audit.

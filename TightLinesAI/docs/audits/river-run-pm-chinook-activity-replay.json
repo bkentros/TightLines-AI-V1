@@ -164,6 +164,117 @@
       "Moderate": 9
     }
   },
+  "byStage": {
+    "beginning": {
+      "days": 38,
+      "scores": {
+        "min": 66,
+        "p10": 68,
+        "median": 77,
+        "p90": 89,
+        "max": 92,
+        "mean": 77.82
+      },
+      "labels": {
+        "Active": 24,
+        "Highly active": 14
+      }
+    },
+    "building": {
+      "days": 132,
+      "scores": {
+        "min": 27,
+        "p10": 65,
+        "median": 74,
+        "p90": 89,
+        "max": 93,
+        "mean": 75.33
+      },
+      "labels": {
+        "Active": 88,
+        "Highly active": 42,
+        "Reserved": 2
+      }
+    },
+    "ending": {
+      "days": 45,
+      "scores": {
+        "min": 32,
+        "p10": 37,
+        "median": 52,
+        "p90": 68,
+        "max": 73,
+        "mean": 52.29
+      },
+      "labels": {
+        "Active": 12,
+        "Moderate": 27,
+        "Reserved": 6
+      }
+    },
+    "peak": {
+      "days": 51,
+      "scores": {
+        "min": 64,
+        "p10": 71,
+        "median": 81,
+        "p90": 91,
+        "max": 96,
+        "mean": 80.67
+      },
+      "labels": {
+        "Active": 24,
+        "Highly active": 27
+      }
+    },
+    "post_run": {
+      "days": 60,
+      "scores": {
+        "min": 30,
+        "p10": 34,
+        "median": 40,
+        "p90": 45,
+        "max": 47,
+        "mean": 39.5
+      },
+      "labels": {
+        "Moderate": 33,
+        "Reserved": 27
+      }
+    },
+    "pre_run": {
+      "days": 72,
+      "scores": {
+        "min": 24,
+        "p10": 28,
+        "median": 71,
+        "p90": 86,
+        "max": 95,
+        "mean": 67.39
+      },
+      "labels": {
+        "Active": 40,
+        "Highly active": 20,
+        "Reserved": 12
+      }
+    },
+    "tapering": {
+      "days": 88,
+      "scores": {
+        "min": 51,
+        "p10": 60,
+        "median": 72,
+        "p90": 84,
+        "max": 94,
+        "mean": 72.78
+      },
+      "labels": {
+        "Active": 55,
+        "Highly active": 24,
+        "Moderate": 9
+      }
+    }
+  },
   "stages": {
     "beginning": 38,
     "building": 132,
@@ -266,7 +377,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0.14
+          "precipitationIn": 0.14,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -276,7 +389,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 10,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -286,7 +401,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 4,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -296,7 +413,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 10,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -326,7 +445,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 99,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -336,7 +457,9 @@
           "positiveDriver": "The available light is workable in this window.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 46,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -346,7 +469,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -356,7 +481,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -386,7 +513,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -396,7 +525,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 80,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -406,7 +537,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -416,7 +549,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 27,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is highly active.",
@@ -446,7 +581,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -456,7 +593,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 42,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -466,7 +605,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 9,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -476,7 +617,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 4,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -506,7 +649,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 92,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -516,7 +661,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 7,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -526,7 +673,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -536,7 +685,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 49,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -566,7 +717,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 92,
-          "precipitationIn": 0.09
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -576,7 +729,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 63,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -586,7 +741,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 12,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -596,7 +753,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -626,7 +785,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -636,7 +797,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -646,7 +809,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 6,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -656,7 +821,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 99,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -686,7 +853,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -696,7 +865,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 92,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -706,7 +877,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 7,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -716,7 +889,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -746,7 +921,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -756,7 +933,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 30,
-          "precipitationIn": 0.01
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -766,7 +945,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -776,7 +957,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",
@@ -806,7 +989,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -816,7 +1001,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 17,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -826,7 +1013,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 10,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -836,7 +1025,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is moderate.",
@@ -866,7 +1057,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 90,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -876,7 +1069,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 34,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -886,7 +1081,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 20,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -896,7 +1093,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 93,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is highly active.",
@@ -926,7 +1125,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -936,7 +1137,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -946,7 +1149,9 @@
           "positiveDriver": "The measured water temperature is favorable for Chinook.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 26,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -956,7 +1161,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 20,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Chinook activity outlook is active.",

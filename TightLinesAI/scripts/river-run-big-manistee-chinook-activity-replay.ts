@@ -27,6 +27,8 @@ type Row = {
   flowCfs: number;
   flowBand: string;
   flowSignal: string;
+  flowAbsoluteChange24h: number;
+  flowPercentChange24h: number;
   temperatureSignal: string;
   spread: number;
   bestBlock: string;
@@ -55,20 +57,23 @@ const speciesSlug = run.species === "chinook_salmon"
 
 if (
   run.primitiveCapabilities.activity.status !== "available" ||
-  !run.activity || run.activity.dataMode === "weather_only" || !run.push ||
-  !run.fishabilityBands
+  !run.activity || run.activity.dataMode === "weather_only" ||
+  !run.fishabilityBands || !run.waterTemperature
 ) {
   throw new Error(
     `${selectedRiver.displayName} ${speciesSlug} does not have an observed-river Activity replay contract.`,
   );
 }
 const gauge = getPrimaryHydraulicSource(selectedRiver);
-const temperatureSource = selectedRiver.waterTemperatureSources.find((source) =>
-  source.provider === "USGS" && source.siteId === gauge.siteId
-);
+const temperatureSource = run.waterTemperature.sourcePriority.flatMap(
+  (sourceId) =>
+    selectedRiver.waterTemperatureSources.filter((source) =>
+      source.sourceId === sourceId && source.provider === "USGS"
+    ),
+)[0];
 if (!temperatureSource) {
   throw new Error(
-    `${selectedRiver.displayName} does not have same-station USGS daily water temperature for this replay.`,
+    `${selectedRiver.displayName} does not have an accepted USGS daily water-temperature source for this replay.`,
   );
 }
 const weatherPoint = selectedRiver.weatherPoints.find((point) =>
@@ -83,7 +88,7 @@ if (!weatherPoint) {
 const startYear = Number(argumentValue("--start-year") ?? 2007);
 const endYear = Number(argumentValue("--end-year") ?? 2025);
 const firstDate = `${startYear}-${run.runWindow.stagingStart}`;
-const lastDate = `${endYear}-${run.runWindow.lateEnd}`;
+const lastDate = seasonDate(endYear, run.runWindow.lateEnd);
 const [flowByDate, temperatureByDate, weatherByDate] = await Promise.all([
   fetchUsgsDailyFlowBaselineObservations({
     fetchFn: fetch,
@@ -109,7 +114,7 @@ const missing = {
 for (let year = startYear; year <= endYear; year++) {
   for (
     let date = `${year}-${run.runWindow.stagingStart}`;
-    date <= `${year}-${run.runWindow.lateEnd}`;
+    date <= seasonDate(year, run.runWindow.lateEnd);
     date = addDays(date, 1)
   ) {
     const flow = flowByDate.get(date);
@@ -128,15 +133,16 @@ for (let year = startYear; year <= endYear; year++) {
       temp72 == null || weather.length < 16
     ) continue;
 
+    const hydraulic = run.activity.hydraulicTrend ?? run.push?.hydraulic;
     const flowTrend = resolveFlowTrendSignal({
       currentValue: flow,
       value24hAgo: priorFlow,
-      rising24hAbsolute: run.push.hydraulic.rising24h.absolute,
-      rising24hPercent: run.push.hydraulic.rising24h.percent,
-      meaningfulRise24hAbsolute: run.push.hydraulic.meaningfulRise24h.absolute,
-      meaningfulRise24hPercent: run.push.hydraulic.meaningfulRise24h.percent,
-      sharpRise24hAbsolute: run.push.hydraulic.sharpRise24h.absolute,
-      sharpRise24hPercent: run.push.hydraulic.sharpRise24h.percent,
+      rising24hAbsolute: hydraulic?.rising24h.absolute,
+      rising24hPercent: hydraulic?.rising24h.percent,
+      meaningfulRise24hAbsolute: hydraulic?.meaningfulRise24h.absolute,
+      meaningfulRise24hPercent: hydraulic?.meaningfulRise24h.percent,
+      sharpRise24hAbsolute: hydraulic?.sharpRise24h.absolute,
+      sharpRise24hPercent: hydraulic?.sharpRise24h.percent,
     });
     const temperatureTrend = resolveTemperatureTrendSignal({
       sourceType: "same_gauge",
@@ -174,6 +180,8 @@ for (let year = startYear; year <= endYear; year++) {
       flowCfs: round2(flow),
       flowBand: flowBand ?? "unknown",
       flowSignal: flowTrend.rawSignal,
+      flowAbsoluteChange24h: round2(flow - priorFlow),
+      flowPercentChange24h: round2((flow - priorFlow) / priorFlow * 100),
       temperatureSignal: temperatureTrend.rawSignal,
       spread: Math.max(...scores) - Math.min(...scores),
       bestBlock: best.id,
@@ -255,12 +263,15 @@ const invariants = {
   steelheadLateStagePenalty: speciesSlug !== "steelhead"
     ? 0
     : verifyNoSteelheadStagePenalty(),
+  stageResponseShape: run.activity.stageResponseAdjustment
+    ? verifyStageResponseShape()
+    : 0,
 };
 
 function verifyNoSteelheadStagePenalty(): number {
   const date = "2026-12-20";
   const base = {
-    rules: run.activity!,
+    rules: { ...run.activity!, stageResponseAdjustment: undefined },
     requestDate: date,
     targetDate: date,
     staging: false,
@@ -291,8 +302,41 @@ function verifyNoSteelheadStagePenalty(): number {
     : 0;
 }
 
+function verifyStageResponseShape(): number {
+  const means = Object.fromEntries(
+    [
+      "pre_run",
+      "beginning",
+      "building",
+      "peak",
+      "tapering",
+      "ending",
+      "post_run",
+    ].map((stage) => {
+      const scores = rows.filter((row) => row.stage === stage).map((row) =>
+        row.score
+      );
+      return [
+        stage,
+        scores.reduce((total, value) => total + value, 0) / scores.length,
+      ];
+    }),
+  );
+  const shoulders = [means.building, means.tapering];
+  const outerStages = [
+    means.pre_run,
+    means.beginning,
+    means.ending,
+    means.post_run,
+  ];
+  return shoulders.every((mean) =>
+      mean < means.peak && means.peak - mean <= 20
+    ) && outerStages.every((mean) => mean < means.peak)
+    ? 0
+    : 1;
+}
+
 function lifecycleMaximum(date: string, stage: string): number {
-  if (stage === "post_run") return run.activity!.caps.ending;
   const ramp = run.activity!.caps.lifecycleRamp;
   const penalty = run.activity!.caps.taperingPenalty ?? 0;
   if (!ramp) return run.activity!.caps.ending;
@@ -314,7 +358,7 @@ const report = {
   rulesVersion: run.activity.version,
   replayYears: `${startYear}-${endYear}`,
   method:
-    `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the ${
+    `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge, ${temperatureSource.name} USGS ${temperatureSource.siteId} daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to ${
       run.activity.scopeCopy ?? selectedRiver.gaugeLimitationCopy
     } It validates scoring behavior and copy, not catch rates.`,
   expectedDays:
@@ -345,6 +389,16 @@ const report = {
   ),
   backHalf: backHalfSummary(rows),
   byTemperature: temperatureBands(rows),
+  hydraulicAudit: {
+    thresholds: run.activity.hydraulicTrend ?? run.push?.hydraulic ?? null,
+    positiveAbsoluteChangeCfs: summary(
+      rows.map((row) => row.flowAbsoluteChange24h).filter((value) => value > 0),
+    ),
+    positivePercentChange: summary(
+      rows.map((row) => row.flowPercentChange24h).filter((value) => value > 0),
+    ),
+    signals: counts(rows.map((row) => row.flowSignal)),
+  },
   bestBlocks: counts(rows.map((row) => row.bestBlock)),
   spread: summary(rows.map((row) => row.spread)),
   daysWithSpreadAtLeast10: rows.filter((row) => row.spread >= 10).length,
@@ -382,7 +436,7 @@ async function fetchDailyTemperature(
 ): Promise<Map<string, number>> {
   const params = new URLSearchParams({
     f: "json",
-    monitoring_location_id: `USGS-${gauge.siteId}`,
+    monitoring_location_id: `USGS-${temperatureSource.siteId}`,
     parameter_code: "00010",
     statistic_id: "00003",
     datetime: `${startDate}/${endDate}`,
@@ -411,11 +465,12 @@ async function fetchHourlyWeather(): Promise<
 > {
   const result = new Map<string, ActivityWeatherHour[]>();
   for (let year = startYear; year <= endYear; year++) {
+    const endDate = seasonDate(year, run.runWindow.lateEnd);
     const params = new URLSearchParams({
       latitude: String(weatherPoint!.lat),
       longitude: String(weatherPoint!.lon),
       start_date: `${year}-${run.runWindow.stagingStart}`,
-      end_date: `${year}-${run.runWindow.lateEnd}`,
+      end_date: endDate,
       hourly:
         "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky",
       precipitation_unit: "inch",
@@ -617,10 +672,16 @@ function counts(values: string[]) {
   );
 }
 function activeDayCount(start: string, end: string) {
+  const endYear = end < start ? 2025 : 2024;
   return Math.round(
-    (new Date(`2024-${end}T12:00:00Z`).getTime() -
+    (new Date(`${endYear}-${end}T12:00:00Z`).getTime() -
       new Date(`2024-${start}T12:00:00Z`).getTime()) / 86_400_000,
   ) + 1;
+}
+function seasonDate(startYear: number, monthDay: string) {
+  return `${
+    monthDay < run.runWindow.stagingStart ? startYear + 1 : startYear
+  }-${monthDay}`;
 }
 function finite(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : null;

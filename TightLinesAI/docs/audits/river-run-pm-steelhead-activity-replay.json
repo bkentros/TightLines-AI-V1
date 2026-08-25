@@ -170,6 +170,117 @@
       "Moderate": 7
     }
   },
+  "byStage": {
+    "beginning": {
+      "days": 99,
+      "scores": {
+        "min": 58,
+        "p10": 63,
+        "median": 75,
+        "p90": 89,
+        "max": 94,
+        "mean": 75.56
+      },
+      "labels": {
+        "Active": 57,
+        "Highly active": 40,
+        "Moderate": 2
+      }
+    },
+    "building": {
+      "days": 175,
+      "scores": {
+        "min": 62,
+        "p10": 77,
+        "median": 85,
+        "p90": 91,
+        "max": 95,
+        "mean": 84.62
+      },
+      "labels": {
+        "Active": 34,
+        "Highly active": 141
+      }
+    },
+    "ending": {
+      "days": 6,
+      "scores": {
+        "min": 61,
+        "p10": 64,
+        "median": 67,
+        "p90": 70,
+        "max": 70,
+        "mean": 66
+      },
+      "labels": {
+        "Active": 6
+      }
+    },
+    "peak": {
+      "days": 96,
+      "scores": {
+        "min": 53,
+        "p10": 60,
+        "median": 71,
+        "p90": 88,
+        "max": 93,
+        "mean": 72
+      },
+      "labels": {
+        "Active": 69,
+        "Highly active": 17,
+        "Moderate": 10
+      }
+    },
+    "post_run": {
+      "days": 2,
+      "scores": {
+        "min": 60,
+        "p10": 60,
+        "median": 75,
+        "p90": 75,
+        "max": 75,
+        "mean": 67.5
+      },
+      "labels": {
+        "Active": 2
+      }
+    },
+    "pre_run": {
+      "days": 94,
+      "scores": {
+        "min": 17,
+        "p10": 55,
+        "median": 67,
+        "p90": 75,
+        "max": 83,
+        "mean": 63.31
+      },
+      "labels": {
+        "Active": 67,
+        "Highly active": 2,
+        "Inactive": 3,
+        "Moderate": 18,
+        "Reserved": 4
+      }
+    },
+    "tapering": {
+      "days": 43,
+      "scores": {
+        "min": 48,
+        "p10": 58,
+        "median": 67,
+        "p90": 78,
+        "max": 84,
+        "mean": 67.53
+      },
+      "labels": {
+        "Active": 34,
+        "Highly active": 2,
+        "Moderate": 7
+      }
+    }
+  },
   "temperatureBands": {
     "below36F": {
       "days": 9,
@@ -339,7 +450,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -349,7 +462,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 80,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -359,7 +474,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -369,7 +486,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 27,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",
@@ -399,7 +518,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -409,7 +530,9 @@
           "positiveDriver": "The measured water temperature remains usable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 42,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -419,7 +542,9 @@
           "positiveDriver": "The measured water temperature remains usable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 9,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -429,7 +554,9 @@
           "positiveDriver": "The measured water temperature remains usable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 4,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -459,7 +586,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 87,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -469,7 +598,9 @@
           "positiveDriver": "The river level and its recent change are favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 41,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -479,7 +610,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.13
+          "precipitationIn": 0.13,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -489,7 +622,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.06
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -519,7 +654,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -529,7 +666,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 36,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -539,7 +678,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -549,7 +690,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 2,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -579,7 +722,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -589,7 +734,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -599,7 +746,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 6,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -609,7 +758,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 99,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",
@@ -639,7 +790,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -649,7 +802,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0.08
+          "precipitationIn": 0.08,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -659,7 +814,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 39,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -669,7 +826,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 46,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",
@@ -699,7 +858,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 96,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -709,7 +870,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 24,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -719,7 +882,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -729,7 +894,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 2,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -759,7 +926,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -769,7 +938,9 @@
           "positiveDriver": "The measured water temperature remains usable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -779,7 +950,9 @@
           "positiveDriver": "The measured water temperature remains usable.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 26,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -789,7 +962,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 20,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -819,7 +994,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.05
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -829,7 +1006,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 98,
-          "precipitationIn": 0.14
+          "precipitationIn": 0.14,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -839,7 +1018,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 38,
-          "precipitationIn": 0.01
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -849,7 +1030,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 17,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",
@@ -879,7 +1062,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -889,7 +1074,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 30,
-          "precipitationIn": 0.01
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -899,7 +1086,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -909,7 +1098,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is active.",
@@ -939,7 +1130,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 71,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -949,7 +1142,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 22,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -959,7 +1154,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -969,7 +1166,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 54,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",
@@ -999,7 +1198,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -1009,7 +1210,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 5,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -1019,7 +1222,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 58,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -1029,7 +1234,9 @@
           "positiveDriver": "The measured water temperature is favorable for Steelhead.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Steelhead activity outlook is highly active.",

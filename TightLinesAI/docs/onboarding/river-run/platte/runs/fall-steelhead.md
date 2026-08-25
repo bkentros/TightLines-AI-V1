@@ -30,7 +30,7 @@ by/date:** required before public enablement
 | Barrier response           | The emergency spring 2026 lower-weir deployment blocked/diverted Steelhead; normal fall passage and release reach were not established       | S-003, S-004 |
 | Seasonal calendar          | Direct Sep. 3–Nov. 30 record, strong-throughout-fall description, and Oct. 17 peak                                                           | S-005        |
 | Presence ceiling/curve     | 7/10 concentrated lower-corridor calibration; 1990 was the largest 1980–90 return and current stocking is comparable to accepted 7/10 rivers | S-002, S-005 |
-| Activity                   | Unavailable; weather-only Activity requires an accepted Fall Steelhead run and its own calibration/replay                                    | S-001        |
+| Activity                   | Hidden Limited weather-only candidate implemented and replayed; pending fixtures, owner review, and enablement                               | S-001        |
 | Fishability                | Unavailable; lower corridor has no accepted local hydraulic source                                                                           | S-001        |
 | Terminal/handoff           | Fall-entry model retains a holding tail and ends without saying fish died or left                                                            | S-003, S-005 |
 
@@ -59,6 +59,12 @@ by/date:** required before public enablement
 decision is withdrawn.
 
 **Configuration version:** `platte-phase-c-draft.3` **Presence version:**
-`platte-fall-steelhead-presence-v3-draft` **Activity:** unavailable pending
+`platte-fall-steelhead-presence-v3-draft` **Activity:**
+`platte-fall-steelhead-weather-activity-v1-draft`, using 0.70 effective light /
+0.30 same-block precipitation and a 0.80 missing-primary-evidence scale. It has
+no salmon mortality behavior. Final replay:
+`docs/audits/river-run-platte-steelhead-weather-activity-replay.json`; decision
+record:
+`docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
 local calibration **Owner acceptance:** corrected 7/10 profile available for
 renewed hidden review 2026-08-24.

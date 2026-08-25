@@ -30,6 +30,7 @@ export function resolveRunStage(
   run: Pick<
     RiverRunProfile,
     | "runWindow"
+    | "riverId"
     | "historicalPresence"
     | "species"
     | "runType"
@@ -59,6 +60,60 @@ export function resolveRunStage(
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
 
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
+  if (run.runStageCopyStrategy === "onboarding_corridor") {
+    const fallEntry = run.runType === "fall_entry";
+    const baseCopy = fallEntry
+      ? fallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext: false,
+        species: anglerSpeciesName(run.species),
+      })
+      : stageCopy(
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        anglerSpeciesName(run.species),
+        opportunity,
+      );
+    return {
+      stage,
+      copyStrategy,
+      stagingContext,
+      broadBuildingContext,
+      winterHoldingContext: false,
+      window,
+      label: fallEntry && stage === "post_run"
+        ? "Fall entry complete"
+        : fallEntry
+        ? fallEntryStageLabel(stage, false)
+        : stage === "post_run" && !latePostRunContext
+        ? "Fall run complete"
+        : stageLabel(stage, latePostRunContext),
+      ...onboardingCorridorStageCopy({
+        riverId: run.riverId,
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        fallEntry,
+        baseCopy,
+      }),
+      reasonCodes: [
+        stageReasonCode(stage),
+        ...(stage === "post_run" && (!latePostRunContext || fallEntry)
+          ? ["stage_offseason" as const]
+          : []),
+        ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (
     run.runType === "fall_entry" &&
     run.runStageCopyStrategy !== "betsie_homestead"
@@ -372,6 +427,256 @@ export function resolveRunStage(
       ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
+  };
+}
+
+function onboardingCorridorStageCopy(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  fallEntry: boolean;
+  baseCopy: Pick<
+    PrimitiveDisplay,
+    "headline" | "detail" | "tip" | "whereToStart"
+  >;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip" | "whereToStart"> {
+  const route = onboardingCorridorRoute(input);
+  const complete = input.stage === "post_run" &&
+    (input.fallEntry || !input.latePostRunContext);
+  return {
+    headline: complete
+      ? input.fallEntry
+        ? "The modeled fall-entry window is complete."
+        : input.baseCopy.headline
+      : input.baseCopy.headline,
+    detail: `${input.baseCopy.detail} ${route.limit}`,
+    tip: route.tip,
+    whereToStart: route.whereToStart,
+  };
+}
+
+function onboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  fallEntry: boolean;
+}): { whereToStart: string; limit: string; tip: string } {
+  const { stage } = input;
+  if (input.riverId === "platte") {
+    const limit =
+      "Platte guidance covers only the short corridor from Platte River Point to the downstream edge of the signed Lower Weir closure; it never implies passage through the installed weir.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "Platte Bay and Platte River Point, with the lower entry reach checked only for direct fish evidence.",
+          limit,
+          tip:
+            "Use Platte Bay and the river mouth as staging context. Do not treat the calendar as confirmation that fish have entered the short river corridor.",
+        }
+        : {
+          whereToStart: "Platte Bay—not the inland river corridor yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the lower river as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart:
+          "Lower entry reach from Platte River Point toward El Dorado.",
+        limit,
+        tip:
+          "Start at the lower entry reach and advance toward El Dorado only after finding direct evidence of fish.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Lower entry reach first; add the legal weir-approach water only with direct fish activity and current closure awareness.",
+        limit,
+        tip:
+          "Compare the lower entry reach with the legal weir approach, stopping outside every posted closure.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart:
+          "Legal water below the Lower Weir closure, then the lower entry reach toward Platte River Point.",
+        limit,
+        tip:
+          "Work only the signed legal corridor below the weir, then fall back toward the lower entry reach.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "The deepest established holding water within the legal lower corridor.",
+        limit,
+        tip:
+          "Keep the search selective below the closure and avoid actively spawning fish.",
+      };
+    }
+    return {
+      whereToStart: "No dependable Platte River starting reach for this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; this does not mean every Steelhead has left the river."
+        : "Do not build a Platte trip around isolated fish outside the modeled run.",
+    };
+  }
+
+  if (input.riverId === "white") {
+    const limit =
+      "All White River guidance remains below Hesperia Dam; White Lake is entry context, not part of the scored river corridor.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "White Lake connection and the Lower river as monitoring context only.",
+          limit,
+          tip:
+            "Watch the lake connection and Lower river without treating seasonal timing as a confirmed arrival.",
+        }
+        : {
+          whereToStart:
+            "White Lake connection—not inland White River sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using inland White River reaches.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Lower river from the White Lake connection upstream.",
+        limit,
+        tip:
+          "Keep the first search in the Lower river; early timing does not yet support a broad inland search.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Lower river first; the Forest corridor is beginning to come into play as a secondary check.",
+        limit,
+        tip:
+          "Start Lower, then make a measured Forest-corridor check instead of treating the whole accessible river equally.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Lower river and Forest corridor, in that order; Upper accessible water remains conditional.",
+        limit,
+        tip:
+          "Compare Lower and Forest water before committing to the Upper accessible corridor.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Forest corridor first; add the Upper accessible corridor below Hesperia as seasonal presence broadens.",
+        limit,
+        tip:
+          "Use the Forest corridor as the bridge between fresh Lower-river arrivals and established Upper accessible fish.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart:
+          "Forest and Upper accessible corridors below Hesperia; check Lower water for newer arrivals.",
+        limit,
+        tip:
+          "Compare established inland holding water below Hesperia with the Lower river rather than assuming equal distribution.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established Forest and Upper accessible holding water below Hesperia Dam.",
+        limit,
+        tip: input.fallEntry
+          ? "Favor established holding water; fewer fresh arrivals do not mean Steelhead have left the river."
+          : "Narrow the search to established holding water and avoid actively spawning fish.",
+      };
+    }
+    return {
+      whereToStart: "No dependable White River starting reach for this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; this is not a complete winter-presence model."
+        : "Do not build a White River trip around isolated fish outside the modeled run.",
+    };
+  }
+
+  const limit =
+    "Grand River guidance starts in the Lower river. Middle-corridor use requires a current, species-supported passage route, and no guidance extends beyond the configured species endpoint.";
+  if (stage === "pre_run") {
+    return input.stagingContext
+      ? {
+        whereToStart:
+          "Grand Haven harbor and pierheads; use the first Lower-river travel water only with direct fish evidence.",
+        limit,
+        tip:
+          "Keep this as Grand Haven staging context until dependable river entry begins.",
+      }
+      : {
+        whereToStart:
+          "Lake Michigan and Grand Haven—not inland Grand River sections.",
+        limit,
+        tip:
+          "Wait for the staging window before using the Grand River corridor.",
+      };
+  }
+  if (stage === "beginning") {
+    return {
+      whereToStart:
+        "Lower Grand River first, below the Sixth Street reach transition.",
+      limit,
+      tip:
+        "Keep the plan Lower-river first and do not infer upstream distribution from an early calendar date.",
+    };
+  }
+  if (stage === "building" && !input.establishedBuildingContext) {
+    return {
+      whereToStart:
+        "Lower Grand River first; consider Middle-corridor water only after current passage evidence supports the route.",
+      limit,
+      tip:
+        "Cover the Lower river before adding any currently verified Middle-corridor section.",
+    };
+  }
+  if (stage === "building" || stage === "peak") {
+    return {
+      whereToStart:
+        "Lower Grand River first, then only the currently verified species-supported Middle corridor.",
+      limit,
+      tip:
+        "Compare Lower water with verified Middle sections; never turn historic ladder passage into a whole-river claim.",
+    };
+  }
+  if (stage === "tapering" || stage === "ending") {
+    return {
+      whereToStart:
+        "Established Lower-river holding water, with verified Middle sections used selectively.",
+      limit,
+      tip: input.fallEntry
+        ? "Favor established holding water; fewer new arrivals do not mean Steelhead have left the Grand."
+        : "Narrow the plan to established water and avoid actively spawning fish.",
+    };
+  }
+  return {
+    whereToStart: "No dependable Grand River starting reach for this model.",
+    limit,
+    tip: input.fallEntry
+      ? "Fall-entry tracking has ended; this is not a complete winter-presence model."
+      : "Do not build a Grand River trip around isolated fish outside the modeled run.",
   };
 }
 

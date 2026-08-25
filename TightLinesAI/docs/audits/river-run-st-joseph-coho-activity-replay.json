@@ -1,0 +1,1270 @@
+{
+  "runId": "st_joseph_fall_coho",
+  "rulesVersion": "st-joseph-fall-coho-activity-v1",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical coho replay using St. Joseph River at Niles, MI USGS 04101500 daily mean discharge, St. Joseph River at Niles, MI — measured water temperature USGS 04101500 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1512,
+  "usableDays": 1460,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 49,
+    "temperatureHistory": 50,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 12,
+    "p10": 19,
+    "median": 59,
+    "p90": 85,
+    "max": 94,
+    "mean": 52.05
+  },
+  "blockScore": {
+    "min": 9,
+    "p10": 19,
+    "median": 53,
+    "p90": 85,
+    "max": 94,
+    "mean": 50.6
+  },
+  "uniqueDayScores": 80,
+  "uniqueBlockScores": 85,
+  "dayLabels": {
+    "Active": 445,
+    "Highly active": 280,
+    "Inactive": 170,
+    "Moderate": 87,
+    "Reserved": 478
+  },
+  "blockLabels": {
+    "Active": 1605,
+    "Highly active": 1026,
+    "Inactive": 733,
+    "Moderate": 587,
+    "Reserved": 1889
+  },
+  "daysAtLeast90": 44,
+  "blocksAtLeast90": 213,
+  "byStage": {
+    "beginning": {
+      "days": 420,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 25,
+        "p90": 76,
+        "max": 88,
+        "mean": 38.12
+      },
+      "labels": {
+        "Active": 101,
+        "Highly active": 27,
+        "Inactive": 82,
+        "Moderate": 3,
+        "Reserved": 207
+      }
+    },
+    "building": {
+      "days": 118,
+      "scores": {
+        "min": 23,
+        "p10": 58,
+        "median": 74,
+        "p90": 84,
+        "max": 92,
+        "mean": 70.32
+      },
+      "labels": {
+        "Active": 70,
+        "Highly active": 34,
+        "Moderate": 3,
+        "Reserved": 11
+      }
+    },
+    "ending": {
+      "days": 130,
+      "scores": {
+        "min": 26,
+        "p10": 34,
+        "median": 49,
+        "p90": 63,
+        "max": 75,
+        "mean": 48.41
+      },
+      "labels": {
+        "Active": 22,
+        "Moderate": 73,
+        "Reserved": 35
+      }
+    },
+    "peak": {
+      "days": 299,
+      "scores": {
+        "min": 20,
+        "p10": 70,
+        "median": 83,
+        "p90": 90,
+        "max": 94,
+        "mean": 79.76
+      },
+      "labels": {
+        "Active": 111,
+        "Highly active": 177,
+        "Moderate": 1,
+        "Reserved": 10
+      }
+    },
+    "post_run": {
+      "days": 130,
+      "scores": {
+        "min": 25,
+        "p10": 29,
+        "median": 33,
+        "p90": 36,
+        "max": 38,
+        "mean": 32.74
+      },
+      "labels": {
+        "Reserved": 130
+      }
+    },
+    "pre_run": {
+      "days": 168,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 20,
+        "p90": 25,
+        "max": 80,
+        "mean": 21.06
+      },
+      "labels": {
+        "Active": 1,
+        "Highly active": 1,
+        "Inactive": 82,
+        "Reserved": 84
+      }
+    },
+    "tapering": {
+      "days": 195,
+      "scores": {
+        "min": 12,
+        "p10": 61,
+        "median": 71,
+        "p90": 85,
+        "max": 92,
+        "mean": 70.49
+      },
+      "labels": {
+        "Active": 140,
+        "Highly active": 41,
+        "Inactive": 6,
+        "Moderate": 7,
+        "Reserved": 1
+      }
+    }
+  },
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-28..10-31",
+      "days": 56,
+      "scores": {
+        "min": 20,
+        "p10": 73,
+        "median": 87,
+        "p90": 90,
+        "max": 94,
+        "mean": 80.59
+      },
+      "labels": {
+        "Active": 9,
+        "Highly active": 43,
+        "Reserved": 4
+      },
+      "maximumBlock": 94
+    },
+    "taperingEarly": {
+      "window": "11-01..11-04",
+      "days": 52,
+      "scores": {
+        "min": 14,
+        "p10": 66,
+        "median": 77,
+        "p90": 88,
+        "max": 92,
+        "mean": 72.6
+      },
+      "labels": {
+        "Active": 25,
+        "Highly active": 22,
+        "Inactive": 4,
+        "Reserved": 1
+      },
+      "maximumBlock": 92
+    },
+    "taperingLate": {
+      "window": "11-12..11-15",
+      "days": 52,
+      "scores": {
+        "min": 47,
+        "p10": 59,
+        "median": 67,
+        "p90": 78,
+        "max": 81,
+        "mean": 67.27
+      },
+      "labels": {
+        "Active": 43,
+        "Highly active": 3,
+        "Moderate": 6
+      },
+      "maximumBlock": 81
+    },
+    "endingEarly": {
+      "window": "11-16..11-19",
+      "days": 52,
+      "scores": {
+        "min": 41,
+        "p10": 49,
+        "median": 59,
+        "p90": 68,
+        "max": 75,
+        "mean": 58.25
+      },
+      "labels": {
+        "Active": 22,
+        "Moderate": 30
+      },
+      "maximumBlock": 75
+    },
+    "endingLate": {
+      "window": "11-22..11-25",
+      "days": 52,
+      "scores": {
+        "min": 26,
+        "p10": 32,
+        "median": 38,
+        "p90": 46,
+        "max": 51,
+        "mean": 38.1
+      },
+      "labels": {
+        "Moderate": 19,
+        "Reserved": 33
+      },
+      "maximumBlock": 52
+    },
+    "residualTail": {
+      "window": "11-26..12-05",
+      "days": 130,
+      "scores": {
+        "min": 25,
+        "p10": 29,
+        "median": 33,
+        "p90": 36,
+        "max": 38,
+        "mean": 32.74
+      },
+      "labels": {
+        "Reserved": 130
+      },
+      "maximumBlock": 39
+    }
+  },
+  "byTemperature": {
+    "below45F": {
+      "days": 233,
+      "scores": {
+        "min": 25,
+        "p10": 29,
+        "median": 35,
+        "p90": 62,
+        "max": 75,
+        "mean": 40.64
+      },
+      "labels": {
+        "Active": 33,
+        "Moderate": 43,
+        "Reserved": 157
+      }
+    },
+    "from45To60F": {
+      "days": 492,
+      "scores": {
+        "min": 12,
+        "p10": 57,
+        "median": 78,
+        "p90": 89,
+        "max": 94,
+        "mean": 74.61
+      },
+      "labels": {
+        "Active": 221,
+        "Highly active": 212,
+        "Inactive": 6,
+        "Moderate": 37,
+        "Reserved": 16
+      }
+    },
+    "from60To68F": {
+      "days": 266,
+      "scores": {
+        "min": 56,
+        "p10": 64,
+        "median": 74,
+        "p90": 83,
+        "max": 92,
+        "mean": 73.56
+      },
+      "labels": {
+        "Active": 191,
+        "Highly active": 68,
+        "Moderate": 7
+      }
+    },
+    "from68To72F": {
+      "days": 187,
+      "scores": {
+        "min": 22,
+        "p10": 23,
+        "median": 25,
+        "p90": 28,
+        "max": 31,
+        "mean": 25.48
+      },
+      "labels": {
+        "Reserved": 187
+      }
+    },
+    "atLeast72F": {
+      "days": 282,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 19,
+        "p90": 20,
+        "max": 21,
+        "mean": 19.45
+      },
+      "labels": {
+        "Inactive": 164,
+        "Reserved": 118
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "metric": "flow_cfs",
+      "sourceLabel": "Niles mainstem reach",
+      "lowValue": 1300,
+      "highValue": 5100,
+      "severeHighValue": 7000,
+      "rising24h": {
+        "absolute": 120,
+        "percent": 5
+      },
+      "meaningfulRise24h": {
+        "absolute": 240,
+        "percent": 11
+      },
+      "sharpRise24h": {
+        "absolute": 450,
+        "percent": 19
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 10,
+      "p10": 20,
+      "median": 120,
+      "p90": 440,
+      "max": 2850,
+      "mean": 194.16
+    },
+    "positivePercentChange": {
+      "min": 0.2,
+      "p10": 1.1,
+      "median": 5.49,
+      "p90": 18.69,
+      "max": 91.85,
+      "mean": 8.71
+    },
+    "signals": {
+      "falling": 101,
+      "meaningful_rise": 87,
+      "rising": 177,
+      "sharp_rise": 39,
+      "stable": 1056
+    }
+  },
+  "bestBlocks": {
+    "05-09": 796,
+    "09-13": 177,
+    "13-17": 216,
+    "17-21": 271
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 19,
+    "max": 30,
+    "mean": 7.85
+  },
+  "daysWithSpreadAtLeast10": 534,
+  "daysWithSpreadAtLeast20": 128,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2012-11-12",
+      "stage": "tapering",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 48.74,
+      "flowCfs": 1750,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 110,
+      "flowPercentChange24h": 6.71,
+      "temperatureSignal": "warming",
+      "spread": 30,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.18,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2020-10-11",
+      "stage": "peak",
+      "staging": false,
+      "score": 80,
+      "label": "Highly active",
+      "waterTempF": 60.44,
+      "flowCfs": 1850,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 250,
+      "flowPercentChange24h": 15.63,
+      "temperatureSignal": "warming",
+      "spread": 30,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 93,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 48,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 16,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2014-09-29",
+      "stage": "beginning",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 66.2,
+      "flowCfs": 1840,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -20,
+      "flowPercentChange24h": -1.08,
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 52,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2019-10-27",
+      "stage": "peak",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 51.98,
+      "flowCfs": 4180,
+      "flowBand": "high_fishable",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 550,
+      "flowPercentChange24h": 15.15,
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2012-11-07",
+      "stage": "tapering",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 45.86,
+      "flowCfs": 1700,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 40,
+      "flowPercentChange24h": 2.41,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2022-10-28",
+      "stage": "peak",
+      "staging": false,
+      "score": 80,
+      "label": "Highly active",
+      "waterTempF": 54.14,
+      "flowCfs": 2300,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 220,
+      "flowPercentChange24h": 10.58,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 48,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2023-11-15",
+      "stage": "tapering",
+      "staging": false,
+      "score": 61,
+      "label": "Active",
+      "waterTempF": 48.2,
+      "flowCfs": 1970,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -230,
+      "flowPercentChange24h": -10.45,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2025-11-03",
+      "stage": "tapering",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 51.08,
+      "flowCfs": 1540,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -140,
+      "flowPercentChange24h": -8.33,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2025-11-07",
+      "stage": "tapering",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 50.9,
+      "flowCfs": 1640,
+      "flowBand": "low",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 170,
+      "flowPercentChange24h": 11.56,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.19,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2013-10-12",
+      "stage": "peak",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "waterTempF": 62.78,
+      "flowCfs": 1780,
+      "flowBand": "low",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 210,
+      "flowPercentChange24h": 13.38,
+      "temperatureSignal": "neutral",
+      "spread": 27,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 88,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2013-10-19",
+      "stage": "peak",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 56.48,
+      "flowCfs": 1700,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "cooling",
+      "spread": 27,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 72,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    },
+    {
+      "date": "2013-11-14",
+      "stage": "tapering",
+      "staging": false,
+      "score": 62,
+      "label": "Active",
+      "waterTempF": 42.26,
+      "flowCfs": 2230,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 150,
+      "flowPercentChange24h": 7.21,
+      "temperatureSignal": "cooling",
+      "spread": 27,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 40,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding. Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section."
+    }
+  ]
+}

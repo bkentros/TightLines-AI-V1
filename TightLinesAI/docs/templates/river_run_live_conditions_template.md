@@ -1,8 +1,7 @@
 # {{RIVER_NAME}} Live Conditions Audit
 
-**River ID:** `{{RIVER_ID}}`
-**Created:** {{CREATED_ON}}
-**Status:** `research_incomplete`
+**River ID:** `{{RIVER_ID}}` **Created:** {{CREATED_ON}} **Status:**
+`research_incomplete`
 
 Read `docs/river_run_live_conditions_onboarding_standard.md` before completing
 this audit. Live Conditions is a measurement surface, not a fifth scored
@@ -10,11 +9,11 @@ primitive.
 
 ## 1. Capability decision
 
-| Metric | Candidate source | Accepted source | Live available | Historical available | Public unit/precision | Decision reason |
-| --- | --- | --- | --- | --- | --- | --- |
-| Discharge |  |  | no | no | CFS / source-appropriate |  |
-| Gauge height |  |  | no | no | ft / 0.01 when supported |  |
-| Measured water temperature |  |  | no | no | °F / 0.1 when supported |  |
+| Metric                     | Candidate source | Accepted source | Live available | Historical available | Public unit/precision    | Decision reason |
+| -------------------------- | ---------------- | --------------- | -------------- | -------------------- | ------------------------ | --------------- |
+| Discharge                  |                  |                 | no             | no                   | CFS / source-appropriate |                 |
+| Gauge height               |                  |                 | no             | no                   | ft / 0.01 when supported |                 |
+| Measured water temperature |                  |                 | no             | no                   | °F / 0.1 when supported  |                 |
 
 Do not add turbidity, dissolved oxygen, conductivity, lake level, or another
 metric until the app has an explicit public interpretation, stable provider
@@ -34,6 +33,10 @@ For every accepted source record:
 - Reach represented and reaches not represented.
 - Fallback priority and positive-credit limitations.
 - Probe date and captured verification result.
+- Returned observation timestamp, numeric sample, null/sentinel behavior, and
+  provider timezone.
+- Provider-fault behavior and proof that a later valid observation restores the
+  metric automatically.
 
 ## 3. Date-average contract
 
@@ -50,14 +53,14 @@ For every accepted source record:
 
 ## 4. Twenty-four-hour trend contract
 
-| Metric | Prior-read tolerance | Stable tolerance | Missing behavior |
-| --- | --- | --- | --- |
-| Discharge | Closest accepted observation near 24h | Engine contract | Unknown trend |
-| Gauge height | Closest accepted observation near 24h | Engine contract | Unknown trend |
-| Water temperature | Same smoothing contract as current read | Engine contract | Unknown trend |
+| Metric            | Prior-read tolerance                    | Stable tolerance | Missing behavior |
+| ----------------- | --------------------------------------- | ---------------- | ---------------- |
+| Discharge         | Closest accepted observation near 24h   | Engine contract  | Unknown trend    |
+| Gauge height      | Closest accepted observation near 24h   | Engine contract  | Unknown trend    |
+| Water temperature | Same smoothing contract as current read | Engine contract  | Unknown trend    |
 
-Trend describes the station measurement only. It does not claim migration,
-fish movement, clarity, safety, or a whole-river change.
+Trend describes the station measurement only. It does not claim migration, fish
+movement, clarity, safety, or a whole-river change.
 
 ## 5. Public copy lock
 
@@ -78,6 +81,8 @@ fish movement, clarity, safety, or a whole-river change.
 - [ ] Delayed reading.
 - [ ] Older-than-24-hours suppression.
 - [ ] Missing reading.
+- [ ] Provider malfunction fails closed.
+- [ ] Recovered valid numeric reading automatically restores accurate display.
 - [ ] Rising/falling/stable or warming/cooling/stable trend.
 - [ ] Date average normal/high/low or warmer/colder.
 - [ ] Insufficient historical context.
@@ -86,6 +91,5 @@ fish movement, clarity, safety, or a whole-river change.
 - [ ] Source details contain no internal terminology.
 - [ ] Limitation describes the actual represented reach.
 
-**Live Conditions decision:** `blocked`
-**Audit version:**
-**Owner acceptance/date:**
+**Live Conditions decision:** `blocked` **Audit version:** **Owner
+acceptance/date:**

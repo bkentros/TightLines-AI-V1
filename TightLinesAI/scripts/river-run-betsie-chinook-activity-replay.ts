@@ -36,6 +36,18 @@ if (
     `${river.displayName} ${speciesSlug} does not have a weather-only Activity replay contract.`,
   );
 }
+const configuredLightWeight = run.activity.weights.light;
+const lightWeightOverride = numericArgumentValue("--light-weight");
+const activityRules = structuredClone(run.activity);
+if (lightWeightOverride !== undefined) {
+  if (lightWeightOverride <= 0 || lightWeightOverride >= 1) {
+    throw new Error("--light-weight must be greater than 0 and less than 1.");
+  }
+  activityRules.weights.light = lightWeightOverride;
+  activityRules.weights.weather = 1 - lightWeightOverride;
+  activityRules.version =
+    `${activityRules.version}-light-${lightWeightOverride}`;
+}
 const weatherPoint = river.weatherPoints.find((point) =>
   point.role === "primary"
 );
@@ -63,9 +75,10 @@ const weatherByDate = await fetchHourlyWeather();
 const rows: Row[] = [];
 let missingWeatherDays = 0;
 for (let year = startYear; year <= endYear; year++) {
+  const interval = seasonInterval(year);
   for (
-    let date = `${year}-${run.runWindow.stagingStart}`;
-    date <= `${year}-${run.runWindow.lateEnd}`;
+    let date = interval.start;
+    date <= interval.end;
     date = addDays(date, 1)
   ) {
     const hourlyWeather = weatherByDate.get(date) ?? [];
@@ -75,7 +88,7 @@ for (let year = startYear; year <= endYear; year++) {
     }
     const stage = resolveRunStage(run, date);
     const result = scoreActivity({
-      rules: run.activity,
+      rules: activityRules,
       requestDate: date,
       targetDate: date,
       runStage: stage.stage,
@@ -118,7 +131,7 @@ const invariants = {
   incompleteBlocks: rows.filter((row) => row.blocks.length !== 4).length,
   scoreAboveWeatherOnlyCeiling:
     blocks.filter((block) =>
-      block.score > (run.activity!.caps.weatherOnlyMaximum ?? 100)
+      block.score > (activityRules.caps.weatherOnlyMaximum ?? 100)
     ).length,
   dailyOutsideBlockRange: rows.filter((row) => {
     const values = row.blocks.map((block) => block.score);
@@ -156,7 +169,7 @@ const invariants = {
 
 const report = {
   runId: run.runId,
-  rulesVersion: run.activity.version,
+  rulesVersion: activityRules.version,
   replayYears: `${startYear}-${endYear}`,
   method:
     `Historical mechanical ${river.displayName} ${speciesSlug} weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at ${weatherPoint.weatherPointId}. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.`,
@@ -184,6 +197,7 @@ const report = {
       },
     ]),
   ),
+  stageByBlock: stageByBlockReport(),
   precipitationDays: {
     dry: scoreGroup(rows.filter((row) => row.precipitationIn === 0)),
     traceToLight: scoreGroup(
@@ -199,6 +213,20 @@ const report = {
   spread: summary(rows.map((row) => row.spread)),
   daysWithSpreadAtLeast10: rows.filter((row) => row.spread >= 10).length,
   lifecycleContinuity: lifecycle,
+  calibrationIteration: {
+    baseline: {
+      light: configuredLightWeight,
+      weather: run.activity.weights.weather,
+    },
+    candidate: {
+      light: activityRules.weights.light,
+      weather: activityRules.weights.weather,
+    },
+    changed: lightWeightOverride !== undefined,
+    rationale: lightWeightOverride === undefined
+      ? "Configured candidate full replay."
+      : "Explicit sensitivity replay; no configuration value is changed by this run.",
+  },
   invariants,
 };
 
@@ -222,11 +250,12 @@ async function fetchHourlyWeather(): Promise<
 > {
   const result = new Map<string, ActivityWeatherHour[]>();
   for (let year = startYear; year <= endYear; year++) {
+    const interval = seasonInterval(year);
     const params = new URLSearchParams({
       latitude: String(weatherPoint!.lat),
       longitude: String(weatherPoint!.lon),
-      start_date: `${year}-${run.runWindow.stagingStart}`,
-      end_date: `${year}-${run.runWindow.lateEnd}`,
+      start_date: interval.start,
+      end_date: interval.end,
       hourly:
         "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky",
       precipitation_unit: "inch",
@@ -265,10 +294,22 @@ async function fetchHourlyWeather(): Promise<
 }
 
 function lifecycleContinuityAudit() {
+  if (!activityRules.caps.lifecycleRamp) {
+    throw new Error(`${run.runId} salmon Activity requires a lifecycle ramp.`);
+  }
+  const interval = seasonInterval(2026);
   const dates: string[] = [];
   for (
-    let date = `2026-${run.activity!.caps.lifecycleRamp!.peakEnd}`;
-    date <= `2026-${run.activity!.caps.lifecycleRamp!.endingEnd}`;
+    let date = dateInInterval(
+      2026,
+      activityRules.caps.lifecycleRamp.peakEnd,
+      interval.start,
+    );
+    date <= dateInInterval(
+      2026,
+      activityRules.caps.lifecycleRamp.endingEnd,
+      interval.start,
+    );
     date = addDays(date, 1)
   ) {
     dates.push(date);
@@ -276,7 +317,7 @@ function lifecycleContinuityAudit() {
   const scores = dates.map((date) => {
     const stage = resolveRunStage(run, date);
     return scoreActivity({
-      rules: run.activity!,
+      rules: activityRules,
       requestDate: date,
       targetDate: date,
       runStage: stage.stage,
@@ -305,11 +346,17 @@ function lifecycleContinuityAudit() {
 }
 
 function steelheadStageInvarianceAudit() {
-  const dates = ["2026-11-29", "2026-11-30", "2026-12-15", "2026-12-18"];
+  const interval = seasonInterval(2026);
+  const dates = [
+    run.runWindow.peak,
+    run.runWindow.taperingEnd,
+    run.runWindow.end,
+    run.runWindow.lateEnd,
+  ].map((monthDay) => dateInInterval(2026, monthDay, interval.start));
   const scores = dates.map((date) => {
     const stage = resolveRunStage(run, date);
     return scoreActivity({
-      rules: run.activity!,
+      rules: activityRules,
       requestDate: date,
       targetDate: date,
       runStage: stage.stage,
@@ -339,10 +386,72 @@ function steelheadStageInvarianceAudit() {
 
 function activeDayCount(start: string, end: string): number {
   const year = 2024;
+  const endYearForInterval = end < start ? year + 1 : year;
   return Math.round(
-    (Date.parse(`${year}-${end}T00:00:00Z`) -
+    (Date.parse(`${endYearForInterval}-${end}T00:00:00Z`) -
       Date.parse(`${year}-${start}T00:00:00Z`)) / 86_400_000,
   ) + 1;
+}
+
+function seasonInterval(startYearForSeason: number) {
+  const start = `${startYearForSeason}-${run.runWindow.stagingStart}`;
+  const endYearForSeason = run.runWindow.lateEnd < run.runWindow.stagingStart
+    ? startYearForSeason + 1
+    : startYearForSeason;
+  return {
+    start,
+    end: `${endYearForSeason}-${run.runWindow.lateEnd}`,
+  };
+}
+
+function dateInInterval(
+  startYearForSeason: number,
+  monthDay: string,
+  intervalStart: string,
+) {
+  const year = monthDay < intervalStart.slice(5)
+    ? startYearForSeason + 1
+    : startYearForSeason;
+  return `${year}-${monthDay}`;
+}
+
+function stageByBlockReport() {
+  const stages = [...new Set(rows.map((row) => row.stage))].toSorted();
+  const blockIds = ["05-09", "09-13", "13-17", "17-21"] as const;
+  return stages.flatMap((stage) => {
+    const stageRows = rows.filter((row) => row.stage === stage);
+    const entries = blockIds.map((blockId) => {
+      const samples = stageRows.flatMap((row) =>
+        row.blocks.filter((block) => block.id === blockId)
+      );
+      return stageBlockEntry(stage, blockId, stageRows.length, samples);
+    });
+    const allBlocks = stageRows.flatMap((row) => row.blocks);
+    return [
+      ...entries,
+      stageBlockEntry(stage, "all_blocks", stageRows.length, allBlocks),
+    ];
+  });
+}
+
+function stageBlockEntry(
+  stage: string,
+  block: string,
+  usableDays: number,
+  samples: ActivityBlock[],
+) {
+  return {
+    stage,
+    block,
+    usableDays,
+    samples: samples.length,
+    scores: summary(samples.map((sample) => sample.score)),
+    labelShares: shares(samples.map((sample) => sample.activityLabel)),
+    capConfidenceNotes:
+      `Weather-only true maximum ${activityRules.caps.weatherOnlyMaximum}; evidence scale ${
+        activityRules.caps.weatherOnlyEvidenceScale ?? 1
+      }; Limited confidence; measured river level, clarity, and water temperature excluded.`,
+  };
 }
 function summary(values: number[]) {
   if (!values.length) {
@@ -378,6 +487,15 @@ function counts(values: string[]) {
     ]),
   );
 }
+function shares(values: string[]) {
+  const total = values.length;
+  return Object.fromEntries(
+    Object.entries(counts(values)).map(([label, count]) => [
+      label,
+      total ? round2((Number(count) / total) * 100) : 0,
+    ]),
+  );
+}
 function finite(value: number | null | undefined): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
@@ -388,6 +506,14 @@ function round2(value: number): number {
 function argumentValue(name: string): string | undefined {
   const index = Deno.args.indexOf(name);
   return index >= 0 ? Deno.args[index + 1] : undefined;
+}
+
+function numericArgumentValue(name: string): number | undefined {
+  const value = argumentValue(name);
+  if (value === undefined) return undefined;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) throw new Error(`${name} must be numeric.`);
+  return parsed;
 }
 
 function fail(message: string): never {

@@ -1,0 +1,1252 @@
+{
+  "runId": "grand_fall_coho",
+  "rulesVersion": "grand-fall-coho-observed-activity-v3-draft",
+  "replayYears": "2020-2025",
+  "method": "Historical mechanical coho replay using Grand River at Grand Rapids — Fulton Street USGS 04119000 daily mean discharge, Grand River at North Park Street — measured water temperature USGS 04118564 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 678,
+  "usableDays": 641,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 20,
+    "temperatureHistory": 31,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 0,
+    "p10": 22,
+    "median": 34,
+    "p90": 56,
+    "max": 96,
+    "mean": 35.67
+  },
+  "blockScore": {
+    "min": 0,
+    "p10": 21,
+    "median": 33,
+    "p90": 55,
+    "max": 96,
+    "mean": 35.08
+  },
+  "uniqueDayScores": 55,
+  "uniqueBlockScores": 67,
+  "dayLabels": {
+    "Active": 23,
+    "Highly active": 9,
+    "Inactive": 54,
+    "Moderate": 207,
+    "Reserved": 348
+  },
+  "blockLabels": {
+    "Active": 82,
+    "Highly active": 33,
+    "Inactive": 236,
+    "Moderate": 768,
+    "Reserved": 1445
+  },
+  "daysAtLeast90": 6,
+  "blocksAtLeast90": 25,
+  "byStage": {
+    "beginning": {
+      "days": 42,
+      "scores": {
+        "min": 27,
+        "p10": 29,
+        "median": 29,
+        "p90": 31,
+        "max": 33,
+        "mean": 29.21
+      },
+      "labels": {
+        "Reserved": 42
+      }
+    },
+    "building": {
+      "days": 84,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 39,
+        "max": 85,
+        "mean": 33.65
+      },
+      "labels": {
+        "Highly active": 2,
+        "Reserved": 82
+      }
+    },
+    "ending": {
+      "days": 68,
+      "scores": {
+        "min": 22,
+        "p10": 25,
+        "median": 36,
+        "p90": 49,
+        "max": 60,
+        "mean": 36.9
+      },
+      "labels": {
+        "Active": 2,
+        "Moderate": 24,
+        "Reserved": 42
+      }
+    },
+    "peak": {
+      "days": 48,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 39,
+        "p90": 96,
+        "max": 96,
+        "mean": 44.02
+      },
+      "labels": {
+        "Highly active": 7,
+        "Reserved": 41
+      }
+    },
+    "post_run": {
+      "days": 76,
+      "scores": {
+        "min": 17,
+        "p10": 21,
+        "median": 26,
+        "p90": 32,
+        "max": 35,
+        "mean": 26.18
+      },
+      "labels": {
+        "Inactive": 3,
+        "Reserved": 73
+      }
+    },
+    "pre_run": {
+      "days": 42,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 23,
+        "p90": 23,
+        "max": 23,
+        "mean": 22.76
+      },
+      "labels": {
+        "Reserved": 42
+      }
+    },
+    "tapering": {
+      "days": 281,
+      "scores": {
+        "min": 0,
+        "p10": 0,
+        "median": 47,
+        "p90": 58,
+        "max": 65,
+        "mean": 40
+      },
+      "labels": {
+        "Active": 21,
+        "Inactive": 51,
+        "Moderate": 183,
+        "Reserved": 26
+      }
+    }
+  },
+  "backHalf": {
+    "peakShoulder": {
+      "window": "09-26..09-29",
+      "days": 24,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 39,
+        "p90": 96,
+        "max": 96,
+        "mean": 46.42
+      },
+      "labels": {
+        "Highly active": 4,
+        "Reserved": 20
+      },
+      "maximumBlock": 96
+    },
+    "taperingEarly": {
+      "window": "09-30..10-03",
+      "days": 24,
+      "scores": {
+        "min": 0,
+        "p10": 0,
+        "median": 0,
+        "p90": 59,
+        "max": 65,
+        "mean": 17.17
+      },
+      "labels": {
+        "Active": 2,
+        "Inactive": 16,
+        "Moderate": 6
+      },
+      "maximumBlock": 66
+    },
+    "taperingLate": {
+      "window": "11-12..11-15",
+      "days": 23,
+      "scores": {
+        "min": 29,
+        "p10": 34,
+        "median": 45,
+        "p90": 52,
+        "max": 52,
+        "mean": 44.52
+      },
+      "labels": {
+        "Moderate": 18,
+        "Reserved": 5
+      },
+      "maximumBlock": 53
+    },
+    "endingEarly": {
+      "window": "11-16..11-19",
+      "days": 18,
+      "scores": {
+        "min": 34,
+        "p10": 37,
+        "median": 46,
+        "p90": 57,
+        "max": 60,
+        "mean": 46.44
+      },
+      "labels": {
+        "Active": 2,
+        "Moderate": 12,
+        "Reserved": 4
+      },
+      "maximumBlock": 61
+    },
+    "endingLate": {
+      "window": "12-12..12-15",
+      "days": 20,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 22,
+        "p90": 24,
+        "max": 25,
+        "mean": 22
+      },
+      "labels": {
+        "Inactive": 3,
+        "Reserved": 17
+      },
+      "maximumBlock": 26
+    },
+    "residualTail": {
+      "window": "12-16..12-15",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "below45F": {
+      "days": 160,
+      "scores": {
+        "min": 17,
+        "p10": 22,
+        "median": 30,
+        "p90": 46,
+        "max": 57,
+        "mean": 31.92
+      },
+      "labels": {
+        "Inactive": 3,
+        "Moderate": 35,
+        "Reserved": 122
+      }
+    },
+    "from45To58F": {
+      "days": 189,
+      "scores": {
+        "min": 0,
+        "p10": 41,
+        "median": 51,
+        "p90": 60,
+        "max": 65,
+        "mean": 48.96
+      },
+      "labels": {
+        "Active": 23,
+        "Inactive": 8,
+        "Moderate": 152,
+        "Reserved": 6
+      }
+    },
+    "from58To62F": {
+      "days": 43,
+      "scores": {
+        "min": 18,
+        "p10": 30,
+        "median": 44,
+        "p90": 96,
+        "max": 96,
+        "mean": 51.42
+      },
+      "labels": {
+        "Highly active": 9,
+        "Inactive": 1,
+        "Moderate": 20,
+        "Reserved": 13
+      }
+    },
+    "from62To68F": {
+      "days": 92,
+      "scores": {
+        "min": 0,
+        "p10": 0,
+        "median": 39,
+        "p90": 39,
+        "max": 39,
+        "mean": 24.63
+      },
+      "labels": {
+        "Inactive": 33,
+        "Reserved": 59
+      }
+    },
+    "atLeast68F": {
+      "days": 157,
+      "scores": {
+        "min": 0,
+        "p10": 23,
+        "median": 29,
+        "p90": 29,
+        "max": 29,
+        "mean": 25.64
+      },
+      "labels": {
+        "Inactive": 9,
+        "Reserved": 148
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 150,
+        "percent": 8
+      },
+      "meaningfulRise24h": {
+        "absolute": 300,
+        "percent": 15
+      },
+      "sharpRise24h": {
+        "absolute": 700,
+        "percent": 30
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 10,
+      "p10": 20,
+      "median": 110,
+      "p90": 480,
+      "max": 1730,
+      "mean": 200.59
+    },
+    "positivePercentChange": {
+      "min": 0.24,
+      "p10": 0.9,
+      "median": 4.96,
+      "p90": 18.69,
+      "max": 56.36,
+      "mean": 8.18
+    },
+    "signals": {
+      "falling": 15,
+      "meaningful_rise": 31,
+      "rising": 37,
+      "sharp_rise": 7,
+      "stable": 551
+    }
+  },
+  "bestBlocks": {
+    "05-09": 466,
+    "09-13": 53,
+    "13-17": 47,
+    "17-21": 75
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 1,
+    "p90": 9,
+    "max": 16,
+    "mean": 3.19
+  },
+  "daysWithSpreadAtLeast10": 52,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2025-11-03",
+      "stage": "tapering",
+      "staging": false,
+      "score": 41,
+      "label": "Moderate",
+      "waterTempF": 48.74,
+      "flowCfs": 1560,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -10,
+      "flowPercentChange24h": -0.64,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "tapering",
+      "staging": false,
+      "score": 48,
+      "label": "Moderate",
+      "waterTempF": 55.4,
+      "flowCfs": 1510,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 10,
+      "flowPercentChange24h": 0.67,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-09",
+      "stage": "tapering",
+      "staging": false,
+      "score": 50,
+      "label": "Moderate",
+      "waterTempF": 53.6,
+      "flowCfs": 1520,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 80,
+      "flowPercentChange24h": 5.56,
+      "temperatureSignal": "strong_cooling",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "tapering",
+      "staging": false,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": 47.12,
+      "flowCfs": 2190,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -50,
+      "flowPercentChange24h": -2.23,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 43,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "tapering",
+      "staging": false,
+      "score": 18,
+      "label": "Inactive",
+      "waterTempF": 61.88,
+      "flowCfs": 1070,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -40,
+      "flowPercentChange24h": -3.6,
+      "temperatureSignal": "warming",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 24,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 15,
+          "activityLabel": "Inactive",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 57,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 10,
+          "activityLabel": "Inactive",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 16,
+          "activityLabel": "Inactive",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is inactive.",
+      "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2021-11-06",
+      "stage": "tapering",
+      "staging": false,
+      "score": 39,
+      "label": "Reserved",
+      "waterTempF": 44.6,
+      "flowCfs": 6080,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -490,
+      "flowPercentChange24h": -7.46,
+      "temperatureSignal": "cooling",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 37,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 55,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 31,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 38,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "tapering",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": 46.94,
+      "flowCfs": 2240,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -70,
+      "flowPercentChange24h": -3.03,
+      "temperatureSignal": "cooling",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 19,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-27",
+      "stage": "tapering",
+      "staging": false,
+      "score": 54,
+      "label": "Moderate",
+      "waterTempF": 51.8,
+      "flowCfs": 2540,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 210,
+      "flowPercentChange24h": 9.01,
+      "temperatureSignal": "cooling",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 38,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-11-16",
+      "stage": "ending",
+      "staging": false,
+      "score": 47,
+      "label": "Moderate",
+      "waterTempF": 42.08,
+      "flowCfs": 2010,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 80,
+      "flowPercentChange24h": 4.15,
+      "temperatureSignal": "cooling",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting."
+    },
+    {
+      "date": "2023-11-10",
+      "stage": "tapering",
+      "staging": false,
+      "score": 41,
+      "label": "Moderate",
+      "waterTempF": 46.4,
+      "flowCfs": 4820,
+      "flowBand": "high_fishable",
+      "flowSignal": "sharp_rise",
+      "flowAbsoluteChange24h": 1210,
+      "flowPercentChange24h": 33.52,
+      "temperatureSignal": "neutral",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 31,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 70,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2023-11-11",
+      "stage": "tapering",
+      "staging": false,
+      "score": 42,
+      "label": "Moderate",
+      "waterTempF": 45.68,
+      "flowCfs": 5170,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 350,
+      "flowPercentChange24h": 7.26,
+      "temperatureSignal": "neutral",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 33,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 77,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2024-10-23",
+      "stage": "tapering",
+      "staging": false,
+      "score": 44,
+      "label": "Moderate",
+      "waterTempF": 57.38,
+      "flowCfs": 1440,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 40,
+      "flowPercentChange24h": 2.86,
+      "temperatureSignal": "warming",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Fulton Street flow, North Park measured water temperature, and Grand Rapids weather for the downtown Grand Rapids mainstem. It does not directly measure Grand Haven, the full Lower river, or reaches upstream of North Park. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    }
+  ]
+}

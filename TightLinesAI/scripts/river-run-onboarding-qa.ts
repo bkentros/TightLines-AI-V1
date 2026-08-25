@@ -20,6 +20,9 @@ const expectedRivers = new Set([
   "big_manistee",
   "muskegon",
   "st_joseph",
+  "grand",
+  "platte",
+  "white",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -32,12 +35,12 @@ assert(
   "Existing portfolio must have no noisy onboarding warnings.",
 );
 assert(
-  report.riverCount === 5,
-  `Expected 5 rivers, received ${report.riverCount}.`,
+  report.riverCount === 8,
+  `Expected 8 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 15,
-  `Expected 15 runs, received ${report.runCount}.`,
+  report.runCount === 24,
+  `Expected 24 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(
@@ -81,12 +84,12 @@ assert(
   `Missing rivers: ${[...expectedRivers].join(", ")}`,
 );
 assert(
-  RIVER_RUN_DRAFT_RIVER_PROFILES.length === 3,
-  "Expected Grand, Platte, and White hidden draft foundations.",
+  RIVER_RUN_DRAFT_RIVER_PROFILES.length === 0,
+  "No hidden draft foundations should remain after release.",
 );
 assert(
-  RIVER_RUN_DRAFT_RUN_PROFILES.length === 9,
-  "Expected nine supported hidden draft runs.",
+  RIVER_RUN_DRAFT_RUN_PROFILES.length === 0,
+  "No hidden draft runs should remain after release.",
 );
 for (const river of RIVER_RUN_DRAFT_RIVER_PROFILES) {
   const result = validateRiverProfile(river);
@@ -115,6 +118,18 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Mandatory candidate capability audit/,
     /Mandatory configuration-field inventory/,
     /stage-by-four-hour-block score distributions/,
+    /Calendar evidence protocol/,
+    /Strength and distribution protocol/,
+    /Same-reach source decision/,
+    /Fast execution protocol/,
+    /Post-review correction and continuous-learning protocol/,
+    /Every hidden run approved for owner review must also be selectable/,
+    /Review copy cadence separately from score cadence/,
+    /Stage selector must expose every date on which Stage copy can\s+change/,
+    /Owner review has two separate modes/,
+    /fixture\s+measurements are never substituted/,
+    /cross December into January/,
+    /automatically resume normal[\s\S]*fresh display and scoring/,
     /An `unsupported` decision requires affirmative exclusion evidence/,
     /Acceptance, deployment, and public enablement/,
   ],
@@ -129,11 +144,14 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Stage-by-block acceptance table/,
     /Calibration iteration ledger/,
     /Weather-only mode/,
+    /no numeric score, no blocks, and no strongest-window language/,
+    /local-date and year-aware/,
   ],
   "docs/river_run_live_conditions_onboarding_standard.md": [
     /target calendar date ±3 days/,
     /Twenty-four-hour trend/,
     /Current-value precision/,
+    /automatically restore the metric/,
   ],
 };
 for (const [path, patterns] of Object.entries(requiredDocuments)) {
@@ -172,6 +190,12 @@ for (
       "code-to-packet reconciliation",
       /Code-to-packet reconciliation reviewer\/date/,
     ],
+    ["species endpoint decision", /Species-specific endpoint decision/],
+    ["portfolio strength comparison", /Portfolio strength comparison/],
+    ["calendar evidence-kind audit", /Evidence kind: entry\/passage\/harvest/],
+    ["Activity source pairing", /Source pairing decision/],
+    ["missing-weather truth", /Missing hourly weather/],
+    ["review learning record", /Post-review correction record/],
     [
       "stage-by-block table",
       /^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m,
@@ -185,6 +209,77 @@ for (
   assert(
     contract.test(speciesTemplate),
     `Species run template is missing ${label}.`,
+  );
+}
+const foundationTemplate = await Deno.readTextFile(
+  "docs/templates/river_run_river_foundation_template.md",
+);
+for (
+  const [label, contract] of [
+    ["runtime region gate", /Runtime region\/schema fit/],
+    ["species passage chain", /Species endpoint and passage-chain decision/],
+    [
+      "shared species matrix",
+      /Supported species decision and shared comparison matrix/,
+    ],
+    ["provider recovery", /automatically without a code\/configuration change/],
+  ] as const
+) {
+  assert(
+    contract.test(foundationTemplate),
+    `River foundation template is missing ${label}.`,
+  );
+}
+const liveConditionsTemplate = await Deno.readTextFile(
+  "docs/templates/river_run_live_conditions_template.md",
+);
+assert(
+  /Provider malfunction fails closed/.test(liveConditionsTemplate) &&
+    /Recovered valid numeric reading automatically restores/.test(
+      liveConditionsTemplate,
+    ),
+  "Live Conditions template is missing provider fault/recovery cases.",
+);
+const acceptanceTemplate = await Deno.readTextFile(
+  "docs/templates/river_run_acceptance_template.md",
+);
+for (
+  const [label, contract] of [
+    [
+      "calendar reconciliation gate",
+      /calendar evidence-kind\/bias reconciliation/,
+    ],
+    [
+      "strength comparison gate",
+      /Strength\/distribution portfolio comparisons/,
+    ],
+    ["source-pairing gate", /same-reach source-pairing decision/],
+    ["cross-year replay gate", /Cross-year replay math/],
+    ["missing-weather gate", /Missing-weather unavailable\/no-leader behavior/],
+    [
+      "provider recovery gate",
+      /Provider-fault recovery to valid numeric display/,
+    ],
+    ["hidden-review catalog parity gate", /Hidden-review catalog parity/],
+    ["daily copy progression gate", /Daily copy\/reach-progression replay/],
+    [
+      "stage fixture boundary gate",
+      /Stage fixture selector exposes every copy-transition boundary/,
+    ],
+    ["live review Gauge Read gate", /Gauge Read uses live providers/],
+    [
+      "fixture isolation gate",
+      /isolates provider inputs from scenario fixtures/,
+    ],
+    [
+      "generalized learning ledger",
+      /Post-review correction and generalized-learning ledger/,
+    ],
+  ] as const
+) {
+  assert(
+    contract.test(acceptanceTemplate),
+    `Acceptance template is missing ${label}.`,
   );
 }
 for (

@@ -169,6 +169,116 @@
       "Moderate": 7
     }
   },
+  "byStage": {
+    "beginning": {
+      "days": 99,
+      "scores": {
+        "min": 24,
+        "p10": 63,
+        "median": 72,
+        "p90": 86,
+        "max": 90,
+        "mean": 70.93
+      },
+      "labels": {
+        "Active": 66,
+        "Highly active": 26,
+        "Reserved": 7
+      }
+    },
+    "building": {
+      "days": 89,
+      "scores": {
+        "min": 63,
+        "p10": 69,
+        "median": 77,
+        "p90": 88,
+        "max": 93,
+        "mean": 78.07
+      },
+      "labels": {
+        "Active": 51,
+        "Highly active": 38
+      }
+    },
+    "ending": {
+      "days": 48,
+      "scores": {
+        "min": 26,
+        "p10": 35,
+        "median": 47,
+        "p90": 63,
+        "max": 72,
+        "mean": 47.19
+      },
+      "labels": {
+        "Active": 7,
+        "Moderate": 29,
+        "Reserved": 12
+      }
+    },
+    "peak": {
+      "days": 135,
+      "scores": {
+        "min": 67,
+        "p10": 71,
+        "median": 83,
+        "p90": 90,
+        "max": 93,
+        "mean": 81.93
+      },
+      "labels": {
+        "Active": 45,
+        "Highly active": 90
+      }
+    },
+    "post_run": {
+      "days": 88,
+      "scores": {
+        "min": 23,
+        "p10": 29,
+        "median": 33,
+        "p90": 36,
+        "max": 39,
+        "mean": 32.6
+      },
+      "labels": {
+        "Reserved": 88
+      }
+    },
+    "pre_run": {
+      "days": 33,
+      "scores": {
+        "min": 19,
+        "p10": 25,
+        "median": 63,
+        "p90": 74,
+        "max": 79,
+        "mean": 49.15
+      },
+      "labels": {
+        "Active": 18,
+        "Inactive": 1,
+        "Reserved": 14
+      }
+    },
+    "tapering": {
+      "days": 75,
+      "scores": {
+        "min": 52,
+        "p10": 61,
+        "median": 76,
+        "p90": 85,
+        "max": 89,
+        "mean": 73.89
+      },
+      "labels": {
+        "Active": 44,
+        "Highly active": 24,
+        "Moderate": 7
+      }
+    }
+  },
   "stages": {
     "beginning": 99,
     "building": 89,
@@ -272,7 +382,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -282,7 +394,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 80,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -292,7 +406,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -302,7 +418,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 27,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is highly active.",
@@ -332,7 +450,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0.02
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -342,7 +462,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 42,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -352,7 +474,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 9,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -362,7 +486,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 4,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -392,7 +518,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -402,7 +530,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 36,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -412,7 +542,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -422,7 +554,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 2,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -452,7 +586,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 92,
-          "precipitationIn": 0.09
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -462,7 +598,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 63,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -472,7 +610,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 12,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -482,7 +622,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -512,7 +654,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -522,7 +666,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 92,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -532,7 +678,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 7,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -542,7 +690,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -572,7 +722,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -582,7 +734,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -592,7 +746,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 6,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -602,7 +758,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 99,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -632,7 +790,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 96,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -642,7 +802,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 24,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -652,7 +814,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -662,7 +826,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 2,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -692,7 +858,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 97,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -702,7 +870,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 30,
-          "precipitationIn": 0.01
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -712,7 +882,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 3,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -722,7 +894,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -752,7 +926,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -762,7 +938,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 17,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -772,7 +950,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 10,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -782,7 +962,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "The river level or its recent change is less favorable.",
           "cloudCoverPct": 0,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -812,7 +994,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 93,
-          "precipitationIn": 0.11
+          "precipitationIn": 0.11,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -822,7 +1006,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 29,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -832,7 +1018,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -842,7 +1030,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -872,7 +1062,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 100,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -882,7 +1074,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 1,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -892,7 +1086,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 26,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -902,7 +1098,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 20,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",
@@ -932,7 +1130,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 95,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "09-13",
@@ -942,7 +1142,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Brighter conditions are the main limitation.",
           "cloudCoverPct": 9,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "13-17",
@@ -952,7 +1154,9 @@
           "positiveDriver": "The measured water temperature is favorable for Coho.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 60,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         },
         {
           "id": "17-21",
@@ -962,7 +1166,9 @@
           "positiveDriver": "Clouds or lower light make this window more favorable.",
           "limitingFactor": "Rain adds little extra cover.",
           "cloudCoverPct": 99,
-          "precipitationIn": 0
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
         }
       ],
       "headline": "Today’s Coho activity outlook is active.",

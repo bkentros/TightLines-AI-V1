@@ -112,6 +112,92 @@ Deno.test("weather-only tomorrow forecasts honor their stricter true maximum", (
   assertEquals(result.targetDayLabel, "Tomorrow");
 });
 
+Deno.test("weather-only Activity fails closed without hourly weather and recovers when weather resumes", () => {
+  const input = {
+    rules: weatherOnlyRules,
+    requestDate: "2026-09-10",
+    targetDate: "2026-09-10",
+    runStage: "peak" as const,
+    staging: false,
+    waterTempF: null,
+    temperatureTrend: "neutral_missing" as const,
+    gaugeFreshness: "missing" as const,
+    flowSignal: "unknown" as const,
+  };
+  const missing = scoreActivity({
+    ...input,
+    weatherFreshness: "missing",
+    hourlyWeather: [],
+  });
+  assertEquals(missing.score, null);
+  assertEquals(missing.label, "Unavailable");
+  assertEquals(missing.blocks, []);
+  assertMatch(missing.detail, /no four-hour block can be scored or ranked/i);
+
+  const recovered = scoreActivity({
+    ...input,
+    weatherFreshness: "fresh",
+    hourlyWeather: weather("2026-09-10"),
+  });
+  assert(typeof recovered.score === "number");
+  assertEquals(recovered.blocks.length, 4);
+});
+
+Deno.test("strict observed Activity fails closed without weather or all measured river inputs", () => {
+  const rules = {
+    ...weatherOnlyRules,
+    version: "strict-observed-test-v1",
+    dataMode: "observed_river" as const,
+    minimumInputContract: "weather_and_one_measured_river_input" as const,
+    weights: {
+      light: .35,
+      waterTemperature: .35,
+      riverBehavior: .25,
+      weather: .05,
+    },
+  };
+  const base = {
+    rules,
+    requestDate: "2026-09-20",
+    targetDate: "2026-09-20",
+    runStage: "peak" as const,
+    staging: false,
+    temperatureTrend: "neutral" as const,
+    flowSignal: "stable" as const,
+  };
+  const noWeather = scoreActivity({
+    ...base,
+    waterTempF: 54,
+    gaugeFreshness: "fresh",
+    weatherFreshness: "missing",
+    flowBand: "normal_fishable",
+    hourlyWeather: [],
+  });
+  assertEquals(noWeather.score, null);
+  assertEquals(noWeather.label, "Unavailable");
+
+  const noRiverReads = scoreActivity({
+    ...base,
+    waterTempF: null,
+    gaugeFreshness: "missing",
+    weatherFreshness: "fresh",
+    hourlyWeather: weather("2026-09-20"),
+  });
+  assertEquals(noRiverReads.score, null);
+  assertEquals(noRiverReads.blocks, []);
+
+  const temperatureOnly = scoreActivity({
+    ...base,
+    waterTempF: 54,
+    gaugeFreshness: "missing",
+    weatherFreshness: "fresh",
+    hourlyWeather: weather("2026-09-20"),
+  });
+  assertEquals(temperatureOnly.confidence, "Moderate");
+  assertEquals(temperatureOnly.blocks.length, 4);
+  assert(temperatureOnly.score !== null);
+});
+
 Deno.test("weather-only Activity rewards sustained light rain but not heavy precipitation", () => {
   const date = "2026-09-10";
   const scoreWith = (amounts: number[]) =>
@@ -161,6 +247,88 @@ Deno.test("weather-only Activity configuration rejects hidden river or temperatu
     issue.field === "activity.weights" &&
     issue.message.includes("Weather-only Activity")
   ));
+});
+
+Deno.test("weather-only Activity configuration rejects an invalid evidence scale", () => {
+  const invalid = {
+    ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    activity: {
+      ...weatherOnlyRules,
+      caps: {
+        ...weatherOnlyRules.caps,
+        weatherOnlyEvidenceScale: 1.2,
+      },
+    },
+  };
+  const validation = validateRunProfile(invalid, PERE_MARQUETTE_RIVER_PROFILE);
+  assertEquals(validation.valid, false);
+  assert(
+    validation.issues.some((issue) =>
+      issue.field === "activity.caps.weatherOnlyEvidenceScale"
+    ),
+  );
+});
+
+Deno.test("audited stage response shapes scores without bypassing temperature caps", () => {
+  const date = "2026-09-20";
+  const shapedRules = {
+    ...rules,
+    version: "stage-response-test-v1",
+    stageResponseAdjustment: {
+      pre_run: -5,
+      peak: 20,
+    },
+    caps: { ...rules.caps, stageResponseMaximum: 96 },
+  };
+  const common = {
+    rules: shapedRules,
+    requestDate: date,
+    targetDate: date,
+    staging: false,
+    temperatureTrend: "neutral" as const,
+    gaugeFreshness: "fresh" as const,
+    weatherFreshness: "fresh" as const,
+    flowBand: "ideal" as const,
+    currentHydraulicValue: 1500,
+    fishabilityBands: PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE
+      .fishabilityBands,
+    flowSignal: "stable" as const,
+    hourlyWeather: weather(date, 50),
+  };
+  const preRun = scoreActivity({
+    ...common,
+    runStage: "pre_run",
+    waterTempF: 55,
+  });
+  const peak = scoreActivity({
+    ...common,
+    runStage: "peak",
+    waterTempF: 55,
+  });
+  assert(peak.score! > preRun.score!);
+  assert(peak.blocks.every((block) => block.score <= 96));
+
+  const barrier = scoreActivity({
+    ...common,
+    runStage: "peak",
+    waterTempF: shapedRules.temperature.barrierF,
+  });
+  assert(barrier.blocks.every((block) => block.score <= 29));
+
+  const invalid = {
+    ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    activity: {
+      ...shapedRules,
+      stageResponseAdjustment: { peak: 41 },
+    },
+  };
+  const validation = validateRunProfile(invalid, PERE_MARQUETTE_RIVER_PROFILE);
+  assertEquals(validation.valid, false);
+  assert(
+    validation.issues.some((issue) =>
+      issue.field === "activity.stageResponseAdjustment"
+    ),
+  );
 });
 
 Deno.test("PM Chinook Activity produces four conditional staging windows", () => {

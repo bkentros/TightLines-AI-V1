@@ -38,8 +38,16 @@ export async function fetchRiverRunSnapshot(
   });
 }
 
+export async function fetchRiverRunOwnerReviewSnapshot(
+  params: RiverRunSnapshotParams,
+): Promise<RiverRunSnapshotResponse> {
+  return riverRunGet<RiverRunSnapshotResponse>("review/snapshot", params, {
+    requireAuth: true,
+  });
+}
+
 async function riverRunGet<TResponse>(
-  path: "rivers" | "snapshot",
+  path: "rivers" | "snapshot" | "review/snapshot",
   params?: Record<string, string>,
   options: { requireAuth?: boolean } = {},
 ): Promise<TResponse> {

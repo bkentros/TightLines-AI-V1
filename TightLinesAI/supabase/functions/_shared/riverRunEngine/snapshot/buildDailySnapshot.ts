@@ -42,6 +42,7 @@ export function buildDailySnapshot(input: {
   river: Pick<RiverProfile, "riverId" | "timezone">;
   run: Pick<
     RiverRunProfile,
+    | "riverId"
     | "runId"
     | "displayName"
     | "species"

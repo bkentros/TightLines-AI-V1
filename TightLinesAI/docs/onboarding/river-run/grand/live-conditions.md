@@ -151,8 +151,8 @@ observation means unknown, not stable.
 | LC-001 | USGS station metadata advertises fixed EST and no DST while the river's civil timezone is America/Detroit. | Preserve the timestamp instant; display in America/Detroit. Add EDT/EST rollover tests. |
 | LC-002 | 04119000 has a long discharge record but historical gage relocations/datum changes and active channel work. | Discharge date context allowed; gauge-height average unavailable; mandatory post-construction source re-audit. |
 | LC-003 | 04119400 appears to have a temperature parameter through 2026-01-07, but the exact endpoint returns discontinuation sentinels and no valid live value after 2024-10-01. | Reject as live/fallback temperature; parse `-999999`/`Dis` as missing. |
-| LC-004 | Temperature station is above Sixth Street while hydraulic station is below it. | Render actual station names and reach; do not describe both as one co-located `Grand River` observation or infer whole-river conditions. |
-| LC-005 | Open-Meteo production-shaped weather probe returned all-null clear-sky radiation. | This does not block Gauge Read, but it blocks observed-river Activity readiness until provider/adapter resolution and replay. |
+| LC-004 | Temperature station is above the former Sixth Street reference while hydraulic station is below it. | Render actual station names. They may pair only in the downtown observed Activity contract after the recorded North Park/Sixth proxy validation; never infer whole-river conditions. |
+| LC-005 | The initial 2026-08-24 probe returned all-null clear-sky radiation. | Historical blocker resolved by the current weather adapter and six-season replay. Missing target-day hourly weather still fails Activity closed. |
 | LC-006 | Exact freshness thresholds and public copy are product decisions. | The ≤2 h proposal and copy remain owner-calibrated/approval-required. |
 
 ## 7. Probe ledger
@@ -164,12 +164,12 @@ observation means unknown, not stable.
 | 04118564 IV, 00010/00065 | temperature and local stage live at 15-minute cadence; temperature accepted | pass for temperature |
 | 04118564 DV, 00010 | max/min/mean daily series, >6 calendar years but material gaps | pass for ±3-day temperature context subject to per-date sample sufficiency |
 | 04119400 IV/DV, 00010 | historical daily record; last valid IV 2024-10-01; 2026 discontinuation sentinels | reject live/fallback |
-| Open-Meteo production-shaped weather | 168 hourly/7 daily rows; America/Detroit; clear-sky radiation all null | Gauge unaffected; Activity blocked |
+| Open-Meteo current Activity adapter and archive replay | actual/clear-sky radiation, cloud, and precipitation are normalized per local hour; six fixed seasons replayed | pass for downtown Activity; fail closed on missing hourly weather |
 
 ## 8. Test matrix required before acceptance
 
-- [ ] All three accepted metrics fresh.
-- [ ] Each single metric missing and partial combinations.
+- [x] All three accepted metrics fresh.
+- [x] Each single metric missing and partial combinations.
 - [ ] Delayed reading under owner-approved threshold.
 - [ ] Older-than-24-hours suppression.
 - [ ] `-999999`/`Dis` suppression.
@@ -179,7 +179,7 @@ observation means unknown, not stable.
 - [ ] Temperature colder/normal/warmer using exact prior-year ±3-day data.
 - [ ] Gauge height always says `No average`.
 - [ ] Insufficient temperature years/gaps return unavailable.
-- [ ] No temperature fallback is selected when North Park is absent.
+- [x] No temperature fallback is selected when North Park is absent.
 - [ ] Fixed-EST source timestamps render correctly in EDT and EST, including DST transitions.
 - [ ] Long station names wrap on narrow iOS and Android widths.
 - [ ] Details show actual station, observation time, freshness, provisional status, reach, years/window/gaps, and attribution.
@@ -187,6 +187,6 @@ observation means unknown, not stable.
 - [ ] Lower Reach construction fixture makes no safety/access claim.
 - [ ] Post-2026 and post-2027 dam-removal rating/datum/source re-audit completed.
 
-**Live Conditions decision:** `owner_approved_source_capability_QA_pending`
+**Live Conditions decision:** `owner_approved_source_capability_automated_QA_pass_rendered_review_pending`
 **Audit version:** `grand-live-conditions-research-v1-2026-08-24`
 **Owner acceptance/date:** approved / 2026-08-24

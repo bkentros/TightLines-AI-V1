@@ -260,6 +260,16 @@ const report = {
       ),
     ]),
   ),
+  byStage: Object.fromEntries(
+    [...new Set(rows.map((row) => row.stage))].toSorted().map((stage) => {
+      const stageRows = rows.filter((row) => row.stage === stage);
+      return [stage, {
+        days: stageRows.length,
+        scores: summary(stageRows.map((row) => row.score)),
+        labels: counts(stageRows.map((row) => row.label)),
+      }];
+    }),
+  ),
   temperatureBands: {
     below36F: scoreGroup(rows.filter((row) => row.waterTempF < 36)),
     from36To43F: scoreGroup(

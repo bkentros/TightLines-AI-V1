@@ -264,6 +264,7 @@ class MockClient implements SupabaseLikeClient {
       rateLimitAllowed?: boolean;
       historyReadError?: boolean;
       recentHistoryReadError?: boolean;
+      email?: string;
       freeRiverRunTrial?: Partial<{
         usedAt: string | null;
         riverId: string | null;
@@ -303,7 +304,12 @@ class MockClient implements SupabaseLikeClient {
         Promise.resolve(
           token === (this.options.validToken ?? "valid-token")
             ? {
-              data: { user: { id: "user-1", email: "angler@example.com" } },
+              data: {
+                user: {
+                  id: "user-1",
+                  email: this.options.email ?? "angler@example.com",
+                },
+              },
               error: null,
             }
             : { data: { user: null }, error: { message: "invalid token" } },
@@ -382,6 +388,18 @@ const envData = {
   })),
 };
 
+const grandActivityWeatherData = {
+  ...envData,
+  weather_available: true,
+  hourly_activity_weather: Array.from({ length: 24 }, (_, hour) => ({
+    time_local: `2026-09-20T${String(hour).padStart(2, "0")}:00`,
+    cloud_cover_pct: 55,
+    shortwave_w_m2: hour >= 7 && hour < 20 ? 280 : 0,
+    clear_sky_shortwave_w_m2: hour >= 7 && hour < 20 ? 600 : 0,
+    precipitation_in: 0,
+  })),
+};
+
 function handleRiverRunRequest(
   req: Request,
   deps: RiverRunHandlerDeps = {},
@@ -407,7 +425,8 @@ function request(
   if (options.authorization) {
     headers.set("Authorization", options.authorization);
   }
-  const token = options.token === undefined && path.startsWith("/snapshot")
+  const token = options.token === undefined &&
+      (path.startsWith("/snapshot") || path.startsWith("/review/snapshot"))
     ? "valid-token"
     : options.token;
   if (token) {
@@ -526,14 +545,42 @@ function missingPushHistoryReads(
   return reads;
 }
 
-Deno.test("GET /river-run/rivers returns PM with default audited config", async () => {
+Deno.test("GET /river-run/rivers returns the complete audited public catalog", async () => {
   const response = await handleRiverRunRequest(request("/rivers"));
   const body = await json(response);
   assertEquals(response.status, 200);
-  assertEquals(
-    body.states[0].rivers[0].runs[0].runId,
-    "pere_marquette_fall_chinook",
+  const rivers = body.states.flatMap((state: { rivers: unknown[] }) =>
+    state.rivers
   );
+  const riverIds = rivers.map((river: { riverId: string }) => river.riverId);
+  const runIds = rivers.flatMap(
+    (river: { runs: Array<{ runId: string }> }) =>
+      river.runs.map((run) => run.runId),
+  );
+
+  // St. Joseph is intentionally presented in both Michigan and Indiana.
+  assertEquals(riverIds.length, 9);
+  assertEquals(runIds.length, 27);
+  assertEquals(new Set(riverIds).size, 8);
+  assertEquals(new Set(runIds).size, 24);
+  for (const riverId of ["grand", "platte", "white"]) {
+    assertEquals(riverIds.includes(riverId), true);
+  }
+  for (
+    const runId of [
+      "grand_fall_chinook",
+      "grand_fall_coho",
+      "grand_fall_steelhead",
+      "platte_fall_chinook",
+      "platte_fall_coho",
+      "platte_fall_steelhead",
+      "white_fall_chinook",
+      "white_fall_coho",
+      "white_fall_steelhead",
+    ]
+  ) {
+    assertEquals(runIds.includes(runId), true);
+  }
 });
 
 Deno.test("database config source loads only the published validated document", async () => {
@@ -595,6 +642,206 @@ Deno.test("public release gate hides catalog and snapshots by default", async ()
   );
   assertEquals(snapshot.status, 403);
   assertEquals((await json(snapshot)).error, "river_run_not_released");
+});
+
+Deno.test("owner-review snapshot rejects authenticated non-admin users", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI",
+    ),
+    { createAdminClient: () => new MockClient() },
+  );
+  assertEquals(response.status, 403);
+  assertEquals((await json(response)).error, "river_run_review_forbidden");
+});
+
+Deno.test("owner-review snapshot uses current provider inputs without fixture substitution", async () => {
+  const client = new MockClient({ email: "brandonkentros@icloud.com" });
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI&localDate=1999-01-01",
+    ),
+    {
+      createAdminClient: () => client,
+      now: new Date("2026-08-24T23:00:00.000Z"),
+      gaugeObservations: [{
+        provider: "USGS",
+        siteId: "04119000",
+        observedAt: "2026-08-24T22:45:00.000Z",
+        flow_cfs: 2_500,
+        gage_height_ft: 5.42,
+        source: "usgs_continuous_values",
+      }],
+      waterTemperatureObservationsBySource: {
+        grand_north_park_temperature: [{
+          provider: "USGS",
+          sourceId: "grand_north_park_temperature",
+          siteId: "04118564",
+          observedAt: "2026-08-24T22:45:00.000Z",
+          waterTempF: 74.7,
+          approvalStatus: "provisional",
+          source: "usgs_continuous_values",
+        }],
+      },
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      engineVersion: "owner-review-test-engine",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.localDate, "2026-08-24");
+  assertEquals(body.runId, "grand_fall_chinook");
+  assertEquals(body.engineVersion, "owner-review-test-engine");
+  assertEquals(body.riverConditions.status, "available");
+  assertEquals(
+    body.riverConditions.metrics.find((metric: { metric: string }) =>
+      metric.metric === "flow_cfs"
+    ).value,
+    2_500,
+  );
+  assertEquals(
+    body.riverConditions.metrics.find((metric: { metric: string }) =>
+      metric.metric === "water_temp_f"
+    ).value,
+    74.7,
+  );
+  assertEquals(
+    body.riverConditions.dataVersion,
+    "river-live-conditions-v2",
+  );
+  assertEquals(body.activity.label, "Unavailable");
+});
+
+Deno.test("owner-review snapshot fails closed when current providers have no usable readings", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-08-24T23:00:00.000Z"),
+      gaugeObservations: [],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.riverConditions.status, "unavailable");
+  assertEquals(
+    body.riverConditions.metrics.every(
+      (metric: { value: number | null }) => metric.value === null,
+    ),
+    true,
+  );
+  assertEquals(body.fishability.label, "Unavailable");
+  assertEquals(body.activity.label, "Unavailable");
+});
+
+Deno.test("Grand owner-review Activity becomes Full only with fresh Fulton, North Park, and weather inputs", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-09-20T20:30:00.000Z"),
+      gaugeObservations: [
+        {
+          provider: "USGS",
+          siteId: "04119000",
+          observedAt: "2026-09-19T19:30:00.000Z",
+          flow_cfs: 2_200,
+          source: "usgs_continuous_values",
+        },
+        {
+          provider: "USGS",
+          siteId: "04119000",
+          observedAt: "2026-09-20T19:30:00.000Z",
+          flow_cfs: 2_350,
+          gage_height_ft: 4.9,
+          source: "usgs_continuous_values",
+        },
+      ],
+      waterTemperatureObservationsBySource: {
+        grand_north_park_temperature: [{
+          provider: "USGS",
+          sourceId: "grand_north_park_temperature",
+          siteId: "04118564",
+          observedAt: "2026-09-20T19:30:00.000Z",
+          waterTempF: 58,
+          approvalStatus: "provisional",
+          source: "usgs_continuous_values",
+        }],
+      },
+      weatherSnapshot: grandActivityWeatherData,
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      engineVersion: "grand-observed-test-engine",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.activity.confidence, "Full");
+  assertEquals(body.activity.blocks.length, 4);
+  assert(body.activity.score !== null);
+  assertEquals(body.freshness.gauge, "fresh");
+  assertEquals(body.freshness.waterTemperature, "fresh");
+  assertEquals(body.waterTemperature.waterTempF, 58);
+  assertMatch(body.activity.detail, /downtown Grand Rapids mainstem/i);
+  assertMatch(body.activity.detail, /does not directly measure Grand Haven/i);
+});
+
+Deno.test("Grand owner-review Activity is capped Moderate when North Park temperature is missing", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-09-20T20:30:00.000Z"),
+      gaugeObservations: [{
+        provider: "USGS",
+        siteId: "04119000",
+        observedAt: "2026-09-20T19:30:00.000Z",
+        flow_cfs: 2_350,
+        source: "usgs_continuous_values",
+      }],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: grandActivityWeatherData,
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      engineVersion: "grand-partial-test-engine",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.activity.confidence, "Moderate");
+  assert(body.activity.score !== null && body.activity.score <= 64);
+  assertEquals(body.freshness.waterTemperature, "missing");
 });
 
 Deno.test("production snapshot timing ignores caller query overrides", async () => {

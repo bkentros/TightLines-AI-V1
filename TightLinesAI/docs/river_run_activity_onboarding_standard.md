@@ -1,6 +1,6 @@
 # River Run Activity Onboarding Standard
 
-**Status:** Normative **Version:** 1.1 **Established:** 2026-08-24 **Applies
+**Status:** Normative **Version:** 1.2 **Established:** 2026-08-24 **Applies
 to:** Every river/species Activity configuration, replay, public copy, fixture,
 and acceptance decision
 
@@ -74,6 +74,30 @@ Requires:
 All inputs must describe their true reach. A tailwater station does not measure
 the full river.
 
+Hydraulics and measured temperature must be compatible at the scoring reach.
+Stations separated by a dam, lake, major tributary, tailwater transition, or a
+materially different corridor are not a valid pair merely because they share a
+river name. They may remain independently useful in Gauge Read.
+
+Two nearby mainstem stations may support a deliberately narrower observed
+reach only when the packet proves compatibility rather than assuming it. Record
+distance and intervening controls, compare simultaneous readings against a
+co-located or bracketing reference when one exists, publish signed error and
+absolute-error distributions, inspect construction/channel changes, and state
+the exact geography that must not receive the score. A good proxy relationship
+does not turn either station into a whole-river observation.
+
+For a fail-closed observed model, define the minimum input contract explicitly:
+
+- Full requires fresh hydraulics, fresh measured temperature, and usable hourly
+  weather for the target date.
+- One missing measured river input may produce Moderate only when the remaining
+  river input and weather are usable and a replayed cap applies.
+- Missing weather or all measured river inputs returns Unavailable with no
+  score, blocks, or leader.
+- Provider recovery restores scoring automatically; a failed read is never
+  replaced by a neutral value or an implicit weather-only model.
+
 ### 4.2 Weather-only mode
 
 Weather-only mode is a deliberate limited model for a river without accepted
@@ -87,6 +111,9 @@ Requirements:
 - Light and weather have positive weights and the full set totals one.
 - Confidence remains Limited.
 - A true weather-only maximum constrains output.
+- When weather-only inputs omit the species' primary response driver, any
+  proportional evidence reduction must be explicit, versioned, justified, and
+  replayed. It cannot be tuned solely to obtain a preferred label distribution.
 - Copy visibly says river level, clarity, and measured water temperature are not
   evaluated.
 - Users are directed to verify actual river conditions.
@@ -94,6 +121,11 @@ Requirements:
 
 Weather-only mode is accepted separately per species. A river-level foundation
 does not automatically enable all species.
+
+If required hourly weather is missing, weather-only Activity is `Unavailable`:
+no numeric score, no blocks, and no strongest-window language. It is not an
+Inactive zero. Valid complete weather must automatically restore scoring after
+an ordinary provider outage.
 
 ## 5. Four-hour block contract
 
@@ -152,6 +184,10 @@ The Activity specialist must record:
   owner/product calibration rather than biological constants.
 - The limited role of precipitation.
 - Missing-data behavior.
+- Hydraulic-change thresholds and their empirical seasonal distribution when
+  Activity runs without a Push calibration to supply them.
+- For proxy-paired stations: simultaneous-pair sample count, signed bias,
+  median/mean/p90/p99 absolute error, maximum error, dates, and reach decision.
 - Every owner-calibrated value and why it was selected.
 
 Do not present a calibrated weight or exact breakpoint as a published biological
@@ -163,6 +199,7 @@ The versioned rule set must include:
 
 - Profile/engine identifier.
 - Data mode.
+- Minimum input contract and Full/Moderate/Unavailable transition table.
 - Scope copy and early-season scope copy when applicable.
 - Four component weights totaling one.
 - Cold transition, preferred band, warm constraint, and barrier constraint.
@@ -191,6 +228,11 @@ Calibration requirements:
 Use the longest fixed interval with reliable coverage. Set the interval before
 judging the score distribution and record exclusions. A minimum five-year window
 is expected; longer reliable records are preferred.
+
+Season iteration is local-date and year-aware. When the configured tail ends in
+the next calendar year, expected-day counts, stage resolution, lifecycle dates,
+weather requests, and controlled comparisons must all advance across New Year. A
+lexical month-day loop is not an acceptable replay implementation.
 
 Required report:
 
@@ -238,6 +280,27 @@ Also include an `all blocks` row for each stage. Do not pool a sparse stage into
 an adjacent stage merely to make its results look stable. Stage means are a
 diagnostic for lifecycle behavior—not acceptance targets and not evidence of
 catch rates.
+
+The lifecycle shape is nevertheless a product acceptance invariant for every
+species/run replay:
+
+- Peak must have the highest mean daily Activity score.
+- Building and Tapering must form the nearest meaningful shoulders. Unless the
+  packet predeclares a stricter evidence-backed tolerance, each must remain
+  below and within 20 points of Peak.
+- Pre-run, Beginning, Ending, and Post-run/residual means must remain below
+  Peak. They should be noticeably lower without an unexplained stage cliff.
+- Environmental inputs must still differentiate years and days within every
+  stage. Never obtain the shape by replacing live conditions with a calendar
+  score.
+
+If temperature or another historically correlated input erases this shape,
+first verify the run calendar, thresholds, station reach, and replay interval.
+If those remain accepted, use a small, versioned stage-response adjustment with
+a true maximum. Apply and test hard warm, barrier, extreme-flow, and missing
+data caps after the adjustment so lifecycle shaping cannot manufacture a high
+score under unsafe or unsupported conditions. Record the before/after stage
+means and rationale in the calibration ledger.
 
 ### 9.2 Calibration iteration ledger
 
