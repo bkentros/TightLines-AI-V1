@@ -37,6 +37,44 @@ UI QA, production smoke script, and the completed Grand/Platte/White packets in
 docs/onboarding/river-run/. Treat the playbook as controlling when older handoff
 or rollout documents disagree.
 
+Mandatory execution and approval gates:
+
+This is one complete prompt for the entire four-river project, but it does not
+authorize doing the project in one uninterrupted pass. Follow section 1.2 of
+the rapid onboarding playbook exactly. Stop after each gate, give me the named
+artifacts and a compact decision summary, and wait for my explicit approval.
+Approval advances only one gate unless I explicitly say otherwise. Do not do
+later-gate work in the background while waiting.
+
+1. Readiness — all four rivers. Report the section 18 readiness items, branch,
+   worktree, runtime/configuration contract, current portfolio, provider
+   adapters, exact proposed identities, and overlaps. STOP.
+2. Foundation and source feasibility — all four rivers. Deliver one foundation
+   and source-feasibility packet per river covering identity, sections,
+   barriers, preliminary species support, regulations, gauges, weather, and
+   verified live/history endpoint behavior. STOP.
+3. Species-truth portfolio — all four rivers. Deliver the side-by-side support,
+   relative-strength, distribution, evidence-quality, calendar-anchor, and
+   species-endpoint matrix. Explicitly exclude unsupported combinations. STOP.
+4. Milwaukee River truth/non-Activity implementation. Complete detailed
+   species packets, field reconciliation, calendars, corridor copy, Migration
+   Stage, Fish In River, Fishability, Gauge Read, and hidden configuration.
+   STOP for truth/copy approval. Then perform Milwaukee Activity calibration,
+   full replay, fixtures, QA, and rendered private review. STOP for acceptance.
+5. Repeat the same two mandatory stops for the Sheboygan River.
+6. Repeat the same two mandatory stops for the Root River.
+7. Repeat the same two mandatory stops for the Bois Brule River.
+8. Consolidated cohort review. Present every accepted river/species calendar,
+   strength, endpoint, source capability, Activity stage mean, limitation, and
+   test result. STOP for cohort acceptance.
+9. Release remains separately gated. Do not promote, deploy, publicly enable,
+   commit a release, or push release work unless I explicitly authorize release.
+
+If I correct research, copy, configuration, scoring, or UI behavior at any
+gate, update the source packet and generalized guidance where applicable, rerun
+every affected downstream audit, and return to the affected gate. Never treat a
+request to begin onboarding as advance approval for all nine gates.
+
 Start by reporting, in your own words, the readiness items required by section
 18 of the rapid onboarding playbook. Also report the current branch/worktree,
 existing public river/run counts, production configuration-source contract if

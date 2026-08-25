@@ -1,6 +1,6 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth **Version:** 1.2 **Established:**
+**Status:** Normative source of truth **Version:** 1.3 **Established:**
 2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
 Researching, configuring, validating, reviewing, and handing off a new River Run
 river and its supported fall Chinook, Coho, and Steelhead runs
@@ -17,6 +17,11 @@ static-catalog promotion, migration reconciliation, engine/data-version cache
 invalidation, complete public-catalog smoke coverage, hourly Gauge Read refresh,
 visible observation age, unreadable-provider behavior, post-deploy verification,
 atomic commits, and clean synchronized handoff.
+
+**Version 1.3 learning source:** planning the Milwaukee, Sheboygan, Root, and
+Bois Brule onboarding wave. It makes approval gates mandatory for multi-river
+batches so shared research remains efficient without silently authorizing one
+continuous research-to-release implementation.
 
 **Current runtime boundary:** River Run presently supports the Great Lakes
 region, its configured state enum, and the implemented run/biology engines. A
@@ -85,6 +90,57 @@ An onboarding agent follows this sequence without skipping ahead:
 Research acceptance, rendered owner acceptance, deployment authorization, and
 public enablement remain separate recorded decisions even though this document
 describes the complete path through all four.
+
+### 1.2 Mandatory stop gates for multi-river batches
+
+An instruction to onboard several rivers is authorization to begin the staged
+workflow, not authorization to complete every phase in one uninterrupted run.
+The agent must stop, present the required artifacts, and receive explicit owner
+approval at each gate below. Approval of one gate authorizes only the next gate.
+Silence, a general statement such as "looks good," or an earlier approval for a
+different river must not be stretched into later-phase authorization.
+
+Use this sequence for a multi-river wave:
+
+1. **Readiness gate — entire cohort.** Read the standards, inspect the branch,
+   runtime, portfolio, provider adapters, and overlapping changes, then deliver
+   the section 18 readiness response and proposed river identities. Stop for
+   approval before substantive onboarding research or code changes.
+2. **Foundation and source-feasibility gate — entire cohort.** Research exact
+   identities, jurisdictions, sections, complete barrier inventories,
+   preliminary species support, regulations, candidate gauges, weather points,
+   and real live/history endpoint feasibility. Deliver one foundation/source
+   packet per river plus unresolved contradictions. Stop before detailed run
+   configuration.
+3. **Portfolio species-truth gate — entire cohort.** Deliver the side-by-side
+   support, relative-strength, distribution, evidence-quality, calendar-anchor,
+   and endpoint matrix for every candidate river/species combination. Exclude
+   unsupported combinations explicitly. Stop before runtime implementation.
+4. **River truth and non-Activity gate — one river at a time.** For one approved
+   river, finish every supported species packet, full field reconciliation,
+   calendars and daily corridor copy, Migration Stage, Fish In River,
+   Fishability, Gauge Read behavior, and hidden candidate configuration. Stop
+   for owner truth/copy review before Activity calibration for that river.
+5. **Activity and rendered-review gate — the same river.** Select the data mode,
+   run full fixed historical replays for every supported species, tune only
+   through the controlled ledger, verify lifecycle shape and caps, generate
+   fixtures, run UI/copy/structural QA, and present rendered private review.
+   Stop for owner acceptance before starting the next river.
+6. Repeat gates 4 and 5 for each remaining river. A correction reopens the
+   affected gate and every downstream audit it can influence.
+7. **Consolidated cohort gate.** After every river is individually accepted,
+   present cross-river calendars, strengths, endpoints, source capabilities,
+   Activity stage means, limitations, commands, and results. Stop for explicit
+   cohort acceptance.
+8. **Release gate.** Deployment and public enablement still require their own
+   explicit authorization. Then, and only then, perform Phases H and I.
+
+Do not hide work from a later gate inside an earlier one. In particular, do not
+implement Activity while awaiting river truth approval, do not begin the next
+river while the current river's rendered review is unresolved, and do not
+promote or deploy during private review. The owner may explicitly combine or
+skip a stop, but the agent must never infer that choice merely from the size or
+urgency of the request.
 
 ## 2. Current product contract
 
@@ -900,17 +956,20 @@ A river is onboarding-complete only when:
 ## 16. Fast execution protocol
 
 Speed comes from eliminating duplicate work and catching wrong assumptions
-early—not from skipping evidence or replay.
+early—not from skipping evidence, replay, or the mandatory multi-river stop
+gates in section 1.2.
 
 Use this critical path:
 
 1. Scaffold the packet and inspect current schema/tests.
 2. Build the shared source bundle and three-species comparison matrix in one
-   research pass.
+   research pass, but present and approve the foundation/source and portfolio
+   truth gates separately.
 3. Lock geography, every barrier, species endpoints, regulations, and source
    reaches once.
 4. Probe live/history providers concurrently and record reusable results.
-5. Complete all three capability/calendar/strength packets side by side.
+5. Complete all species capability/calendar/strength packets side by side for
+   one river at a time after the cohort portfolio gate passes.
 6. Reconcile every configuration field before writing code.
 7. Implement hidden river/run profiles with shared helpers only for genuinely
    identical mechanics; keep evidence and versioning species/river-specific.
@@ -922,8 +981,9 @@ Use this critical path:
     boundary outliers before tuning.
 11. Rerun the full interval after accepted changes, generate private fixtures,
     and run copy/visual QA once scoring is stable.
-12. Present one consolidated owner review covering all species and explicitly
-    list what remains hidden.
+12. Present one rendered owner review per river and stop for acceptance before
+    beginning the next river; after all rivers pass, present one consolidated
+    cohort review and explicitly list what remains hidden.
 13. After explicit release authorization, promote all accepted registries once,
     run the complete release gate, deploy once, and perform one comprehensive
     production smoke across the entire catalog.

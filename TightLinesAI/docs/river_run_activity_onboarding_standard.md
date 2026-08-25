@@ -1,6 +1,6 @@
 # River Run Activity Onboarding Standard
 
-**Status:** Normative **Version:** 1.2 **Established:** 2026-08-24 **Applies
+**Status:** Normative **Version:** 1.3 **Established:** 2026-08-24 **Applies
 to:** Every river/species Activity configuration, replay, public copy, fixture,
 and acceptance decision
 
@@ -38,6 +38,15 @@ Every river/species combination therefore requires:
 5. Controlled boundary tests.
 6. Complete copy-state review.
 7. Owner acceptance.
+
+For a multi-river onboarding wave, Activity is a separate mandatory stop gate
+for one river at a time. Do not calibrate it while that river's species truth,
+calendar, endpoints, non-Activity behavior, or source-reach decision is awaiting
+approval. Replay every supported species for the approved river, present the
+complete Activity and rendered-review evidence, and obtain owner acceptance
+before beginning Activity or implementation for the next river. Cohort-level
+research may compare candidate modes and evidence, but it is not calibration
+approval. See section 1.2 of the rapid onboarding playbook.
 
 ## 3. Input boundary
 
@@ -79,8 +88,8 @@ Stations separated by a dam, lake, major tributary, tailwater transition, or a
 materially different corridor are not a valid pair merely because they share a
 river name. They may remain independently useful in Gauge Read.
 
-Two nearby mainstem stations may support a deliberately narrower observed
-reach only when the packet proves compatibility rather than assuming it. Record
+Two nearby mainstem stations may support a deliberately narrower observed reach
+only when the packet proves compatibility rather than assuming it. Record
 distance and intervening controls, compare simultaneous readings against a
 co-located or bracketing reference when one exists, publish signed error and
 absolute-error distributions, inspect construction/channel changes, and state
@@ -294,13 +303,13 @@ species/run replay:
   stage. Never obtain the shape by replacing live conditions with a calendar
   score.
 
-If temperature or another historically correlated input erases this shape,
-first verify the run calendar, thresholds, station reach, and replay interval.
-If those remain accepted, use a small, versioned stage-response adjustment with
-a true maximum. Apply and test hard warm, barrier, extreme-flow, and missing
-data caps after the adjustment so lifecycle shaping cannot manufacture a high
-score under unsafe or unsupported conditions. Record the before/after stage
-means and rationale in the calibration ledger.
+If temperature or another historically correlated input erases this shape, first
+verify the run calendar, thresholds, station reach, and replay interval. If
+those remain accepted, use a small, versioned stage-response adjustment with a
+true maximum. Apply and test hard warm, barrier, extreme-flow, and missing data
+caps after the adjustment so lifecycle shaping cannot manufacture a high score
+under unsafe or unsupported conditions. Record the before/after stage means and
+rationale in the calibration ledger.
 
 ### 9.2 Calibration iteration ledger
 

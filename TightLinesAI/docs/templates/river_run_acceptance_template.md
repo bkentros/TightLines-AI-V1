@@ -8,6 +8,9 @@
 | Gate                                                                  | Artifact/command                        | Result  | Reviewer | Date | Blocking notes |
 | --------------------------------------------------------------------- | --------------------------------------- | ------- | -------- | ---- | -------------- |
 | Clean branch and protected baseline check                             |                                         | pending |          |      |                |
+| Cohort readiness approval, when multi-river                           | cohort decision record                  | pending |          |      |                |
+| Cohort foundation/source-feasibility approval, when multi-river       | cohort matrix + river packets           | pending |          |      |                |
+| Cohort species-truth portfolio approval, when multi-river             | side-by-side species matrix             | pending |          |      |                |
 | River foundation and section approval                                 | `river-foundation.md`                   | pending |          |      |                |
 | Barrier/passage/closure audit                                         | `river-foundation.md`                   | pending |          |      |                |
 | Species-specific mouth-to-endpoint passage chains                     | foundation + run packets                | pending |          |      |                |
@@ -40,6 +43,7 @@
 | iOS and Android narrow-screen review                                  | screenshots/device review               | pending |          |      |                |
 | Production-shaped hidden smoke                                        | smoke artifact                          | pending |          |      |                |
 | Product-owner copy/visual acceptance                                  | signed decision                         | pending |          |      |                |
+| Consolidated cohort acceptance, when multi-river                      | cohort review record                    | pending |          |      |                |
 | Public static/database configuration-source decision                  | production secret/config audit          | pending |          |      |                |
 | Public registry promotion and draft-registry removal                  | catalog/config diff                     | pending |          |      |                |
 | Local/remote migration reconciliation                                 | `supabase migration list --linked`      | pending |          |      |                |
@@ -61,6 +65,7 @@
 - Known limitations:
 - Explicitly deferred work:
 - Owner acceptance date:
+- Multi-river gate approvals and dates, when applicable:
 - Deployment authorization:
 - Public enablement authorization:
 - Production configuration source (`static` or `database`):

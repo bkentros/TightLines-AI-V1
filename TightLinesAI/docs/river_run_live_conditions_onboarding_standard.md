@@ -1,6 +1,6 @@
 # River Run Live Conditions Onboarding Standard
 
-**Status:** Normative **Version:** 1.2 **Established:** 2026-08-24 **Applies
+**Status:** Normative **Version:** 1.3 **Established:** 2026-08-24 **Applies
 to:** Gauge Read configuration, source research, storage, API output, public
 copy, visual presentation, and onboarding acceptance
 
@@ -56,6 +56,14 @@ For every candidate source verify:
 - Reach represented and known exclusions.
 
 Probe the real endpoint. Station metadata alone is insufficient.
+
+For a multi-river wave, candidate-source discovery and endpoint probing belong
+in the cohort foundation/source-feasibility gate. Record accepted, rejected, and
+unresolved sources for every river and stop for owner approval before a source
+is treated as runtime configuration. Final reach eligibility and Gauge
+Read/Fishability/Activity roles are then locked during that river's individual
+truth gate; approval for one river or primitive does not approve another. See
+section 1.2 of the rapid onboarding playbook.
 
 The probe must validate returned timestamps and numeric observations, not only
 HTTP success. Record parameter codes, units, null/sentinel behavior, timezone,
