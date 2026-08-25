@@ -34,9 +34,18 @@
 | Copy/geography/contradiction QA                                       | onboarding audit                        | pending |          |      |                |
 | Live Conditions partial/stale/missing QA                              | test artifact                           | pending |          |      |                |
 | Provider-fault recovery to valid numeric display                      | test artifact                           | pending |          |      |                |
+| Hourly Gauge Read cadence independent of primitive cadence            | endpoint/cache QA                       | pending |          |      |                |
+| Visible observation age, exact time, and unreadable/last-readable UI  | UI/device QA                            | pending |          |      |                |
+| All-public-river provider health audit                                | dated live-source audit                 | pending |          |      |                |
 | iOS and Android narrow-screen review                                  | screenshots/device review               | pending |          |      |                |
 | Production-shaped hidden smoke                                        | smoke artifact                          | pending |          |      |                |
 | Product-owner copy/visual acceptance                                  | signed decision                         | pending |          |      |                |
+| Public static/database configuration-source decision                  | production secret/config audit          | pending |          |      |                |
+| Public registry promotion and draft-registry removal                  | catalog/config diff                     | pending |          |      |                |
+| Local/remote migration reconciliation                                 | `supabase migration list --linked`      | pending |          |      |                |
+| Complete production catalog smoke for every public run                | deployed `/rivers` assertion            | pending |          |      |                |
+| Deployed function version and protected refresh smoke                 | production smoke artifact               | pending |          |      |                |
+| Atomic commit, pushed remote parity, and clean worktree               | Git verification                        | pending |          |      |                |
 
 ## Required release record
 
@@ -54,6 +63,14 @@
 - Owner acceptance date:
 - Deployment authorization:
 - Public enablement authorization:
+- Production configuration source (`static` or `database`):
+- Cache-invalidating engine/config/copy/data versions:
+- Linked migration reconciliation result:
+- Deployed function version/update time:
+- Production catalog unique river/run counts and new IDs:
+- Protected refresh/provider smoke result:
+- Mobile UI availability (already live or requires next build):
+- Commit(s), remote branch, ahead/behind, and clean-status result:
 
 ## Post-review correction and generalized-learning ledger
 

@@ -1,6 +1,6 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth **Version:** 1.1 **Established:**
+**Status:** Normative source of truth **Version:** 1.2 **Established:**
 2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
 Researching, configuring, validating, reviewing, and handing off a new River Run
 river and its supported fall Chinook, Coho, and Steelhead runs
@@ -10,6 +10,13 @@ Activity audit. It adds full-calendar evidence classification, ordinal strength
 comparison, species-specific passage chains, same-reach Activity decisions,
 provider recovery, cross-year replay, fast execution, and post-review learning
 requirements.
+
+**Version 1.2 learning source:** production promotion and final live-source
+audit for Grand, Platte, and White. It adds an explicit ordered release phase,
+static-catalog promotion, migration reconciliation, engine/data-version cache
+invalidation, complete public-catalog smoke coverage, hourly Gauge Read refresh,
+visible observation age, unreadable-provider behavior, post-deploy verification,
+atomic commits, and clean synchronized handoff.
 
 **Current runtime boundary:** River Run presently supports the Great Lakes
 region, its configured state enum, and the implemented run/biology engines. A
@@ -34,6 +41,10 @@ Supporting normative standards, in order:
 4. Current engine types, validation, scoring code, and tests — runtime behavior.
 5. The river’s versioned onboarding packet and accepted audit — researched
    river/run facts.
+6. `docs/templates/river_run_river_foundation_template.md`,
+   `docs/templates/river_run_live_conditions_template.md`,
+   `docs/templates/river_run_species_run_template.md`, and
+   `docs/templates/river_run_acceptance_template.md` — required packet shape.
 
 Older six-primitive, five-primitive, release-branch, Push, or Migration Timing
 instructions are historical. Timing and Push may remain internal for backward
@@ -44,6 +55,36 @@ When sources, code, or standards disagree, stop and record the contradiction. Do
 not silently select the convenient answer. A change to an accepted score,
 calendar, public section, capability, or biological conclusion requires an
 explicit versioned decision.
+
+### 1.1 Ordered execution map
+
+An onboarding agent follows this sequence without skipping ahead:
+
+1. Preflight the branch, worktree, runtime contract, existing portfolio, and
+   provider adapters.
+2. Scaffold one river packet plus one run packet for every independently
+   supported species.
+3. Phase A: lock exact river identity, jurisdiction, public sections, every
+   barrier, and each species endpoint.
+4. Phase B: probe real providers and lock Live Conditions capabilities,
+   freshness, reach, historical context, and honest unavailable behavior.
+5. Phase C: research every run field—calendar, strength, distribution,
+   lifecycle, presence curve, Fishability, and terminal semantics.
+6. Phase D: select and calibrate Activity independently for each river/species.
+7. Phase E: write complete public copy across every reachable state and daily
+   corridor transition.
+8. Phase F: implement hidden configuration, review catalog, validation, and
+   generated fixtures.
+9. Phase G: replay, run structural/copy/UI/type QA, and obtain rendered owner
+   acceptance.
+10. Phase H: only after explicit authorization, promote public registries,
+    reconcile migrations/config source, deploy, and smoke production.
+11. Phase I: commit and push atomic work, prove the remote is synchronized and
+    the worktree clean, and record limitations and future re-audit triggers.
+
+Research acceptance, rendered owner acceptance, deployment authorization, and
+public enablement remain separate recorded decisions even though this document
+describes the complete path through all four.
 
 ## 2. Current product contract
 
@@ -239,7 +280,15 @@ supported facts, geographic reach, and limitations.
 
 Do not cite a search-results page. Do not turn a URL list into implied support.
 
-### A3. Lock public geography
+### A3. Confirm exact identity and lock public geography
+
+Before defining sections, prove the exact waterbody: official name and aliases,
+state/jurisdictions, counties, coordinates, source and mouth, receiving basin or
+Great Lake, and runtime presentation state. When a name repeats, document the
+similarly named river that is **not** in scope. Do not assume a common name
+identifies one waterbody or that a river is wholly within one state. Boundary
+waters and rivers with separate same-name basins require an explicit identity
+decision before research continues.
 
 Define two to four ordered, recognizable sections. Three is preferred when the
 river naturally supports it. Each section needs:
@@ -543,8 +592,8 @@ If two nearby mainstem stations could represent a narrow reach, run a proxy
 validation before rejecting or accepting the pair: map the distance and every
 intervening control; compare simultaneous observations against any archived or
 co-located reference; report signed bias and absolute-error percentiles; check
-construction-era changes; then bind the score to the narrowest defensible
-reach. This evidence authorizes only that reach, never the whole named section.
+construction-era changes; then bind the score to the narrowest defensible reach.
+This evidence authorizes only that reach, never the whole named section.
 
 When the sources do not pair, decide explicitly between:
 
@@ -738,7 +787,89 @@ the narrowest supported widths and dynamic text wrapping. Inspect the complete
 page, Gauge Read collapsed/expanded, every primitive tab, terminal states, and
 long station/section names.
 
-## 13. Definition of done
+## 13. Phase H — authorized public release and production verification
+
+Do not enter this phase from research approval alone. Record explicit owner
+authorization for deployment and public enablement in `acceptance.md`.
+
+### H1. Promote the accepted configuration
+
+1. Set every accepted run's `publicAudit.isEnabled` to `true` and replace
+   private-review audit/version language with a dated release version.
+2. Add the river profile, every accepted run profile, and its configuration
+   document to the public static registries.
+3. Remove those values from the draft registries; draft registries must contain
+   only genuinely unreleased candidates.
+4. Update catalog QA to assert the exact unique river and run counts and every
+   new run ID. Account for a canonical river intentionally appearing in more
+   than one state presentation.
+5. Update review/Activity QA that previously read the draft registry so it now
+   validates the public profiles. A successful promotion must not silently make
+   release QA stop testing the promoted runs.
+6. Update acceptance packets from private-candidate claims to the actual
+   accepted public scope and known limitations.
+
+### H2. Reconcile runtime source, caches, and migrations
+
+Before deploying, verify which configuration source production actually uses. If
+`RIVER_RUN_CONFIG_SOURCE=static`, public registry promotion is authoritative and
+a database configuration revision is not a substitute. If production uses
+published database documents, validate and publish the accepted revision under
+that contract. Never assume both paths are active.
+
+Run the linked migration comparison and prove every local migration has the same
+remote version. Create a migration only for a real schema/data/cron change; do
+not manufacture one for a static-catalog release. Resolve local-only,
+remote-only, duplicate, or reordered migrations before deployment.
+
+Bump the appropriate engine, configuration, copy, or Live Conditions data
+version whenever old cached rows could preserve prior scoring, catalog, copy,
+freshness, or source behavior. Version bumps are cache contracts, not cosmetic
+release notes.
+
+### H3. Deploy and smoke the actual production surface
+
+Required release gate:
+
+1. Run formatting, diff checks, type checks, onboarding QA, UI/copy QA, provider
+   normalization, all engine tests, and endpoint tests.
+2. Regenerate fixtures after final versions change and prove `--check` produces
+   no diff.
+3. Deploy the River Run function only after the complete gate passes.
+4. Verify the deployed function is active and its version/update time changed.
+5. Call the real production `/rivers` endpoint and assert the exact unique
+   river/run counts plus every newly released ID—not merely the first legacy
+   river.
+6. Exercise the protected refresh/production smoke when authorized credentials
+   are available; its expected catalog must include every current public run.
+7. Recheck linked migrations after deployment.
+8. Record production function version, smoke response, counts, run IDs,
+   migration result, and any provider outage separately from code health.
+
+A provider malfunction is not a failed deployment when the adapter returns an
+honest unreadable state, preserves the last readable observation time, and
+recovers automatically. Conversely, an HTTP 200 catalog response alone does not
+prove snapshot/provider health.
+
+## 14. Phase I — repository and operational handoff
+
+Keep the river release atomic. Preserve unrelated user work in a separate commit
+rather than mixing it into the onboarding commit or deleting it. Before handoff:
+
+1. Inspect the final staged file list and run `git diff --cached --check`.
+2. Commit the river release with a specific message.
+3. Fetch before push and stop on unexpected divergence.
+4. Push the owner-specified development branch.
+5. Prove `HEAD` equals the remote branch, ahead/behind is `0 0`, and
+   `git status --porcelain` is empty.
+6. State what is already live versus what requires a new mobile build. Edge
+   function changes can be production-live while UI copy still awaits the next
+   app binary.
+7. Hand off the accepted limitations: missing gauges, reach mismatch,
+   weather-only confidence, unresolved passage, regulation recheck dates, and
+   provider/station changes that trigger re-audit.
+
+## 15. Definition of done
 
 A river is onboarding-complete only when:
 
@@ -760,9 +891,13 @@ A river is onboarding-complete only when:
 - Portfolio validation, copy QA, UI QA, type checks, and production-shaped smoke
   tests pass.
 - The product owner accepts public geography, copy, and visual output.
-- Deployment and enablement remain unperformed unless separately authorized.
+- If release is not authorized, configuration remains hidden and the packet
+  explicitly records that deployment/public enablement were not performed.
+- If release is authorized, public registries, runtime configuration source,
+  migrations, deployment, production catalog, provider behavior, commits, remote
+  synchronization, and clean worktree all pass Phases H and I.
 
-## 14. Fast execution protocol
+## 16. Fast execution protocol
 
 Speed comes from eliminating duplicate work and catching wrong assumptions
 early—not from skipping evidence or replay.
@@ -789,13 +924,17 @@ Use this critical path:
     and run copy/visual QA once scoring is stable.
 12. Present one consolidated owner review covering all species and explicitly
     list what remains hidden.
+13. After explicit release authorization, promote all accepted registries once,
+    run the complete release gate, deploy once, and perform one comprehensive
+    production smoke across the entire catalog.
+14. Commit/push the atomic release and prove the worktree and remote are clean.
 
 Avoid repeated broad web searches, per-species duplication of river facts,
 manual editing of generated fixtures, one-day score tuning, and premature dev
 builds. Record reusable commands in `package.json` or the audit so another agent
 can reproduce the work without reconstructing the process.
 
-## 15. Multi-agent operating protocol
+## 17. Multi-agent operating protocol
 
 The preferred future team structure is:
 
@@ -813,7 +952,7 @@ isolated files. Only the integration owner edits shared registries. A handoff
 must state files changed, commands/results, citations, owner-calibrated
 decisions, unresolved issues, and whether deployment or enablement occurred.
 
-## 16. Required agent start response
+## 18. Required agent start response
 
 Before changing a future river, an agent must be able to state in its own words:
 
@@ -830,12 +969,19 @@ Before changing a future river, an agent must be able to state in its own words:
 - Why cross-year seasons require year-aware replay dates.
 - The date-average ±3-day rule.
 - How provider faults fail closed and valid readings automatically recover.
+- Why Gauge Read refreshes independently each hour while scored primitives may
+  retain a different audited cadence.
+- Why provider observation time, server refresh time, and device display time
+  are different and must never be presented as one timestamp.
 - The separation of acceptance, deployment, and public enablement.
+- How static versus database configuration source changes the release action.
+- How migration reconciliation, production smoke, commit/push, and clean remote
+  verification close an authorized release.
 
 If the agent cannot do so after reading the standards, it is not ready to
 onboard the river.
 
-## 17. Post-review correction and continuous-learning protocol
+## 19. Post-review correction and continuous-learning protocol
 
 Owner review is an evidence gate, not an informal cleanup. For every reported
 error:

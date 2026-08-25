@@ -1,6 +1,6 @@
 # River Run Live Conditions Onboarding Standard
 
-**Status:** Normative **Version:** 1.1 **Established:** 2026-08-24 **Applies
+**Status:** Normative **Version:** 1.2 **Established:** 2026-08-24 **Applies
 to:** Gauge Read configuration, source research, storage, API output, public
 copy, visual presentation, and onboarding acceptance
 
@@ -64,6 +64,19 @@ the appropriate delayed/missing state. Once complete valid observations resume,
 the normal refresh path must automatically restore the metric without a code or
 configuration change.
 
+Repeat the probe immediately before release across **every public river**, not
+only the newly onboarded river. Resolve the latest usable observation
+independently for each configured metric; discharge and gauge height can publish
+at different timestamps. Separate these conclusions:
+
+- Adapter/configuration health.
+- Provider/station health.
+- Freshness of the latest readable observation.
+- Eligibility for Gauge Read, Fishability, Activity, or context only.
+
+An HTTP 200 with null values, `Eqp`/`EQUIP`, nonnumeric sentinels, wrong units,
+wrong series identity, or only stale observations is not a working live read.
+
 ### Source roles
 
 - One primary hydraulic source.
@@ -99,8 +112,17 @@ input, but must follow its declared minimum-input contract; missing weather or
 all required measured river inputs may make Activity Unavailable even while
 Gauge Read is Partial. When a provider resumes with a valid fresh value, the
 next refresh must automatically restore the corresponding metric and scoring
-state. Do not require a configuration change, carry forward a fault sentinel,
-or substitute a seasonal average.
+state. Do not require a configuration change, carry forward a fault sentinel, or
+substitute a seasonal average.
+
+Distinguish unavailable states in public copy:
+
+- **Unreadable:** an accepted configured source exists but currently has no
+  displayable observation.
+- **No accepted gauge:** research found no source that accurately represents the
+  modeled river reach.
+- **Unsupported metric:** another metric may be readable, but this metric has no
+  accepted source.
 
 ## 5. Current-value precision
 
@@ -126,8 +148,28 @@ Every metric is independently classified:
 - Missing.
 
 Older-than-24-hours and missing values are suppressed rather than presented as
-current. The details surface shows observation time, public freshness, and
-provisional status when applicable.
+current. Gauge Read refreshes on an independent hourly cache key in season and
+out of season; the protected hourly job warms that key, and the first request in
+a new hour safely fills it if necessary. The four-hour scored-primitive cadence
+must not prevent Gauge Read from seeking a newer observation.
+
+Keep three times distinct:
+
+- `observedAt`: when the provider measured the value.
+- `refreshedAt`: when FinFindr queried/built Gauge Read.
+- Device time: when the user is viewing it.
+
+Freshness is based on provider `observedAt`, never request/cache time. The
+collapsed surface and every metric tile visibly show `CURRENT`, `DELAYED`,
+`PARTIAL`, or `UNREADABLE` plus friendly observation age and the exact
+observation timestamp. Do not bury age only inside an expanded disclosure or
+label a delayed cached observation `LIVE`.
+
+During a multi-day provider fault, query enough recent history to retain the
+last readable observation timestamp while suppressing its numeric value. Public
+copy says the provider reading is currently unreadable and, when known, when it
+was last readable. `NO GAUGE` is reserved for a river with no accepted source;
+it is not the label for a configured malfunctioning station.
 
 Use friendly public terms. Provider enums, database keys, source IDs, adapter
 names, and strings such as `monitor_my_watershed` must never appear publicly.
@@ -188,6 +230,10 @@ contains:
 - What the gauge represents.
 - A single date-average methodology note.
 
+Observation age is also shown on the collapsed metric tile; expanded details add
+station, provenance, methodology, and reach rather than hiding the basic
+freshness truth.
+
 Avoid repeating the same long provider disclaimer for every tile when one shared
 note is sufficient. Station titles wrap; they are not truncated merely to keep a
 status badge on the same line.
@@ -216,6 +262,11 @@ The river foundation must configure:
 Live Conditions is configured once per river and reused across all species and
 runs. Never duplicate gauge research per species.
 
+The river's biological/scoring schedule and hourly Gauge Read retrieval are
+separate contracts. Do not add 24 scoring slots merely to make measurements
+fresher; keep the hourly live-conditions key species-independent so one provider
+pull can serve every run on the river.
+
 ## 11. Acceptance matrix
 
 Required automated and visual cases:
@@ -223,6 +274,12 @@ Required automated and visual cases:
 - All metrics fresh.
 - Each single metric missing.
 - Provider fault followed by a valid recovered numeric reading.
+- Equipment-fault/null sentinel produces `UNREADABLE`, not zero, Stable, or
+  `NO GAUGE`.
+- Last readable observation time remains visible through a multi-day outage
+  while its value remains suppressed.
+- Hourly Gauge Read key is independent from the scored primitive refresh slot.
+- Observation age is visible without expanding details and uses provider time.
 - Hidden owner review uses the authenticated current-provider path. Fixture
   primitive scenarios cannot replace the visible Gauge Read, and a failed live
   review request must remain unavailable rather than falling back to synthetic
@@ -258,5 +315,7 @@ Live Conditions is accepted only when:
 - Public precision matches source resolution.
 - Attribution and licensing are satisfied.
 - Partial, stale, missing, fallback, and no-gauge states pass.
+- Unreadable configured-source copy is distinct from no-accepted-gauge copy.
+- Hourly refresh, last-readable timestamp, and automatic provider recovery pass.
 - Expanded copy is concise, wraps cleanly, and contains no internal language.
 - Product owner accepts the collapsed and expanded visual presentation.

@@ -37,6 +37,12 @@ For every accepted source record:
   provider timezone.
 - Provider-fault behavior and proof that a later valid observation restores the
   metric automatically.
+- Latest usable observation resolved independently for every metric.
+- Provider `observedAt`, FinFindr `refreshedAt`, and public timestamp/timezone
+  presentation.
+- Hourly Gauge Read retrieval proof, independent from scored primitive slots.
+- Last-readable timestamp retention and numeric-value suppression during a
+  multi-day outage.
 
 ## 3. Date-average contract
 
@@ -70,6 +76,8 @@ movement, clarity, safety, or a whole-river change.
 - Gauge-height public station label:
 - Reach explanation:
 - No-gauge/partial-data message:
+- Configured-source unreadable message:
+- Last-readable observation message:
 - Public provider labels:
 - Attribution text:
 - Internal names that must never appear publicly:
@@ -82,6 +90,12 @@ movement, clarity, safety, or a whole-river change.
 - [ ] Older-than-24-hours suppression.
 - [ ] Missing reading.
 - [ ] Provider malfunction fails closed.
+- [ ] `Eqp`/`EQUIP`, null, nonnumeric, and wrong-unit values show Unreadable—not
+      zero, Stable, Live, or No Gauge.
+- [ ] Last readable provider timestamp remains visible while the stale value is
+      suppressed.
+- [ ] Observation age appears on the collapsed tile, not only in details.
+- [ ] Gauge Read refreshes hourly independently of primitive scoring cadence.
 - [ ] Recovered valid numeric reading automatically restores accurate display.
 - [ ] Rising/falling/stable or warming/cooling/stable trend.
 - [ ] Date average normal/high/low or warmer/colder.

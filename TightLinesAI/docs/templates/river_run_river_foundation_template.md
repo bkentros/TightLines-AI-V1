@@ -21,6 +21,11 @@
 | Approximate corridor length         |                  |             | unresolved |
 | Runtime region/schema fit           |                  |             | unresolved |
 
+Identity is a stop gate when names repeat across jurisdictions or basins. Record
+official aliases, state/county, receiving Great Lake/basin, coordinates, and the
+similarly named waterbody that was excluded. Never infer that a river is wholly
+inside one state—or is a boundary water—from its common name alone.
+
 If this river is outside the currently implemented Great Lakes state/region
 types, stop ordinary onboarding and open a separate engine/biology/catalog
 expansion. Do not force it into `great_lakes` to satisfy validation.
@@ -94,6 +99,11 @@ Rules:
   endpoint success.
 - Provider faults fail closed; a later valid reading must restore normal display
   automatically without a code/configuration change.
+- Resolve the latest usable observation independently for each metric; flow and
+  gauge height may have different timestamps.
+- Record provider `observedAt` separately from FinFindr refresh time.
+- Gauge Read uses an hourly, species-independent retrieval key; primitive
+  scoring cadence remains separately audited.
 
 ## 6. Weather strategy
 
