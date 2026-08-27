@@ -148,19 +148,15 @@ assert.match(
   /Real provider readings · observation age shown\./,
   "Gauge Read must retain customer-facing live-provider provenance",
 );
-const freshnessMarkup = riverRunScreen.match(
-  /<Text\s+style=\{styles\.liveMetricFreshness\}[\s\S]*?<\/Text>/,
-)?.[0] ?? "";
-assert(freshnessMarkup, "Gauge Read freshness metadata must be rendered");
 assert.doesNotMatch(
-  freshnessMarkup,
-  /adjustsFontSizeToFit|minimumFontScale/,
-  "Flow and gauge-height metadata must not shrink below water-temperature metadata",
+  riverRunScreen,
+  /style=\{styles\.liveMetricFreshness\}/,
+  "Gauge Read tiles must leave update details to Sources & Data Age",
 );
 assert.match(
   riverRunScreen,
-  /liveMetricFreshness:\s*\{[\s\S]*?fontSize:\s*8\.5,[\s\S]*?lineHeight:\s*11,/,
-  "Gauge Read metadata must retain its original 8.5-point size",
+  /SOURCES & DATA AGE[\s\S]*?liveMetricFreshnessCopy\(metric\)/,
+  "Sources & Data Age must retain per-metric update details",
 );
 
 assert.equal(
