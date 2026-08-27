@@ -12,9 +12,6 @@ const runIds = [
   "platte_fall_chinook",
   "platte_fall_coho",
   "platte_fall_steelhead",
-  "white_fall_chinook",
-  "white_fall_coho",
-  "white_fall_steelhead",
 ];
 
 for (const runId of runIds) {
@@ -180,7 +177,7 @@ for (const runId of runIds) {
 }
 
 console.log(
-  `Platte and White weather-only Activity QA passed for ${runIds.length} public river/species profiles.`,
+  `Platte weather-only Activity QA passed for ${runIds.length} public river/species profiles.`,
 );
 
 function result(

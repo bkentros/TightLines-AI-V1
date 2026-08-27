@@ -1,0 +1,1969 @@
+{
+  "runId": "white_fall_coho",
+  "rulesVersion": "white-fall-coho-observed-activity-v3",
+  "replayYears": "2022-2025",
+  "method": "Historical mechanical coho replay using White River near Whitehall, MI — Fruitvale Road USGS 04122200 daily mean discharge, South Branch White River at Weaver Street Monitor My Watershed series 5989 daily median measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 384,
+  "usableDays": 272,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 101,
+    "temperatureHistory": 110,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 19,
+    "p10": 34,
+    "median": 69,
+    "p90": 88,
+    "max": 94,
+    "mean": 64.75
+  },
+  "blockScore": {
+    "min": 19,
+    "p10": 33,
+    "median": 66,
+    "p90": 88,
+    "max": 94,
+    "mean": 62.69
+  },
+  "uniqueDayScores": 72,
+  "uniqueBlockScores": 76,
+  "dayLabels": {
+    "Active": 112,
+    "Highly active": 70,
+    "Inactive": 1,
+    "Moderate": 46,
+    "Reserved": 43
+  },
+  "blockLabels": {
+    "Active": 401,
+    "Highly active": 257,
+    "Inactive": 4,
+    "Moderate": 237,
+    "Reserved": 189
+  },
+  "daysAtLeast90": 15,
+  "blocksAtLeast90": 78,
+  "byStage": {
+    "beginning": {
+      "days": 27,
+      "scores": {
+        "min": 19,
+        "p10": 30,
+        "median": 71,
+        "p90": 80,
+        "max": 91,
+        "mean": 63.96
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 4,
+        "Inactive": 1,
+        "Moderate": 2,
+        "Reserved": 4
+      }
+    },
+    "building": {
+      "days": 81,
+      "scores": {
+        "min": 23,
+        "p10": 26,
+        "median": 76,
+        "p90": 89,
+        "max": 93,
+        "mean": 70.7
+      },
+      "labels": {
+        "Active": 38,
+        "Highly active": 31,
+        "Moderate": 2,
+        "Reserved": 10
+      }
+    },
+    "ending": {
+      "days": 30,
+      "scores": {
+        "min": 39,
+        "p10": 44,
+        "median": 52,
+        "p90": 63,
+        "max": 72,
+        "mean": 53.2
+      },
+      "labels": {
+        "Active": 7,
+        "Moderate": 22,
+        "Reserved": 1
+      }
+    },
+    "peak": {
+      "days": 33,
+      "scores": {
+        "min": 66,
+        "p10": 71,
+        "median": 86,
+        "p90": 91,
+        "max": 94,
+        "mean": 83.58
+      },
+      "labels": {
+        "Active": 8,
+        "Highly active": 25
+      }
+    },
+    "post_run": {
+      "days": 38,
+      "scores": {
+        "min": 26,
+        "p10": 32,
+        "median": 38,
+        "p90": 47,
+        "max": 51,
+        "mean": 38.26
+      },
+      "labels": {
+        "Moderate": 13,
+        "Reserved": 25
+      }
+    },
+    "pre_run": {
+      "days": 15,
+      "scores": {
+        "min": 23,
+        "p10": 24,
+        "median": 63,
+        "p90": 77,
+        "max": 79,
+        "mean": 58.4
+      },
+      "labels": {
+        "Active": 10,
+        "Moderate": 2,
+        "Reserved": 3
+      }
+    },
+    "tapering": {
+      "days": 48,
+      "scores": {
+        "min": 54,
+        "p10": 63,
+        "median": 73,
+        "p90": 82,
+        "max": 91,
+        "mean": 72.4
+      },
+      "labels": {
+        "Active": 33,
+        "Highly active": 10,
+        "Moderate": 5
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 27,
+      "samples": 27,
+      "scores": {
+        "min": 19,
+        "p10": 30,
+        "median": 72,
+        "p90": 79,
+        "max": 93,
+        "mean": 65.04
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Highly active": 11.11,
+        "Inactive": 3.7,
+        "Moderate": 3.7,
+        "Reserved": 14.81
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 27,
+      "samples": 27,
+      "scores": {
+        "min": 19,
+        "p10": 30,
+        "median": 61,
+        "p90": 76,
+        "max": 87,
+        "mean": 58
+      },
+      "labelShares": {
+        "Active": 44.44,
+        "Highly active": 11.11,
+        "Inactive": 3.7,
+        "Moderate": 25.93,
+        "Reserved": 14.81
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 27,
+      "samples": 27,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 64,
+        "p90": 81,
+        "max": 87,
+        "mean": 59.19
+      },
+      "labelShares": {
+        "Active": 44.44,
+        "Highly active": 14.81,
+        "Inactive": 7.41,
+        "Moderate": 22.22,
+        "Reserved": 11.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 27,
+      "samples": 27,
+      "scores": {
+        "min": 20,
+        "p10": 28,
+        "median": 71,
+        "p90": 82,
+        "max": 91,
+        "mean": 65.04
+      },
+      "labelShares": {
+        "Active": 59.26,
+        "Highly active": 14.81,
+        "Moderate": 7.41,
+        "Reserved": 18.52
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 27,
+      "samples": 108,
+      "scores": {
+        "min": 19,
+        "p10": 28,
+        "median": 69,
+        "p90": 81,
+        "max": 93,
+        "mean": 61.81
+      },
+      "labelShares": {
+        "Active": 53.7,
+        "Highly active": 12.96,
+        "Inactive": 3.7,
+        "Moderate": 14.81,
+        "Reserved": 14.81
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 81,
+      "samples": 81,
+      "scores": {
+        "min": 23,
+        "p10": 27,
+        "median": 77,
+        "p90": 90,
+        "max": 94,
+        "mean": 71.59
+      },
+      "labelShares": {
+        "Active": 54.32,
+        "Highly active": 32.1,
+        "Moderate": 1.23,
+        "Reserved": 12.35
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 81,
+      "samples": 81,
+      "scores": {
+        "min": 21,
+        "p10": 27,
+        "median": 66,
+        "p90": 90,
+        "max": 94,
+        "mean": 65.62
+      },
+      "labelShares": {
+        "Active": 38.27,
+        "Highly active": 29.63,
+        "Moderate": 19.75,
+        "Reserved": 12.35
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 81,
+      "samples": 81,
+      "scores": {
+        "min": 21,
+        "p10": 25,
+        "median": 68,
+        "p90": 89,
+        "max": 93,
+        "mean": 65.62
+      },
+      "labelShares": {
+        "Active": 35.8,
+        "Highly active": 34.57,
+        "Moderate": 17.28,
+        "Reserved": 12.35
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 81,
+      "samples": 81,
+      "scores": {
+        "min": 23,
+        "p10": 25,
+        "median": 76,
+        "p90": 90,
+        "max": 93,
+        "mean": 70.75
+      },
+      "labelShares": {
+        "Active": 50.62,
+        "Highly active": 35.8,
+        "Moderate": 1.23,
+        "Reserved": 12.35
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 81,
+      "samples": 324,
+      "scores": {
+        "min": 21,
+        "p10": 25,
+        "median": 75,
+        "p90": 90,
+        "max": 94,
+        "mean": 68.4
+      },
+      "labelShares": {
+        "Active": 44.75,
+        "Highly active": 33.02,
+        "Moderate": 9.88,
+        "Reserved": 12.35
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 36,
+        "p10": 43,
+        "median": 53,
+        "p90": 64,
+        "max": 71,
+        "mean": 53.87
+      },
+      "labelShares": {
+        "Active": 30,
+        "Moderate": 66.67,
+        "Reserved": 3.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 31,
+        "p10": 37,
+        "median": 49,
+        "p90": 62,
+        "max": 72,
+        "mean": 49.33
+      },
+      "labelShares": {
+        "Active": 23.33,
+        "Moderate": 56.67,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 31,
+        "p10": 36,
+        "median": 51,
+        "p90": 63,
+        "max": 71,
+        "mean": 49.5
+      },
+      "labelShares": {
+        "Active": 20,
+        "Moderate": 53.33,
+        "Reserved": 26.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 37,
+        "p10": 43,
+        "median": 52,
+        "p90": 63,
+        "max": 72,
+        "mean": 53.1
+      },
+      "labelShares": {
+        "Active": 30,
+        "Moderate": 63.33,
+        "Reserved": 6.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 30,
+      "samples": 120,
+      "scores": {
+        "min": 31,
+        "p10": 38,
+        "median": 51,
+        "p90": 63,
+        "max": 72,
+        "mean": 51.45
+      },
+      "labelShares": {
+        "Active": 25.83,
+        "Moderate": 60,
+        "Reserved": 14.17
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 33,
+      "samples": 33,
+      "scores": {
+        "min": 69,
+        "p10": 75,
+        "median": 87,
+        "p90": 91,
+        "max": 94,
+        "mean": 84.42
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Highly active": 66.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 33,
+      "samples": 33,
+      "scores": {
+        "min": 56,
+        "p10": 61,
+        "median": 85,
+        "p90": 91,
+        "max": 93,
+        "mean": 80.64
+      },
+      "labelShares": {
+        "Active": 30.3,
+        "Highly active": 66.67,
+        "Moderate": 3.03
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 33,
+      "samples": 33,
+      "scores": {
+        "min": 54,
+        "p10": 56,
+        "median": 85,
+        "p90": 91,
+        "max": 94,
+        "mean": 78.55
+      },
+      "labelShares": {
+        "Active": 18.18,
+        "Highly active": 63.64,
+        "Moderate": 18.18
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 33,
+      "samples": 33,
+      "scores": {
+        "min": 67,
+        "p10": 70,
+        "median": 85,
+        "p90": 91,
+        "max": 92,
+        "mean": 82.58
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Highly active": 66.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 33,
+      "samples": 132,
+      "scores": {
+        "min": 54,
+        "p10": 63,
+        "median": 85,
+        "p90": 91,
+        "max": 94,
+        "mean": 81.55
+      },
+      "labelShares": {
+        "Active": 28.79,
+        "Highly active": 65.91,
+        "Moderate": 5.3
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 38,
+      "samples": 38,
+      "scores": {
+        "min": 27,
+        "p10": 33,
+        "median": 36,
+        "p90": 47,
+        "max": 51,
+        "mean": 37.89
+      },
+      "labelShares": {
+        "Moderate": 28.95,
+        "Reserved": 71.05
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 38,
+      "samples": 38,
+      "scores": {
+        "min": 22,
+        "p10": 28,
+        "median": 36,
+        "p90": 47,
+        "max": 51,
+        "mean": 36.05
+      },
+      "labelShares": {
+        "Moderate": 23.68,
+        "Reserved": 76.32
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 38,
+      "samples": 38,
+      "scores": {
+        "min": 24,
+        "p10": 26,
+        "median": 39,
+        "p90": 46,
+        "max": 52,
+        "mean": 37.39
+      },
+      "labelShares": {
+        "Moderate": 36.84,
+        "Reserved": 63.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 38,
+      "samples": 38,
+      "scores": {
+        "min": 25,
+        "p10": 33,
+        "median": 38,
+        "p90": 47,
+        "max": 51,
+        "mean": 38.34
+      },
+      "labelShares": {
+        "Moderate": 36.84,
+        "Reserved": 63.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 38,
+      "samples": 152,
+      "scores": {
+        "min": 22,
+        "p10": 29,
+        "median": 36,
+        "p90": 47,
+        "max": 52,
+        "mean": 37.42
+      },
+      "labelShares": {
+        "Moderate": 31.58,
+        "Reserved": 68.42
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 23,
+        "p10": 24,
+        "median": 67,
+        "p90": 73,
+        "max": 83,
+        "mean": 59.47
+      },
+      "labelShares": {
+        "Active": 73.33,
+        "Highly active": 6.67,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 55,
+        "p90": 79,
+        "max": 81,
+        "mean": 52.27
+      },
+      "labelShares": {
+        "Active": 13.33,
+        "Highly active": 6.67,
+        "Moderate": 60,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 51,
+        "p90": 76,
+        "max": 82,
+        "mean": 51.27
+      },
+      "labelShares": {
+        "Active": 20,
+        "Highly active": 6.67,
+        "Moderate": 53.33,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 23,
+        "p10": 24,
+        "median": 65,
+        "p90": 77,
+        "max": 85,
+        "mean": 59.27
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Highly active": 6.67,
+        "Moderate": 6.67,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 15,
+      "samples": 60,
+      "scores": {
+        "min": 21,
+        "p10": 24,
+        "median": 60,
+        "p90": 76,
+        "max": 85,
+        "mean": 55.57
+      },
+      "labelShares": {
+        "Active": 43.33,
+        "Highly active": 6.67,
+        "Moderate": 30,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 48,
+      "samples": 48,
+      "scores": {
+        "min": 49,
+        "p10": 63,
+        "median": 75,
+        "p90": 84,
+        "max": 92,
+        "mean": 73.58
+      },
+      "labelShares": {
+        "Active": 62.5,
+        "Highly active": 31.25,
+        "Moderate": 6.25
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 48,
+      "samples": 48,
+      "scores": {
+        "min": 42,
+        "p10": 52,
+        "median": 62,
+        "p90": 83,
+        "max": 91,
+        "mean": 66.19
+      },
+      "labelShares": {
+        "Active": 41.67,
+        "Highly active": 22.92,
+        "Moderate": 35.42
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 48,
+      "samples": 48,
+      "scores": {
+        "min": 42,
+        "p10": 53,
+        "median": 68,
+        "p90": 82,
+        "max": 90,
+        "mean": 67.04
+      },
+      "labelShares": {
+        "Active": 43.75,
+        "Highly active": 18.75,
+        "Moderate": 37.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 48,
+      "samples": 48,
+      "scores": {
+        "min": 56,
+        "p10": 59,
+        "median": 74,
+        "p90": 83,
+        "max": 89,
+        "mean": 72.69
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Highly active": 20.83,
+        "Moderate": 12.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 48,
+      "samples": 192,
+      "scores": {
+        "min": 42,
+        "p10": 55,
+        "median": 71,
+        "p90": 84,
+        "max": 92,
+        "mean": 69.88
+      },
+      "labelShares": {
+        "Active": 53.65,
+        "Highly active": 23.44,
+        "Moderate": 22.92
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-22..10-25",
+      "days": 12,
+      "scores": {
+        "min": 68,
+        "p10": 69,
+        "median": 88,
+        "p90": 90,
+        "max": 92,
+        "mean": 84.5
+      },
+      "labels": {
+        "Active": 2,
+        "Highly active": 10
+      },
+      "maximumBlock": 92
+    },
+    "taperingEarly": {
+      "window": "10-26..10-29",
+      "days": 12,
+      "scores": {
+        "min": 65,
+        "p10": 66,
+        "median": 77,
+        "p90": 89,
+        "max": 91,
+        "mean": 77.42
+      },
+      "labels": {
+        "Active": 7,
+        "Highly active": 5
+      },
+      "maximumBlock": 92
+    },
+    "taperingLate": {
+      "window": "11-07..11-10",
+      "days": 12,
+      "scores": {
+        "min": 54,
+        "p10": 55,
+        "median": 66,
+        "p90": 77,
+        "max": 78,
+        "mean": 65.17
+      },
+      "labels": {
+        "Active": 7,
+        "Moderate": 5
+      },
+      "maximumBlock": 78
+    },
+    "endingEarly": {
+      "window": "11-11..11-14",
+      "days": 12,
+      "scores": {
+        "min": 45,
+        "p10": 47,
+        "median": 60,
+        "p90": 67,
+        "max": 72,
+        "mean": 57.58
+      },
+      "labels": {
+        "Active": 6,
+        "Moderate": 6
+      },
+      "maximumBlock": 72
+    },
+    "endingLate": {
+      "window": "11-27..11-30",
+      "days": 16,
+      "scores": {
+        "min": 26,
+        "p10": 30,
+        "median": 36,
+        "p90": 39,
+        "max": 40,
+        "mean": 34.81
+      },
+      "labels": {
+        "Moderate": 1,
+        "Reserved": 15
+      },
+      "maximumBlock": 41
+    },
+    "residualTail": {
+      "window": "12-01..11-30",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "below45F": {
+      "days": 75,
+      "scores": {
+        "min": 26,
+        "p10": 33,
+        "median": 45,
+        "p90": 71,
+        "max": 81,
+        "mean": 48.13
+      },
+      "labels": {
+        "Active": 14,
+        "Highly active": 1,
+        "Moderate": 34,
+        "Reserved": 26
+      }
+    },
+    "from45To60F": {
+      "days": 131,
+      "scores": {
+        "min": 49,
+        "p10": 65,
+        "median": 78,
+        "p90": 90,
+        "max": 94,
+        "mean": 77.84
+      },
+      "labels": {
+        "Active": 65,
+        "Highly active": 60,
+        "Moderate": 6
+      }
+    },
+    "from60To64F": {
+      "days": 48,
+      "scores": {
+        "min": 56,
+        "p10": 59,
+        "median": 69,
+        "p90": 81,
+        "max": 91,
+        "mean": 70
+      },
+      "labels": {
+        "Active": 33,
+        "Highly active": 9,
+        "Moderate": 6
+      }
+    },
+    "from64To68F": {
+      "days": 16,
+      "scores": {
+        "min": 23,
+        "p10": 23,
+        "median": 25,
+        "p90": 30,
+        "max": 30,
+        "mean": 25.44
+      },
+      "labels": {
+        "Reserved": 16
+      }
+    },
+    "atLeast68F": {
+      "days": 2,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 20,
+        "p90": 20,
+        "max": 20,
+        "mean": 19.5
+      },
+      "labels": {
+        "Inactive": 1,
+        "Reserved": 1
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 25,
+        "percent": 8
+      },
+      "meaningfulRise24h": {
+        "absolute": 50,
+        "percent": 15
+      },
+      "sharpRise24h": {
+        "absolute": 100,
+        "percent": 30
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 1,
+      "p10": 2,
+      "median": 13,
+      "p90": 80,
+      "max": 163,
+      "mean": 28.26
+    },
+    "positivePercentChange": {
+      "min": 0.24,
+      "p10": 0.71,
+      "median": 4.25,
+      "p90": 18.64,
+      "max": 38.61,
+      "mean": 7.75
+    },
+    "signals": {
+      "falling": 11,
+      "meaningful_rise": 9,
+      "rising": 16,
+      "sharp_rise": 4,
+      "stable": 232
+    }
+  },
+  "bestBlocks": {
+    "05-09": 158,
+    "09-13": 26,
+    "13-17": 38,
+    "17-21": 50
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 12,
+    "p90": 23,
+    "max": 31,
+    "mean": 11.18
+  },
+  "daysWithSpreadAtLeast10": 158,
+  "daysWithSpreadAtLeast20": 39,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2025-08-28",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 61,
+      "flowCfs": 215,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.46,
+      "temperatureSignal": "cooling",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 21,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "peak",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 56.1,
+      "flowCfs": 213,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.47,
+      "temperatureSignal": "warming",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 34,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-17",
+      "stage": "building",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 59.3,
+      "flowCfs": 285,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 5,
+      "flowPercentChange24h": 1.79,
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 93,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-10-24",
+      "stage": "peak",
+      "staging": false,
+      "score": 83,
+      "label": "Highly active",
+      "waterTempF": 48.5,
+      "flowCfs": 349,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -25,
+      "flowPercentChange24h": -6.68,
+      "temperatureSignal": "warming",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 63,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-07",
+      "stage": "building",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 62.3,
+      "flowCfs": 207,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 3,
+      "flowPercentChange24h": 1.47,
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 85,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "peak",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 45,
+      "flowCfs": 633,
+      "flowBand": "high_fishable",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -80,
+      "flowPercentChange24h": -11.22,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-09-27",
+      "stage": "building",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": 62.4,
+      "flowCfs": 217,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -4,
+      "flowPercentChange24h": -1.81,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 51,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-02",
+      "stage": "building",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 59.5,
+      "flowCfs": 203,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -0.98,
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-14",
+      "stage": "building",
+      "staging": false,
+      "score": 74,
+      "label": "Active",
+      "waterTempF": 55.2,
+      "flowCfs": 214,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -4,
+      "flowPercentChange24h": -1.83,
+      "temperatureSignal": "warming",
+      "spread": 28,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "building",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 49.9,
+      "flowCfs": 305,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -0.65,
+      "temperatureSignal": "neutral",
+      "spread": 27,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 35,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "peak",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "waterTempF": 44.8,
+      "flowCfs": 713,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -9,
+      "flowPercentChange24h": -1.25,
+      "temperatureSignal": "cooling",
+      "spread": 27,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 82,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 50,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-23",
+      "stage": "building",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": 63.3,
+      "flowCfs": 257,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -5,
+      "flowPercentChange24h": -1.91,
+      "temperatureSignal": "warming",
+      "spread": 27,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 28,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

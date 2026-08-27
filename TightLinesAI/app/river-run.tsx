@@ -1571,9 +1571,7 @@ function LiveMetricTile({
         )}
       <Text
         style={styles.liveMetricFreshness}
-        numberOfLines={2}
-        adjustsFontSizeToFit
-        minimumFontScale={0.78}
+        numberOfLines={3}
       >
         {`${liveMetricFreshnessLabel(metric.freshness)} · ${
           liveMetricFreshnessCopy(metric)
@@ -2111,7 +2109,7 @@ function ActivityBreakdown(
             style={styles.activityWeatherOnlyNotice}
             accessible
             accessibilityRole="text"
-            accessibilityLabel="Limited for this river. Weather-only activity. No live river metrics. Weather inputs only; no measured water temperature, river level, or clarity."
+            accessibilityLabel="Limited for this river. Weather-only activity. No accepted measured river inputs represent this Activity reach. Verify water temperature, level, and clarity before fishing."
           >
             <View style={styles.activityWeatherOnlyIcon}>
               <Ionicons
@@ -2129,12 +2127,12 @@ function ActivityBreakdown(
               </Text>
               <Text
                 style={styles.activityWeatherOnlyBody}
-                numberOfLines={2}
+                numberOfLines={3}
                 adjustsFontSizeToFit
                 minimumFontScale={0.9}
               >
-                No live river metrics—weather inputs only; no measured water
-                temperature, level, or clarity.
+                No accepted measured river inputs represent this Activity reach.
+                Verify water temperature, level, and clarity before fishing.
               </Text>
             </View>
           </View>

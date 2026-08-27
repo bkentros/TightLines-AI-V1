@@ -1,4 +1,5 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
   FishabilityBands,
   RiverProfile,
@@ -10,7 +11,68 @@ import {
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
-import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
+
+const WHITE_OBSERVED_ACTIVITY_SCOPE =
+  "This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish.";
+
+function whiteObservedActivity(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  weights: ActivityRules["weights"];
+  temperature: ActivityRules["temperature"];
+  stageResponseAdjustment?: NonNullable<
+    ActivityRules["stageResponseAdjustment"]
+  >;
+  ending: number;
+  lifecycle?: NonNullable<ActivityRules["caps"]["lifecycleRamp"]>;
+  evidenceNotes: string;
+}): ActivityRules {
+  return {
+    version: input.version,
+    profile: input.profile,
+    dataMode: "observed_river",
+    minimumInputContract: "weather_and_one_measured_river_input",
+    inputReach: {
+      reachIds: [
+        "white_lower_river",
+        "white_forest_corridor",
+        "white_upper_accessible_corridor",
+      ],
+      hydraulicSourceIds: ["white_fruitvale_usgs"],
+      waterTemperatureSourceIds: ["white_weaver_st_temperature"],
+      weatherPointIds: ["white_pines_point_weather"],
+      notes:
+        "Fruitvale hydraulics and Weaver Street temperature are accepted as complementary, independently freshness-gated below-Hesperia corridor inputs. They are not presented as co-located measurements.",
+    },
+    scopeCopy: WHITE_OBSERVED_ACTIVITY_SCOPE,
+    weights: input.weights,
+    temperature: input.temperature,
+    stageResponseAdjustment: input.stageResponseAdjustment,
+    hydraulicTrend: {
+      rising24h: { absolute: 25, percent: 8 },
+      meaningfulRise24h: { absolute: 50, percent: 15 },
+      sharpRise24h: { absolute: 100, percent: 30 },
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      lateRun: 100,
+      ending: input.ending,
+      ...(input.stageResponseAdjustment ? { stageResponseMaximum: 96 } : {}),
+      ...(input.lifecycle
+        ? { taperingPenalty: 15, lifecycleRamp: input.lifecycle }
+        : {}),
+    },
+    evidenceNotes: input.evidenceNotes,
+  };
+}
+
+const WHITE_WEAVER_ACTIVITY_TEMPERATURE = {
+  sourcePriority: ["white_weaver_st_temperature"],
+  upstreamFallbackPositiveSignalCap: 1 as const,
+  notes:
+    "Weaver Street is the accepted measured-temperature input for White River Activity. It represents the below-Hesperia tailwater and is combined with Fruitvale hydraulics as a separately labeled corridor input.",
+};
 
 export const WHITE_RIVER_PROFILE: RiverProfile = {
   riverId: "white",
@@ -52,7 +114,7 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
     historicalStartYear: 2022,
     historicalEndYear: 2026,
     reachNotes:
-      "Measured about 0.25 mile below Hesperia Dam. It represents the immediate upper tailwater only and is never blended with Fruitvale hydraulics for Activity.",
+      "Measured about 0.25 mile below Hesperia Dam. It directly represents the upper tailwater and is used with separately labeled Fruitvale hydraulics as a complementary below-Hesperia Activity input.",
     attribution:
       "Trout Unlimited via Monitor My Watershed, CC BY-SA 4.0; raw observations are provisional.",
   }],
@@ -131,7 +193,7 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
       mode: "single_point",
       primaryWeatherPointId: "white_pines_point_weather",
       basinRepresentation:
-        "Modeled Pines Point weather supports only the hidden, independently calibrated below-Hesperia weather-only Activity candidates. It does not reconcile or score the split measurement reaches.",
+        "Modeled Pines Point weather supplies local light and precipitation context to the observed below-Hesperia Activity model alongside independently freshness-gated Fruitvale hydraulics and Weaver Street temperature.",
       sourceNotes:
         "Phase B White River weather-point audit; exact coordinate remains subject to integration verification.",
     },
@@ -161,7 +223,7 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
     ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "Gauge Read refreshes accepted station metrics independently. No Activity score is produced from the split reaches.",
+      "Gauge Read refreshes each accepted station independently. Activity uses the separately labeled Fruitvale and Weaver Street readings as complementary below-Hesperia corridor inputs.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
@@ -273,38 +335,43 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 92, fractionOfMaximum: 0.05 },
     ],
   },
-  activity: buildWeatherOnlyActivity({
-    version: "white-fall-chinook-weather-activity-v1-draft",
+  activity: whiteObservedActivity({
+    version: "white-fall-chinook-observed-activity-v3",
     profile: "chinook_fall_reaction",
-    reachIds: [
-      "white_lower_river",
-      "white_forest_corridor",
-      "white_upper_accessible_corridor",
-    ],
-    weatherPointId: "white_pines_point_weather",
-    inputNotes:
-      "Fruitvale hydraulics and Weaver Street measured temperature are intentionally excluded because they describe different White River reaches. Pines Point modeled weather is the only scoring source.",
-    scopeCopy:
-      "This Limited weather-only read uses Pines Point corridor weather below Hesperia Dam; it does not measure river level, clarity, or water temperature, which can differ along the river.",
+    weights: {
+      light: .55,
+      waterTemperature: .2,
+      riverBehavior: .15,
+      weather: .1,
+    },
+    temperature: {
+      coldF: 43,
+      preferredMinF: 48,
+      preferredMaxF: 62,
+      warmF: 68,
+      barrierF: 72,
+    },
+    ending: 49,
     lifecycle: {
       peakEnd: "10-15",
       taperingEnd: "10-31",
       endingEnd: "11-15",
     },
     evidenceNotes:
-      "Draft Chinook response candidate for a fish already present below Hesperia Dam. It scores effective light and same-block precipitation only, with conservative true ceilings and a continuous Chinook lifecycle decline. It never blends split-reach observations or infers migration, abundance, catch probability, access, or safety.",
+      "Observed White River Chinook response model for a fish already present below Hesperia Dam. Fruitvale hydraulics, Weaver Street measured temperature, and Pines Point weather are independently freshness-gated and combined as complementary corridor inputs. The 55/20/15/10 weighting follows the audited Big Manistee and Muskegon Chinook calibration: effective light leads, measured temperature and river behavior materially inform the score, and precipitation remains restrained. The model identifies the stations as different reaches and does not infer migration, abundance, catch probability, access, or safety.",
   }),
+  waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
   baselineCoverage: WHITE_BASELINE,
   researchNotes:
-    "Hidden White Fall Chinook Phase C candidate. Dates, curve, 7/10 ceiling, and Fruitvale bands require replay, fixtures, local review, device QA, and owner acceptance.",
+    "Owner-approved observed-input White Fall Chinook model. Fruitvale flow and Weaver Street temperature remain separately labeled while both contribute to conditional Activity.",
   sourceNotes:
     "docs/onboarding/river-run/white/runs/fall-chinook.md and its primary-source evidence ledger, completed 2026-08-24.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "white-fall-chinook-release-audit-v1",
+    auditVersion: "white-fall-chinook-observed-activity-release-audit-v2",
     notes:
-      "Owner accepted the reviewed run and production release on 2026-08-25.",
+      "Owner directed the measured Fruitvale-flow and Weaver-temperature Activity combination on 2026-08-26. The 2022-2025 mechanical replay passed every scoring invariant over 264 paired days but remains below the 80% historical coverage gate; see docs/audits/river-run-white-observed-activity-audit-2026-08-26.md.",
   },
 };
 
@@ -359,38 +426,43 @@ export const WHITE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 86, fractionOfMaximum: 0.05 },
     ],
   },
-  activity: buildWeatherOnlyActivity({
-    version: "white-fall-coho-weather-activity-v1-draft",
+  activity: whiteObservedActivity({
+    version: "white-fall-coho-observed-activity-v3",
     profile: "coho_fall_reaction",
-    reachIds: [
-      "white_lower_river",
-      "white_forest_corridor",
-      "white_upper_accessible_corridor",
-    ],
-    weatherPointId: "white_pines_point_weather",
-    inputNotes:
-      "Fruitvale hydraulics and Weaver Street measured temperature are intentionally excluded because they describe different White River reaches. Pines Point modeled weather is the only scoring source.",
-    scopeCopy:
-      "This Limited weather-only read uses Pines Point corridor weather below Hesperia Dam; it does not measure river level, clarity, or water temperature, which can differ along the river.",
+    weights: {
+      light: .5,
+      waterTemperature: .25,
+      riverBehavior: .15,
+      weather: .1,
+    },
+    temperature: {
+      coldF: 40,
+      preferredMinF: 45,
+      preferredMaxF: 60,
+      warmF: 64,
+      barrierF: 68,
+    },
+    ending: 42,
     lifecycle: {
       peakEnd: "10-25",
       taperingEnd: "11-10",
       endingEnd: "11-30",
     },
     evidenceNotes:
-      "Draft Coho response candidate for an occasionally present fish below Hesperia Dam. The 70/30 effective-light and restrained precipitation proposal is conditional responsiveness only and must not make the sparse run appear abundant. It never blends split-reach observations or infers migration, abundance, catch probability, access, or safety.",
+      "Observed White River Coho response model for an occasionally present fish below Hesperia Dam. The 50/25/15/10 weighting matches the audited Pere Marquette, Big Manistee, Muskegon, and St. Joseph Coho calibration: effective light leads, followed by Weaver Street temperature, Fruitvale river behavior, and restrained precipitation. Each source is independently freshness-gated and explicitly labeled by reach. Activity remains conditional responsiveness and cannot increase the sparse presence ceiling or infer migration, abundance, catch probability, access, or safety.",
   }),
+  waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
   baselineCoverage: WHITE_BASELINE,
   researchNotes:
-    "Hidden sparse-run correction candidate. Annual migration evidence supports a conservative presence profile; Limited weather-only Activity remains conditional on a Coho being present and does not increase the 2/10 run ceiling.",
+    "Owner-approved observed-input White Fall Coho model. Activity remains conditional on a Coho being present and does not increase the conservative 2/10 presence ceiling.",
   sourceNotes:
     "docs/onboarding/river-run/white/runs/fall-coho.md; research corrected 2026-08-24.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "white-fall-coho-release-audit-v1",
+    auditVersion: "white-fall-coho-observed-activity-release-audit-v2",
     notes:
-      "Owner accepted the reviewed run and production release on 2026-08-25.",
+      "Owner directed the measured Fruitvale-flow and Weaver-temperature Activity combination on 2026-08-26. The 2022-2025 mechanical replay passed every scoring invariant over 272 paired days but remains below the 80% historical coverage gate; see docs/audits/river-run-white-observed-activity-audit-2026-08-26.md.",
   },
 };
 
@@ -447,39 +519,52 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 72, fractionOfMaximum: 0.78 },
     ],
   },
-  activity: buildWeatherOnlyActivity({
-    version: "white-fall-steelhead-weather-activity-v1-draft",
+  activity: whiteObservedActivity({
+    version: "white-fall-steelhead-observed-activity-v4",
     profile: "steelhead_feeding",
-    reachIds: [
-      "white_lower_river",
-      "white_forest_corridor",
-      "white_upper_accessible_corridor",
-    ],
-    weatherPointId: "white_pines_point_weather",
-    inputNotes:
-      "Fruitvale hydraulics and Weaver Street measured temperature are intentionally excluded because they describe different White River reaches. Pines Point modeled weather is the only scoring source.",
-    scopeCopy:
-      "This Limited weather-only read uses Pines Point corridor weather below Hesperia Dam; it does not measure river level, clarity, or water temperature, which can differ along the river.",
+    weights: {
+      light: .25,
+      waterTemperature: .5,
+      riverBehavior: .15,
+      weather: .1,
+    },
+    temperature: {
+      coldF: 39,
+      preferredMinF: 44,
+      preferredMaxF: 56,
+      warmF: 64,
+      barrierF: 68,
+    },
+    stageResponseAdjustment: {
+      pre_run: -25,
+      beginning: -22,
+      peak: 20,
+      tapering: 12,
+      ending: -3,
+      post_run: -10,
+    },
+    ending: 100,
     evidenceNotes:
-      "Draft Steelhead response candidate for a living fish already present below Hesperia Dam. It scores only effective light and restrained same-block precipitation and deliberately has no salmon mortality ramp, taper penalty, or ending cap. Because measured water temperature normally leads accepted Steelhead Activity at 50%, the explicit 0.80 weather-only evidence scale prevents secondary inputs from claiming highly active response by themselves; this is a product uncertainty calibration validated by the fixed 2007-2025 replay, not a biological constant. It cannot infer temperature-led feeding quality, flow, clarity, migration, abundance, catch probability, access, or safety.",
+      "Observed White River Steelhead response model for a living fish already present below Hesperia Dam. The 25/50/15/10 weighting matches the audited Pere Marquette, Big Manistee, Muskegon, and St. Joseph Steelhead calibration: Weaver Street measured temperature leads, hourly light separates response windows, Fruitvale river behavior remains meaningful, and precipitation is restrained. A fixed 2022-2025 replay showed that favorable early temperatures otherwise made Pre-run and Beginning exceed Peak; bounded -25/-22/0/+20/+12/-3/-10 stage adjustments restore a Peak-led lifecycle without changing the measured-input weights or bypassing temperature, blown-out, missing-data, or 96-point maximum caps. Each source is independently freshness-gated and explicitly labeled by reach. The profile has no salmon mortality ramp, taper penalty, or ending cap and cannot infer migration, abundance, catch probability, access, or safety.",
   }),
+  waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
   baselineCoverage: WHITE_BASELINE,
   researchNotes:
-    "Hidden White Fall Steelhead entry candidate. Terminal behavior stops the fall-entry model without claiming fish left or using salmon mortality language.",
+    "Owner-approved observed-input White Fall Steelhead model. Terminal behavior stops the fall-entry model without claiming fish left or using salmon mortality language.",
   sourceNotes:
     "docs/onboarding/river-run/white/runs/fall-steelhead.md and its primary-source evidence ledger, completed 2026-08-24.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "white-fall-steelhead-release-audit-v1",
+    auditVersion: "white-fall-steelhead-observed-activity-release-audit-v3",
     notes:
-      "Owner accepted the reviewed run and production release on 2026-08-25.",
+      "Owner directed the measured Fruitvale-flow and Weaver-temperature Activity combination on 2026-08-26. The 2022-2025 mechanical replay passed every scoring invariant and the 80% coverage gate over 303 paired days; see docs/audits/river-run-white-observed-activity-audit-2026-08-26.md.",
   },
 };
 
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-25-white-release.1",
+  configVersion: "2026-08-27-white-release.3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

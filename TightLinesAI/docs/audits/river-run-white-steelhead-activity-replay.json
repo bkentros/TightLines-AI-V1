@@ -1,0 +1,1836 @@
+{
+  "runId": "white_fall_steelhead",
+  "rulesVersion": "white-fall-steelhead-observed-activity-v4",
+  "replayYears": "2022-2025",
+  "method": "Historical mechanical steelhead replay using White River near Whitehall, MI — Fruitvale Road USGS 04122200 daily mean discharge, South Branch White River at Weaver Street Monitor My Watershed series 5989 daily median measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 368,
+  "usableDays": 303,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 55,
+    "temperatureHistory": 62,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 28,
+    "p10": 52,
+    "median": 68,
+    "p90": 86,
+    "max": 96,
+    "mean": 68.8
+  },
+  "blockScore": {
+    "min": 19,
+    "p10": 50,
+    "median": 68,
+    "p90": 86,
+    "max": 96,
+    "mean": 67.84
+  },
+  "uniqueDayScores": 59,
+  "uniqueBlockScores": 73,
+  "dayLabels": {
+    "Active": 157,
+    "Highly active": 73,
+    "Moderate": 64,
+    "Reserved": 9
+  },
+  "blockLabels": {
+    "Active": 626,
+    "Highly active": 264,
+    "Inactive": 1,
+    "Moderate": 282,
+    "Reserved": 39
+  },
+  "daysAtLeast90": 17,
+  "blocksAtLeast90": 72,
+  "byStage": {
+    "beginning": {
+      "days": 36,
+      "scores": {
+        "min": 53,
+        "p10": 56,
+        "median": 66,
+        "p90": 71,
+        "max": 73,
+        "mean": 63.72
+      },
+      "labels": {
+        "Active": 25,
+        "Moderate": 11
+      }
+    },
+    "building": {
+      "days": 74,
+      "scores": {
+        "min": 51,
+        "p10": 60,
+        "median": 76,
+        "p90": 87,
+        "max": 93,
+        "mean": 74.74
+      },
+      "labels": {
+        "Active": 41,
+        "Highly active": 27,
+        "Moderate": 6
+      }
+    },
+    "ending": {
+      "days": 32,
+      "scores": {
+        "min": 45,
+        "p10": 50,
+        "median": 56,
+        "p90": 80,
+        "max": 85,
+        "mean": 59.81
+      },
+      "labels": {
+        "Active": 9,
+        "Highly active": 4,
+        "Moderate": 19
+      }
+    },
+    "peak": {
+      "days": 58,
+      "scores": {
+        "min": 70,
+        "p10": 74,
+        "median": 82,
+        "p90": 94,
+        "max": 96,
+        "mean": 82.74
+      },
+      "labels": {
+        "Active": 21,
+        "Highly active": 37
+      }
+    },
+    "post_run": {
+      "days": 11,
+      "scores": {
+        "min": 42,
+        "p10": 42,
+        "median": 56,
+        "p90": 66,
+        "max": 75,
+        "mean": 54.45
+      },
+      "labels": {
+        "Active": 5,
+        "Moderate": 6
+      }
+    },
+    "pre_run": {
+      "days": 55,
+      "scores": {
+        "min": 28,
+        "p10": 35,
+        "median": 59,
+        "p90": 66,
+        "max": 70,
+        "mean": 55.36
+      },
+      "labels": {
+        "Active": 25,
+        "Moderate": 21,
+        "Reserved": 9
+      }
+    },
+    "tapering": {
+      "days": 37,
+      "scores": {
+        "min": 57,
+        "p10": 65,
+        "median": 72,
+        "p90": 82,
+        "max": 91,
+        "mean": 71.97
+      },
+      "labels": {
+        "Active": 31,
+        "Highly active": 5,
+        "Moderate": 1
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 36,
+      "samples": 36,
+      "scores": {
+        "min": 55,
+        "p10": 58,
+        "median": 66,
+        "p90": 70,
+        "max": 73,
+        "mean": 64.81
+      },
+      "labelShares": {
+        "Active": 72.22,
+        "Moderate": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 36,
+      "samples": 36,
+      "scores": {
+        "min": 47,
+        "p10": 51,
+        "median": 64,
+        "p90": 72,
+        "max": 74,
+        "mean": 61.28
+      },
+      "labelShares": {
+        "Active": 58.33,
+        "Moderate": 41.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 36,
+      "samples": 36,
+      "scores": {
+        "min": 45,
+        "p10": 49,
+        "median": 62,
+        "p90": 72,
+        "max": 74,
+        "mean": 60.64
+      },
+      "labelShares": {
+        "Active": 58.33,
+        "Moderate": 41.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 36,
+      "samples": 36,
+      "scores": {
+        "min": 52,
+        "p10": 56,
+        "median": 65,
+        "p90": 70,
+        "max": 73,
+        "mean": 63.53
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Moderate": 33.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 36,
+      "samples": 144,
+      "scores": {
+        "min": 45,
+        "p10": 52,
+        "median": 64,
+        "p90": 70,
+        "max": 74,
+        "mean": 62.56
+      },
+      "labelShares": {
+        "Active": 63.89,
+        "Moderate": 36.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 74,
+      "samples": 74,
+      "scores": {
+        "min": 52,
+        "p10": 60,
+        "median": 77,
+        "p90": 88,
+        "max": 92,
+        "mean": 74.8
+      },
+      "labelShares": {
+        "Active": 55.41,
+        "Highly active": 35.14,
+        "Moderate": 9.46
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 74,
+      "samples": 74,
+      "scores": {
+        "min": 49,
+        "p10": 57,
+        "median": 73,
+        "p90": 87,
+        "max": 94,
+        "mean": 72.04
+      },
+      "labelShares": {
+        "Active": 56.76,
+        "Highly active": 29.73,
+        "Moderate": 13.51
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 74,
+      "samples": 74,
+      "scores": {
+        "min": 43,
+        "p10": 59,
+        "median": 74,
+        "p90": 87,
+        "max": 93,
+        "mean": 72.77
+      },
+      "labelShares": {
+        "Active": 64.86,
+        "Highly active": 22.97,
+        "Moderate": 12.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 74,
+      "samples": 74,
+      "scores": {
+        "min": 48,
+        "p10": 59,
+        "median": 76,
+        "p90": 87,
+        "max": 93,
+        "mean": 74.62
+      },
+      "labelShares": {
+        "Active": 51.35,
+        "Highly active": 37.84,
+        "Moderate": 10.81
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 74,
+      "samples": 296,
+      "scores": {
+        "min": 43,
+        "p10": 59,
+        "median": 75,
+        "p90": 87,
+        "max": 94,
+        "mean": 73.56
+      },
+      "labelShares": {
+        "Active": 57.09,
+        "Highly active": 31.42,
+        "Moderate": 11.49
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 32,
+      "samples": 32,
+      "scores": {
+        "min": 47,
+        "p10": 50,
+        "median": 56,
+        "p90": 79,
+        "max": 86,
+        "mean": 59.97
+      },
+      "labelShares": {
+        "Active": 34.38,
+        "Highly active": 9.38,
+        "Moderate": 56.25
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 32,
+      "samples": 32,
+      "scores": {
+        "min": 37,
+        "p10": 49,
+        "median": 56,
+        "p90": 75,
+        "max": 86,
+        "mean": 59.06
+      },
+      "labelShares": {
+        "Active": 31.25,
+        "Highly active": 9.38,
+        "Moderate": 56.25,
+        "Reserved": 3.13
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 32,
+      "samples": 32,
+      "scores": {
+        "min": 47,
+        "p10": 50,
+        "median": 54,
+        "p90": 76,
+        "max": 83,
+        "mean": 59.16
+      },
+      "labelShares": {
+        "Active": 28.13,
+        "Highly active": 9.38,
+        "Moderate": 62.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 32,
+      "samples": 32,
+      "scores": {
+        "min": 44,
+        "p10": 50,
+        "median": 56,
+        "p90": 81,
+        "max": 85,
+        "mean": 59.31
+      },
+      "labelShares": {
+        "Active": 25,
+        "Highly active": 12.5,
+        "Moderate": 62.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 32,
+      "samples": 128,
+      "scores": {
+        "min": 37,
+        "p10": 50,
+        "median": 56,
+        "p90": 79,
+        "max": 86,
+        "mean": 59.38
+      },
+      "labelShares": {
+        "Active": 29.69,
+        "Highly active": 10.16,
+        "Moderate": 59.38,
+        "Reserved": 0.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 58,
+      "samples": 58,
+      "scores": {
+        "min": 68,
+        "p10": 74,
+        "median": 81,
+        "p90": 94,
+        "max": 96,
+        "mean": 82.53
+      },
+      "labelShares": {
+        "Active": 43.1,
+        "Highly active": 56.9
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 58,
+      "samples": 58,
+      "scores": {
+        "min": 66,
+        "p10": 72,
+        "median": 80,
+        "p90": 93,
+        "max": 96,
+        "mean": 81.47
+      },
+      "labelShares": {
+        "Active": 39.66,
+        "Highly active": 60.34
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 58,
+      "samples": 58,
+      "scores": {
+        "min": 66,
+        "p10": 72,
+        "median": 82,
+        "p90": 93,
+        "max": 96,
+        "mean": 81.74
+      },
+      "labelShares": {
+        "Active": 41.38,
+        "Highly active": 58.62
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 58,
+      "samples": 58,
+      "scores": {
+        "min": 65,
+        "p10": 72,
+        "median": 82,
+        "p90": 95,
+        "max": 96,
+        "mean": 82.03
+      },
+      "labelShares": {
+        "Active": 37.93,
+        "Highly active": 62.07
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 58,
+      "samples": 232,
+      "scores": {
+        "min": 65,
+        "p10": 72,
+        "median": 81,
+        "p90": 95,
+        "max": 96,
+        "mean": 81.94
+      },
+      "labelShares": {
+        "Active": 40.52,
+        "Highly active": 59.48
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 11,
+      "samples": 11,
+      "scores": {
+        "min": 40,
+        "p10": 42,
+        "median": 59,
+        "p90": 65,
+        "max": 76,
+        "mean": 55
+      },
+      "labelShares": {
+        "Active": 45.45,
+        "Moderate": 54.55
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 11,
+      "samples": 11,
+      "scores": {
+        "min": 35,
+        "p10": 42,
+        "median": 51,
+        "p90": 65,
+        "max": 76,
+        "mean": 52.73
+      },
+      "labelShares": {
+        "Active": 36.36,
+        "Moderate": 54.55,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 11,
+      "samples": 11,
+      "scores": {
+        "min": 42,
+        "p10": 42,
+        "median": 49,
+        "p90": 66,
+        "max": 75,
+        "mean": 53.55
+      },
+      "labelShares": {
+        "Active": 36.36,
+        "Moderate": 63.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 11,
+      "samples": 11,
+      "scores": {
+        "min": 41,
+        "p10": 42,
+        "median": 55,
+        "p90": 67,
+        "max": 68,
+        "mean": 53.45
+      },
+      "labelShares": {
+        "Active": 27.27,
+        "Moderate": 72.73
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 11,
+      "samples": 44,
+      "scores": {
+        "min": 35,
+        "p10": 42,
+        "median": 53,
+        "p90": 67,
+        "max": 76,
+        "mean": 53.68
+      },
+      "labelShares": {
+        "Active": 36.36,
+        "Moderate": 61.36,
+        "Reserved": 2.27
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 55,
+      "samples": 55,
+      "scores": {
+        "min": 26,
+        "p10": 37,
+        "median": 59,
+        "p90": 67,
+        "max": 70,
+        "mean": 55.35
+      },
+      "labelShares": {
+        "Active": 45.45,
+        "Moderate": 40,
+        "Reserved": 14.55
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 55,
+      "samples": 55,
+      "scores": {
+        "min": 19,
+        "p10": 32,
+        "median": 56,
+        "p90": 67,
+        "max": 71,
+        "mean": 52.87
+      },
+      "labelShares": {
+        "Active": 38.18,
+        "Inactive": 1.82,
+        "Moderate": 41.82,
+        "Reserved": 18.18
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 55,
+      "samples": 55,
+      "scores": {
+        "min": 22,
+        "p10": 31,
+        "median": 56,
+        "p90": 66,
+        "max": 70,
+        "mean": 52.62
+      },
+      "labelShares": {
+        "Active": 41.82,
+        "Moderate": 40,
+        "Reserved": 18.18
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 55,
+      "samples": 55,
+      "scores": {
+        "min": 27,
+        "p10": 35,
+        "median": 59,
+        "p90": 66,
+        "max": 68,
+        "mean": 55.38
+      },
+      "labelShares": {
+        "Active": 45.45,
+        "Moderate": 38.18,
+        "Reserved": 16.36
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 55,
+      "samples": 220,
+      "scores": {
+        "min": 19,
+        "p10": 32,
+        "median": 59,
+        "p90": 67,
+        "max": 71,
+        "mean": 54.05
+      },
+      "labelShares": {
+        "Active": 42.73,
+        "Inactive": 0.45,
+        "Moderate": 40,
+        "Reserved": 16.82
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 37,
+      "samples": 37,
+      "scores": {
+        "min": 60,
+        "p10": 65,
+        "median": 72,
+        "p90": 82,
+        "max": 90,
+        "mean": 72.05
+      },
+      "labelShares": {
+        "Active": 86.49,
+        "Highly active": 13.51
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 37,
+      "samples": 37,
+      "scores": {
+        "min": 51,
+        "p10": 65,
+        "median": 71,
+        "p90": 82,
+        "max": 90,
+        "mean": 71.51
+      },
+      "labelShares": {
+        "Active": 83.78,
+        "Highly active": 13.51,
+        "Moderate": 2.7
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 37,
+      "samples": 37,
+      "scores": {
+        "min": 51,
+        "p10": 63,
+        "median": 69,
+        "p90": 82,
+        "max": 91,
+        "mean": 71.14
+      },
+      "labelShares": {
+        "Active": 83.78,
+        "Highly active": 13.51,
+        "Moderate": 2.7
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 37,
+      "samples": 37,
+      "scores": {
+        "min": 57,
+        "p10": 65,
+        "median": 69,
+        "p90": 81,
+        "max": 91,
+        "mean": 71.05
+      },
+      "labelShares": {
+        "Active": 78.38,
+        "Highly active": 13.51,
+        "Moderate": 8.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 37,
+      "samples": 148,
+      "scores": {
+        "min": 51,
+        "p10": 65,
+        "median": 70,
+        "p90": 82,
+        "max": 91,
+        "mean": 71.44
+      },
+      "labelShares": {
+        "Active": 83.11,
+        "Highly active": 13.51,
+        "Moderate": 3.38
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "below44F": {
+      "days": 177,
+      "scores": {
+        "min": 42,
+        "p10": 53,
+        "median": 73,
+        "p90": 85,
+        "max": 96,
+        "mean": 70.85
+      },
+      "labels": {
+        "Active": 101,
+        "Highly active": 44,
+        "Moderate": 32
+      }
+    },
+    "from44To56F": {
+      "days": 111,
+      "scores": {
+        "min": 51,
+        "p10": 57,
+        "median": 67,
+        "p90": 87,
+        "max": 96,
+        "mean": 69.59
+      },
+      "labels": {
+        "Active": 56,
+        "Highly active": 29,
+        "Moderate": 26
+      }
+    },
+    "from56To64F": {
+      "days": 15,
+      "scores": {
+        "min": 28,
+        "p10": 29,
+        "median": 37,
+        "p90": 53,
+        "max": 59,
+        "mean": 38.67
+      },
+      "labels": {
+        "Moderate": 6,
+        "Reserved": 9
+      }
+    },
+    "from64To68F": {
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {}
+    },
+    "atLeast68F": {
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {}
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 25,
+        "percent": 8
+      },
+      "meaningfulRise24h": {
+        "absolute": 50,
+        "percent": 15
+      },
+      "sharpRise24h": {
+        "absolute": 100,
+        "percent": 30
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 1,
+      "p10": 2,
+      "median": 14,
+      "p90": 83,
+      "max": 245,
+      "mean": 32.21
+    },
+    "positivePercentChange": {
+      "min": 0.24,
+      "p10": 0.64,
+      "median": 4.25,
+      "p90": 21.85,
+      "max": 60.64,
+      "mean": 8.17
+    },
+    "signals": {
+      "falling": 11,
+      "meaningful_rise": 14,
+      "rising": 18,
+      "sharp_rise": 6,
+      "stable": 254
+    }
+  },
+  "bestBlocks": {
+    "05-09": 163,
+    "09-13": 45,
+    "13-17": 52,
+    "17-21": 43
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 11,
+    "max": 16,
+    "mean": 5.26
+  },
+  "daysWithSpreadAtLeast10": 47,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2025-10-07",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 32,
+      "label": "Reserved",
+      "waterTempF": 62.3,
+      "flowCfs": 207,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 3,
+      "flowPercentChange24h": 1.47,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 38,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 85,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 22,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 27,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 47,
+      "label": "Moderate",
+      "waterTempF": 56.1,
+      "flowCfs": 213,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.47,
+      "temperatureSignal": "warming",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 34,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 38,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-11-03",
+      "stage": "building",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "waterTempF": 46.1,
+      "flowCfs": 253,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 3,
+      "flowPercentChange24h": 1.2,
+      "temperatureSignal": "warming",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 61,
+      "label": "Active",
+      "waterTempF": 49.9,
+      "flowCfs": 305,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -0.65,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 35,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "beginning",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": 44.8,
+      "flowCfs": 713,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -9,
+      "flowPercentChange24h": -1.25,
+      "temperatureSignal": "cooling",
+      "spread": 14,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 82,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 50,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 9 AM–1 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "beginning",
+      "staging": false,
+      "score": 53,
+      "label": "Moderate",
+      "waterTempF": 45,
+      "flowCfs": 633,
+      "flowBand": "high_fishable",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -80,
+      "flowPercentChange24h": -11.22,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2023-10-24",
+      "stage": "beginning",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 48.5,
+      "flowCfs": 349,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -25,
+      "flowPercentChange24h": -6.68,
+      "temperatureSignal": "warming",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 63,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2023-12-20",
+      "stage": "tapering",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 36.85,
+      "flowCfs": 379,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -5,
+      "flowPercentChange24h": -1.3,
+      "temperatureSignal": "strong_cooling",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2024-12-30",
+      "stage": "post_run",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": 40.5,
+      "flowCfs": 555,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 18,
+      "flowPercentChange24h": 3.35,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 43,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 41,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook."
+    },
+    {
+      "date": "2025-10-02",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 37,
+      "label": "Reserved",
+      "waterTempF": 59.5,
+      "flowCfs": 203,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -0.98,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 28,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-10-14",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": 55.2,
+      "flowCfs": 214,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -4,
+      "flowPercentChange24h": -1.83,
+      "temperatureSignal": "warming",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-11-04",
+      "stage": "building",
+      "staging": false,
+      "score": 80,
+      "label": "Highly active",
+      "waterTempF": 45.9,
+      "flowCfs": 256,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 3,
+      "flowPercentChange24h": 1.19,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    }
+  ]
+}

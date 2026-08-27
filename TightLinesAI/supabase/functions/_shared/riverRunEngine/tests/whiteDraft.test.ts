@@ -3,6 +3,7 @@ import {
   buildConditionRefresh,
   buildDailySnapshot,
   RIVER_RUN_RUN_PROFILES,
+  scoreActivity,
   validateConfigurationRevision,
   validateRiverProfile,
   validateRunProfile,
@@ -26,7 +27,52 @@ Deno.test("White foundation keeps split Gauge Read stations explicitly scoped", 
   assertMatch(WHITE_RIVER_PROFILE.gaugeLimitationCopy, /below Hesperia Dam/i);
 });
 
-Deno.test("White public runs expose weather-only Activity without blending split reaches", () => {
+Deno.test("White Steelhead observed Activity is Peak-led without salmon lifecycle semantics", () => {
+  const run = WHITE_FALL_STEELHEAD_RUN_PROFILE;
+  const weather = Array.from({ length: 24 }, (_, hour) => ({
+    time_local: `2026-11-25T${String(hour).padStart(2, "0")}:00`,
+    cloud_cover_pct: 20,
+    shortwave_w_m2: hour >= 7 && hour < 18 ? 450 : 0,
+    clear_sky_shortwave_w_m2: hour >= 7 && hour < 18 ? 600 : 0,
+    precipitation_in: 0,
+  }));
+  const score = (
+    runStage: "pre_run" | "building" | "peak" | "tapering" | "post_run",
+  ) =>
+    scoreActivity({
+      rules: run.activity!,
+      requestDate: "2026-11-25",
+      targetDate: "2026-11-25",
+      runStage,
+      staging: false,
+      waterTempF: 50,
+      temperatureTrend: "neutral",
+      gaugeFreshness: "fresh",
+      weatherFreshness: "fresh",
+      flowBand: "ideal",
+      flowSignal: "stable",
+      hourlyWeather: weather,
+    });
+  const preRun = score("pre_run");
+  const building = score("building");
+  const peak = score("peak");
+  const tapering = score("tapering");
+  const postRun = score("post_run");
+  assert((peak.score ?? 0) > (building.score ?? 0));
+  assert((building.score ?? 0) > (preRun.score ?? 0));
+  assert((peak.score ?? 0) > (tapering.score ?? 0));
+  assert((tapering.score ?? 0) > (postRun.score ?? 0));
+  assertEquals(run.activity?.caps.lifecycleRamp, undefined);
+  assertEquals(run.activity?.caps.taperingPenalty, undefined);
+  assertEquals(
+    /spent|dying|deteriorat|mortality/i.test(
+      [peak.headline, peak.detail, peak.tip].join(" "),
+    ),
+    false,
+  );
+});
+
+Deno.test("White public runs combine the accepted measured corridor inputs", () => {
   for (
     const run of [
       WHITE_FALL_CHINOOK_RUN_PROFILE,
@@ -45,9 +91,22 @@ Deno.test("White public runs expose weather-only Activity without blending split
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(run.primitiveCapabilities.fishability.status, "available");
     assertEquals(run.primitiveCapabilities.activity.status, "available");
-    assertEquals(run.activity?.dataMode, "weather_only");
-    assertEquals(run.activity?.inputReach?.hydraulicSourceIds, []);
-    assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, []);
+    assertEquals(run.activity?.dataMode, "observed_river");
+    assertEquals(
+      run.activity?.minimumInputContract,
+      "weather_and_one_measured_river_input",
+    );
+    assertEquals(run.activity?.inputReach?.hydraulicSourceIds, [
+      "white_fruitvale_usgs",
+    ]);
+    assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, [
+      "white_weaver_st_temperature",
+    ]);
+    assertEquals(run.waterTemperature?.sourcePriority, [
+      "white_weaver_st_temperature",
+    ]);
+    assert((run.activity?.weights.waterTemperature ?? 0) > 0);
+    assert((run.activity?.weights.riverBehavior ?? 0) > 0);
   }
 });
 
@@ -75,7 +134,7 @@ Deno.test("White release validates and is present in public registries", () => {
   assert(issues.every((issue) => issue.severity !== "error"));
 });
 
-Deno.test("White condition refresh scores only weather and keeps split river inputs unknown", () => {
+Deno.test("White condition refresh produces a full observed-river Activity read", () => {
   const run = WHITE_FALL_CHINOOK_RUN_PROFILE;
   const daily = buildDailySnapshot({
     river: WHITE_RIVER_PROFILE,
@@ -126,15 +185,19 @@ Deno.test("White condition refresh scores only weather and keeps split river inp
     engineVersion: "test-engine",
     configVersion: WHITE_CONFIGURATION_DOCUMENT.configVersion,
   });
-  assertEquals(refresh.activity?.confidence, "Limited");
+  assertEquals(refresh.activity?.confidence, "Full");
   assertEquals(refresh.activity?.blocks.length, 4);
-  assert((refresh.activity?.score ?? 101) <= 90);
+  assertEquals(
+    refresh.activity?.reasonCodes.includes("activity_weather_only"),
+    false,
+  );
   assertMatch(
     refresh.activity?.headline ?? "",
-    /weather-only Chinook activity outlook/i,
+    /Chinook activity outlook/i,
   );
   assertMatch(
     refresh.activity?.detail ?? "",
-    /River level, clarity, and measured water temperature are unknown/i,
+    /Fruitvale Road flow/i,
   );
+  assertMatch(refresh.activity?.detail ?? "", /below Hesperia Dam/i);
 });
