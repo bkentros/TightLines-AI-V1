@@ -988,7 +988,7 @@ function pmActivityLifecyclePoint(
     return "Cold late-fall water can shorten response windows without meaning Steelhead have left the river.";
   }
   if (profile === "brown_trout_fall_reaction") {
-    return "Late-run Brown Trout remain living repeat spawners; responsiveness can change without proving that fish died or left the river.";
+    return "Late-run Brown Trout can include late migrants, spawning fish, and post-spawn survivors; responsiveness does not establish whether an individual remains in the river or returns lakeward.";
   }
   const species = activitySpecies(profile);
   return `Late-run ${species} condition varies widely, so individual fish may respond above or below this outlook.`;
@@ -1477,7 +1477,9 @@ function lifecycleCopy(
       return "This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance.";
     }
     if (stage === "tapering" || stage === "ending" || stage === "post_run") {
-      return "Post-spawn lake-run Brown Trout remain living repeat spawners. An individual may hold in the river or return lakeward, and responsiveness can vary without implying death or departure.";
+      return stage === "tapering"
+        ? "Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome."
+        : "Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows.";
     }
     return "The score describes feeding or aggressive responsiveness for a lake-run Brown Trout already present, not the number of fish in the river.";
   }
@@ -1506,7 +1508,7 @@ function steelheadTip(stage: RunStage, bestBlockLabel: string): string {
 
 function brownTroutTip(stage: RunStage, bestBlockLabel: string): string {
   if (stage === "tapering" || stage === "ending" || stage === "post_run") {
-    return `Compare the four time windows, but do not treat a lower late-season read as proof that Brown Trout died or left the river.`;
+    return `Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules.`;
   }
   return `Start with ${bestBlockLabel}. Keep this responsiveness outlook separate from abundance and migration stage.`;
 }

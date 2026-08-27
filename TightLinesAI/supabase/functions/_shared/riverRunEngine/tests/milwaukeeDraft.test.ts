@@ -180,7 +180,7 @@ Deno.test("lake-run Brown Trout use repeat-spawner lifecycle and nonterminal cop
     MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
     "2027-01-10",
   );
-  assertMatch(endingPresence.detail, /not that Brown Trout automatically die/i);
+  assertMatch(endingPresence.detail, /Brown Trout are repeat spawners/i);
   assertMatch(endingPresence.detail, /hold in the river or return lakeward/i);
 
   const completeStage = resolveRunStage(

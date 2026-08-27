@@ -60,6 +60,7 @@ const MICHIGAN_FUTURE_RIVER_IDS_BY_SPECIES: Record<string, string[]> = {
   chinook_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
   coho_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
   steelhead: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
+  lake_run_brown_trout: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
   atlantic_salmon: ["au_sable"],
 };
 

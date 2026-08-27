@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID } from "../lib/riverRunReviewFixtures";
 
 const expectedRuns = new Set([
+  "big_manistee_fall_brown_trout",
   "grand_fall_chinook",
   "grand_fall_coho",
   "grand_fall_steelhead",
@@ -87,24 +88,42 @@ for (
   );
   if (
     runId.startsWith("grand_") || runId.startsWith("milwaukee_") ||
-    runId.startsWith("white_")
+    runId.startsWith("white_") ||
+    runId === "big_manistee_fall_brown_trout"
   ) {
     assert(
       activity.scenarios.some((scenario) =>
         scenario.snapshot.activity?.confidence === "Full"
       ),
     );
-    assert(
-      activity.scenarios.every((scenario) =>
-        (runId.startsWith("grand_")
-          ? /downtown Grand Rapids mainstem/i
-          : runId.startsWith("milwaukee_")
-          ? /Urban Greenway near Estabrook Park/i
-          : /below-Hesperia corridor/i).test(
+    if (runId === "big_manistee_fall_brown_trout") {
+      assert(
+        activity.scenarios.some((scenario) =>
+          /Wellston.*(?:Upper river|Tippy Dam)|Tippy tailwater/i.test(
             scenario.snapshot.activity?.detail ?? "",
           )
-      ),
-    );
+        ),
+      );
+      assert(
+        activity.scenarios.every((scenario) =>
+          !/Pere Marquette|Scottville|Grand Rapids|Milwaukee|Hesperia/i.test(
+            scenario.snapshot.activity?.detail ?? "",
+          )
+        ),
+      );
+    } else {
+      assert(
+        activity.scenarios.every((scenario) =>
+          (runId.startsWith("grand_")
+            ? /downtown Grand Rapids mainstem/i
+            : runId.startsWith("milwaukee_")
+            ? /Urban Greenway near Estabrook Park/i
+            : /below-Hesperia corridor/i).test(
+              scenario.snapshot.activity?.detail ?? "",
+            )
+        ),
+      );
+    }
     for (
       const id of [
         "activity_missing_temperature",

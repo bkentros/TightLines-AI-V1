@@ -9,7 +9,7 @@ import {
   validateRiverProfile,
 } from "../index.ts";
 
-Deno.test("Big Manistee foundation validates with Chinook and Coho selectable", () => {
+Deno.test("Big Manistee public foundation retains only its released target portfolio", () => {
   const result = validateRiverProfile(BIG_MANISTEE_RIVER_PROFILE);
 
   assertEquals(result.valid, true);

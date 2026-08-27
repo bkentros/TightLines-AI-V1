@@ -276,6 +276,19 @@ export function resolveRunStage(
     };
   }
   if (run.runStageCopyStrategy === "big_manistee_tailwater") {
+    const repeatSpawner = run.runType === "fall_repeat_spawn";
+    const copy = bigManisteeTailwaterStageCopy({
+      stage,
+      localDate,
+      window,
+      stagingContext,
+      establishedBuildingContext,
+      broadBuildingContext,
+      latePostRunContext,
+      repeatSpawner,
+      species: anglerSpeciesName(run.species),
+      opportunity,
+    });
     return {
       stage,
       copyStrategy,
@@ -283,20 +296,12 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext: false,
       window,
-      label: stage === "post_run" && !latePostRunContext
+      label: repeatSpawner && stage === "post_run"
+        ? "Fall migration complete"
+        : stage === "post_run" && !latePostRunContext
         ? "Fall run complete"
         : stageLabel(stage, latePostRunContext),
-      ...bigManisteeTailwaterStageCopy({
-        stage,
-        localDate,
-        window,
-        stagingContext,
-        establishedBuildingContext,
-        broadBuildingContext,
-        latePostRunContext,
-        species: anglerSpeciesName(run.species),
-        opportunity,
-      }),
+      ...copy,
       reasonCodes: [
         stageReasonCode(stage),
         ...(stage === "post_run" && !latePostRunContext
@@ -454,20 +459,26 @@ function onboardingCorridorStageCopy(input: {
   const route = onboardingCorridorRoute(input);
   const complete = input.stage === "post_run" &&
     (input.fallEntry || input.repeatSpawner || !input.latePostRunContext);
+  const brownNarrative = input.repeatSpawner
+    ? repeatSpawnerStageNarrative(input)
+    : null;
   return {
-    headline: complete
-      ? input.fallEntry
-        ? "The modeled fall-entry window is complete."
-        : input.repeatSpawner
-        ? "The tracked fall brown-trout migration is complete."
-        : input.baseCopy.headline
-      : input.baseCopy.headline,
+    headline: brownNarrative?.headline ??
+      (complete
+        ? input.fallEntry
+          ? "The modeled fall-entry window is complete."
+          : input.repeatSpawner
+          ? "The tracked fall brown-trout migration is complete."
+          : input.baseCopy.headline
+        : input.baseCopy.headline),
     detail: `${
       input.riverId === "bois_brule" && input.repeatSpawner &&
         input.stage === "post_run"
-        ? "Lake-run Brown Trout survive spawning; this seasonal model no longer estimates where surviving fish remain or when they return to Lake Superior."
+        ? "Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning; this seasonal model no longer estimates where surviving fish remain or when they return to Lake Superior."
         : input.repeatSpawner && input.stage === "post_run"
-        ? "Migratory brown trout may remain in river holding water or return lakeward after spawning; this seasonal model no longer estimates their current presence."
+        ? "Unlike Pacific salmon, migratory Brown Trout are repeat spawners. Surviving fish may remain in river holding water or return lakeward after spawning; this seasonal model no longer estimates their current presence."
+        : brownNarrative
+        ? brownNarrative.detail
         : input.baseCopy.detail
     } ${route.limit}`,
     tip: route.tip,
@@ -481,6 +492,83 @@ function onboardingCorridorStageCopy(input: {
       ? `Restrictions first: the lower river below Highway 2 is open only from the last Saturday in March through Nov. 15 and fishing is prohibited from one-half hour after sunset to one-half hour before sunrise. Box Car Hole is closed July 15-Oct. 31, Mays Ledges is closed Sept. 1-May 31, and the signed 500-foot refuge on both sides of the sea-lamprey barrier is never open. ${route.whereToStart}`
       : route.whereToStart,
   };
+}
+
+function repeatSpawnerStageNarrative(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+}): { headline: string; detail: string } {
+  const earlyBruleMigration = input.riverId === "bois_brule";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            "Lake-run Brown Trout may be staging near the river entrance.",
+          detail: earlyBruleMigration
+            ? "Early-summer staging near Lake Superior does not confirm dependable river entry. Fresh river response can bring migrants in pulses rather than one continuous wave."
+            : "Late-summer or fall staging near the lake does not confirm dependable river entry. Cooling water and fresh river response can bring migrants in pulses rather than one continuous wave.",
+        }
+        : {
+          headline:
+            "Dependable lake-run Brown Trout entry is not expected yet.",
+          detail:
+            "An isolated Brown Trout does not establish that the fall spawning migration has begun, and resident fish must not be counted as proof of lake-run entry.",
+        };
+    case "beginning":
+      return {
+        headline:
+          "The first dependable lake-run Brown Trout are entering the river.",
+        detail:
+          "Early migrants are usually uneven and lower-river weighted. Some may travel upstream quickly while others pause in deep holding water; the calendar cannot identify an individual fish as lake-run.",
+      };
+    case "building":
+      return {
+        headline: input.broadBuildingContext
+          ? earlyBruleMigration
+            ? "The lake-run Brown Trout migration is broadly established in its dependable sections."
+            : "The Brown Trout spawning migration is broadly established in its dependable sections."
+          : input.establishedBuildingContext
+          ? "Lake-run Brown Trout are becoming established beyond the entry reach."
+          : "More lake-run Brown Trout are entering and advancing through the river.",
+        detail: earlyBruleMigration
+          ? "The early Bois Brule run can contain new migrants, upstream travelers, and holding fish at the same time. Distribution remains uneven; this part of the migration is primarily about entry, travel, and holding, with spawning activity generally developing later in fall."
+          : "The run can contain new migrants, upstream travelers, holding fish, and early spawners at the same time. Distribution remains uneven, and visible spawning fish and redds should be left undisturbed.",
+      };
+    case "peak":
+      return {
+        headline: earlyBruleMigration
+          ? "This is the core Bois Brule lake-run Brown Trout migration window."
+          : "This is the core lake-run Brown Trout migration-and-spawning window.",
+        detail: earlyBruleMigration
+          ? "Migrating and holding lake-run Browns can overlap during this long early run. Peak seasonal presence does not mean equal distribution or that every Brown Trout encountered is lake-run; spawning activity generally develops later in fall."
+          : "Migrating, holding, and actively spawning Brown Trout can overlap. Peak seasonal presence does not mean equal distribution or that every Brown Trout encountered is lake-run; avoid visible spawners and redds.",
+      };
+    case "tapering":
+      return {
+        headline: earlyBruleMigration
+          ? "Fresh Bois Brule Brown Trout entry is becoming less consistent after the main migration peak."
+          : "Fresh Brown Trout entry is becoming less consistent after the main spawning build.",
+        detail: earlyBruleMigration
+          ? "The river can hold a changing mix of earlier migrants, late arrivals, holding fish, and developing spawning activity. The declining curve tracks fresh migration entry, not the fate or exact location of an individual Brown Trout."
+          : "The river can hold a changing mix of late migrants, spawning fish, and post-spawn survivors. The declining curve tracks the fall migration, while surviving fish may remain or return lakeward on individual schedules.",
+      };
+    case "ending":
+      return {
+        headline: "The tracked fall Brown Trout migration is winding down.",
+        detail:
+          "Most dependable fresh entry is ending, but surviving repeat spawners may remain in river holding water or return lakeward on individual schedules. This model does not force either outcome.",
+      };
+    case "post_run":
+      return {
+        headline: "The tracked fall Brown Trout migration is complete.",
+        detail:
+          "Unlike Pacific salmon, Brown Trout are repeat spawners and can survive spawning. This seasonal model no longer estimates the location of surviving fish that remain in the river or return lakeward.",
+      };
+  }
 }
 
 function onboardingCorridorRoute(input: {
@@ -511,7 +599,16 @@ function onboardingCorridorRoute(input: {
             "Keep the plan lakeward until October entry develops; do not infer inland distribution from the calendar alone.",
         };
       }
-      if (stage === "beginning" || stage === "building") {
+      if (stage === "beginning") {
+        return {
+          whereToStart:
+            "Harbor & Downtown first; add the Urban Greenway selectively as the run builds.",
+          limit,
+          tip:
+            "Keep the search lower-river weighted and compare sections before expanding inland.",
+        };
+      }
+      if (stage === "building") {
         return {
           whereToStart:
             "Harbor & Downtown first; add the Urban Greenway selectively as the run builds.",
@@ -520,13 +617,22 @@ function onboardingCorridorRoute(input: {
             "Keep the search lower-river weighted, compare sections, and leave visibly spawning fish undisturbed.",
         };
       }
-      if (stage === "peak" || stage === "tapering" || stage === "ending") {
+      if (stage === "peak") {
         return {
           whereToStart:
             "Harbor & Downtown or established Urban Greenway holding water; add legal North Shore water selectively.",
           limit,
           tip:
-            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, avoid active spawning fish, and do not treat decline as mortality.",
+            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, compare sections, and leave visible spawning fish and redds undisturbed.",
+        };
+      }
+      if (stage === "tapering" || stage === "ending") {
+        return {
+          whereToStart:
+            "Harbor & Downtown or established Urban Greenway holding water; add legal North Shore water selectively.",
+          limit,
+          tip:
+            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, avoid active spawning fish, and treat the decline as migration timing rather than individual-fish outcome.",
         };
       }
       return {
@@ -660,7 +766,9 @@ function onboardingCorridorRoute(input: {
           "Urban River first; add legal Kohler Reach water below Waelderhaus Dam for established fish.",
         limit,
         tip: input.repeatSpawner
-          ? "Compare sections, avoid actively spawning Brown Trout, and do not treat a later decline as mortality."
+          ? stage === "peak"
+            ? "Compare sections and leave visible spawning Brown Trout and redds undisturbed."
+            : "Compare sections and leave visible spawning Brown Trout undisturbed."
           : "Compare sections instead of assuming equal distribution, and leave actively spawning fish undisturbed.",
       };
     }
@@ -739,7 +847,9 @@ function onboardingCorridorRoute(input: {
           "City Parks first; add legal Lincoln Park water below the Steelhead Facility for established fish.",
         limit,
         tip: input.repeatSpawner
-          ? "Compare sections, avoid actively spawning Brown Trout, and do not treat a later decline as mortality."
+          ? stage === "peak"
+            ? "Compare sections and leave visible spawning Brown Trout and redds undisturbed."
+            : "Compare sections and leave visible spawning Brown Trout undisturbed."
           : "Compare sections instead of assuming equal distribution, and do not infer passage through the facility.",
       };
     }
@@ -820,7 +930,9 @@ function onboardingCorridorRoute(input: {
           : "Legal Rapids Reach and Upper Lower River water below Highway 2; compare Mouth & Lower River for newer arrivals.",
         limit,
         tip: input.repeatSpawner
-          ? "Avoid every active refuge and visibly spawning Brown Trout; do not treat a later decline as mortality."
+          ? stage === "peak"
+            ? "Avoid every active refuge. This peak describes migration presence; leave any visible spawning Brown Trout and redds undisturbed."
+            : "Avoid every active refuge and compare legal sections without treating early migration presence as active spawning."
           : chinook
           ? "This remains a small sectional Chinook run; cover one legal section thoroughly before changing reaches."
           : "Compare legal sections instead of assuming uniform distribution, and leave actively spawning fish undisturbed.",
@@ -852,7 +964,7 @@ function onboardingCorridorRoute(input: {
       tip: input.fallEntry
         ? "Fall-entry tracking has ended; Steelhead may overwinter before the separate spring run."
         : input.repeatSpawner
-        ? "The modeled migration is complete; Brown Trout remain living after spawning, but their winter location is not asserted."
+        ? "The modeled migration is complete; surviving repeat-spawning Browns may hold or return lakeward, but their winter location is not asserted."
         : "Do not build a lower-river trip outside the open season or around isolated fish after the modeled run.",
     };
   }
@@ -1397,9 +1509,14 @@ function bigManisteeTailwaterStageCopy(input: {
   establishedBuildingContext: boolean;
   broadBuildingContext: boolean;
   latePostRunContext: boolean;
+  repeatSpawner: boolean;
   species: string;
   opportunity: RunOpportunityCopyContext;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const species = input.repeatSpawner ? "migratory Brown Trout" : input.species;
+  const sentenceSpecies = input.repeatSpawner
+    ? "Migratory Brown Trout"
+    : input.species;
   const lower = "Lower river (M-55–Bear Creek)";
   const middle = "Middle river (Bear Creek–High Bridge)";
   const upper = "Upper river (High Bridge–Tippy Dam)";
@@ -1424,37 +1541,46 @@ function bigManisteeTailwaterStageCopy(input: {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline: `${input.species} may be staging near the river entrance.`,
+          headline:
+            `${sentenceSpecies} may be staging near the river entrance.`,
           whereToStart:
             `Start at Manistee Lake, the harbor, and the river entrance. Add the ${lower} only for an early-fish check.`,
           detail: `Staging context does not confirm dependable river entry.${
-            sectional ? " Coho opportunity remains sectional." : ""
+            sectional ? ` ${species} opportunity remains sectional.` : ""
           }`,
           tip:
             `Keep the river check brief. Do not move into the ${middle} or ${upper} from Migration Stage alone.`,
         }
         : {
           headline:
-            `${input.species} have not begun dependable Big Manistee river entry.`,
+            `${sentenceSpecies} have not begun dependable Big Manistee river entry.`,
           whereToStart:
             "Stay with Manistee Lake, the harbor, and the river entrance.",
           detail:
             "The river-entry window has not opened yet. An isolated river fish would be an early exception.",
-          tip: `Do not build an inland trip around ${input.species} yet.`,
+          tip: `Do not build an inland trip around ${species} yet.`,
         };
     case "beginning":
       return {
-        headline: accumulatedBeginning
-          ? `${input.species} are accumulating through more of the Big Manistee.`
-          : `The first ${input.species} are entering the Big Manistee.`,
+        headline: input.repeatSpawner
+          ? accumulatedBeginning
+            ? "Migratory Brown Trout entry is becoming more dependable in the lower Big Manistee."
+            : "The first dependable migratory Brown Trout are entering the Big Manistee."
+          : accumulatedBeginning
+          ? `${sentenceSpecies} are accumulating through more of the Big Manistee.`
+          : `The first ${species} are entering the Big Manistee.`,
         whereToStart:
           `Start in the ${lower}. Add the ${middle} after direct fish activity supports the move.`,
-        detail: accumulatedBeginning
+        detail: input.repeatSpawner
+          ? "Early migrants remain uneven and lower-river weighted. Some may advance quickly while others pause in deep holding water, and resident Browns cannot be counted as proof of lake-run entry."
+          : accumulatedBeginning
           ? sectional
-            ? "More Coho are present, but concentrations remain selective."
+            ? `More ${species} are present, but concentrations remain selective.`
             : "More than isolated fish can be present, but distribution remains uneven."
           : `Early fish remain scattered.${
-            sectional ? " Coho opportunity is limited to select water." : ""
+            sectional
+              ? ` ${species} opportunity is limited to select water.`
+              : ""
           }`,
         tip: accumulatedBeginning
           ? "Follow travel water into substantial holding areas before moving upstream."
@@ -1463,12 +1589,15 @@ function bigManisteeTailwaterStageCopy(input: {
     case "building":
       if (compareLocalDates(input.localDate, input.window.peakStartDate) >= 0) {
         return {
-          headline:
-            `${input.species} are approaching their strongest Big Manistee window.`,
+          headline: input.repeatSpawner
+            ? "The Big Manistee Brown Trout spawning migration is approaching its core window."
+            : `${species} are approaching their strongest Big Manistee window.`,
           whereToStart:
             `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} for fresher fish.`,
-          detail: sectional
-            ? "Seasonal opportunity is broadening, but Coho remain concentrated in select water."
+          detail: input.repeatSpawner
+            ? "New migrants, upstream travelers, holding fish, and early spawners can overlap. Opportunity remains sectional, and visible spawning fish and redds should be left undisturbed."
+            : sectional
+            ? `Seasonal opportunity is broadening, but ${species} remain concentrated in select water.`
             : "Multiple entry periods now support broad corridor presence.",
           tip:
             "Use Wellston only for Upper-river conditions and verify downstream water directly.",
@@ -1477,12 +1606,12 @@ function bigManisteeTailwaterStageCopy(input: {
       if (input.broadBuildingContext) {
         return {
           headline: sectional
-            ? `${input.species} are established in select Big Manistee sections.`
-            : `${input.species} are broadly established through the Big Manistee.`,
+            ? `${sentenceSpecies} are established in select Big Manistee sections.`
+            : `${sentenceSpecies} are broadly established through the Big Manistee.`,
           whereToStart:
             `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} when direct activity favors it.`,
           detail: sectional
-            ? "More than one section may hold Coho, but concentrations remain selective."
+            ? `More than one section may hold ${species}, but concentrations remain selective.`
             : "Repeated entry periods support broad corridor presence, not equal numbers in every section.",
           tip:
             "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
@@ -1491,11 +1620,11 @@ function bigManisteeTailwaterStageCopy(input: {
       if (input.establishedBuildingContext) {
         return {
           headline:
-            `${input.species} are becoming established through more of the river.`,
+            `${sentenceSpecies} are becoming established through more of the river.`,
           whereToStart:
             `Start in the ${middle}. Add the ${upper}, especially the Tippy Dam area, when direct activity supports it.`,
           detail: sectional
-            ? "Coho may occupy more than one section, but the opportunity remains selective."
+            ? `${species} may occupy more than one section, but the opportunity remains selective.`
             : "Earlier arrivals can be farther upstream while newer fish remain below Bear Creek.",
           tip:
             "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
@@ -1503,7 +1632,7 @@ function bigManisteeTailwaterStageCopy(input: {
       }
       return {
         headline:
-          `More ${input.species} are entering and spreading through the Big Manistee.`,
+          `More ${species} are entering and spreading through the Big Manistee.`,
         whereToStart:
           `Start in the ${middle}. Keep the ${lower} as the fresh-entry comparison.`,
         detail:
@@ -1513,19 +1642,25 @@ function bigManisteeTailwaterStageCopy(input: {
       };
     case "peak":
       return {
-        headline: peakShoulder
-          ? `Big Manistee ${input.species} presence remains near its seasonal peak.`
+        headline: input.repeatSpawner
+          ? peakShoulder
+            ? "Big Manistee migratory Brown Trout remain in the core migration-and-spawning window."
+            : "This is the core Big Manistee migratory Brown Trout migration-and-spawning window."
+          : peakShoulder
+          ? `Big Manistee ${species} presence remains near its seasonal peak.`
           : sectional
-          ? `This is the strongest seasonal Big Manistee ${input.species} window.`
-          : `This is typically the strongest Big Manistee ${input.species} opportunity.`,
+          ? `This is the strongest seasonal Big Manistee ${species} window.`
+          : `This is typically the strongest Big Manistee ${species} opportunity.`,
         whereToStart:
           `Start in the ${upper}, emphasizing the Tippy Dam area. Compare the ${middle} for fresher fish.`,
-        detail: peakShoulder
+        detail: input.repeatSpawner
+          ? "Migrating, holding, resident, and actively spawning Brown Trout can overlap. Peak seasonal presence does not identify an individual fish as lake-run or imply equal distribution."
+          : peakShoulder
           ? sectional
-            ? "Coho remain sectional as the run begins shifting toward a later mix."
+            ? `${species} remain sectional as the run begins shifting toward a later mix.`
             : "Fish remain broadly present as the run begins shifting toward a later mix."
           : sectional
-          ? "This is still sectional opportunity; Coho will not be evenly distributed."
+          ? `This is still sectional opportunity; ${species} will not be evenly distributed.`
           : "Fish can be broadly present, but concentrations still vary by section.",
         tip: peakShoulder
           ? "Look for genuinely fresh fish and leave visible spawning fish undisturbed."
@@ -1533,36 +1668,58 @@ function bigManisteeTailwaterStageCopy(input: {
       };
     case "tapering":
       return {
-        headline: lateTaper
-          ? `The Big Manistee ${input.species} run is entering its late taper.`
-          : `${input.species} remain present, but fresh arrivals are less consistent.`,
+        headline: input.repeatSpawner
+          ? lateTaper
+            ? "The Big Manistee Brown Trout migration is entering its late taper."
+            : "Fresh migratory Brown Trout entry is becoming less consistent after the main spawning build."
+          : lateTaper
+          ? `The Big Manistee ${species} run is entering its late taper.`
+          : `${sentenceSpecies} remain present, but fresh arrivals are less consistent.`,
         whereToStart:
           `Start in the ${upper}, especially the Tippy Dam area. Add the ${middle} only when direct activity supports it.`,
-        detail: lateTaper
+        detail: input.repeatSpawner
+          ? "The river can hold late migrants, spawning fish, and post-spawn survivors. The declining curve tracks migration timing, while surviving fish may remain or return lakeward individually."
+          : lateTaper
           ? "Fresh arrivals are becoming exceptions and dependable distribution is narrowing."
           : "The run is declining and increasingly concentrated in established holding water.",
         tip: lateTaper
           ? "Fish selected holding water carefully and leave visible spawning fish undisturbed."
+          : input.repeatSpawner
+          ? "Compare established holding water, leave visible spawning Brown Trout undisturbed, and treat decline as migration timing rather than individual-fish outcome."
           : "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
       };
     case "ending":
       return {
         headline: residualEnding
-          ? `Only a residual late ${input.species} opportunity remains.`
-          : `The main Big Manistee ${input.species} run is winding down.`,
+          ? `Only a residual late ${species} opportunity remains.`
+          : `The main Big Manistee ${species} run is winding down.`,
         whereToStart:
           `Start in the ${upper}, emphasizing established water near Tippy Dam.`,
-        detail: residualEnding
+        detail: input.repeatSpawner
+          ? "The tracked fall migration is winding down. Surviving Brown Trout may hold in the river or return lakeward after spawning."
+          : residualEnding
           ? "A fresh fish is possible, but no longer represents a dependable movement wave."
           : "Residual fish can remain, but fresh movement is no longer dependable.",
-        tip:
-          "Keep expectations narrow and stop searching when direct evidence is absent.",
+        tip: input.repeatSpawner
+          ? "Leave visible spawning fish and redds undisturbed; surviving Browns may hold or return lakeward on individual schedules."
+          : "Keep expectations narrow and stop searching when direct evidence is absent.",
       };
     case "post_run":
-      return input.latePostRunContext
+      return input.repeatSpawner
         ? {
           headline:
-            `Only a residual late ${input.species} opportunity remains.`,
+            "The tracked Big Manistee migratory Brown Trout fall migration is complete.",
+          whereToStart:
+            "There is no active Big Manistee starting section in this fall-migration model.",
+          detail:
+            "Unlike Pacific salmon, Brown Trout are repeat spawners and can survive spawning. Surviving fish may remain in river holding water or return toward Lake Michigan; this model does not assert an individual fish's location.",
+          tip: `Check back ${
+            seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
+          } when fall migration tracking resumes.`,
+        }
+        : input.latePostRunContext
+        ? {
+          headline: `Only a residual late ${species} opportunity remains.`,
           whereToStart:
             `There is no dependable starting section. If you go, make one careful ${upper} check near Tippy Dam.`,
           detail: "The seasonal tail does not indicate a fresh movement event.",
@@ -1570,10 +1727,10 @@ function bigManisteeTailwaterStageCopy(input: {
             "Do not build a broad corridor search around isolated late fish.",
         }
         : {
-          headline: `The Big Manistee ${input.species} fall run is complete.`,
+          headline: `The Big Manistee ${species} fall run is complete.`,
           whereToStart:
             "There is no active Big Manistee starting section in this fall-run model.",
-          detail: `${input.species} staging typically begins ${
+          detail: `${species} staging typically begins ${
             seasonalReturnPhrase(input.window.stagingStartDate.slice(5))
           }. This seasonal estimate is inactive until then.`,
           tip: `Check back ${

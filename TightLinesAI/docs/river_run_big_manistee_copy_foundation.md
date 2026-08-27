@@ -9,7 +9,8 @@
 **Status:** Geography and terminology owner-approved; bundled copy renovation implemented and mechanically accepted; owner copy review pending
 **Version:** `big-manistee-copy-foundation-v1`
 **Researched and approved:** 2026-08-10
-**Applies to:** Big Manistee Fall Chinook, Fall Coho, and Fall Steelhead
+**Applies to:** Big Manistee Fall Chinook, Fall Coho, Fall Steelhead, and the
+hidden Fall Migratory Brown Trout owner-review candidate
 
 ## 1. Normative public geography
 
@@ -33,8 +34,8 @@ to Start.
 ## 2. Barrier and endpoint
 
 Tippy Dam is the upstream terminus of the fall migratory corridor and blocks
-upstream passage by Chinook, Coho, and Steelhead. River Run must never recommend
-water above it or imply that fish pass it.
+upstream passage by Chinook, Coho, Steelhead, and migratory Brown Trout. River
+Run must never recommend water above it or imply that fish pass it.
 
 - Barrier ID: `big_manistee_tippy_dam`
 - Passage status: impassable
@@ -105,6 +106,22 @@ defect is proven.
   public copy must not use `Skamania`, `summer-run`, or `winter-run` to classify
   a fish in this Big Manistee fall experience.
 
+### Migratory Brown Trout
+
+- Moderate, sectional candidate opportunity; 50/100 river ceiling. Exceptional
+  trophy potential does not prove Chinook-scale migratory abundance.
+- Staging context begins August 25, dependable river entry begins September 5,
+  and the reference peak is October 1. The core migration-and-spawning window
+  runs September 25-October 15, then tapers through October with a sparse
+  November tail.
+- Resident and migratory Brown Trout can overlap. Public copy must not classify
+  an individual fish's origin from appearance, location, or date alone.
+- Browns are repeat spawners. Surviving fish may hold in the river or return
+  lakeward after spawning; neither outcome is universal. Do not reuse salmon
+  mortality, deterioration, or forced-departure behavior.
+- Terminal state: `Fall migration complete`, no score, and return when staging
+  tracking resumes September 1.
+
 ## 5. State-copy contract
 
 ### Migration Stage progression
@@ -167,9 +184,12 @@ Big Manistee public copy must reject:
 - Wellston measurements applied to the Middle or Lower river;
 - public `Skamania`, `summer-run`, `winter-run`, winter-holding, or promised
   winter-experience copy;
+- Brown Trout death, universal overwintering, universal lake return, or an
+  assertion that a particular Brown is migratory rather than resident;
 - more than three Why points, filler, or repeated scope disclaimers;
 - a strongest Activity window when the lead is under three points;
-- a score in a completed salmon run or completed Steelhead fall-entry state.
+- a score in a completed salmon run, completed Steelhead fall-entry state, or
+  completed migratory-Brown fall state.
 
 ## 7. Current regulations
 

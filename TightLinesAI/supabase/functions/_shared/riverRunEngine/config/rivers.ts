@@ -1,9 +1,7 @@
 import type { RiverProfile } from "../types.ts";
-import {
-  GRAND_RIVER_PROFILE,
-  PLATTE_RIVER_PROFILE,
-  WHITE_RIVER_PROFILE,
-} from "./onboarding/index.ts";
+import { GRAND_RIVER_PROFILE } from "./onboarding/grand.ts";
+import { PLATTE_RIVER_PROFILE } from "./onboarding/platte.ts";
+import { WHITE_RIVER_PROFILE } from "./onboarding/white.ts";
 
 export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
   riverId: "pere_marquette",

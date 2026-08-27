@@ -84,6 +84,9 @@ export function scoreFishInRiver(
     const stJoseph = run.runStageCopyStrategy === "st_joseph_corridor";
     const onboarding = run.runStageCopyStrategy === "onboarding_corridor";
     const onboardingName = onboardingRiverName(run.riverId);
+    const repeatSpawnerRiverName = bigManistee
+      ? "Big Manistee"
+      : onboardingName;
     const repeatSpecies = anglerSpeciesName(run.species);
     return {
       score: null,
@@ -98,7 +101,7 @@ export function scoreFishInRiver(
       winterHoldingContext: false,
       label: repeatSpawner ? "Fall migration complete" : "Fall entry complete",
       headline: repeatSpawner
-        ? `${onboardingName} ${repeatSpecies} fall migration is complete.`
+        ? `${repeatSpawnerRiverName} ${repeatSpecies} fall migration is complete.`
         : betsie
         ? "Betsie Steelhead fall entry is complete."
         : bigManistee
@@ -116,7 +119,7 @@ export function scoreFishInRiver(
       tip: repeatSpawner
         ? `Check back ${
           seasonalReturnPhrase(window.stagingStartDate.slice(5))
-        } when ${onboardingName} lake-run Brown Trout migration tracking resumes.`
+        } when ${repeatSpawnerRiverName} migratory Brown Trout tracking resumes.`
         : `Check back ${
           seasonalReturnPhrase(window.stagingStartDate.slice(5))
         } when ${
@@ -450,9 +453,24 @@ function fishInRiverCopy(input: {
       headline:
         `${species} seasonal presence is declining after the main spawning build.`,
       detail:
-        "This decline means the tracked fall migration is winding down—not that Brown Trout automatically die after spawning. Surviving fish may hold in the river or return lakeward.",
+        "This decline tracks the fall migration winding down. Brown Trout are repeat spawners, and surviving fish may hold in the river or return lakeward.",
       tip:
         "Focus on deeper holding water, avoid visibly spawning fish, and do not assume every surviving fish follows the same post-spawn timing.",
+    };
+  }
+
+  if (input.repeatSpawner) {
+    return {
+      headline: direction === "near_peak"
+        ? `${species} are near their strongest seasonal migration presence.`
+        : direction === "rising"
+        ? `${species} spawning-migration presence is building.`
+        : `${species} remain within the tracked fall migration.`,
+      detail:
+        "This is a seasonal estimate of lake-run migration presence, not a count of every Brown Trout in the river. New migrants, holding fish, resident Browns, and actively spawning fish can overlap, and an individual fish cannot be classified from the score alone.",
+      tip: stage === "peak"
+        ? "Compare dependable migration sections, but leave visible spawning fish and redds undisturbed."
+        : "Use the migration stage to choose a section, then require direct fish and habitat evidence before committing to it.",
     };
   }
 
@@ -584,6 +602,21 @@ function bigManisteeFishInRiverCopy(input: {
       detail:
         "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
       tip: "Do not build a three-section search around isolated late fish.",
+    };
+  }
+  if (/brown trout/i.test(input.species)) {
+    return {
+      headline: input.direction === "near_peak"
+        ? "Big Manistee migratory Brown Trout are near their strongest seasonal migration presence."
+        : input.direction === "rising"
+        ? "Big Manistee migratory Brown Trout spawning-migration presence is building."
+        : "Big Manistee migratory Brown Trout seasonal presence is declining after the main spawning build.",
+      detail: input.direction === "falling"
+        ? "The tracked spawning migration is declining, not the survival of every fish. Surviving fish may hold in the river or return lakeward on individual schedules, while resident and migratory Browns can still overlap."
+        : "This is a whole-corridor seasonal migration estimate, not a count of every Brown Trout. New migrants, holding fish, resident Browns, and actively spawning fish can overlap, and an individual fish cannot be classified from the score alone.",
+      tip: input.stage === "peak"
+        ? "Compare the approved migration sections, but leave visible spawning fish and redds undisturbed."
+        : "Use Migration Stage to choose a section, then require direct fish and habitat evidence before committing to it.",
     };
   }
   const level = input.label.replace(/ presence$/i, "").toLowerCase();

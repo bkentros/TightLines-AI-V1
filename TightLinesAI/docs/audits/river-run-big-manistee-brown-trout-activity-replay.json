@@ -1,0 +1,1887 @@
+{
+  "runId": "big_manistee_fall_brown_trout",
+  "rulesVersion": "big-manistee-fall-brown-activity-v1-draft",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical brown-trout replay using Manistee River near Wellston, MI — below Tippy Dam USGS 04125550 daily mean discharge, Manistee River near Wellston, MI — measured water temperature USGS 04125550 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1881,
+  "usableDays": 1851,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 12,
+    "temperatureHistory": 25,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 7,
+    "p10": 19,
+    "median": 76,
+    "p90": 90,
+    "max": 95,
+    "mean": 64.65
+  },
+  "blockScore": {
+    "min": 6,
+    "p10": 19,
+    "median": 75,
+    "p90": 89,
+    "max": 96,
+    "mean": 63.69
+  },
+  "uniqueDayScores": 65,
+  "uniqueBlockScores": 73,
+  "dayLabels": {
+    "Active": 582,
+    "Highly active": 777,
+    "Inactive": 189,
+    "Moderate": 47,
+    "Reserved": 256
+  },
+  "blockLabels": {
+    "Active": 2473,
+    "Highly active": 2820,
+    "Inactive": 891,
+    "Moderate": 330,
+    "Reserved": 890
+  },
+  "daysAtLeast90": 194,
+  "blocksAtLeast90": 721,
+  "byStage": {
+    "beginning": {
+      "days": 200,
+      "scores": {
+        "min": 15,
+        "p10": 18,
+        "median": 21,
+        "p90": 63,
+        "max": 74,
+        "mean": 28.71
+      },
+      "labels": {
+        "Active": 32,
+        "Inactive": 60,
+        "Moderate": 8,
+        "Reserved": 100
+      }
+    },
+    "building": {
+      "days": 280,
+      "scores": {
+        "min": 17,
+        "p10": 20,
+        "median": 63,
+        "p90": 75,
+        "max": 85,
+        "mean": 52.88
+      },
+      "labels": {
+        "Active": 165,
+        "Highly active": 8,
+        "Inactive": 19,
+        "Moderate": 19,
+        "Reserved": 69
+      }
+    },
+    "ending": {
+      "days": 570,
+      "scores": {
+        "min": 10,
+        "p10": 68,
+        "median": 83,
+        "p90": 90,
+        "max": 94,
+        "mean": 80.68
+      },
+      "labels": {
+        "Active": 198,
+        "Highly active": 361,
+        "Inactive": 1,
+        "Moderate": 10
+      }
+    },
+    "peak": {
+      "days": 285,
+      "scores": {
+        "min": 55,
+        "p10": 63,
+        "median": 78,
+        "p90": 88,
+        "max": 93,
+        "mean": 77.7
+      },
+      "labels": {
+        "Active": 145,
+        "Highly active": 132,
+        "Moderate": 8
+      }
+    },
+    "post_run": {
+      "days": 19,
+      "scores": {
+        "min": 52,
+        "p10": 62,
+        "median": 72,
+        "p90": 79,
+        "max": 84,
+        "mean": 70.89
+      },
+      "labels": {
+        "Active": 17,
+        "Highly active": 1,
+        "Moderate": 1
+      }
+    },
+    "pre_run": {
+      "days": 193,
+      "scores": {
+        "min": 7,
+        "p10": 10,
+        "median": 19,
+        "p90": 22,
+        "max": 60,
+        "mean": 18.64
+      },
+      "labels": {
+        "Active": 1,
+        "Inactive": 104,
+        "Moderate": 1,
+        "Reserved": 87
+      }
+    },
+    "tapering": {
+      "days": 304,
+      "scores": {
+        "min": 13,
+        "p10": 80,
+        "median": 88,
+        "p90": 92,
+        "max": 95,
+        "mean": 85.65
+      },
+      "labels": {
+        "Active": 24,
+        "Highly active": 275,
+        "Inactive": 5
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 200,
+      "samples": 200,
+      "scores": {
+        "min": 16,
+        "p10": 18,
+        "median": 21,
+        "p90": 63,
+        "max": 75,
+        "mean": 28.96
+      },
+      "labelShares": {
+        "Active": 17.5,
+        "Inactive": 28.5,
+        "Moderate": 2.5,
+        "Reserved": 51.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 200,
+      "samples": 200,
+      "scores": {
+        "min": 14,
+        "p10": 16,
+        "median": 20,
+        "p90": 58,
+        "max": 74,
+        "mean": 27.21
+      },
+      "labelShares": {
+        "Active": 9,
+        "Inactive": 44,
+        "Moderate": 11,
+        "Reserved": 36
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 200,
+      "samples": 200,
+      "scores": {
+        "min": 13,
+        "p10": 16,
+        "median": 20,
+        "p90": 60,
+        "max": 72,
+        "mean": 27.27
+      },
+      "labelShares": {
+        "Active": 11,
+        "Inactive": 43.5,
+        "Moderate": 9,
+        "Reserved": 36.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 200,
+      "samples": 200,
+      "scores": {
+        "min": 16,
+        "p10": 18,
+        "median": 21,
+        "p90": 63,
+        "max": 71,
+        "mean": 28.77
+      },
+      "labelShares": {
+        "Active": 18,
+        "Inactive": 27.5,
+        "Moderate": 2,
+        "Reserved": 52.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 200,
+      "samples": 800,
+      "scores": {
+        "min": 13,
+        "p10": 17,
+        "median": 20,
+        "p90": 62,
+        "max": 75,
+        "mean": 28.05
+      },
+      "labelShares": {
+        "Active": 13.88,
+        "Inactive": 35.88,
+        "Moderate": 6.13,
+        "Reserved": 44.13
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 280,
+      "samples": 280,
+      "scores": {
+        "min": 18,
+        "p10": 20,
+        "median": 64,
+        "p90": 74,
+        "max": 86,
+        "mean": 53.19
+      },
+      "labelShares": {
+        "Active": 62.5,
+        "Highly active": 2.14,
+        "Inactive": 3.21,
+        "Moderate": 3.93,
+        "Reserved": 28.21
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 280,
+      "samples": 280,
+      "scores": {
+        "min": 15,
+        "p10": 18,
+        "median": 59,
+        "p90": 74,
+        "max": 85,
+        "mean": 50.48
+      },
+      "labelShares": {
+        "Active": 47.5,
+        "Highly active": 1.43,
+        "Inactive": 17.14,
+        "Moderate": 19.64,
+        "Reserved": 14.29
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 280,
+      "samples": 280,
+      "scores": {
+        "min": 15,
+        "p10": 18,
+        "median": 59,
+        "p90": 75,
+        "max": 85,
+        "mean": 50.68
+      },
+      "labelShares": {
+        "Active": 46.07,
+        "Highly active": 2.5,
+        "Inactive": 17.14,
+        "Moderate": 20,
+        "Reserved": 14.29
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 280,
+      "samples": 280,
+      "scores": {
+        "min": 18,
+        "p10": 20,
+        "median": 63,
+        "p90": 75,
+        "max": 87,
+        "mean": 53.06
+      },
+      "labelShares": {
+        "Active": 60.36,
+        "Highly active": 2.14,
+        "Inactive": 5,
+        "Moderate": 6.07,
+        "Reserved": 26.43
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 280,
+      "samples": 1120,
+      "scores": {
+        "min": 15,
+        "p10": 19,
+        "median": 62,
+        "p90": 75,
+        "max": 87,
+        "mean": 51.85
+      },
+      "labelShares": {
+        "Active": 54.11,
+        "Highly active": 2.05,
+        "Inactive": 10.63,
+        "Moderate": 12.41,
+        "Reserved": 20.8
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 570,
+      "samples": 570,
+      "scores": {
+        "min": 10,
+        "p10": 68,
+        "median": 82,
+        "p90": 90,
+        "max": 95,
+        "mean": 80.45
+      },
+      "labelShares": {
+        "Active": 35.26,
+        "Highly active": 62.46,
+        "Inactive": 0.18,
+        "Moderate": 2.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 570,
+      "samples": 570,
+      "scores": {
+        "min": 10,
+        "p10": 67,
+        "median": 80,
+        "p90": 90,
+        "max": 95,
+        "mean": 78.81
+      },
+      "labelShares": {
+        "Active": 46.67,
+        "Highly active": 50,
+        "Inactive": 0.18,
+        "Moderate": 3.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 570,
+      "samples": 570,
+      "scores": {
+        "min": 9,
+        "p10": 67,
+        "median": 81,
+        "p90": 90,
+        "max": 95,
+        "mean": 79.14
+      },
+      "labelShares": {
+        "Active": 41.93,
+        "Highly active": 54.04,
+        "Inactive": 0.18,
+        "Moderate": 3.68,
+        "Reserved": 0.18
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 570,
+      "samples": 570,
+      "scores": {
+        "min": 9,
+        "p10": 68,
+        "median": 82,
+        "p90": 90,
+        "max": 95,
+        "mean": 80.44
+      },
+      "labelShares": {
+        "Active": 34.91,
+        "Highly active": 62.81,
+        "Inactive": 0.18,
+        "Moderate": 2.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 570,
+      "samples": 2280,
+      "scores": {
+        "min": 9,
+        "p10": 67,
+        "median": 81,
+        "p90": 90,
+        "max": 95,
+        "mean": 79.71
+      },
+      "labelShares": {
+        "Active": 39.69,
+        "Highly active": 57.32,
+        "Inactive": 0.18,
+        "Moderate": 2.76,
+        "Reserved": 0.04
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 56,
+        "p10": 65,
+        "median": 79,
+        "p90": 88,
+        "max": 93,
+        "mean": 77.76
+      },
+      "labelShares": {
+        "Active": 53.68,
+        "Highly active": 44.21,
+        "Moderate": 2.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 49,
+        "p10": 60,
+        "median": 76,
+        "p90": 87,
+        "max": 94,
+        "mean": 74.75
+      },
+      "labelShares": {
+        "Active": 54.74,
+        "Highly active": 35.44,
+        "Moderate": 9.82
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 49,
+        "p10": 61,
+        "median": 76,
+        "p90": 88,
+        "max": 94,
+        "mean": 75.48
+      },
+      "labelShares": {
+        "Active": 52.63,
+        "Highly active": 38.95,
+        "Moderate": 8.42
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 55,
+        "p10": 65,
+        "median": 79,
+        "p90": 88,
+        "max": 96,
+        "mean": 77.91
+      },
+      "labelShares": {
+        "Active": 49.12,
+        "Highly active": 47.72,
+        "Moderate": 3.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 285,
+      "samples": 1140,
+      "scores": {
+        "min": 49,
+        "p10": 62,
+        "median": 77,
+        "p90": 88,
+        "max": 96,
+        "mean": 76.48
+      },
+      "labelShares": {
+        "Active": 52.54,
+        "Highly active": 41.58,
+        "Moderate": 5.88
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 52,
+        "p10": 63,
+        "median": 72,
+        "p90": 76,
+        "max": 85,
+        "mean": 70.47
+      },
+      "labelShares": {
+        "Active": 78.95,
+        "Highly active": 10.53,
+        "Moderate": 10.53
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 52,
+        "p10": 56,
+        "median": 72,
+        "p90": 76,
+        "max": 82,
+        "mean": 69.32
+      },
+      "labelShares": {
+        "Active": 73.68,
+        "Highly active": 5.26,
+        "Moderate": 21.05
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 53,
+        "p10": 62,
+        "median": 71,
+        "p90": 75,
+        "max": 83,
+        "mean": 69.89
+      },
+      "labelShares": {
+        "Active": 89.47,
+        "Highly active": 5.26,
+        "Moderate": 5.26
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 50,
+        "p10": 63,
+        "median": 72,
+        "p90": 78,
+        "max": 84,
+        "mean": 70.74
+      },
+      "labelShares": {
+        "Active": 84.21,
+        "Highly active": 10.53,
+        "Moderate": 5.26
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 19,
+      "samples": 76,
+      "scores": {
+        "min": 50,
+        "p10": 61,
+        "median": 72,
+        "p90": 78,
+        "max": 85,
+        "mean": 70.11
+      },
+      "labelShares": {
+        "Active": 81.58,
+        "Highly active": 7.89,
+        "Moderate": 10.53
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 193,
+      "samples": 193,
+      "scores": {
+        "min": 7,
+        "p10": 10,
+        "median": 19,
+        "p90": 22,
+        "max": 62,
+        "mean": 18.85
+      },
+      "labelShares": {
+        "Active": 1.04,
+        "Inactive": 52.85,
+        "Reserved": 46.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 193,
+      "samples": 193,
+      "scores": {
+        "min": 6,
+        "p10": 10,
+        "median": 18,
+        "p90": 22,
+        "max": 55,
+        "mean": 17.6
+      },
+      "labelShares": {
+        "Inactive": 65.8,
+        "Moderate": 1.04,
+        "Reserved": 33.16
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 193,
+      "samples": 193,
+      "scores": {
+        "min": 6,
+        "p10": 10,
+        "median": 18,
+        "p90": 22,
+        "max": 60,
+        "mean": 17.36
+      },
+      "labelShares": {
+        "Active": 0.52,
+        "Inactive": 64.77,
+        "Moderate": 0.52,
+        "Reserved": 34.2
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 193,
+      "samples": 193,
+      "scores": {
+        "min": 7,
+        "p10": 10,
+        "median": 19,
+        "p90": 22,
+        "max": 61,
+        "mean": 18.64
+      },
+      "labelShares": {
+        "Active": 0.52,
+        "Inactive": 55.44,
+        "Moderate": 0.52,
+        "Reserved": 43.52
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 193,
+      "samples": 772,
+      "scores": {
+        "min": 6,
+        "p10": 10,
+        "median": 19,
+        "p90": 22,
+        "max": 62,
+        "mean": 18.11
+      },
+      "labelShares": {
+        "Active": 0.52,
+        "Inactive": 59.72,
+        "Moderate": 0.52,
+        "Reserved": 39.25
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 14,
+        "p10": 80,
+        "median": 87,
+        "p90": 92,
+        "max": 96,
+        "mean": 85.7
+      },
+      "labelShares": {
+        "Active": 7.24,
+        "Highly active": 91.12,
+        "Inactive": 1.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 13,
+        "p10": 75,
+        "median": 86,
+        "p90": 92,
+        "max": 96,
+        "mean": 83.57
+      },
+      "labelShares": {
+        "Active": 22.7,
+        "Highly active": 75.66,
+        "Inactive": 1.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 13,
+        "p10": 74,
+        "median": 86,
+        "p90": 92,
+        "max": 95,
+        "mean": 83.47
+      },
+      "labelShares": {
+        "Active": 24.67,
+        "Highly active": 73.68,
+        "Inactive": 1.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 13,
+        "p10": 80,
+        "median": 87,
+        "p90": 92,
+        "max": 95,
+        "mean": 85.5
+      },
+      "labelShares": {
+        "Active": 6.58,
+        "Highly active": 91.78,
+        "Inactive": 1.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 304,
+      "samples": 1216,
+      "scores": {
+        "min": 13,
+        "p10": 77,
+        "median": 86,
+        "p90": 92,
+        "max": 96,
+        "mean": 84.56
+      },
+      "labelShares": {
+        "Active": 15.3,
+        "Highly active": 83.06,
+        "Inactive": 1.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "below44F": {
+      "days": 269,
+      "scores": {
+        "min": 10,
+        "p10": 63,
+        "median": 75,
+        "p90": 83,
+        "max": 88,
+        "mean": 73.64
+      },
+      "labels": {
+        "Active": 186,
+        "Highly active": 71,
+        "Inactive": 1,
+        "Moderate": 11
+      }
+    },
+    "from44To58F": {
+      "days": 732,
+      "scores": {
+        "min": 13,
+        "p10": 80,
+        "median": 87,
+        "p90": 92,
+        "max": 95,
+        "mean": 85.71
+      },
+      "labels": {
+        "Active": 66,
+        "Highly active": 661,
+        "Inactive": 5
+      }
+    },
+    "from58To64F": {
+      "days": 411,
+      "scores": {
+        "min": 50,
+        "p10": 60,
+        "median": 69,
+        "p90": 80,
+        "max": 88,
+        "mean": 69.54
+      },
+      "labels": {
+        "Active": 330,
+        "Highly active": 45,
+        "Moderate": 36
+      }
+    },
+    "from64To70F": {
+      "days": 418,
+      "scores": {
+        "min": 15,
+        "p10": 17,
+        "median": 20,
+        "p90": 23,
+        "max": 25,
+        "mean": 19.99
+      },
+      "labels": {
+        "Inactive": 162,
+        "Reserved": 256
+      }
+    },
+    "atLeast70F": {
+      "days": 21,
+      "scores": {
+        "min": 7,
+        "p10": 7,
+        "median": 8,
+        "p90": 10,
+        "max": 10,
+        "mean": 8.33
+      },
+      "labels": {
+        "Inactive": 21
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 50,
+        "percent": 3
+      },
+      "meaningfulRise24h": {
+        "absolute": 100,
+        "percent": 7
+      },
+      "sharpRise24h": {
+        "absolute": 180,
+        "percent": 12
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 10,
+      "p10": 10,
+      "median": 50,
+      "p90": 190,
+      "max": 1530,
+      "mean": 85.74
+    },
+    "positivePercentChange": {
+      "min": 0.38,
+      "p10": 0.66,
+      "median": 2.82,
+      "p90": 11.17,
+      "max": 65.11,
+      "mean": 5.05
+    },
+    "signals": {
+      "falling": 26,
+      "meaningful_rise": 116,
+      "rising": 189,
+      "sharp_rise": 61,
+      "stable": 1459
+    }
+  },
+  "bestBlocks": {
+    "05-09": 930,
+    "09-13": 248,
+    "13-17": 299,
+    "17-21": 374
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 4,
+    "p90": 10,
+    "max": 17,
+    "mean": 5.2
+  },
+  "daysWithSpreadAtLeast10": 219,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2021-10-15",
+      "stage": "peak",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "waterTempF": 60.44,
+      "flowCfs": 1750,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -70,
+      "flowPercentChange24h": -3.85,
+      "temperatureSignal": "neutral",
+      "spread": 17,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2011-10-23",
+      "stage": "tapering",
+      "staging": false,
+      "score": 89,
+      "label": "Highly active",
+      "waterTempF": 51.8,
+      "flowCfs": 1730,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 10,
+      "flowPercentChange24h": 0.58,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 75,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 54,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2014-10-28",
+      "stage": "tapering",
+      "staging": false,
+      "score": 90,
+      "label": "Highly active",
+      "waterTempF": 49.82,
+      "flowCfs": 1850,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -20,
+      "flowPercentChange24h": -1.07,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 66,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2012-10-17",
+      "stage": "tapering",
+      "staging": false,
+      "score": 87,
+      "label": "Highly active",
+      "waterTempF": 51.08,
+      "flowCfs": 2100,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -170,
+      "flowPercentChange24h": -7.49,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2013-10-12",
+      "stage": "peak",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 59,
+      "flowCfs": 1520,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -90,
+      "flowPercentChange24h": -5.59,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 73,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0.12,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2025-09-13",
+      "stage": "beginning",
+      "staging": false,
+      "score": 62,
+      "label": "Active",
+      "waterTempF": 63.14,
+      "flowCfs": 1430,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 10,
+      "flowPercentChange24h": 0.7,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early lake-run Brown Trout can remain reactive as they enter the lower river; this score applies only to a fish already present. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. Early migratory Brown Trout may still be lakeward or in the Lower and Middle river. Do not apply this Wellston-based score unchanged to those sections. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2008-10-14",
+      "stage": "peak",
+      "staging": false,
+      "score": 87,
+      "label": "Highly active",
+      "waterTempF": 55.22,
+      "flowCfs": 1510,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -60,
+      "flowPercentChange24h": -3.82,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 82,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 54,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2008-11-01",
+      "stage": "ending",
+      "staging": false,
+      "score": 88,
+      "label": "Highly active",
+      "waterTempF": 48.02,
+      "flowCfs": 1730,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -70,
+      "flowPercentChange24h": -3.89,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 47,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2008-11-29",
+      "stage": "ending",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 38.12,
+      "flowCfs": 1670,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -20,
+      "flowPercentChange24h": -1.18,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 74,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2012-10-04",
+      "stage": "peak",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 58.1,
+      "flowCfs": 1410,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 100,
+      "flowPercentChange24h": 7.63,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 85,
+          "precipitationIn": 0.08,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 39,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.1,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from lake-run Brown Trout that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for lake-run Brown Trout. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2013-11-19",
+      "stage": "ending",
+      "staging": false,
+      "score": 61,
+      "label": "Active",
+      "waterTempF": 42.08,
+      "flowCfs": 3250,
+      "flowBand": "very_high",
+      "flowSignal": "sharp_rise",
+      "flowAbsoluteChange24h": 420,
+      "flowPercentChange24h": 14.84,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 71,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for lake-run Brown Trout.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2016-09-28",
+      "stage": "building",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 63.32,
+      "flowCfs": 1810,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 20,
+      "flowPercentChange24h": 1.12,
+      "temperatureSignal": "cooling",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 71,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 38,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. The measured conditions represent the Wellston/Tippy tailwater in the Upper river. Migratory Brown Trout can be distributed elsewhere below Tippy Dam, where temperature, clarity, and presentation conditions can differ. Early migratory Brown Trout may still be lakeward or in the Lower and Middle river. Do not apply this Wellston-based score unchanged to those sections. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    }
+  ]
+}

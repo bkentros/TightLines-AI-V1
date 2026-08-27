@@ -6,13 +6,17 @@ import {
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
+} from "./onboarding/grand.ts";
+import {
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+} from "./onboarding/platte.ts";
+import {
   WHITE_FALL_CHINOOK_RUN_PROFILE,
   WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
-} from "./onboarding/index.ts";
+} from "./onboarding/white.ts";
 
 export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
   AuditedObservedRiverRunProfile = {

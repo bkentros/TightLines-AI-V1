@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { riverRunRiverChoices } from "../lib/riverRunCatalogSelection";
+import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
@@ -68,6 +70,41 @@ assert.match(
   catalogSelection,
   /lake_run_brown_trout[^\n]*Migratory Brown Trout/,
   "Migratory Brown Trout must be registered in the species picker",
+);
+const manisteeBrownCatalog = {
+  states: [{
+    state: "MI",
+    displayName: "Michigan",
+    rivers: [{
+      riverId: "big_manistee",
+      displayName: "Big Manistee River",
+      runs: [{
+        runId: "big_manistee_fall_brown_trout",
+        displayName: "Fall Migratory Brown Trout",
+        species: "lake_run_brown_trout",
+        season: "fall",
+        supportStatus: "beta",
+      }],
+    }],
+  }],
+} as RiverRunCatalogResponse;
+const manisteeBrownChoices = riverRunRiverChoices(
+  manisteeBrownCatalog,
+  "MI",
+  "fall",
+  "lake_run_brown_trout",
+);
+assert.equal(manisteeBrownChoices.length, 9);
+assert.equal(
+  manisteeBrownChoices.find((choice) => choice.id === "big_manistee")
+    ?.disabled,
+  undefined,
+  "Big Manistee must be selectable for Michigan Fall Migratory Brown Trout",
+);
+assert(
+  manisteeBrownChoices.filter((choice) => choice.id !== "big_manistee")
+    .every((choice) => choice.disabled),
+  "Every other Michigan river must remain visible but disabled for Migratory Brown Trout",
 );
 assert.match(
   speciesImages,

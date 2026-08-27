@@ -54,6 +54,17 @@ Deno.test("White Chinook guidance progresses inside the former multi-week beginn
 Deno.test("all hidden onboarding runs use river-specific reach and barrier copy", () => {
   for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
     const display = resolveRunStage(run, `2026-${run.runWindow.peak}`);
+    if (run.riverId === "big_manistee") {
+      assertEquals(
+        run.runStageCopyStrategy,
+        "big_manistee_tailwater",
+        run.runId,
+      );
+      assertMatch(display.whereToStart ?? "", /Upper river/i, run.runId);
+      assertMatch(JSON.stringify(display), /Tippy Dam/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /above Tippy/i, run.runId);
+      continue;
+    }
     assertEquals(run.runStageCopyStrategy, "onboarding_corridor", run.runId);
     assert(display.whereToStart, run.runId);
     if (run.riverId === "grand") {
