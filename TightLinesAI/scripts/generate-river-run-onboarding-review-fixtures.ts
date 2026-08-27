@@ -1,6 +1,12 @@
 import {
   addDays,
   type AuditedRiverRunProfile,
+  BOIS_BRULE_CONFIGURATION_DOCUMENT,
+  BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
+  BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE,
+  BOIS_BRULE_FALL_COHO_RUN_PROFILE,
+  BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
+  BOIS_BRULE_RIVER_PROFILE,
   buildConditionRefresh,
   buildDailySnapshot,
   GRAND_CONFIGURATION_DOCUMENT,
@@ -8,6 +14,12 @@ import {
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
   GRAND_RIVER_PROFILE,
+  MILWAUKEE_CONFIGURATION_DOCUMENT,
+  MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
+  MILWAUKEE_FALL_CHINOOK_RUN_PROFILE,
+  MILWAUKEE_FALL_COHO_RUN_PROFILE,
+  MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
+  MILWAUKEE_RIVER_PROFILE,
   PLATTE_CONFIGURATION_DOCUMENT,
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
@@ -17,6 +29,18 @@ import {
   resolveFlowBand,
   type RiverProfile,
   type RiverRunConditionRefresh,
+  ROOT_CONFIGURATION_DOCUMENT,
+  ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
+  ROOT_FALL_CHINOOK_RUN_PROFILE,
+  ROOT_FALL_COHO_RUN_PROFILE,
+  ROOT_FALL_STEELHEAD_RUN_PROFILE,
+  ROOT_RIVER_PROFILE,
+  SHEBOYGAN_CONFIGURATION_DOCUMENT,
+  SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE,
+  SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE,
+  SHEBOYGAN_FALL_COHO_RUN_PROFILE,
+  SHEBOYGAN_FALL_STEELHEAD_RUN_PROFILE,
+  SHEBOYGAN_RIVER_PROFILE,
   WHITE_CONFIGURATION_DOCUMENT,
   WHITE_FALL_CHINOOK_RUN_PROFILE,
   WHITE_FALL_COHO_RUN_PROFILE,
@@ -89,9 +113,49 @@ const targets: DraftTarget[] = [
     run,
     configVersion: WHITE_CONFIGURATION_DOCUMENT.configVersion,
   })),
+  ...[
+    MILWAUKEE_FALL_CHINOOK_RUN_PROFILE,
+    MILWAUKEE_FALL_COHO_RUN_PROFILE,
+    MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
+    MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
+  ].map((run) => ({
+    river: MILWAUKEE_RIVER_PROFILE,
+    run,
+    configVersion: MILWAUKEE_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE,
+    SHEBOYGAN_FALL_COHO_RUN_PROFILE,
+    SHEBOYGAN_FALL_STEELHEAD_RUN_PROFILE,
+    SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE,
+  ].map((run) => ({
+    river: SHEBOYGAN_RIVER_PROFILE,
+    run,
+    configVersion: SHEBOYGAN_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    ROOT_FALL_CHINOOK_RUN_PROFILE,
+    ROOT_FALL_COHO_RUN_PROFILE,
+    ROOT_FALL_STEELHEAD_RUN_PROFILE,
+    ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
+  ].map((run) => ({
+    river: ROOT_RIVER_PROFILE,
+    run,
+    configVersion: ROOT_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE,
+    BOIS_BRULE_FALL_COHO_RUN_PROFILE,
+    BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
+    BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
+  ].map((run) => ({
+    river: BOIS_BRULE_RIVER_PROFILE,
+    run,
+    configVersion: BOIS_BRULE_CONFIGURATION_DOCUMENT.configVersion,
+  })),
 ];
 
-const engineVersion = "river-run-v1.13.0-onboarding-review";
+const engineVersion = "river-run-v1.14.0-onboarding-review";
 const groupsByRunId = Object.fromEntries(
   targets.map((target) => [target.run.runId, buildGroups(target)]),
 );
@@ -113,16 +177,18 @@ export const RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID: Record<string, RiverR
 if (Deno.args.includes("--check")) {
   const current = await Deno.readTextFile(outputPath).catch(() => "");
   if (current !== generated) {
-    console.error("Grand, Platte, and White review fixtures are stale.");
+    console.error(
+      "Onboarding review fixtures are stale.",
+    );
     Deno.exit(1);
   }
   console.log(
-    `Grand, Platte, and White review fixtures are current (${scenarioCount()} scenarios).`,
+    `Onboarding review fixtures are current (${scenarioCount()} scenarios).`,
   );
 } else {
   await Deno.writeTextFile(outputPath, generated);
   console.log(
-    `Generated ${scenarioCount()} Grand, Platte, and White review scenarios.`,
+    `Generated ${scenarioCount()} onboarding review scenarios.`,
   );
 }
 
@@ -304,6 +370,16 @@ function buildGroups(target: DraftTarget): RiverRunReviewGroup[] {
             waterTempF: null,
             waterTemperatureFreshness: "missing",
           },
+        ),
+      ]
+      : []),
+    ...(target.river.historicalWaterTemperatureSource
+      ? [
+        scenario(
+          target,
+          "conditions_historical_temperature",
+          "Gauge Read · historical exact-date temperature",
+          "2026-09-15",
         ),
       ]
       : []),

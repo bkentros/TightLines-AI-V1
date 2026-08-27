@@ -67,6 +67,7 @@ export function scoreFishInRiver(
     run.runStageCopyStrategy !== "muskegon_croton_tailwater" &&
     run.runStageCopyStrategy !== "st_joseph_corridor" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
+  const repeatSpawner = run.runType === "fall_repeat_spawn";
   if (
     (run.runStageCopyStrategy === "pere_marquette" ||
       run.runStageCopyStrategy === "betsie_homestead" ||
@@ -74,7 +75,7 @@ export function scoreFishInRiver(
       run.runStageCopyStrategy === "muskegon_croton_tailwater" ||
       run.runStageCopyStrategy === "st_joseph_corridor" ||
       run.runStageCopyStrategy === "onboarding_corridor") &&
-    run.runType === "fall_entry" && stage === "post_run"
+    (run.runType === "fall_entry" || repeatSpawner) && stage === "post_run"
   ) {
     const betsie = run.runStageCopyStrategy === "betsie_homestead";
     const bigManistee = run.runStageCopyStrategy === "big_manistee_tailwater";
@@ -82,11 +83,8 @@ export function scoreFishInRiver(
       "muskegon_croton_tailwater";
     const stJoseph = run.runStageCopyStrategy === "st_joseph_corridor";
     const onboarding = run.runStageCopyStrategy === "onboarding_corridor";
-    const onboardingName = run.riverId === "grand"
-      ? "Grand"
-      : run.riverId === "platte"
-      ? "Platte"
-      : "White";
+    const onboardingName = onboardingRiverName(run.riverId);
+    const repeatSpecies = anglerSpeciesName(run.species);
     return {
       score: null,
       displayScore: undefined,
@@ -98,8 +96,10 @@ export function scoreFishInRiver(
       curveFraction: 0,
       curveDirection: "outside",
       winterHoldingContext: false,
-      label: "Fall entry complete",
-      headline: betsie
+      label: repeatSpawner ? "Fall migration complete" : "Fall entry complete",
+      headline: repeatSpawner
+        ? `${onboardingName} ${repeatSpecies} fall migration is complete.`
+        : betsie
         ? "Betsie Steelhead fall entry is complete."
         : bigManistee
         ? "Big Manistee Steelhead fall entry is complete."
@@ -110,23 +110,28 @@ export function scoreFishInRiver(
         : onboarding
         ? `${onboardingName} Steelhead fall entry is complete.`
         : "PM Steelhead fall entry is complete.",
-      detail:
-        "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
-      tip: `Check back ${
-        seasonalReturnPhrase(window.stagingStartDate.slice(5))
-      } when ${
-        betsie
-          ? "Betsie"
-          : bigManistee
-          ? "Big Manistee"
-          : muskegon
-          ? "Muskegon"
-          : stJoseph
-          ? "St. Joseph"
-          : onboarding
-          ? onboardingName
-          : "PM"
-      } fall movement tracking resumes.`,
+      detail: repeatSpawner
+        ? `${repeatSpecies} may remain in river holding water or return lakeward after spawning. This fall-migration model no longer estimates their current seasonal presence.`
+        : "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
+      tip: repeatSpawner
+        ? `Check back ${
+          seasonalReturnPhrase(window.stagingStartDate.slice(5))
+        } when ${onboardingName} lake-run Brown Trout migration tracking resumes.`
+        : `Check back ${
+          seasonalReturnPhrase(window.stagingStartDate.slice(5))
+        } when ${
+          betsie
+            ? "Betsie"
+            : bigManistee
+            ? "Big Manistee"
+            : muskegon
+            ? "Muskegon"
+            : stJoseph
+            ? "St. Joseph"
+            : onboarding
+            ? onboardingName
+            : "PM"
+        } fall movement tracking resumes.`,
       reasonCodes: [
         stageReasonCode(stage),
         "historical_presence_curve",
@@ -274,6 +279,7 @@ export function scoreFishInRiver(
     species: anglerSpeciesName(run.species),
     opportunity,
     fallEntry: run.runType === "fall_entry",
+    repeatSpawner,
     pereMarquette: run.runStageCopyStrategy === "pere_marquette",
     betsie: run.runStageCopyStrategy === "betsie_homestead",
     bigManistee: run.runStageCopyStrategy === "big_manistee_tailwater",
@@ -372,6 +378,7 @@ function fishInRiverCopy(input: {
   species: string;
   opportunity: RunOpportunityCopyContext;
   fallEntry: boolean;
+  repeatSpawner: boolean;
   pereMarquette: boolean;
   betsie: boolean;
   bigManistee: boolean;
@@ -432,6 +439,20 @@ function fishInRiverCopy(input: {
         `A few ${species} may remain, but their presence is likely isolated rather than part of ${dependableOpportunity}.`,
       tip:
         "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+    };
+  }
+
+  if (
+    input.repeatSpawner &&
+    (direction === "falling" || stage === "ending")
+  ) {
+    return {
+      headline:
+        `${species} seasonal presence is declining after the main spawning build.`,
+      detail:
+        "This decline means the tracked fall migration is winding down—not that Brown Trout automatically die after spawning. Surviving fish may hold in the river or return lakeward.",
+      tip:
+        "Focus on deeper holding water, avoid visibly spawning fish, and do not assume every surviving fish follows the same post-spawn timing.",
     };
   }
 
@@ -1170,6 +1191,23 @@ function scaledPresenceDetail(
     ? "Even at that high point, the overall seasonal opportunity remains limited."
     : `Fish are most likely distributed ${distribution}.`;
   return `This is the part of the season when in-river presence is usually strongest. ${scale} The read does not place fish in a specific pool or confirm a live count.`;
+}
+
+function onboardingRiverName(riverId: string): string {
+  switch (riverId) {
+    case "grand":
+      return "Grand";
+    case "platte":
+      return "Platte";
+    case "white":
+      return "White";
+    case "milwaukee":
+      return "Milwaukee";
+    case "sheboygan":
+      return "Sheboygan";
+    default:
+      return riverId;
+  }
 }
 
 function stageReasonCode(stage: RunStage): RiverRunReasonCode {

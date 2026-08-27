@@ -33,9 +33,12 @@ import { FeedbackCard } from "../components/FeedbackCard";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
   fetchRiverRunCatalog,
+  fetchRiverRunOwnerReviewCatalog,
+  fetchRiverRunOwnerReviewSnapshot,
   fetchRiverRunSnapshot,
   RiverRunRequestError,
 } from "../lib/riverRun";
+import { isAdminEmail } from "../lib/adminAccess";
 import {
   formatRiverRunSeason,
   formatRiverRunSpecies,
@@ -128,6 +131,9 @@ const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
 const ATLANTIC_IMAGE = getRiverRunSpeciesImage("atlantic_salmon");
+const MIGRATORY_BROWN_IMAGE = getRiverRunSpeciesImage(
+  "lake_run_brown_trout",
+);
 const RIVER_RUN_TAB_BLUE = "#1B4B68";
 
 type ChoiceIconTheme = {
@@ -235,6 +241,7 @@ const STEP_CONFIG: Record<
 export default function RiverRunScreen() {
   const router = useRouter();
   const { profile, user, fetchProfile } = useAuthStore();
+  const ownerReviewMode = isAdminEmail(user?.email);
   const effectiveTier = getEffectiveTier(profile, user?.email);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [screenState, setScreenState] = useState<ScreenState>("setup");
@@ -265,7 +272,11 @@ export default function RiverRunScreen() {
     if (!isRefresh) setLoadingCatalog(true);
     setCatalogError(null);
     try {
-      setCatalog(await fetchRiverRunCatalog());
+      setCatalog(
+        await (ownerReviewMode
+          ? fetchRiverRunOwnerReviewCatalog()
+          : fetchRiverRunCatalog()),
+      );
     } catch (error) {
       setCatalogError(
         error instanceof Error
@@ -275,7 +286,7 @@ export default function RiverRunScreen() {
     } finally {
       if (!isRefresh) setLoadingCatalog(false);
     }
-  }, []);
+  }, [ownerReviewMode]);
 
   useEffect(() => {
     void loadCatalog();
@@ -346,11 +357,13 @@ export default function RiverRunScreen() {
     if (showLoading) setLoadingSnapshot(true);
     setSnapshotError(null);
     try {
-      const next = await fetchRiverRunSnapshot({
-        riverId: selectedTarget.river.riverId,
-        runId: selectedTarget.run.runId,
-        presentationState: selectedTarget.state.state,
-      });
+      const next = await (ownerReviewMode
+        ? fetchRiverRunOwnerReviewSnapshot
+        : fetchRiverRunSnapshot)({
+          riverId: selectedTarget.river.riverId,
+          runId: selectedTarget.run.runId,
+          presentationState: selectedTarget.state.state,
+        });
       if (requestId === snapshotRequestRef.current) {
         setSnapshot(next);
         if (next.accessTier === "free_trial" && user?.id) {
@@ -382,7 +395,7 @@ export default function RiverRunScreen() {
         setLoadingSnapshot(false);
       }
     }
-  }, [fetchProfile, screenState, selectedTarget, user?.id]);
+  }, [fetchProfile, ownerReviewMode, screenState, selectedTarget, user?.id]);
 
   useFocusEffect(
     useCallback(() => {
@@ -576,6 +589,16 @@ export default function RiverRunScreen() {
         ? (
           <View pointerEvents="none" style={styles.preloadImage}>
             <Image source={STEELHEAD_IMAGE} style={styles.preloadImageAsset} />
+          </View>
+        )
+        : null}
+      {MIGRATORY_BROWN_IMAGE
+        ? (
+          <View pointerEvents="none" style={styles.preloadImage}>
+            <Image
+              source={MIGRATORY_BROWN_IMAGE}
+              style={styles.preloadImageAsset}
+            />
           </View>
         )
         : null}
@@ -1095,6 +1118,7 @@ function ChoiceCard({
               style={[
                 styles.speciesChoiceImage,
                 (choice.id === "steelhead" ||
+                  choice.id === "lake_run_brown_trout" ||
                   choice.id === "atlantic_salmon") &&
                 styles.speciesChoiceImageSteelhead,
                 disabled && styles.choiceImageDisabled,
@@ -1493,8 +1517,11 @@ function LiveRiverConditionsCard({ conditions }: {
               </Text>
             </View>
             <Text style={styles.liveConditionsMethodNote}>
-              Date averages use approved observations from the same calendar
-              date ±3 days across prior years. Provider readings may be revised.
+              {orderedMetrics.some((metric) =>
+                  metric.seasonalContext?.windowRadiusDays === 0
+                )
+                ? "Flow date averages use the same calendar date ±3 days. Historical-only water temperature uses the exact calendar date and shows its qualifying-year count; it is not today's temperature. Provider readings may be revised."
+                : "Date averages use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
             </Text>
           </View>
         )
@@ -1557,7 +1584,13 @@ function LiveMetricTile({
         </Text>
       </View>
       {metric.value == null
-        ? <Text style={styles.liveMetricUnavailable}>Unreadable</Text>
+        ? (
+          <Text style={styles.liveMetricUnavailable}>
+            {isHistoricalOnlyMetric(metric)
+              ? "No current sensor"
+              : "Unreadable"}
+          </Text>
+        )
         : (
           <Text
             style={styles.liveMetricValue}
@@ -1726,6 +1759,11 @@ function liveMetricFreshnessLabel(
   return "UNREADABLE";
 }
 
+function isHistoricalOnlyMetric(metric: RiverRunLiveConditionMetric): boolean {
+  return metric.value == null &&
+    metric.seasonalContext?.windowRadiusDays === 0;
+}
+
 function liveMetricFreshnessColor(
   freshness: RiverRunLiveConditionMetric["freshness"],
 ): string {
@@ -1745,6 +1783,9 @@ function liveMetricBaselineCopy(metric: RiverRunLiveConditionMetric): string {
 function liveMetricFreshnessCopy(
   metric: RiverRunLiveConditionMetric,
 ): string {
+  if (isHistoricalOnlyMetric(metric)) {
+    return "Current measured reading unavailable; historical date context only";
+  }
   if (!metric.observedAt || metric.freshness === "missing") {
     return "Provider reading currently unreadable";
   }

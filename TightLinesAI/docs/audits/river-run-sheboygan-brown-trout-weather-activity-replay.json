@@ -1,0 +1,912 @@
+{
+  "runId": "sheboygan_fall_brown_trout",
+  "rulesVersion": "sheboygan-fall-brown-trout-weather-activity-v1-draft",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical Sheboygan River brown-trout weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at sheboygan_i43_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 2546,
+  "usableDays": 2546,
+  "missingWeatherDays": 0,
+  "dayScore": {
+    "min": 50,
+    "p10": 52,
+    "median": 65,
+    "p90": 69,
+    "max": 69,
+    "mean": 62.48
+  },
+  "blockScore": {
+    "min": 37,
+    "p10": 42,
+    "median": 64,
+    "p90": 69,
+    "max": 69,
+    "mean": 60.19
+  },
+  "uniqueDayScores": 20,
+  "uniqueBlockScores": 33,
+  "dayLabels": {
+    "Active": 1741,
+    "Moderate": 805
+  },
+  "byStage": {
+    "beginning": {
+      "days": 285,
+      "scores": {
+        "min": 50,
+        "p10": 50,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.56
+      },
+      "labels": {
+        "Active": 165,
+        "Moderate": 120
+      }
+    },
+    "building": {
+      "days": 760,
+      "scores": {
+        "min": 50,
+        "p10": 51,
+        "median": 64,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.62
+      },
+      "labels": {
+        "Active": 483,
+        "Moderate": 277
+      }
+    },
+    "ending": {
+      "days": 494,
+      "scores": {
+        "min": 50,
+        "p10": 53,
+        "median": 67,
+        "p90": 69,
+        "max": 69,
+        "mean": 63.67
+      },
+      "labels": {
+        "Active": 373,
+        "Moderate": 121
+      }
+    },
+    "peak": {
+      "days": 304,
+      "scores": {
+        "min": 55,
+        "p10": 57,
+        "median": 67,
+        "p90": 69,
+        "max": 69,
+        "mean": 65.24
+      },
+      "labels": {
+        "Active": 253,
+        "Moderate": 51
+      }
+    },
+    "post_run": {
+      "days": 304,
+      "scores": {
+        "min": 50,
+        "p10": 52,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 62.74
+      },
+      "labels": {
+        "Active": 213,
+        "Moderate": 91
+      }
+    },
+    "pre_run": {
+      "days": 209,
+      "scores": {
+        "min": 50,
+        "p10": 50,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.31
+      },
+      "labels": {
+        "Active": 120,
+        "Moderate": 89
+      }
+    },
+    "tapering": {
+      "days": 190,
+      "scores": {
+        "min": 50,
+        "p10": 54,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 63.26
+      },
+      "labels": {
+        "Active": 134,
+        "Moderate": 56
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 54,
+        "p10": 54,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.57
+      },
+      "labelShares": {
+        "Active": 50.18,
+        "Moderate": 49.82
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 39,
+        "p10": 39,
+        "median": 54,
+        "p90": 69,
+        "max": 69,
+        "mean": 54.19
+      },
+      "labelShares": {
+        "Active": 41.4,
+        "Moderate": 35.09,
+        "Reserved": 23.51
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 38,
+        "p10": 38,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 56.16
+      },
+      "labelShares": {
+        "Active": 51.23,
+        "Moderate": 28.42,
+        "Reserved": 20.35
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 285,
+      "samples": 285,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.07
+      },
+      "labelShares": {
+        "Active": 56.49,
+        "Moderate": 43.51
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 285,
+      "samples": 1140,
+      "scores": {
+        "min": 38,
+        "p10": 39,
+        "median": 59,
+        "p90": 69,
+        "max": 69,
+        "mean": 58
+      },
+      "labelShares": {
+        "Active": 49.82,
+        "Moderate": 39.21,
+        "Reserved": 10.96
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 760,
+      "samples": 760,
+      "scores": {
+        "min": 54,
+        "p10": 54,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.86
+      },
+      "labelShares": {
+        "Active": 56.58,
+        "Moderate": 43.42
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 760,
+      "samples": 760,
+      "scores": {
+        "min": 39,
+        "p10": 39,
+        "median": 59,
+        "p90": 69,
+        "max": 69,
+        "mean": 56.01
+      },
+      "labelShares": {
+        "Active": 48.82,
+        "Moderate": 35.39,
+        "Reserved": 15.79
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 760,
+      "samples": 760,
+      "scores": {
+        "min": 38,
+        "p10": 38,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 56.87
+      },
+      "labelShares": {
+        "Active": 54.21,
+        "Moderate": 26.18,
+        "Reserved": 19.61
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 760,
+      "samples": 760,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 63,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.81
+      },
+      "labelShares": {
+        "Active": 59.47,
+        "Moderate": 40.53
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 760,
+      "samples": 3040,
+      "scores": {
+        "min": 38,
+        "p10": 40,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.14
+      },
+      "labelShares": {
+        "Active": 54.77,
+        "Moderate": 36.38,
+        "Reserved": 8.85
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 494,
+      "samples": 494,
+      "scores": {
+        "min": 54,
+        "p10": 54,
+        "median": 68,
+        "p90": 69,
+        "max": 69,
+        "mean": 64.22
+      },
+      "labelShares": {
+        "Active": 74.29,
+        "Moderate": 25.71
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 494,
+      "samples": 494,
+      "scores": {
+        "min": 39,
+        "p10": 39,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.38
+      },
+      "labelShares": {
+        "Active": 62.35,
+        "Moderate": 26.72,
+        "Reserved": 10.93
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 494,
+      "samples": 494,
+      "scores": {
+        "min": 38,
+        "p10": 38,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 58.88
+      },
+      "labelShares": {
+        "Active": 62.55,
+        "Moderate": 20.45,
+        "Reserved": 17
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 494,
+      "samples": 494,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 68,
+        "p90": 69,
+        "max": 69,
+        "mean": 63.84
+      },
+      "labelShares": {
+        "Active": 71.46,
+        "Moderate": 28.54
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 494,
+      "samples": 1976,
+      "scores": {
+        "min": 38,
+        "p10": 43,
+        "median": 67,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.58
+      },
+      "labelShares": {
+        "Active": 67.66,
+        "Moderate": 25.35,
+        "Reserved": 6.98
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 59,
+        "p10": 59,
+        "median": 69,
+        "p90": 69,
+        "max": 69,
+        "mean": 65.81
+      },
+      "labelShares": {
+        "Active": 78.95,
+        "Moderate": 21.05
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 44,
+        "p10": 44,
+        "median": 67,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.85
+      },
+      "labelShares": {
+        "Active": 64.14,
+        "Moderate": 35.86
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 43,
+        "p10": 43,
+        "median": 69,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.17
+      },
+      "labelShares": {
+        "Active": 66.12,
+        "Moderate": 33.88
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 58,
+        "p10": 58,
+        "median": 69,
+        "p90": 69,
+        "max": 69,
+        "mean": 65.83
+      },
+      "labelShares": {
+        "Active": 78.29,
+        "Moderate": 21.71
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 304,
+      "samples": 1216,
+      "scores": {
+        "min": 43,
+        "p10": 47,
+        "median": 69,
+        "p90": 69,
+        "max": 69,
+        "mean": 63.41
+      },
+      "labelShares": {
+        "Active": 71.88,
+        "Moderate": 28.13
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 54,
+        "p10": 54,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 62.99
+      },
+      "labelShares": {
+        "Active": 65.46,
+        "Moderate": 34.54
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 39,
+        "p10": 39,
+        "median": 64,
+        "p90": 69,
+        "max": 69,
+        "mean": 58.14
+      },
+      "labelShares": {
+        "Active": 57.57,
+        "Moderate": 28.29,
+        "Reserved": 14.14
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 38,
+        "p10": 38,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 57.93
+      },
+      "labelShares": {
+        "Active": 58.22,
+        "Moderate": 25,
+        "Reserved": 16.78
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 304,
+      "samples": 304,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 63.05
+      },
+      "labelShares": {
+        "Active": 66.78,
+        "Moderate": 33.22
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 304,
+      "samples": 1216,
+      "scores": {
+        "min": 38,
+        "p10": 42,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.53
+      },
+      "labelShares": {
+        "Active": 62.01,
+        "Moderate": 30.26,
+        "Reserved": 7.73
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 209,
+      "samples": 209,
+      "scores": {
+        "min": 53,
+        "p10": 54,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.88
+      },
+      "labelShares": {
+        "Active": 52.63,
+        "Moderate": 47.37
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 209,
+      "samples": 209,
+      "scores": {
+        "min": 39,
+        "p10": 39,
+        "median": 55,
+        "p90": 69,
+        "max": 69,
+        "mean": 54.53
+      },
+      "labelShares": {
+        "Active": 42.58,
+        "Moderate": 40.67,
+        "Reserved": 16.75
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 209,
+      "samples": 209,
+      "scores": {
+        "min": 37,
+        "p10": 38,
+        "median": 57,
+        "p90": 69,
+        "max": 69,
+        "mean": 54.8
+      },
+      "labelShares": {
+        "Active": 45.45,
+        "Moderate": 33.97,
+        "Reserved": 20.57
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 209,
+      "samples": 209,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.42
+      },
+      "labelShares": {
+        "Active": 50.24,
+        "Moderate": 49.76
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 209,
+      "samples": 836,
+      "scores": {
+        "min": 37,
+        "p10": 40,
+        "median": 58,
+        "p90": 69,
+        "max": 69,
+        "mean": 57.66
+      },
+      "labelShares": {
+        "Active": 47.73,
+        "Moderate": 42.94,
+        "Reserved": 9.33
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 190,
+      "samples": 190,
+      "scores": {
+        "min": 54,
+        "p10": 54,
+        "median": 67,
+        "p90": 69,
+        "max": 69,
+        "mean": 64.57
+      },
+      "labelShares": {
+        "Active": 77.37,
+        "Moderate": 22.63
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 190,
+      "samples": 190,
+      "scores": {
+        "min": 39,
+        "p10": 40,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.45
+      },
+      "labelShares": {
+        "Active": 61.05,
+        "Moderate": 30.53,
+        "Reserved": 8.42
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 190,
+      "samples": 190,
+      "scores": {
+        "min": 38,
+        "p10": 38,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 58.03
+      },
+      "labelShares": {
+        "Active": 58.42,
+        "Moderate": 23.68,
+        "Reserved": 17.89
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 190,
+      "samples": 190,
+      "scores": {
+        "min": 53,
+        "p10": 53,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 62.72
+      },
+      "labelShares": {
+        "Active": 66.32,
+        "Moderate": 33.68
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 190,
+      "samples": 760,
+      "scores": {
+        "min": 38,
+        "p10": 43,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 61.19
+      },
+      "labelShares": {
+        "Active": 65.79,
+        "Moderate": 27.63,
+        "Reserved": 6.58
+      },
+      "capConfidenceNotes": "Weather-only true maximum 90; evidence scale 0.8; Limited confidence; measured river level, clarity, and water temperature excluded."
+    }
+  ],
+  "precipitationDays": {
+    "dry": {
+      "days": 1695,
+      "scores": {
+        "min": 50,
+        "p10": 50,
+        "median": 61,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.34
+      }
+    },
+    "traceToLight": {
+      "days": 600,
+      "scores": {
+        "min": 51,
+        "p10": 60,
+        "median": 68,
+        "p90": 69,
+        "max": 69,
+        "mean": 66.29
+      }
+    },
+    "moderateToHeavy": {
+      "days": 251,
+      "scores": {
+        "min": 50,
+        "p10": 66,
+        "median": 69,
+        "p90": 69,
+        "max": 69,
+        "mean": 67.82
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 1524,
+    "09-13": 261,
+    "13-17": 340,
+    "17-21": 421
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 13,
+    "p90": 26,
+    "max": 31,
+    "mean": 12.61
+  },
+  "daysWithSpreadAtLeast10": 1549,
+  "lifecycleContinuity": {
+    "startDate": "2026-09-20",
+    "endDate": "2027-01-16",
+    "scores": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "maximumAdjacentDelta": 0
+  },
+  "calibrationIteration": {
+    "baseline": {
+      "light": 0.7,
+      "weather": 0.3
+    },
+    "candidate": {
+      "light": 0.7,
+      "weather": 0.3
+    },
+    "changed": false,
+    "rationale": "Configured candidate full replay."
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "scoreAboveWeatherOnlyCeiling": 0,
+    "dailyOutsideBlockRange": 0,
+    "incompleteCopy": 0,
+    "missingWeatherOnlyDisclosure": 0,
+    "inferredRiverCondition": 0,
+    "prohibitedClaims": 0,
+    "lifecycleCalendarCliff": 0,
+    "lifecycleNotDeclining": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "repeatSpawnerStageShape": 0
+  }
+}

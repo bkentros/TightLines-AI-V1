@@ -40,6 +40,7 @@ const SPECIES_PRESENTATION: RiverRunChoice[] = [
   { id: "chinook_salmon", label: "Chinook Salmon" },
   { id: "coho_salmon", label: "Coho Salmon" },
   { id: "steelhead", label: "Steelhead" },
+  { id: "lake_run_brown_trout", label: "Migratory Brown Trout" },
   { id: "atlantic_salmon", label: "Atlantic Salmon" },
 ];
 
@@ -92,6 +93,9 @@ function uniqueById<T extends { id: string }>(items: T[]): T[] {
 }
 
 export function formatRiverRunSpecies(species: string): string {
+  if (species.trim().toLowerCase() === "lake_run_brown_trout") {
+    return "Migratory Brown Trout";
+  }
   return species
     .trim()
     .split(/[_\s-]+/)

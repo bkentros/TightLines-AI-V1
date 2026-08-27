@@ -426,7 +426,7 @@ function request(
     headers.set("Authorization", options.authorization);
   }
   const token = options.token === undefined &&
-      (path.startsWith("/snapshot") || path.startsWith("/review/snapshot"))
+      (path.startsWith("/snapshot") || path.startsWith("/review/"))
     ? "valid-token"
     : options.token;
   if (token) {
@@ -653,6 +653,41 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   );
   assertEquals(response.status, 403);
   assertEquals((await json(response)).error, "river_run_review_forbidden");
+});
+
+Deno.test("owner-review catalog is admin-only and includes the Wisconsin draft portfolio", async () => {
+  const forbidden = await handleRiverRunRequestBase(
+    request("/review/rivers"),
+    { createAdminClient: () => new MockClient() },
+  );
+  assertEquals(forbidden.status, 403);
+  assertEquals((await json(forbidden)).error, "river_run_review_forbidden");
+
+  const response = await handleRiverRunRequestBase(
+    request("/review/rivers"),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+  const body = await json(response);
+  const wisconsin = body.states.find(
+    (state: { state: string }) => state.state === "WI",
+  );
+
+  assertEquals(response.status, 200);
+  assertEquals(
+    wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
+    ["bois_brule", "milwaukee", "root", "sheboygan"],
+  );
+  assertEquals(
+    wisconsin.rivers.every(
+      (river: { runs: Array<{ species: string }> }) =>
+        river.runs.length === 4 &&
+        river.runs.some((run) => run.species === "lake_run_brown_trout"),
+    ),
+    true,
+  );
 });
 
 Deno.test("owner-review snapshot uses current provider inputs without fixture substitution", async () => {

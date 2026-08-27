@@ -1,0 +1,1957 @@
+{
+  "runId": "milwaukee_fall_coho",
+  "rulesVersion": "milwaukee-fall-coho-observed-activity-v1-draft-baseline-without-stage-adjustment",
+  "replayYears": "2024-2025",
+  "method": "Historical mechanical coho replay using Milwaukee River at Milwaukee — Estabrook Park USGS 04087000 daily mean discharge, Milwaukee River at Milwaukee — measured water temperature USGS 04087000 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 202,
+  "usableDays": 181,
+  "missing": {
+    "flow": 13,
+    "priorFlow": 12,
+    "temperature": 3,
+    "temperatureHistory": 6,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 18,
+    "p10": 19,
+    "median": 54,
+    "p90": 80,
+    "max": 91,
+    "mean": 48.37
+  },
+  "blockScore": {
+    "min": 17,
+    "p10": 18,
+    "median": 52,
+    "p90": 81,
+    "max": 93,
+    "mean": 47.63
+  },
+  "uniqueDayScores": 55,
+  "uniqueBlockScores": 75,
+  "dayLabels": {
+    "Active": 59,
+    "Highly active": 21,
+    "Inactive": 51,
+    "Moderate": 21,
+    "Reserved": 29
+  },
+  "blockLabels": {
+    "Active": 216,
+    "Highly active": 87,
+    "Inactive": 205,
+    "Moderate": 102,
+    "Reserved": 114
+  },
+  "daysAtLeast90": 2,
+  "blocksAtLeast90": 5,
+  "byStage": {
+    "beginning": {
+      "days": 22,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 19,
+        "p90": 19,
+        "max": 22,
+        "mean": 18.86
+      },
+      "labels": {
+        "Inactive": 20,
+        "Reserved": 2
+      }
+    },
+    "building": {
+      "days": 53,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 22,
+        "p90": 71,
+        "max": 91,
+        "mean": 38.32
+      },
+      "labels": {
+        "Active": 14,
+        "Highly active": 3,
+        "Inactive": 22,
+        "Moderate": 3,
+        "Reserved": 11
+      }
+    },
+    "ending": {
+      "days": 15,
+      "scores": {
+        "min": 33,
+        "p10": 39,
+        "median": 54,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.8
+      },
+      "labels": {
+        "Active": 5,
+        "Moderate": 8,
+        "Reserved": 2
+      }
+    },
+    "peak": {
+      "days": 24,
+      "scores": {
+        "min": 62,
+        "p10": 64,
+        "median": 79,
+        "p90": 88,
+        "max": 88,
+        "mean": 75.04
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 8
+      }
+    },
+    "post_run": {
+      "days": 10,
+      "scores": {
+        "min": 28,
+        "p10": 28,
+        "median": 32,
+        "p90": 38,
+        "max": 40,
+        "mean": 32.5
+      },
+      "labels": {
+        "Moderate": 1,
+        "Reserved": 9
+      }
+    },
+    "pre_run": {
+      "days": 18,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 23,
+        "p90": 65,
+        "max": 69,
+        "mean": 30.22
+      },
+      "labels": {
+        "Active": 3,
+        "Inactive": 9,
+        "Moderate": 1,
+        "Reserved": 5
+      }
+    },
+    "tapering": {
+      "days": 39,
+      "scores": {
+        "min": 51,
+        "p10": 54,
+        "median": 76,
+        "p90": 86,
+        "max": 90,
+        "mean": 72.62
+      },
+      "labels": {
+        "Active": 21,
+        "Highly active": 10,
+        "Moderate": 8
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 22,
+      "samples": 22,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 19,
+        "p90": 19,
+        "max": 23,
+        "mean": 19.05
+      },
+      "labelShares": {
+        "Inactive": 90.91,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 22,
+      "samples": 22,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 18,
+        "p90": 19,
+        "max": 21,
+        "mean": 18.55
+      },
+      "labelShares": {
+        "Inactive": 90.91,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 22,
+      "samples": 22,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 18,
+        "p90": 19,
+        "max": 21,
+        "mean": 18.5
+      },
+      "labelShares": {
+        "Inactive": 90.91,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 22,
+      "samples": 22,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 19,
+        "p90": 19,
+        "max": 22,
+        "mean": 19
+      },
+      "labelShares": {
+        "Inactive": 90.91,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 22,
+      "samples": 88,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 19,
+        "p90": 19,
+        "max": 23,
+        "mean": 18.77
+      },
+      "labelShares": {
+        "Inactive": 90.91,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 53,
+      "samples": 53,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 23,
+        "p90": 72,
+        "max": 92,
+        "mean": 38.85
+      },
+      "labelShares": {
+        "Active": 24.53,
+        "Highly active": 7.55,
+        "Inactive": 43.4,
+        "Moderate": 5.66,
+        "Reserved": 18.87
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 53,
+      "samples": 53,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 22,
+        "p90": 71,
+        "max": 93,
+        "mean": 36.89
+      },
+      "labelShares": {
+        "Active": 20.75,
+        "Highly active": 5.66,
+        "Inactive": 39.62,
+        "Moderate": 11.32,
+        "Reserved": 22.64
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 53,
+      "samples": 53,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 21,
+        "p90": 70,
+        "max": 91,
+        "mean": 36.75
+      },
+      "labelShares": {
+        "Active": 18.87,
+        "Highly active": 5.66,
+        "Inactive": 43.4,
+        "Moderate": 13.21,
+        "Reserved": 18.87
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 53,
+      "samples": 53,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 22,
+        "p90": 74,
+        "max": 85,
+        "mean": 38.26
+      },
+      "labelShares": {
+        "Active": 26.42,
+        "Highly active": 5.66,
+        "Inactive": 41.51,
+        "Moderate": 5.66,
+        "Reserved": 20.75
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 53,
+      "samples": 212,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 22,
+        "p90": 71,
+        "max": 93,
+        "mean": 37.69
+      },
+      "labelShares": {
+        "Active": 22.64,
+        "Highly active": 6.13,
+        "Inactive": 41.98,
+        "Moderate": 8.96,
+        "Reserved": 20.28
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 31,
+        "p10": 40,
+        "median": 54,
+        "p90": 68,
+        "max": 70,
+        "mean": 53.27
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Moderate": 60,
+        "Reserved": 6.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 33,
+        "p10": 40,
+        "median": 53,
+        "p90": 68,
+        "max": 68,
+        "mean": 52.87
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Moderate": 60,
+        "Reserved": 6.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 35,
+        "p10": 35,
+        "median": 53,
+        "p90": 68,
+        "max": 70,
+        "mean": 53.4
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Moderate": 46.67,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 15,
+      "samples": 15,
+      "scores": {
+        "min": 28,
+        "p10": 40,
+        "median": 53,
+        "p90": 66,
+        "max": 68,
+        "mean": 53.2
+      },
+      "labelShares": {
+        "Active": 40,
+        "Moderate": 53.33,
+        "Reserved": 6.67
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 15,
+      "samples": 60,
+      "scores": {
+        "min": 28,
+        "p10": 40,
+        "median": 53,
+        "p90": 68,
+        "max": 70,
+        "mean": 53.18
+      },
+      "labelShares": {
+        "Active": 35,
+        "Moderate": 55,
+        "Reserved": 10
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 24,
+      "samples": 24,
+      "scores": {
+        "min": 64,
+        "p10": 65,
+        "median": 80,
+        "p90": 84,
+        "max": 87,
+        "mean": 75.58
+      },
+      "labelShares": {
+        "Active": 50,
+        "Highly active": 50
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 24,
+      "samples": 24,
+      "scores": {
+        "min": 58,
+        "p10": 59,
+        "median": 74,
+        "p90": 88,
+        "max": 89,
+        "mean": 71.54
+      },
+      "labelShares": {
+        "Active": 62.5,
+        "Highly active": 16.67,
+        "Moderate": 20.83
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 24,
+      "samples": 24,
+      "scores": {
+        "min": 57,
+        "p10": 58,
+        "median": 74,
+        "p90": 88,
+        "max": 89,
+        "mean": 72.58
+      },
+      "labelShares": {
+        "Active": 50,
+        "Highly active": 29.17,
+        "Moderate": 20.83
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 24,
+      "samples": 24,
+      "scores": {
+        "min": 64,
+        "p10": 65,
+        "median": 78,
+        "p90": 87,
+        "max": 88,
+        "mean": 75.33
+      },
+      "labelShares": {
+        "Active": 54.17,
+        "Highly active": 45.83
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 24,
+      "samples": 96,
+      "scores": {
+        "min": 57,
+        "p10": 61,
+        "median": 74,
+        "p90": 87,
+        "max": 89,
+        "mean": 73.76
+      },
+      "labelShares": {
+        "Active": 54.17,
+        "Highly active": 35.42,
+        "Moderate": 10.42
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 28,
+        "p10": 28,
+        "median": 33,
+        "p90": 38,
+        "max": 40,
+        "mean": 32.4
+      },
+      "labelShares": {
+        "Moderate": 10,
+        "Reserved": 90
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 24,
+        "p10": 26,
+        "median": 32,
+        "p90": 38,
+        "max": 39,
+        "mean": 31.1
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 25,
+        "p10": 26,
+        "median": 31,
+        "p90": 38,
+        "max": 40,
+        "mean": 31.2
+      },
+      "labelShares": {
+        "Moderate": 10,
+        "Reserved": 90
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 26,
+        "p10": 28,
+        "median": 33,
+        "p90": 38,
+        "max": 40,
+        "mean": 32.4
+      },
+      "labelShares": {
+        "Moderate": 10,
+        "Reserved": 90
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 10,
+      "samples": 40,
+      "scores": {
+        "min": 24,
+        "p10": 26,
+        "median": 31,
+        "p90": 38,
+        "max": 40,
+        "mean": 31.78
+      },
+      "labelShares": {
+        "Moderate": 7.5,
+        "Reserved": 92.5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 18,
+      "samples": 18,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 23,
+        "p90": 65,
+        "max": 68,
+        "mean": 30.22
+      },
+      "labelShares": {
+        "Active": 16.67,
+        "Inactive": 50,
+        "Moderate": 5.56,
+        "Reserved": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 18,
+      "samples": 18,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 22,
+        "p90": 59,
+        "max": 63,
+        "mean": 28.78
+      },
+      "labelShares": {
+        "Active": 11.11,
+        "Inactive": 50,
+        "Moderate": 11.11,
+        "Reserved": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 18,
+      "samples": 18,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 22,
+        "p90": 64,
+        "max": 71,
+        "mean": 29.67
+      },
+      "labelShares": {
+        "Active": 16.67,
+        "Inactive": 50,
+        "Moderate": 5.56,
+        "Reserved": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 18,
+      "samples": 18,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 23,
+        "p90": 65,
+        "max": 68,
+        "mean": 30.22
+      },
+      "labelShares": {
+        "Active": 16.67,
+        "Inactive": 50,
+        "Moderate": 5.56,
+        "Reserved": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 18,
+      "samples": 72,
+      "scores": {
+        "min": 18,
+        "p10": 19,
+        "median": 22,
+        "p90": 65,
+        "max": 71,
+        "mean": 29.72
+      },
+      "labelShares": {
+        "Active": 15.28,
+        "Inactive": 50,
+        "Moderate": 6.94,
+        "Reserved": 27.78
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 39,
+      "samples": 39,
+      "scores": {
+        "min": 49,
+        "p10": 55,
+        "median": 76,
+        "p90": 85,
+        "max": 89,
+        "mean": 72.87
+      },
+      "labelShares": {
+        "Active": 53.85,
+        "Highly active": 25.64,
+        "Moderate": 20.51
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 39,
+      "samples": 39,
+      "scores": {
+        "min": 46,
+        "p10": 52,
+        "median": 74,
+        "p90": 86,
+        "max": 89,
+        "mean": 70.95
+      },
+      "labelShares": {
+        "Active": 56.41,
+        "Highly active": 23.08,
+        "Moderate": 20.51
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 39,
+      "samples": 39,
+      "scores": {
+        "min": 46,
+        "p10": 50,
+        "median": 73,
+        "p90": 84,
+        "max": 90,
+        "mean": 70.23
+      },
+      "labelShares": {
+        "Active": 48.72,
+        "Highly active": 28.21,
+        "Moderate": 23.08
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 39,
+      "samples": 39,
+      "scores": {
+        "min": 49,
+        "p10": 57,
+        "median": 74,
+        "p90": 83,
+        "max": 91,
+        "mean": 72
+      },
+      "labelShares": {
+        "Active": 56.41,
+        "Highly active": 25.64,
+        "Moderate": 17.95
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 39,
+      "samples": 156,
+      "scores": {
+        "min": 46,
+        "p10": 53,
+        "median": 74,
+        "p90": 85,
+        "max": 91,
+        "mean": 71.51
+      },
+      "labelShares": {
+        "Active": 53.85,
+        "Highly active": 25.64,
+        "Moderate": 20.51
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-28..10-31",
+      "days": 8,
+      "scores": {
+        "min": 70,
+        "p10": 71,
+        "median": 79,
+        "p90": 79,
+        "max": 83,
+        "mean": 75.75
+      },
+      "labels": {
+        "Active": 7,
+        "Highly active": 1
+      },
+      "maximumBlock": 87
+    },
+    "taperingEarly": {
+      "window": "11-01..11-04",
+      "days": 8,
+      "scores": {
+        "min": 72,
+        "p10": 72,
+        "median": 82,
+        "p90": 88,
+        "max": 90,
+        "mean": 80.63
+      },
+      "labels": {
+        "Active": 3,
+        "Highly active": 5
+      },
+      "maximumBlock": 91
+    },
+    "taperingLate": {
+      "window": "11-17..11-20",
+      "days": 7,
+      "scores": {
+        "min": 52,
+        "p10": 54,
+        "median": 72,
+        "p90": 76,
+        "max": 77,
+        "mean": 67.57
+      },
+      "labels": {
+        "Active": 5,
+        "Moderate": 2
+      },
+      "maximumBlock": 78
+    },
+    "endingEarly": {
+      "window": "11-21..11-24",
+      "days": 6,
+      "scores": {
+        "min": 48,
+        "p10": 49,
+        "median": 66,
+        "p90": 69,
+        "max": 69,
+        "mean": 60.33
+      },
+      "labels": {
+        "Active": 4,
+        "Moderate": 2
+      },
+      "maximumBlock": 70
+    },
+    "endingLate": {
+      "window": "12-07..12-10",
+      "days": 4,
+      "scores": {
+        "min": 28,
+        "p10": 28,
+        "median": 28,
+        "p90": 33,
+        "max": 33,
+        "mean": 29.25
+      },
+      "labels": {
+        "Reserved": 4
+      },
+      "maximumBlock": 33
+    },
+    "residualTail": {
+      "window": "12-11..12-10",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "below45F": {
+      "days": 29,
+      "scores": {
+        "min": 28,
+        "p10": 29,
+        "median": 48,
+        "p90": 58,
+        "max": 69,
+        "mean": 45.45
+      },
+      "labels": {
+        "Active": 2,
+        "Moderate": 16,
+        "Reserved": 11
+      }
+    },
+    "from45To60F": {
+      "days": 68,
+      "scores": {
+        "min": 56,
+        "p10": 64,
+        "median": 76,
+        "p90": 86,
+        "max": 90,
+        "mean": 74.79
+      },
+      "labels": {
+        "Active": 48,
+        "Highly active": 19,
+        "Moderate": 1
+      }
+    },
+    "from60To64F": {
+      "days": 15,
+      "scores": {
+        "min": 48,
+        "p10": 55,
+        "median": 65,
+        "p90": 85,
+        "max": 91,
+        "mean": 66.07
+      },
+      "labels": {
+        "Active": 9,
+        "Highly active": 2,
+        "Moderate": 4
+      }
+    },
+    "from64To68F": {
+      "days": 17,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 23,
+        "p90": 24,
+        "max": 25,
+        "mean": 22.76
+      },
+      "labels": {
+        "Reserved": 17
+      }
+    },
+    "atLeast68F": {
+      "days": 52,
+      "scores": {
+        "min": 18,
+        "p10": 18,
+        "median": 19,
+        "p90": 19,
+        "max": 20,
+        "mean": 18.71
+      },
+      "labels": {
+        "Inactive": 51,
+        "Reserved": 1
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 50,
+        "percent": 10
+      },
+      "meaningfulRise24h": {
+        "absolute": 150,
+        "percent": 28
+      },
+      "sharpRise24h": {
+        "absolute": 370,
+        "percent": 57
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 1,
+      "p10": 2,
+      "median": 32,
+      "p90": 128,
+      "max": 408,
+      "mean": 53.12
+    },
+    "positivePercentChange": {
+      "min": 0.41,
+      "p10": 0.88,
+      "median": 12.01,
+      "p90": 46.38,
+      "max": 211.4,
+      "mean": 20.14
+    },
+    "signals": {
+      "falling": 22,
+      "meaningful_rise": 3,
+      "rising": 10,
+      "sharp_rise": 1,
+      "stable": 145
+    }
+  },
+  "bestBlocks": {
+    "05-09": 127,
+    "09-13": 18,
+    "13-17": 19,
+    "17-21": 17
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 3,
+    "p90": 9,
+    "max": 14,
+    "mean": 4.01
+  },
+  "daysWithSpreadAtLeast10": 13,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-10-24",
+      "stage": "peak",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": 57.2,
+      "flowCfs": 148,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.67,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-11-07",
+      "stage": "tapering",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "waterTempF": 48.74,
+      "flowCfs": 238,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 18,
+      "flowPercentChange24h": 8.18,
+      "temperatureSignal": "warming",
+      "spread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 41,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2025-11-15",
+      "stage": "tapering",
+      "staging": false,
+      "score": 64,
+      "label": "Active",
+      "waterTempF": 47.66,
+      "flowCfs": 218,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "strong_warming",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 69,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2024-10-23",
+      "stage": "peak",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 58.28,
+      "flowCfs": 149,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -3,
+      "flowPercentChange24h": -1.97,
+      "temperatureSignal": "neutral",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 55,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-11-17",
+      "stage": "tapering",
+      "staging": false,
+      "score": 54,
+      "label": "Moderate",
+      "waterTempF": 41,
+      "flowCfs": 218,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "cooling",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 31,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2024-10-21",
+      "stage": "peak",
+      "staging": false,
+      "score": 67,
+      "label": "Active",
+      "waterTempF": 58.64,
+      "flowCfs": 156,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -1.27,
+      "temperatureSignal": "warming",
+      "spread": 11,
+      "bestBlock": "13-17",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 34,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 1–5 PM: The measured water temperature is favorable for Coho. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 1–5 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-11-26",
+      "stage": "ending",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": 45.86,
+      "flowCfs": 730,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -74,
+      "flowPercentChange24h": -9.2,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 70,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting."
+    },
+    {
+      "date": "2025-10-16",
+      "stage": "building",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 59.72,
+      "flowCfs": 230,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 1,
+      "flowPercentChange24h": 0.44,
+      "temperatureSignal": "neutral",
+      "spread": 11,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 16,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-10-31",
+      "stage": "peak",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 60.08,
+      "flowCfs": 176,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 26,
+      "flowPercentChange24h": 17.33,
+      "temperatureSignal": "strong_warming",
+      "spread": 10,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.15,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 51,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 43,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-11-01",
+      "stage": "tapering",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 56.66,
+      "flowCfs": 200,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 24,
+      "flowPercentChange24h": 13.64,
+      "temperatureSignal": "strong_cooling",
+      "spread": 10,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 64,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 43,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Coho. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2024-11-29",
+      "stage": "ending",
+      "staging": false,
+      "score": 45,
+      "label": "Moderate",
+      "waterTempF": 41.18,
+      "flowCfs": 525,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -70,
+      "flowPercentChange24h": -11.76,
+      "temperatureSignal": "cooling",
+      "spread": 10,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 43,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting."
+    },
+    {
+      "date": "2025-10-18",
+      "stage": "building",
+      "staging": false,
+      "score": 68,
+      "label": "Active",
+      "waterTempF": 63.68,
+      "flowCfs": 263,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -6,
+      "flowPercentChange24h": -2.23,
+      "temperatureSignal": "strong_warming",
+      "spread": 10,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 66,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

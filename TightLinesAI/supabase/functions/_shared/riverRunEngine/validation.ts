@@ -1,6 +1,7 @@
 import { getMovementEngineDefinition } from "./config/movementEngines.ts";
 import { isValidRefreshSlot } from "./snapshot/refreshSlots.ts";
 import type {
+  ActivityRules,
   GreatLakesState,
   MovementEngineId,
   RiverMetric,
@@ -38,6 +39,7 @@ const SPECIES: readonly RiverRunSpecies[] = [
 ];
 const RUN_TYPES: readonly RunType[] = [
   "fall_spawn",
+  "fall_repeat_spawn",
   "fall_entry",
   "winter_run",
   "spring_spawn",
@@ -46,6 +48,7 @@ const RUN_TYPES: readonly RunType[] = [
 ];
 const MOVEMENT_ENGINES: readonly MovementEngineId[] = [
   "fall_cooling",
+  "fall_repeat_spawner_cooling",
   "fall_entry_cooling",
   "spring_warming",
   "winter_thaw",
@@ -315,6 +318,7 @@ function validateRiverFoundation(
     "chinook_salmon",
     "coho_salmon",
     "steelhead",
+    "lake_run_brown_trout",
   ] as const;
   if (
     !Array.isArray(targetSpecies) ||
@@ -752,6 +756,48 @@ function validateTemperatureSources(
   issues: RiverRunValidationIssue[],
 ): void {
   const capability = river.conditionDataCapabilities?.waterTemperature;
+  const historical = river.historicalWaterTemperatureSource;
+  if (historical) {
+    if (
+      historical.provider !== "USGS" || !hasText(historical.sourceId) ||
+      !hasText(historical.siteId) || !hasText(historical.name) ||
+      !hasText(historical.baselineVersion) || !hasText(historical.reachNotes) ||
+      !hasText(historical.attribution) ||
+      !Number.isInteger(historical.historicalStartYear) ||
+      !Number.isInteger(historical.historicalEndYear) ||
+      historical.historicalEndYear < historical.historicalStartYear ||
+      !historical.normals || Object.keys(historical.normals).length === 0
+    ) {
+      issues.push(
+        issue(
+          "historicalWaterTemperatureSource",
+          "Historical-only water temperature requires an audited USGS identity, fixed years, provenance, baseline version, and exact-date normals.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    for (const [monthDay, normal] of Object.entries(historical.normals ?? {})) {
+      if (
+        !/^\d{2}-\d{2}$/.test(monthDay) ||
+        !hasNumber(normal.averageF) || !hasNumber(normal.p10F) ||
+        !hasNumber(normal.p25F) || !hasNumber(normal.medianF) ||
+        !hasNumber(normal.p75F) || !hasNumber(normal.p90F) ||
+        !Number.isInteger(normal.historicalYears) ||
+        normal.historicalYears < 2 || !Number.isInteger(normal.sampleCount) ||
+        normal.sampleCount < 1 || !Array.isArray(normal.years) ||
+        normal.years.length !== normal.historicalYears
+      ) {
+        issues.push(
+          issue(
+            `historicalWaterTemperatureSource.normals.${monthDay}`,
+            "Historical exact-date water-temperature normals require ordered numeric statistics and at least two qualifying years.",
+            "temperature_source_invalid",
+          ),
+        );
+        break;
+      }
+    }
+  }
   if (capability?.status === "unavailable") {
     if (
       !Array.isArray(river.waterTemperatureSources) ||
@@ -1082,6 +1128,24 @@ function validateActivityRules(
     );
     return;
   }
+  const expectedProfileBySpecies: Partial<
+    Record<RiverRunProfile["species"], ActivityRules["profile"]>
+  > = {
+    chinook_salmon: "chinook_fall_reaction",
+    coho_salmon: "coho_fall_reaction",
+    steelhead: "steelhead_feeding",
+    lake_run_brown_trout: "brown_trout_fall_reaction",
+  };
+  const expectedProfile = expectedProfileBySpecies[run.species];
+  if (expectedProfile && rules.profile !== expectedProfile) {
+    issues.push(
+      issue(
+        "activity.profile",
+        `Activity profile ${rules.profile} is incompatible with ${run.species}; expected ${expectedProfile}.`,
+        "config_invalid_value",
+      ),
+    );
+  }
   const weights = Object.values(rules.weights);
   const total = weights.reduce((sum, value) => sum + value, 0);
   if (
@@ -1370,6 +1434,20 @@ function validateActivityRules(
         ),
       );
     }
+  }
+  if (
+    rules.caps.warmWaterMaximum !== undefined &&
+    (!Number.isFinite(rules.caps.warmWaterMaximum) ||
+      rules.caps.warmWaterMaximum < 1 ||
+      rules.caps.warmWaterMaximum > 69)
+  ) {
+    issues.push(
+      issue(
+        "activity.caps.warmWaterMaximum",
+        "An audited warm-water Activity maximum must stay between 1 and 69.",
+        "config_invalid_value",
+      ),
+    );
   }
 }
 

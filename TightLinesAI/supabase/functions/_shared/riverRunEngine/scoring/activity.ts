@@ -301,7 +301,10 @@ export function scoreActivity(input: {
       input.waterTempF != null &&
       input.waterTempF >= input.rules.temperature.warmF
     ) {
-      score = proportionalCeiling(score, 39);
+      score = proportionalCeiling(
+        score,
+        input.rules.caps.warmWaterMaximum ?? 39,
+      );
     }
     if (input.flowBand === "blown_out") {
       score = proportionalCeiling(score, 19);
@@ -338,7 +341,9 @@ export function scoreActivity(input: {
     );
     // A stage prior may soften an otherwise over-dominant environmental
     // distribution, but it must never bypass the accepted hard-condition caps.
-    if (input.rules.stageResponseAdjustment) {
+    const appliedStageResponseAdjustment =
+      input.rules.stageResponseAdjustment?.[input.runStage] ?? 0;
+    if (appliedStageResponseAdjustment > 0) {
       const finalDataCeilings = [
         ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
         ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
@@ -356,7 +361,10 @@ export function scoreActivity(input: {
         input.waterTempF != null &&
         input.waterTempF >= input.rules.temperature.warmF
       ) {
-        score = Math.min(score, 39);
+        score = Math.min(
+          score,
+          input.rules.caps.warmWaterMaximum ?? 39,
+        );
       }
       if (input.flowBand === "blown_out") score = Math.min(score, 19);
     }
@@ -499,7 +507,7 @@ export function scoreActivity(input: {
   const score = Math.round(
     averageScore * 0.5 + sorted[0].score * 0.25 + sorted[1].score * 0.25,
   );
-  const late = input.rules.profile !== "steelhead_feeding" &&
+  const late = isTerminalSalmonProfile(input.rules.profile) &&
     (input.runStage === "tapering" || input.runStage === "ending" ||
       input.runStage === "post_run");
   const conditionalPresence = input.staging;
@@ -665,6 +673,8 @@ function activityCopy(input: {
     ? weatherOnlyTip(input.profile, input.stage, input.bestBlock.label)
     : input.profile === "steelhead_feeding"
     ? steelheadTip(input.stage, input.bestBlock.label)
+    : input.profile === "brown_trout_fall_reaction"
+    ? brownTroutTip(input.stage, input.bestBlock.label)
     : input.stage === "tapering"
     ? `Compare the four time windows, but treat every difference as conditional on finding a living ${species} still capable of responding.`
     : input.stage === "ending" || input.stage === "post_run"
@@ -977,6 +987,9 @@ function pmActivityLifecyclePoint(
   if (profile === "steelhead_feeding") {
     return "Cold late-fall water can shorten response windows without meaning Steelhead have left the river.";
   }
+  if (profile === "brown_trout_fall_reaction") {
+    return "Late-run Brown Trout remain living repeat spawners; responsiveness can change without proving that fish died or left the river.";
+  }
   const species = activitySpecies(profile);
   return `Late-run ${species} condition varies widely, so individual fish may respond above or below this outlook.`;
 }
@@ -1088,7 +1101,10 @@ function temperatureScore(
   trend: RawTemperatureTrendSignal,
 ): number {
   if (temp == null) return 50;
-  if (rules.profile === "steelhead_feeding") {
+  if (
+    rules.profile === "steelhead_feeding" ||
+    rules.profile === "brown_trout_fall_reaction"
+  ) {
     let score = temp < rules.temperature.preferredMinF
       ? interpolateClamped(
         temp,
@@ -1190,7 +1206,7 @@ function riverScore(
       blown_out: 8,
     } as Record<string, number>)[band] ?? 55;
   if (
-    profile !== "steelhead_feeding" &&
+    isTerminalSalmonProfile(profile) &&
     (signal === "rising" || signal === "meaningful_rise")
   ) score += 5;
   if (signal === "sharp_rise" || signal === "falling") score -= 8;
@@ -1293,7 +1309,7 @@ function salmonFloorStrength(
   stage: RunStage,
   targetDate: string,
 ): number {
-  if (rules.profile === "steelhead_feeding") return 0;
+  if (!isTerminalSalmonProfile(rules.profile)) return 0;
   const ramp = rules.caps.lifecycleRamp;
   if (!ramp) {
     return stage === "tapering" || stage === "ending" || stage === "post_run"
@@ -1311,7 +1327,7 @@ function applySalmonLifecycleAdjustment(
   targetDate: string,
   score: number,
 ): number {
-  if (rules.profile === "steelhead_feeding") return score;
+  if (!isTerminalSalmonProfile(rules.profile)) return score;
   const penalty = rules.caps.taperingPenalty;
   const ramp = rules.caps.lifecycleRamp;
   if (ramp && penalty != null) {
@@ -1400,6 +1416,8 @@ function activitySpecies(profile: ActivityRules["profile"]): string {
     ? "Coho"
     : profile === "steelhead_feeding"
     ? "Steelhead"
+    : profile === "brown_trout_fall_reaction"
+    ? "lake-run Brown Trout"
     : "Chinook";
 }
 
@@ -1451,6 +1469,18 @@ function lifecycleCopy(
     }
     return "The score describes feeding or aggressive responsiveness for a Steelhead already present, not the number of fish in the river.";
   }
+  if (profile === "brown_trout_fall_reaction") {
+    if (stage === "beginning") {
+      return "Early lake-run Brown Trout can remain reactive as they enter the lower river; this score applies only to a fish already present.";
+    }
+    if (stage === "building" || stage === "peak") {
+      return "This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance.";
+    }
+    if (stage === "tapering" || stage === "ending" || stage === "post_run") {
+      return "Post-spawn lake-run Brown Trout remain living repeat spawners. An individual may hold in the river or return lakeward, and responsiveness can vary without implying death or departure.";
+    }
+    return "The score describes feeding or aggressive responsiveness for a lake-run Brown Trout already present, not the number of fish in the river.";
+  }
   if (profile === "chinook_fall_reaction") {
     return stage === "beginning"
       ? "Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential."
@@ -1472,6 +1502,18 @@ function steelheadTip(stage: RunStage, bestBlockLabel: string): string {
     return `Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.`;
   }
   return `Start with ${bestBlockLabel}. If conditions change, favor the window that best combines workable light with measured water temperature.`;
+}
+
+function brownTroutTip(stage: RunStage, bestBlockLabel: string): string {
+  if (stage === "tapering" || stage === "ending" || stage === "post_run") {
+    return `Compare the four time windows, but do not treat a lower late-season read as proof that Brown Trout died or left the river.`;
+  }
+  return `Start with ${bestBlockLabel}. Keep this responsiveness outlook separate from abundance and migration stage.`;
+}
+
+function isTerminalSalmonProfile(profile: ActivityRules["profile"]): boolean {
+  return profile === "chinook_fall_reaction" ||
+    profile === "coho_fall_reaction";
 }
 
 function interpolateClamped(

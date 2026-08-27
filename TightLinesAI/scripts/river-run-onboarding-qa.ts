@@ -83,14 +83,6 @@ assert(
   expectedRivers.size === 0,
   `Missing rivers: ${[...expectedRivers].join(", ")}`,
 );
-assert(
-  RIVER_RUN_DRAFT_RIVER_PROFILES.length === 0,
-  "No hidden draft foundations should remain after release.",
-);
-assert(
-  RIVER_RUN_DRAFT_RUN_PROFILES.length === 0,
-  "No hidden draft runs should remain after release.",
-);
 for (const river of RIVER_RUN_DRAFT_RIVER_PROFILES) {
   const result = validateRiverProfile(river);
   assert(result.valid, `${river.riverId} draft foundation is invalid.`);

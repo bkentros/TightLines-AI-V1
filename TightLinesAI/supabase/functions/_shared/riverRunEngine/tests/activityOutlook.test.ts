@@ -331,6 +331,45 @@ Deno.test("audited stage response shapes scores without bypassing temperature ca
   );
 });
 
+Deno.test("negative-only stage response is a literal nudge, not an extra confidence ceiling", () => {
+  const date = "2026-09-20";
+  const baseRules = {
+    ...weatherOnlyRules,
+    caps: {
+      ...weatherOnlyRules.caps,
+      noMeasuredRiverData: 90,
+      noWaterTemperature: 90,
+      weatherOnlyMaximum: 90,
+      stageResponseMaximum: 90,
+    },
+  };
+  const input = {
+    requestDate: date,
+    targetDate: date,
+    runStage: "beginning" as const,
+    staging: false,
+    waterTempF: null,
+    temperatureTrend: "neutral_missing" as const,
+    gaugeFreshness: "missing" as const,
+    weatherFreshness: "fresh" as const,
+    flowSignal: "unknown" as const,
+    hourlyWeather: weather(date, 100),
+  };
+  const baseline = scoreActivity({ rules: baseRules, ...input });
+  const reduced = scoreActivity({
+    rules: {
+      ...baseRules,
+      stageResponseAdjustment: { beginning: -5 },
+    },
+    ...input,
+  });
+
+  assertEquals(
+    reduced.blocks.map((block) => block.score),
+    baseline.blocks.map((block) => block.score - 5),
+  );
+});
+
 Deno.test("PM Chinook Activity produces four conditional staging windows", () => {
   const result = scoreActivity({
     rules,

@@ -279,6 +279,11 @@ export async function handleRiverRunRequest(
   }
   const url = new URL(req.url);
   if (
+    req.method === "GET" && url.pathname.endsWith("/review/rivers")
+  ) {
+    return await handleOwnerReviewCatalog(req, deps);
+  }
+  if (
     req.method === "GET" && url.pathname.endsWith("/review/snapshot")
   ) {
     return await handleOwnerReviewSnapshot(req, url, deps);
@@ -505,6 +510,77 @@ export async function handleRiverRunRequest(
       503,
     );
   }
+}
+
+async function handleOwnerReviewCatalog(
+  req: Request,
+  deps: RiverRunHandlerDeps,
+): Promise<Response> {
+  const client = deps.createAdminClient?.() ?? createDefaultAdminClient();
+  const auth = await authenticateSnapshotRequest(req, client);
+  if (auth instanceof Response) return auth;
+  if (!isAdminEmail(auth.email)) {
+    return jsonError(
+      "Owner-review access is restricted.",
+      "river_run_review_forbidden",
+      403,
+    );
+  }
+
+  const riversById = new Map(
+    [...RIVER_RUN_RIVER_PROFILES, ...RIVER_RUN_DRAFT_RIVER_PROFILES].map(
+      (river) => [river.riverId, river],
+    ),
+  );
+  const runsById = new Map(
+    [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES].map(
+      (run) => [run.runId, run],
+    ),
+  );
+  const states = new Map<string, {
+    state: string;
+    rivers: Array<{
+      riverId: string;
+      displayName: string;
+      runs: Array<{
+        runId: string;
+        displayName: string;
+        species: string;
+        season: string;
+        supportStatus: string;
+      }>;
+    }>;
+  }>();
+
+  for (const river of riversById.values()) {
+    const riverRuns = [...runsById.values()]
+      .filter((run) => run.riverId === river.riverId)
+      .map((run) => ({
+        runId: run.runId,
+        displayName: run.displayName,
+        species: run.species,
+        season: run.season,
+        supportStatus: river.supportStatus,
+      }));
+    if (riverRuns.length === 0) continue;
+    const placements = river.presentationContexts?.length
+      ? river.presentationContexts
+      : [{ state: river.state, displayName: river.displayName }];
+    for (const placement of placements) {
+      const state = states.get(placement.state) ?? {
+        state: placement.state,
+        rivers: [],
+      };
+      state.rivers.push({
+        riverId: river.riverId,
+        displayName: placement.displayName ?? river.displayName,
+        runs: riverRuns,
+      });
+      states.set(placement.state, state);
+    }
+  }
+
+  return jsonResponse({ states: [...states.values()] });
 }
 
 async function handleOwnerReviewSnapshot(

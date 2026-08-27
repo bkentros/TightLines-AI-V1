@@ -30,6 +30,14 @@ export async function fetchRiverRunCatalog(): Promise<RiverRunCatalogResponse> {
   return riverRunGet<RiverRunCatalogResponse>("rivers");
 }
 
+export async function fetchRiverRunOwnerReviewCatalog(): Promise<
+  RiverRunCatalogResponse
+> {
+  return riverRunGet<RiverRunCatalogResponse>("review/rivers", undefined, {
+    requireAuth: true,
+  });
+}
+
 export async function fetchRiverRunSnapshot(
   params: RiverRunSnapshotParams,
 ): Promise<RiverRunSnapshotResponse> {
@@ -47,7 +55,7 @@ export async function fetchRiverRunOwnerReviewSnapshot(
 }
 
 async function riverRunGet<TResponse>(
-  path: "rivers" | "snapshot" | "review/snapshot",
+  path: "rivers" | "snapshot" | "review/rivers" | "review/snapshot",
   params?: Record<string, string>,
   options: { requireAuth?: boolean } = {},
 ): Promise<TResponse> {

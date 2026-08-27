@@ -19,6 +19,10 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   grand: "large",
   platte: "large",
   au_sable: "large",
+  milwaukee: "large",
+  sheboygan: "medium",
+  root: "medium",
+  bois_brule: "small",
 };
 
 export function getRiverRunRiverSize(

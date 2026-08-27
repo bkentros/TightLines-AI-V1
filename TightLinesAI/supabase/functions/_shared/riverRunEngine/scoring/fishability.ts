@@ -212,6 +212,27 @@ function fishabilityCopy(input: {
     };
   }
   const nilesScoped = input.sourceLabel === "Niles mainstem reach";
+  const estabrookScoped = input.sourceLabel ===
+    "Estabrook Park Urban Greenway reach";
+  if (estabrookScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } This read applies only near Estabrook Park in the Urban Greenway; it does not describe Milwaukee Harbor or the North Shore above Kletzsch.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify the water and legal access directly before carrying this presentation read elsewhere.`,
+    };
+  }
   if (nilesScoped) {
     return {
       headline: fishabilityHeadline(

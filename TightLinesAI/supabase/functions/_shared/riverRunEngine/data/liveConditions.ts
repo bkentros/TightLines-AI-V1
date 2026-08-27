@@ -179,6 +179,11 @@ export async function buildRiverLiveConditions(input: {
       freshness: read.freshness,
       seasonalContext: seasonal,
     }));
+  } else if (input.river.historicalWaterTemperatureSource) {
+    metrics.push(buildHistoricalTemperatureMetric({
+      source: input.river.historicalWaterTemperatureSource,
+      localDate: input.localDate,
+    }));
   }
 
   const availableCount =
@@ -196,6 +201,50 @@ export async function buildRiverLiveConditions(input: {
     metrics,
     limitation: input.river.gaugeLimitationCopy,
     dataVersion: RIVER_LIVE_CONDITIONS_VERSION,
+  };
+}
+
+function buildHistoricalTemperatureMetric(input: {
+  source: NonNullable<RiverProfile["historicalWaterTemperatureSource"]>;
+  localDate: string;
+}): RiverLiveConditionMetric {
+  const normal = input.source.normals[input.localDate.slice(5)];
+  return {
+    metric: "water_temp_f",
+    label: "Historical Water Temperature",
+    value: null,
+    unit: "°F",
+    freshness: "missing",
+    sourceId: input.source.sourceId,
+    provider: input.source.provider,
+    stationName: input.source.name,
+    siteId: input.source.siteId,
+    representedReach: input.source.reachNotes,
+    attribution: input.source.attribution,
+    trend24h: {
+      direction: "unknown",
+      delta: null,
+      percentDelta: null,
+    },
+    seasonalContext: normal
+      ? {
+        average: normal.averageF,
+        p10: normal.p10F,
+        p25: normal.p25F,
+        median: normal.medianF,
+        p75: normal.p75F,
+        p90: normal.p90F,
+        historicalYears: normal.historicalYears,
+        sampleCount: normal.sampleCount,
+        availableWindowDays: 1,
+        windowRadiusDays: 0,
+        windowStartMonthDay: input.localDate.slice(5),
+        windowEndMonthDay: input.localDate.slice(5),
+        recordKind: "recent",
+        baselineVersion: input.source.baselineVersion,
+        source: "usgs_approved_exact_date_archive",
+      }
+      : undefined,
   };
 }
 

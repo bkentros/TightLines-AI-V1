@@ -12,6 +12,22 @@ const expectedRuns = new Set([
   "white_fall_chinook",
   "white_fall_coho",
   "white_fall_steelhead",
+  "milwaukee_fall_chinook",
+  "milwaukee_fall_coho",
+  "milwaukee_fall_steelhead",
+  "milwaukee_fall_brown_trout",
+  "sheboygan_fall_chinook",
+  "sheboygan_fall_coho",
+  "sheboygan_fall_steelhead",
+  "sheboygan_fall_brown_trout",
+  "root_fall_chinook",
+  "root_fall_coho",
+  "root_fall_steelhead",
+  "root_fall_brown_trout",
+  "bois_brule_fall_chinook",
+  "bois_brule_fall_coho",
+  "bois_brule_fall_steelhead",
+  "bois_brule_fall_brown_trout",
 ]);
 
 assert.deepEqual(
@@ -69,7 +85,10 @@ for (
       typeof scenario.snapshot.activity?.score === "number"
     ),
   );
-  if (runId.startsWith("grand_")) {
+  if (
+    runId.startsWith("grand_") || runId.startsWith("milwaukee_") ||
+    runId.startsWith("white_")
+  ) {
     assert(
       activity.scenarios.some((scenario) =>
         scenario.snapshot.activity?.confidence === "Full"
@@ -77,9 +96,13 @@ for (
     );
     assert(
       activity.scenarios.every((scenario) =>
-        /downtown Grand Rapids mainstem/i.test(
-          scenario.snapshot.activity?.detail ?? "",
-        )
+        (runId.startsWith("grand_")
+          ? /downtown Grand Rapids mainstem/i
+          : runId.startsWith("milwaukee_")
+          ? /Urban Greenway near Estabrook Park/i
+          : /below-Hesperia corridor/i).test(
+            scenario.snapshot.activity?.detail ?? "",
+          )
       ),
     );
     for (
@@ -92,7 +115,7 @@ for (
       assert.equal(partial?.snapshot.activity?.confidence, "Moderate");
       assert(
         typeof partial?.snapshot.activity?.score === "number" &&
-          partial.snapshot.activity.score <= 64,
+          partial.snapshot.activity.score <= 69,
       );
     }
     const noRiverInputs = activity.scenarios.find((scenario) =>
@@ -147,7 +170,7 @@ for (
   }
 
   const fishability = groups.find((group) => group.id === "fishability")!;
-  if (runId.startsWith("platte_")) {
+  if (runId.startsWith("platte_") || runId.startsWith("bois_brule_")) {
     assert(
       fishability.scenarios.every((scenario) =>
         scenario.snapshot.fishability.label === "Unavailable" &&
@@ -168,15 +191,55 @@ for (
   }
 
   const conditions = groups.find((group) => group.id === "live_conditions")!;
-  assert(
-    conditions.scenarios.some((scenario) =>
-      scenario.snapshot.riverConditions?.status === "available"
-    ),
-  );
+  if (runId.startsWith("sheboygan_")) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "partial"
+      ),
+      `${runId} lacks its expected flow-only Gauge Read scenario`,
+    );
+    assert(
+      conditions.scenarios.every((scenario) =>
+        scenario.snapshot.riverConditions?.metrics.every((metric) =>
+          metric.metric !== "water_temperature_f"
+        )
+      ),
+      `${runId} must not imply a measured water temperature`,
+    );
+  } else if (runId.startsWith("root_")) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "partial" &&
+        scenario.snapshot.riverConditions.metrics.some((metric) =>
+          metric.metric === "water_temp_f"
+        )
+      ),
+      `${runId} lacks its expected separately sourced upper-river Gauge Read`,
+    );
+  } else if (runId.startsWith("bois_brule_")) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "partial" &&
+        scenario.snapshot.riverConditions.metrics.some((metric) =>
+          metric.metric === "water_temp_f" && metric.value === null &&
+          metric.seasonalContext?.windowRadiusDays === 0
+        )
+      ),
+      `${runId} lacks historical-only exact-date temperature context`,
+    );
+  } else {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "available"
+      ),
+      `${runId} lacks an available Gauge Read scenario`,
+    );
+  }
   assert(
     conditions.scenarios.some((scenario) =>
       scenario.snapshot.riverConditions?.status !== "available"
     ),
+    `${runId} lacks a degraded Gauge Read scenario`,
   );
 }
 
@@ -197,6 +260,42 @@ const whiteScenarios = Object.entries(
 ).filter(([runId]) => runId.startsWith("white_")).flatMap(([, groups]) =>
   groups.flatMap((group) => group.scenarios)
 );
+
+const milwaukeeScenarios = Object.entries(
+  RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID,
+).filter(([runId]) => runId.startsWith("milwaukee_")).flatMap(([, groups]) =>
+  groups.flatMap((group) => group.scenarios)
+);
+
+const sheboyganScenarios = Object.entries(
+  RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID,
+).filter(([runId]) => runId.startsWith("sheboygan_")).flatMap(([, groups]) =>
+  groups.flatMap((group) => group.scenarios)
+);
+assert(
+  sheboyganScenarios.every((scenario) =>
+    /I-43/i.test(scenario.snapshot.secondaryNote ?? "") &&
+    /Harbor/i.test(scenario.snapshot.secondaryNote ?? "") &&
+    /Waelderhaus/i.test(scenario.snapshot.secondaryNote ?? "")
+  ),
+);
+assert(
+  sheboyganScenarios.every((scenario) =>
+    /^Restrictions first:/.test(scenario.snapshot.runStage.whereToStart ?? "")
+  ),
+);
+assert(
+  milwaukeeScenarios.every((scenario) =>
+    /Estabrook Park/i.test(scenario.snapshot.secondaryNote ?? "") &&
+    /Harbor/i.test(scenario.snapshot.secondaryNote ?? "") &&
+    /North Shore/i.test(scenario.snapshot.secondaryNote ?? "")
+  ),
+);
+assert(
+  milwaukeeScenarios.every((scenario) =>
+    /^Restrictions first:/.test(scenario.snapshot.runStage.whereToStart ?? "")
+  ),
+);
 assert(
   whiteScenarios.every((scenario) =>
     /Fruitvale Road/i.test(scenario.snapshot.secondaryNote ?? "") &&
@@ -205,7 +304,7 @@ assert(
 );
 
 console.log(
-  `Grand, Platte, and White review-mode QA passed: ${
+  `Onboarding review-mode QA passed: ${
     Object.values(RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID).reduce(
       (total, groups) =>
         total + groups.reduce(

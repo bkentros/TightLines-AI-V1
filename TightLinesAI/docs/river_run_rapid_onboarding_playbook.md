@@ -1,9 +1,9 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth **Version:** 1.3 **Established:**
+**Status:** Normative source of truth **Version:** 1.4 **Established:**
 2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
 Researching, configuring, validating, reviewing, and handing off a new River Run
-river and its supported fall Chinook, Coho, and Steelhead runs
+river and its supported migratory salmonid runs
 
 **Version 1.1 learning source:** Grand, Platte, and White onboarding and
 Activity audit. It adds full-calendar evidence classification, ordinal strength
@@ -22,6 +22,10 @@ atomic commits, and clean synchronized handoff.
 Bois Brule onboarding wave. It makes approval gates mandatory for multi-river
 batches so shared research remains efficient without silently authorizing one
 continuous research-to-release implementation.
+
+**Version 1.4 learning source:** Wisconsin species-truth review. It adds an
+explicit facility-coverage audit before using weir/ladder/trap counts for
+strength and a provenance contract for owner-relayed local field calibration.
 
 **Current runtime boundary:** River Run presently supports the Great Lakes
 region, its configured state enum, and the implemented run/biology engines. A
@@ -383,6 +387,13 @@ endpoint; proving passage at the last dam does not prove passage through all
 earlier dams. Temporary weirs and signed exclusion zones can be product limits
 even when they are not permanent biological barriers.
 
+Keep three concepts separate: the physical/biological endpoint, the dependable
+opportunity distribution, and the reach represented by measurements. An access
+guide naming a species at one site—or omitting it at the next—is not exclusion
+evidence and must not be turned into a biological stop. A run may share the
+river's physical endpoint while remaining strongly lower-river weighted, and an
+observed score may cover only the gauge reach inside that larger corridor.
+
 An unresolved barrier ends the public corridor below it. Limited passage is not
 rewritten as impassable; product scope and biological passage remain distinct.
 
@@ -518,6 +529,21 @@ Complete a portfolio comparison before selecting it. At minimum compare:
 - Corridor length, concentration, and passage attrition.
 - Recency, trend, and whether evidence represents the mouth, one ladder, one
   reach, or the whole accessible river.
+
+For every weir, ladder, trap, or egg-take count, audit the actual operating
+window, capture efficiency, pre-installation passage, high-flow bypass, manual
+passage, and species/strain timing before using the series for relative
+strength. A small bounded facility sample is not proof of a small seasonal run,
+and a large sample is not automatically a whole-river census. Preserve the raw
+count as agency evidence, state what it sampled, and calibrate only the claim
+that its coverage can support.
+
+Local field knowledge may resolve a product-strength judgment when agency data
+establish recurrence but cannot measure the relevant opportunity. Record who
+supplied it, which river/species/season it covers, and whether effort and
+observation years are known. Treat it as an explicit owner/local calibration,
+not as a fish count or a substitute for agency biology, regulations, or source
+capability.
 
 Set `maximum` and `distributionScope` independently. A small run can be broad; a
 strong run can be concentrated. Record the closest lower and higher accepted
@@ -1021,6 +1047,8 @@ Before changing a future river, an agent must be able to state in its own words:
 - The river-level versus run-level split.
 - The barrier/passage fail-closed rule.
 - Why endpoints can differ by species and require a complete passage chain.
+- Why a physical endpoint, opportunity distribution, and measurement reach are
+  separate decisions.
 - Why migration, harvest, spawning, egg-take, and operations dates are not
   interchangeable.
 - Why run strength and distribution scope are separate portfolio calibrations.

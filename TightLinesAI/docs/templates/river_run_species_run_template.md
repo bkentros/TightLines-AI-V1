@@ -49,6 +49,10 @@ the run unresolved and hidden.
 - Direct evidence this species reaches/passes each intervening structure:
 - Structures with limited, seasonal, operational, or uncertain passage:
 - Biological endpoint versus regulation/access/product endpoint:
+- Opportunity distribution versus the physical endpoint:
+- Exact reach represented by any Activity/Fishability measurement:
+- Evidence that an apparent endpoint is affirmative exclusion rather than an
+  access-list omission:
 - Independent verifier/date:
 
 ### 1.2 Complete configuration-field inventory
@@ -58,17 +62,18 @@ profile, river profile, and any run-specific scoring rules. Add rows until every
 runtime-affecting field is represented; this starter list is not a closed
 schema.
 
-| Config path/field                                                      | Proposed value | Direct evidence IDs | Comparison runs and comparability | Owner calibration | Replay/test artifact | Status     |
-| ---------------------------------------------------------------------- | -------------- | ------------------- | --------------------------------- | ----------------- | -------------------- | ---------- |
-| identity / biology / lifecycle / movement engine                       |                |                     |                                   |                   |                      | unresolved |
-| primitiveCapabilities.*                                                |                |                     |                                   |                   |                      | unresolved |
-| runWindow.* (all boundaries)                                           |                |                     |                                   |                   |                      | unresolved |
-| handoff.*                                                              |                |                     |                                   |                   |                      | unresolved |
-| historicalPresence.maximum / distributionScope / anchors               |                |                     |                                   |                   |                      | unresolved |
-| activity.* (every source, weight, breakpoint, cap, ramp, missing rule) |                |                     |                                   |                   |                      | unresolved |
-| fishabilityBands.* / baselineCoverage.*                                |                |                     |                                   |                   |                      | unresolved |
-| waterTemperature.* / conditionsSuggest.*                               |                |                     |                                   |                   |                      | unresolved |
-| runStageCopyStrategy / userCopyHints / version and audit gates         |                |                     |                                   |                   |                      | unresolved |
+| Config path/field                                                        | Proposed value | Direct evidence IDs | Comparison runs and comparability | Owner calibration | Replay/test artifact | Status     |
+| ------------------------------------------------------------------------ | -------------- | ------------------- | --------------------------------- | ----------------- | -------------------- | ---------- |
+| identity / biology / lifecycle / movement engine                         |                |                     |                                   |                   |                      | unresolved |
+| primitiveCapabilities.*                                                  |                |                     |                                   |                   |                      | unresolved |
+| runWindow.* (all boundaries)                                             |                |                     |                                   |                   |                      | unresolved |
+| handoff.*                                                                |                |                     |                                   |                   |                      | unresolved |
+| historicalPresence.maximum / distributionScope / anchors                 |                |                     |                                   |                   |                      | unresolved |
+| activity.* (every source, weight, breakpoint, cap, ramp, missing rule)   |                |                     |                                   |                   |                      | unresolved |
+| activity historical overlap (exact source pair; modern complete seasons) |                |                     |                                   |                   |                      | unresolved |
+| fishabilityBands.* / baselineCoverage.*                                  |                |                     |                                   |                   |                      | unresolved |
+| waterTemperature.* / conditionsSuggest.*                                 |                |                     |                                   |                   |                      | unresolved |
+| runStageCopyStrategy / userCopyHints / version and audit gates           |                |                     |                                   |                   |                      | unresolved |
 
 **Code-to-packet reconciliation reviewer/date:**
 
@@ -86,6 +91,8 @@ both weaker and stronger accepted runs before selecting it.
 - Maximum confidence:
 - Distribution-scope confidence:
 - Evidence representing only one reach/ladder/weir:
+- Facility operating window, capture/bypass limits, and represented run phase:
+- Local field calibration source, season, observation years/effort, and limits:
 - Why adjacent ratings were accepted or rejected:
 
 ## 2. Seasonal calendar
@@ -183,13 +190,13 @@ station, construction/channel caveats, and excluded geography.
 
 ### Observed input/fallback contract
 
-| Available inputs | Confidence/result | Cap | Recovery behavior |
-| ---------------- | ----------------- | --- | ----------------- |
-| Weather + hydraulics + measured temperature | Full | | |
-| Weather + hydraulics only | Moderate / Unavailable | | |
-| Weather + measured temperature only | Moderate / Unavailable | | |
-| Weather only | Unavailable unless separately accepted weather-only rules exist | none | |
-| River inputs without target-day hourly weather | Unavailable | none | |
+| Available inputs                               | Confidence/result                                               | Cap  | Recovery behavior |
+| ---------------------------------------------- | --------------------------------------------------------------- | ---- | ----------------- |
+| Weather + hydraulics + measured temperature    | Full                                                            |      |                   |
+| Weather + hydraulics only                      | Moderate / Unavailable                                          |      |                   |
+| Weather + measured temperature only            | Moderate / Unavailable                                          |      |                   |
+| Weather only                                   | Unavailable unless separately accepted weather-only rules exist | none |                   |
+| River inputs without target-day hourly weather | Unavailable                                                     | none |                   |
 
 ### Proposed rules
 
@@ -200,17 +207,17 @@ station, construction/channel caveats, and excluded geography.
 | River behavior             |        |           |                          |
 | Precipitation context      |        |           |                          |
 
-| Temperature/lifecycle control          | Value/dates                              | Rationale                      |
-| -------------------------------------- | ---------------------------------------- | ------------------------------ |
-| Cold-side transition                   |                                          |                                |
-| Preferred minimum/maximum              |                                          |                                |
-| Warm constraint                        |                                          |                                |
-| Barrier constraint                     |                                          |                                |
-| Tapering transition                    |                                          |                                |
-| Ending transition                      |                                          |                                |
-| Residual/holding behavior              |                                          |                                |
-| Weather-only true maxima               |                                          |                                |
-| Missing-primary-evidence scale, if any |                                          |                                |
+| Temperature/lifecycle control          | Value/dates                              | Rationale                         |
+| -------------------------------------- | ---------------------------------------- | --------------------------------- |
+| Cold-side transition                   |                                          |                                   |
+| Preferred minimum/maximum              |                                          |                                   |
+| Warm constraint                        |                                          |                                   |
+| Barrier constraint                     |                                          |                                   |
+| Tapering transition                    |                                          |                                   |
+| Ending transition                      |                                          |                                   |
+| Residual/holding behavior              |                                          |                                   |
+| Weather-only true maxima               |                                          |                                   |
+| Missing-primary-evidence scale, if any |                                          |                                   |
 | Missing hourly weather                 | Unavailable; no score, blocks, or leader | Required for any four-block model |
 
 ### Required Activity replay report
@@ -223,11 +230,14 @@ station, construction/channel caveats, and excluded geography.
 - Beginning, Building, Peak, Tapering, Ending, and residual/holding
   stage-by-four-hour-block counts, min/p10/mean/median/p90/max, label shares,
   cap frequency, and confidence/missing-state notes.
-- Lifecycle-shape proof: Peak has the highest daily mean; Building and
-  Tapering are below and normally within 20 points of Peak; all outside-stage
-  means are lower without unexplained cliffs.
-- Any stage-response adjustment, its true maximum, before/after means, and
-  proof that warm, barrier, extreme-flow, and missing-data caps still hold.
+- Lifecycle-shape proof: Peak has the highest daily mean; Building and Tapering
+  are below and normally within 20 points of Peak; all outside-stage means are
+  lower without unexplained cliffs.
+- Any stage-response adjustment, its true maximum, before/after means, and proof
+  that warm, barrier, extreme-flow, and missing-data caps still hold.
+- Any non-default warm-water maximum, the threshold-boundary defect it corrects,
+  its replay delta, and proof that it remains below Active without weakening the
+  barrier ceiling.
 - Label distribution by lifecycle phase.
 - Best-block distribution and block-spread distribution.
 - Warm, cold, extreme-flow, and missing-data distributions.

@@ -138,8 +138,39 @@ export const GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE:
       "Michigan DNR steelhead profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead ; Workman et al. Pere Marquette telemetry reports water temperature as the dominant movement correlate and increased movement above approximately 4C/39F; Great Lakes tributary telemetry likewise documents near cessation of upstream movement near 4C. Temperature values are reusable Great Lakes fall-entry defaults; river dates, opportunity strength, sources, and hydraulics remain river-specific.",
   };
 
+export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE:
+  SpeciesBiologyProfile = {
+    biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
+    species: "lake_run_brown_trout",
+    commonName: "Lake-run brown trout",
+    scientificName: "Salmo trutta",
+    region: "great_lakes",
+    movementEngineId: "fall_repeat_spawner_cooling",
+    migrationPurpose: "spawning",
+    semelparous: false,
+    adultMigrationTemperature: {
+      coldHoldingF: 38,
+      supportiveMinF: 40,
+      preferredMinF: 44,
+      supportiveMaxF: 58,
+      tooWarmF: 64,
+      migrationBarrierF: 70,
+    },
+    environmentalResponse: {
+      risingFlow: "supportive_within_fishable_bounds",
+      precipitation: "precursor_only",
+      strongSignalRequiresMeasuredGaugeResponse: true,
+      peakFloodIsAutomaticallyPositive: false,
+    },
+    evidenceNotes:
+      "Great Lakes lake-run brown trout enter tributaries in fall to spawn. Unlike Chinook and Coho, they are repeat spawners: surviving adults may remain in tributary holding water or return to the lake after spawning. The engine therefore ends the tracked fall migration without applying salmon mortality or claiming all fish left the river.",
+    sourceNotes:
+      "Wisconsin DNR 2026 Fishing Report; Wisconsin DNR Lake Michigan trout and salmon questions; Wisconsin DNR Seeforellen brood program. Temperature values are conservative Great Lakes fall-migration defaults pending river-specific Activity replay.",
+  };
+
 export const RIVER_RUN_SPECIES_BIOLOGY_PROFILES: SpeciesBiologyProfile[] = [
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
 ];

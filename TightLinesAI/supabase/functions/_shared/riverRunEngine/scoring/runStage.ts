@@ -62,6 +62,7 @@ export function resolveRunStage(
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
   if (run.runStageCopyStrategy === "onboarding_corridor") {
     const fallEntry = run.runType === "fall_entry";
+    const repeatSpawner = run.runType === "fall_repeat_spawn";
     const baseCopy = fallEntry
       ? fallEntryStageCopy({
         stage,
@@ -89,6 +90,8 @@ export function resolveRunStage(
       window,
       label: fallEntry && stage === "post_run"
         ? "Fall entry complete"
+        : repeatSpawner && stage === "post_run"
+        ? "Fall migration complete"
         : fallEntry
         ? fallEntryStageLabel(stage, false)
         : stage === "post_run" && !latePostRunContext
@@ -102,11 +105,14 @@ export function resolveRunStage(
         broadBuildingContext,
         latePostRunContext,
         fallEntry,
+        repeatSpawner,
+        species: run.species,
         baseCopy,
       }),
       reasonCodes: [
         stageReasonCode(stage),
-        ...(stage === "post_run" && (!latePostRunContext || fallEntry)
+        ...(stage === "post_run" &&
+            (!latePostRunContext || fallEntry || repeatSpawner)
           ? ["stage_offseason" as const]
           : []),
         ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
@@ -438,6 +444,8 @@ function onboardingCorridorStageCopy(input: {
   broadBuildingContext: boolean;
   latePostRunContext: boolean;
   fallEntry: boolean;
+  repeatSpawner: boolean;
+  species: RiverRunProfile["species"];
   baseCopy: Pick<
     PrimitiveDisplay,
     "headline" | "detail" | "tip" | "whereToStart"
@@ -445,16 +453,33 @@ function onboardingCorridorStageCopy(input: {
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip" | "whereToStart"> {
   const route = onboardingCorridorRoute(input);
   const complete = input.stage === "post_run" &&
-    (input.fallEntry || !input.latePostRunContext);
+    (input.fallEntry || input.repeatSpawner || !input.latePostRunContext);
   return {
     headline: complete
       ? input.fallEntry
         ? "The modeled fall-entry window is complete."
+        : input.repeatSpawner
+        ? "The tracked fall brown-trout migration is complete."
         : input.baseCopy.headline
       : input.baseCopy.headline,
-    detail: `${input.baseCopy.detail} ${route.limit}`,
+    detail: `${
+      input.riverId === "bois_brule" && input.repeatSpawner &&
+        input.stage === "post_run"
+        ? "Lake-run Brown Trout survive spawning; this seasonal model no longer estimates where surviving fish remain or when they return to Lake Superior."
+        : input.repeatSpawner && input.stage === "post_run"
+        ? "Migratory brown trout may remain in river holding water or return lakeward after spawning; this seasonal model no longer estimates their current presence."
+        : input.baseCopy.detail
+    } ${route.limit}`,
     tip: route.tip,
-    whereToStart: route.whereToStart,
+    whereToStart: input.riverId === "milwaukee"
+      ? `Restrictions first: stay outside the signed Kletzsch fish-passage refuge; from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. ${route.whereToStart}`
+      : input.riverId === "sheboygan"
+      ? `Restrictions first: from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. Verify current signs and property access. ${route.whereToStart}`
+      : input.riverId === "root"
+      ? `Restrictions first: from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. Steelhead Facility operations can block, process, or pass fish; verify current operations and posted signs. ${route.whereToStart}`
+      : input.riverId === "bois_brule"
+      ? `Restrictions first: the lower river below Highway 2 is open only from the last Saturday in March through Nov. 15 and fishing is prohibited from one-half hour after sunset to one-half hour before sunrise. Box Car Hole is closed July 15-Oct. 31, Mays Ledges is closed Sept. 1-May 31, and the signed 500-foot refuge on both sides of the sea-lamprey barrier is never open. ${route.whereToStart}`
+      : route.whereToStart,
   };
 }
 
@@ -466,8 +491,371 @@ function onboardingCorridorRoute(input: {
   broadBuildingContext: boolean;
   latePostRunContext: boolean;
   fallEntry: boolean;
+  repeatSpawner: boolean;
+  species: RiverRunProfile["species"];
 }): { whereToStart: string; limit: string; tip: string } {
   const { stage } = input;
+  if (input.riverId === "milwaukee") {
+    const brown = input.species === "lake_run_brown_trout";
+    const limit = brown
+      ? "Lake-run Brown Trout opportunity is concentrated toward the lower river, while the physical corridor ends below Bridge Street Dam. The signed Kletzsch fish-passage refuge is closed year-round, and the seasonal Lake Michigan tributary night restriction must be checked before fishing."
+      : "Milwaukee guidance ends below Bridge Street Dam. The signed Kletzsch fish-passage refuge is closed year-round, and the seasonal Lake Michigan tributary night restriction must be checked before fishing.";
+    if (brown) {
+      if (stage === "pre_run") {
+        return {
+          whereToStart: input.stagingContext
+            ? "Milwaukee Harbor and the river entrance; treat Harbor & Downtown as an early check only."
+            : "Milwaukee Harbor—not inland Milwaukee River sections yet.",
+          limit,
+          tip:
+            "Keep the plan lakeward until October entry develops; do not infer inland distribution from the calendar alone.",
+        };
+      }
+      if (stage === "beginning" || stage === "building") {
+        return {
+          whereToStart:
+            "Harbor & Downtown first; add the Urban Greenway selectively as the run builds.",
+          limit,
+          tip:
+            "Keep the search lower-river weighted, compare sections, and leave visibly spawning fish undisturbed.",
+        };
+      }
+      if (stage === "peak" || stage === "tapering" || stage === "ending") {
+        return {
+          whereToStart:
+            "Harbor & Downtown or established Urban Greenway holding water; add legal North Shore water selectively.",
+          limit,
+          tip:
+            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, avoid active spawning fish, and do not treat decline as mortality.",
+        };
+      }
+      return {
+        whereToStart:
+          "No active Milwaukee starting section in this fall-migration model.",
+        limit,
+        tip:
+          "The modeled migration is complete; surviving Brown Trout may hold in the river or return to Lake Michigan.",
+      };
+    }
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "Milwaukee Harbor and the river entrance; add Harbor & Downtown water below North Avenue only with direct fish evidence.",
+          limit,
+          tip:
+            "Use the harbor as staging context and do not infer inland distribution from the calendar alone.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan and Milwaukee Harbor—not inland Milwaukee River sections.",
+          limit,
+          tip:
+            "Wait for the staging window before using the river corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Harbor & Downtown — Lake Michigan to North Avenue.",
+        limit,
+        tip:
+          "Start low and require direct fish evidence before adding the Urban Greenway.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Harbor & Downtown first; add the Urban Greenway from North Avenue to Kletzsch Park as a secondary check.",
+        limit,
+        tip:
+          "Compare the lower two sections without treating Kletzsch passage as equal distribution upstream.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Urban Greenway — North Avenue to Kletzsch Park; compare Harbor & Downtown for newer arrivals.",
+        limit,
+        tip:
+          "Use the Urban Greenway first and keep the North Shore conditional on direct fish activity.",
+      };
+    }
+    if (stage === "building" || stage === "peak") {
+      return {
+        whereToStart:
+          "Urban Greenway first; add legal North Shore water from Kletzsch Park toward Bridge Street Dam selectively.",
+        limit,
+        tip:
+          "Stay outside the signed Kletzsch refuge and compare sections rather than assuming equal distribution.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established Urban Greenway or legal North Shore holding water below Bridge Street Dam.",
+        limit,
+        tip: input.fallEntry
+          ? "Favor established holding water; fewer fresh arrivals do not mean Steelhead have left the river."
+          : "Narrow the search to established holding water and leave visible spawning fish undisturbed.",
+      };
+    }
+    return {
+      whereToStart:
+        "No active Milwaukee River starting section in this fall model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain through winter before spring spawning."
+        : "Do not build a Milwaukee River trip around isolated fish outside the modeled run.",
+    };
+  }
+  if (input.riverId === "sheboygan") {
+    const limit =
+      "Sheboygan guidance ends below Waelderhaus Dam. The I-43 gauge directly represents only the upper Urban River, Kohler shoreline is not universally public access, and the seasonal Lake Michigan tributary night restriction must be checked before fishing.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "Sheboygan Harbor and the river entrance; add Harbor & Lower City water only with direct fish evidence.",
+          limit,
+          tip:
+            "Use the harbor as staging context and do not infer inland distribution from the calendar alone.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan and Sheboygan Harbor—not inland river sections.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Sheboygan corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Harbor & Lower City — Lake Michigan to Kiwanis Park.",
+        limit,
+        tip:
+          "Start low and require direct fish evidence before adding the Urban River.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Harbor & Lower City first; add the Urban River from Kiwanis Park toward I-43 as a secondary check.",
+        limit,
+        tip:
+          "Compare the lower two sections and do not treat a broad seasonal rating as equal distribution.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Urban River — Kiwanis Park to I-43; compare Harbor & Lower City for newer arrivals.",
+        limit,
+        tip:
+          "Use the Urban River first and keep the Kohler Reach conditional on direct fish activity and legal access.",
+      };
+    }
+    if (stage === "building" || stage === "peak") {
+      return {
+        whereToStart:
+          "Urban River first; add legal Kohler Reach water below Waelderhaus Dam for established fish.",
+        limit,
+        tip: input.repeatSpawner
+          ? "Compare sections, avoid actively spawning Brown Trout, and do not treat a later decline as mortality."
+          : "Compare sections instead of assuming equal distribution, and leave actively spawning fish undisturbed.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established Urban River or legal Kohler Reach holding water below Waelderhaus Dam.",
+        limit,
+        tip: input.fallEntry
+          ? "Favor established holding water; fewer fresh arrivals do not mean Steelhead have left the river."
+          : input.repeatSpawner
+          ? "Narrow the search to established holding water; surviving Brown Trout may later hold or return lakeward."
+          : "Narrow the search to established holding water and leave visible spawning fish undisturbed.",
+      };
+    }
+    return {
+      whereToStart:
+        "No active Sheboygan River starting section in this fall model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain through winter before spring spawning."
+        : input.repeatSpawner
+        ? "The modeled migration is complete; surviving Brown Trout may hold in the river or return to Lake Michigan."
+        : "Do not build a Sheboygan trip around isolated fish outside the modeled run.",
+    };
+  }
+  if (input.riverId === "root") {
+    const limit =
+      "Root River guidance ends at the downstream face of the operated Steelhead Facility weir in Lincoln Park. Facility operations can block, process, or pass fish; Horlick Dam is the biological outer barrier, and the seasonal Lake Michigan tributary night restriction must be checked before fishing.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "Racine Harbor and the river entrance; add Harbor & Downtown water only with direct fish evidence.",
+          limit,
+          tip:
+            "Use the harbor as staging context and do not infer inland distribution from the calendar or facility operation date.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan and Racine Harbor—not inland Root River sections.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Root River corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Harbor & Downtown — Lake Michigan to 6th Street.",
+        limit,
+        tip:
+          "Start low and require direct fish evidence before adding City Parks.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Harbor & Downtown first; add City Parks from 6th Street toward Island Park as a secondary check.",
+        limit,
+        tip:
+          "Compare the lower two sections and do not treat weir operation as the start of river entry.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "City Parks — 6th Street to Island Park; compare Harbor & Downtown for newer arrivals.",
+        limit,
+        tip:
+          "Use City Parks first and keep Lincoln Park conditional on direct fish activity and current facility operations.",
+      };
+    }
+    if (stage === "building" || stage === "peak") {
+      return {
+        whereToStart:
+          "City Parks first; add legal Lincoln Park water below the Steelhead Facility for established fish.",
+        limit,
+        tip: input.repeatSpawner
+          ? "Compare sections, avoid actively spawning Brown Trout, and do not treat a later decline as mortality."
+          : "Compare sections instead of assuming equal distribution, and do not infer passage through the facility.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established City Parks or legal Lincoln Park holding water below the Steelhead Facility.",
+        limit,
+        tip: input.fallEntry
+          ? "Favor established holding water; fewer fresh arrivals do not mean Steelhead have left the river."
+          : input.repeatSpawner
+          ? "Narrow the search to established holding water; surviving Brown Trout may later hold or return lakeward."
+          : "Narrow the search to established holding water and leave visible spawning fish undisturbed.",
+      };
+    }
+    return {
+      whereToStart: "No active Root River starting section in this fall model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain through winter before spring spawning."
+        : input.repeatSpawner
+        ? "The modeled migration is complete; surviving Brown Trout may hold in the river or return to Lake Michigan."
+        : "Do not build a Root River trip around isolated fish outside the modeled run.",
+    };
+  }
+  if (input.riverId === "bois_brule") {
+    const chinook = input.species === "chinook_salmon";
+    const limit =
+      "Bois Brule fall guidance ends on the downstream side of Highway 2 for regulatory scope, not at a biological barrier. The active gauge is upstream of that endpoint. All guidance excludes Box Car Hole and Mays Ledges when closed and the permanent 500-foot refuge on both sides of the sea-lamprey barrier.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "Lake Superior, the river mouth, and legal Mouth & Lower River water outside every signed refuge.",
+          limit,
+          tip:
+            "Use the mouth as staging context and require direct fish evidence before moving into the Rapids Reach.",
+        }
+        : {
+          whereToStart:
+            "Lake Superior and the Bois Brule mouth—not inland lower-river sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the lower river as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart:
+          "Mouth & Lower River — Lake Superior to the downstream edge of the Fishway Refuge.",
+        limit,
+        tip:
+          "Start low, remain outside the permanent refuge, and require direct fish evidence before adding legal Rapids water.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Mouth & Lower River first; add legal Rapids Reach water outside every active refuge as a secondary check.",
+        limit,
+        tip:
+          "Compare the lower two sections without treating fishway passage as equal distribution.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Legal Rapids Reach water first; compare Mouth & Lower River water for newer arrivals.",
+        limit,
+        tip:
+          "Check all posted refuge boundaries before moving, and keep the Highway 2 section conditional on direct fish activity.",
+      };
+    }
+    if (stage === "building" || stage === "peak") {
+      return {
+        whereToStart: chinook
+          ? "Mouth & Lower River first; add legal Rapids Reach and Upper Lower River water selectively."
+          : "Legal Rapids Reach and Upper Lower River water below Highway 2; compare Mouth & Lower River for newer arrivals.",
+        limit,
+        tip: input.repeatSpawner
+          ? "Avoid every active refuge and visibly spawning Brown Trout; do not treat a later decline as mortality."
+          : chinook
+          ? "This remains a small sectional Chinook run; cover one legal section thoroughly before changing reaches."
+          : "Compare legal sections instead of assuming uniform distribution, and leave actively spawning fish undisturbed.",
+      };
+    }
+    if (stage === "ending" && input.fallEntry) {
+      return {
+        whereToStart:
+          "No legal lower-river starting section—the Nov. 15 fishing-season endpoint has passed.",
+        limit,
+        tip:
+          "Fall Steelhead entry can continue after fishing closes; surviving fish may overwinter before the separate spring run.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established legal holding water in the Rapids Reach or Upper Lower River below Highway 2, outside every active refuge.",
+        limit,
+        tip: input.repeatSpawner
+          ? "Narrow the search to established legal holding water and avoid spawning fish; survival does not establish a universal winter location."
+          : "Narrow the search to established legal holding water and verify the Nov. 15 season endpoint before fishing.",
+      };
+    }
+    return {
+      whereToStart:
+        "No active legal Bois Brule starting section in this fall model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may overwinter before the separate spring run."
+        : input.repeatSpawner
+        ? "The modeled migration is complete; Brown Trout remain living after spawning, but their winter location is not asserted."
+        : "Do not build a lower-river trip outside the open season or around isolated fish after the modeled run.",
+    };
+  }
   if (input.riverId === "platte") {
     const limit =
       "Platte guidance covers only the short corridor from Platte River Point to the downstream edge of the signed Lower Weir closure; it never implies passage through the installed weir.";

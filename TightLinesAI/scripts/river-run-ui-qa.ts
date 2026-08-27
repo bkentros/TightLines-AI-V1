@@ -4,6 +4,18 @@ import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
+const catalogSelection = readFileSync(
+  resolve(root, "lib/riverRunCatalogSelection.ts"),
+  "utf8",
+);
+const speciesImages = readFileSync(
+  resolve(root, "lib/riverRunSpeciesImages.ts"),
+  "utf8",
+);
+const riverImages = readFileSync(
+  resolve(root, "lib/riverRunChoiceImages.ts"),
+  "utf8",
+);
 const riverRunVisualSources = [
   "lib/riverRunVisuals.ts",
   "components/river-run/RiverRunVisual.tsx",
@@ -15,7 +27,6 @@ const packageJson = JSON.parse(
 const prohibitedRuntimePatterns: Array<[RegExp, string]> = [
   [/riverRunReviewFixtures/, "generated River Run fixture imports"],
   [/EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE/, "the River Run review-mode flag"],
-  [/fetchRiverRunOwnerReviewSnapshot/, "the owner-review snapshot path"],
   [/\bReviewControl\b/, "the internal review console"],
   [/\bScenario Fixtures?\b/i, "scenario-fixture UI copy"],
   [/\bOwner Review\b/i, "owner-review UI copy"],
@@ -50,13 +61,35 @@ for (
 
 assert.match(
   riverRunScreen,
-  /setCatalog\(await fetchRiverRunCatalog\(\)\)/,
-  "River Migration setup must use the public catalog",
+  /ownerReviewMode\s*=\s*isAdminEmail\(user\?\.email\)/,
+  "Draft River Migration access must be restricted to the configured admin account",
+);
+assert.match(
+  catalogSelection,
+  /lake_run_brown_trout[^\n]*Migratory Brown Trout/,
+  "Migratory Brown Trout must be registered in the species picker",
+);
+assert.match(
+  speciesImages,
+  /lake_run_brown_trout[^\n]*migratory_brown_trout\.png/,
+  "Migratory Brown Trout must use its distinct app asset",
+);
+for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
+  assert.match(
+    riverImages,
+    new RegExp(`${riverId}: \\"(small|medium|large)\\"`),
+    `${riverId} must be registered for river-picker artwork`,
+  );
+}
+assert.match(
+  riverRunScreen,
+  /ownerReviewMode[\s\S]*?fetchRiverRunOwnerReviewCatalog\(\)[\s\S]*?: fetchRiverRunCatalog\(\)/,
+  "Admins must receive the protected review catalog while customers retain the public catalog",
 );
 assert.match(
   riverRunScreen,
-  /await fetchRiverRunSnapshot\([\s\S]*?riverId:[\s\S]*?runId:[\s\S]*?presentationState:/,
-  "River Migration reports must use the public snapshot endpoint",
+  /ownerReviewMode[\s\S]*?fetchRiverRunOwnerReviewSnapshot[\s\S]*?: fetchRiverRunSnapshot/,
+  "Admins must receive protected draft snapshots while customers retain public snapshots",
 );
 assert.match(
   riverRunScreen,
@@ -105,5 +138,5 @@ assert.equal(
 );
 
 console.log(
-  "River Run release UI QA passed: public catalog/snapshot flow only, entitlement checks retained, and internal review fixtures/copy are absent.",
+  "River Run UI QA passed: public flow is retained, admin review uses protected live endpoints, entitlement checks remain, and internal fixture controls/copy are absent.",
 );

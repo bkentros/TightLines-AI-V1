@@ -3,6 +3,7 @@ import {
   assembleConditionInputs,
   computeGaugeFreshness,
   computeWeatherFreshness,
+  fetchUsgsInstantaneousValues,
   type NormalizedGaugeObservation,
   normalizeGaugeRead,
   normalizeWeatherSnapshot,
@@ -13,6 +14,50 @@ import {
   resolveFlowBand,
   resolveRainSignal,
 } from "../index.ts";
+
+Deno.test("USGS continuous fetch follows pagination before selecting latest high-cadence values", async () => {
+  const requested: string[] = [];
+  const feature = (minute: number) => ({
+    properties: {
+      monitoring_location_id: "USGS-04087000",
+      parameter_code: "00060",
+      time: new Date(Date.UTC(2026, 7, 20, 0, minute)).toISOString(),
+      value: minute,
+      unit_of_measure: "ft^3/s",
+    },
+  });
+  const firstPage = Array.from({ length: 1000 }, (_, index) => feature(index));
+  const secondPage = Array.from(
+    { length: 50 },
+    (_, index) => feature(1000 + index),
+  );
+  const payload = await fetchUsgsInstantaneousValues({
+    siteId: "04087000",
+    metrics: ["flow_cfs"],
+    endAtUtc: "2026-08-27T00:00:00.000Z",
+    period: "P7D",
+    fetchFn: async (request) => {
+      const url = String(request);
+      requested.push(url);
+      const pageTwo = new URL(url).searchParams.get("offset") === "1000";
+      return {
+        ok: true,
+        json: async () => ({
+          features: pageTwo ? secondPage : firstPage,
+          links: pageTwo ? [] : [{
+            rel: "next",
+            href:
+              "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?offset=1000",
+          }],
+        }),
+      };
+    },
+  });
+  const observations = parseUsgsInstantaneousValues(payload, "04087000");
+  assertEquals(requested.length, 2);
+  assertEquals(observations.length, 1050);
+  assertEquals(observations.at(-1)?.flow_cfs, 1049);
+});
 
 function observation(
   observedAt: string,

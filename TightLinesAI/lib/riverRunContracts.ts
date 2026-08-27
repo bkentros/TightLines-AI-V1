@@ -218,12 +218,15 @@ export type RiverRunLiveSeasonalContext = {
   historicalYears: number;
   sampleCount: number;
   availableWindowDays: number;
-  windowRadiusDays: 3;
+  windowRadiusDays: 0 | 3;
   windowStartMonthDay: string;
   windowEndMonthDay: string;
   recordKind: "long_term" | "recent";
   baselineVersion: string;
-  source: "usgs_statistics" | "monitor_my_watershed_history";
+  source:
+    | "usgs_statistics"
+    | "monitor_my_watershed_history"
+    | "usgs_approved_exact_date_archive";
 };
 
 export type RiverRunLiveConditionMetric = {

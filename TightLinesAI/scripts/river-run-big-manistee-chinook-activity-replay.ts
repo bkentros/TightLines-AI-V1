@@ -1,7 +1,9 @@
 import {
   addDays,
+  fetchMonitorMyWatershedTemperature,
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
+  parseMonitorMyWatershedTemperature,
   resolveAdminOverrideBand,
   resolveFlowTrendSignal,
   resolveRunStage,
@@ -53,7 +55,11 @@ const speciesSlug = run.species === "chinook_salmon"
   ? "chinook"
   : run.species === "coho_salmon"
   ? "coho"
+  : run.species === "lake_run_brown_trout"
+  ? "brown-trout"
   : "steelhead";
+const terminalSalmon = speciesSlug === "chinook" || speciesSlug === "coho";
+const repeatSpawner = speciesSlug === "brown-trout";
 
 if (
   run.primitiveCapabilities.activity.status !== "available" ||
@@ -64,16 +70,23 @@ if (
     `${selectedRiver.displayName} ${speciesSlug} does not have an observed-river Activity replay contract.`,
   );
 }
+const activityRules = Deno.args.includes("--without-stage-adjustment")
+  ? {
+    ...run.activity,
+    version: `${run.activity.version}-baseline-without-stage-adjustment`,
+    stageResponseAdjustment: undefined,
+  }
+  : run.activity;
 const gauge = getPrimaryHydraulicSource(selectedRiver);
 const temperatureSource = run.waterTemperature.sourcePriority.flatMap(
   (sourceId) =>
     selectedRiver.waterTemperatureSources.filter((source) =>
-      source.sourceId === sourceId && source.provider === "USGS"
+      source.sourceId === sourceId
     ),
 )[0];
 if (!temperatureSource) {
   throw new Error(
-    `${selectedRiver.displayName} does not have an accepted USGS daily water-temperature source for this replay.`,
+    `${selectedRiver.displayName} does not have an accepted water-temperature source for this replay.`,
   );
 }
 const weatherPoint = selectedRiver.weatherPoints.find((point) =>
@@ -133,7 +146,7 @@ for (let year = startYear; year <= endYear; year++) {
       temp72 == null || weather.length < 16
     ) continue;
 
-    const hydraulic = run.activity.hydraulicTrend ?? run.push?.hydraulic;
+    const hydraulic = activityRules.hydraulicTrend ?? run.push?.hydraulic;
     const flowTrend = resolveFlowTrendSignal({
       currentValue: flow,
       value24hAgo: priorFlow,
@@ -145,7 +158,7 @@ for (let year = startYear; year <= endYear; year++) {
       sharpRise24hPercent: hydraulic?.sharpRise24h.percent,
     });
     const temperatureTrend = resolveTemperatureTrendSignal({
-      sourceType: "same_gauge",
+      sourceType: temperatureSource.sourceType,
       delta24hF: temp - temp24,
       delta72hF: temp - temp72,
       hasEnoughValues: true,
@@ -153,7 +166,7 @@ for (let year = startYear; year <= endYear; year++) {
     const flowBand = resolveAdminOverrideBand(flow, run.fishabilityBands);
     const stage = resolveRunStage(run, date);
     const result = scoreActivity({
-      rules: run.activity,
+      rules: activityRules,
       requestDate: date,
       targetDate: date,
       runStage: stage.stage,
@@ -194,7 +207,7 @@ for (let year = startYear; year <= endYear; year++) {
 }
 
 const blocks = rows.flatMap((row) => row.blocks);
-const activityScopeCopy = run.activity.scopeCopy;
+const activityScopeCopy = activityRules.scopeCopy;
 const foreignRiverPattern = new RegExp(
   allRivers
     .filter((item) => item.riverId !== selectedRiver.riverId)
@@ -223,24 +236,26 @@ const invariants = {
   }).length,
   warmCapBroken:
     rows.filter((row) =>
-      row.waterTempF >= run.activity!.temperature.warmF &&
-      row.blocks.some((block) => block.score > 39)
+      row.waterTempF >= activityRules.temperature.warmF &&
+      row.blocks.some((block) =>
+        block.score > (activityRules.caps.warmWaterMaximum ?? 39)
+      )
     ).length,
   barrierCapBroken:
     rows.filter((row) =>
-      row.waterTempF >= run.activity!.temperature.barrierF &&
+      row.waterTempF >= activityRules.temperature.barrierF &&
       row.blocks.some((block) => block.score >= 30)
     ).length,
-  taperingPenaltyMisconfigured: speciesSlug === "steelhead"
-    ? (run.activity.caps.taperingPenalty == null &&
-        run.activity.caps.lateRun === 100
+  taperingPenaltyMisconfigured: !terminalSalmon
+    ? (activityRules.caps.taperingPenalty == null &&
+        activityRules.caps.lateRun === 100
       ? 0
       : 1)
-    : typeof run.activity.caps.taperingPenalty === "number" &&
-        run.activity.caps.taperingPenalty > 0
+    : typeof activityRules.caps.taperingPenalty === "number" &&
+        activityRules.caps.taperingPenalty > 0
     ? 0
     : 1,
-  endingCapBroken: speciesSlug === "steelhead"
+  endingCapBroken: !terminalSalmon
     ? 0
     : rows.filter((row) =>
       ["ending", "post_run"].includes(row.stage) &&
@@ -248,7 +263,7 @@ const invariants = {
         block.score > lifecycleMaximum(row.date, row.stage)
       )
     ).length,
-  lateOptimism: speciesSlug === "steelhead"
+  lateOptimism: !terminalSalmon
     ? 0
     : rows.filter((row) =>
       row.stage === "post_run" &&
@@ -263,7 +278,13 @@ const invariants = {
   steelheadLateStagePenalty: speciesSlug !== "steelhead"
     ? 0
     : verifyNoSteelheadStagePenalty(),
-  stageResponseShape: run.activity.stageResponseAdjustment
+  repeatSpawnerMortalityLanguage: !repeatSpawner ? 0 : rows.filter(
+    (row) =>
+      /spent|dying|deteriorat|mortality/i.test(
+        `${row.headline} ${row.detail} ${row.tip}`,
+      ),
+  ).length,
+  stageResponseShape: activityRules.stageResponseAdjustment
     ? verifyStageResponseShape()
     : 0,
 };
@@ -271,7 +292,7 @@ const invariants = {
 function verifyNoSteelheadStagePenalty(): number {
   const date = "2026-12-20";
   const base = {
-    rules: { ...run.activity!, stageResponseAdjustment: undefined },
+    rules: { ...activityRules, stageResponseAdjustment: undefined },
     requestDate: date,
     targetDate: date,
     staging: false,
@@ -303,6 +324,22 @@ function verifyNoSteelheadStagePenalty(): number {
 }
 
 function verifyStageResponseShape(): number {
+  if (speciesSlug === "steelhead") {
+    const adjustment = activityRules.stageResponseAdjustment ?? {};
+    const preRun = adjustment.pre_run ?? 0;
+    const beginning = adjustment.beginning ?? 0;
+    const building = adjustment.building ?? 0;
+    const peak = adjustment.peak ?? 0;
+    const lateStages = [
+      adjustment.tapering ?? 0,
+      adjustment.ending ?? 0,
+      adjustment.post_run ?? 0,
+    ];
+    return preRun <= beginning && beginning <= building && building <= peak &&
+        lateStages.every((value) => value === 0)
+      ? 0
+      : 1;
+  }
   const means = Object.fromEntries(
     [
       "pre_run",
@@ -329,17 +366,24 @@ function verifyStageResponseShape(): number {
     means.ending,
     means.post_run,
   ];
+  const configuredAdjustments = Object.values(
+    activityRules.stageResponseAdjustment ?? {},
+  );
+  const isSeasonalShapeCalibration = configuredAdjustments.some((value) =>
+    Math.abs(value ?? 0) >= 10
+  );
   return shoulders.every((mean) =>
-      mean < means.peak && means.peak - mean <= 20
+      mean < means.peak &&
+      (!isSeasonalShapeCalibration || means.peak - mean <= 20)
     ) && outerStages.every((mean) => mean < means.peak)
     ? 0
     : 1;
 }
 
 function lifecycleMaximum(date: string, stage: string): number {
-  const ramp = run.activity!.caps.lifecycleRamp;
-  const penalty = run.activity!.caps.taperingPenalty ?? 0;
-  if (!ramp) return run.activity!.caps.ending;
+  const ramp = activityRules.caps.lifecycleRamp;
+  const penalty = activityRules.caps.taperingPenalty ?? 0;
+  if (!ramp) return activityRules.caps.ending;
   const year = Number(date.slice(0, 4));
   const start = Date.parse(`${year}-${ramp.taperingEnd}T00:00:00Z`);
   const end = Date.parse(`${year}-${ramp.endingEnd}T00:00:00Z`);
@@ -349,17 +393,20 @@ function lifecycleMaximum(date: string, stage: string): number {
   );
   return Math.round(
     (100 - penalty) +
-      (run.activity!.caps.ending - (100 - penalty)) * progress,
+      (activityRules.caps.ending - (100 - penalty)) * progress,
   );
 }
 const reviewRows = stratifiedReview(rows);
+const temperatureMethod = temperatureSource.provider === "USGS"
+  ? `${temperatureSource.name} USGS ${temperatureSource.siteId} daily mean measured water temperature`
+  : `${temperatureSource.name} Monitor My Watershed series ${temperatureSource.seriesId} daily median measured water temperature`;
 const report = {
   runId: run.runId,
-  rulesVersion: run.activity.version,
+  rulesVersion: activityRules.version,
   replayYears: `${startYear}-${endYear}`,
   method:
-    `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge, ${temperatureSource.name} USGS ${temperatureSource.siteId} daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to ${
-      run.activity.scopeCopy ?? selectedRiver.gaugeLimitationCopy
+    `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge, ${temperatureMethod}, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to ${
+      activityRules.scopeCopy ?? selectedRiver.gaugeLimitationCopy
     } It validates scoring behavior and copy, not catch rates.`,
   expectedDays:
     activeDayCount(run.runWindow.stagingStart, run.runWindow.lateEnd) *
@@ -387,10 +434,11 @@ const report = {
       ),
     }]),
   ),
+  stageByBlock: stageByBlockReport(),
   backHalf: backHalfSummary(rows),
   byTemperature: temperatureBands(rows),
   hydraulicAudit: {
-    thresholds: run.activity.hydraulicTrend ?? run.push?.hydraulic ?? null,
+    thresholds: activityRules.hydraulicTrend ?? run.push?.hydraulic ?? null,
     positiveAbsoluteChangeCfs: summary(
       rows.map((row) => row.flowAbsoluteChange24h).filter((value) => value > 0),
     ),
@@ -410,21 +458,39 @@ const report = {
 };
 
 if (Deno.args.includes("--write")) {
+  const variant = Deno.args.includes("--without-stage-adjustment")
+    ? "-baseline-without-stage-adjustment"
+    : "";
   await Deno.mkdir("docs/audits", { recursive: true });
   await Deno.writeTextFile(
     `docs/audits/river-run-${
       selectedRiver.riverId.replaceAll("_", "-")
-    }-${speciesSlug}-activity-replay.json`,
+    }-${speciesSlug}-activity-replay${variant}.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   );
   await Deno.writeTextFile(
     `docs/audits/river-run-${
       selectedRiver.riverId.replaceAll("_", "-")
-    }-${speciesSlug}-activity-review-100.csv`,
+    }-${speciesSlug}-activity-review-100${variant}.csv`,
     reviewCsv(reviewRows),
   );
 }
-console.log(JSON.stringify(report, null, 2));
+console.log(JSON.stringify(
+  Deno.args.includes("--summary")
+    ? {
+      runId: report.runId,
+      rulesVersion: report.rulesVersion,
+      expectedDays: report.expectedDays,
+      usableDays: report.usableDays,
+      coverage: round2(report.usableDays / report.expectedDays * 100),
+      dayScore: report.dayScore,
+      byStage: report.byStage,
+      invariants: report.invariants,
+    }
+    : report,
+  null,
+  2,
+));
 if (
   rows.length < report.expectedDays * .8 ||
   Object.values(invariants).some((value) => value > 0)
@@ -434,6 +500,33 @@ async function fetchDailyTemperature(
   startDate: string,
   endDate: string,
 ): Promise<Map<string, number>> {
+  if (temperatureSource.provider === "MONITOR_MY_WATERSHED") {
+    const values = new Map<string, number[]>();
+    const firstYear = Number(startDate.slice(0, 4));
+    const lastYear = Number(endDate.slice(0, 4));
+    for (let year = firstYear; year <= lastYear; year++) {
+      const csv = await fetchMonitorMyWatershedTemperature({
+        fetchFn: fetch,
+        source: temperatureSource,
+        endAtUtc: `${year}-12-31T23:59:59.000Z`,
+        lookbackDays: 370,
+      });
+      if (!csv) continue;
+      for (
+        const item of parseMonitorMyWatershedTemperature({
+          csv,
+          source: temperatureSource,
+        }).observations
+      ) {
+        const date = localDate(item.observedAt, selectedRiver.timezone);
+        if (date < startDate || date > endDate) continue;
+        values.set(date, [...(values.get(date) ?? []), item.waterTempF]);
+      }
+    }
+    return new Map(
+      [...values].map(([date, items]) => [date, median(items)]),
+    );
+  }
   const params = new URLSearchParams({
     f: "json",
     monitoring_location_id: `USGS-${temperatureSource.siteId}`,
@@ -534,11 +627,52 @@ function stratifiedReview(input: Row[]): Row[] {
     );
   });
 }
+function stageByBlockReport() {
+  const stages = [...new Set(rows.map((row) => row.stage))].toSorted();
+  const blockIds = ["05-09", "09-13", "13-17", "17-21"] as const;
+  return stages.flatMap((stage) => {
+    const stageRows = rows.filter((row) => row.stage === stage);
+    const entries = blockIds.map((blockId) => {
+      const samples = stageRows.flatMap((row) =>
+        row.blocks.filter((block) => block.id === blockId)
+      );
+      return stageBlockEntry(stage, blockId, stageRows.length, samples);
+    });
+    return [
+      ...entries,
+      stageBlockEntry(
+        stage,
+        "all_blocks",
+        stageRows.length,
+        stageRows.flatMap((row) => row.blocks),
+      ),
+    ];
+  });
+}
+
+function stageBlockEntry(
+  stage: string,
+  block: string,
+  usableDays: number,
+  samples: ActivityBlock[],
+) {
+  return {
+    stage,
+    block,
+    usableDays,
+    samples: samples.length,
+    scores: summary(samples.map((sample) => sample.score)),
+    labelShares: shares(samples.map((sample) => sample.activityLabel)),
+    capConfidenceNotes:
+      "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps.",
+  };
+}
+
 function temperatureBands(input: Row[]) {
-  const preferredMin = run.activity!.temperature.preferredMinF;
-  const preferredMax = run.activity!.temperature.preferredMaxF;
-  const warm = run.activity!.temperature.warmF;
-  const barrier = run.activity!.temperature.barrierF;
+  const preferredMin = activityRules.temperature.preferredMinF;
+  const preferredMax = activityRules.temperature.preferredMaxF;
+  const warm = activityRules.temperature.warmF;
+  const barrier = activityRules.temperature.barrierF;
   return Object.fromEntries(
     [
       [`below${preferredMin}F`, (v: number) => v < preferredMin],
@@ -568,9 +702,9 @@ function temperatureBands(input: Row[]) {
   );
 }
 function backHalfSummary(input: Row[]) {
-  const peakEnd = run.activity!.caps.lifecycleRamp?.peakEnd;
-  const taperEnd = run.activity!.caps.lifecycleRamp?.taperingEnd;
-  const endingEnd = run.activity!.caps.lifecycleRamp?.endingEnd;
+  const peakEnd = activityRules.caps.lifecycleRamp?.peakEnd;
+  const taperEnd = activityRules.caps.lifecycleRamp?.taperingEnd;
+  const endingEnd = activityRules.caps.lifecycleRamp?.endingEnd;
   if (!peakEnd || !taperEnd || !endingEnd) return {};
   const day = (monthDay: string, offset: number) =>
     addDays(`2024-${monthDay}`, offset).slice(5);
@@ -671,6 +805,15 @@ function counts(values: string[]) {
     ) => [value, values.filter((item) => item === value).length]),
   );
 }
+function shares(values: string[]) {
+  const total = values.length;
+  return Object.fromEntries(
+    Object.entries(counts(values)).map(([label, count]) => [
+      label,
+      total ? round2(Number(count) / total * 100) : 0,
+    ]),
+  );
+}
 function activeDayCount(start: string, end: string) {
   const endYear = end < start ? 2025 : 2024;
   return Math.round(
@@ -685,6 +828,23 @@ function seasonDate(startYear: number, monthDay: string) {
 }
 function finite(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+function median(values: number[]) {
+  const sorted = values.toSorted((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[middle - 1] + sorted[middle]) / 2
+    : sorted[middle];
+}
+function localDate(iso: string, timezone: string) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date(iso));
+  const get = (type: string) => parts.find((part) => part.type === type)?.value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
 }
 function round2(value: number) {
   return Math.round(value * 100) / 100;

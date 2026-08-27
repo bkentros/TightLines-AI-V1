@@ -51,7 +51,7 @@ Deno.test("White Chinook guidance progresses inside the former multi-week beginn
   }
 });
 
-Deno.test("all nine onboarding runs use river-specific reach and barrier copy", () => {
+Deno.test("all hidden onboarding runs use river-specific reach and barrier copy", () => {
   for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
     const display = resolveRunStage(run, `2026-${run.runWindow.peak}`);
     assertEquals(run.runStageCopyStrategy, "onboarding_corridor", run.runId);
@@ -68,7 +68,7 @@ Deno.test("all nine onboarding runs use river-specific reach and barrier copy", 
         run.runId,
       );
       assertNotMatch(display.whereToStart, /middle|upper|harbor/i, run.runId);
-    } else {
+    } else if (run.riverId === "white") {
       assertMatch(display.detail, /below Hesperia Dam/i, run.runId);
       assertMatch(display.whereToStart, /below Hesperia/i, run.runId);
       assertNotMatch(
@@ -76,6 +76,41 @@ Deno.test("all nine onboarding runs use river-specific reach and barrier copy", 
         /wherever passage remains open/i,
         run.runId,
       );
+    } else if (run.riverId === "milwaukee") {
+      assertMatch(display.detail, /Bridge Street Dam/i, run.runId);
+      assertMatch(display.whereToStart, /^Restrictions first:/, run.runId);
+      assertMatch(display.whereToStart, /Kletzsch.*refuge/i, run.runId);
+      assertMatch(
+        display.whereToStart,
+        /night-fishing restriction/i,
+        run.runId,
+      );
+    } else if (run.riverId === "sheboygan") {
+      assertMatch(display.detail, /Waelderhaus Dam/i, run.runId);
+      assertMatch(display.whereToStart, /^Restrictions first:/, run.runId);
+      assertMatch(
+        display.whereToStart,
+        /night-fishing restriction/i,
+        run.runId,
+      );
+      assertMatch(display.whereToStart, /Kiwanis|Kohler/i, run.runId);
+    } else if (run.riverId === "bois_brule") {
+      assertMatch(display.detail, /Highway 2/i, run.runId);
+      assertMatch(display.whereToStart, /^Restrictions first:/, run.runId);
+      assertMatch(display.whereToStart, /Nov\. 15/i, run.runId);
+      assertMatch(display.whereToStart, /Box Car Hole/i, run.runId);
+      assertMatch(display.whereToStart, /Mays Ledges/i, run.runId);
+      assertMatch(display.whereToStart, /500-foot refuge/i, run.runId);
+    } else {
+      assertEquals(run.riverId, "root", run.runId);
+      assertMatch(display.detail, /Steelhead Facility/i, run.runId);
+      assertMatch(display.whereToStart, /^Restrictions first:/, run.runId);
+      assertMatch(
+        display.whereToStart,
+        /night-fishing restriction/i,
+        run.runId,
+      );
+      assertMatch(display.whereToStart, /City Parks|Lincoln Park/i, run.runId);
     }
   }
 });

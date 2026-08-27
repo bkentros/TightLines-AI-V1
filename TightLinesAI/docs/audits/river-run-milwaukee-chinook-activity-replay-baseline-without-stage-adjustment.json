@@ -1,0 +1,1936 @@
+{
+  "runId": "milwaukee_fall_chinook",
+  "rulesVersion": "milwaukee-fall-chinook-observed-activity-v2-draft-baseline-without-stage-adjustment",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical chinook replay using Milwaukee River at Milwaukee — Estabrook Park USGS 04087000 daily mean discharge, Milwaukee River at Milwaukee — measured water temperature USGS 04087000 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1862,
+  "usableDays": 260,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 1599,
+    "temperatureHistory": 1599,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 20,
+    "p10": 23,
+    "median": 45,
+    "p90": 84,
+    "max": 95,
+    "mean": 48.94
+  },
+  "blockScore": {
+    "min": 20,
+    "p10": 23,
+    "median": 43,
+    "p90": 82,
+    "max": 96,
+    "mean": 47.96
+  },
+  "uniqueDayScores": 58,
+  "uniqueBlockScores": 75,
+  "dayLabels": {
+    "Active": 69,
+    "Highly active": 38,
+    "Moderate": 25,
+    "Reserved": 128
+  },
+  "blockLabels": {
+    "Active": 267,
+    "Highly active": 131,
+    "Moderate": 128,
+    "Reserved": 514
+  },
+  "daysAtLeast90": 8,
+  "blocksAtLeast90": 35,
+  "byStage": {
+    "beginning": {
+      "days": 42,
+      "scores": {
+        "min": 23,
+        "p10": 23,
+        "median": 24,
+        "p90": 77,
+        "max": 82,
+        "mean": 33.64
+      },
+      "labels": {
+        "Active": 5,
+        "Highly active": 2,
+        "Reserved": 35
+      }
+    },
+    "building": {
+      "days": 90,
+      "scores": {
+        "min": 21,
+        "p10": 23,
+        "median": 29,
+        "p90": 86,
+        "max": 93,
+        "mean": 44.34
+      },
+      "labels": {
+        "Active": 20,
+        "Highly active": 11,
+        "Moderate": 4,
+        "Reserved": 55
+      }
+    },
+    "ending": {
+      "days": 20,
+      "scores": {
+        "min": 32,
+        "p10": 57,
+        "median": 61,
+        "p90": 73,
+        "max": 77,
+        "mean": 61.65
+      },
+      "labels": {
+        "Active": 12,
+        "Moderate": 7,
+        "Reserved": 1
+      }
+    },
+    "peak": {
+      "days": 28,
+      "scores": {
+        "min": 64,
+        "p10": 69,
+        "median": 82,
+        "p90": 90,
+        "max": 95,
+        "mean": 80.25
+      },
+      "labels": {
+        "Active": 13,
+        "Highly active": 15
+      }
+    },
+    "post_run": {
+      "days": 19,
+      "scores": {
+        "min": 32,
+        "p10": 33,
+        "median": 45,
+        "p90": 57,
+        "max": 58,
+        "mean": 44.63
+      },
+      "labels": {
+        "Moderate": 12,
+        "Reserved": 7
+      }
+    },
+    "pre_run": {
+      "days": 30,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 27,
+        "max": 29,
+        "mean": 23.83
+      },
+      "labels": {
+        "Reserved": 30
+      }
+    },
+    "tapering": {
+      "days": 31,
+      "scores": {
+        "min": 58,
+        "p10": 64,
+        "median": 71,
+        "p90": 87,
+        "max": 95,
+        "mean": 73.48
+      },
+      "labels": {
+        "Active": 19,
+        "Highly active": 10,
+        "Moderate": 2
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 42,
+      "samples": 42,
+      "scores": {
+        "min": 23,
+        "p10": 23,
+        "median": 24,
+        "p90": 75,
+        "max": 80,
+        "mean": 33.64
+      },
+      "labelShares": {
+        "Active": 11.9,
+        "Highly active": 4.76,
+        "Reserved": 83.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 42,
+      "samples": 42,
+      "scores": {
+        "min": 22,
+        "p10": 23,
+        "median": 24,
+        "p90": 68,
+        "max": 76,
+        "mean": 32.17
+      },
+      "labelShares": {
+        "Active": 16.67,
+        "Reserved": 83.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 42,
+      "samples": 42,
+      "scores": {
+        "min": 22,
+        "p10": 22,
+        "median": 24,
+        "p90": 79,
+        "max": 86,
+        "mean": 33.14
+      },
+      "labelShares": {
+        "Active": 11.9,
+        "Highly active": 4.76,
+        "Reserved": 83.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 42,
+      "samples": 42,
+      "scores": {
+        "min": 23,
+        "p10": 23,
+        "median": 24,
+        "p90": 75,
+        "max": 84,
+        "mean": 33.71
+      },
+      "labelShares": {
+        "Active": 7.14,
+        "Highly active": 9.52,
+        "Reserved": 83.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 42,
+      "samples": 168,
+      "scores": {
+        "min": 22,
+        "p10": 23,
+        "median": 24,
+        "p90": 71,
+        "max": 86,
+        "mean": 33.17
+      },
+      "labelShares": {
+        "Active": 11.9,
+        "Highly active": 4.76,
+        "Reserved": 83.33
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 90,
+      "samples": 90,
+      "scores": {
+        "min": 21,
+        "p10": 23,
+        "median": 29,
+        "p90": 81,
+        "max": 92,
+        "mean": 44.76
+      },
+      "labelShares": {
+        "Active": 24.44,
+        "Highly active": 11.11,
+        "Moderate": 3.33,
+        "Reserved": 61.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 90,
+      "samples": 90,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 28,
+        "p90": 76,
+        "max": 93,
+        "mean": 42.66
+      },
+      "labelShares": {
+        "Active": 15.56,
+        "Highly active": 10,
+        "Moderate": 13.33,
+        "Reserved": 61.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 90,
+      "samples": 90,
+      "scores": {
+        "min": 21,
+        "p10": 22,
+        "median": 28,
+        "p90": 76,
+        "max": 92,
+        "mean": 42.27
+      },
+      "labelShares": {
+        "Active": 15.56,
+        "Highly active": 10,
+        "Moderate": 13.33,
+        "Reserved": 61.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 90,
+      "samples": 90,
+      "scores": {
+        "min": 20,
+        "p10": 23,
+        "median": 29,
+        "p90": 82,
+        "max": 93,
+        "mean": 44.2
+      },
+      "labelShares": {
+        "Active": 22.22,
+        "Highly active": 12.22,
+        "Moderate": 4.44,
+        "Reserved": 61.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 90,
+      "samples": 360,
+      "scores": {
+        "min": 20,
+        "p10": 23,
+        "median": 29,
+        "p90": 82,
+        "max": 93,
+        "mean": 43.47
+      },
+      "labelShares": {
+        "Active": 19.44,
+        "Highly active": 10.83,
+        "Moderate": 8.61,
+        "Reserved": 61.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 20,
+      "samples": 20,
+      "scores": {
+        "min": 34,
+        "p10": 52,
+        "median": 60,
+        "p90": 74,
+        "max": 77,
+        "mean": 61.85
+      },
+      "labelShares": {
+        "Active": 60,
+        "Moderate": 35,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 20,
+      "samples": 20,
+      "scores": {
+        "min": 28,
+        "p10": 51,
+        "median": 59,
+        "p90": 74,
+        "max": 77,
+        "mean": 59.15
+      },
+      "labelShares": {
+        "Active": 45,
+        "Moderate": 50,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 20,
+      "samples": 20,
+      "scores": {
+        "min": 31,
+        "p10": 48,
+        "median": 61,
+        "p90": 73,
+        "max": 78,
+        "mean": 59.75
+      },
+      "labelShares": {
+        "Active": 50,
+        "Moderate": 45,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 20,
+      "samples": 20,
+      "scores": {
+        "min": 32,
+        "p10": 57,
+        "median": 61,
+        "p90": 72,
+        "max": 78,
+        "mean": 61.45
+      },
+      "labelShares": {
+        "Active": 55,
+        "Moderate": 40,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 20,
+      "samples": 80,
+      "scores": {
+        "min": 28,
+        "p10": 48,
+        "median": 60,
+        "p90": 74,
+        "max": 78,
+        "mean": 60.55
+      },
+      "labelShares": {
+        "Active": 52.5,
+        "Moderate": 42.5,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 28,
+      "samples": 28,
+      "scores": {
+        "min": 66,
+        "p10": 72,
+        "median": 84,
+        "p90": 91,
+        "max": 93,
+        "mean": 81.61
+      },
+      "labelShares": {
+        "Active": 42.86,
+        "Highly active": 57.14
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 28,
+      "samples": 28,
+      "scores": {
+        "min": 57,
+        "p10": 63,
+        "median": 76,
+        "p90": 92,
+        "max": 95,
+        "mean": 76.18
+      },
+      "labelShares": {
+        "Active": 64.29,
+        "Highly active": 32.14,
+        "Moderate": 3.57
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 28,
+      "samples": 28,
+      "scores": {
+        "min": 56,
+        "p10": 63,
+        "median": 75,
+        "p90": 90,
+        "max": 95,
+        "mean": 75.43
+      },
+      "labelShares": {
+        "Active": 64.29,
+        "Highly active": 32.14,
+        "Moderate": 3.57
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 28,
+      "samples": 28,
+      "scores": {
+        "min": 66,
+        "p10": 71,
+        "median": 82,
+        "p90": 92,
+        "max": 96,
+        "mean": 80.5
+      },
+      "labelShares": {
+        "Active": 46.43,
+        "Highly active": 53.57
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 28,
+      "samples": 112,
+      "scores": {
+        "min": 56,
+        "p10": 65,
+        "median": 77,
+        "p90": 92,
+        "max": 96,
+        "mean": 78.43
+      },
+      "labelShares": {
+        "Active": 54.46,
+        "Highly active": 43.75,
+        "Moderate": 1.79
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 30,
+        "p10": 34,
+        "median": 47,
+        "p90": 55,
+        "max": 59,
+        "mean": 45.21
+      },
+      "labelShares": {
+        "Moderate": 63.16,
+        "Reserved": 36.84
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 27,
+        "p10": 30,
+        "median": 45,
+        "p90": 54,
+        "max": 59,
+        "mean": 43.63
+      },
+      "labelShares": {
+        "Moderate": 63.16,
+        "Reserved": 36.84
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 27,
+        "p10": 29,
+        "median": 43,
+        "p90": 54,
+        "max": 58,
+        "mean": 41.74
+      },
+      "labelShares": {
+        "Moderate": 57.89,
+        "Reserved": 42.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 19,
+      "samples": 19,
+      "scores": {
+        "min": 31,
+        "p10": 34,
+        "median": 43,
+        "p90": 54,
+        "max": 57,
+        "mean": 43.68
+      },
+      "labelShares": {
+        "Moderate": 57.89,
+        "Reserved": 42.11
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 19,
+      "samples": 76,
+      "scores": {
+        "min": 27,
+        "p10": 30,
+        "median": 45,
+        "p90": 57,
+        "max": 59,
+        "mean": 43.57
+      },
+      "labelShares": {
+        "Moderate": 60.53,
+        "Reserved": 39.47
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 27,
+        "max": 28,
+        "mean": 23.8
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 26,
+        "max": 29,
+        "mean": 23.47
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 27,
+        "max": 28,
+        "mean": 23.53
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 30,
+      "samples": 30,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 27,
+        "max": 29,
+        "mean": 23.8
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 30,
+      "samples": 120,
+      "scores": {
+        "min": 20,
+        "p10": 21,
+        "median": 23,
+        "p90": 27,
+        "max": 29,
+        "mean": 23.65
+      },
+      "labelShares": {
+        "Reserved": 100
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 31,
+      "samples": 31,
+      "scores": {
+        "min": 60,
+        "p10": 64,
+        "median": 73,
+        "p90": 86,
+        "max": 96,
+        "mean": 74.35
+      },
+      "labelShares": {
+        "Active": 67.74,
+        "Highly active": 32.26
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 31,
+      "samples": 31,
+      "scores": {
+        "min": 51,
+        "p10": 54,
+        "median": 67,
+        "p90": 88,
+        "max": 96,
+        "mean": 68.97
+      },
+      "labelShares": {
+        "Active": 54.84,
+        "Highly active": 22.58,
+        "Moderate": 22.58
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 31,
+      "samples": 31,
+      "scores": {
+        "min": 50,
+        "p10": 54,
+        "median": 69,
+        "p90": 87,
+        "max": 95,
+        "mean": 69.61
+      },
+      "labelShares": {
+        "Active": 54.84,
+        "Highly active": 22.58,
+        "Moderate": 22.58
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 31,
+      "samples": 31,
+      "scores": {
+        "min": 59,
+        "p10": 62,
+        "median": 71,
+        "p90": 86,
+        "max": 88,
+        "mean": 73.55
+      },
+      "labelShares": {
+        "Active": 61.29,
+        "Highly active": 35.48,
+        "Moderate": 3.23
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 31,
+      "samples": 124,
+      "scores": {
+        "min": 50,
+        "p10": 59,
+        "median": 70,
+        "p90": 87,
+        "max": 96,
+        "mean": 71.62
+      },
+      "labelShares": {
+        "Active": 59.68,
+        "Highly active": 28.23,
+        "Moderate": 12.1
+      },
+      "capConfidenceNotes": "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-15..10-18",
+      "days": 12,
+      "scores": {
+        "min": 69,
+        "p10": 72,
+        "median": 83,
+        "p90": 93,
+        "max": 95,
+        "mean": 81.83
+      },
+      "labels": {
+        "Active": 5,
+        "Highly active": 7
+      },
+      "maximumBlock": 96
+    },
+    "taperingEarly": {
+      "window": "10-19..10-22",
+      "days": 12,
+      "scores": {
+        "min": 66,
+        "p10": 68,
+        "median": 84,
+        "p90": 88,
+        "max": 95,
+        "mean": 80.5
+      },
+      "labels": {
+        "Active": 4,
+        "Highly active": 8
+      },
+      "maximumBlock": 96
+    },
+    "taperingLate": {
+      "window": "10-28..10-31",
+      "days": 8,
+      "scores": {
+        "min": 65,
+        "p10": 65,
+        "median": 67,
+        "p90": 68,
+        "max": 74,
+        "mean": 67.38
+      },
+      "labels": {
+        "Active": 8
+      },
+      "maximumBlock": 79
+    },
+    "endingEarly": {
+      "window": "11-01..11-04",
+      "days": 8,
+      "scores": {
+        "min": 57,
+        "p10": 57,
+        "median": 68,
+        "p90": 77,
+        "max": 77,
+        "mean": 66.63
+      },
+      "labels": {
+        "Active": 6,
+        "Moderate": 2
+      },
+      "maximumBlock": 78
+    },
+    "endingLate": {
+      "window": "11-17..11-20",
+      "days": 7,
+      "scores": {
+        "min": 32,
+        "p10": 33,
+        "median": 45,
+        "p90": 49,
+        "max": 52,
+        "mean": 42.71
+      },
+      "labels": {
+        "Moderate": 5,
+        "Reserved": 2
+      },
+      "maximumBlock": 52
+    },
+    "residualTail": {
+      "window": "11-21..11-20",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "below48F": {
+      "days": 17,
+      "scores": {
+        "min": 32,
+        "p10": 32,
+        "median": 41,
+        "p90": 60,
+        "max": 84,
+        "mean": 46.24
+      },
+      "labels": {
+        "Active": 2,
+        "Highly active": 1,
+        "Moderate": 6,
+        "Reserved": 8
+      }
+    },
+    "from48To62F": {
+      "days": 85,
+      "scores": {
+        "min": 45,
+        "p10": 57,
+        "median": 73,
+        "p90": 88,
+        "max": 95,
+        "mean": 73.04
+      },
+      "labels": {
+        "Active": 40,
+        "Highly active": 30,
+        "Moderate": 15
+      }
+    },
+    "from62To68F": {
+      "days": 38,
+      "scores": {
+        "min": 55,
+        "p10": 61,
+        "median": 70,
+        "p90": 84,
+        "max": 93,
+        "mean": 70.82
+      },
+      "labels": {
+        "Active": 27,
+        "Highly active": 7,
+        "Moderate": 4
+      }
+    },
+    "from68To72F": {
+      "days": 56,
+      "scores": {
+        "min": 21,
+        "p10": 27,
+        "median": 28,
+        "p90": 29,
+        "max": 32,
+        "mean": 27.86
+      },
+      "labels": {
+        "Reserved": 56
+      }
+    },
+    "atLeast72F": {
+      "days": 64,
+      "scores": {
+        "min": 20,
+        "p10": 23,
+        "median": 23,
+        "p90": 24,
+        "max": 24,
+        "mean": 23.13
+      },
+      "labels": {
+        "Reserved": 64
+      }
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 50,
+        "percent": 10
+      },
+      "meaningfulRise24h": {
+        "absolute": 150,
+        "percent": 28
+      },
+      "sharpRise24h": {
+        "absolute": 370,
+        "percent": 57
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 1,
+      "p10": 2,
+      "median": 40,
+      "p90": 212,
+      "max": 825,
+      "mean": 94.97
+    },
+    "positivePercentChange": {
+      "min": 0.26,
+      "p10": 1.15,
+      "median": 13.78,
+      "p90": 46.79,
+      "max": 266.67,
+      "mean": 26.96
+    },
+    "signals": {
+      "falling": 57,
+      "meaningful_rise": 6,
+      "rising": 17,
+      "sharp_rise": 4,
+      "stable": 176
+    }
+  },
+  "bestBlocks": {
+    "05-09": 175,
+    "09-13": 22,
+    "13-17": 32,
+    "17-21": 31
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 3,
+    "p90": 12,
+    "max": 20,
+    "mean": 5.18
+  },
+  "daysWithSpreadAtLeast10": 68,
+  "daysWithSpreadAtLeast20": 1,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-10-04",
+      "stage": "building",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 65.48,
+      "flowCfs": 199,
+      "flowBand": "low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -24,
+      "flowPercentChange24h": -10.76,
+      "temperatureSignal": "cooling",
+      "spread": 20,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-09-28",
+      "stage": "building",
+      "staging": false,
+      "score": 86,
+      "label": "Highly active",
+      "waterTempF": 60.62,
+      "flowCfs": 883,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -47,
+      "flowPercentChange24h": -5.05,
+      "temperatureSignal": "strong_cooling",
+      "spread": 19,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 89,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 22,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 39,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-11",
+      "stage": "peak",
+      "staging": false,
+      "score": 89,
+      "label": "Highly active",
+      "waterTempF": 58.82,
+      "flowCfs": 458,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -38,
+      "flowPercentChange24h": -7.66,
+      "temperatureSignal": "neutral",
+      "spread": 19,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 21,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-07",
+      "stage": "building",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": 67.46,
+      "flowCfs": 164,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -3,
+      "flowPercentChange24h": -1.8,
+      "temperatureSignal": "cooling",
+      "spread": 19,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 57,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-10-23",
+      "stage": "tapering",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": 58.28,
+      "flowCfs": 149,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -3,
+      "flowPercentChange24h": -1.97,
+      "temperatureSignal": "neutral",
+      "spread": 18,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 55,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2024-10-24",
+      "stage": "tapering",
+      "staging": false,
+      "score": 64,
+      "label": "Active",
+      "waterTempF": 57.2,
+      "flowCfs": 148,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.67,
+      "temperatureSignal": "neutral",
+      "spread": 18,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2016-10-10",
+      "stage": "peak",
+      "staging": false,
+      "score": 86,
+      "label": "Highly active",
+      "waterTempF": 57.56,
+      "flowCfs": 496,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -44,
+      "flowPercentChange24h": -8.15,
+      "temperatureSignal": "cooling",
+      "spread": 16,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 47,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-22",
+      "stage": "tapering",
+      "staging": false,
+      "score": 83,
+      "label": "Highly active",
+      "waterTempF": 52.7,
+      "flowCfs": 487,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -46,
+      "flowPercentChange24h": -8.63,
+      "temperatureSignal": "strong_cooling",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 74,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2024-09-28",
+      "stage": "building",
+      "staging": false,
+      "score": 67,
+      "label": "Active",
+      "waterTempF": 67.46,
+      "flowCfs": 295,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -27,
+      "flowPercentChange24h": -8.39,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-10-21",
+      "stage": "tapering",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 58.64,
+      "flowCfs": 156,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -1.27,
+      "temperatureSignal": "warming",
+      "spread": 16,
+      "bestBlock": "13-17",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 34,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 1–5 PM: The measured water temperature is favorable for Chinook. The main limitation: The river level or its recent change is less favorable. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2025-09-04",
+      "stage": "beginning",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": 65.66,
+      "flowCfs": 271,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -9,
+      "flowPercentChange24h": -3.21,
+      "temperatureSignal": "strong_cooling",
+      "spread": 16,
+      "bestBlock": "13-17",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 1–5 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 1–5 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-16",
+      "stage": "peak",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 59.72,
+      "flowCfs": 230,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 1,
+      "flowPercentChange24h": 0.44,
+      "temperatureSignal": "neutral",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 16,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

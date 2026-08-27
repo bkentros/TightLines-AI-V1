@@ -42,6 +42,8 @@ export type NormalizedGaugeRead = {
 
 const USGS_CONTINUOUS_URL =
   "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items";
+const USGS_CONTINUOUS_ORIGIN = "https://api.waterdata.usgs.gov";
+const USGS_CONTINUOUS_PATH = "/ogcapi/v0/collections/continuous/items";
 const USGS_PARAMETER_CODES: Record<RiverMetric, string> = {
   flow_cfs: "00060",
   gage_height_ft: "00065",
@@ -70,12 +72,10 @@ export async function fetchUsgsInstantaneousValues(input: {
       datetime: `${startAtUtc}/${endAtUtc}`,
       limit: "1000",
     });
-    const response = await input.fetchFn(
-      `${USGS_CONTINUOUS_URL}?${params.toString()}`,
-      usgsApiRequestInit(),
-    );
-    if (!response.ok) return null;
-    return await response.json();
+    return await fetchUsgsContinuousPages({
+      fetchFn: input.fetchFn,
+      initialUrl: `${USGS_CONTINUOUS_URL}?${params.toString()}`,
+    });
   }));
   if (payloads.every((payload) => payload == null)) return null;
   return {
@@ -86,6 +86,71 @@ export async function fetchUsgsInstantaneousValues(input: {
       )
     ),
   };
+}
+
+/**
+ * Follows the provider's OGC `next` links so high-cadence stations cannot
+ * silently turn the oldest page into the apparent latest reading.
+ */
+export async function fetchUsgsContinuousPages(input: {
+  fetchFn: RiverRunFetch;
+  initialUrl: string;
+  maxPages?: number;
+}): Promise<unknown | null> {
+  const features: unknown[] = [];
+  const visited = new Set<string>();
+  let nextUrl: string | null = input.initialUrl;
+  const maxPages = input.maxPages ?? 16;
+
+  for (let page = 0; nextUrl && page < maxPages; page++) {
+    if (visited.has(nextUrl) || !isAcceptedContinuousPageUrl(nextUrl)) {
+      return null;
+    }
+    visited.add(nextUrl);
+    const response = await input.fetchFn(nextUrl, usgsApiRequestInit());
+    if (!response.ok) return null;
+    const payload = await response.json();
+    features.push(...asArray(
+      (payload as { features?: unknown[] } | null)?.features,
+    ));
+    const pageLink = nextContinuousPageUrl(payload);
+    if (pageLink === null) return null;
+    nextUrl = pageLink ?? null;
+  }
+
+  // A remaining link means the safety bound truncated the provider response.
+  if (nextUrl) return null;
+  return { type: "FeatureCollection", features };
+}
+
+function nextContinuousPageUrl(
+  payload: unknown,
+): string | null | undefined {
+  for (
+    const link of asArray(
+      (payload as { links?: unknown[] } | null)?.links,
+    )
+  ) {
+    const candidate = link as { rel?: unknown; href?: unknown };
+    if (candidate.rel !== "next") continue;
+    if (typeof candidate.href !== "string") return null;
+    try {
+      return new URL(candidate.href, USGS_CONTINUOUS_URL).toString();
+    } catch {
+      return null;
+    }
+  }
+  return undefined;
+}
+
+function isAcceptedContinuousPageUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.origin === USGS_CONTINUOUS_ORIGIN &&
+      url.pathname === USGS_CONTINUOUS_PATH;
+  } catch {
+    return false;
+  }
 }
 
 export function usgsApiRequestInit(): RequestInit | undefined {

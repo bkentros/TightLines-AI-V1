@@ -1,6 +1,6 @@
 # River Run Activity Onboarding Standard
 
-**Status:** Normative **Version:** 1.3 **Established:** 2026-08-24 **Applies
+**Status:** Normative **Version:** 1.4 **Established:** 2026-08-24 **Applies
 to:** Every river/species Activity configuration, replay, public copy, fixture,
 and acceptance decision
 
@@ -238,6 +238,15 @@ Use the longest fixed interval with reliable coverage. Set the interval before
 judging the score distribution and record exclusions. A minimum five-year window
 is expected; longer reliable records are preferred.
 
+Audit current source availability and historical overlap separately. A station
+that works live does not prove that temperature, hydraulics, and weather overlap
+for replay, and an old discontinued station does not support a live observed
+model. Record the complete modern seasons for the exact accepted source pair.
+Fewer than five complete seasons may support a hidden owner-review candidate
+only when the short-record limitation and a longer sensitivity analysis are
+explicit; public acceptance requires a documented owner exception or more
+qualifying history.
+
 Season iteration is local-date and year-aware. When the configured tail ends in
 the next calendar year, expected-day counts, stage resolution, lifecycle dates,
 weather requests, and controlled comparisons must all advance across New Year. A
@@ -310,6 +319,13 @@ true maximum. Apply and test hard warm, barrier, extreme-flow, and missing data
 caps after the adjustment so lifecycle shaping cannot manufacture a high score
 under unsafe or unsupported conditions. Record the before/after stage means and
 rationale in the calibration ledger.
+
+The default warm-water ceiling is 39. A run may declare a small, versioned
+`warmWaterMaximum` only when the fixed replay demonstrates an implausibly sharp
+threshold boundary and the packet records the before/after effect. It must stay
+below the Active label, cannot alter the migration-barrier threshold or ceiling,
+and must be covered by an isolated warm-versus-barrier test plus the replay cap
+invariant.
 
 ### 9.2 Calibration iteration ledger
 

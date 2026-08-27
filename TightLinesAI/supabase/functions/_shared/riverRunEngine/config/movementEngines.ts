@@ -28,6 +28,18 @@ export const MOVEMENT_ENGINE_DEFINITIONS: Record<
     description:
       "Fall movement engine for runs where suitable cooling and a measured river response can support movement.",
   },
+  fall_repeat_spawner_cooling: {
+    movementEngineId: "fall_repeat_spawner_cooling",
+    version: "fall-repeat-spawner-cooling-v1",
+    implemented: true,
+    supportedSeasons: ["fall"],
+    supportedRunTypes: ["fall_repeat_spawn"],
+    temperatureDirection: "cooling",
+    rainActsAsPrecursor: true,
+    gaugeResponseRequiredForStrongPush: true,
+    description:
+      "Fall cooling branch for iteroparous lake-run trout that migrate to spawn, can survive spawning, and may hold in tributaries or return lakeward afterward.",
+  },
   fall_entry_cooling: {
     movementEngineId: "fall_entry_cooling",
     version: "fall-entry-cooling-v1",

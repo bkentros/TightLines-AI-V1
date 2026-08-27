@@ -53,6 +53,11 @@ const REVIEW_VALUES: Record<
     gageHeight: 0.91,
     waterTemperatureAverage: null,
   },
+  milwaukee: {
+    flowAverage: 359,
+    gageHeight: 2.5,
+    waterTemperatureAverage: null,
+  },
 };
 
 export function buildReviewLiveConditionsFixture(input: {
@@ -171,6 +176,46 @@ export function buildReviewLiveConditionsFixture(input: {
             ? "usgs_statistics"
             : "monitor_my_watershed_history",
         })
+        : undefined,
+    });
+  } else if (input.river.historicalWaterTemperatureSource) {
+    const source = input.river.historicalWaterTemperatureSource;
+    const normal = source.normals[input.localDate.slice(5)];
+    metrics.push({
+      metric: "water_temp_f",
+      label: "Historical Water Temperature",
+      value: null,
+      unit: "°F",
+      freshness: "missing",
+      sourceId: source.sourceId,
+      provider: source.provider,
+      stationName: source.name,
+      siteId: source.siteId,
+      representedReach: source.reachNotes,
+      attribution: source.attribution,
+      trend24h: {
+        direction: "unknown",
+        delta: null,
+        percentDelta: null,
+      },
+      seasonalContext: normal
+        ? {
+          average: normal.averageF,
+          p10: normal.p10F,
+          p25: normal.p25F,
+          median: normal.medianF,
+          p75: normal.p75F,
+          p90: normal.p90F,
+          historicalYears: normal.historicalYears,
+          sampleCount: normal.sampleCount,
+          availableWindowDays: 1,
+          windowRadiusDays: 0,
+          windowStartMonthDay: input.localDate.slice(5),
+          windowEndMonthDay: input.localDate.slice(5),
+          recordKind: "recent",
+          baselineVersion: source.baselineVersion,
+          source: "usgs_approved_exact_date_archive",
+        }
         : undefined,
     });
   }

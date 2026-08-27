@@ -26,8 +26,11 @@ const speciesSlug = run.species === "chinook_salmon"
   ? "chinook"
   : run.species === "coho_salmon"
   ? "coho"
+  : run.species === "lake_run_brown_trout"
+  ? "brown-trout"
   : "steelhead";
 const steelhead = speciesSlug === "steelhead";
+const repeatSpawner = speciesSlug === "brown-trout";
 if (
   run.primitiveCapabilities.activity.status !== "available" ||
   !run.activity || run.activity.dataMode !== "weather_only"
@@ -39,6 +42,11 @@ if (
 const configuredLightWeight = run.activity.weights.light;
 const lightWeightOverride = numericArgumentValue("--light-weight");
 const activityRules = structuredClone(run.activity);
+if (Deno.args.includes("--without-stage-adjustment")) {
+  activityRules.stageResponseAdjustment = undefined;
+  activityRules.version =
+    `${activityRules.version}-baseline-without-stage-adjustment`;
+}
 if (lightWeightOverride !== undefined) {
   if (lightWeightOverride <= 0 || lightWeightOverride >= 1) {
     throw new Error("--light-weight must be greater than 0 and less than 1.");
@@ -126,6 +134,8 @@ for (let year = startYear; year <= endYear; year++) {
 const blocks = rows.flatMap((row) => row.blocks);
 const lifecycle = steelhead
   ? steelheadStageInvarianceAudit()
+  : repeatSpawner
+  ? repeatSpawnerContinuityAudit()
   : lifecycleContinuityAudit();
 const invariants = {
   incompleteBlocks: rows.filter((row) => row.blocks.length !== 4).length,
@@ -162,7 +172,19 @@ const invariants = {
   lifecycleCalendarCliff: lifecycle.maximumAdjacentDelta > 2 ? 1 : 0,
   lifecycleNotDeclining: steelhead
     ? (lifecycle.scores.some((score) => score !== lifecycle.scores[0]) ? 1 : 0)
+    : repeatSpawner
+    ? 0
     : lifecycle.scores.at(-1)! >= lifecycle.scores[0]
+    ? 1
+    : 0,
+  repeatSpawnerMortalityLanguage: repeatSpawner
+    ? rows.filter((row) =>
+      /dying|deteriorat|mortality|spent or dead/i.test(
+        `${row.headline} ${row.detail} ${row.tip}`,
+      )
+    ).length
+    : 0,
+  repeatSpawnerStageShape: repeatSpawner && !activityStageShapeIsValid()
     ? 1
     : 0,
 };
@@ -231,15 +253,34 @@ const report = {
 };
 
 if (Deno.args.includes("--write")) {
+  const variant = Deno.args.includes("--without-stage-adjustment")
+    ? "-baseline-without-stage-adjustment"
+    : "";
   await Deno.mkdir("docs/audits", { recursive: true });
   await Deno.writeTextFile(
     `docs/audits/river-run-${
       river.riverId.replaceAll("_", "-")
-    }-${speciesSlug}-weather-activity-replay.json`,
+    }-${speciesSlug}-weather-activity-replay${variant}.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   );
 }
-console.log(JSON.stringify(report, null, 2));
+console.log(JSON.stringify(
+  Deno.args.includes("--summary")
+    ? {
+      runId: report.runId,
+      rulesVersion: report.rulesVersion,
+      expectedDays: report.expectedDays,
+      usableDays: report.usableDays,
+      coverage: round2(report.usableDays / report.expectedDays * 100),
+      dayScore: report.dayScore,
+      byStage: report.byStage,
+      lifecycleContinuity: report.lifecycleContinuity,
+      invariants: report.invariants,
+    }
+    : report,
+  null,
+  2,
+));
 if (
   rows.length < report.expectedDays * 0.95 ||
   Object.values(invariants).some((value) => value > 0)
@@ -382,6 +423,84 @@ function steelheadStageInvarianceAudit() {
     scores,
     maximumAdjacentDelta: Math.max(...deltas.map((value) => Math.abs(value))),
   };
+}
+
+function repeatSpawnerContinuityAudit() {
+  const interval = seasonInterval(2026);
+  const stageDates = [
+    run.runWindow.stagingStart,
+    run.runWindow.start,
+    run.runWindow.buildingEstablishedStart,
+    run.runWindow.peakStart,
+    addDays(dateInInterval(2026, run.runWindow.peakEnd, interval.start), 1)
+      .slice(5),
+    addDays(
+      dateInInterval(2026, run.runWindow.taperingEnd, interval.start),
+      1,
+    ).slice(5),
+    addDays(dateInInterval(2026, run.runWindow.end, interval.start), 1).slice(
+      5,
+    ),
+  ];
+  const dates = stageDates.map((monthDay) =>
+    dateInInterval(2026, monthDay, interval.start)
+  );
+  const scores = dates.map((date) => {
+    const stage = resolveRunStage(run, date);
+    return scoreActivity({
+      rules: activityRules,
+      requestDate: date,
+      targetDate: date,
+      runStage: stage.stage,
+      staging: stage.stagingContext,
+      waterTempF: null,
+      temperatureTrend: "neutral_missing",
+      gaugeFreshness: "missing",
+      weatherFreshness: "fresh",
+      flowSignal: "unknown",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 70,
+        shortwave_w_m2: hour >= 7 && hour < 18 ? 150 : 0,
+        clear_sky_shortwave_w_m2: hour >= 7 && hour < 18 ? 500 : 0,
+        precipitation_in: 0,
+      })),
+    }).score ?? 0;
+  });
+  const deltas = scores.slice(1).map((score, index) => score - scores[index]);
+  return {
+    startDate: dates[0],
+    endDate: dates.at(-1),
+    scores,
+    maximumAdjacentDelta: Math.max(...deltas.map((value) => Math.abs(value))),
+  };
+}
+
+function activityStageShapeIsValid(): boolean {
+  const means = Object.fromEntries(
+    [
+      "pre_run",
+      "beginning",
+      "building",
+      "peak",
+      "tapering",
+      "ending",
+      "post_run",
+    ].map((stage) => {
+      const values = rows.filter((row) => row.stage === stage).map((row) =>
+        row.score
+      );
+      return [
+        stage,
+        values.reduce((sum, value) => sum + value, 0) / values.length,
+      ];
+    }),
+  );
+  return means.building < means.peak && means.peak - means.building <= 20 &&
+    means.tapering < means.peak && means.peak - means.tapering <= 20 &&
+    [means.pre_run, means.beginning, means.ending, means.post_run].every(
+      (mean) => mean < means.peak,
+    );
 }
 
 function activeDayCount(start: string, end: string): number {

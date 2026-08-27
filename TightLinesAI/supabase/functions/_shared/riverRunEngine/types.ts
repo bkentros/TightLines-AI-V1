@@ -15,6 +15,7 @@ export type RiverRunSpecies =
 
 export type RunType =
   | "fall_spawn"
+  | "fall_repeat_spawn"
   | "fall_entry"
   | "winter_run"
   | "spring_spawn"
@@ -23,6 +24,7 @@ export type RunType =
 
 export type MovementEngineId =
   | "fall_cooling"
+  | "fall_repeat_spawner_cooling"
   | "fall_entry_cooling"
   | "spring_warming"
   | "winter_thaw"
@@ -136,7 +138,11 @@ export type RiverRunPrimitiveCapabilities = {
 
 export type ActivityRules = {
   version: string;
-  profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
+  profile:
+    | "chinook_fall_reaction"
+    | "coho_fall_reaction"
+    | "steelhead_feeding"
+    | "brown_trout_fall_reaction";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
   /**
@@ -200,6 +206,8 @@ export type ActivityRules = {
     taperingPenalty?: number;
     /** True ceiling applied after an audited stage-response adjustment. */
     stageResponseMaximum?: number;
+    /** Optional audited replacement for the default 39-point warm-water ceiling. */
+    warmWaterMaximum?: number;
     /** Optional calendar ramp that removes stage-boundary score discontinuities. */
     lifecycleRamp?: {
       peakEnd: string;
@@ -308,6 +316,29 @@ export type WaterTemperatureSourceConfig = {
   attribution: string;
 };
 
+export type HistoricalWaterTemperatureSourceConfig = {
+  sourceId: string;
+  provider: "USGS";
+  siteId: string;
+  name: string;
+  historicalStartYear: number;
+  historicalEndYear: number;
+  baselineVersion: string;
+  reachNotes: string;
+  attribution: string;
+  normals: Record<string, {
+    averageF: number;
+    p10F: number;
+    p25F: number;
+    medianF: number;
+    p75F: number;
+    p90F: number;
+    historicalYears: number;
+    sampleCount: number;
+    years: readonly number[];
+  }>;
+};
+
 export type RiverLiveMetricId =
   | "flow_cfs"
   | "gage_height_ft"
@@ -338,12 +369,15 @@ export type RiverLiveSeasonalContext = {
   historicalYears: number;
   sampleCount: number;
   availableWindowDays: number;
-  windowRadiusDays: 3;
+  windowRadiusDays: 0 | 3;
   windowStartMonthDay: string;
   windowEndMonthDay: string;
   recordKind: "long_term" | "recent";
   baselineVersion: string;
-  source: "usgs_statistics" | "monitor_my_watershed_history";
+  source:
+    | "usgs_statistics"
+    | "monitor_my_watershed_history"
+    | "usgs_approved_exact_date_archive";
 };
 
 export type RiverLiveConditionMetric = {
@@ -391,7 +425,10 @@ export type WeatherPointConfig = {
 
 export type MigratoryRiverTargetSpecies = Extract<
   RiverRunSpecies,
-  "chinook_salmon" | "coho_salmon" | "steelhead"
+  | "chinook_salmon"
+  | "coho_salmon"
+  | "steelhead"
+  | "lake_run_brown_trout"
 >;
 
 export type RiverFoundationReach = {
@@ -525,6 +562,8 @@ export type RiverProfile = {
   mouthLon: number;
   hydraulicSources: HydraulicSourceConfig[];
   waterTemperatureSources: WaterTemperatureSourceConfig[];
+  /** Optional historical-only context; never a current measured reading. */
+  historicalWaterTemperatureSource?: HistoricalWaterTemperatureSourceConfig;
   weatherPoints: WeatherPointConfig[];
   foundation?: RiverFoundationConfig;
   conditionRefreshSchedule: ConditionRefreshSchedule;
