@@ -1603,14 +1603,6 @@ function LiveMetricTile({
           </Text>
         )}
       <Text
-        style={styles.liveMetricFreshness}
-        numberOfLines={3}
-      >
-        {`${liveMetricFreshnessLabel(metric.freshness)} · ${
-          liveMetricFreshnessCopy(metric)
-        }`}
-      </Text>
-      <Text
         style={styles.liveMetricAverage}
         numberOfLines={1}
         adjustsFontSizeToFit
@@ -3441,12 +3433,6 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
     lineHeight: 24,
-    color: paper.dashboardMuted,
-  },
-  liveMetricFreshness: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 8.5,
-    lineHeight: 11,
     color: paper.dashboardMuted,
   },
   liveMetricAverage: {
