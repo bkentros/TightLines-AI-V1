@@ -353,6 +353,17 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         id: "pm_middle",
         label: "Middle · Scottville to Maple Leaf",
         spots: [
+          sourcedCoordinateSpot(
+            "pm_indian_bridge",
+            "Indian Bridge River Access",
+            43.93706,
+            -86.18209,
+            ["boat_ramp", "shore_fishing"],
+            "Public river access at the downstream end of the seasonally permitted Forest Service float reach.",
+            "U.S. Forest Service / Michigan Water Trails",
+            "https://www.michiganwatertrails.org/location.asp?aid=1207&ait=av",
+            "Seasonal watercraft permit rules apply; verify current fishing regulations for this reach.",
+          ),
           dnrSpot(
             "pm_walhalla",
             "Walhalla Road Bridge",
@@ -379,26 +390,6 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         id: "pm_upper",
         label: "Upper · Maple Leaf to M-37",
         spots: [
-          sourcedCoordinateSpot(
-            "pm_green_cottage",
-            "Green Cottage Access",
-            43.860551,
-            -85.881054,
-            ["shore_fishing", "carry_in"],
-            "Forest Service river access with improved steps and angler entry.",
-            "U.S. Forest Service — Green Cottage River Access",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation/green-cottage-river-access",
-          ),
-          sourcedCoordinateSpot(
-            "pm_claybanks",
-            "Claybanks River Access",
-            43.870053,
-            -85.883319,
-            ["shore_fishing", "carry_in"],
-            "Forest Service corridor access; use the signed public entrance.",
-            "U.S. Forest Service — Claybanks Campground",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation/claybanks-campground",
-          ),
           namedSpot(
             "pm_rainbow_rapids",
             "Rainbow Rapids Access",
@@ -407,17 +398,6 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Forest Service river access and parking area in the national scenic corridor.",
             "U.S. Forest Service",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/rainbow-rapids-boat-launch",
-          ),
-          sourcedCoordinateSpot(
-            "pm_gleasons",
-            "Gleason's Landing",
-            43.871557,
-            -85.921563,
-            ["shore_fishing", "boat_ramp"],
-            "Forest Service campground and launch with riverside angler trails.",
-            "U.S. Forest Service — Gleason's Landing",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation/gleasons-landing-campground",
-            "Seasonal watercraft permits and site fees may apply.",
           ),
           namedSpot(
             "pm_bowman_bridge",
@@ -430,15 +410,35 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Campground or day-use fees and seasonal watercraft permits may apply.",
           ),
           sourcedCoordinateSpot(
-            "pm_indian_bridge",
-            "Indian Bridge River Access",
-            43.93706,
-            -86.18209,
-            ["boat_ramp", "shore_fishing"],
-            "Public river access at the downstream end of the seasonally permitted Forest Service float reach.",
-            "U.S. Forest Service / Michigan Water Trails",
-            "https://www.michiganwatertrails.org/location.asp?aid=1207&ait=av",
-            "Seasonal watercraft permit rules apply; verify current fishing regulations for this reach.",
+            "pm_gleasons",
+            "Gleason's Landing",
+            43.871557,
+            -85.921563,
+            ["shore_fishing", "boat_ramp"],
+            "Forest Service campground and launch with riverside angler trails.",
+            "U.S. Forest Service — Gleason's Landing",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/gleasons-landing-campground",
+            "Seasonal watercraft permits and site fees may apply.",
+          ),
+          sourcedCoordinateSpot(
+            "pm_claybanks",
+            "Claybanks River Access",
+            43.870053,
+            -85.883319,
+            ["shore_fishing", "carry_in"],
+            "Forest Service corridor access; use the signed public entrance.",
+            "U.S. Forest Service — Claybanks Campground",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/claybanks-campground",
+          ),
+          sourcedCoordinateSpot(
+            "pm_green_cottage",
+            "Green Cottage Access",
+            43.860551,
+            -85.881054,
+            ["shore_fishing", "carry_in"],
+            "Forest Service river access with improved steps and angler entry.",
+            "U.S. Forest Service — Green Cottage River Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/green-cottage-river-access",
           ),
           sourcedCoordinateSpot(
             "pm_72nd_angler",
@@ -635,7 +635,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverId: "white",
     riverName: "White River",
     orientationNote:
-      "This river uses named landmarks because public access is uneven. Private liveries are not presented as public fishing access.",
+      "This river uses named landmarks because public access is uneven. The lake-run corridor ends below Hesperia Dam; private liveries and upstream landings are excluded.",
     sections: [
       {
         id: "white_lower",
@@ -741,16 +741,6 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             WHITE_RIVER_MAP,
             "Do not enter posted dam or private-property areas.",
           ),
-          namedSpot(
-            "white_island",
-            "Island Landing",
-            "Island Landing, White River, Hesperia, MI",
-            ["carry_in", "shore_fishing"],
-            "Public landing immediately below the Hesperia orientation endpoint.",
-            "Newaygo County Tourism Council water-trail map",
-            WHITE_RIVER_MAP,
-            "Portage is required at the dam; follow the signed route and stay outside safety barriers.",
-          ),
         ],
       },
     ],
@@ -783,15 +773,6 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "U.S. Forest Service — Udell Rollways Day Use Area",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/udell-rollways-day-use-area",
           ),
-          namedSpot(
-            "manistee_blacksmith",
-            "Blacksmith Bayou",
-            "Blacksmith Bayou Manistee River Access, Michigan",
-            ["boat_ramp", "shore_fishing"],
-            "Forest Service public access on the lower river.",
-            "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation/blacksmith-bayou-river-access",
-          ),
         ],
       },
       {
@@ -808,6 +789,15 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/bear-creek-river-access",
           ),
           namedSpot(
+            "manistee_blacksmith",
+            "Blacksmith Bayou",
+            "Blacksmith Bayou Manistee River Access, Michigan",
+            ["boat_ramp", "shore_fishing"],
+            "Forest Service public access between Bear Creek and High Bridge.",
+            "U.S. Forest Service",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/blacksmith-bayou-river-access",
+          ),
+          namedSpot(
             "manistee_high_bridge",
             "High Bridge Access",
             "High Bridge Manistee River Access, Brethren, MI",
@@ -816,12 +806,18 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "U.S. Forest Service",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/high-bridge-river-access",
           ),
+        ],
+      },
+      {
+        id: "manistee_upper",
+        label: "Upper · High Bridge to Tippy Dam",
+        spots: [
           namedSpot(
             "manistee_sawdust",
             "Sawdust Hole River Access",
             "Sawdust Hole Manistee River Access, Michigan",
             ["boat_ramp", "shore_fishing"],
-            "Forest Service public river access in the middle corridor.",
+            "Forest Service public river access upstream from High Bridge.",
             "U.S. Forest Service — Sawdust Hole River Access",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/sawdust-hole-river-access",
           ),
@@ -830,7 +826,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Suicide Bend River Access",
             "Suicide Bend Manistee River Access, Michigan",
             ["carry_in", "shore_fishing"],
-            "Named Forest Service public access in the national recreation river corridor.",
+            "Forest Service fishing access upstream from High Bridge in the Tippy Dam reach.",
             "U.S. Forest Service — Suicide Bend Fishing Access",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/suicide-bend-fishing-access",
           ),
@@ -839,16 +835,10 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Tunk Hole River Access",
             "Tunk Hole Manistee River Access, Michigan",
             ["carry_in", "shore_fishing"],
-            "Named Forest Service public access in the national recreation river corridor.",
+            "Forest Service angler access upstream from High Bridge in the Tippy Dam reach.",
             "U.S. Forest Service — Tunk Hole Angler Access",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/tunk-hole-angler-access",
           ),
-        ],
-      },
-      {
-        id: "manistee_upper",
-        label: "Upper · High Bridge to Tippy Dam",
-        spots: [
           dnrSpot(
             "manistee_tippy_lower",
             "Tippy Dam Recreation Area — Lower Access",
@@ -1010,7 +1000,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverId: "grand",
     riverName: "Grand River",
     orientationNote:
-      "The Grand has many public launches. These are access entrances, not a claim of bank-fishing or safe wading unless labeled.",
+      "The Grand has many public launches. Upper access beyond Webber is for Coho and Steelhead only; Chinook River Run guidance stops at Webber Dam. Access names do not imply bank-fishing or safe wading.",
     sections: [
       {
         id: "grand_lower",
@@ -1058,13 +1048,19 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
           dnrSpot("grand_johnson", "Johnson Park", 42.93025932, -85.75635125, [
             "boat_ramp",
           ], "County gravel public launch."),
+        ],
+      },
+      {
+        id: "grand_middle",
+        label: "Middle · Sixth Street to Webber Dam",
+        spots: [
           sourcedCoordinateSpot(
             "grand_riverside2",
             "Riverside Park River Access",
             43.0194346,
             -85.66280288,
             ["carry_in"],
-            "Municipal accessible kayak launch and public river access; posted park hours apply.",
+            "Municipal accessible kayak launch and public river access above Sixth Street; posted park hours apply.",
             "City of Grand Rapids Parks & Recreation",
             "https://www.grandrapidsmi.gov/departments/parks-recreation/recreation/kayaking/",
           ),
@@ -1074,7 +1070,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             43.06312097,
             -85.58514776,
             ["boat_ramp"],
-            "Two-lane gravel launch; Recreation Passport required.",
+            "Two-lane gravel launch above Sixth Street; Recreation Passport required.",
             "Site may flood in spring.",
           ),
           dnrSpot(
@@ -1083,18 +1079,12 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             43.00552729,
             -85.54169763,
             ["boat_ramp"],
-            "Gravel public launch; Recreation Passport required.",
+            "Gravel public launch above Sixth Street; Recreation Passport required.",
             "Site may flood in spring.",
           ),
           dnrSpot("grand_ada", "Ada Access", 42.95590346, -85.47664864, [
             "boat_ramp",
-          ], "Gravel public launch; Recreation Passport required."),
-        ],
-      },
-      {
-        id: "grand_middle",
-        label: "Middle · Sixth Street to Webber Dam",
-        spots: [
+          ], "Gravel public launch above Sixth Street; Recreation Passport required."),
           dnrSpot(
             "grand_saranac",
             "Saranac Access",

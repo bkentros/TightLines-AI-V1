@@ -421,6 +421,67 @@ assert.doesNotMatch(
   /Lake Michigan Road|Platte Point|Platte Lake outlet/i,
   "Platte Spot Finder must exclude the lower paddling/outlet corridor",
 );
+const sectionSpotNames = (riverId: string, sectionId: string) =>
+  RIVER_RUN_SPOT_FINDERS[riverId].sections.find((section) =>
+    section.id === sectionId
+  )?.spots.map((spot) => spot.name);
+assert.deepEqual(
+  sectionSpotNames("pere_marquette", "pm_middle")?.slice(0, 3),
+  ["Indian Bridge River Access", "Walhalla Road Bridge", "Sulak / Upper Branch"],
+  "Pere Marquette middle access must follow the audited downstream-to-upstream order",
+);
+assert.deepEqual(
+  sectionSpotNames("pere_marquette", "pm_upper"),
+  [
+    "Rainbow Rapids Access",
+    "Bowman Bridge River Access",
+    "Gleason's Landing",
+    "Claybanks River Access",
+    "Green Cottage Access",
+    "72nd Street Angler Trail",
+    "M-37 Bridge Access",
+  ],
+  "Pere Marquette upper access must follow the audited downstream-to-upstream order",
+);
+assert.deepEqual(
+  sectionSpotNames("big_manistee", "manistee_middle"),
+  ["Bear Creek Access", "Blacksmith Bayou", "High Bridge Access"],
+  "Big Manistee middle access must stop at High Bridge",
+);
+assert.deepEqual(
+  sectionSpotNames("big_manistee", "manistee_upper")?.slice(0, 3),
+  [
+    "Sawdust Hole River Access",
+    "Suicide Bend River Access",
+    "Tunk Hole River Access",
+  ],
+  "Big Manistee accesses above High Bridge must remain in the Tippy Dam reach",
+);
+assert.deepEqual(
+  sectionSpotNames("grand", "grand_lower")?.slice(-2),
+  ["Grandville Access", "Johnson Park"],
+  "Grand lower access must stop below Sixth Street Dam",
+);
+assert.deepEqual(
+  sectionSpotNames("grand", "grand_middle")?.slice(0, 4),
+  [
+    "Riverside Park River Access",
+    "Rogue River Mouth",
+    "Knapp Street Bridge",
+    "Ada Access",
+  ],
+  "Grand access above Sixth Street must remain in the middle passage corridor",
+);
+assert.match(
+  RIVER_RUN_SPOT_FINDERS.grand.orientationNote,
+  /Coho and Steelhead only; Chinook River Run guidance stops at Webber Dam/,
+  "Grand Spot Finder must disclose the species-specific Webber endpoint",
+);
+assert.doesNotMatch(
+  JSON.stringify(RIVER_RUN_SPOT_FINDERS.white),
+  /Island Landing/,
+  "White Spot Finder must stop below impassable Hesperia Dam",
+);
 for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
   assert.equal(
     RIVER_RUN_SPOT_FINDERS[riverId].safetyLink?.url,
