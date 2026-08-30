@@ -17,6 +17,9 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "www.michiganwatertrails.org",
   "www.nilesmi.org",
   "www.villageofberriensprings.com",
+  "dnr.wisconsin.gov",
+  "www.village.thiensville.wi.us",
+  "www.villageofgraftonwi.gov",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =
@@ -27,7 +30,14 @@ const DEAD_PAGE_COPY =
 const spots = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
   finder.sections.flatMap((section) => section.spots)
 );
-const sourceUrls = [...new Set(spots.map((spot) => spot.sourceUrl))];
+const sourceUrls = [
+  ...new Set([
+    ...spots.map((spot) => spot.sourceUrl),
+    ...Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
+      finder.safetyLink ? [finder.safetyLink.url] : []
+    ),
+  ]),
+];
 
 for (const spot of spots) {
   const source = new URL(spot.sourceUrl);

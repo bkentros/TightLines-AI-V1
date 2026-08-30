@@ -31,6 +31,10 @@ export type RiverSpotFinder = {
   riverId: string;
   riverName: string;
   orientationNote: string;
+  safetyLink?: {
+    label: string;
+    url: string;
+  };
   sections: RiverAccessSection[];
 };
 
@@ -47,6 +51,19 @@ const WHITE_RIVER_MAP =
   "https://s34427.pcdn.co/wp-content/uploads/2021/09/NCTC_White-River_Map_11x17_8-20-21_web.pdf";
 const PLATTE_PARK_SOURCE =
   "https://www.gtrlc.org/recreation-events/preserve/platte-river-park/";
+const WI_MILWAUKEE_ACCESS_MAP =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_MilwaukeeRiverAccess.pdf";
+const WI_SHEBOYGAN_ACCESS_MAP =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_SheboyganRiverAccess.pdf";
+const WI_ROOT_ACCESS_MAP =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverAccess.pdf";
+const WI_FALL_FISHING_GUIDE =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_closetohome_letter.pdf";
+const WI_BRULE_ACCESS_REPORT =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LS_LowerBoisBruleRiverCreelSurvey2018.pdf";
+const WI_BRULE_PADDLING =
+  "https://dnr.wisconsin.gov/topic/StateForests/bruleriver/recreation/paddle";
+const WI_FISHING_RULES = "https://dnr.wisconsin.gov/topic/Fishing/seasons";
 
 const DNR_FACILITY_SEARCH_NAMES: Record<string, string> = {
   betsie_river_road: "River Road",
@@ -159,6 +176,27 @@ const sourcedCoordinateSpot = (
   sourceLabel,
   sourceUrl,
   sourceLocator: directSourceLocator(name),
+  verifiedOn: "2026-08-30",
+});
+
+const sourceMappedSpot = (
+  id: string,
+  name: string,
+  accessKinds: RiverAccessKind[],
+  detail: string,
+  sourceLabel: string,
+  sourceUrl: string,
+  sourceLocator: string,
+  caution?: string,
+): RiverAccessSpot => ({
+  id,
+  name,
+  accessKinds,
+  detail,
+  caution,
+  sourceLabel,
+  sourceUrl,
+  sourceLocator,
   verifiedOn: "2026-08-30",
 });
 
@@ -1131,6 +1169,530 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["carry_in"],
             "Municipal carry-down at the River Run endpoint; posted 8 a.m.–dusk hours.",
             "Dam-safety boundaries and species-specific River Run endpoints control.",
+          ),
+        ],
+      },
+    ],
+  },
+  milwaukee: {
+    riverId: "milwaukee",
+    riverName: "Milwaukee River",
+    orientationNote:
+      "Sections match the River Run corridor from Lake Michigan to Bridge Street Dam. Only named public river-access properties are included; the signed Kletzsch fish-passage refuge is closed year-round.",
+    safetyLink: {
+      label: "CHECK CURRENT WISCONSIN RULES →",
+      url: WI_FISHING_RULES,
+    },
+    sections: [
+      {
+        id: "milwaukee_harbor_downtown",
+        label: "Harbor & Downtown · Lake Michigan to North Avenue",
+        spots: [
+          sourceMappedSpot(
+            "milwaukee_caesars",
+            "Caesar's Park",
+            ["shore_fishing", "walk_in"],
+            "DNR-documented stream access downstream of North Avenue.",
+            "Wisconsin DNR fall shore-fishing guide",
+            WI_FALL_FISHING_GUIDE,
+            "On page 1 of the linked guide, find item 13, “Milwaukee River at Caesar's Park.”",
+          ),
+        ],
+      },
+      {
+        id: "milwaukee_urban_greenway",
+        label: "Urban Greenway · North Avenue to Kletzsch Park",
+        spots: [
+          sourceMappedSpot(
+            "milwaukee_riverside",
+            "Riverside Park",
+            ["shore_fishing", "walk_in"],
+            "Public park and greenway access identified on the DNR river-access map.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “Riverside Park.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_gordon",
+            "Gordon Park",
+            ["shore_fishing", "walk_in"],
+            "Public park access on the urban Milwaukee River corridor.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “Gordon Park.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_pleasant_valley",
+            "Pleasant Valley Park",
+            ["shore_fishing", "walk_in"],
+            "Public greenway access identified on the DNR river-access map.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “Pleasant Valley Park.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_kern",
+            "Kern Park",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented stream access with extensive fishable river frontage.",
+            "Wisconsin DNR fall shore-fishing guide",
+            WI_FALL_FISHING_GUIDE,
+            "On page 1 of the linked guide, find item 14, “Milwaukee River at Kern Park.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_cambridge_woods",
+            "Cambridge Woods",
+            ["shore_fishing", "walk_in"],
+            "Public greenway access identified on the DNR river-access map.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “Cambridge Woods.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_east_side_trail",
+            "East Side Bike Trail",
+            ["walk_in"],
+            "Public trail access along the lower Urban Greenway corridor.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “East Side Bike Trail.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_estabrook",
+            "Estabrook Park",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented stream access with extensive fishable river frontage.",
+            "Wisconsin DNR fall shore-fishing guide",
+            WI_FALL_FISHING_GUIDE,
+            "On page 1 of the linked guide, find item 15, “Milwaukee River at Estabrook Park.”",
+          ),
+          sourceMappedSpot(
+            "milwaukee_lincoln",
+            "Lincoln Park",
+            ["shore_fishing", "walk_in"],
+            "Public park access identified on the DNR river-access map.",
+            "Wisconsin DNR Milwaukee River Access Sites",
+            WI_MILWAUKEE_ACCESS_MAP,
+            "On the linked one-page access map, find “Lincoln Park.”",
+          ),
+        ],
+      },
+      {
+        id: "milwaukee_north_shore",
+        label: "North Shore · Kletzsch Park to Bridge Street Dam",
+        spots: [
+          sourceMappedSpot(
+            "milwaukee_kletzsch",
+            "Kletzsch Park",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented stream access at the start of the North Shore reach.",
+            "Wisconsin DNR fall shore-fishing guide",
+            WI_FALL_FISHING_GUIDE,
+            "On page 1 of the linked guide, find item 16, “Milwaukee River at Kletzsch Park.”",
+            "The signed fish-passage refuge is closed to fishing year-round. Obey refuge boundaries and dam-safety signs.",
+          ),
+          sourceMappedSpot(
+            "milwaukee_molyneux",
+            "Molyneux Park",
+            ["shore_fishing", "carry_in"],
+            "Village riverfront park with fishing access, public parking and a canoe launch.",
+            "Village of Thiensville",
+            "https://www.village.thiensville.wi.us/Facilities/Facility/Details/Molyneux-Park-1",
+            "The linked official facility page lists fishing, parking and canoe access at Molyneux Park.",
+          ),
+          sourceMappedSpot(
+            "milwaukee_thiensville_village",
+            "Thiensville Village Park",
+            ["shore_fishing", "boat_ramp"],
+            "Village riverfront park with shore access and a public boat launch.",
+            "Village of Thiensville",
+            "https://www.village.thiensville.wi.us/145/Fishing",
+            "The linked official fishing page names Village Park and confirms boat and shore access.",
+          ),
+          sourceMappedSpot(
+            "milwaukee_lime_kiln",
+            "Lime Kiln Park",
+            ["shore_fishing", "carry_in"],
+            "Grafton public park with fishing, canoe access and designated parking.",
+            "Village of Grafton Parks",
+            "https://www.villageofgraftonwi.gov/387/Lime-Kiln-Park",
+            "The linked official park page lists fishing, a canoe ramp and public parking at Lime Kiln Park.",
+            "Village rules prohibit wading or swimming in the Milwaukee River.",
+          ),
+          sourceMappedSpot(
+            "milwaukee_grafton_veterans",
+            "Veterans Memorial Park",
+            ["shore_fishing", "carry_in"],
+            "Grafton riverfront park with fishing and a canoe/kayak launch below the River Run endpoint.",
+            "Village of Grafton Parks",
+            "https://www.villageofgraftonwi.gov/267/Veterans-Memorial-Park",
+            "The linked official park page lists fishing and a canoe/kayak launch at Veterans Memorial Park.",
+            "Stop at the River Run endpoint below Bridge Street Dam and obey all dam-safety boundaries.",
+          ),
+        ],
+      },
+    ],
+  },
+  sheboygan: {
+    riverId: "sheboygan",
+    riverName: "Sheboygan River",
+    orientationNote:
+      "Sections match the River Run corridor from Lake Michigan to Waelderhaus Dam. Named public accesses do not make the surrounding Kohler shoreline public.",
+    safetyLink: {
+      label: "CHECK CURRENT WISCONSIN RULES →",
+      url: WI_FISHING_RULES,
+    },
+    sections: [
+      {
+        id: "sheboygan_harbor_lower_city",
+        label: "Harbor & Lower City · Lake Michigan to Kiwanis Park",
+        spots: [
+          sourceMappedSpot(
+            "sheboygan_eighth_street",
+            "Eighth Street Boat Ramp",
+            ["boat_ramp", "shore_fishing"],
+            "Public lower-river ramp identified on the Wisconsin DNR access map.",
+            "Wisconsin DNR Sheboygan River Access Sites",
+            WI_SHEBOYGAN_ACCESS_MAP,
+            "On the linked one-page access map, find “Eigth Street Boat Ramp” (the source's spelling).",
+          ),
+        ],
+      },
+      {
+        id: "sheboygan_urban_river",
+        label: "Urban River · Kiwanis Park to I-43",
+        spots: [
+          sourceMappedSpot(
+            "sheboygan_kiwanis",
+            "Kiwanis Park",
+            ["shore_fishing", "fishing_platform", "carry_in"],
+            "Public park with extensive river frontage, fishing platforms and carry-in access.",
+            "Wisconsin DNR Sheboygan River Access Sites",
+            WI_SHEBOYGAN_ACCESS_MAP,
+            "On the linked one-page access map, find “Kiwanis Park.”",
+          ),
+          sourceMappedSpot(
+            "sheboygan_esslingen",
+            "Esslingen Park",
+            ["shore_fishing", "wade_access", "carry_in"],
+            "DNR-mapped park access with documented wadable river access upstream and downstream.",
+            "Wisconsin DNR Sheboygan River Access Sites",
+            WI_SHEBOYGAN_ACCESS_MAP,
+            "On the linked one-page access map, find “Esslingen Park.”",
+          ),
+          sourceMappedSpot(
+            "sheboygan_taylor_wayside",
+            "Taylor Drive / Indiana Avenue Wayside",
+            ["shore_fishing", "walk_in"],
+            "Public wayside with improved access from its parking area to the riverbank.",
+            "Wisconsin DNR Sheboygan River Access Sites",
+            WI_SHEBOYGAN_ACCESS_MAP,
+            "On the linked one-page access map, find “Wayside” beside Taylor Drive and County PP.",
+          ),
+        ],
+      },
+      {
+        id: "sheboygan_kohler",
+        label: "Kohler Reach · I-43 to Waelderhaus Dam",
+        spots: [
+          sourceMappedSpot(
+            "sheboygan_kohler_water_utility",
+            "Kohler Water Utility Access",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented wadable access at the Village of Kohler water utility.",
+            "Wisconsin DNR fall shore-fishing guide",
+            WI_FALL_FISHING_GUIDE,
+            "On page 1 of the linked guide, find item 30, “Sheboygan River at Kohler.”",
+            "Use only the signed public access. The surrounding Kohler shoreline is not universally public, and the corridor ends below Waelderhaus Dam.",
+          ),
+        ],
+      },
+    ],
+  },
+  root: {
+    riverId: "root",
+    riverName: "Root River",
+    orientationNote:
+      "Sections match the Lake Michigan-to-Steelhead-Facility River Run corridor. Colonial Park, Quarry Lake Park and Horlick Dam are upstream of this product endpoint and are intentionally excluded.",
+    safetyLink: {
+      label: "CHECK CURRENT WISCONSIN RULES →",
+      url: WI_FISHING_RULES,
+    },
+    sections: [
+      {
+        id: "root_harbor_downtown",
+        label: "Harbor & Downtown · Lake Michigan to 6th Street",
+        spots: [
+          sourceMappedSpot(
+            "root_sixth_street",
+            "Root River at 6th Street",
+            ["shore_fishing", "walk_in"],
+            "DNR-documented shore-fishing access upstream and downstream of 6th Street.",
+            "Wisconsin DNR Root River Access Sites",
+            WI_ROOT_ACCESS_MAP,
+            "On the linked one-page access map, find “6th St.” at the downstream end of the mapped river corridor.",
+          ),
+        ],
+      },
+      {
+        id: "root_city_parks",
+        label: "City Parks · 6th Street to Island Park",
+        spots: [
+          sourceMappedSpot(
+            "root_washington",
+            "Washington Park",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented public park with shore fishing and some wadable sections.",
+            "Wisconsin DNR Root River Access Sites",
+            WI_ROOT_ACCESS_MAP,
+            "On the linked one-page access map, find “Washington Park.”",
+          ),
+          sourceMappedSpot(
+            "root_island",
+            "Island Park",
+            ["shore_fishing", "walk_in"],
+            "DNR-documented public park with primarily shore-fishing access.",
+            "Wisconsin DNR Root River Access Sites",
+            WI_ROOT_ACCESS_MAP,
+            "On the linked one-page access map, find “Island Park.”",
+          ),
+        ],
+      },
+      {
+        id: "root_lincoln_park",
+        label: "Lincoln Park · Island Park to Steelhead Facility",
+        spots: [
+          sourceMappedSpot(
+            "root_lincoln",
+            "Lincoln Park",
+            ["shore_fishing", "wade_access"],
+            "DNR-documented public park with extensive wadable access below the Steelhead Facility.",
+            "Wisconsin DNR Root River Access Sites",
+            WI_ROOT_ACCESS_MAP,
+            "On the linked one-page access map, find “Lincoln Park” and the adjacent “Root River Steelhead Facility.”",
+            "Facility operations can block, process or pass fish. Obey posted operational and refuge boundaries and do not continue above the River Run endpoint.",
+          ),
+        ],
+      },
+    ],
+  },
+  bois_brule: {
+    riverId: "bois_brule",
+    riverName: "Bois Brule River",
+    orientationNote:
+      "Sections match the Lake Superior-to-Highway-2 fall corridor. State Forest angler lots are day use only; private roadside entries and the permanent or seasonal fish-refuge locations are intentionally excluded.",
+    safetyLink: {
+      label: "CHECK CURRENT WISCONSIN RULES →",
+      url: WI_FISHING_RULES,
+    },
+    sections: [
+      {
+        id: "bois_brule_mouth_lower",
+        label: "Mouth & Lower River · Lake Superior to Fishway Refuge",
+        spots: [
+          sourceMappedSpot(
+            "brule_mouth",
+            "Mouth of the Brule",
+            ["shore_fishing", "carry_in"],
+            "Wisconsin DNR-documented lower-river angler access at Lake Superior.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 1, “Mouth of the Brule.”",
+          ),
+          sourceMappedSpot(
+            "brule_weir_riffles",
+            "Weir Riffles",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 2, “Weir Riffles.”",
+          ),
+          sourceMappedSpot(
+            "brule_johnsons",
+            "Johnson's Hole",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 3, “Johnson's Hole.”",
+          ),
+          sourceMappedSpot(
+            "brule_saaris",
+            "Saari's Lot",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 4, “Saari's Lot.”",
+          ),
+          sourceMappedSpot(
+            "brule_lyons",
+            "Lyon's Lot",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 5, “Lyon's Lot.”",
+          ),
+          sourceMappedSpot(
+            "brule_old_cloverland",
+            "Old Cloverland Dump",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 6, “Old Cloverland Dump.”",
+          ),
+          sourceMappedSpot(
+            "brule_mcneils_east",
+            "McNeil's East",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 7, “McNeil's East.”",
+          ),
+          sourceMappedSpot(
+            "brule_mcneils_west",
+            "McNeil's West",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 8, “McNeil's West.”",
+          ),
+          sourceMappedSpot(
+            "brule_harveys",
+            "Harvey's",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented lower-river angler lot and walk-in access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 9, “Harvey's.”",
+          ),
+        ],
+      },
+      {
+        id: "bois_brule_rapids",
+        label: "Rapids Reach · Fishway Refuge to County Highway FF",
+        spots: [
+          sourceMappedSpot(
+            "brule_cloverland_park",
+            "Cloverland Park",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented public angler access above the fishway refuge.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 10, “Cloverland Park.”",
+            "Remain outside the signed 500-foot refuge on both sides of the sea-lamprey barrier.",
+          ),
+          sourceMappedSpot(
+            "brule_highway_13",
+            "Highway 13 Landing",
+            ["shore_fishing", "carry_in"],
+            "Wisconsin DNR-documented road crossing and designated river landing.",
+            "Wisconsin DNR Brule River paddling guide",
+            WI_BRULE_PADDLING,
+            "In the linked official guide, find “Highway 13 to mouth” in the landing-to-landing travel table.",
+          ),
+          sourceMappedSpot(
+            "brule_loveland",
+            "Drew's Landing / Loveland Road",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 12, “Drew's Landing/Loveland Road.”",
+          ),
+          sourceMappedSpot(
+            "brule_clay_road",
+            "Clay Road / Bachelor's",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 13, “Clay Road/Bachelor's.”",
+          ),
+          sourceMappedSpot(
+            "brule_ff_angler_lot",
+            "County Highway FF Angler Lot",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented designated angler lot near County Highway FF.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 17, “CTH FF Angler Lot.”",
+            "Use the designated angler lot only; the separate FF roadside entry documented in the report is on private property and is not listed here.",
+          ),
+        ],
+      },
+      {
+        id: "bois_brule_upper_lower",
+        label: "Upper Lower River · County Highway FF to Highway 2",
+        spots: [
+          sourceMappedSpot(
+            "brule_pine_tree",
+            "Pine Tree",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented State Forest angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 19, “Pine Tree.”",
+          ),
+          sourceMappedSpot(
+            "brule_copper_range",
+            "Copper Range / Coop Park",
+            ["shore_fishing", "carry_in"],
+            "Wisconsin DNR-documented campground-area angler access and canoe landing.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 20, “Copper Range/Coop Park.”",
+          ),
+          sourceMappedSpot(
+            "brule_high_landing",
+            "High Landing",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented State Forest angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 21, “High Landing.”",
+          ),
+          sourceMappedSpot(
+            "brule_black_landing",
+            "Black Landing",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented State Forest angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 22, “Black Landing.”",
+          ),
+          sourceMappedSpot(
+            "brule_rocky_run",
+            "Rocky Run",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented State Forest angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 23, “Rocky Run.”",
+          ),
+          sourceMappedSpot(
+            "brule_bradys",
+            "Brady's Hole",
+            ["shore_fishing", "walk_in"],
+            "Wisconsin DNR-documented State Forest angler lot and river access.",
+            "Wisconsin DNR lower Bois Brule creel report",
+            WI_BRULE_ACCESS_REPORT,
+            "In Table 2 on report page 15, find access 24, “Brady's Hole.”",
+          ),
+          sourceMappedSpot(
+            "brule_highway_2",
+            "Highway 2 Landing",
+            ["shore_fishing", "carry_in"],
+            "Wisconsin DNR-documented landing at the upstream end of the supported fall corridor.",
+            "Wisconsin DNR Brule River paddling guide",
+            WI_BRULE_PADDLING,
+            "In the linked official guide, find “Highway 2 to Pine Tree” in the landing-to-landing travel table.",
+            "The fall River Run corridor ends on the downstream side of Highway 2.",
           ),
         ],
       },

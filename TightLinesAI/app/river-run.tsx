@@ -1566,6 +1566,10 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
     (total, section) => total + section.spots.length,
     0,
   );
+  const safetyLink = finder.safetyLink ?? {
+    label: "CHECK CURRENT DNR CLOSURES →",
+    url: RIVER_ACCESS_CLOSURES_URL,
+  };
   const spotRows = useMemo(
     () =>
       finder.sections.flatMap((section) =>
@@ -1806,14 +1810,14 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
               <Pressable
                 onPress={() =>
                   openExternalUrl(
-                    RIVER_ACCESS_CLOSURES_URL,
-                    "Michigan DNR closures could not be opened.",
+                    safetyLink.url,
+                    "The current DNR safety information could not be opened.",
                   )}
                 accessibilityRole="link"
-                accessibilityLabel="Check current Michigan DNR closures"
+                accessibilityLabel={safetyLink.label.replace(" →", "")}
               >
                 <Text style={styles.spotFinderClosuresLink}>
-                  CHECK CURRENT DNR CLOSURES →
+                  {safetyLink.label}
                 </Text>
               </Pressable>
             </View>

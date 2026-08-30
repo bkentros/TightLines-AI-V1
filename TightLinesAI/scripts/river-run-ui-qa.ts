@@ -174,6 +174,67 @@ for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
     `${riverId} must be registered for river-picker artwork`,
   );
 }
+assert.deepEqual(
+  Object.fromEntries(
+    ["milwaukee", "sheboygan", "root", "bois_brule"].map((riverId) => [
+      riverId,
+      RIVER_RUN_SPOT_FINDERS[riverId].sections.map((section) => ({
+        label: section.label,
+        spots: section.spots.length,
+      })),
+    ]),
+  ),
+  {
+    milwaukee: [
+      {
+        label: "Harbor & Downtown · Lake Michigan to North Avenue",
+        spots: 1,
+      },
+      {
+        label: "Urban Greenway · North Avenue to Kletzsch Park",
+        spots: 8,
+      },
+      {
+        label: "North Shore · Kletzsch Park to Bridge Street Dam",
+        spots: 5,
+      },
+    ],
+    sheboygan: [
+      {
+        label: "Harbor & Lower City · Lake Michigan to Kiwanis Park",
+        spots: 1,
+      },
+      { label: "Urban River · Kiwanis Park to I-43", spots: 3 },
+      { label: "Kohler Reach · I-43 to Waelderhaus Dam", spots: 1 },
+    ],
+    root: [
+      {
+        label: "Harbor & Downtown · Lake Michigan to 6th Street",
+        spots: 1,
+      },
+      { label: "City Parks · 6th Street to Island Park", spots: 2 },
+      {
+        label: "Lincoln Park · Island Park to Steelhead Facility",
+        spots: 1,
+      },
+    ],
+    bois_brule: [
+      {
+        label: "Mouth & Lower River · Lake Superior to Fishway Refuge",
+        spots: 9,
+      },
+      {
+        label: "Rapids Reach · Fishway Refuge to County Highway FF",
+        spots: 5,
+      },
+      {
+        label: "Upper Lower River · County Highway FF to Highway 2",
+        spots: 7,
+      },
+    ],
+  },
+  "Wisconsin Spot Finder inventories must retain their audited corridor sections and counts",
+);
 assert.match(
   riverRunScreen,
   /ownerReviewMode[\s\S]*?fetchRiverRunOwnerReviewCatalog\(\)[\s\S]*?: fetchRiverRunCatalog\(\)/,
@@ -249,6 +310,10 @@ for (
     "platte",
     "grand",
     "white",
+    "milwaukee",
+    "sheboygan",
+    "root",
+    "bois_brule",
   ]
 ) {
   const finder = RIVER_RUN_SPOT_FINDERS[riverId];
@@ -299,6 +364,9 @@ for (
         "www.michiganwatertrails.org",
         "www.nilesmi.org",
         "www.villageofberriensprings.com",
+        "dnr.wisconsin.gov",
+        "www.village.thiensville.wi.us",
+        "www.villageofgraftonwi.gov",
       ].includes(new URL(spot.sourceUrl).hostname),
       `${spot.id} must use an approved government, land-manager, or regional public-access source`,
     );
@@ -352,6 +420,31 @@ assert.doesNotMatch(
   JSON.stringify(RIVER_RUN_SPOT_FINDERS.platte),
   /Lake Michigan Road|Platte Point|Platte Lake outlet/i,
   "Platte Spot Finder must exclude the lower paddling/outlet corridor",
+);
+for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
+  assert.equal(
+    RIVER_RUN_SPOT_FINDERS[riverId].safetyLink?.url,
+    "https://dnr.wisconsin.gov/topic/Fishing/seasons",
+    `${riverId} must open current Wisconsin rules instead of Michigan closures`,
+  );
+}
+assert.doesNotMatch(
+  JSON.stringify(
+    RIVER_RUN_SPOT_FINDERS.root.sections.flatMap((section) =>
+      section.spots.map((spot) => spot.name)
+    ),
+  ),
+  /Colonial Park|Quarry Lake Park|Horlick Dam/,
+  "Root Spot Finder must stop at the Steelhead Facility product endpoint",
+);
+assert.doesNotMatch(
+  JSON.stringify(
+    RIVER_RUN_SPOT_FINDERS.bois_brule.sections.flatMap((section) =>
+      section.spots.map((spot) => spot.name)
+    ),
+  ),
+  /Culhane Road|Mays Ledges|Red Gate|CTH FF Roadside/,
+  "Bois Brule Spot Finder must exclude private-roadside and closed-refuge locations",
 );
 assert.match(
   riverRunScreen,
