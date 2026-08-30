@@ -7,10 +7,12 @@ import type { ReactNode } from "react";
 import {
   AccessibilityInfo,
   ActivityIndicator,
+  Alert,
   Animated,
   AppState,
   Easing,
   Image,
+  Linking,
   Platform,
   Pressable,
   RefreshControl,
@@ -72,6 +74,13 @@ import {
   RIVER_RUN_REGULATION_REMINDER,
   riverRunFishingGuideForSpecies,
 } from "../lib/riverRunFishingGuides";
+import {
+  RIVER_ACCESS_CLOSURES_URL,
+  RIVER_ACCESS_GENERAL_WARNING,
+  type RiverAccessKind,
+  riverRunSpotFinderForRiver,
+  type RiverSpotFinder,
+} from "../lib/riverRunSpotFinder";
 import {
   hapticImpact,
   hapticSelection,
@@ -558,7 +567,8 @@ export default function RiverRunScreen() {
       unavailableRiverConditions(resultSnapshot)
     : undefined;
   const resultRiverConditions = publicRiverConditions;
-  const primitiveTabStickyIndex = 2;
+  const resultSpotFinder = riverRunSpotFinderForRiver(resultSnapshot?.riverId);
+  const primitiveTabStickyIndex = resultSpotFinder ? 3 : 2;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
     selectedSpecies ??
@@ -680,6 +690,10 @@ export default function RiverRunScreen() {
                     conditions={resultRiverConditions}
                   />
                 )
+                : null}
+
+              {resultSpotFinder
+                ? <SpotFinderCard finder={resultSpotFinder} />
                 : null}
 
               {resultSnapshot
@@ -1537,6 +1551,253 @@ function LiveRiverConditionsCard({ conditions }: {
   );
 }
 
+const RIVER_ACCESS_KIND_LABELS: Record<RiverAccessKind, string> = {
+  shore_fishing: "SHORE",
+  wade_access: "WADE",
+  fishing_platform: "PLATFORM",
+  boat_ramp: "RAMP",
+  carry_in: "CARRY-IN",
+  walk_in: "WALK-IN",
+};
+
+function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
+  const [open, setOpen] = useState(false);
+  const spotCount = finder.sections.reduce(
+    (total, section) => total + section.spots.length,
+    0,
+  );
+  const spotRows = useMemo(
+    () =>
+      finder.sections.flatMap((section) =>
+        section.spots.map((spot) => ({
+          sectionId: section.id,
+          sectionLabel: section.label,
+          spot,
+        }))
+      ),
+    [finder],
+  );
+
+  const openExternalUrl = useCallback((url: string, errorCopy: string) => {
+    void Linking.openURL(url).catch(() => {
+      Alert.alert("Unable to open link", errorCopy);
+    });
+  }, []);
+
+  return (
+    <View
+      style={styles.spotFinderCard}
+      testID="river-spot-finder"
+      accessible={false}
+    >
+      <Pressable
+        style={({ pressed }) => [
+          styles.spotFinderToggle,
+          pressed && { opacity: 0.82 },
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setOpen((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        accessibilityLabel={`Spot Finder. ${spotCount} source-backed public access names for ${finder.riverName}. ${
+          open ? "Collapse" : "Expand"
+        }.`}
+      >
+        <View style={styles.spotFinderHeaderIcon}>
+          <Ionicons name="map-outline" size={20} color="#167B78" />
+        </View>
+        <View style={styles.spotFinderHeaderCopy}>
+          <Text style={styles.spotFinderEyebrow}>PUBLIC RIVER ACCESS</Text>
+          <Text style={styles.spotFinderTitle}>Spot Finder</Text>
+          <Text style={styles.spotFinderSubtitle}>
+            {spotCount} source-backed access names · no navigation pins
+          </Text>
+        </View>
+        <View style={styles.spotFinderCountBadge}>
+          <Text style={styles.spotFinderCount}>{spotCount}</Text>
+        </View>
+        <Ionicons
+          name={open ? "chevron-up" : "chevron-down"}
+          size={19}
+          color="#167B78"
+        />
+      </Pressable>
+
+      {open
+        ? (
+          <View style={styles.spotFinderContent}>
+            <View style={styles.spotFinderOrientation}>
+              <Ionicons
+                name="information-circle-outline"
+                size={17}
+                color={paper.dashboardBlue}
+              />
+              <Text style={styles.spotFinderOrientationText}>
+                {finder.orientationNote}
+              </Text>
+            </View>
+
+            <View style={styles.spotFinderListHeading}>
+              <Text style={styles.spotFinderListHeadingText}>
+                THREE AT A TIME · SCROLL FOR ALL {spotCount}
+              </Text>
+              <Ionicons
+                name="swap-vertical"
+                size={15}
+                color={paper.dashboardBlue}
+              />
+            </View>
+
+            <ScrollView
+              style={styles.spotFinderListViewport}
+              contentContainerStyle={styles.spotFinderListContent}
+              nestedScrollEnabled
+              directionalLockEnabled
+              showsVerticalScrollIndicator
+              accessibilityLabel={`Scrollable list of ${spotCount} public access spots. Three spots are visible at a time.`}
+            >
+              {spotRows.map(({ sectionId, sectionLabel, spot }) => (
+                <View
+                  key={`${sectionId}:${spot.id}`}
+                  style={styles.spotFinderSpot}
+                >
+                  <View style={styles.spotFinderSpotTopline}>
+                    <Text
+                      style={styles.spotFinderSpotSection}
+                      numberOfLines={1}
+                    >
+                      {sectionLabel.toUpperCase()}
+                    </Text>
+                    <View style={styles.spotFinderVerifiedBadge}>
+                      <Ionicons
+                        name="shield-checkmark"
+                        size={10}
+                        color="#167B78"
+                      />
+                      <Text style={styles.spotFinderVerifiedBadgeText}>
+                        SOURCE CHECKED
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.spotFinderSpotHeading}>
+                    <View style={styles.spotFinderPin}>
+                      <Ionicons
+                        name="compass-outline"
+                        size={15}
+                        color="#167B78"
+                      />
+                    </View>
+                    <View style={styles.spotFinderSpotIdentity}>
+                      <Text
+                        style={styles.spotFinderSpotName}
+                        numberOfLines={1}
+                      >
+                        {spot.name}
+                      </Text>
+                      <View style={styles.spotFinderKinds}>
+                        {spot.accessKinds.map((kind) => (
+                          <View key={kind} style={styles.spotFinderKindPill}>
+                            <Text style={styles.spotFinderKindText}>
+                              {RIVER_ACCESS_KIND_LABELS[kind]}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+                  </View>
+                  <Text
+                    style={styles.spotFinderSpotDetail}
+                    numberOfLines={2}
+                  >
+                    {spot.detail}
+                  </Text>
+                  {spot.caution
+                    ? (
+                      <View style={styles.spotFinderCaution}>
+                        <Ionicons
+                          name="warning-outline"
+                          size={13}
+                          color="#A65A2E"
+                        />
+                        <Text
+                          style={styles.spotFinderCautionText}
+                          numberOfLines={2}
+                        >
+                          {spot.caution}
+                        </Text>
+                      </View>
+                    )
+                    : null}
+                  <View style={styles.spotFinderActions}>
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.spotFinderSource,
+                        pressed && { opacity: 0.72 },
+                      ]}
+                      onPress={() => {
+                        hapticSelection();
+                        openExternalUrl(
+                          spot.sourceUrl,
+                          "The access source could not be opened.",
+                        );
+                      }}
+                      accessibilityRole="link"
+                      accessibilityLabel={`Open location source for ${spot.name}`}
+                    >
+                      <Ionicons
+                        name="open-outline"
+                        size={14}
+                        color={paper.dashboardBlue}
+                      />
+                      <Text style={styles.spotFinderSourceText}>
+                        VIEW LOCATION SOURCE
+                      </Text>
+                    </Pressable>
+                    <Text style={styles.spotFinderSourceIdentity}>
+                      {spot.sourceLabel} · checked {spot.verifiedOn}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </ScrollView>
+
+            <View style={styles.spotFinderSafety}>
+              <View style={styles.spotFinderSafetyHeading}>
+                <Ionicons
+                  name="shield-checkmark-outline"
+                  size={17}
+                  color="#A65A2E"
+                />
+                <Text style={styles.spotFinderSafetyTitle}>
+                  CHECK BEFORE EVERY TRIP
+                </Text>
+              </View>
+              <Text style={styles.spotFinderSafetyText}>
+                {RIVER_ACCESS_GENERAL_WARNING}
+              </Text>
+              <Pressable
+                onPress={() =>
+                  openExternalUrl(
+                    RIVER_ACCESS_CLOSURES_URL,
+                    "Michigan DNR closures could not be opened.",
+                  )}
+                accessibilityRole="link"
+                accessibilityLabel="Check current Michigan DNR closures"
+              >
+                <Text style={styles.spotFinderClosuresLink}>
+                  CHECK CURRENT DNR CLOSURES →
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        )
+        : null}
+    </View>
+  );
+}
+
 function LiveMetricTile({
   metric,
   columns,
@@ -1604,9 +1865,7 @@ function LiveMetricTile({
             adjustsFontSizeToFit
             minimumFontScale={0.82}
           >
-            {isHistoricalOnlyMetric(metric)
-              ? "No live sensor"
-              : "Unreadable"}
+            {isHistoricalOnlyMetric(metric) ? "No live sensor" : "Unreadable"}
           </Text>
         )
         : (
@@ -3353,6 +3612,312 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     backgroundColor: "#FDFDFC",
     ...paperShadows.hard,
+  },
+  spotFinderCard: {
+    overflow: "hidden",
+    borderWidth: 1.5,
+    borderColor: "rgba(22,123,120,0.42)",
+    borderRadius: 13,
+    backgroundColor: "#FCFDFC",
+    ...paperShadows.hard,
+  },
+  spotFinderToggle: {
+    minHeight: 74,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderTopWidth: 4,
+    borderTopColor: "#2E9B97",
+    backgroundColor: "#F7FBFA",
+  },
+  spotFinderHeaderIcon: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 19,
+    backgroundColor: "#E6F5F2",
+  },
+  spotFinderHeaderCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 1,
+  },
+  spotFinderEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.35,
+    color: "#167B78",
+  },
+  spotFinderTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 20,
+    lineHeight: 23,
+    color: paper.dashboardInk,
+  },
+  spotFinderSubtitle: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  spotFinderCountBadge: {
+    minWidth: 27,
+    height: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 6,
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.3)",
+    borderRadius: 14,
+    backgroundColor: "#E6F5F2",
+  },
+  spotFinderCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: "#167B78",
+  },
+  spotFinderContent: {
+    gap: 10,
+    padding: 13,
+    paddingTop: 11,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+  },
+  spotFinderOrientation: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 8,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.16)",
+    borderRadius: 9,
+    backgroundColor: "#F3F7F9",
+  },
+  spotFinderOrientationText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
+    color: paper.dashboardInk,
+  },
+  spotFinderListHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 2,
+  },
+  spotFinderListHeadingText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: .75,
+    color: paper.dashboardBlue,
+  },
+  spotFinderListViewport: {
+    height: 464,
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.2)",
+    borderRadius: 11,
+    backgroundColor: "#EEF6F4",
+  },
+  spotFinderListContent: {
+    gap: 8,
+    padding: 8,
+  },
+  spotFinderSection: {
+    gap: 8,
+  },
+  spotFinderSectionHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  spotFinderSectionRule: {
+    width: 3,
+    height: 13,
+    borderRadius: 2,
+    backgroundColor: "#2E9B97",
+  },
+  spotFinderSectionLabel: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    lineHeight: 11,
+    letterSpacing: .85,
+    color: paper.dashboardBlue,
+  },
+  spotFinderSectionCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    color: paper.dashboardMuted,
+  },
+  spotFinderSpot: {
+    minHeight: 144,
+    gap: 6,
+    padding: 10,
+    borderWidth: 1,
+    borderLeftWidth: 3,
+    borderColor: "rgba(27,75,104,0.14)",
+    borderLeftColor: "#2E9B97",
+    borderRadius: 9,
+    backgroundColor: "#FFFFFF",
+  },
+  spotFinderSpotTopline: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  spotFinderSpotSection: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: .55,
+    color: paper.dashboardBlue,
+  },
+  spotFinderVerifiedBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  spotFinderVerifiedBadgeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.75,
+    letterSpacing: .4,
+    color: "#167B78",
+  },
+  spotFinderSpotHeading: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 8,
+  },
+  spotFinderPin: {
+    width: 29,
+    height: 29,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    backgroundColor: "#E6F5F2",
+  },
+  spotFinderSpotIdentity: {
+    minWidth: 0,
+    flex: 1,
+    gap: 5,
+  },
+  spotFinderSpotName: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  spotFinderKinds: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 4,
+  },
+  spotFinderKindPill: {
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 8,
+    backgroundColor: "#EAF4F2",
+  },
+  spotFinderKindText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.25,
+    letterSpacing: .45,
+    color: "#167B78",
+  },
+  spotFinderSpotDetail: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  spotFinderCaution: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 6,
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    borderRadius: 7,
+    backgroundColor: "#FFF4EA",
+  },
+  spotFinderCautionText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 9.5,
+    lineHeight: 13,
+    color: "#7C4527",
+  },
+  spotFinderActions: {
+    gap: 5,
+    paddingTop: 1,
+  },
+  spotFinderSource: {
+    minHeight: 34,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+    paddingHorizontal: 9,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.2)",
+    borderRadius: 7,
+    backgroundColor: "#F3F7F9",
+  },
+  spotFinderSourceText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.25,
+    letterSpacing: .75,
+    color: paper.dashboardBlue,
+  },
+  spotFinderSourceIdentity: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 6.25,
+    lineHeight: 10,
+    letterSpacing: .3,
+    textAlign: "center",
+    color: paper.dashboardMuted,
+  },
+  spotFinderSafety: {
+    gap: 7,
+    padding: 11,
+    borderWidth: 1,
+    borderColor: "rgba(166,90,46,0.22)",
+    borderRadius: 9,
+    backgroundColor: "#FFF9F3",
+  },
+  spotFinderSafetyHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  spotFinderSafetyTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: .85,
+    color: "#A65A2E",
+  },
+  spotFinderSafetyText: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: paper.dashboardInk,
+  },
+  spotFinderClosuresLink: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.25,
+    letterSpacing: .7,
+    color: paper.dashboardBlue,
   },
   liveConditionsHeader: {
     flexDirection: "row",

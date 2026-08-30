@@ -6,6 +6,10 @@ import {
   riverRunStateChoices,
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
+import {
+  RIVER_ACCESS_GENERAL_WARNING,
+  RIVER_RUN_SPOT_FINDERS,
+} from "../lib/riverRunSpotFinder";
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
@@ -187,8 +191,133 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /const primitiveTabStickyIndex = 2;/,
-  "The production sticky-header index must account for the Gauge Read card",
+  /const primitiveTabStickyIndex = resultSpotFinder \? 3 : 2;/,
+  "The production sticky-header index must account for Gauge Read and the conditional Spot Finder card",
+);
+assert.match(
+  riverRunScreen,
+  /<LiveRiverConditionsCard[\s\S]*?<SpotFinderCard[\s\S]*?<PrimitiveTabBar/,
+  "Spot Finder must render directly below Gauge Read and above the River Run tabs",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /maps\.apple\.com|google\.com\/maps\/dir|OPEN APPLE MAPS|OPEN GOOGLE MAPS|PIN BEING VERIFIED|VERIFIED ENTRANCE COORDINATE|spotFinderDirections|spotFinderModal/,
+  "Spot Finder must not expose navigation pins, directions, or pin-verification states",
+);
+assert.match(
+  riverRunScreen,
+  /VIEW LOCATION SOURCE/,
+  "Every Spot Finder entry must direct customers to its supporting location source",
+);
+assert.match(
+  riverRunScreen,
+  /style=\{styles\.spotFinderListViewport\}[\s\S]*?nestedScrollEnabled[\s\S]*?THREE AT A TIME|THREE AT A TIME[\s\S]*?style=\{styles\.spotFinderListViewport\}[\s\S]*?nestedScrollEnabled/,
+  "Spot Finder must constrain its expanded inventory to a three-card scroll viewport",
+);
+assert.match(
+  RIVER_ACCESS_GENERAL_WARNING,
+  /listed access name does not guarantee legal parking, safe wading, open roads or permission to cross neighboring land/,
+  "Spot Finder must distinguish a listed access name from parking, wading, road and property permission",
+);
+
+const riverCoordinateBounds: Record<
+  string,
+  { minLat: number; maxLat: number; minLon: number; maxLon: number }
+> = {
+  pere_marquette: {
+    minLat: 43.8,
+    maxLat: 44.02,
+    minLon: -86.5,
+    maxLon: -85.75,
+  },
+  betsie: { minLat: 44.55, maxLat: 44.66, minLon: -86.22, maxLon: -86.04 },
+  big_manistee: { minLat: 44.15, maxLat: 44.4, minLon: -86.4, maxLon: -85.8 },
+  muskegon: { minLat: 43.2, maxLat: 43.5, minLon: -86.25, maxLon: -85.6 },
+  st_joseph: { minLat: 41.7, maxLat: 42.2, minLon: -86.6, maxLon: -86.2 },
+  platte: { minLat: 44.6, maxLat: 44.71, minLon: -86.08, maxLon: -85.9 },
+  grand: { minLat: 42.6, maxLat: 43.2, minLon: -86.3, maxLon: -84.4 },
+  white: { minLat: 43.35, maxLat: 43.65, minLon: -86.45, maxLon: -85.9 },
+};
+
+for (
+  const riverId of [
+    "pere_marquette",
+    "betsie",
+    "big_manistee",
+    "muskegon",
+    "st_joseph",
+    "platte",
+    "grand",
+    "white",
+  ]
+) {
+  const finder = RIVER_RUN_SPOT_FINDERS[riverId];
+  assert(finder, `${riverId} must have a Spot Finder inventory`);
+  assert(finder.sections.length > 0, `${riverId} must have access sections`);
+  assert(
+    finder.sections.every((section) => section.spots.length > 0),
+    `${riverId} Spot Finder sections must not be empty`,
+  );
+  for (const spot of finder.sections.flatMap((section) => section.spots)) {
+    assert(
+      spot.sourceUrl.startsWith("https://"),
+      `${spot.id} needs an official HTTPS source`,
+    );
+    assert.match(
+      spot.verifiedOn,
+      /^\d{4}-\d{2}-\d{2}$/,
+      `${spot.id} needs a verification date`,
+    );
+    if (spot.latitude == null || spot.longitude == null) {
+      continue;
+    }
+    const bounds = riverCoordinateBounds[riverId];
+    assert(
+      spot.latitude >= bounds.minLat && spot.latitude <= bounds.maxLat &&
+        spot.longitude >= bounds.minLon && spot.longitude <= bounds.maxLon,
+      `${spot.id} coordinate falls outside the audited ${riverId} corridor`,
+    );
+  }
+}
+
+assert.doesNotMatch(
+  riverRunScreen,
+  /sourceLocationHint|spot\.latitude|spot\.longitude/,
+  "The UI must not turn internal location hints or coordinates into customer navigation",
+);
+
+const retiredSpotFinderSources =
+  /stelprdb5180864|stelprd3807298|sjcity\.com\/parksrec\/page\/riverview-park|SR24-St-Joesph-River-Assessment/;
+assert.doesNotMatch(
+  JSON.stringify(RIVER_RUN_SPOT_FINDERS),
+  retiredSpotFinderSources,
+  "Known retired Spot Finder source URLs must not return",
+);
+const seventySecondStreet = RIVER_RUN_SPOT_FINDERS.pere_marquette.sections
+  .flatMap((section) => section.spots)
+  .find((spot) => spot.id === "pm_72nd_angler");
+assert.equal(
+  seventySecondStreet?.sourceUrl,
+  "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+  "72nd Street must use the live Forest Service recreation directory",
+);
+
+const platteSpots = RIVER_RUN_SPOT_FINDERS.platte.sections.flatMap((section) =>
+  section.spots
+);
+assert.deepEqual(
+  platteSpots.map((spot) => spot.name),
+  [
+    "Platte River Park",
+    "Veterans Memorial State Forest Campground",
+    "Platte River State Forest Campground",
+  ],
+  "Platte Spot Finder must remain scoped to Honor and upstream public angler access",
+);
+assert.doesNotMatch(
+  JSON.stringify(RIVER_RUN_SPOT_FINDERS.platte),
+  /Lake Michigan Road|Platte Point|Platte Lake outlet/i,
+  "Platte Spot Finder must exclude the lower paddling/outlet corridor",
 );
 assert.match(
   riverRunScreen,
