@@ -4,7 +4,7 @@
 {{CREATED_ON}} **Status:** `research_incomplete`
 
 > Prerequisite: the river foundation and public section wording are approved. Do
-> not copy dates, thresholds, Activity weights, ceilings, or state prose from
+> not copy dates, thresholds, Activity weights, ceilings, or calibration from
 > another river without independent evidence and replay acceptance.
 
 ## 0. Candidate capability audit
@@ -50,7 +50,7 @@ the run unresolved and hidden.
 - Structures with limited, seasonal, operational, or uncertain passage:
 - Biological endpoint versus regulation/access/product endpoint:
 - Opportunity distribution versus the physical endpoint:
-- Exact reach represented by any Activity/Fishability measurement:
+- Exact reach represented by any Activity/Fishing Shape measurement:
 - Evidence that an apparent endpoint is affirmative exclusion rather than an
   access-list omission:
 - Independent verifier/date:
@@ -71,9 +71,9 @@ schema.
 | historicalPresence.maximum / distributionScope / anchors                 |                |                     |                                   |                   |                      | unresolved |
 | activity.* (every source, weight, breakpoint, cap, ramp, missing rule)   |                |                     |                                   |                   |                      | unresolved |
 | activity historical overlap (exact source pair; modern complete seasons) |                |                     |                                   |                   |                      | unresolved |
-| fishabilityBands.* / baselineCoverage.*                                  |                |                     |                                   |                   |                      | unresolved |
+| fishingShape/fishabilityBands.* / baselineCoverage.*                     |                |                     |                                   |                   |                      | unresolved |
 | waterTemperature.* / conditionsSuggest.*                                 |                |                     |                                   |                   |                      | unresolved |
-| runStageCopyStrategy / userCopyHints / version and audit gates           |                |                     |                                   |                   |                      | unresolved |
+| seasonalZoneReachIds / durable scope limits / version and audit gates    |                |                     |                                   |                   |                      | unresolved |
 
 **Code-to-packet reconciliation reviewer/date:**
 
@@ -121,23 +121,24 @@ beginning, migration/passage peak, harvest peak, spawning/egg-take peak, and
 terminal tail. A weir becoming effective or an agency beginning collection does
 not prove fish first arrived that day.
 
-## 3. Migration Stage copy matrix
+## 3. Migration Stage and Seasonal Zone
 
-For every reachable substate record the expected section plan and copy intent.
-Stage uses seasonal expectation, never live confirmation.
+Do not author a Stage copy matrix. For every reachable substate, verify the
+shared phase sentence and the structured Seasonal Zone. Stage uses seasonal
+orientation, never live confirmation or an access recommendation.
 
-| State key        | Trigger/date | Label | Primary section | Conditional secondary section | Headline intent | Why points | Guide action | Limitation |
-| ---------------- | ------------ | ----- | --------------- | ----------------------------- | --------------- | ---------- | ------------ | ---------- |
-| offseason        |              |       |                 |                               |                 |            |              |            |
-| staging          |              |       |                 |                               |                 |            |              |            |
-| beginning        |              |       |                 |                               |                 |            |              |            |
-| building         |              |       |                 |                               |                 |            |              |            |
-| peak             |              |       |                 |                               |                 |            |              |            |
-| tapering         |              |       |                 |                               |                 |            |              |            |
-| ending           |              |       |                 |                               |                 |            |              |            |
-| terminal/handoff |              |       |                 |                               |                 |            |              |            |
+| State key | Trigger/date | Canonical label | Expected foundation reach IDs | Endpoint/presentation constraint | Actual derived zone | Pass? |
+| --- | --- | --- | --- | --- | --- | --- |
+| offseason | | | | | | |
+| staging | | | | | | |
+| beginning | | | | | | |
+| building | | | | | | |
+| peak | | | | | | |
+| tapering | | | | | | |
+| ending | | | | | | |
+| terminal/handoff | | | | | | |
 
-## 4. Fish In River profile
+## 4. Seasonal Presence profile
 
 - Historical maximum (1–10):
 - Public opportunity tier:
@@ -265,7 +266,7 @@ configured.
 Activity remains blocked until the replay is reviewed. A plausible anecdotal day
 is not sufficient acceptance.
 
-## 6. Fishability profile
+## 6. Fishing Shape profile
 
 If no accepted local hydraulic source exists, configure the deterministic
 unavailable state and do not borrow another river’s gauge.
@@ -284,21 +285,29 @@ unavailable state and do not borrow another river’s gauge.
 - Permanent scope note:
 - Extreme-state guidance:
 
-Fishability describes presentation shape, not abundance, access, or safety.
+Fishing Shape describes presentation shape, not abundance, access, or safety.
 
-## 7. Four-primitive copy acceptance
+## 7. Public read acceptance
 
-For Stage, Activity, Fish In River, and Fishability:
+For Stage, Activity, Seasonal Presence, Fishing Shape, Gauge Read, and Spot
+Finder when aligned:
 
 - [ ] Every reachable state and material variant has a fixture.
-- [ ] Headline is one conclusion with the material qualifier.
-- [ ] Why This Read has one to three independent points.
-- [ ] Guide’s Read gives one prioritized action.
-- [ ] Permanent limitations are not repeated as filler.
-- [ ] Geography uses approved section labels only.
+- [ ] Stage uses shared phase copy plus a valid structured Seasonal Zone.
+- [ ] Activity shows four blocks and derived best-window evidence.
+- [ ] Seasonal Presence uses only its label, meter, and shared scope note.
+- [ ] Fishing Shape appears inside Gauge Read, never as a standalone tab.
+- [ ] The UI contains no Where to Start, Why This Read, or Guide's Read.
+- [ ] Geography uses canonical foundation reach IDs and approved labels only.
+- [ ] Spot Finder respects river/state/species eligibility before applying the
+      shared stage-to-section progression.
+- [ ] Spot Finder uses only Lower/Middle/Upper headings with concrete boundary
+      subtitles and includes every eligible access without ranking.
+- [ ] Beginning, Building, Peak, Tapering, Ending, pre-run, and post-run produce
+      the expected recommendation set for the eligible section count.
 - [ ] No internal scores, thresholds, reason codes, provider IDs, or workflow
       language leaks publicly.
-- [ ] Copy does not claim fish arrival, catch probability, or safety.
+- [ ] Public output does not claim live fish location, catch probability, or safety.
 - [ ] Terminal behavior matches species lifecycle.
 - [ ] Valid cross-primitive tensions remain intact.
 - [ ] Foreign river, landmark, dam, gauge, and species denylist passes.

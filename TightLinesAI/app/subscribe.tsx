@@ -60,7 +60,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'river-run',
     title: 'River Migration',
-    copy: 'Audited migration reads for supported rivers, seasons, and species—including stage, movement, fishability, and presence.',
+    copy: 'Audited migration reads for supported rivers, seasons, and species—including stage, activity, seasonal presence, and river conditions.',
     iconBg: ['#FBE4E1', '#F3C2BC'],
     accent: paper.red,
     iconColor: '#9A2B20',

@@ -166,7 +166,8 @@ for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
 const requiredDocuments: Record<string, RegExp[]> = {
   "docs/river_run_rapid_onboarding_playbook.md": [
     /Normative source of truth/,
-    /Migration Stage[\s\S]*Activity[\s\S]*Fish In River[\s\S]*Fishability/,
+    /Migration Stage[\s\S]*Activity[\s\S]*Seasonal Presence/,
+    /Fishing Shape context, not as a separate tab/,
     /Live Conditions[\s\S]*unscored/,
     /Multi-agent operating protocol/,
     /Mandatory candidate capability audit/,
@@ -178,8 +179,8 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Fast execution protocol/,
     /Post-review correction and continuous-learning protocol/,
     /Every hidden run approved for owner review must also be selectable/,
-    /Review copy cadence separately from score cadence/,
-    /Stage selector must expose every date on which Stage copy can\s+change/,
+    /Review Seasonal Zone cadence separately from score cadence/,
+    /Stage selector must expose every date on which Stage or\s+Seasonal Zone output can change/,
     /Owner review has two separate modes/,
     /fixture\s+measurements are never substituted/,
     /cross December into January/,
@@ -188,9 +189,14 @@ const requiredDocuments: Record<string, RegExp[]> = {
     /Acceptance, deployment, and public enablement/,
   ],
   "docs/river_run_copy_model.md": [
-    /\*\*Version:\*\* 2\.0/,
-    /four visible primitives/,
-    /Live Conditions \/ Gauge Read/,
+    /\*\*Version:\*\* 2\.2/,
+    /three public reads/,
+    /Gauge Read remains essential/,
+    /Seasonal Zone is structured geography, not free copy/,
+    /Public section names are always derived as `Lower Run Section`, `Middle Run\s+Section`, or `Upper Run Section`/,
+    /Beginning recommends the first section;\s+Building the first two; Peak every section; Tapering and Ending the last two/,
+    /Do not create stage-specific access copy, featured-access fields, or\s+species-by-access recommendations/,
+    /must not expose[\s\S]*`WHERE TO START`[\s\S]*`WHY THIS READ`[\s\S]*`GUIDE'S READ`/,
   ],
   "docs/river_run_activity_onboarding_standard.md": [
     /Today\/tomorrow schedule contract/,
@@ -315,10 +321,10 @@ for (
       /Provider-fault recovery to valid numeric display/,
     ],
     ["hidden-review catalog parity gate", /Hidden-review catalog parity/],
-    ["daily copy progression gate", /Daily copy\/reach-progression replay/],
+    ["daily Seasonal Zone progression gate", /Daily Seasonal Zone progression and endpoint replay/],
     [
       "stage fixture boundary gate",
-      /Stage fixture selector exposes every copy-transition boundary/,
+      /Stage fixture selector exposes every stage\/zone-transition boundary/,
     ],
     ["live review Gauge Read gate", /Gauge Read uses live providers/],
     [
@@ -359,7 +365,7 @@ assert(
   "Onboarding primitive order must match the actual River Run UI registry.",
 );
 console.log(
-  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs, ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} pending rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} pending runs, four public primitives, Live Conditions capability checks, canonical standards, and scaffold templates.`,
+  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs, ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} pending rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} pending runs, three public reads, Gauge Read/Fishing Shape capability checks, canonical standards, and scaffold templates.`,
 );
 
 function assert(condition: unknown, message: string): asserts condition {

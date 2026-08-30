@@ -1,7 +1,7 @@
 # FinFindr River Run Rapid Onboarding Playbook
 
-**Status:** Normative source of truth **Version:** 1.4 **Established:**
-2026-08-24 **Branch family:** `develop/cross-platform-next` **Scope:**
+**Status:** Normative source of truth **Version:** 2.0 **Established:**
+2026-08-30 **Branch family:** `develop/cross-platform-next` **Scope:**
 Researching, configuring, validating, reviewing, and handing off a new River Run
 river and its supported migratory salmonid runs
 
@@ -78,10 +78,10 @@ An onboarding agent follows this sequence without skipping ahead:
 4. Phase B: probe real providers and lock Live Conditions capabilities,
    freshness, reach, historical context, and honest unavailable behavior.
 5. Phase C: research every run field—calendar, strength, distribution,
-   lifecycle, presence curve, Fishability, and terminal semantics.
+   lifecycle, presence curve, Fishing Shape calibration, and terminal semantics.
 6. Phase D: select and calibrate Activity independently for each river/species.
-7. Phase E: write complete public copy across every reachable state and daily
-   corridor transition.
+7. Phase E: verify the shared public read model and structured Seasonal Zone;
+   author only durable river/source limitations that cannot be structured.
 8. Phase F: implement hidden configuration, review catalog, validation, and
    generated fixtures.
 9. Phase G: replay, run structural/copy/UI/type QA, and obtain rendered owner
@@ -122,8 +122,8 @@ Use this sequence for a multi-river wave:
    unsupported combinations explicitly. Stop before runtime implementation.
 4. **River truth and non-Activity gate — one river at a time.** For one approved
    river, finish every supported species packet, full field reconciliation,
-   calendars and daily corridor copy, Migration Stage, Fish In River,
-   Fishability, Gauge Read behavior, and hidden candidate configuration. Stop
+   calendars, Seasonal Zone, Migration Stage, Seasonal Presence,
+   Fishing Shape/Gauge Read behavior, and hidden candidate configuration. Stop
    for owner truth/copy review before Activity calibration for that river.
 5. **Activity and rendered-review gate — the same river.** Select the data mode,
    run full fixed historical replays for every supported species, tune only
@@ -152,25 +152,46 @@ The visible River Run order is fixed:
 
 1. Migration Stage
 2. Activity
-3. Fish In River
-4. Fishability
+3. Seasonal Presence
 
-Live Conditions, presented as Gauge Read, appears above the primitives. It is an
-unscored measurement surface, not a fifth primitive.
+Live Conditions, presented as Gauge Read, appears above the reads. It is an
+unscored measurement surface. Calibrated internal Fishability output appears
+there as compact Fishing Shape context, not as a separate tab.
 
 Primitive ownership:
 
 | Surface         | Owns                                                                                                                                        | Must not claim                                                                                                  |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Migration Stage | Fixed researched seasonal phase and the seasonally appropriate section in which to begin                                                    | Live abundance, confirmed distribution, current movement, responsiveness, catch probability                     |
+| Migration Stage | Fixed researched seasonal phase and a structured, calendar-based Seasonal Zone                                                               | Live abundance, confirmed distribution, current movement, responsiveness, catch probability, an access recommendation |
 | Activity        | Conditional responsiveness of fish already present and differences among four supported time blocks                                         | Abundance, migration, catch probability, exact fish location, proof of feeding                                  |
-| Fish In River   | Approximate historical seasonal presence relative to that river/species ceiling                                                             | Live fish count, current movement, bite quality, exact location                                                 |
-| Fishability     | Presentation control and the shape of fishable water represented by the accepted hydraulic source                                           | Abundance, responsiveness, access, wading/boating safety, the entire river unless audited                       |
+| Seasonal Presence | Approximate historical seasonal presence relative to that river/species ceiling                                                           | Live fish count, current movement, bite quality, exact location                                                 |
+| Fishing Shape   | Presentation control and the shape of fishable water represented by the accepted hydraulic source                                           | Abundance, responsiveness, access, wading/boating safety, the entire river unless audited                       |
 | Live Conditions | Current measurements, source-appropriate precision, date-based historical context, 24-hour trend, freshness, station, and represented reach | A score, migration inference, clarity inference, safety, fish presence, whole-river conditions without evidence |
 
 Valid tension is expected. High seasonal presence can coexist with low Activity.
-Excellent Fishability can coexist with low Fish In River. Do not rewrite one
+Excellent Fishing Shape can coexist with low Seasonal Presence. Do not rewrite one
 surface to make independent conclusions superficially agree.
+
+### 2.1 Rapid implementation budget
+
+The product no longer requires a primitive-copy matrix. For a new river, the
+incremental public implementation is limited to:
+
+- one canonical river foundation and ordered reach set;
+- one river-level Spot Finder inventory, reused by every eligible species;
+- one required Lower/Middle/Upper position and concrete boundary range for each
+  Spot Finder section so Migration Stage can recommend broad sections automatically;
+- rare species filters only where endpoints genuinely differ;
+- structured station, source, represented-reach, and regulation facts;
+- per-species calendars, presence curves, endpoints, and Activity calibration;
+- Fishing Shape bands when the accepted hydraulic source supports them.
+
+Phase sentences, scope notes, Seasonal Zone labels, Activity evidence text, and
+Seasonal Presence presentation are shared or derived. Do not author replacements
+for them. Ten implementation-ready rivers can be configured in one day only
+when their evidence packets, access sources, gauges, barriers, calendars, and
+species decisions are already resolved; the speed target never permits skipping
+those truth gates.
 
 ## 3. Non-negotiable safety and release boundaries
 
@@ -209,9 +230,9 @@ Run-level facts:
 - Species biology and run type.
 - Seasonal dates and stage substates.
 - Historical-presence ceiling, distribution scope, and curve.
-- Activity rules, lifecycle behavior, copy, and replay.
-- Fishability bands or deterministic unavailable behavior.
-- Four-primitive copy matrix and terminal behavior.
+- Activity rules, lifecycle behavior, and replay.
+- Fishing Shape bands or deterministic unavailable behavior.
+- Structured Seasonal Zone, shared public read behavior, and terminal semantics.
 
 Every configurable run field is a research or calibration decision. A run is not
 researched merely because occurrence, three headline dates, and a ceiling have
@@ -455,7 +476,7 @@ closed and show the truthful stale/missing state.
 - Label fallbacks and constrain claims to their reach.
 - Weather is a modeled point, not measured river state.
 - If no gauge passes, configure an honest no-gauge state; the river can still
-  support Stage, Fish In River, and a separately accepted weather-only Activity
+  support Stage, Seasonal Presence, and a separately accepted weather-only Activity
   model.
 
 ### B3. Date context and trend
@@ -492,7 +513,7 @@ For each species:
 6. Build versioned presence anchors with biological/observational reasons.
 7. Define species-specific barrier response.
 8. Define lifecycle and terminal behavior.
-9. Configure Fishability or deterministic unavailability.
+9. Configure Fishing Shape calibration or deterministic unavailability.
 10. Complete the dedicated Activity track.
 
 ### C0. Calendar evidence protocol
@@ -566,7 +587,7 @@ minimum inventory is:
 - Activity mode, represented reaches, every source, component weight,
   temperature breakpoint, hydraulic response, cap, lifecycle ramp, missing-data
   rule, confidence rule, four-block behavior, and refresh rule.
-- Fishability metric/source/reach, every band boundary, trend behavior,
+- Fishing Shape metric/source/reach, every band boundary, trend behavior,
   freshness behavior, and unavailable-state contract.
 - Baseline coverage, water-temperature priority/fallback, current-versus-
   historical source limitations, copy strategy, version IDs, and audit gates.
@@ -702,27 +723,30 @@ Missing required hourly weather returns `Unavailable`, no score, no blocks, and
 no strongest-window language. It is not an Inactive zero. Provider recovery must
 restore scoring automatically when complete valid hours resume.
 
-## 10. Phase E — write public copy
+## 10. Phase E — verify the shared public read model
 
 Follow `docs/river_run_copy_model.md`.
 
-Write copy from structured state truth, not by copying paragraphs from an
-existing river. Every reachable state requires:
+Do not create a river/species paragraph matrix. Verify structured truth and let
+the shared presentation layer render it. Every supported run requires:
 
-- State key and exact trigger.
-- Public label.
-- One-sentence headline.
-- Stage section plan when applicable.
-- One to three Why This Read points.
-- One prioritized Guide’s Read.
-- Permanent scope note key.
-- Copy version.
+- exact stage triggers and canonical labels;
+- a Seasonal Zone constrained by foundation, presentation state, and species
+  endpoint;
+- presence curve, ceiling, direction, and terminal semantics;
+- Activity blocks, confidence, drivers, limits, and unavailable behavior;
+- Fishing Shape bands or deterministic unavailability;
+- Gauge Read source/reach/freshness metadata;
+- one river-level Spot Finder inventory when its corridor aligns;
+- deterministic Migration Stage-to-Spot Finder recommendations that include
+  every access in selected sections, never a hand-ranked access point;
+- only the durable limitation copy that cannot be represented structurally.
 
 Copy review order:
 
-1. Migration Stage across the full calendar.
-2. Fish In River curve/direction/terminal states.
-3. Fishability bands, trends, freshness, and unavailability.
+1. Migration Stage and Seasonal Zone across the full calendar.
+2. Seasonal Presence curve/direction/terminal states.
+3. Fishing Shape bands, trends, freshness, and unavailability.
 4. Activity blocks, confidence, lifecycle, and today/tomorrow states.
 5. Valid cross-primitive combinations.
 
@@ -805,7 +829,7 @@ affected stage/lifecycle dates into the following calendar year. The replay must
 prove its expected-day calculation and include a cross-year controlled test
 whenever `lateEnd` is earlier than `stagingStart`.
 
-### G3. Fishability replay
+### G3. Fishing Shape replay
 
 Replay every band and trend against accepted historical hydraulics. Confirm that
 rare/excessive states are reachable for defensible reasons and extreme states
@@ -821,7 +845,7 @@ Cover:
 
 - All Stage substates and terminal states.
 - All presence bands and directions.
-- All Fishability bands/trends/freshness states or unavailable state.
+- All Fishing Shape bands/trends/freshness states or unavailable state.
 - All Activity labels, confidence states, four blocks, leader ties,
   today/tomorrow states, lifecycle phases, caps, and missing modes.
 - Representative valid cross-primitive tensions.
@@ -837,17 +861,15 @@ development review catalog. Verify the complete State → Season → Species →
 path for every supported combination. A current generated fixture that cannot be
 reached through the app is not review-ready.
 
-Review copy cadence separately from score cadence. Fish In River curves must
-interpolate through the configured anchors, but a daily-changing number does not
-make multi-week reach guidance adequate. During every active run, replay each
-calendar day and verify that Lower → Middle/Forest → Upper/terminal progression
-changes when the evidence supports it, names the river's real sections, and
-never jumps past an unresolved barrier. Add an intermediate boundary when one
-stage would otherwise hold stale starting-reach advice through a meaningful
-migration transition.
+Review Seasonal Zone cadence separately from score cadence. Seasonal Presence
+curves must interpolate through configured anchors. During every active run,
+replay each calendar day and verify that the zone progresses only through
+canonical accessible reaches and never crosses a presentation-state or species
+barrier. Adjust structured boundaries or endpoint reach IDs when needed; do not
+solve geography with new prose.
 
-The owner-review Stage selector must expose every date on which Stage copy can
-change, not only the headline configuration anchors. Include the last day and
+The owner-review Stage selector must expose every date on which Stage or
+Seasonal Zone output can change, not only the headline configuration anchors. Include the last day and
 first day on both sides of `beginningEnd`, `peakEnd`, `taperingEnd`, `end`, and
 `postRunLateCopyEnd`, plus every configured established/broad/peak checkpoint.
 This prevents a valid intermediate transition—such as a Lower-first corridor
@@ -958,9 +980,9 @@ A river is onboarding-complete only when:
 - Foundation, sections, barriers, and current regulations are versioned and
   approved.
 - Live Conditions capability and reach are audited.
-- Every supported run has independent truth, presence, Activity, Fishability,
-  and copy acceptance.
-- All four public primitives have complete reachable-state fixtures.
+- Every supported run has independent truth, presence, Activity, Fishing Shape,
+  and structured-read acceptance.
+- All three public reads and Gauge Read have complete reachable-state fixtures.
 - No hidden Timing/Push surface or language is exposed.
 - Activity replay coverage, distributions, boundaries, and copy invariants pass.
 - The configuration-field inventory matches code and every material value has

@@ -6,6 +6,23 @@ export type RiverAccessKind =
   | "carry_in"
   | "walk_in";
 
+export type RiverAccessSpecies =
+  | "chinook_salmon"
+  | "coho_salmon"
+  | "steelhead"
+  | "lake_run_brown_trout";
+
+export type RiverAccessSectionPosition = "lower" | "middle" | "upper";
+
+export type RiverAccessRecommendationStage =
+  | "pre_run"
+  | "beginning"
+  | "building"
+  | "peak"
+  | "tapering"
+  | "ending"
+  | "post_run";
+
 export type RiverAccessSpot = {
   id: string;
   name: string;
@@ -23,20 +40,101 @@ export type RiverAccessSpot = {
 
 export type RiverAccessSection = {
   id: string;
-  label: string;
+  /** IDs from the river foundation; access geography must not fork from it. */
+  foundationReachIds: string[];
+  /** Relative position inside the supported River Run corridor. */
+  position: RiverAccessSectionPosition;
+  /** Concrete downstream-to-upstream boundaries shown below the position. */
+  rangeLabel: string;
+  /** Omit when the section applies to every supported run on the river. */
+  eligibleSpecies?: RiverAccessSpecies[];
   spots: RiverAccessSpot[];
 };
 
 export type RiverSpotFinder = {
   riverId: string;
   riverName: string;
+  supportedStates?: string[];
   orientationNote: string;
+  /** False when the inventory does not describe the selected migration corridor. */
+  riverRunAligned?: boolean;
   safetyLink?: {
     label: string;
     url: string;
   };
   sections: RiverAccessSection[];
 };
+
+export type RiverSpotFinderRecommendedSections = {
+  /** Broad sections recommended from the fixed migration phase. */
+  recommendedSections: RiverAccessSection[];
+  /** Eligible access sections outside the broad recommendation. */
+  otherSections: RiverAccessSection[];
+  /** False before the run, after completion, or without a known stage. */
+  hasRecommendation: boolean;
+};
+
+/**
+ * Produces a broad, copy-free section recommendation from the migration phase.
+ * Sections are ordered downstream to upstream by the audited inventory. The
+ * resolver recommends every access in selected sections and never ranks an
+ * individual location or infers live fish presence.
+ */
+export function resolveRiverSpotFinderRecommendedSections(
+  finder: Pick<RiverSpotFinder, "sections">,
+  stage?: RiverAccessRecommendationStage,
+): RiverSpotFinderRecommendedSections {
+  if (!stage || stage === "pre_run" || stage === "post_run") {
+    return {
+      recommendedSections: [],
+      otherSections: finder.sections,
+      hasRecommendation: false,
+    };
+  }
+
+  const sectionCount = finder.sections.length;
+  let recommendedSections: RiverAccessSection[];
+  switch (stage) {
+    case "beginning":
+      recommendedSections = finder.sections.slice(0, 1);
+      break;
+    case "building":
+      recommendedSections = finder.sections.slice(0, Math.min(2, sectionCount));
+      break;
+    case "peak":
+      recommendedSections = finder.sections;
+      break;
+    case "tapering":
+    case "ending":
+      recommendedSections = sectionCount >= 3
+        ? finder.sections.slice(-2)
+        : finder.sections.slice(-1);
+      break;
+  }
+  if (recommendedSections.length === 0) {
+    return {
+      recommendedSections: [],
+      otherSections: finder.sections,
+      hasRecommendation: false,
+    };
+  }
+  const recommendedSectionIds = new Set(
+    recommendedSections.map((section) => section.id),
+  );
+  return {
+    recommendedSections,
+    otherSections: finder.sections.filter(
+      (section) => !recommendedSectionIds.has(section.id),
+    ),
+    hasRecommendation: true,
+  };
+}
+
+export function riverAccessSectionLabel(
+  position: RiverAccessSectionPosition,
+): string {
+  return `${position[0].toUpperCase()}${position.slice(1)} Run Section`;
+}
 
 const DNR_BOATING_SOURCE =
   "https://experience.arcgis.com/experience/cc091ec1b6a24d7a98010f8de57fd189/page/Explore";
@@ -206,10 +304,13 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverName: "Platte River",
     orientationNote:
       "Angler access is organized around Honor and the river upstream. The lower outlet corridor between Platte Lake and Lake Michigan is intentionally excluded.",
+    riverRunAligned: false,
     sections: [
       {
         id: "platte_honor",
-        label: "Honor area",
+        foundationReachIds: [],
+        position: "lower",
+        rangeLabel: "Honor area",
         spots: [
           {
             id: "platte_river_park",
@@ -229,7 +330,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "platte_upstream",
-        label: "Upstream of Honor",
+        foundationReachIds: [],
+        position: "upper",
+        rangeLabel: "Upstream of Honor",
         spots: [
           dnrSpot(
             "platte_veterans_memorial",
@@ -263,7 +366,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "betsie_lake_us31",
-        label: "Betsie Lake to US-31",
+        foundationReachIds: ["betsie_lake_to_us31"],
+        position: "lower",
+        rangeLabel: "Betsie Lake to US-31",
         spots: [
           dnrSpot(
             "betsie_lower_river",
@@ -303,7 +408,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "betsie_us31_homestead",
-        label: "US-31 to Homestead",
+        foundationReachIds: ["betsie_us31_to_homestead"],
+        position: "upper",
+        rangeLabel: "US-31 to signed Homestead closure",
         spots: [
           dnrSpot(
             "betsie_homestead",
@@ -327,7 +434,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "pm_lower",
-        label: "Lower · Pere Marquette Lake to Scottville",
+        foundationReachIds: ["pm_lower_mainstem"],
+        position: "lower",
+        rangeLabel: "Pere Marquette Lake to Scottville",
         spots: [
           dnrSpot(
             "pm_us31",
@@ -351,7 +460,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "pm_middle",
-        label: "Middle · Scottville to Maple Leaf",
+        foundationReachIds: ["pm_middle_mainstem"],
+        position: "middle",
+        rangeLabel: "Scottville to Maple Leaf",
         spots: [
           sourcedCoordinateSpot(
             "pm_indian_bridge",
@@ -388,7 +499,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "pm_upper",
-        label: "Upper · Maple Leaf to M-37",
+        foundationReachIds: ["pm_upper_mainstem"],
+        position: "upper",
+        rangeLabel: "Maple Leaf to M-37",
         spots: [
           namedSpot(
             "pm_rainbow_rapids",
@@ -473,7 +586,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "muskegon_lower",
-        label: "Lower · Muskegon Lake to M-120",
+        foundationReachIds: ["muskegon_lake_to_m120"],
+        position: "lower",
+        rangeLabel: "Muskegon Lake to M-120",
         spots: [
           dnrSpot(
             "muskegon_sheridan",
@@ -519,7 +634,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "muskegon_middle",
-        label: "Middle · M-120 to Newaygo",
+        foundationReachIds: ["muskegon_m120_to_newaygo"],
+        position: "middle",
+        rangeLabel: "M-120 to Newaygo",
         spots: [
           dnrSpot(
             "muskegon_bridgeton",
@@ -575,7 +692,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "muskegon_upper",
-        label: "Upper · Newaygo to Croton Dam",
+        foundationReachIds: ["muskegon_croton_tailwater"],
+        position: "upper",
+        rangeLabel: "Newaygo to Croton Dam",
         spots: [
           dnrSpot(
             "muskegon_croton_drive",
@@ -635,11 +754,13 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverId: "white",
     riverName: "White River",
     orientationNote:
-      "This river uses named landmarks because public access is uneven. The lake-run corridor ends below Hesperia Dam; private liveries and upstream landings are excluded.",
+      "Lower, Middle and Upper section boundaries use recognizable landmarks because public access is uneven. The lake-run corridor ends below Hesperia Dam; private liveries and upstream landings are excluded.",
     sections: [
       {
         id: "white_lower",
-        label: "Lower · White Lake to Fruitvale Road",
+        foundationReachIds: ["white_lower_river"],
+        position: "lower",
+        rangeLabel: "White Lake to Fruitvale Road",
         spots: [
           {
             id: "white_covell",
@@ -660,7 +781,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "white_forest",
-        label: "Forest corridor · Fruitvale Road to Pines Point",
+        foundationReachIds: ["white_forest_corridor"],
+        position: "middle",
+        rangeLabel: "Fruitvale Road to Pines Point",
         spots: [
           namedSpot(
             "white_hilts",
@@ -711,7 +834,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "white_upper",
-        label: "Upper · Pines Point to Hesperia Dam",
+        foundationReachIds: ["white_upper_accessible_corridor"],
+        position: "upper",
+        rangeLabel: "Pines Point to Hesperia Dam",
         spots: [
           namedSpot(
             "white_st_hubert",
@@ -753,7 +878,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "manistee_lower",
-        label: "Lower · M-55 to Bear Creek",
+        foundationReachIds: ["big_manistee_bear_creek_to_m55"],
+        position: "lower",
+        rangeLabel: "M-55 to Bear Creek",
         spots: [
           namedSpot(
             "manistee_rainbow",
@@ -777,7 +904,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "manistee_middle",
-        label: "Middle · Bear Creek to High Bridge",
+        foundationReachIds: ["big_manistee_high_bridge_to_bear_creek"],
+        position: "middle",
+        rangeLabel: "Bear Creek to High Bridge",
         spots: [
           namedSpot(
             "manistee_bear",
@@ -810,7 +939,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "manistee_upper",
-        label: "Upper · High Bridge to Tippy Dam",
+        foundationReachIds: ["big_manistee_tippy_tailwater"],
+        position: "upper",
+        rangeLabel: "High Bridge to Tippy Dam",
         spots: [
           namedSpot(
             "manistee_sawdust",
@@ -855,12 +986,15 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
   st_joseph: {
     riverId: "st_joseph",
     riverName: "St. Joseph River",
+    supportedStates: ["MI"],
     orientationNote:
       "This Michigan inventory stops at the state line. Indiana access is not included in this release.",
     sections: [
       {
         id: "stjoe_lower",
-        label: "Lower · Lake Michigan to Berrien Springs",
+        foundationReachIds: ["st_joseph_lower_michigan"],
+        position: "lower",
+        rangeLabel: "Lake Michigan to Berrien Springs",
         spots: [
           namedSpot(
             "stjoe_silver_beach",
@@ -927,7 +1061,12 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "stjoe_middle",
-        label: "Berrien Springs to the Michigan state line",
+        foundationReachIds: [
+          "st_joseph_middle_michigan",
+          "st_joseph_niles",
+        ],
+        position: "upper",
+        rangeLabel: "Berrien Springs to the Michigan–Indiana line",
         spots: [
           {
             id: "stjoe_shamrock",
@@ -1004,7 +1143,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "grand_lower",
-        label: "Lower · Grand Haven to Sixth Street",
+        foundationReachIds: ["grand_lower"],
+        position: "lower",
+        rangeLabel: "Grand Haven to Sixth Street",
         spots: [
           dnrSpot("grand_indian", "Indian Channel", 43.03227719, -86.14577446, [
             "boat_ramp",
@@ -1052,7 +1193,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "grand_middle",
-        label: "Middle · Sixth Street to Webber Dam",
+        foundationReachIds: ["grand_middle_passage"],
+        position: "middle",
+        rangeLabel: "Sixth Street to Webber Dam",
         spots: [
           sourcedCoordinateSpot(
             "grand_riverside2",
@@ -1125,7 +1268,10 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "grand_upper",
-        label: "Upper accessible · Webber Dam to Moores Park",
+        foundationReachIds: ["grand_upper_accessible"],
+        position: "upper",
+        rangeLabel: "Webber Dam to Moores Park",
+        eligibleSpecies: ["coho_salmon", "steelhead"],
         spots: [
           dnrSpot(
             "grand_towner",
@@ -1176,7 +1322,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "milwaukee_harbor_downtown",
-        label: "Harbor & Downtown · Lake Michigan to North Avenue",
+        foundationReachIds: ["milwaukee_harbor_downtown"],
+        position: "lower",
+        rangeLabel: "Lake Michigan to North Avenue",
         spots: [
           sourceMappedSpot(
             "milwaukee_caesars",
@@ -1191,7 +1339,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "milwaukee_urban_greenway",
-        label: "Urban Greenway · North Avenue to Kletzsch Park",
+        foundationReachIds: ["milwaukee_urban_greenway"],
+        position: "middle",
+        rangeLabel: "North Avenue to Kletzsch Park",
         spots: [
           sourceMappedSpot(
             "milwaukee_riverside",
@@ -1269,7 +1419,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "milwaukee_north_shore",
-        label: "North Shore · Kletzsch Park to Bridge Street Dam",
+        foundationReachIds: ["milwaukee_north_shore"],
+        position: "upper",
+        rangeLabel: "Kletzsch Park to Bridge Street Dam",
         spots: [
           sourceMappedSpot(
             "milwaukee_kletzsch",
@@ -1325,7 +1477,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "sheboygan_harbor_lower_city",
-        label: "Harbor & Lower City · Lake Michigan to Kiwanis Park",
+        foundationReachIds: ["sheboygan_harbor_lower_city"],
+        position: "lower",
+        rangeLabel: "Lake Michigan to Kiwanis Park",
         spots: [
           sourceMappedSpot(
             "sheboygan_eighth_street",
@@ -1340,7 +1494,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "sheboygan_urban_river",
-        label: "Urban River · Kiwanis Park to I-43",
+        foundationReachIds: ["sheboygan_urban_river"],
+        position: "middle",
+        rangeLabel: "Kiwanis Park to I-43",
         spots: [
           sourceMappedSpot(
             "sheboygan_kiwanis",
@@ -1373,7 +1529,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "sheboygan_kohler",
-        label: "Kohler Reach · I-43 to Waelderhaus Dam",
+        foundationReachIds: ["sheboygan_kohler"],
+        position: "upper",
+        rangeLabel: "I-43 to Waelderhaus Dam",
         spots: [
           sourceMappedSpot(
             "sheboygan_kohler_water_utility",
@@ -1401,7 +1559,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "root_harbor_downtown",
-        label: "Harbor & Downtown · Lake Michigan to 6th Street",
+        foundationReachIds: ["root_harbor_downtown"],
+        position: "lower",
+        rangeLabel: "Lake Michigan to 6th Street",
         spots: [
           sourceMappedSpot(
             "root_sixth_street",
@@ -1416,7 +1576,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "root_city_parks",
-        label: "City Parks · 6th Street to Island Park",
+        foundationReachIds: ["root_city_parks"],
+        position: "middle",
+        rangeLabel: "6th Street to Island Park",
         spots: [
           sourceMappedSpot(
             "root_washington",
@@ -1440,7 +1602,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "root_lincoln_park",
-        label: "Lincoln Park · Island Park to Steelhead Facility",
+        foundationReachIds: ["root_lincoln_park"],
+        position: "upper",
+        rangeLabel: "Island Park to Steelhead Facility",
         spots: [
           sourceMappedSpot(
             "root_lincoln",
@@ -1468,7 +1632,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     sections: [
       {
         id: "bois_brule_mouth_lower",
-        label: "Mouth & Lower River · Lake Superior to Fishway Refuge",
+        foundationReachIds: ["bois_brule_mouth_lower"],
+        position: "lower",
+        rangeLabel: "Lake Superior to Fishway Refuge",
         spots: [
           sourceMappedSpot(
             "brule_mouth",
@@ -1575,7 +1741,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "bois_brule_rapids",
-        label: "Rapids Reach · Fishway Refuge to County Highway FF",
+        foundationReachIds: ["bois_brule_rapids"],
+        position: "middle",
+        rangeLabel: "Fishway Refuge to County Highway FF",
         spots: [
           sourceMappedSpot(
             "brule_loveland",
@@ -1609,7 +1777,9 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
       {
         id: "bois_brule_upper_lower",
-        label: "Upper Lower River · County Highway FF to Highway 2",
+        foundationReachIds: ["bois_brule_upper_lower"],
+        position: "upper",
+        rangeLabel: "County Highway FF to Highway 2",
         spots: [
           sourceMappedSpot(
             "brule_pine_tree",
@@ -1683,8 +1853,22 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
 
 export function riverRunSpotFinderForRiver(
   riverId: string | undefined,
+  species?: string,
+  state?: string,
 ): RiverSpotFinder | undefined {
-  return riverId ? RIVER_RUN_SPOT_FINDERS[riverId] : undefined;
+  if (!riverId) return undefined;
+  const finder = RIVER_RUN_SPOT_FINDERS[riverId];
+  if (!finder || finder.riverRunAligned === false) return undefined;
+  if (state && finder.supportedStates && !finder.supportedStates.includes(state)) {
+    return undefined;
+  }
+  const sections = species
+    ? finder.sections.filter((section) =>
+      !section.eligibleSpecies ||
+      section.eligibleSpecies.includes(species as RiverAccessSpecies)
+    )
+    : finder.sections;
+  return sections.length > 0 ? { ...finder, sections } : undefined;
 }
 
 export const RIVER_ACCESS_GENERAL_WARNING =

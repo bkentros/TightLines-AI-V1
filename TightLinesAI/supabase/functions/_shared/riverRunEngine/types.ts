@@ -575,6 +575,7 @@ export type RiverProfile = {
     state: GreatLakesState;
     displayName?: string;
     defaultReachId?: string;
+    foundationReachIds?: string[];
     regulationReminderCopy: string;
   }>;
   state: GreatLakesState;
@@ -704,6 +705,8 @@ export type RiverRunProfile = {
 
   primitiveCapabilities: RiverRunPrimitiveCapabilities;
   runStageCopyStrategy?: RunStageCopyStrategy;
+  /** Optional species endpoint override; defaults to the river's migratory reaches. */
+  seasonalZoneReachIds?: string[];
 
   runWindow: {
     preRunStart: string;

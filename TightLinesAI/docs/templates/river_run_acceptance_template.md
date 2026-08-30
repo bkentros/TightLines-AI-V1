@@ -15,9 +15,9 @@
 | Barrier/passage/closure audit                                         | `river-foundation.md`                   | pending |          |      |                |
 | Species-specific mouth-to-endpoint passage chains                     | foundation + run packets                | pending |          |      |                |
 | Source probe and Live Conditions audit                                | `live-conditions.md`                    | pending |          |      |                |
-| Chinook truth/copy/replay                                             | `runs/fall-chinook.md`                  | pending |          |      |                |
-| Coho truth/copy/replay                                                | `runs/fall-coho.md`                     | pending |          |      |                |
-| Steelhead truth/copy/replay                                           | `runs/fall-steelhead.md`                | pending |          |      |                |
+| Chinook truth/structured reads/replay                                 | `runs/fall-chinook.md`                  | pending |          |      |                |
+| Coho truth/structured reads/replay                                    | `runs/fall-coho.md`                     | pending |          |      |                |
+| Steelhead truth/structured reads/replay                               | `runs/fall-steelhead.md`                | pending |          |      |                |
 | Code-to-packet configuration-field reconciliation                     | all run packets + config diff           | pending |          |      |                |
 | Complete calendar evidence-kind/bias reconciliation                   | all run packets                         | pending |          |      |                |
 | Strength/distribution portfolio comparisons                           | all run packets                         | pending |          |      |                |
@@ -27,14 +27,14 @@
 | Activity same-reach source-pairing decision                           | run packets + config                    | pending |          |      |                |
 | Cross-year replay math, where applicable                              | replay artifact/test                    | pending |          |      |                |
 | Missing-weather unavailable/no-leader behavior                        | Activity QA                             | pending |          |      |                |
-| Fishability replay/unavailable contract                               | run-specific artifact                   | pending |          |      |                |
-| Four-primitive state fixtures                                         | generated fixtures                      | pending |          |      |                |
+| Fishing Shape replay/unavailable contract                             | run-specific artifact                   | pending |          |      |                |
+| Three public reads + Gauge Read state fixtures                        | generated fixtures                      | pending |          |      |                |
 | Hidden-review catalog parity for every supported run                  | review-mode UI QA                       | pending |          |      |                |
-| Daily copy/reach-progression replay                                   | full active-window copy audit           | pending |          |      |                |
-| Stage fixture selector exposes every copy-transition boundary         | generated-fixture boundary QA           | pending |          |      |                |
+| Daily Seasonal Zone progression and endpoint replay                   | full active-window zone audit           | pending |          |      |                |
+| Stage fixture selector exposes every stage/zone-transition boundary   | generated-fixture boundary QA           | pending |          |      |                |
 | Owner-review Gauge Read uses live providers, no fixture fallback      | review-mode visual/API QA               | pending |          |      |                |
 | Current Live snapshot isolates provider inputs from scenario fixtures | review-mode API/integration QA          | pending |          |      |                |
-| Copy/geography/contradiction QA                                       | onboarding audit                        | pending |          |      |                |
+| Structured-read/geography/contradiction QA                            | onboarding audit                        | pending |          |      |                |
 | Live Conditions partial/stale/missing QA                              | test artifact                           | pending |          |      |                |
 | Provider-fault recovery to valid numeric display                      | test artifact                           | pending |          |      |                |
 | Hourly Gauge Read cadence independent of primitive cadence            | endpoint/cache QA                       | pending |          |      |                |
@@ -42,7 +42,7 @@
 | All-public-river provider health audit                                | dated live-source audit                 | pending |          |      |                |
 | iOS and Android narrow-screen review                                  | screenshots/device review               | pending |          |      |                |
 | Production-shaped hidden smoke                                        | smoke artifact                          | pending |          |      |                |
-| Product-owner copy/visual acceptance                                  | signed decision                         | pending |          |      |                |
+| Product-owner structured-read/visual acceptance                       | signed decision                         | pending |          |      |                |
 | Consolidated cohort acceptance, when multi-river                      | cohort review record                    | pending |          |      |                |
 | Public static/database configuration-source decision                  | production secret/config audit          | pending |          |      |                |
 | Public registry promotion and draft-registry removal                  | catalog/config diff                     | pending |          |      |                |
@@ -54,7 +54,7 @@
 ## Required release record
 
 - Configuration version:
-- Copy versions:
+- Public read-model version:
 - Replay artifact versions:
 - Configuration inventory reconciliation artifact:
 - Activity stage-by-block and calibration-ledger review:
@@ -69,7 +69,7 @@
 - Deployment authorization:
 - Public enablement authorization:
 - Production configuration source (`static` or `database`):
-- Cache-invalidating engine/config/copy/data versions:
+- Cache-invalidating engine/config/presentation/data versions:
 - Linked migration reconciliation result:
 - Deployed function version/update time:
 - Production catalog unique river/run counts and new IDs:

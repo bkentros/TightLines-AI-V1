@@ -9,7 +9,12 @@ import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
 import {
   RIVER_ACCESS_GENERAL_WARNING,
   RIVER_RUN_SPOT_FINDERS,
+  riverAccessSectionLabel,
+  riverRunSpotFinderForRiver,
+  resolveRiverSpotFinderRecommendedSections,
 } from "../lib/riverRunSpotFinder";
+import { RIVER_RUN_CONFIGURATION_DOCUMENTS } from "../supabase/functions/_shared/riverRunEngine/config/catalog";
+import { resolveRunStage } from "../supabase/functions/_shared/riverRunEngine/scoring/runStage";
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
@@ -179,7 +184,7 @@ assert.deepEqual(
     ["milwaukee", "sheboygan", "root", "bois_brule"].map((riverId) => [
       riverId,
       RIVER_RUN_SPOT_FINDERS[riverId].sections.map((section) => ({
-        label: section.label,
+        label: `${riverAccessSectionLabel(section.position)} · ${section.rangeLabel}`,
         spots: section.spots.length,
       })),
     ]),
@@ -187,48 +192,48 @@ assert.deepEqual(
   {
     milwaukee: [
       {
-        label: "Harbor & Downtown · Lake Michigan to North Avenue",
+        label: "Lower Run Section · Lake Michigan to North Avenue",
         spots: 1,
       },
       {
-        label: "Urban Greenway · North Avenue to Kletzsch Park",
+        label: "Middle Run Section · North Avenue to Kletzsch Park",
         spots: 8,
       },
       {
-        label: "North Shore · Kletzsch Park to Bridge Street Dam",
+        label: "Upper Run Section · Kletzsch Park to Bridge Street Dam",
         spots: 4,
       },
     ],
     sheboygan: [
       {
-        label: "Harbor & Lower City · Lake Michigan to Kiwanis Park",
+        label: "Lower Run Section · Lake Michigan to Kiwanis Park",
         spots: 1,
       },
-      { label: "Urban River · Kiwanis Park to I-43", spots: 3 },
-      { label: "Kohler Reach · I-43 to Waelderhaus Dam", spots: 1 },
+      { label: "Middle Run Section · Kiwanis Park to I-43", spots: 3 },
+      { label: "Upper Run Section · I-43 to Waelderhaus Dam", spots: 1 },
     ],
     root: [
       {
-        label: "Harbor & Downtown · Lake Michigan to 6th Street",
+        label: "Lower Run Section · Lake Michigan to 6th Street",
         spots: 1,
       },
-      { label: "City Parks · 6th Street to Island Park", spots: 2 },
+      { label: "Middle Run Section · 6th Street to Island Park", spots: 2 },
       {
-        label: "Lincoln Park · Island Park to Steelhead Facility",
+        label: "Upper Run Section · Island Park to Steelhead Facility",
         spots: 1,
       },
     ],
     bois_brule: [
       {
-        label: "Mouth & Lower River · Lake Superior to Fishway Refuge",
+        label: "Lower Run Section · Lake Superior to Fishway Refuge",
         spots: 11,
       },
       {
-        label: "Rapids Reach · Fishway Refuge to County Highway FF",
+        label: "Middle Run Section · Fishway Refuge to County Highway FF",
         spots: 3,
       },
       {
-        label: "Upper Lower River · County Highway FF to Highway 2",
+        label: "Upper Run Section · County Highway FF to Highway 2",
         spots: 7,
       },
     ],
@@ -260,6 +265,67 @@ assert.match(
   /<LiveRiverConditionsCard[\s\S]*?<SpotFinderCard[\s\S]*?<PrimitiveTabBar/,
   "Spot Finder must render directly below Gauge Read and above the River Run tabs",
 );
+assert.match(
+  riverRunScreen,
+  /<View style=\{styles\.snapshotResultStack\}>[\s\S]*?<SnapshotView[\s\S]*?<FeedbackCard/,
+  "The completed read and coverage-request card must share an explicitly spaced stack",
+);
+assert.match(
+  riverRunScreen,
+  /snapshotResultStack:\s*\{\s*gap:\s*16\s*\}/,
+  "Safety and coverage request cards must retain a full 16-point visual gap",
+);
+assert.match(
+  riverRunScreen,
+  /<SpotFinderCard[\s\S]*?runStage=\{resultSnapshot\?\.runStage\}/,
+  "Spot Finder must receive the snapshot's structured Migration Stage",
+);
+assert.equal(
+  (riverRunScreen.match(/tabTitle:\s*"/g) ?? []).length,
+  3,
+  "River Run must expose exactly three public read tabs",
+);
+assert.match(
+  riverRunScreen,
+  /fishingShape=\{resultSnapshot\?\.fishability\}[\s\S]*?FISHING SHAPE/,
+  "Calibrated presentation workability must appear as Fishing Shape inside Gauge Read",
+);
+assert.match(
+  riverRunScreen,
+  /FISHING_SHAPE_METER[\s\S]*?Poor[\s\S]*?Tough[\s\S]*?Fishable[\s\S]*?Good[\s\S]*?Excellent/,
+  "Fishing Shape must retain the canonical red-to-green five-state order",
+);
+assert.match(
+  riverRunScreen,
+  /findIndex\(\(stop\)[\s\S]*?stop\.label\.toLowerCase\(\)[\s\S]*?label\.trim\(\)\.toLowerCase\(\)/,
+  "The Fishing Shape meter selection must come from the displayed label",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /Presentation conditions for the represented gauge reach · not fish abundance/,
+  "Fishing Shape must not retain the explanatory sentence below its rating",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /tabTitle:\s*"FISHABILITY"|cardTitle:\s*"Fishability"|\/ 04/,
+  "Fishability must not remain a standalone fourth read",
+);
+for (const retiredPublicSurface of [
+  "WHERE TO START",
+  "WHY THIS READ",
+  "GUIDE&apos;S READ",
+]) {
+  assert.doesNotMatch(
+    riverRunScreen,
+    new RegExp(retiredPublicSurface),
+    `${retiredPublicSurface} must not remain in the public River Run UI`,
+  );
+}
+assert.match(
+  riverRunScreen,
+  /SEASONAL ZONE[\s\S]*?Calendar-based orientation · not a live location report/,
+  "Stage must use a structured, explicitly calendar-based Seasonal Zone",
+);
 assert.doesNotMatch(
   riverRunScreen,
   /maps\.apple\.com|google\.com\/maps\/dir|OPEN APPLE MAPS|OPEN GOOGLE MAPS|PIN BEING VERIFIED|VERIFIED ENTRANCE COORDINATE|spotFinderDirections|spotFinderModal/,
@@ -267,13 +333,78 @@ assert.doesNotMatch(
 );
 assert.match(
   riverRunScreen,
-  /WHERE THE SOURCE EXPLAINS IT[\s\S]*?spot\.sourceLocator[\s\S]*?VIEW LOCATION SOURCE/,
-  "Every Spot Finder entry must explain where its source documents the location before opening it",
+  /spotOpen[\s\S]*?VIEW OFFICIAL SOURCE[\s\S]*?spot\.sourceLocator[\s\S]*?spot\.sourceLabel[\s\S]*?spot\.verifiedOn/,
+  "Every expanded Spot Finder access must retain its official source, locator guidance, identity and verification date",
 );
 assert.match(
   riverRunScreen,
-  /style=\{styles\.spotFinderListViewport\}[\s\S]*?nestedScrollEnabled[\s\S]*?THREE AT A TIME|THREE AT A TIME[\s\S]*?style=\{styles\.spotFinderListViewport\}[\s\S]*?nestedScrollEnabled/,
-  "Spot Finder must constrain its expanded inventory to a three-card scroll viewport",
+  /resolveRiverSpotFinderRecommendedSections\(finder, runStage\?\.stage\)[\s\S]*?RECOMMENDED[\s\S]*?OTHER RIVER ACCESS/,
+  "Spot Finder must prioritize stage-derived recommended sections while retaining other river access",
+);
+assert.match(
+  riverRunScreen,
+  /Broad starting areas—not a live fish-location report/,
+  "Spot Finder recommendations must retain their broad seasonal limitation",
+);
+assert.match(
+  riverRunScreen,
+  /Sections describe the supported migration corridor, not the entire river\. \{finder\.orientationNote\}/,
+  "Spot Finder must distinguish run-corridor position from whole-river geography",
+);
+assert.match(
+  riverRunScreen,
+  /NO RUN-BASED RECOMMENDATION[\s\S]*?migration is not in an active stage/,
+  "Spot Finder must explain why pre-run and completed reports have no recommendation",
+);
+assert.match(
+  riverRunScreen,
+  /spotFinderSectionToggle[\s\S]*?accessibilityState=\{\{ expanded: sectionOpen \}\}[\s\S]*?spotFinderAccessToggle[\s\S]*?accessibilityState=\{\{ expanded: spotOpen \}\}/,
+  "Spot Finder sections and access details must use accessible progressive disclosure",
+);
+assert.match(
+  riverRunScreen,
+  /const \[expandedSectionIds, setExpandedSectionIds\] = useState<string\[\]>\(\[\]\)/,
+  "Spot Finder sections must start collapsed",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /recommendedSections\.slice\(0,\s*1\)/,
+  "Spot Finder must not automatically expand the first recommended section",
+);
+assert.match(
+  riverRunScreen,
+  /onPress=\{\(\) => \{\s*hapticSelection\(\);\s*setExpandedSectionIds\(\[\]\);\s*setExpandedSpotIds\(\[\]\);[\s\S]*?setOpen\(\(current\) => !current\)/,
+  "Closing and reopening Spot Finder must restore its collapsed section state",
+);
+assert.match(
+  riverRunScreen,
+  /spotFinderSectionRecommended:[\s\S]*?borderLeftWidth:\s*5[\s\S]*?spotFinderRecommendedBadge:[\s\S]*?backgroundColor:\s*"#167B78"/,
+  "Recommended sections must retain a strong rail and filled status badge",
+);
+assert.match(
+  riverRunScreen,
+  /spotFinderOtherSectionGroup:[\s\S]*?borderTopWidth:\s*1[\s\S]*?spotFinderAccessList:[\s\S]*?gap:\s*8[\s\S]*?spotFinderAccessRow:[\s\S]*?borderWidth:\s*1/,
+  "Other sections and expanded access rows must remain visually separated",
+);
+assert.match(
+  riverRunScreen,
+  /section\.spots\.length === 1[\s\S]*?ACCESS POINT[\s\S]*?ACCESS POINTS/,
+  "Section counts must identify access points instead of showing an unexplained number",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /spotFinderSectionFilters|activeSectionId|spotFinderListViewport|nestedScrollEnabled/,
+  "Spot Finder must not restore the dense filter and nested-scroll interface",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /SOURCE LISTED|WHERE THE SOURCE EXPLAINS IT|VIEW LOCATION SOURCE/,
+  "Spot Finder must not repeat retired source and location labels on every access row",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /spotFinderSpotName}[\s\S]{0,80}numberOfLines|spotFinderCautionText}[\s\S]{0,80}numberOfLines/,
+  "Spot Finder must not visually truncate access names or material cautions",
 );
 assert.match(
   RIVER_ACCESS_GENERAL_WARNING,
@@ -381,6 +512,276 @@ for (
     );
   }
 }
+
+for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
+  if (finder.riverRunAligned === false) continue;
+  const document = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((candidate) =>
+    candidate.river.riverId === finder.riverId
+  );
+  assert(document?.river.foundation, `${finder.riverId} needs a river foundation`);
+  const reachIds = new Set(
+    document.river.foundation.reaches.map((reach) => reach.reachId),
+  );
+  const positions = finder.sections.map((section) => section.position);
+  assert(
+    positions.length === 1 && positions[0] === "lower" ||
+      positions.length === 2 && positions.join(",") === "lower,upper" ||
+      positions.length === 3 && positions.join(",") === "lower,middle,upper",
+    `${finder.riverId} must use the canonical downstream-to-upstream section structure`,
+  );
+  for (const section of finder.sections) {
+    assert.equal(
+      riverAccessSectionLabel(section.position),
+      `${section.position[0].toUpperCase()}${section.position.slice(1)} Run Section`,
+      `${finder.riverId}/${section.id} must derive its public section name from position`,
+    );
+    assert(
+      section.rangeLabel.trim().length > 0,
+      `${finder.riverId}/${section.id} needs concrete boundary context`,
+    );
+    assert(
+      section.foundationReachIds.length > 0,
+      `${finder.riverId}/${section.id} must reference canonical foundation geography`,
+    );
+    for (const reachId of section.foundationReachIds) {
+      assert(
+        reachIds.has(reachId),
+        `${finder.riverId}/${section.id} references unknown reach ${reachId}`,
+      );
+    }
+  }
+}
+assert.equal(
+  riverRunSpotFinderForRiver("platte", "coho_salmon"),
+  undefined,
+  "Platte Spot Finder must stay hidden until access matches its lower migration corridor",
+);
+assert.deepEqual(
+  riverRunSpotFinderForRiver("grand", "chinook_salmon")?.sections.map((section) =>
+    section.id
+  ),
+  ["grand_lower", "grand_middle"],
+  "Grand Chinook must not receive access beyond its Webber Dam endpoint",
+);
+assert.deepEqual(
+  riverRunSpotFinderForRiver("grand", "steelhead")?.sections.map((section) =>
+    section.id
+  ),
+  ["grand_lower", "grand_middle", "grand_upper"],
+  "Grand Steelhead may retain its accepted upper accessible corridor",
+);
+const grandChinookFinder = riverRunSpotFinderForRiver(
+  "grand",
+  "chinook_salmon",
+);
+assert(grandChinookFinder);
+for (
+  const stage of [
+    "beginning",
+    "building",
+    "peak",
+    "tapering",
+    "ending",
+  ] as const
+) {
+  assert.equal(
+    resolveRiverSpotFinderRecommendedSections(grandChinookFinder, stage)
+      .recommendedSections.some((section) => section.id === "grand_upper"),
+    false,
+    `Grand Chinook must never recommend the species-ineligible above-Webber section while ${stage}`,
+  );
+}
+
+for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+  const betsieFinder = riverRunSpotFinderForRiver("betsie", species, "MI");
+  assert(betsieFinder);
+  assert.deepEqual(
+    betsieFinder.sections.map((section) => ({
+      label: riverAccessSectionLabel(section.position),
+      range: section.rangeLabel,
+    })),
+    [
+      { label: "Lower Run Section", range: "Betsie Lake to US-31" },
+      {
+        label: "Upper Run Section",
+        range: "US-31 to signed Homestead closure",
+      },
+    ],
+    `Betsie ${species} must present two relative run sections ending at Homestead`,
+  );
+  assert.deepEqual(
+    resolveRiverSpotFinderRecommendedSections(betsieFinder, "ending")
+      .recommendedSections.map((section) => section.id),
+    ["betsie_us31_homestead"],
+    `Betsie ${species} Ending must recommend only the terminal supported reach below Homestead`,
+  );
+}
+
+const pmFinder = riverRunSpotFinderForRiver(
+  "pere_marquette",
+  "chinook_salmon",
+);
+assert(pmFinder, "Pere Marquette Spot Finder must be available for Chinook");
+const pmRecommendations = {
+  beginning: ["pm_lower"],
+  building: ["pm_lower", "pm_middle"],
+  peak: ["pm_lower", "pm_middle", "pm_upper"],
+  tapering: ["pm_middle", "pm_upper"],
+  ending: ["pm_middle", "pm_upper"],
+} as const;
+for (const [stage, expectedSectionIds] of Object.entries(pmRecommendations)) {
+  const result = resolveRiverSpotFinderRecommendedSections(
+    pmFinder,
+    stage as keyof typeof pmRecommendations,
+  );
+  assert.deepEqual(
+    result.recommendedSections.map((section) => section.id),
+    expectedSectionIds,
+    `Pere Marquette ${stage} recommendations must follow the shared three-section progression`,
+  );
+  assert.equal(result.hasRecommendation, true);
+  for (const section of result.recommendedSections) {
+    assert.deepEqual(
+      section.spots,
+      pmFinder.sections.find((candidate) => candidate.id === section.id)?.spots,
+      `${section.id} must retain every eligible public access without ranking`,
+    );
+  }
+}
+for (const stage of [undefined, "pre_run", "post_run"] as const) {
+  const result = resolveRiverSpotFinderRecommendedSections(pmFinder, stage);
+  assert.equal(
+    result.hasRecommendation,
+    false,
+    `${stage ?? "missing"} stage must not imply a section recommendation`,
+  );
+  assert.deepEqual(result.otherSections, pmFinder.sections);
+}
+for (
+  const stage of [
+    "beginning",
+    "building",
+    "peak",
+    "tapering",
+    "ending",
+  ] as const
+) {
+  const oneSection = resolveRiverSpotFinderRecommendedSections(
+    { sections: pmFinder.sections.slice(0, 1) },
+    stage,
+  );
+  assert.deepEqual(
+    oneSection.recommendedSections.map((section) => section.id),
+    ["pm_lower"],
+    `A one-section corridor must retain its only eligible section while ${stage}`,
+  );
+}
+
+for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+  const finder = riverRunSpotFinderForRiver("st_joseph", species, "MI");
+  assert(
+    finder,
+    `Michigan St. Joseph Spot Finder must be available for ${species}`,
+  );
+  assert.equal(
+    finder.sections.reduce((total, section) => total + section.spots.length, 0),
+    13,
+    `Michigan St. Joseph Spot Finder must retain all 13 access points for ${species}`,
+  );
+  assert.equal(
+    riverRunSpotFinderForRiver("st_joseph", species, "IN"),
+    undefined,
+    `Indiana St. Joseph Spot Finder must remain hidden until its access inventory is audited for ${species}`,
+  );
+}
+const stJosephFinder = riverRunSpotFinderForRiver("st_joseph", "steelhead", "MI");
+assert(stJosephFinder);
+const stJosephBuilding = resolveRiverSpotFinderRecommendedSections(
+  stJosephFinder,
+  "building",
+);
+assert.deepEqual(
+  stJosephBuilding.recommendedSections.map((section) => section.id),
+  ["stjoe_lower", "stjoe_middle"],
+  "A two-section corridor must recommend both supported sections while Building",
+);
+const stJosephEnding = resolveRiverSpotFinderRecommendedSections(
+  stJosephFinder,
+  "ending",
+);
+assert.deepEqual(
+  stJosephEnding.recommendedSections.map((section) => section.id),
+  ["stjoe_middle"],
+  "A two-section corridor must recommend only its upstream section while Ending",
+);
+
+let recommendationMatrixCases = 0;
+for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
+  const presentations = document.river.presentationContexts ?? [{
+    state: document.river.state,
+    foundationReachIds: undefined,
+  }];
+  for (const run of document.runs) {
+    const checkpointDates = new Set(
+      Object.values(run.runWindow)
+        .filter((monthDay): monthDay is string => typeof monthDay === "string")
+        .map((monthDay) => `2026-${monthDay}`),
+    );
+    for (const presentation of presentations) {
+      const finder = riverRunSpotFinderForRiver(
+        document.river.riverId,
+        run.species,
+        presentation.state,
+      );
+      if (!finder) continue;
+      for (const localDate of checkpointDates) {
+        const stage = resolveRunStage(run, localDate);
+        const result = resolveRiverSpotFinderRecommendedSections(
+          finder,
+          stage.stage,
+        );
+        recommendationMatrixCases += 1;
+        if (stage.stage === "pre_run" || stage.stage === "post_run") {
+          assert.equal(
+            result.hasRecommendation,
+            false,
+            `${run.runId}/${presentation.state}/${localDate} must not recommend sections outside the active migration`,
+          );
+          assert.deepEqual(result.otherSections, finder.sections);
+          continue;
+        }
+        const expected = stage.stage === "beginning"
+          ? finder.sections.slice(0, 1)
+          : stage.stage === "building"
+          ? finder.sections.slice(0, Math.min(2, finder.sections.length))
+          : stage.stage === "peak"
+          ? finder.sections
+          : finder.sections.length >= 3
+          ? finder.sections.slice(-2)
+          : finder.sections.slice(-1);
+        assert.deepEqual(
+          result.recommendedSections.map((section) => section.id),
+          expected.map((section) => section.id),
+          `${run.runId}/${presentation.state}/${localDate} must follow the shared ${stage.stage} progression`,
+        );
+        assert.equal(result.hasRecommendation, true);
+        for (const section of result.recommendedSections) {
+          assert.equal(
+            result.otherSections.some((candidate) =>
+              candidate.id === section.id
+            ),
+            false,
+            `${section.id} must not be duplicated across recommended and other access`,
+          );
+        }
+      }
+    }
+  }
+}
+assert(
+  recommendationMatrixCases > 250,
+  "Spot Finder recommendation QA must exercise the full river/species/state/stage checkpoint matrix",
+);
 
 assert.doesNotMatch(
   riverRunScreen,

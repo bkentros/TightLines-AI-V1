@@ -64,8 +64,8 @@ assert.match(
 
 assert.match(
   guide,
-  /supported Great Lakes salmon and steelhead migrations—especially migration stage, fish presence, activity, and fishability/,
-  "River Migration guidance must describe only the four visible reads",
+  /supported Great Lakes salmon and steelhead migrations—especially migration stage, seasonal presence, activity, and current river conditions/,
+  "River Migration guidance must describe the simplified public reads and conditions",
 );
 
 assert.doesNotMatch(

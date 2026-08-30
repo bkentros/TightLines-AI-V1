@@ -24,6 +24,7 @@ export * from "./scoring/fishability.ts";
 export * from "./scoring/conditionsSuggest.ts";
 export * from "./scoring/unavailablePrimitives.ts";
 export * from "./copy/interpretation.ts";
+export * from "./presentation/seasonalZone.ts";
 export * from "./snapshot/dataQuality.ts";
 export * from "./snapshot/refreshSlots.ts";
 export * from "./snapshot/buildDailySnapshot.ts";

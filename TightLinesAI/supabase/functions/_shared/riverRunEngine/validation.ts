@@ -163,6 +163,25 @@ export function validateRiverProfile(
           "audit_notes_missing",
         ));
       }
+      if (context.foundationReachIds) {
+        const foundationReachIds = new Set(
+          river.foundation?.reaches.map((reach) => reach.reachId) ?? [],
+        );
+        if (
+          context.foundationReachIds.length === 0 ||
+          new Set(context.foundationReachIds).size !==
+            context.foundationReachIds.length ||
+          context.foundationReachIds.some((reachId) =>
+            !foundationReachIds.has(reachId)
+          )
+        ) {
+          issues.push(issue(
+            `${field}.foundationReachIds`,
+            "Presentation reach IDs must be unique references to the river foundation.",
+            "config_source_reference_missing",
+          ));
+        }
+      }
     });
   }
   if (!includes(STATES, river.state)) {
@@ -1018,6 +1037,43 @@ export function validateRunProfile(
   validateRunDates(run, issues);
   validateHistoricalPresence(run, issues);
   validatePrimitiveCapabilities(run, issues);
+  if (run.seasonalZoneReachIds) {
+    const foundationReachIds = new Set(
+      river?.foundation?.reaches.map((reach) => reach.reachId) ?? [],
+    );
+    if (
+      run.seasonalZoneReachIds.length === 0 ||
+      new Set(run.seasonalZoneReachIds).size !== run.seasonalZoneReachIds.length ||
+      run.seasonalZoneReachIds.some((reachId) => !foundationReachIds.has(reachId))
+    ) {
+      issues.push(issue(
+        "seasonalZoneReachIds",
+        "Seasonal Zone reach IDs must be unique references to the river foundation.",
+        "config_source_reference_missing",
+      ));
+    }
+  }
+  for (const context of river?.presentationContexts ?? []) {
+    if (!context.foundationReachIds) continue;
+    const allowedRunReachIds = new Set(
+      run.seasonalZoneReachIds ??
+        river?.foundation?.reaches.map((reach) => reach.reachId) ?? [],
+    );
+    const hasMigratoryOverlap = context.foundationReachIds.some((reachId) => {
+      if (!allowedRunReachIds.has(reachId)) return false;
+      const reach = river?.foundation?.reaches.find((candidate) =>
+        candidate.reachId === reachId
+      );
+      return reach && reach.role !== "harbor" && reach.role !== "mouth_context";
+    });
+    if (!hasMigratoryOverlap) {
+      issues.push(issue(
+        `presentationContexts.${context.state}.foundationReachIds`,
+        "Every presentation state must overlap the run's accessible Seasonal Zone corridor.",
+        "config_source_reference_missing",
+      ));
+    }
+  }
   const pushAvailable = run.primitiveCapabilities?.push.status === "available";
   const fishabilityAvailable =
     run.primitiveCapabilities?.fishability.status === "available";

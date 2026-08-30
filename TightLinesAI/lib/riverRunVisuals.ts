@@ -257,7 +257,7 @@ function fishInRiverModel(
   const model = baseModel({
     kind: "fish_in_river",
     kicker: "SEASONAL PRESENCE",
-    artLabel: "FISH IN RIVER",
+    artLabel: "SEASONAL PRESENCE",
     icon: "fish-outline",
     stops: PRESENCE_INDEX_FIVE,
     ticks: PRESENCE_INDEX_TICKS,

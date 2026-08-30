@@ -921,6 +921,12 @@ Deno.test("Grand owner-review Activity becomes Full only with fresh Fulton, Nort
   assertEquals(body.freshness.gauge, "fresh");
   assertEquals(body.freshness.waterTemperature, "fresh");
   assertEquals(body.waterTemperature.waterTempF, 58);
+  assertEquals(body.seasonalZone.basis, "seasonal_calendar");
+  assertEquals(body.seasonalZone.orientationOnly, true);
+  assertEquals(body.seasonalZone.foundationReachIds, [
+    "grand_lower",
+    "grand_middle_passage",
+  ]);
   assertMatch(body.activity.detail, /downtown Grand Rapids mainstem/i);
   assertMatch(body.activity.detail, /does not directly measure Grand Haven/i);
 });
@@ -1143,6 +1149,9 @@ Deno.test("visible snapshot with valid token returns 200", async () => {
     },
   );
   assertEquals(response.status, 200);
+  const body = await json(response);
+  assertEquals(body.seasonalZone.basis, "seasonal_calendar");
+  assertEquals(body.seasonalZone.orientationOnly, true);
 });
 
 Deno.test("free user gets one lifetime snapshot and same-refresh replay only", async () => {
@@ -2470,7 +2479,7 @@ Deno.test("live weather fallback success normalizes precipitation and lows", asy
   assertEquals(body.activity.confidence, "Moderate");
   assertEquals(
     body.secondaryNote,
-    "Forecast weather informs Activity Outlook only; Push and Fishability remain observation-led.",
+    "Forecast weather informs Activity Outlook only; Fishing Shape remains observation-led.",
   );
 });
 

@@ -94,9 +94,24 @@ export type RiverRunConditionsSuggest =
   };
 
 export type RiverRunStage = RiverRunPrimitiveDisplay & {
-  stage?: string;
+  stage?:
+    | "pre_run"
+    | "beginning"
+    | "building"
+    | "peak"
+    | "tapering"
+    | "ending"
+    | "post_run";
   broadBuildingContext?: boolean;
   winterHoldingContext?: boolean;
+};
+
+export type RiverRunSeasonalZone = {
+  status: "not_started" | "active" | "complete";
+  label: string;
+  foundationReachIds: string[];
+  basis: "seasonal_calendar";
+  orientationOnly: true;
 };
 
 export type RiverRunFishInRiver = RiverRunPrimitiveDisplay & {
@@ -350,6 +365,7 @@ export type RiverRunSnapshotResponse = {
     state: string;
     displayName?: string;
     defaultReachId?: string;
+    foundationReachIds?: string[];
     regulationReminderCopy: string;
   };
   localDate: string;
@@ -360,6 +376,7 @@ export type RiverRunSnapshotResponse = {
   progressionExpiresAt: string;
   nextConditionRefreshAt: string;
   runStage: RiverRunStage;
+  seasonalZone?: RiverRunSeasonalZone;
   conditionsSuggest: RiverRunConditionsSuggest;
   push: RiverRunPush;
   pushHistory: RiverRunPushHistory;

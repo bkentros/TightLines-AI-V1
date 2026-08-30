@@ -16,7 +16,6 @@ export const PUBLIC_RIVER_RUN_PRIMITIVES = [
   "run_stage",
   "activity",
   "fish_in_river",
-  "fishability",
 ] as const;
 
 export const RIVER_RUN_LIVE_CONDITIONS_SURFACE = "live_conditions" as const;

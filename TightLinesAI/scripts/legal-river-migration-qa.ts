@@ -38,7 +38,7 @@ for (const phrase of [
 
 for (const phrase of [
   "safe-wading or boating instructions",
-  "A Fishability score or description addresses expected fishing workability only",
+  "A Fishing Shape description addresses expected presentation workability only",
 ]) {
   assert.ok(appLegal.includes(phrase), `In-app Safety missing: ${phrase}`);
   assert.ok(safety.includes(phrase), `Web Safety missing: ${phrase}`);

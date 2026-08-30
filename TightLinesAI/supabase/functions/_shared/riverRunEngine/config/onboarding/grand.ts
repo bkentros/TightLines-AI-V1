@@ -334,6 +334,7 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   runType: "fall_spawn",
   movementEngineId: "fall_cooling",
   runStageCopyStrategy: "onboarding_corridor",
+  seasonalZoneReachIds: ["grand_lower", "grand_middle_passage"],
   primitiveCapabilities: {
     ...unavailableCapabilities(),
     activity: { status: "available" },

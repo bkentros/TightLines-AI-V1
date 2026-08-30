@@ -84,9 +84,9 @@ const FEATURE_GUIDES: FeatureGuide[] = [
     iconColor: "#9A2B20",
     tint: "#FFF3F0",
     whenToUse:
-      "Use it for supported Great Lakes salmon and steelhead migrations—especially migration stage, fish presence, activity, and fishability.",
+      "Use it for supported Great Lakes salmon and steelhead migrations—especially migration stage, seasonal presence, activity, and current river conditions.",
     howItReads:
-      "It pairs fresh river conditions with audited species biology and river-specific seasonal context to show the migration stage, likely activity, estimated presence, and fishability.",
+      "It pairs fresh river conditions with audited species biology and river-specific seasonal context to show migration stage, likely activity, seasonal presence, and gauge-informed Fishing Shape.",
     guidesNote:
       "When a supported migration is your main question, this is the primary read—not Today's Bite.",
   },

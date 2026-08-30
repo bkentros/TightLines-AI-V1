@@ -3,7 +3,7 @@
 **River ID:** `{{RIVER_ID}}` **State:** `{{STATE}}` **Created:** {{CREATED_ON}}
 **Status:** `research_incomplete` **Owner section approval:** `pending`
 
-> Stop gate: do not configure species runs, write state copy, or add the river
+> Stop gate: do not configure species runs, derive Seasonal Zones, or add the river
 > to the catalog until every blocking item in this foundation is resolved and
 > the product owner approves the public section names and endpoints.
 
@@ -45,7 +45,7 @@ Record the exact owner-approved wording:
 - Middle or transition section:
 - Upper accessible section:
 - Mouth/lake/harbor context, if applicable:
-- Landmarks prohibited from public copy:
+- Landmarks prohibited from public labels or orientation:
 
 ## 3. Mandatory barrier and passage inventory
 
@@ -80,6 +80,32 @@ Passage at the last structure does not prove passage through the earlier chain.
 - Section names are orientation ranges, not public-access guarantees.
 - River Run must not rate wading, boating, floating, ice, or personal safety.
 - Time-sensitive closures must be rechecked immediately before release.
+
+### 4.1 Spot Finder section mapping
+
+Spot Finder is authored once per river, not once per species or stage. Map each
+access section to canonical foundation reach IDs, assign its relative position,
+and record concrete boundary landmarks. Migration Stage derives broad section
+recommendations automatically and includes every eligible access in them; it
+never ranks an individual access.
+
+| Spot Finder section ID | Position: lower/middle/upper | Canonical foundation reach IDs | Concrete boundary range | Access count | Species restriction, if any | Source inventory complete? |
+| ---------------------- | ---------------------------- | ------------------------------ | ----------------------- | -----------: | --------------------------- | -------------------------- |
+|                        |                              |                                |                         |              |                             | no                         |
+
+Rules:
+
+- Do not duplicate Stage or Seasonal Zone copy in Spot Finder.
+- Do not select a “best,” “featured,” or stage-specific access.
+- Public headings are always derived as Lower Run Section, Middle Run Section,
+  or Upper Run Section. "Run" means position within the supported migration
+  corridor, not the entire river. Landmarks belong in the boundary range, not
+  the heading.
+- Use Lower Run and Upper Run for a two-section corridor; never invent a middle
+  section.
+- Access outside the supported migration corridor is excluded, not merely
+  visually deprioritized.
+- Species and state eligibility are applied before the shared stage progression.
 
 ## 5. Source coverage map
 

@@ -69,7 +69,6 @@ import {
   getRiverRunSpeciesImage,
 } from "../lib/riverRunSpeciesImages";
 import { getRiverRunRiverImage } from "../lib/riverRunChoiceImages";
-import { splitRiverRunDetailPoints } from "../lib/riverRunCopyFormatting";
 import {
   RIVER_RUN_REGULATION_REMINDER,
   riverRunFishingGuideForSpecies,
@@ -78,7 +77,10 @@ import {
   RIVER_ACCESS_CLOSURES_URL,
   RIVER_ACCESS_GENERAL_WARNING,
   type RiverAccessKind,
+  type RiverAccessSection,
+  riverAccessSectionLabel,
   riverRunSpotFinderForRiver,
+  resolveRiverSpotFinderRecommendedSections,
   type RiverSpotFinder,
 } from "../lib/riverRunSpotFinder";
 import {
@@ -97,7 +99,7 @@ type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
 type PrimitiveTabId = Extract<
   RiverRunVisualKind,
-  "run_stage" | "activity" | "fish_in_river" | "fishability"
+  "run_stage" | "activity" | "fish_in_river"
 >;
 
 type PrimitiveTabDefinition = {
@@ -127,15 +129,8 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     id: "fish_in_river",
     index: "03",
     tabTitle: "PRESENCE",
-    cardTitle: "Fish In River",
+    cardTitle: "Seasonal Presence",
     icon: "fish-outline",
-  },
-  {
-    id: "fishability",
-    index: "04",
-    tabTitle: "FISHABILITY",
-    cardTitle: "Fishability",
-    icon: "water-outline",
   },
 ];
 
@@ -567,12 +562,16 @@ export default function RiverRunScreen() {
       unavailableRiverConditions(resultSnapshot)
     : undefined;
   const resultRiverConditions = publicRiverConditions;
-  const resultSpotFinder = riverRunSpotFinderForRiver(resultSnapshot?.riverId);
-  const primitiveTabStickyIndex = resultSpotFinder ? 3 : 2;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
     selectedSpecies ??
     "chinook_salmon";
+  const resultSpotFinder = riverRunSpotFinderForRiver(
+    resultSnapshot?.riverId,
+    resultSpecies,
+    resultSnapshot?.presentation?.state,
+  );
+  const primitiveTabStickyIndex = resultSpotFinder ? 3 : 2;
   const navSpecies = formatRiverRunSpecies(resultSpecies)
     .replace(/\s+Salmon$/i, "");
   const navTitle = screenState === "result"
@@ -688,12 +687,19 @@ export default function RiverRunScreen() {
                 ? (
                   <LiveRiverConditionsCard
                     conditions={resultRiverConditions}
+                    fishingShape={resultSnapshot?.fishability}
                   />
                 )
                 : null}
 
               {resultSpotFinder
-                ? <SpotFinderCard finder={resultSpotFinder} />
+                ? (
+                  <SpotFinderCard
+                    key={`${resultSpotFinder.riverId}:${resultSpecies}:${resultSnapshot?.presentation?.state ?? ""}`}
+                    finder={resultSpotFinder}
+                    runStage={resultSnapshot?.runStage}
+                  />
+                )
                 : null}
 
               {resultSnapshot
@@ -723,7 +729,7 @@ export default function RiverRunScreen() {
                 )
                 : resultSnapshot
                 ? (
-                  <View>
+                  <View style={styles.snapshotResultStack}>
                     <SnapshotView
                       snapshot={resultSnapshot}
                       activePrimitive={activePrimitive}
@@ -1256,8 +1262,8 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of migration stage, activity, fish presence, and
-        fishability.
+        Today&apos;s read of migration stage, activity, seasonal presence, and
+        river conditions.
       </Text>
       {speciesImage
         ? (
@@ -1307,8 +1313,67 @@ function unavailableRiverConditions(
   };
 }
 
-function LiveRiverConditionsCard({ conditions }: {
+function publicRiverRunTerminology(value: string): string {
+  return value
+    .replaceAll("Fishability", "Fishing Shape")
+    .replaceAll("Fish In River", "Seasonal Presence");
+}
+
+const FISHING_SHAPE_METER = [
+  { label: "Poor", color: "#D94B3A" },
+  { label: "Tough", color: "#E89647" },
+  { label: "Fishable", color: "#E8C547" },
+  { label: "Good", color: "#7CC36A" },
+  { label: "Excellent", color: "#3DA85F" },
+] as const;
+
+function FishingShapeMeter({ label }: { label: string }) {
+  const selectedIndex = FISHING_SHAPE_METER.findIndex((stop) =>
+    stop.label.toLowerCase() === label.trim().toLowerCase()
+  );
+  return (
+    <View
+      style={styles.fishingShapeMeter}
+      accessible
+      accessibilityRole="progressbar"
+      accessibilityLabel={`Fishing Shape: ${label}. Scale from Poor to Excellent.`}
+      accessibilityValue={{
+        min: 1,
+        max: FISHING_SHAPE_METER.length,
+        now: selectedIndex >= 0 ? selectedIndex + 1 : undefined,
+        text: label,
+      }}
+    >
+      <View style={styles.fishingShapeMeterTrack}>
+        {FISHING_SHAPE_METER.map((stop, index) => {
+          const selected = index === selectedIndex;
+          return (
+            <View
+              key={stop.label}
+              style={[
+                styles.fishingShapeMeterSegment,
+                { backgroundColor: stop.color },
+                selected && styles.fishingShapeMeterSegmentSelected,
+              ]}
+            >
+              {selected
+                ? <View style={styles.fishingShapeMeterMarker} />
+                : null}
+            </View>
+          );
+        })}
+      </View>
+      <View style={styles.fishingShapeMeterLabels}>
+        <Text style={styles.fishingShapeMeterLabel}>POOR</Text>
+        <Text style={styles.fishingShapeMeterLabel}>EXCELLENT</Text>
+      </View>
+    </View>
+  );
+}
+
+function LiveRiverConditionsCard({ conditions, fishingShape }: {
   conditions: RiverRunLiveConditions;
+  fishingShape?: RiverRunSnapshotResponse["fishability"];
 }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { width, fontScale } = useWindowDimensions();
@@ -1419,6 +1484,23 @@ function LiveRiverConditionsCard({ conditions }: {
             </View>
           </View>
         )}
+
+      {fishingShape?.score != null
+        ? (
+          <View style={styles.fishingShapeSummary}>
+            <View style={styles.fishingShapeIdentity}>
+              <Ionicons name="water-outline" size={17} color="#167B78" />
+              <View style={styles.fishingShapeCopy}>
+                <Text style={styles.fishingShapeEyebrow}>FISHING SHAPE</Text>
+                <Text style={styles.fishingShapeLabel}>
+                  {fishingShape.label}
+                </Text>
+              </View>
+            </View>
+            <FishingShapeMeter label={fishingShape.label} />
+          </View>
+        )
+        : null}
 
       <Pressable
         style={({ pressed }) => [
@@ -1534,7 +1616,7 @@ function LiveRiverConditionsCard({ conditions }: {
                 WHAT THIS GAUGE REPRESENTS
               </Text>
               <Text style={styles.liveConditionsDetailBody}>
-                {conditions.limitation}
+                {publicRiverRunTerminology(conditions.limitation)}
               </Text>
             </View>
             <Text style={styles.liveConditionsMethodNote}>
@@ -1560,8 +1642,25 @@ const RIVER_ACCESS_KIND_LABELS: Record<RiverAccessKind, string> = {
   walk_in: "WALK-IN",
 };
 
-function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
+function SpotFinderCard({
+  finder,
+  runStage,
+}: {
+  finder: RiverSpotFinder;
+  runStage?: RiverRunSnapshotResponse["runStage"];
+}) {
   const [open, setOpen] = useState(false);
+  const recommendation = useMemo(
+    () => resolveRiverSpotFinderRecommendedSections(finder, runStage?.stage),
+    [finder, runStage?.stage],
+  );
+  const recommendationSignature = recommendation.recommendedSections
+    .map((section) => section.id)
+    .join(":");
+  const [expandedSectionIds, setExpandedSectionIds] = useState<string[]>([]);
+  const [expandedSpotIds, setExpandedSpotIds] = useState<string[]>([]);
+  const [orientationOpen, setOrientationOpen] = useState(false);
+  const [safetyOpen, setSafetyOpen] = useState(false);
   const spotCount = finder.sections.reduce(
     (total, section) => total + section.spots.length,
     0,
@@ -1570,24 +1669,224 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
     label: "CHECK CURRENT DNR CLOSURES →",
     url: RIVER_ACCESS_CLOSURES_URL,
   };
-  const spotRows = useMemo(
-    () =>
-      finder.sections.flatMap((section) =>
-        section.spots.map((spot) => ({
-          sectionId: section.id,
-          sectionPrimary: section.label.split(" · ")[0],
-          sectionRange: section.label.split(" · ").slice(1).join(" · "),
-          spot,
-        }))
-      ),
-    [finder],
-  );
+
+  useEffect(() => {
+    setExpandedSectionIds([]);
+    setExpandedSpotIds([]);
+  }, [recommendationSignature]);
 
   const openExternalUrl = useCallback((url: string, errorCopy: string) => {
     void Linking.openURL(url).catch(() => {
       Alert.alert("Unable to open link", errorCopy);
     });
   }, []);
+
+  const toggleSection = useCallback((sectionId: string) => {
+    hapticSelection();
+    setExpandedSectionIds((current) =>
+      current.includes(sectionId)
+        ? current.filter((id) => id !== sectionId)
+        : [...current, sectionId]
+    );
+  }, []);
+
+  const toggleSpot = useCallback((spotId: string) => {
+    hapticSelection();
+    setExpandedSpotIds((current) =>
+      current.includes(spotId)
+        ? current.filter((id) => id !== spotId)
+        : [...current, spotId]
+    );
+  }, []);
+
+  const renderSection = (
+    section: RiverAccessSection,
+    recommended: boolean,
+  ) => {
+    const sectionOpen = expandedSectionIds.includes(section.id);
+    const sectionLabel = riverAccessSectionLabel(section.position);
+    return (
+      <View
+        key={section.id}
+        style={[
+          styles.spotFinderSection,
+          recommended && styles.spotFinderSectionRecommended,
+          sectionOpen && styles.spotFinderSectionOpen,
+          recommended && sectionOpen && styles.spotFinderSectionRecommendedOpen,
+        ]}
+      >
+        <Pressable
+          style={({ pressed }) => [
+            styles.spotFinderSectionToggle,
+            pressed && { opacity: 0.78 },
+          ]}
+          onPress={() => toggleSection(section.id)}
+          accessibilityRole="button"
+          accessibilityState={{ expanded: sectionOpen }}
+          accessibilityLabel={`${sectionLabel}. ${section.rangeLabel}. ${section.spots.length} source-listed access ${
+            section.spots.length === 1 ? "name" : "names"
+          }. ${recommended ? "Recommended section for this migration stage. " : ""}${
+            sectionOpen ? "Collapse" : "Expand"
+          }.`}
+        >
+          <View style={styles.spotFinderSectionCopy}>
+            {recommended
+              ? (
+                <View style={styles.spotFinderRecommendedBadge}>
+                  <Ionicons name="checkmark" size={9} color="#FFFFFF" />
+                  <Text style={styles.spotFinderRecommendedLabel}>
+                    RECOMMENDED
+                  </Text>
+                </View>
+              )
+              : null}
+            <Text style={styles.spotFinderSectionLabel}>
+              {sectionLabel}
+            </Text>
+            <Text style={styles.spotFinderSectionRange}>
+              {section.rangeLabel}
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.spotFinderSectionCountBadge,
+              recommended && styles.spotFinderSectionCountBadgeRecommended,
+            ]}
+          >
+            <Text
+              style={[
+                styles.spotFinderSectionCount,
+                recommended && styles.spotFinderSectionCountRecommended,
+              ]}
+            >
+              {section.spots.length} {section.spots.length === 1
+                ? "ACCESS POINT"
+                : "ACCESS POINTS"}
+            </Text>
+          </View>
+          <Ionicons
+            name={sectionOpen ? "chevron-up" : "chevron-down"}
+            size={17}
+            color={recommended ? "#167B78" : paper.dashboardBlue}
+          />
+        </Pressable>
+
+        {sectionOpen
+          ? (
+            <View style={styles.spotFinderAccessList}>
+              {section.spots.map((spot) => {
+                const spotKey = `${section.id}:${spot.id}`;
+                const spotOpen = expandedSpotIds.includes(spotKey);
+                return (
+                  <View key={spotKey} style={styles.spotFinderAccessRow}>
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.spotFinderAccessToggle,
+                        pressed && { opacity: 0.76 },
+                      ]}
+                      onPress={() => toggleSpot(spotKey)}
+                      accessibilityRole="button"
+                      accessibilityState={{ expanded: spotOpen }}
+                      accessibilityLabel={`${spot.name}. ${
+                        spot.accessKinds.map((kind) =>
+                          RIVER_ACCESS_KIND_LABELS[kind]
+                        ).join(", ")
+                      }. ${spot.caution ? "Important access note. " : ""}${
+                        spotOpen ? "Collapse details" : "Expand details"
+                      }.`}
+                    >
+                      <View style={styles.spotFinderAccessIdentity}>
+                        <Text style={styles.spotFinderSpotName}>
+                          {spot.name}
+                        </Text>
+                        <View style={styles.spotFinderKinds}>
+                          {spot.accessKinds.map((kind) => (
+                            <Text key={kind} style={styles.spotFinderKindText}>
+                              {RIVER_ACCESS_KIND_LABELS[kind]}
+                            </Text>
+                          ))}
+                        </View>
+                      </View>
+                      {spot.caution
+                        ? (
+                          <Ionicons
+                            name="warning-outline"
+                            size={16}
+                            color="#A65A2E"
+                          />
+                        )
+                        : null}
+                      <Ionicons
+                        name={spotOpen ? "chevron-up" : "chevron-forward"}
+                        size={16}
+                        color={paper.dashboardMuted}
+                      />
+                    </Pressable>
+
+                    {spotOpen
+                      ? (
+                        <View style={styles.spotFinderAccessDetail}>
+                          <Text style={styles.spotFinderSpotDetail}>
+                            {spot.detail}
+                          </Text>
+                          {spot.caution
+                            ? (
+                              <View style={styles.spotFinderCaution}>
+                                <Ionicons
+                                  name="warning-outline"
+                                  size={14}
+                                  color="#A65A2E"
+                                />
+                                <Text style={styles.spotFinderCautionText}>
+                                  {spot.caution}
+                                </Text>
+                              </View>
+                            )
+                            : null}
+                          <Pressable
+                            style={({ pressed }) => [
+                              styles.spotFinderSource,
+                              pressed && { opacity: 0.72 },
+                            ]}
+                            onPress={() => {
+                              hapticSelection();
+                              openExternalUrl(
+                                spot.sourceUrl,
+                                "The access source could not be opened.",
+                              );
+                            }}
+                            accessibilityRole="link"
+                            accessibilityLabel={`Open official location source for ${spot.name}`}
+                          >
+                            <Text style={styles.spotFinderSourceText}>
+                              VIEW OFFICIAL SOURCE
+                            </Text>
+                            <Ionicons
+                              name="open-outline"
+                              size={14}
+                              color={paper.dashboardBlue}
+                            />
+                          </Pressable>
+                          <View style={styles.spotFinderSourceDetails}>
+                            <Text style={styles.spotFinderSourceLocator}>
+                              {spot.sourceLocator}
+                            </Text>
+                            <Text style={styles.spotFinderSourceIdentity}>
+                              {spot.sourceLabel} · checked {spot.verifiedOn}
+                            </Text>
+                          </View>
+                        </View>
+                      )
+                      : null}
+                  </View>
+                );
+              })}
+            </View>
+          )
+          : null}
+      </View>
+    );
+  };
 
   return (
     <View
@@ -1602,11 +1901,15 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
         ]}
         onPress={() => {
           hapticSelection();
+          setExpandedSectionIds([]);
+          setExpandedSpotIds([]);
+          setOrientationOpen(false);
+          setSafetyOpen(false);
           setOpen((current) => !current);
         }}
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
-        accessibilityLabel={`Spot Finder. ${spotCount} source-backed public access names for ${finder.riverName}. ${
+        accessibilityLabel={`Spot Finder. Recommended river sections and public access for ${finder.riverName}. ${spotCount} source-listed access names. ${
           open ? "Collapse" : "Expand"
         }.`}
       >
@@ -1614,14 +1917,10 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
           <Ionicons name="map-outline" size={20} color="#167B78" />
         </View>
         <View style={styles.spotFinderHeaderCopy}>
-          <Text style={styles.spotFinderEyebrow}>PUBLIC RIVER ACCESS</Text>
           <Text style={styles.spotFinderTitle}>Spot Finder</Text>
           <Text style={styles.spotFinderSubtitle}>
-            {spotCount} source-backed access names · no navigation pins
+            Recommended run sections and public access
           </Text>
-        </View>
-        <View style={styles.spotFinderCountBadge}>
-          <Text style={styles.spotFinderCount}>{spotCount}</Text>
         </View>
         <Ionicons
           name={open ? "chevron-up" : "chevron-down"}
@@ -1633,193 +1932,160 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
       {open
         ? (
           <View style={styles.spotFinderContent}>
-            <View style={styles.spotFinderOrientation}>
-              <Ionicons
-                name="information-circle-outline"
-                size={17}
-                color={paper.dashboardBlue}
-              />
-              <Text style={styles.spotFinderOrientationText}>
-                {finder.orientationNote}
-              </Text>
-            </View>
-
-            <View style={styles.spotFinderListHeading}>
-              <Text style={styles.spotFinderListHeadingText}>
-                THREE AT A TIME · SCROLL FOR ALL {spotCount}
-              </Text>
-              <Ionicons
-                name="swap-vertical"
-                size={15}
-                color={paper.dashboardBlue}
-              />
-            </View>
-
-            <ScrollView
-              style={styles.spotFinderListViewport}
-              contentContainerStyle={styles.spotFinderListContent}
-              nestedScrollEnabled
-              directionalLockEnabled
-              showsVerticalScrollIndicator
-              accessibilityLabel={`Scrollable list of ${spotCount} public access spots. Three spots are visible at a time.`}
-            >
-              {spotRows.map(({
-                sectionId,
-                sectionPrimary,
-                sectionRange,
-                spot,
-              }) => (
-                <View
-                  key={`${sectionId}:${spot.id}`}
-                  style={styles.spotFinderSpot}
-                >
-                  <View style={styles.spotFinderSpotTopline}>
-                    <View style={styles.spotFinderSectionIdentity}>
-                      <View style={styles.spotFinderSectionMarker} />
-                      <View style={styles.spotFinderSectionCopy}>
-                        <Text style={styles.spotFinderSpotSection}>
-                          {sectionPrimary.toUpperCase()}
-                        </Text>
-                        {sectionRange
-                          ? (
-                            <Text
-                              style={styles.spotFinderSectionRange}
-                              numberOfLines={1}
-                            >
-                              {sectionRange.toUpperCase()}
-                            </Text>
-                          )
-                          : null}
-                      </View>
-                    </View>
-                    <View style={styles.spotFinderVerifiedBadge}>
-                      <Ionicons
-                        name="shield-checkmark"
-                        size={10}
-                        color="#167B78"
-                      />
-                      <Text style={styles.spotFinderVerifiedBadgeText}>
-                        SOURCE CHECKED
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.spotFinderSpotHeading}>
-                    <View style={styles.spotFinderPin}>
-                      <Ionicons
-                        name="compass-outline"
-                        size={15}
-                        color="#167B78"
-                      />
-                    </View>
-                    <View style={styles.spotFinderSpotIdentity}>
-                      <Text
-                        style={styles.spotFinderSpotName}
-                        numberOfLines={1}
-                      >
-                        {spot.name}
-                      </Text>
-                      <View style={styles.spotFinderKinds}>
-                        {spot.accessKinds.map((kind) => (
-                          <View key={kind} style={styles.spotFinderKindPill}>
-                            <Text style={styles.spotFinderKindText}>
-                              {RIVER_ACCESS_KIND_LABELS[kind]}
-                            </Text>
-                          </View>
-                        ))}
-                      </View>
-                    </View>
-                  </View>
-                  <Text
-                    style={styles.spotFinderSpotDetail}
-                    numberOfLines={2}
-                  >
-                    {spot.detail}
-                  </Text>
-                  {spot.caution
-                    ? (
-                      <View style={styles.spotFinderCaution}>
-                        <Ionicons
-                          name="warning-outline"
-                          size={13}
-                          color="#A65A2E"
-                        />
-                        <Text
-                          style={styles.spotFinderCautionText}
-                          numberOfLines={2}
-                        >
-                          {spot.caution}
-                        </Text>
-                      </View>
-                    )
-                    : null}
-                  <View style={styles.spotFinderActions}>
-                    <View style={styles.spotFinderSourceGuide}>
-                      <Text style={styles.spotFinderSourceGuideLabel}>
-                        WHERE THE SOURCE EXPLAINS IT
-                      </Text>
-                      <Text style={styles.spotFinderSourceGuideText}>
-                        {spot.sourceLocator}
-                      </Text>
-                    </View>
-                    <Pressable
-                      style={({ pressed }) => [
-                        styles.spotFinderSource,
-                        pressed && { opacity: 0.72 },
-                      ]}
-                      onPress={() => {
-                        hapticSelection();
-                        openExternalUrl(
-                          spot.sourceUrl,
-                          "The access source could not be opened.",
-                        );
-                      }}
-                      accessibilityRole="link"
-                      accessibilityLabel={`Open location source for ${spot.name}`}
-                    >
-                      <Ionicons
-                        name="open-outline"
-                        size={14}
-                        color={paper.dashboardBlue}
-                      />
-                      <Text style={styles.spotFinderSourceText}>
-                        VIEW LOCATION SOURCE
-                      </Text>
-                    </Pressable>
-                    <Text style={styles.spotFinderSourceIdentity}>
-                      {spot.sourceLabel} · checked {spot.verifiedOn}
+            {recommendation.hasRecommendation
+              ? (
+                <View style={styles.spotFinderRecommendationIntro}>
+                  <View style={styles.spotFinderRecommendationIntroHeading}>
+                    <Ionicons name="leaf-outline" size={16} color="#167B78" />
+                    <Text style={styles.spotFinderRecommendationIntroLabel}>
+                      RECOMMENDED {recommendation.recommendedSections.length === 1
+                        ? "SECTION"
+                        : "SECTIONS"}
                     </Text>
                   </View>
+                  <Text style={styles.spotFinderRecommendationIntroTitle}>
+                    Current phase: {runStage?.label}
+                  </Text>
+                  <Text style={styles.spotFinderRecommendationIntroText}>
+                    Broad starting areas—not a live fish-location report.
+                  </Text>
                 </View>
-              ))}
-            </ScrollView>
+              )
+              : (
+                <View style={styles.spotFinderNoRecommendation}>
+                  <Text style={styles.spotFinderNoRecommendationLabel}>
+                    NO RUN-BASED RECOMMENDATION
+                  </Text>
+                  <Text style={styles.spotFinderNoRecommendationText}>
+                    The migration is not in an active stage. Browse supported-corridor access below.
+                  </Text>
+                </View>
+              )}
+
+            {recommendation.hasRecommendation
+              ? (
+                <View
+                  style={[
+                    styles.spotFinderSectionGroup,
+                    styles.spotFinderRecommendedSectionGroup,
+                  ]}
+                >
+                  {recommendation.recommendedSections.map((section) =>
+                    renderSection(section, true)
+                  )}
+                </View>
+              )
+              : (
+                <View
+                  style={[
+                    styles.spotFinderSectionGroup,
+                    styles.spotFinderOtherSectionGroup,
+                  ]}
+                >
+                  <Text style={styles.spotFinderGroupLabel}>
+                    ALL RIVER ACCESS
+                  </Text>
+                  {recommendation.otherSections.map((section) =>
+                    renderSection(section, false)
+                  )}
+                </View>
+              )}
+
+            {recommendation.hasRecommendation &&
+                recommendation.otherSections.length > 0
+              ? (
+                <View
+                  style={[
+                    styles.spotFinderSectionGroup,
+                    styles.spotFinderOtherSectionGroup,
+                  ]}
+                >
+                  <Text style={styles.spotFinderGroupLabel}>
+                    OTHER RIVER ACCESS
+                  </Text>
+                  {recommendation.otherSections.map((section) =>
+                    renderSection(section, false)
+                  )}
+                </View>
+              )
+              : null}
+
+            <View style={styles.spotFinderFooterGroup}>
+              <Pressable
+                style={styles.spotFinderFooterToggle}
+                onPress={() => {
+                  hapticSelection();
+                  setOrientationOpen((current) => !current);
+                }}
+                accessibilityRole="button"
+                accessibilityState={{ expanded: orientationOpen }}
+              >
+                <Text style={styles.spotFinderFooterTitle}>
+                  ABOUT THESE SECTIONS
+                </Text>
+                <Ionicons
+                  name={orientationOpen ? "chevron-up" : "chevron-down"}
+                  size={16}
+                  color={paper.dashboardBlue}
+                />
+              </Pressable>
+              {orientationOpen
+                ? (
+                  <Text style={styles.spotFinderFooterText}>
+                    Sections describe the supported migration corridor, not the entire river. {finder.orientationNote}
+                  </Text>
+                )
+                : null}
+            </View>
 
             <View style={styles.spotFinderSafety}>
-              <View style={styles.spotFinderSafetyHeading}>
+              <Pressable
+                style={styles.spotFinderFooterToggle}
+                onPress={() => {
+                  hapticSelection();
+                  setSafetyOpen((current) => !current);
+                }}
+                accessibilityRole="button"
+                accessibilityState={{ expanded: safetyOpen }}
+              >
+                <View style={styles.spotFinderSafetyHeading}>
+                  <Ionicons
+                    name="shield-checkmark-outline"
+                    size={16}
+                    color="#A65A2E"
+                  />
+                  <Text style={styles.spotFinderSafetyTitle}>
+                    BEFORE YOU GO
+                  </Text>
+                </View>
                 <Ionicons
-                  name="shield-checkmark-outline"
-                  size={17}
+                  name={safetyOpen ? "chevron-up" : "chevron-down"}
+                  size={16}
                   color="#A65A2E"
                 />
-                <Text style={styles.spotFinderSafetyTitle}>
-                  CHECK BEFORE EVERY TRIP
-                </Text>
-              </View>
-              <Text style={styles.spotFinderSafetyText}>
-                {RIVER_ACCESS_GENERAL_WARNING}
-              </Text>
-              <Pressable
-                onPress={() =>
-                  openExternalUrl(
-                    safetyLink.url,
-                    "The current DNR safety information could not be opened.",
-                  )}
-                accessibilityRole="link"
-                accessibilityLabel={safetyLink.label.replace(" →", "")}
-              >
-                <Text style={styles.spotFinderClosuresLink}>
-                  {safetyLink.label}
-                </Text>
               </Pressable>
+              {safetyOpen
+                ? (
+                  <View style={styles.spotFinderSafetyContent}>
+                    <Text style={styles.spotFinderSafetyText}>
+                      {RIVER_ACCESS_GENERAL_WARNING}
+                    </Text>
+                    <Pressable
+                      onPress={() =>
+                        openExternalUrl(
+                          safetyLink.url,
+                          "The current DNR safety information could not be opened.",
+                        )}
+                      accessibilityRole="link"
+                      accessibilityLabel={safetyLink.label.replace(" →", "")}
+                    >
+                      <Text style={styles.spotFinderClosuresLink}>
+                        {safetyLink.label}
+                      </Text>
+                    </Pressable>
+                  </View>
+                )
+                : null}
             </View>
           </View>
         )
@@ -2186,7 +2452,7 @@ function PrimitiveTabBar({
             </Text>
           </View>
           <Text style={styles.primitiveTabPosition}>
-            {String(activeIndex + 1).padStart(2, "0")} / 04
+            {String(activeIndex + 1).padStart(2, "0")} / 03
           </Text>
         </View>
         <View style={styles.primitiveTabRow}>
@@ -2307,6 +2573,7 @@ function SnapshotView({
           title={tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
+          seasonalZone={tab.id === "run_stage" ? snapshot.seasonalZone : undefined}
           contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
             : undefined}
@@ -2420,8 +2687,6 @@ function primitiveForTab(
       };
     case "fish_in_river":
       return snapshot.fishInRiver;
-    case "fishability":
-      return snapshot.fishability;
   }
 }
 
@@ -2445,6 +2710,9 @@ function ActivityBreakdown(
     false;
   const forecast = activity.targetDayLabel === "Tomorrow" ||
     activity.reasonCodes?.includes("activity_forecast") === true;
+  const bestScore = Math.max(...activity.blocks.map((block) => block.score));
+  const bestBlocks = activity.blocks.filter((block) => block.score === bestScore);
+  const bestBlock = bestBlocks[0];
   return (
     <View style={styles.activityBreakdown}>
       {forecast
@@ -2605,6 +2873,33 @@ function ActivityBreakdown(
           </View>
         );
       })}
+      {bestBlock
+        ? (
+          <View
+            style={styles.activityEvidence}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel={`Best window: ${bestBlocks.map((block) => block.label).join(", ")}. Favorable factor: ${bestBlock.positiveDriver} Limiting factor: ${bestBlock.limitingFactor}`}
+          >
+            <Text style={styles.activityEvidenceEyebrow}>BEST WINDOW</Text>
+            <Text style={styles.activityEvidenceWindow}>
+              {bestBlocks.map((block) => block.label).join(" · ")}
+            </Text>
+            <View style={styles.activityEvidenceRow}>
+              <Ionicons name="add-circle-outline" size={14} color="#2F8F55" />
+              <Text style={styles.activityEvidenceText}>
+                {bestBlock.positiveDriver}
+              </Text>
+            </View>
+            <View style={styles.activityEvidenceRow}>
+              <Ionicons name="remove-circle-outline" size={14} color="#A85220" />
+              <Text style={styles.activityEvidenceText}>
+                {bestBlock.limitingFactor}
+              </Text>
+            </View>
+          </View>
+        )
+        : null}
     </View>
   );
 }
@@ -2621,6 +2916,31 @@ function activityBlockColor(score: number): string {
     : "#C94A42";
 }
 
+function migrationStageSummary(
+  primitive: RiverRunSnapshotResponse["runStage"],
+): string {
+  switch (primitive.stage) {
+    case "pre_run":
+      return "The dependable seasonal river migration has not started yet.";
+    case "beginning":
+      return "The seasonal river migration is beginning.";
+    case "building":
+      return "The migration is building toward its seasonal peak.";
+    case "peak":
+      return "This is the core seasonal migration period.";
+    case "tapering":
+      return "The migration is tapering after its seasonal peak.";
+    case "ending":
+      return "The tracked migration is nearing its seasonal endpoint.";
+    case "post_run":
+      return "This seasonal migration model is complete.";
+    default:
+      return primitive.label === "Before migration"
+        ? "The dependable seasonal river migration has not started yet."
+        : "This seasonal migration model is complete.";
+  }
+}
+
 function PrimitiveSection({
   index,
   title,
@@ -2629,6 +2949,7 @@ function PrimitiveSection({
   headerMeta,
   contextLine,
   contextContent,
+  seasonalZone,
 }: {
   index: string;
   title: string;
@@ -2637,26 +2958,31 @@ function PrimitiveSection({
   headerMeta?: string;
   contextLine?: string;
   contextContent?: ReactNode;
+  seasonalZone?: RiverRunSnapshotResponse["seasonalZone"];
 }) {
-  const [detailExpanded, setDetailExpanded] = useState(false);
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
-  const detailPointCount = primitive.detail
-    ? splitRiverRunDetailPoints(primitive.detail).length
-    : 0;
   const visual = resolveRiverRunVisualModel({
     kind: visualKind,
     primitive,
   });
-  useEffect(() => {
-    setDetailExpanded(false);
-  }, [primitive.detail, visualKind]);
+  const stageOnly = visualKind === "run_stage";
+  const publicHeadline = stageOnly
+    ? migrationStageSummary(primitive as RiverRunSnapshotResponse["runStage"])
+    : visualKind === "activity" && unavailable
+    ? primitive.headline
+    : undefined;
+  const scopeNote = visualKind === "run_stage"
+    ? "Seasonal timing and broad river orientation · not a live fish-location report"
+    : visualKind === "activity"
+    ? "Expected responsiveness if fish are present · not abundance or catch probability"
+    : "Seasonal presence estimate · not a live fish count or today’s river conditions";
   return (
     <View style={styles.primitiveFrame}>
       <View
         style={[
           styles.primitiveCard,
-          !primitive.tip && styles.primitiveCardWithoutTip,
+          styles.primitiveCardWithoutTip,
         ]}
       >
         <View
@@ -2696,29 +3022,32 @@ function PrimitiveSection({
 
         <RiverRunVisual kind={visualKind} primitive={primitive} />
 
-        {primitive.headline
+        {publicHeadline
           ? (
             <View style={styles.primitiveResult}>
-              <PrimitiveHeadlineCopy value={primitive.headline} />
+              <PrimitiveHeadlineCopy value={publicHeadline} />
             </View>
           )
           : null}
 
-        {primitive.whereToStart
+        {stageOnly && seasonalZone
           ? (
             <View style={styles.primitiveLocation}>
               <View style={styles.primitiveLocationHeading}>
                 <Ionicons
-                  name="navigate-outline"
+                  name="map-outline"
                   size={14}
                   color={paper.dashboardBlue}
                 />
                 <Text style={styles.primitiveLocationLabel}>
-                  WHERE TO START
+                  SEASONAL ZONE
                 </Text>
               </View>
               <Text style={styles.primitiveLocationText}>
-                {primitive.whereToStart}
+                {seasonalZone.label}
+              </Text>
+              <Text style={styles.primitiveHeaderMeta}>
+                Calendar-based orientation · not a live location report
               </Text>
             </View>
           )
@@ -2736,57 +3065,7 @@ function PrimitiveSection({
             </View>
           )
           : null)}
-
-        {primitive.detail
-          ? (
-            <View style={styles.primitiveDetail}>
-              <Pressable
-                style={({ pressed }) => [
-                  styles.primitiveDetailHeading,
-                  pressed && styles.primitiveDetailHeadingPressed,
-                ]}
-                onPress={() => {
-                  hapticSelection();
-                  setDetailExpanded((current) => !current);
-                }}
-                accessibilityRole="button"
-                accessibilityState={{ expanded: detailExpanded }}
-                accessibilityLabel={`Why this read. ${detailPointCount} ${
-                  detailPointCount === 1 ? "point" : "points"
-                }. ${detailExpanded ? "Collapse" : "Expand"}.`}
-                hitSlop={6}
-              >
-                <Ionicons
-                  name="reader-outline"
-                  size={17}
-                  color={paper.dashboardBlue}
-                />
-                <Text style={styles.primitiveDetailLabel}>WHY THIS READ</Text>
-                <Text style={styles.primitiveDetailCount}>
-                  {detailPointCount}{" "}
-                  {detailPointCount === 1 ? "POINT" : "POINTS"}
-                </Text>
-                <Ionicons
-                  name={detailExpanded ? "chevron-up" : "chevron-down"}
-                  size={15}
-                  color={paper.dashboardBlue}
-                />
-              </Pressable>
-              {detailExpanded
-                ? <PrimitiveDetailCopy value={primitive.detail} />
-                : null}
-            </View>
-          )
-          : null}
-
-        {primitive.tip
-          ? (
-            <View style={styles.primitiveTip}>
-              <Text style={styles.primitiveTipLabel}>GUIDE&apos;S READ</Text>
-              <PrimitiveGuideReadCopy value={primitive.tip} />
-            </View>
-          )
-          : null}
+        <Text style={styles.primitiveScopeNote}>{scopeNote}</Text>
       </View>
     </View>
   );
@@ -2817,89 +3096,6 @@ function PrimitiveHeadlineCopy({ value }: { value: string }) {
   return (
     <Text
       style={styles.primitiveHeadlineText}
-      accessible
-      accessibilityRole="text"
-      accessibilityLabel={value}
-    >
-      {value.trim()}
-    </Text>
-  );
-}
-
-function PrimitiveDetailCopy({ value }: { value: string }) {
-  const detailLines = splitRiverRunDetailPoints(value);
-  return (
-    <View
-      style={styles.primitiveDetailList}
-      accessible
-      accessibilityRole="text"
-      accessibilityLabel={value}
-    >
-      {detailLines.map((line, lineIndex) => (
-        <View
-          key={`${lineIndex}:${line}`}
-          style={styles.primitiveDetailBulletRow}
-          accessible={false}
-        >
-          <View style={styles.primitiveDetailBullet} />
-          <PrimitiveDetailWordFlow value={line} />
-        </View>
-      ))}
-    </View>
-  );
-}
-
-function PrimitiveDetailWordFlow({ value }: { value: string }) {
-  if (Platform.OS !== "android") {
-    const words = value.trim().split(/\s+/);
-    return (
-      <View style={styles.primitiveDetailTextFlow}>
-        {words.map((word, wordIndex) => (
-          <Text
-            key={`${wordIndex}:${word}`}
-            style={styles.primitiveDetailWord}
-            accessible={false}
-          >
-            {word}
-          </Text>
-        ))}
-      </View>
-    );
-  }
-  return (
-    <Text style={styles.primitiveDetailText} accessible={false}>
-      {value.trim()}
-    </Text>
-  );
-}
-
-function PrimitiveGuideReadCopy({ value }: { value: string }) {
-  if (Platform.OS !== "android") {
-    const words = value.trim().split(/\s+/);
-    return (
-      <View
-        key={value}
-        style={styles.primitiveTipTextFlow}
-        accessible
-        accessibilityRole="text"
-        accessibilityLabel={value}
-      >
-        {words.map((word, wordIndex) => (
-          <Text
-            key={`${wordIndex}:${word}`}
-            style={styles.primitiveTipWord}
-            accessible={false}
-          >
-            {word}
-          </Text>
-        ))}
-      </View>
-    );
-  }
-  return (
-    <Text
-      key={value}
-      style={styles.primitiveTipText}
       accessible
       accessibilityRole="text"
       accessibilityLabel={value}
@@ -3030,7 +3226,7 @@ function GaugeForecastDropdown({
       <View style={styles.resultDropdownSection}>
         <Text style={styles.resultDropdownSectionLabel}>GAUGE BASIS</Text>
         <Text style={styles.resultDropdownBody}>
-          {snapshot.safety.gaugeBasis}
+          {publicRiverRunTerminology(snapshot.safety.gaugeBasis)}
         </Text>
       </View>
       {snapshot.weather?.forecastDaily?.length
@@ -3038,7 +3234,7 @@ function GaugeForecastDropdown({
           <View style={styles.resultDropdownSection}>
             <Text style={styles.resultDropdownSectionLabel}>FORECAST NOTE</Text>
             <Text style={styles.resultDropdownBody}>
-              Forecast weather informs Activity Outlook only; Fishability
+              Forecast weather informs Activity Outlook only; Fishing Shape
               remains observation-led.
             </Text>
           </View>
@@ -3645,47 +3841,41 @@ const styles = StyleSheet.create({
   },
   spotFinderCard: {
     overflow: "hidden",
-    borderWidth: 1.5,
-    borderColor: "rgba(22,123,120,0.42)",
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.3)",
     borderRadius: 13,
     backgroundColor: "#FCFDFC",
     ...paperShadows.hard,
   },
   spotFinderToggle: {
-    minHeight: 74,
+    minHeight: 66,
     flexDirection: "row",
     alignItems: "center",
     gap: 9,
     paddingHorizontal: 13,
-    paddingVertical: 12,
-    borderTopWidth: 4,
+    paddingVertical: 11,
+    borderTopWidth: 3,
     borderTopColor: "#2E9B97",
     backgroundColor: "#F7FBFA",
   },
   spotFinderHeaderIcon: {
-    width: 38,
-    height: 38,
+    width: 34,
+    height: 34,
     flexShrink: 0,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 19,
+    borderRadius: 17,
     backgroundColor: "#E6F5F2",
   },
   spotFinderHeaderCopy: {
     minWidth: 0,
     flex: 1,
-    gap: 1,
-  },
-  spotFinderEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 1.35,
-    color: "#167B78",
+    gap: 2,
   },
   spotFinderTitle: {
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 20,
-    lineHeight: 23,
+    fontSize: 18,
+    lineHeight: 21,
     color: paper.dashboardInk,
   },
   spotFinderSubtitle: {
@@ -3694,203 +3884,215 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     color: paper.dashboardMuted,
   },
-  spotFinderCountBadge: {
-    minWidth: 27,
-    height: 27,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 6,
-    borderWidth: 1,
-    borderColor: "rgba(22,123,120,0.3)",
-    borderRadius: 14,
-    backgroundColor: "#E6F5F2",
-  },
-  spotFinderCount: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    color: "#167B78",
-  },
   spotFinderContent: {
-    gap: 10,
-    padding: 13,
-    paddingTop: 11,
+    gap: 12,
+    padding: 12,
     borderTopWidth: 1,
     borderTopColor: paper.dashboardLine,
+    backgroundColor: "#F5F8F7",
   },
-  spotFinderOrientation: {
+  spotFinderRecommendationIntro: {
+    gap: 4,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderWidth: 1.5,
+    borderColor: "rgba(22,123,120,0.38)",
+    borderLeftWidth: 5,
+    borderLeftColor: "#2E9B97",
+    borderRadius: 10,
+    backgroundColor: "#E4F4F0",
+  },
+  spotFinderRecommendationIntroHeading: {
     flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 8,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "rgba(27,75,104,0.16)",
-    borderRadius: 9,
-    backgroundColor: "#F3F7F9",
+    alignItems: "center",
+    gap: 5,
   },
-  spotFinderOrientationText: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.body,
-    fontSize: 11,
-    lineHeight: 16,
+  spotFinderRecommendationIntroLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.25,
+    letterSpacing: .85,
+    color: "#167B78",
+  },
+  spotFinderRecommendationIntroTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 17,
     color: paper.dashboardInk,
   },
-  spotFinderListHeading: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 2,
-  },
-  spotFinderListHeadingText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: .75,
-    color: paper.dashboardBlue,
-  },
-  spotFinderListViewport: {
-    height: 560,
-    borderWidth: 1,
-    borderColor: "rgba(22,123,120,0.2)",
-    borderRadius: 11,
-    backgroundColor: "#EEF6F4",
-  },
-  spotFinderListContent: {
-    gap: 8,
-    padding: 8,
-  },
-  spotFinderSection: {
-    gap: 8,
-  },
-  spotFinderSectionHeading: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 7,
-  },
-  spotFinderSectionRule: {
-    width: 3,
-    height: 13,
-    borderRadius: 2,
-    backgroundColor: "#2E9B97",
-  },
-  spotFinderSectionLabel: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    lineHeight: 11,
-    letterSpacing: .85,
-    color: paper.dashboardBlue,
-  },
-  spotFinderSectionCount: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
+  spotFinderRecommendationIntroText: {
+    fontFamily: paperFonts.body,
+    fontSize: 9.75,
+    lineHeight: 14,
     color: paper.dashboardMuted,
   },
-  spotFinderSpot: {
-    minHeight: 144,
-    gap: 6,
-    padding: 10,
-    borderWidth: 1,
-    borderLeftWidth: 3,
-    borderColor: "rgba(27,75,104,0.14)",
+  spotFinderSectionGroup: {
+    gap: 10,
+  },
+  spotFinderRecommendedSectionGroup: {
+    padding: 6,
+    borderRadius: 11,
+    backgroundColor: "rgba(22,123,120,0.055)",
+  },
+  spotFinderOtherSectionGroup: {
+    marginTop: 2,
+    paddingTop: 11,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(27,75,104,0.16)",
+  },
+  spotFinderGroupLabel: {
+    paddingHorizontal: 4,
+    paddingBottom: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: .9,
+    color: paper.dashboardBlue,
+  },
+  spotFinderSection: {
+    overflow: "hidden",
+    borderWidth: 1.25,
+    borderColor: "rgba(27,75,104,0.2)",
+    borderRadius: 10,
+    backgroundColor: "#FCFDFE",
+  },
+  spotFinderSectionRecommended: {
+    borderWidth: 1.5,
+    borderLeftWidth: 5,
+    borderColor: "rgba(22,123,120,0.52)",
     borderLeftColor: "#2E9B97",
-    borderRadius: 9,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F1FAF7",
   },
-  spotFinderSpotTopline: {
+  spotFinderSectionOpen: {
+    borderColor: "rgba(27,75,104,0.42)",
+    backgroundColor: "#F9FBFC",
+  },
+  spotFinderSectionRecommendedOpen: {
+    borderColor: "rgba(22,123,120,0.72)",
+    borderLeftColor: "#167B78",
+    backgroundColor: "#EDF8F5",
+  },
+  spotFinderSectionToggle: {
+    minHeight: 55,
     flexDirection: "row",
-    alignItems: "stretch",
-    justifyContent: "space-between",
+    alignItems: "center",
     gap: 8,
-  },
-  spotFinderSectionIdentity: {
-    minWidth: 0,
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "stretch",
-    gap: 7,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 8,
-    backgroundColor: "#E6F5F2",
-  },
-  spotFinderSectionMarker: {
-    width: 3,
-    flexShrink: 0,
-    borderRadius: 2,
-    backgroundColor: "#167B78",
+    paddingHorizontal: 11,
+    paddingVertical: 9,
   },
   spotFinderSectionCopy: {
     minWidth: 0,
     flex: 1,
-    justifyContent: "center",
     gap: 1,
   },
-  spotFinderSpotSection: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    lineHeight: 13,
-    letterSpacing: 1.1,
-    color: "#0D5958",
-  },
-  spotFinderSectionRange: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.75,
-    lineHeight: 10,
-    letterSpacing: .45,
-    color: paper.dashboardBlue,
-  },
-  spotFinderVerifiedBadge: {
-    alignSelf: "center",
+  spotFinderRecommendedBadge: {
+    alignSelf: "flex-start",
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
-    paddingHorizontal: 5,
-    paddingVertical: 4,
-    borderRadius: 7,
-    backgroundColor: "#F1F7F5",
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 8,
+    backgroundColor: "#167B78",
   },
-  spotFinderVerifiedBadgeText: {
+  spotFinderRecommendedLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.75,
-    letterSpacing: .4,
-    color: "#167B78",
+    fontSize: 6.25,
+    lineHeight: 9,
+    letterSpacing: .7,
+    color: "#FFFFFF",
   },
-  spotFinderSpotHeading: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 8,
+  spotFinderNoRecommendation: {
+    gap: 3,
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.14)",
+    borderRadius: 9,
+    backgroundColor: "#F7F8F6",
   },
-  spotFinderPin: {
-    width: 29,
-    height: 29,
-    flexShrink: 0,
+  spotFinderNoRecommendationLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.75,
+    letterSpacing: .75,
+    color: paper.dashboardMuted,
+  },
+  spotFinderNoRecommendationText: {
+    fontFamily: paperFonts.body,
+    fontSize: 9.75,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  spotFinderSectionLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12.5,
+    lineHeight: 16,
+    color: paper.dashboardInk,
+  },
+  spotFinderSectionRange: {
+    fontFamily: paperFonts.body,
+    fontSize: 9.25,
+    lineHeight: 13,
+    color: paper.dashboardMuted,
+  },
+  spotFinderSectionCountBadge: {
+    minHeight: 24,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 15,
-    backgroundColor: "#E6F5F2",
+    paddingHorizontal: 7,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.16)",
+    borderRadius: 12,
+    backgroundColor: "#EDF2F5",
   },
-  spotFinderSpotIdentity: {
+  spotFinderSectionCountBadgeRecommended: {
+    borderColor: "rgba(22,123,120,0.22)",
+    backgroundColor: "#DCEFEB",
+  },
+  spotFinderSectionCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: .35,
+    color: paper.dashboardBlue,
+  },
+  spotFinderSectionCountRecommended: {
+    color: "#0D6663",
+  },
+  spotFinderAccessList: {
+    gap: 8,
+    padding: 8,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(22,123,120,0.2)",
+    backgroundColor: "#E5F1EF",
+  },
+  spotFinderAccessRow: {
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.18)",
+    borderRadius: 8,
+    backgroundColor: "#FFFFFF",
+  },
+  spotFinderAccessToggle: {
+    minHeight: 52,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingVertical: 8,
+  },
+  spotFinderAccessIdentity: {
     minWidth: 0,
     flex: 1,
-    gap: 5,
+    gap: 4,
   },
   spotFinderSpotName: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 13.5,
-    lineHeight: 18,
+    fontSize: 12,
+    lineHeight: 16,
     color: paper.dashboardInk,
   },
   spotFinderKinds: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 4,
-  },
-  spotFinderKindPill: {
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 8,
-    backgroundColor: "#EAF4F2",
+    gap: 7,
   },
   spotFinderKindText: {
     fontFamily: paperFonts.metaMonoBold,
@@ -3898,10 +4100,19 @@ const styles = StyleSheet.create({
     letterSpacing: .45,
     color: "#167B78",
   },
+  spotFinderAccessDetail: {
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingTop: 9,
+    paddingBottom: 11,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(27,75,104,0.12)",
+    backgroundColor: "#F8FBFA",
+  },
   spotFinderSpotDetail: {
     fontFamily: paperFonts.body,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 10.25,
+    lineHeight: 15,
     color: paper.dashboardMuted,
   },
   spotFinderCaution: {
@@ -3921,37 +4132,14 @@ const styles = StyleSheet.create({
     lineHeight: 13,
     color: "#7C4527",
   },
-  spotFinderActions: {
-    gap: 5,
-    paddingTop: 1,
-  },
-  spotFinderSourceGuide: {
-    gap: 2,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 7,
-    backgroundColor: "#F7F8F6",
-  },
-  spotFinderSourceGuideLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.75,
-    letterSpacing: .55,
-    color: "#167B78",
-  },
-  spotFinderSourceGuideText: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 9.25,
-    lineHeight: 12.5,
-    color: paper.dashboardInk,
-  },
   spotFinderSource: {
     minHeight: 34,
-    width: "100%",
+    alignSelf: "flex-start",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
-    paddingHorizontal: 9,
+    paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: "rgba(27,75,104,0.2)",
     borderRadius: 7,
@@ -3963,17 +4151,55 @@ const styles = StyleSheet.create({
     letterSpacing: .75,
     color: paper.dashboardBlue,
   },
+  spotFinderSourceDetails: {
+    gap: 3,
+    paddingTop: 1,
+  },
+  spotFinderSourceLocator: {
+    fontFamily: paperFonts.body,
+    fontSize: 9.25,
+    lineHeight: 13,
+    color: paper.dashboardInk,
+  },
   spotFinderSourceIdentity: {
     fontFamily: paperFonts.metaMono,
     fontSize: 6.25,
     lineHeight: 10,
     letterSpacing: .3,
-    textAlign: "center",
     color: paper.dashboardMuted,
   },
+  spotFinderFooterGroup: {
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.2)",
+    borderRadius: 9,
+    backgroundColor: "#F3F7F9",
+  },
+  spotFinderFooterToggle: {
+    minHeight: 43,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+  },
+  spotFinderFooterTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: .7,
+    color: paper.dashboardBlue,
+  },
+  spotFinderFooterText: {
+    paddingHorizontal: 11,
+    paddingBottom: 11,
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 15,
+    color: paper.dashboardInk,
+  },
   spotFinderSafety: {
-    gap: 7,
-    padding: 11,
+    overflow: "hidden",
     borderWidth: 1,
     borderColor: "rgba(166,90,46,0.22)",
     borderRadius: 9,
@@ -3990,10 +4216,15 @@ const styles = StyleSheet.create({
     letterSpacing: .85,
     color: "#A65A2E",
   },
+  spotFinderSafetyContent: {
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingBottom: 11,
+  },
   spotFinderSafetyText: {
     fontFamily: paperFonts.body,
-    fontSize: 10.5,
-    lineHeight: 15,
+    fontSize: 10,
+    lineHeight: 14.5,
     color: paper.dashboardInk,
   },
   spotFinderClosuresLink: {
@@ -4211,6 +4442,90 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 11.5,
     lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
+  fishingShapeSummary: {
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    padding: 11,
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.24)",
+    borderRadius: 9,
+    backgroundColor: "rgba(22,123,120,0.07)",
+  },
+  fishingShapeIdentity: {
+    minWidth: 0,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  fishingShapeCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
+  fishingShapeEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.1,
+    color: "#167B78",
+  },
+  fishingShapeLabel: {
+    marginTop: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    color: paper.dashboardInk,
+  },
+  fishingShapeMeter: {
+    width: 142,
+    flexShrink: 0,
+    gap: 5,
+  },
+  fishingShapeMeterTrack: {
+    height: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  fishingShapeMeterSegment: {
+    position: "relative",
+    height: 6,
+    flex: 1,
+    opacity: 0.42,
+    borderRadius: 3,
+  },
+  fishingShapeMeterSegmentSelected: {
+    height: 10,
+    opacity: 1,
+    borderWidth: 1.5,
+    borderColor: "#FFFFFF",
+    shadowColor: "#102D3A",
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 2,
+  },
+  fishingShapeMeterMarker: {
+    position: "absolute",
+    top: -4,
+    left: "50%",
+    width: 3,
+    height: 3,
+    marginLeft: -1.5,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardInk,
+  },
+  fishingShapeMeterLabels: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  fishingShapeMeterLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: 0.7,
     color: paper.dashboardMuted,
   },
   liveConditionsDetailsButton: {
@@ -4478,6 +4793,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 3,
   },
   snapshotStack: { gap: 16 },
+  snapshotResultStack: { gap: 16 },
   primitiveFrame: {
     width: "100%",
     padding: 2,
@@ -4647,119 +4963,15 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
   },
-  primitiveDetail: {
-    marginHorizontal: -18,
-    marginTop: 15,
-    paddingHorizontal: 18,
-    paddingVertical: 15,
-    gap: 7,
-    borderTopWidth: 1,
-    borderTopColor: "rgba(15,99,176,0.14)",
-    backgroundColor: "#F2F6F8",
-  },
-  primitiveDetailHeading: {
-    minHeight: 30,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 7,
-  },
-  primitiveDetailHeadingPressed: {
-    opacity: 0.72,
-  },
-  primitiveDetailLabel: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10.5,
-    letterSpacing: 1.45,
-    color: paper.dashboardBlue,
-  },
-  primitiveDetailCount: {
-    flexShrink: 0,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 0.9,
-    color: paper.dashboardMuted,
-  },
-  primitiveDetailList: {
-    alignSelf: "stretch",
-    gap: 8,
-  },
-  primitiveDetailBulletRow: {
-    position: "relative",
-    alignSelf: "stretch",
-    paddingLeft: 15,
-  },
-  primitiveDetailBullet: {
-    position: "absolute",
-    top: 8,
-    left: 1,
-    width: 5,
-    height: 5,
-    borderRadius: 3,
-    backgroundColor: "rgba(15,99,176,0.55)",
-  },
-  primitiveDetailText: {
-    minWidth: 0,
-    alignSelf: "stretch",
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 14,
-    lineHeight: 21,
-    includeFontPadding: false,
-    color: "#52606A",
-  },
-  primitiveDetailTextFlow: {
-    alignSelf: "stretch",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    columnGap: 3.5,
-    rowGap: 0,
-  },
-  primitiveDetailWord: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 14,
-    lineHeight: 21,
-    color: "#52606A",
-  },
-  primitiveTip: {
-    marginHorizontal: -18,
-    marginTop: 0,
-    paddingHorizontal: 18,
-    paddingVertical: 15,
-    gap: 5,
+  primitiveScopeNote: {
+    marginTop: 13,
+    paddingTop: 10,
     borderTopWidth: 1,
     borderTopColor: paper.dashboardLine,
-    backgroundColor: "#F8F6EF",
-  },
-  primitiveTipLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.5,
-    color: paper.redDk,
-  },
-  primitiveTipText: {
-    alignSelf: "stretch",
-    minWidth: 0,
-    paddingBottom: 2,
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 14,
-    lineHeight: 21,
-    includeFontPadding: false,
-    color: paper.dashboardInk,
-  },
-  primitiveTipTextFlow: {
-    alignSelf: "stretch",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    columnGap: 3.5,
-    rowGap: 0,
-    paddingBottom: 2,
-  },
-  primitiveTipWord: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 14,
-    lineHeight: 21,
-    color: paper.dashboardInk,
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: paper.dashboardMuted,
   },
   editorialNote: {
     position: "relative",
@@ -5128,6 +5340,39 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 7.5,
     letterSpacing: 0.7,
+    color: paper.dashboardMuted,
+  },
+  activityEvidence: {
+    gap: 7,
+    padding: 11,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.18)",
+    borderRadius: 9,
+    backgroundColor: "#F3F7F9",
+  },
+  activityEvidenceEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.1,
+    color: paper.dashboardBlue,
+  },
+  activityEvidenceWindow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  activityEvidenceRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 7,
+  },
+  activityEvidenceText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
     color: paper.dashboardMuted,
   },
   safetyBody: {

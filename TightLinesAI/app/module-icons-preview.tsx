@@ -69,7 +69,7 @@ const MODULES: ModuleSpec[] = [
     code: "04",
     title: "River Migration",
     tag: "MIGRATION",
-    desc: "Daily river outlook, strength & fishability for Great Lakes species",
+    desc: "Daily migration stage, activity, presence, and river conditions",
     iconBg: ["#FBE4E1", "#F3C2BC"],
     iconBorder: "#C0392B",
     iconColor: "#9A2B20",

@@ -45,6 +45,7 @@ import {
   resolveNextConditionRefresh,
   resolvePushReadWindow,
   resolveRunStage,
+  resolveSeasonalZone,
   resolveWaterTemperatureRead,
   RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS,
   RIVER_RUN_DRAFT_RIVER_PROFILES,
@@ -1907,6 +1908,7 @@ function shapeSnapshotResponse(input: {
     state: string;
     displayName?: string;
     defaultReachId?: string;
+    foundationReachIds?: string[];
     regulationReminderCopy: string;
   };
   pushHistory: PushHistoryContext;
@@ -1939,6 +1941,13 @@ function shapeSnapshotResponse(input: {
     }T00:00:00`,
     nextConditionRefreshAt: next.localDateTime,
     runStage: input.dailySnapshot.runStage,
+    seasonalZone: resolveSeasonalZone({
+      river: input.river,
+      run: input.run,
+      stage: input.dailySnapshot.runStage,
+      localDate: input.dailySnapshot.localDate,
+      presentationReachIds: input.presentation.foundationReachIds,
+    }),
     conditionsSuggest: input.dailySnapshot.conditionsSuggest,
     push: input.condition.push,
     pushHistory: input.pushHistory,
@@ -1955,17 +1964,23 @@ function shapeSnapshotResponse(input: {
     dataQuality: input.condition.dataQuality,
     interpretationNote: input.condition.interpretationNote,
     secondaryNote: input.condition.sourceMetrics.weather?.forecastDaily?.length
-      ? "Forecast weather informs Activity Outlook only; Push and Fishability remain observation-led."
+      ? "Forecast weather informs Activity Outlook only; Fishing Shape remains observation-led."
       : undefined,
     safety: {
       regulationReminder: input.presentation.regulationReminderCopy,
-      gaugeBasis: input.river.gaugeLimitationCopy,
+      gaugeBasis: publicRiverRunTerminology(input.river.gaugeLimitationCopy),
       activityDisclaimer:
-        "Fishability describes fishing conditions, not wading or boating safety.",
+        "Fishing Shape describes presentation conditions, not wading or boating safety.",
     },
     engineVersion: input.condition.engineVersion,
     configVersion: input.condition.configVersion,
   };
+}
+
+function publicRiverRunTerminology(value: string): string {
+  return value
+    .replaceAll("Fishability", "Fishing Shape")
+    .replaceAll("Fish In River", "Seasonal Presence");
 }
 
 function resolveSnapshotPresentation(
@@ -1975,6 +1990,7 @@ function resolveSnapshotPresentation(
   state: string;
   displayName?: string;
   defaultReachId?: string;
+  foundationReachIds?: string[];
   regulationReminderCopy: string;
 } | null {
   const contexts = river.presentationContexts;
