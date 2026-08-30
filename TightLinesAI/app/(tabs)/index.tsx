@@ -1193,7 +1193,7 @@ export default function HomeScreen() {
                   )}
               </View>
               <View pointerEvents="none" style={styles.headlinePines}>
-                <MistyPinesView />
+                <BassSalmonView />
               </View>
             </View>
           </View>
@@ -2109,17 +2109,17 @@ function FinFindrEmblemView() {
 }
 
 /**
- * Decorative misty-lake illustration at the right edge of the headline
- * area — a square pen-and-ink PNG of a sun rising over a pine-fringed
- * lake. Bundled at `assets/images/misty-pines.png` and rendered with
+ * Decorative fish illustration at the right edge of the headline area —
+ * a square graphite PNG of a bass and salmon circling underwater.
+ * Bundled at `assets/images/bass-salmon-dashboard-v2.png` and rendered with
  * `resizeMode="contain"` so it scales cleanly inside its container
  * without depending on `react-native-svg`.
  */
-function MistyPinesView() {
+function BassSalmonView() {
   return (
     <Image
-      source={require("../../assets/images/misty-pines.png")}
-      style={{ width: 280, height: 200 }}
+      source={require("../../assets/images/bass-salmon-dashboard-v2.png")}
+      style={{ width: 240, height: 171 }}
       resizeMode="contain"
     />
   );
@@ -2559,8 +2559,8 @@ const styles = StyleSheet.create({
   },
   headlinePines: {
     position: "absolute",
-    right: -36,
-    top: -36,
+    right: -22,
+    top: -42,
     opacity: 0.95,
   },
 
