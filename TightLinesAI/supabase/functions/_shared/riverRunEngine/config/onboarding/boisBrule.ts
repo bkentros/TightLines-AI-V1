@@ -60,7 +60,7 @@ export const BOIS_BRULE_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "bois-brule-foundation-v3-gate4a-draft",
+    version: "bois-brule-foundation-v3-release",
     corridorLengthMiles: 18,
     downstreamTerminus: "Lake Superior mouth",
     upstreamTerminus:
@@ -175,7 +175,7 @@ const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
     status: "unavailable",
     reason: "no_accepted_historical_baseline",
     notes:
-      "Historical exact-date temperature context is not a live timing model, and no paired lower-corridor baseline supports early, typical, or delayed claims.",
+      "Historical exact-date temperature context is not a live run-progress model, and no paired lower-corridor baseline supports early, typical, or delayed claims.",
   },
   push: {
     status: "unavailable",
@@ -209,9 +209,10 @@ const sharedRunFields = {
   runStageCopyStrategy: "onboarding_corridor" as const,
   primitiveCapabilities,
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
+    auditVersion: "bois-brule-four-species-release-audit-v1",
     notes:
-      "Hidden Bois Brule Gate 4B weather-only Activity candidate. Public enablement, deployment, and release remain unauthorized.",
+      "Owner accepted all four Bois Brule fall profiles for public catalog promotion on 2026-08-29. Production deployment remains a separate explicit release action.",
   },
 };
 
@@ -241,7 +242,7 @@ export const BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 2,
     distributionScope: "sectional",
-    version: "bois-brule-chinook-presence-v1-draft",
+    version: "bois-brule-chinook-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
       { dayOffsetFromStart: 19, fractionOfMaximum: .2 },
@@ -259,7 +260,7 @@ export const BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR current Brule fishing page, 2023-2025 fishway updates, 2026-2027 regulations, and owner-approved cohort portfolio.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "bois-brule-fall-chinook-weather-activity-v2-draft",
+    version: "bois-brule-fall-chinook-weather-activity-v2-release",
     profile: "chinook_fall_reaction",
     reachIds: [
       "bois_brule_mouth_lower",
@@ -319,7 +320,7 @@ export const BOIS_BRULE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 8,
     distributionScope: "broad",
-    version: "bois-brule-coho-presence-v1-draft",
+    version: "bois-brule-coho-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
       { dayOffsetFromStart: 11, fractionOfMaximum: .3 },
@@ -337,7 +338,7 @@ export const BOIS_BRULE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR current Brule fishing page, 2023-2025 fishway updates, 2026-2027 regulations, and owner-approved cohort portfolio.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "bois-brule-fall-coho-weather-activity-v2-draft",
+    version: "bois-brule-fall-coho-weather-activity-v2-release",
     profile: "coho_fall_reaction",
     reachIds: [
       "bois_brule_mouth_lower",
@@ -397,7 +398,7 @@ export const BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 9,
     distributionScope: "broad",
-    version: "bois-brule-steelhead-fall-presence-v2-local-peak-draft",
+    version: "bois-brule-steelhead-fall-presence-v2-local-peak-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .15 },
       { dayOffsetFromStart: 17, fractionOfMaximum: .35 },
@@ -413,7 +414,8 @@ export const BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR current Brule fishing page, Lake Superior tributary FAQ, 2022-2025 fishway updates, current regulations, and owner-approved cohort portfolio.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "bois-brule-fall-steelhead-weather-activity-v2-local-calendar-draft",
+    version:
+      "bois-brule-fall-steelhead-weather-activity-v2-local-calendar-draft",
     profile: "steelhead_feeding",
     reachIds: [
       "bois_brule_mouth_lower",
@@ -459,7 +461,7 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 7,
     distributionScope: "broad",
-    version: "bois-brule-lake-run-brown-presence-v1-draft",
+    version: "bois-brule-lake-run-brown-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .18 },
       { dayOffsetFromStart: 14, fractionOfMaximum: .65 },
@@ -475,7 +477,7 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR current Brule fishing page, 2021-2025 fishway updates, Lake Superior tributary FAQ, current regulations, and owner-approved cohort portfolio.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "bois-brule-fall-brown-trout-weather-activity-v1-draft",
+    version: "bois-brule-fall-brown-trout-weather-activity-v1-release",
     profile: "brown_trout_fall_reaction",
     reachIds: [
       "bois_brule_mouth_lower",
@@ -507,7 +509,7 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 export const BOIS_BRULE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument =
   {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-27-bois-brule-fishability-source-audit.5",
+    configVersion: "2026-08-29-bois-brule-four-species-release.6",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

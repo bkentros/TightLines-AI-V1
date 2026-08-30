@@ -7,7 +7,6 @@ import {
 import {
   resolveAdminOverrideBand,
   resolveRunStage,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   scoreActivity,
   scoreFishability,
@@ -30,7 +29,7 @@ const runs = [
   SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 
-Deno.test("Sheboygan four-species Gate 4B foundation validates and remains hidden", () => {
+Deno.test("Sheboygan four-species foundation validates in the public catalog", () => {
   const riverResult = validateRiverProfile(SHEBOYGAN_RIVER_PROFILE);
   assertEquals(
     riverResult.valid,
@@ -56,8 +55,8 @@ Deno.test("Sheboygan four-species Gate 4B foundation validates and remains hidde
       true,
       `${run.runId}: ${result.issues.map((issue) => issue.message).join("\n")}`,
     );
-    assertEquals(result.publicVisible, false, run.runId);
-    assertEquals(run.publicAudit.isEnabled, false, run.runId);
+    assertEquals(result.publicVisible, true, run.runId);
+    assertEquals(run.publicAudit.isEnabled, true, run.runId);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(run.primitiveCapabilities.fishability.status, "available");
@@ -69,23 +68,17 @@ Deno.test("Sheboygan four-species Gate 4B foundation validates and remains hidde
       "sheboygan_i43_weather",
     ]);
     assert(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((draft) => draft.runId === run.runId),
-      `${run.runId} missing from private draft registry`,
-    );
-    assert(
-      !RIVER_RUN_RUN_PROFILES.some((publicRun) =>
-        publicRun.runId === run.runId
-      ),
-      `${run.runId} leaked into the public registry`,
+      RIVER_RUN_RUN_PROFILES.some((publicRun) => publicRun.runId === run.runId),
+      `${run.runId} is missing from the public registry`,
     );
   }
 
   const issues = validateConfigurationRevision({
     configKey: "sheboygan",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: SHEBOYGAN_CONFIGURATION_DOCUMENT,
-    evidenceNotes: "Sheboygan Gate 4B hidden weather-only Activity candidate.",
+    evidenceNotes: "Owner-approved Sheboygan four-species public release.",
   });
   assert(
     issues.every((issue) => issue.severity !== "error"),

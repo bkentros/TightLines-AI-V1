@@ -335,7 +335,7 @@ console.log(
         ),
       0,
     )
-  } private scenarios across ${expectedRuns.size} supported runs.`,
+  } release-review scenarios across ${expectedRuns.size} supported runs.`,
 );
 
 function addOneDay(localDate: string): string {

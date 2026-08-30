@@ -5,35 +5,17 @@ import type {
 } from "../../types.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import { BIG_MANISTEE_RIVER_PROFILE } from "../rivers.ts";
-import { BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE } from "../runs.ts";
 import { GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE } from "../speciesBiology.ts";
 
-/** Hidden river-foundation view for Brown review; never replace the public profile with this object. */
-export const BIG_MANISTEE_BROWN_REVIEW_RIVER_PROFILE: RiverProfile = {
-  ...BIG_MANISTEE_RIVER_PROFILE,
-  foundation: {
-    ...BIG_MANISTEE_RIVER_PROFILE.foundation!,
-    targetSpecies: ["lake_run_brown_trout"],
-    locations: BIG_MANISTEE_RIVER_PROFILE.foundation!.locations?.map(
-      (location) =>
-        location.locationId === "big_manistee_tippy_dam"
-          ? {
-            ...location,
-            restrictionNotes:
-              "Tippy Dam blocks upstream passage for migratory Brown Trout. River Run recommendations end below the dam. Follow current signs, booms, closures, and dam-safety notices.",
-          }
-          : location,
-    ),
-    evidenceNotes:
-      "The approved public Big Manistee foundation is reused without changing its public target portfolio. This hidden review view adds only migratory Brown Trout, retains the Lower/Middle/Upper sections, and treats Tippy Dam as the impassable upstream endpoint. Species timing and strength remain run-level decisions.",
-  },
-};
+/** Compatibility alias retained for deterministic release-review fixtures. */
+export const BIG_MANISTEE_BROWN_REVIEW_RIVER_PROFILE: RiverProfile =
+  BIG_MANISTEE_RIVER_PROFILE;
 
-/** Hidden owner-review profile; never add this run to the public run registry. */
+/** Owner-approved public Big Manistee lake-run Brown Trout profile. */
 export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
   AuditedObservedRiverRunProfile = {
-    ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
     runId: "big_manistee_fall_brown_trout",
+    riverId: "big_manistee",
     biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
     displayName: "Fall Migratory Brown Trout",
     species: "lake_run_brown_trout",
@@ -41,6 +23,14 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
     runType: "fall_repeat_spawn",
     movementEngineId: "fall_repeat_spawner_cooling",
     runStageCopyStrategy: "big_manistee_tailwater",
+    primitiveCapabilities: {
+      migrationStage: { status: "available" },
+      activity: { status: "available" },
+      fishInRiver: { status: "available" },
+      migrationTiming: { status: "available" },
+      push: { status: "available" },
+      fishability: { status: "available" },
+    },
     runWindow: {
       preRunStart: "08-15",
       stagingStart: "08-25",
@@ -59,7 +49,7 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
     historicalPresence: {
       maximum: 5,
       distributionScope: "sectional",
-      curveVersion: "big-manistee-migratory-brown-presence-v1-draft",
+      curveVersion: "big-manistee-migratory-brown-presence-v1-release",
       evidenceNotes:
         "The Big Manistee supports a documented trophy Brown Trout fishery and direct Lake Michigan access below Tippy Dam, including Michigan's 41.45-pound state-record Brown Trout. Michigan DNR identifies lake-run Browns, late-summer and early-fall tributary entry, September-October spawning, Brown Trout below Tippy, and a small recurring migratory Brown component in the connected Manistee system. The 5/10 ceiling deliberately represents a real but moderate sectional migration with exceptional fish potential without treating resident Brown Trout catches, stocking, or a record fish as proof of a strong migratory run.",
       sourceNotes:
@@ -77,7 +67,7 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
       ],
     },
     activity: {
-      version: "big-manistee-fall-brown-activity-v1-draft",
+      version: "big-manistee-fall-brown-activity-v1-release",
       profile: "brown_trout_fall_reaction",
       dataMode: "observed_river",
       minimumInputContract: "weather_and_one_measured_river_input",
@@ -100,16 +90,9 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
         weather: .1,
       },
       hydraulicTrend: {
-        rising24h: {
-          ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic.rising24h,
-        },
-        meaningfulRise24h: {
-          ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic
-            .meaningfulRise24h,
-        },
-        sharpRise24h: {
-          ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic.sharpRise24h,
-        },
+        rising24h: { absolute: 50, percent: 3 },
+        meaningfulRise24h: { absolute: 100, percent: 7 },
+        sharpRise24h: { absolute: 180, percent: 12 },
       },
       temperature: {
         coldF: 38,
@@ -128,10 +111,22 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
         "Observed-river Activity for a living migratory Brown Trout already present near Wellston. Measured water temperature leads, effective light and tailwater presentation are secondary, and precipitation remains restrained cover context. Brown Trout are repeat spawners, so no salmon mortality ramp, taper penalty, ending ceiling, or automatic post-spawn departure is applied. The model is intentionally scoped to the Tippy tailwater and does not infer lower-river conditions.",
     },
     push: {
-      ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push,
-      version: "big-manistee-fall-brown-push-v1-draft",
-      hydraulic: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic },
-      rain: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.rain },
+      version: "big-manistee-fall-brown-push-v1",
+      hydraulic: {
+        metric: "flow_cfs",
+        sourceLabel: "Wellston tailwater",
+        lowValue: 1200,
+        highValue: 2300,
+        severeHighValue: 3500,
+        rising24h: { absolute: 50, percent: 3 },
+        meaningfulRise24h: { absolute: 100, percent: 7 },
+        sharpRise24h: { absolute: 180, percent: 12 },
+      },
+      rain: {
+        meaningful48hIn: .35,
+        strong48hIn: .75,
+        heavy48hIn: 1.5,
+      },
       temperature: {
         suitabilityLabel: "Big Manistee migratory Brown Trout spawning entry",
         coldHoldingF: 38,
@@ -142,34 +137,65 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
         migrationBarrierF: 70,
       },
       caps: {
-        ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.caps,
+        staleGauge: 55,
+        unknownTrend: 49,
+        noGaugeResponse: 69,
+        tooWarm: 69,
+        migrationBarrier: 49,
+        severeHighFlow: 49,
+        outsideExtendedWindow: 69,
         coldHolding: 49,
       },
       evidenceNotes:
         "The run reuses the accepted Wellston hydraulic response because it is the same regulated migratory corridor, while Brown Trout retain their own repeat-spawner temperature branch. Rain remains precursor-only and Strong movement language still requires measured gauge response.",
       sourceNotes:
-        "USGS 04125550 discharge and measured water temperature; Michigan DNR Brown Trout fall-entry and spawning biology. Thresholds are conservative Great Lakes migratory-Brown defaults pending the fixed Big Manistee replay and owner review.",
+        "USGS 04125550 discharge and measured water temperature; Michigan DNR Brown Trout fall-entry and spawning biology. Thresholds are the owner-accepted conservative Great Lakes lake-run Brown calibration.",
     },
     fishabilityBands: {
-      ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
+      version: "big-manistee-tailwater-fishability-v2-core-ideal",
+      metric: "flow_cfs",
+      sourceLabel: "Wellston tailwater",
+      tooLow: { max: 1100 },
+      lowFishable: { min: 1100, max: 1400 },
+      ideal: { min: 1400, max: 1750 },
+      highFishable: { min: 1750, max: 2500 },
+      blownOut: { min: 3500 },
+      caps: {
+        staleGauge: 55,
+        unknownTrend: 69,
+        veryLow: 45,
+        blownOut: 24,
+        sharpRiseHigh: 40,
+      },
       evidenceNotes:
         "The accepted Wellston bands classify presentation shape in the same regulated Upper-river reach for every migratory species. They do not estimate Brown Trout abundance, certify downstream conditions, or determine access or safety.",
+      sourceNotes:
+        "USGS 04125550 daily discharge, 1996-2025; Michigan DNR Tippy Dam management plan; and the accepted 2026-08-27 Big Manistee Fishability reconciliation.",
     },
     baselineCoverage: {
-      ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.baselineCoverage,
-      version: "big-manistee-fall-brown-flow-baseline-v1-draft",
+      metric: "flow_cfs",
+      version: "big-manistee-fall-brown-flow-baseline-v1",
+      hasPercentileBaselines: true,
+      coveredWindowPercent: 1,
+      minimumHistoryYears: 29,
       sourceNotes:
-        "USGS 04125550 daily discharge covers the complete hidden fall migratory-Brown lifecycle. Sherman and other contextual stations are never blended into scoring.",
+        "USGS 04125550 daily discharge covers the complete fall lake-run Brown Trout lifecycle. Sherman and other contextual stations are never blended into scoring.",
     },
     waterTemperature: {
-      ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.waterTemperature,
       sourcePriority: ["big_manistee_wellston_temperature"],
+      upstreamFallbackPositiveSignalCap: 0,
       notes:
         "Use only same-gauge Wellston measured water temperature. Air temperature and upstream context cannot substitute. The read is limited to the Upper river near Tippy Dam.",
     },
     conditionsSuggest: {
-      ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.conditionsSuggest,
-      baselineVersion: "big-manistee-fall-brown-conditions-v1-draft",
+      baselineVersion: "big-manistee-fall-brown-conditions-v1",
+      temperatureSourceId: "big_manistee_wellston_temperature",
+      finalCheckpointDaysAfterPeak: 5,
+      minimumUsableYears: 10,
+      minimumCoveragePercent: .8,
+      aheadPercentile: 75,
+      delayedPercentile: 25,
+      coolEnoughPercentileCap: 75,
       gaugeWeight: .4,
       waterTemperatureWeight: .6,
     },
@@ -184,21 +210,21 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
         "Surviving Brown Trout may hold in the river or return lakeward after spawning; this fall model does not assert which path an individual fish takes.",
     },
     researchNotes:
-      "Hidden Big Manistee migratory Brown Trout owner-review candidate. The calendar follows DNR late-summer/early-fall tributary residence, September-October spawning evidence, and the nearby Little Manistee weir record of a September peak lingering into November. October 1 is an analog reference rather than a direct Big Manistee count peak. Resident and migratory Browns can overlap; the product never labels an individual fish's origin from appearance, location, or date alone.",
+      "Owner-approved Big Manistee lake-run Brown Trout release profile. The calendar follows DNR late-summer/early-fall tributary residence, September-October spawning evidence, and the nearby Little Manistee weir record of a September peak lingering into November. October 1 is an analog reference rather than a direct Big Manistee count peak. Resident and migratory Browns can overlap; the product never labels an individual fish's origin from appearance, location, or date alone.",
     sourceNotes:
       "docs/onboarding/river-run/big_manistee/runs/fall-migratory-brown-trout.md",
     publicAudit: {
-      isEnabled: false,
-      auditVersion: "big-manistee-fall-brown-owner-review-v1",
+      isEnabled: true,
+      auditVersion: "big-manistee-fall-brown-release-audit-v1",
       notes:
-        "Hidden owner-review only. Public release requires owner acceptance, promotion into the public static configuration, production compatibility checks, and an explicitly authorized deployment.",
+        "Owner accepted the reviewed Big Manistee lake-run Brown Trout profile for public catalog promotion on 2026-08-29. Production deployment remains a separate explicit release action.",
     },
   };
 
 export const BIG_MANISTEE_BROWN_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-27-big-manistee-brown-fishability.4",
+    configVersion: "2026-08-29-big-manistee-brown-release.5",
     movementEngineVersion: getMovementEngineDefinition(
       "fall_repeat_spawner_cooling",
     ).version,

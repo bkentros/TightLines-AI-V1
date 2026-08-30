@@ -25,6 +25,7 @@ Deno.test("Big Manistee Fall Steelhead is a valid visible 8/10 broad run", () =>
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_fall_brown_trout",
     ],
   );
 });

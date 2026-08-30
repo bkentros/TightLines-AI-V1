@@ -559,11 +559,21 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 9);
-  assertEquals(runIds.length, 27);
-  assertEquals(new Set(riverIds).size, 8);
-  assertEquals(new Set(runIds).size, 24);
-  for (const riverId of ["grand", "platte", "white"]) {
+  assertEquals(riverIds.length, 13);
+  assertEquals(runIds.length, 44);
+  assertEquals(new Set(riverIds).size, 12);
+  assertEquals(new Set(runIds).size, 41);
+  for (
+    const riverId of [
+      "grand",
+      "platte",
+      "white",
+      "milwaukee",
+      "sheboygan",
+      "root",
+      "bois_brule",
+    ]
+  ) {
     assertEquals(riverIds.includes(riverId), true);
   }
   for (
@@ -577,6 +587,23 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "white_fall_chinook",
       "white_fall_coho",
       "white_fall_steelhead",
+      "big_manistee_fall_brown_trout",
+      "milwaukee_fall_chinook",
+      "milwaukee_fall_coho",
+      "milwaukee_fall_steelhead",
+      "milwaukee_fall_brown_trout",
+      "sheboygan_fall_chinook",
+      "sheboygan_fall_coho",
+      "sheboygan_fall_steelhead",
+      "sheboygan_fall_brown_trout",
+      "root_fall_chinook",
+      "root_fall_coho",
+      "root_fall_steelhead",
+      "root_fall_brown_trout",
+      "bois_brule_fall_chinook",
+      "bois_brule_fall_coho",
+      "bois_brule_fall_steelhead",
+      "bois_brule_fall_brown_trout",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);

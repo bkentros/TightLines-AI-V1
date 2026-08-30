@@ -6,7 +6,6 @@ import {
 } from "jsr:@std/assert";
 import {
   resolveRunStage,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   ROOT_CONFIGURATION_DOCUMENT,
   ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
@@ -28,7 +27,7 @@ const runs = [
   ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 
-Deno.test("Root four-species Gate 4B foundation validates and remains hidden", () => {
+Deno.test("Root four-species foundation validates in the public catalog", () => {
   const riverResult = validateRiverProfile(ROOT_RIVER_PROFILE);
   assertEquals(
     riverResult.valid,
@@ -49,8 +48,8 @@ Deno.test("Root four-species Gate 4B foundation validates and remains hidden", (
       true,
       `${run.runId}: ${result.issues.map((issue) => issue.message).join("\n")}`,
     );
-    assertEquals(result.publicVisible, false, run.runId);
-    assertEquals(run.publicAudit.isEnabled, false, run.runId);
+    assertEquals(result.publicVisible, true, run.runId);
+    assertEquals(run.publicAudit.isEnabled, true, run.runId);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     const fishability = run.primitiveCapabilities.fishability;
@@ -69,21 +68,17 @@ Deno.test("Root four-species Gate 4B foundation validates and remains hidden", (
       "root_horlick_weather",
     ]);
     assert(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((draft) => draft.runId === run.runId),
-      `${run.runId} missing from private draft registry`,
-    );
-    assert(
-      !RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
-      `${run.runId} leaked into the public registry`,
+      RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
+      `${run.runId} is missing from the public registry`,
     );
   }
 
   const issues = validateConfigurationRevision({
     configKey: "root",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: ROOT_CONFIGURATION_DOCUMENT,
-    evidenceNotes: "Root Gate 4B hidden weather-only Activity candidate.",
+    evidenceNotes: "Owner-approved Root four-species public release.",
   });
   assert(
     issues.every((issue) => issue.severity !== "error"),

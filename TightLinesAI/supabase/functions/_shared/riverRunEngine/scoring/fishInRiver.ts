@@ -455,7 +455,7 @@ function fishInRiverCopy(input: {
       detail:
         "This decline tracks the fall migration winding down. Brown Trout are repeat spawners, and surviving fish may hold in the river or return lakeward.",
       tip:
-        "Focus on deeper holding water, avoid visibly spawning fish, and do not assume every surviving fish follows the same post-spawn timing.",
+        "Focus on deeper holding water, avoid visibly spawning fish, and do not assume every surviving fish follows the same post-spawn pattern.",
     };
   }
 

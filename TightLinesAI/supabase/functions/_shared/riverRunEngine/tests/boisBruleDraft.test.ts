@@ -14,7 +14,6 @@ import {
   buildRiverLiveConditions,
   type NormalizedGaugeObservation,
   resolveRunStage,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   scoreActivity,
   scoreFishInRiver,
@@ -31,7 +30,7 @@ const runs = [
   BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 
-Deno.test("Bois Brule four-species Gate 4B foundation validates and remains hidden", () => {
+Deno.test("Bois Brule four-species foundation validates in the public catalog", () => {
   const riverResult = validateRiverProfile(BOIS_BRULE_RIVER_PROFILE);
   assertEquals(
     riverResult.valid,
@@ -52,8 +51,8 @@ Deno.test("Bois Brule four-species Gate 4B foundation validates and remains hidd
       true,
       `${run.runId}: ${result.issues.map((issue) => issue.message).join("\n")}`,
     );
-    assertEquals(result.publicVisible, false, run.runId);
-    assertEquals(run.publicAudit.isEnabled, false, run.runId);
+    assertEquals(result.publicVisible, true, run.runId);
+    assertEquals(run.publicAudit.isEnabled, true, run.runId);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(run.primitiveCapabilities.activity.status, "available");
@@ -65,21 +64,17 @@ Deno.test("Bois Brule four-species Gate 4B foundation validates and remains hidd
     assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, []);
     assertEquals(run.fishabilityBands, undefined);
     assert(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((draft) => draft.runId === run.runId),
-      `${run.runId} missing from private draft registry`,
-    );
-    assert(
-      !RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
-      `${run.runId} leaked into the public registry`,
+      RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
+      `${run.runId} is missing from the public registry`,
     );
   }
 
   const issues = validateConfigurationRevision({
     configKey: "bois_brule",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: BOIS_BRULE_CONFIGURATION_DOCUMENT,
-    evidenceNotes: "Bois Brule Gate 4B hidden weather-only candidate.",
+    evidenceNotes: "Owner-approved Bois Brule four-species public release.",
   });
   assert(
     issues.every((issue) => issue.severity !== "error"),

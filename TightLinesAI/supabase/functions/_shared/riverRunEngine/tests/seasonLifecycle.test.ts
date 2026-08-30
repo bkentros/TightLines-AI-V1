@@ -1,14 +1,14 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import {
+  addDays,
   buildConditionRefresh,
   buildDailySnapshot,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
-  RIVER_RUN_CONFIGURATION_DOCUMENTS,
-  addDays,
   resolveActiveRunWindow,
+  RIVER_RUN_CONFIGURATION_DOCUMENTS,
   type RiverRunDailySnapshot,
   type RiverRunProfile,
 } from "../index.ts";
@@ -141,7 +141,8 @@ Deno.test("all configured runs distinguish the upcoming cycle from the completed
       const completed = snapshotAndRefresh(run, completedDate);
       assert(
         completed.daily.runStage.label === "Fall run complete" ||
-          completed.daily.runStage.label === "Fall entry complete",
+          completed.daily.runStage.label === "Fall entry complete" ||
+          completed.daily.runStage.label === "Fall migration complete",
         `${run.runId} post-run Stage must remain complete immediately after its terminal window`,
       );
     }

@@ -10,7 +10,6 @@ import {
   BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
   resolveRunStage,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   scoreActivity,
   scoreFishInRiver,
@@ -20,10 +19,15 @@ import {
 
 const run = BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE;
 
-Deno.test("Big Manistee migratory Brown Trout validates and remains owner-review only", () => {
+Deno.test("Big Manistee migratory Brown Trout validates in the public catalog", () => {
   assertEquals(
     BIG_MANISTEE_BROWN_REVIEW_RIVER_PROFILE.foundation?.targetSpecies,
-    ["lake_run_brown_trout"],
+    [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
   );
   const result = validateRunProfile(run, BIG_MANISTEE_RIVER_PROFILE);
   assertEquals(
@@ -31,24 +35,21 @@ Deno.test("Big Manistee migratory Brown Trout validates and remains owner-review
     true,
     result.issues.map((issue) => issue.message).join("\n"),
   );
-  assertEquals(result.publicVisible, false);
-  assertEquals(run.publicAudit.isEnabled, false);
+  assertEquals(result.publicVisible, true);
+  assertEquals(run.publicAudit.isEnabled, true);
   assertEquals(BIG_MANISTEE_BROWN_CONFIGURATION_DOCUMENT.runs, [run]);
   assert(
-    RIVER_RUN_DRAFT_RUN_PROFILES.some((item) => item.runId === run.runId),
-  );
-  assert(
-    !RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
-    "hidden Brown Trout run leaked into the public catalog",
+    RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
+    "approved Brown Trout run is missing from the public catalog",
   );
 
   const issues = validateConfigurationRevision({
     configKey: "big_manistee_brown",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: BIG_MANISTEE_BROWN_CONFIGURATION_DOCUMENT,
     evidenceNotes:
-      "Hidden Big Manistee migratory-Brown owner-review candidate.",
+      "Owner-approved Big Manistee migratory-Brown public release.",
   });
   assert(
     issues.every((issue) => issue.severity !== "error"),

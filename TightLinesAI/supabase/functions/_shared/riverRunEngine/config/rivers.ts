@@ -1,6 +1,10 @@
 import type { RiverProfile } from "../types.ts";
+import { BOIS_BRULE_RIVER_PROFILE } from "./onboarding/boisBrule.ts";
 import { GRAND_RIVER_PROFILE } from "./onboarding/grand.ts";
+import { MILWAUKEE_RIVER_PROFILE } from "./onboarding/milwaukee.ts";
 import { PLATTE_RIVER_PROFILE } from "./onboarding/platte.ts";
+import { ROOT_RIVER_PROFILE } from "./onboarding/root.ts";
+import { SHEBOYGAN_RIVER_PROFILE } from "./onboarding/sheboygan.ts";
 import { WHITE_RIVER_PROFILE } from "./onboarding/white.ts";
 
 export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
@@ -430,7 +434,12 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
       "Tippy Dam; upstream obstruction and migratory-fishery terminus",
     downstreamTerminus:
       "Railroad bridge below M-55 / Manistee Lake approach; mouth and harbor are separate context",
-    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    targetSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "big_manistee_tippy_tailwater",
@@ -500,7 +509,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
         },
         beginnerSuitable: false,
         restrictionNotes:
-          "Tippy Dam blocks upstream passage for Chinook, Coho, and Steelhead. River Run recommendations end below the dam. Follow current signs, booms, closures, and dam-safety notices.",
+          "Tippy Dam blocks upstream passage for Chinook, Coho, Steelhead, and lake-run Brown Trout. River Run recommendations end below the dam. Follow current signs, booms, closures, and dam-safety notices.",
         sourceNotes:
           "Michigan DNR Slagle Creek Status Report 2014-183 and Manistee River Hodenpyl-to-Red Bridge Status Report 2004-2 explicitly state that Tippy Dam blocks upstream fish migration; passage last verified 2026-08-10.",
       },
@@ -536,7 +545,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR FO-200.25, 2026 Michigan Fishing Regulations, current Tippy Dam Recreation Area page, and Consumers Energy dam-safety information.",
     },
     evidenceNotes:
-      "Foundation reverified and owner-approved August 10, 2026. Public sections are Lower river (M-55–Bear Creek), Middle river (Bear Creek–High Bridge), and Upper river (High Bridge–Tippy Dam), with Tippy-area emphasis inside the Upper river. Tippy is an impassable upstream migration barrier. Wellston is completely regulated by Tippy and represents the Upper river only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
+      "Foundation reverified and owner-approved August 10, 2026, with lake-run Brown Trout added to the accepted public target portfolio on August 29, 2026. Public sections are Lower river (M-55–Bear Creek), Middle river (Bear Creek–High Bridge), and Upper river (High Bridge–Tippy Dam), with Tippy-area emphasis inside the Upper river. Tippy is an impassable upstream migration barrier. Wellston is completely regulated by Tippy and represents the Upper river only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
   },
   conditionRefreshSchedule: {
     activeSlots: [
@@ -1172,4 +1181,8 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   GRAND_RIVER_PROFILE,
   PLATTE_RIVER_PROFILE,
   WHITE_RIVER_PROFILE,
+  MILWAUKEE_RIVER_PROFILE,
+  SHEBOYGAN_RIVER_PROFILE,
+  ROOT_RIVER_PROFILE,
+  BOIS_BRULE_RIVER_PROFILE,
 ];

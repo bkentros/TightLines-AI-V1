@@ -199,7 +199,7 @@ Deno.test("Big Manistee configuration revision binds its river-specific biology"
   const issues = validateConfigurationRevision({
     configKey: "big_manistee",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: BIG_MANISTEE_CONFIGURATION_DOCUMENT,
     evidenceNotes:
       "Big Manistee Fall Chinook owner-audit implementation build.",
@@ -211,6 +211,7 @@ Deno.test("Big Manistee configuration revision binds its river-specific biology"
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_fall_brown_trout",
     ],
   );
   assertEquals(

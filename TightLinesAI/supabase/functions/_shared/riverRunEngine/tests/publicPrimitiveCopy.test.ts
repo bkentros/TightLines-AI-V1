@@ -27,11 +27,16 @@ Deno.test("all public primitive copy excludes retired primitives", () => {
     document.runs
   );
 
-  assertEquals(RIVER_RUN_CONFIGURATION_DOCUMENTS.length, 8);
-  assertEquals(runs.length, 24);
+  assertEquals(RIVER_RUN_CONFIGURATION_DOCUMENTS.length, 12);
+  assertEquals(runs.length, 41);
   assertEquals(
     new Set(runs.map((run) => run.species)),
-    new Set(["chinook_salmon", "coho_salmon", "steelhead"]),
+    new Set([
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ]),
   );
 
   for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {

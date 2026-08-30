@@ -632,7 +632,7 @@ function onboardingCorridorRoute(input: {
             "Harbor & Downtown or established Urban Greenway holding water; add legal North Shore water selectively.",
           limit,
           tip:
-            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, avoid active spawning fish, and treat the decline as migration timing rather than individual-fish outcome.",
+            "Keep the plan lower-river weighted, stay outside the Kletzsch refuge, avoid active spawning fish, and treat the decline as seasonal progression rather than individual-fish outcome.",
         };
       }
       return {
@@ -1679,14 +1679,14 @@ function bigManisteeTailwaterStageCopy(input: {
         whereToStart:
           `Start in the ${upper}, especially the Tippy Dam area. Add the ${middle} only when direct activity supports it.`,
         detail: input.repeatSpawner
-          ? "The river can hold late migrants, spawning fish, and post-spawn survivors. The declining curve tracks migration timing, while surviving fish may remain or return lakeward individually."
+          ? "The river can hold late migrants, spawning fish, and post-spawn survivors. The declining curve tracks seasonal progression, while surviving fish may remain or return lakeward individually."
           : lateTaper
           ? "Fresh arrivals are becoming exceptions and dependable distribution is narrowing."
           : "The run is declining and increasingly concentrated in established holding water.",
         tip: lateTaper
           ? "Fish selected holding water carefully and leave visible spawning fish undisturbed."
           : input.repeatSpawner
-          ? "Compare established holding water, leave visible spawning Brown Trout undisturbed, and treat decline as migration timing rather than individual-fish outcome."
+          ? "Compare established holding water, leave visible spawning Brown Trout undisturbed, and treat decline as seasonal progression rather than individual-fish outcome."
           : "Look for genuinely fresh fish and leave visible spawning or deteriorated fish alone.",
       };
     case "ending":

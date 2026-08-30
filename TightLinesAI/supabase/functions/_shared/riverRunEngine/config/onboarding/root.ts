@@ -73,7 +73,7 @@ export const ROOT_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "root-foundation-v4-gate4b-draft",
+    version: "root-foundation-v4-release",
     corridorLengthMiles: 3.8,
     downstreamTerminus: "Racine Harbor mouth at Lake Michigan",
     upstreamTerminus:
@@ -215,9 +215,10 @@ const sharedRunFields = {
   runStageCopyStrategy: "onboarding_corridor" as const,
   primitiveCapabilities,
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
+    auditVersion: "root-four-species-release-audit-v1",
     notes:
-      "Hidden Root Gate 4B weather-only Activity candidate. Public enablement, deployment, and release remain unauthorized.",
+      "Owner accepted all four Root fall profiles for public catalog promotion on 2026-08-29. Production deployment remains a separate explicit release action.",
   },
 };
 
@@ -246,7 +247,7 @@ export const ROOT_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 8,
-    version: "root-chinook-presence-v1-draft",
+    version: "root-chinook-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
       { dayOffsetFromStart: 15, fractionOfMaximum: .2 },
@@ -265,7 +266,7 @@ export const ROOT_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2023-2025 fall summaries, 2024-2025 facility report, regional Chinook biology, current regulations, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-chinook-weather-activity-v2-draft",
+    version: "root-fall-chinook-weather-activity-v2-release",
     profile: "chinook_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -324,7 +325,7 @@ export const ROOT_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 9,
-    version: "root-coho-presence-v1-draft",
+    version: "root-coho-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .2 },
@@ -343,7 +344,7 @@ export const ROOT_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2023-2025 fall summaries, 2024-2025 facility report, regional Coho biology, current regulations, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-coho-weather-activity-v2-draft",
+    version: "root-fall-coho-weather-activity-v2-release",
     profile: "coho_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -402,7 +403,7 @@ export const ROOT_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 7,
-    version: "root-steelhead-fall-presence-v2-local-peak-draft",
+    version: "root-steelhead-fall-presence-v2-local-peak-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .12 },
       { dayOffsetFromStart: 15, fractionOfMaximum: .35 },
@@ -418,7 +419,7 @@ export const ROOT_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2019-2025 facility reports, Steelhead strain guide, 2024 stocking summary, current regulations, and owner-relayed Wisconsin local calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-steelhead-weather-activity-v2-local-calendar-draft",
+    version: "root-fall-steelhead-weather-activity-v2-local-calendar-release",
     profile: "steelhead_feeding",
     reachIds: [
       "root_harbor_downtown",
@@ -463,7 +464,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 7,
-    version: "root-lake-run-brown-presence-v1-draft",
+    version: "root-lake-run-brown-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
       { dayOffsetFromStart: 14, fractionOfMaximum: .18 },
@@ -480,7 +481,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2025 GLFC report, 2023-2025 Root facility reports, 2024 stocking summary, Brown Trout life history, trout/salmon Q&A, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-brown-trout-weather-activity-v1-draft",
+    version: "root-fall-brown-trout-weather-activity-v1-release",
     profile: "brown_trout_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -511,7 +512,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const ROOT_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-root-fishability-source-scope.5",
+  configVersion: "2026-08-29-root-four-species-release.6",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

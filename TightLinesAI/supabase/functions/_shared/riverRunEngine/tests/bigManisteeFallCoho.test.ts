@@ -23,6 +23,7 @@ Deno.test("Big Manistee Fall Coho validates as a visible complete profile", () =
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_fall_brown_trout",
     ],
   );
   assertEquals(run.historicalPresence.maximum, 5);

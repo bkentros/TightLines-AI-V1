@@ -134,7 +134,7 @@ export const MILWAUKEE_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "milwaukee-foundation-v3-gate4-draft",
+    version: "milwaukee-foundation-v3-release",
     corridorLengthMiles: 32,
     downstreamTerminus: "Milwaukee Harbor mouth at Lake Michigan",
     upstreamTerminus:
@@ -306,9 +306,10 @@ const sharedRunFields = {
   fishabilityBands: MILWAUKEE_FISHABILITY,
   baselineCoverage: MILWAUKEE_BASELINE,
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
+    auditVersion: "milwaukee-four-species-release-audit-v1",
     notes:
-      "Hidden Gate 4B Milwaukee Activity owner-review candidate. Public enablement, deployment, and release remain unauthorized.",
+      "Owner accepted all four Milwaukee fall profiles for public catalog promotion on 2026-08-29. Production deployment remains a separate explicit release action.",
   },
 };
 
@@ -338,7 +339,7 @@ export const MILWAUKEE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 8,
     distributionScope: "sectional",
-    version: "milwaukee-chinook-presence-v1-draft",
+    version: "milwaukee-chinook-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .22 },
@@ -358,7 +359,7 @@ export const MILWAUKEE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Milwaukee fall-fishing calendar, Chinook research page, current stocking summary, corridor sources, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: milwaukeeObservedActivity({
-    version: "milwaukee-fall-chinook-observed-activity-v2-draft",
+    version: "milwaukee-fall-chinook-observed-activity-v2-release",
     profile: "chinook_fall_reaction",
     weights: {
       light: .35,
@@ -424,7 +425,7 @@ export const MILWAUKEE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 7,
     distributionScope: "sectional",
-    version: "milwaukee-coho-presence-v1-draft",
+    version: "milwaukee-coho-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .18 },
@@ -443,7 +444,7 @@ export const MILWAUKEE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Milwaukee fall-fishing calendar, current stocking summary, corridor sources, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: milwaukeeObservedActivity({
-    version: "milwaukee-fall-coho-observed-activity-v1-draft",
+    version: "milwaukee-fall-coho-observed-activity-v1-release",
     profile: "coho_fall_reaction",
     weights: {
       light: .25,
@@ -508,7 +509,7 @@ export const MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 7,
     distributionScope: "sectional",
-    version: "milwaukee-steelhead-fall-presence-v2-local-peak-draft",
+    version: "milwaukee-steelhead-fall-presence-v2-local-peak-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .12 },
       { dayOffsetFromStart: 15, fractionOfMaximum: .35 },
@@ -585,7 +586,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
   historicalPresence: presence({
     maximum: 9,
     distributionScope: "concentrated",
-    version: "milwaukee-lake-run-brown-presence-v1-draft",
+    version: "milwaukee-lake-run-brown-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 14, fractionOfMaximum: .15 },
@@ -603,7 +604,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2026 Fishing Report, Milwaukee fall-fishing calendar, 2025 GLFC brood report, Lake Michigan trout/salmon questions, current stocking/creel evidence, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: milwaukeeObservedActivity({
-    version: "milwaukee-fall-brown-observed-activity-v2-draft",
+    version: "milwaukee-fall-brown-observed-activity-v2-release",
     profile: "brown_trout_fall_reaction",
     weights: {
       light: .25,
@@ -639,7 +640,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const MILWAUKEE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-milwaukee-fishability-reconciliation.7",
+  configVersion: "2026-08-29-milwaukee-four-species-release.8",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

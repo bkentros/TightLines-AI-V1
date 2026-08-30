@@ -9,7 +9,7 @@ import {
   validateRiverProfile,
 } from "../index.ts";
 
-Deno.test("Big Manistee public foundation retains only its released target portfolio", () => {
+Deno.test("Big Manistee public foundation retains its released target portfolio", () => {
   const result = validateRiverProfile(BIG_MANISTEE_RIVER_PROFILE);
 
   assertEquals(result.valid, true);
@@ -17,7 +17,12 @@ Deno.test("Big Manistee public foundation retains only its released target portf
   assertEquals(result.publicVisible, true);
   assertEquals(
     BIG_MANISTEE_RIVER_PROFILE.foundation?.targetSpecies,
-    ["chinook_salmon", "coho_salmon", "steelhead"],
+    [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
   );
   assertEquals(
     listVisibleRiverRuns(
@@ -30,6 +35,7 @@ Deno.test("Big Manistee public foundation retains only its released target portf
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_fall_brown_trout",
     ],
   );
 });
@@ -76,7 +82,7 @@ Deno.test("Big Manistee foundation document binds all selectable fall runs", () 
   const issues = validateConfigurationRevision({
     configKey: "big_manistee",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: BIG_MANISTEE_CONFIGURATION_DOCUMENT,
     evidenceNotes:
       "Approved Big Manistee river foundation with owner-audit Chinook and Coho implementations.",
@@ -89,11 +95,12 @@ Deno.test("Big Manistee foundation document binds all selectable fall runs", () 
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_fall_brown_trout",
     ],
   );
   assert(
     BIG_MANISTEE_CONFIGURATION_DOCUMENT.configVersion.includes(
-      "big-manistee-fishability",
+      "big-manistee-brown-release",
     ),
   );
 });

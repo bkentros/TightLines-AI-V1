@@ -1,7 +1,17 @@
 # Root River River Run Acceptance
 
-**Public enablement:** `not_authorized` **Current gate:**
-`gate_4b_hidden_owner_review`
+**Public catalog:** `owner_approved_static_release_ready` **Production
+deployment:** `not_performed`
+
+## 2026-08-29 release reconciliation
+
+The owner approved the four Root runs for public static-catalog promotion. All
+four `publicAudit` gates are enabled, the river/runs/configuration document are
+in the canonical public registries, and the former draft entries are removed.
+The release configuration is `2026-08-29-root-four-species-release.6`. This
+supersedes older hidden/pending state language below, which remains as historical
+gate evidence. No Edge Function deployment, database publication, app build, or
+store submission was performed by this approval reconciliation.
 
 ## Gate record
 

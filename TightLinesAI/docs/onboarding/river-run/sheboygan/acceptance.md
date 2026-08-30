@@ -1,7 +1,19 @@
 # Sheboygan River River Run Acceptance
 
-**River ID:** `sheboygan` **Created:** 2026-08-25 **Public enablement:**
-`not_authorized`
+**River ID:** `sheboygan` **Created:** 2026-08-25 **Public catalog:**
+`owner_approved_static_release_ready` **Production deployment:** `not_performed`
+
+## 2026-08-29 release reconciliation
+
+The owner approved the four Sheboygan runs for public static-catalog promotion.
+All four `publicAudit` gates are enabled, the river/runs/configuration document
+are in the canonical public registries, and the former draft entries are
+removed. The release configuration is
+`2026-08-29-sheboygan-four-species-release.5`. This supersedes older “hidden,”
+“pending public promotion,” and “not authorized” state language below, which is
+retained as historical gate evidence. No Edge Function deployment, database
+publication, app build, or store submission was performed by this approval
+reconciliation.
 
 ## Gate record
 

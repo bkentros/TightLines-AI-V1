@@ -23,6 +23,60 @@ const expectedRivers = new Set([
   "grand",
   "platte",
   "white",
+  "milwaukee",
+  "sheboygan",
+  "root",
+  "bois_brule",
+]);
+const fourSpeciesRivers = new Set([
+  "big_manistee",
+  "milwaukee",
+  "sheboygan",
+  "root",
+  "bois_brule",
+]);
+const expectedRunIds = new Set([
+  "pere_marquette_fall_chinook",
+  "pere_marquette_fall_coho",
+  "pere_marquette_fall_steelhead",
+  "big_manistee_fall_chinook",
+  "big_manistee_fall_coho",
+  "big_manistee_fall_steelhead",
+  "big_manistee_fall_brown_trout",
+  "muskegon_fall_chinook",
+  "muskegon_fall_coho",
+  "muskegon_fall_steelhead",
+  "st_joseph_fall_chinook",
+  "st_joseph_fall_coho",
+  "st_joseph_fall_steelhead",
+  "betsie_fall_chinook",
+  "betsie_fall_coho",
+  "betsie_fall_steelhead",
+  "grand_fall_chinook",
+  "grand_fall_coho",
+  "grand_fall_steelhead",
+  "platte_fall_chinook",
+  "platte_fall_coho",
+  "platte_fall_steelhead",
+  "white_fall_chinook",
+  "white_fall_coho",
+  "white_fall_steelhead",
+  "milwaukee_fall_chinook",
+  "milwaukee_fall_coho",
+  "milwaukee_fall_steelhead",
+  "milwaukee_fall_brown_trout",
+  "sheboygan_fall_chinook",
+  "sheboygan_fall_coho",
+  "sheboygan_fall_steelhead",
+  "sheboygan_fall_brown_trout",
+  "root_fall_chinook",
+  "root_fall_coho",
+  "root_fall_steelhead",
+  "root_fall_brown_trout",
+  "bois_brule_fall_chinook",
+  "bois_brule_fall_coho",
+  "bois_brule_fall_steelhead",
+  "bois_brule_fall_brown_trout",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -35,12 +89,12 @@ assert(
   "Existing portfolio must have no noisy onboarding warnings.",
 );
 assert(
-  report.riverCount === 8,
-  `Expected 8 rivers, received ${report.riverCount}.`,
+  report.riverCount === 12,
+  `Expected 12 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 24,
-  `Expected 24 runs, received ${report.runCount}.`,
+  report.runCount === 41,
+  `Expected 41 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(
@@ -48,8 +102,8 @@ for (const river of report.rivers) {
     `Unexpected or duplicate river ${river.riverId}.`,
   );
   assert(
-    river.runs.length === 3,
-    `${river.riverId} must expose all three current species.`,
+    river.runs.length === (fourSpeciesRivers.has(river.riverId) ? 4 : 3),
+    `${river.riverId} exposes an unexpected species count.`,
   );
   assert(
     JSON.stringify(river.publicPrimitiveOrder) ===
@@ -57,6 +111,10 @@ for (const river of report.rivers) {
     `${river.riverId} public primitive order drifted.`,
   );
   for (const run of river.runs) {
+    assert(
+      expectedRunIds.delete(run.runId),
+      `Unexpected or duplicate public run ${run.runId}.`,
+    );
     assert(run.publicAuditEnabled, `${run.runId} public audit is disabled.`);
     assert(
       run.activityMode !== "unavailable",
@@ -82,6 +140,10 @@ for (const river of report.rivers) {
 assert(
   expectedRivers.size === 0,
   `Missing rivers: ${[...expectedRivers].join(", ")}`,
+);
+assert(
+  expectedRunIds.size === 0,
+  `Missing public runs: ${[...expectedRunIds].join(", ")}`,
 );
 for (const river of RIVER_RUN_DRAFT_RIVER_PROFILES) {
   const result = validateRiverProfile(river);
@@ -297,7 +359,7 @@ assert(
   "Onboarding primitive order must match the actual River Run UI registry.",
 );
 console.log(
-  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs plus ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} hidden draft rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} hidden draft runs, four public primitives, Live Conditions capability checks, canonical standards, and scaffold templates.`,
+  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs, ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} pending rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} pending runs, four public primitives, Live Conditions capability checks, canonical standards, and scaffold templates.`,
 );
 
 function assert(condition: unknown, message: string): asserts condition {

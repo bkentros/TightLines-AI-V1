@@ -14,7 +14,6 @@ import {
   MILWAUKEE_RIVER_PROFILE,
   resolveAdminOverrideBand,
   resolveRunStage,
-  RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   scoreActivity,
   scoreFishability,
@@ -32,7 +31,7 @@ const runs = [
   MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 
-Deno.test("Milwaukee four-species foundation validates and remains hidden", () => {
+Deno.test("Milwaukee four-species foundation validates in the public catalog", () => {
   const riverResult = validateRiverProfile(MILWAUKEE_RIVER_PROFILE);
   assertEquals(
     riverResult.valid,
@@ -45,12 +44,6 @@ Deno.test("Milwaukee four-species foundation validates and remains hidden", () =
     "steelhead",
     "lake_run_brown_trout",
   ]);
-  assertEquals(
-    RIVER_RUN_DRAFT_RUN_PROFILES.filter((run) => run.riverId === "milwaukee")
-      .length,
-    4,
-  );
-
   for (const run of runs) {
     const result = validateRunProfile(run, MILWAUKEE_RIVER_PROFILE);
     assertEquals(
@@ -58,8 +51,8 @@ Deno.test("Milwaukee four-species foundation validates and remains hidden", () =
       true,
       `${run.runId}: ${result.issues.map((issue) => issue.message).join("\n")}`,
     );
-    assertEquals(result.publicVisible, false, run.runId);
-    assertEquals(run.publicAudit.isEnabled, false, run.runId);
+    assertEquals(result.publicVisible, true, run.runId);
+    assertEquals(run.publicAudit.isEnabled, true, run.runId);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(
@@ -69,19 +62,17 @@ Deno.test("Milwaukee four-species foundation validates and remains hidden", () =
     assertEquals(run.primitiveCapabilities.activity.status, "available");
     assert(run.activity, `${run.runId} Activity rules missing`);
     assert(
-      !RIVER_RUN_RUN_PROFILES.some((publicRun) =>
-        publicRun.runId === run.runId
-      ),
-      `${run.runId} leaked into the public registry`,
+      RIVER_RUN_RUN_PROFILES.some((publicRun) => publicRun.runId === run.runId),
+      `${run.runId} is missing from the public registry`,
     );
   }
 
   const issues = validateConfigurationRevision({
     configKey: "milwaukee",
     revision: 1,
-    status: "draft",
+    status: "published",
     document: MILWAUKEE_CONFIGURATION_DOCUMENT,
-    evidenceNotes: "Milwaukee Gate 4 hidden truth/copy candidate.",
+    evidenceNotes: "Owner-approved Milwaukee four-species public release.",
   });
   assert(
     issues.every((issue) => issue.severity !== "error"),

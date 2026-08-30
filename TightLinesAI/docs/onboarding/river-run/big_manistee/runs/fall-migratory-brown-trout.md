@@ -1,7 +1,8 @@
 # Big Manistee Fall Migratory Brown Trout River Run Profile
 
 **River ID:** `big_manistee` **Species:** `lake_run_brown_trout`
-**Status:** `gate_4b_hidden_owner_review`
+**Status:** `owner_approved_static_release_ready` **Approval:** 2026-08-29
+**Production deployment:** `not_performed`
 
 ## 0. Decision and evidence boundary
 
@@ -16,7 +17,10 @@ but they do not establish Chinook-scale migratory abundance. Resident and
 migratory Browns overlap, creel records do not reliably distinguish them, and
 one record fish cannot set an abundance rating.
 
-**Candidate decision:** 5/10, sectional, hidden pending owner review.
+**Approved decision:** 5/10, sectional, public static-catalog profile. The run is
+merged into the canonical Big Manistee configuration under
+`2026-08-29-big-manistee-brown-release.3`; no backend deployment, app build, or
+store submission was performed during approval reconciliation.
 
 ## 1. Calendar and Fish In River
 
@@ -82,4 +86,4 @@ the cooler Tapering/Ending calendar even though Fish In River peaks October 1;
 that separation is intentional because Activity measures response conditions
 for a fish already present, not migration strength. Exact calendar shoulders,
 temperature thresholds, and the 5/10 ceiling remain conservative product
-calibration pending owner review.
+calibration accepted by the owner for the static release candidate.

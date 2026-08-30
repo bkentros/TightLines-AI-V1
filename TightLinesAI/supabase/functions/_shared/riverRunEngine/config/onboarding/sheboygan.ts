@@ -53,7 +53,7 @@ export const SHEBOYGAN_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "sheboygan-foundation-v4-gate4b-draft",
+    version: "sheboygan-foundation-v4-release",
     corridorLengthMiles: 9.9,
     downstreamTerminus: "Sheboygan Harbor mouth at Lake Michigan",
     upstreamTerminus:
@@ -230,9 +230,10 @@ const sharedRunFields = {
   fishabilityBands: SHEBOYGAN_FISHABILITY,
   baselineCoverage: SHEBOYGAN_BASELINE,
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
+    auditVersion: "sheboygan-four-species-release-audit-v1",
     notes:
-      "Hidden Sheboygan Gate 4B weather-only Activity candidate. Public enablement, deployment, and release remain unauthorized.",
+      "Owner accepted all four Sheboygan fall profiles for public catalog promotion on 2026-08-29. Production deployment remains a separate explicit release action.",
   },
 };
 
@@ -261,7 +262,7 @@ export const SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 8,
-    version: "sheboygan-chinook-presence-v1-draft",
+    version: "sheboygan-chinook-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .22 },
@@ -281,7 +282,7 @@ export const SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2024 Lake Michigan stocking summary, Chinook life history, Sheboygan access material, current regulations, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "sheboygan-fall-chinook-weather-activity-v2-draft",
+    version: "sheboygan-fall-chinook-weather-activity-v2-release",
     profile: "chinook_fall_reaction",
     reachIds: [
       "sheboygan_harbor_lower_city",
@@ -340,7 +341,7 @@ export const SHEBOYGAN_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 8,
-    version: "sheboygan-coho-presence-v1-draft",
+    version: "sheboygan-coho-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .2 },
@@ -359,7 +360,7 @@ export const SHEBOYGAN_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2023-2024 Lake Michigan stocking summaries, Coho life history, Sheboygan access material, current regulations, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "sheboygan-fall-coho-weather-activity-v2-draft",
+    version: "sheboygan-fall-coho-weather-activity-v2-release",
     profile: "coho_fall_reaction",
     reachIds: [
       "sheboygan_harbor_lower_city",
@@ -418,7 +419,7 @@ export const SHEBOYGAN_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 5,
-    version: "sheboygan-steelhead-fall-presence-v2-local-peak-draft",
+    version: "sheboygan-steelhead-fall-presence-v2-local-peak-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .12 },
       { dayOffsetFromStart: 10, fractionOfMaximum: .35 },
@@ -480,7 +481,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   historicalPresence: presence({
     maximum: 8,
-    version: "sheboygan-lake-run-brown-presence-v1-draft",
+    version: "sheboygan-lake-run-brown-presence-v1-release",
     anchors: [
       { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
       { dayOffsetFromStart: 14, fractionOfMaximum: .18 },
@@ -498,7 +499,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2024 Lake Michigan stocking summary, 2026 fishing report, Brown Trout life history, Lake Michigan trout/salmon questions, Sheboygan access material, current regulations, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "sheboygan-fall-brown-trout-weather-activity-v1-draft",
+    version: "sheboygan-fall-brown-trout-weather-activity-v1-release",
     profile: "brown_trout_fall_reaction",
     reachIds: [
       "sheboygan_harbor_lower_city",
@@ -529,7 +530,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const SHEBOYGAN_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-sheboygan-fishability-reconciliation.4",
+  configVersion: "2026-08-29-sheboygan-four-species-release.5",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
