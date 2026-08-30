@@ -196,7 +196,7 @@ assert.deepEqual(
       },
       {
         label: "North Shore · Kletzsch Park to Bridge Street Dam",
-        spots: 5,
+        spots: 4,
       },
     ],
     sheboygan: [
@@ -221,11 +221,11 @@ assert.deepEqual(
     bois_brule: [
       {
         label: "Mouth & Lower River · Lake Superior to Fishway Refuge",
-        spots: 9,
+        spots: 11,
       },
       {
         label: "Rapids Reach · Fishway Refuge to County Highway FF",
-        spots: 5,
+        spots: 3,
       },
       {
         label: "Upper Lower River · County Highway FF to Highway 2",
@@ -428,6 +428,23 @@ for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
     `${riverId} must open current Wisconsin rules instead of Michigan closures`,
   );
 }
+assert.doesNotMatch(
+  JSON.stringify(
+    RIVER_RUN_SPOT_FINDERS.milwaukee.sections.flatMap((section) =>
+      section.spots.map((spot) => spot.name)
+    ),
+  ),
+  /Veterans Memorial Park/,
+  "Milwaukee Spot Finder must stop below Bridge Street Dam",
+);
+const bruleLowerSection = RIVER_RUN_SPOT_FINDERS.bois_brule.sections.find(
+  (section) => section.id === "bois_brule_mouth_lower",
+);
+assert.deepEqual(
+  bruleLowerSection?.spots.slice(-2).map((spot) => spot.name),
+  ["Cloverland Park", "Highway 13 Landing"],
+  "Cloverland Park and Highway 13 Landing must remain below the Brule fishway",
+);
 assert.doesNotMatch(
   JSON.stringify(
     RIVER_RUN_SPOT_FINDERS.root.sections.flatMap((section) =>
