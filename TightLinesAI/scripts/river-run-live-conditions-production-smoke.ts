@@ -59,9 +59,11 @@ let userToken: string | null = null;
 let authenticationWarning: string | null = null;
 try {
   userToken = await resolveUserToken();
-} catch {
+} catch (error) {
   authenticationWarning =
-    "Configured production test-user credentials are unavailable; audited protected refresh storage instead.";
+    `Configured production test-user session is unavailable: ${
+      error instanceof Error ? error.message : String(error)
+    }. Auditing protected refresh storage instead.`;
 }
 const commonHeaders = {
   apikey: anonKey,
@@ -80,6 +82,7 @@ assertStringArraysEqual(
 const initialLiveRows = await restRows(
   "river_run_live_conditions",
   "river_id,local_date,refresh_slot,data_version,refreshed_at,conditions",
+  { data_version: `eq.${expectedDataVersion}` },
 );
 const initialCurrentLiveRows = initialLiveRows.filter((row) =>
   stringField(row, "data_version") === expectedDataVersion
@@ -146,7 +149,7 @@ for (const target of targets) {
         requiredString(metric, "metric") === "water_temp_f"),
     )
   );
-  if (["betsie", "platte"].includes(target.riverId)) {
+  if (target.riverId === "betsie") {
     if (stringField(firstConditions, "status") !== "unavailable") {
       throw new Error(
         `${target.riverId} must retain its honest unavailable gauge state.`,
@@ -175,6 +178,7 @@ for (const target of targets) {
 const verifiedLiveRows = await restRows(
   "river_run_live_conditions",
   "river_id,local_date,refresh_slot,data_version,refreshed_at,conditions",
+  { data_version: `eq.${expectedDataVersion}` },
 );
 const currentLiveRows = verifiedLiveRows.filter((row) =>
   stringField(row, "data_version") === expectedDataVersion
@@ -251,7 +255,11 @@ function latestStoredConditions(
     Date.parse(stringField(left, "refreshed_at") ?? "")
   );
   if (!candidates.length) {
-    throw new Error(`No stored Live Conditions payload exists for ${riverId}.`);
+    throw new Error(
+      `No stored Live Conditions payload exists for ${riverId}. ${
+        authenticationWarning ?? "Authenticated snapshot prewarm was not used."
+      }`,
+    );
   }
   return objectField(candidates[0], "conditions");
 }
@@ -355,8 +363,10 @@ function auditMetric(
 async function resolveUserToken(): Promise<string> {
   const configured = Deno.env.get("RIVER_RUN_USER_ACCESS_TOKEN")?.trim();
   if (configured) return configured;
-  const email = requiredEnv("WATER_READER_TEST_EMAIL");
-  const password = requiredEnv("WATER_READER_TEST_PASSWORD");
+  const email = Deno.env.get("RIVER_RUN_SMOKE_EMAIL")?.trim() ||
+    requiredEnv("WATER_READER_TEST_EMAIL");
+  const password = Deno.env.get("RIVER_RUN_SMOKE_PASSWORD")?.trim() ||
+    Deno.env.get("WATER_READER_TEST_PASSWORD")?.trim() || "not-configured";
   const auth = await requestJson(
     `${supabaseUrl}/auth/v1/token?grant_type=password`,
     {
@@ -372,12 +382,15 @@ async function resolveUserToken(): Promise<string> {
   // Production test passwords can be rotated independently of this workspace.
   // Fail closed unless the exact configured test user already exists, then mint
   // a short-lived session without changing credentials or sending an email.
-  const users = await requestJson(`${supabaseUrl}/auth/v1/admin/users`, {
-    headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
+  const users = await requestJson(
+    `${supabaseUrl}/auth/v1/admin/users?per_page=1000`,
+    {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+      },
     },
-  });
+  );
   assertOk(users, "test-user existence check");
   const userExists = arrayField(users.body, "users").some((value) =>
     stringField(asObject(value), "email")?.toLowerCase() === email.toLowerCase()
@@ -398,10 +411,8 @@ async function resolveUserToken(): Promise<string> {
     },
   );
   assertOk(link, "test-user session link");
-  const tokenHash = requiredString(
-    objectField(link.body, "properties"),
-    "hashed_token",
-  );
+  const tokenHash = stringField(link.body, "hashed_token") ??
+    requiredString(objectField(link.body, "properties"), "hashed_token");
   const verified = await requestJson(`${supabaseUrl}/auth/v1/verify`, {
     method: "POST",
     headers: { apikey: anonKey, "Content-Type": "application/json" },
@@ -426,20 +437,33 @@ async function readSnapshot(
   return response;
 }
 
-async function restRows(table: string, select: string): Promise<JsonObject[]> {
-  const url = new URL(`${supabaseUrl}/rest/v1/${table}`);
-  url.searchParams.set("select", select);
-  const response = await fetch(url, {
-    headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
-    },
-  });
-  const body = await response.json().catch(() => null);
-  if (!response.ok || !Array.isArray(body)) {
-    throw new Error(`${table} storage audit failed with ${response.status}.`);
+async function restRows(
+  table: string,
+  select: string,
+  filters: Record<string, string> = {},
+): Promise<JsonObject[]> {
+  const rows: JsonObject[] = [];
+  const pageSize = 1000;
+  for (let offset = 0;; offset += pageSize) {
+    const url = new URL(`${supabaseUrl}/rest/v1/${table}`);
+    url.searchParams.set("select", select);
+    for (const [key, value] of Object.entries(filters)) {
+      url.searchParams.set(key, value);
+    }
+    const response = await fetch(url, {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+        Range: `${offset}-${offset + pageSize - 1}`,
+      },
+    });
+    const body = await response.json().catch(() => null);
+    if (!response.ok || !Array.isArray(body)) {
+      throw new Error(`${table} storage audit failed with ${response.status}.`);
+    }
+    rows.push(...body.map(asObject));
+    if (body.length < pageSize) return rows;
   }
-  return body.map(asObject);
 }
 
 function uniqueRiverTargets(body: JsonObject) {

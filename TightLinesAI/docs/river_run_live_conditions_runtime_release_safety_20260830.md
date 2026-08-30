@@ -48,6 +48,22 @@ the Wisconsin portfolio or Big Manistee Browns to existing store builds.
 - Production smoke defaults to the legacy catalog. A later full release must
   run it with `RIVER_RUN_EXPECTED_RELEASE=full`.
 
-Deployment, protected prewarming, and post-deploy production smoke remain
-separate operational steps and must be recorded after authentication is
-available.
+## Deployment record
+
+- Edge Function `river-run` version 24 deployed at 2026-08-30 02:35:55 UTC.
+- No migration was created or applied. `supabase migration list --linked`
+  reports complete local/remote parity through `20260824120000`.
+- The post-deploy catalog retained 9 state placements, 8 unique rivers, and 24
+  unique runs. Wisconsin and Big Manistee Browns remained absent.
+- A direct Milwaukee snapshot request returned `404 river_run_not_found` before
+  authentication or provider work.
+- An existing allowlisted Play review account prewarmed all eight released
+  rivers; no production user was created or modified.
+- Production smoke passed on engine `river-run-v1.16.0` and Live Conditions
+  `river-live-conditions-v4`: eight persisted current-version river rows, 70
+  seasonal-context rows, authenticated snapshot/cache replay, and fresh valid
+  readings wherever a live source is configured. Betsie remained honestly
+  unavailable by design.
+- The smoke harness was also corrected to treat Platte's valid flow/height read
+  as available and to paginate/filter PostgREST storage audits instead of
+  silently accepting the first 1,000 rows.
