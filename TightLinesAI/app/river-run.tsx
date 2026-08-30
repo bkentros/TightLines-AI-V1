@@ -1571,7 +1571,8 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
       finder.sections.flatMap((section) =>
         section.spots.map((spot) => ({
           sectionId: section.id,
-          sectionLabel: section.label,
+          sectionPrimary: section.label.split(" · ")[0],
+          sectionRange: section.label.split(" · ").slice(1).join(" · "),
           spot,
         }))
       ),
@@ -1658,18 +1659,35 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
               showsVerticalScrollIndicator
               accessibilityLabel={`Scrollable list of ${spotCount} public access spots. Three spots are visible at a time.`}
             >
-              {spotRows.map(({ sectionId, sectionLabel, spot }) => (
+              {spotRows.map(({
+                sectionId,
+                sectionPrimary,
+                sectionRange,
+                spot,
+              }) => (
                 <View
                   key={`${sectionId}:${spot.id}`}
                   style={styles.spotFinderSpot}
                 >
                   <View style={styles.spotFinderSpotTopline}>
-                    <Text
-                      style={styles.spotFinderSpotSection}
-                      numberOfLines={1}
-                    >
-                      {sectionLabel.toUpperCase()}
-                    </Text>
+                    <View style={styles.spotFinderSectionIdentity}>
+                      <View style={styles.spotFinderSectionMarker} />
+                      <View style={styles.spotFinderSectionCopy}>
+                        <Text style={styles.spotFinderSpotSection}>
+                          {sectionPrimary.toUpperCase()}
+                        </Text>
+                        {sectionRange
+                          ? (
+                            <Text
+                              style={styles.spotFinderSectionRange}
+                              numberOfLines={1}
+                            >
+                              {sectionRange.toUpperCase()}
+                            </Text>
+                          )
+                          : null}
+                      </View>
+                    </View>
                     <View style={styles.spotFinderVerifiedBadge}>
                       <Ionicons
                         name="shield-checkmark"
@@ -3777,22 +3795,56 @@ const styles = StyleSheet.create({
   },
   spotFinderSpotTopline: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "space-between",
     gap: 8,
   },
-  spotFinderSpotSection: {
+  spotFinderSectionIdentity: {
     minWidth: 0,
     flex: 1,
+    flexDirection: "row",
+    alignItems: "stretch",
+    gap: 7,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: "#E6F5F2",
+  },
+  spotFinderSectionMarker: {
+    width: 3,
+    flexShrink: 0,
+    borderRadius: 2,
+    backgroundColor: "#167B78",
+  },
+  spotFinderSectionCopy: {
+    minWidth: 0,
+    flex: 1,
+    justifyContent: "center",
+    gap: 1,
+  },
+  spotFinderSpotSection: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
-    letterSpacing: .55,
+    fontSize: 10,
+    lineHeight: 13,
+    letterSpacing: 1.1,
+    color: "#0D5958",
+  },
+  spotFinderSectionRange: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.75,
+    lineHeight: 10,
+    letterSpacing: .45,
     color: paper.dashboardBlue,
   },
   spotFinderVerifiedBadge: {
+    alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
+    paddingHorizontal: 5,
+    paddingVertical: 4,
+    borderRadius: 7,
+    backgroundColor: "#F1F7F5",
   },
   spotFinderVerifiedBadgeText: {
     fontFamily: paperFonts.metaMonoBold,
