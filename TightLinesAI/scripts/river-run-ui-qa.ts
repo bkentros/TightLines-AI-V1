@@ -206,8 +206,8 @@ assert.doesNotMatch(
 );
 assert.match(
   riverRunScreen,
-  /VIEW LOCATION SOURCE/,
-  "Every Spot Finder entry must direct customers to its supporting location source",
+  /WHERE THE SOURCE EXPLAINS IT[\s\S]*?spot\.sourceLocator[\s\S]*?VIEW LOCATION SOURCE/,
+  "Every Spot Finder entry must explain where its source documents the location before opening it",
 );
 assert.match(
   riverRunScreen,
@@ -268,6 +268,40 @@ for (
       /^\d{4}-\d{2}-\d{2}$/,
       `${spot.id} needs a verification date`,
     );
+    assert(
+      spot.sourceLocator.trim().length >= 24,
+      `${spot.id} needs a useful source-location explanation`,
+    );
+    assert.notEqual(
+      spot.sourceUrl,
+      "https://www.michigan.gov/dnr/things-to-do/boating",
+      `${spot.id} must open the actual DNR facility finder, not its introductory page`,
+    );
+    assert.notEqual(
+      spot.sourceUrl,
+      "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+      `${spot.id} must open an individual Forest Service access page`,
+    );
+    assert(
+      [
+        "cms3.revize.com",
+        "experience.arcgis.com",
+        "miottawa.org",
+        "s34427.pcdn.co",
+        "swmichigan.org",
+        "www.berriencounty.org",
+        "www.dnr.state.mi.us",
+        "www.eatoncounty.org",
+        "www.fs.usda.gov",
+        "www.grandrapidsmi.gov",
+        "www.gtrlc.org",
+        "www.michigan.gov",
+        "www.michiganwatertrails.org",
+        "www.nilesmi.org",
+        "www.villageofberriensprings.com",
+      ].includes(new URL(spot.sourceUrl).hostname),
+      `${spot.id} must use an approved government, land-manager, or regional public-access source`,
+    );
     if (spot.latitude == null || spot.longitude == null) {
       continue;
     }
@@ -298,8 +332,8 @@ const seventySecondStreet = RIVER_RUN_SPOT_FINDERS.pere_marquette.sections
   .find((spot) => spot.id === "pm_72nd_angler");
 assert.equal(
   seventySecondStreet?.sourceUrl,
-  "https://www.fs.usda.gov/r09/huron-manistee/recreation",
-  "72nd Street must use the live Forest Service recreation directory",
+  "https://www.fs.usda.gov/r09/huron-manistee/recreation/72nd-st-angler-access",
+  "72nd Street must use its live individual Forest Service access page",
 );
 
 const platteSpots = RIVER_RUN_SPOT_FINDERS.platte.sections.flatMap((section) =>

@@ -113,6 +113,7 @@
     "qa:river-run:review-mode": "npm run check:river-run:review-fixtures && npm run check:river-run:st-joseph-review-fixtures && npm run check:river-run:onboarding-review-fixtures && tsx scripts/river-run-review-mode-qa.ts && tsx scripts/river-run-onboarding-review-mode-qa.ts",
     "qa:river-run:st-joseph-copy": "npm run check:river-run:st-joseph-review-fixtures && deno run --sloppy-imports scripts/river-run-st-joseph-copy-qa.ts",
     "qa:river-run:ui": "tsx scripts/river-run-ui-qa.ts",
+    "audit:river-run:spot-sources": "node --import tsx scripts/river-run-spot-source-live-audit.ts",
     "qa:river-run:free-trial": "tsx scripts/river-run-free-trial-contract-smoke.ts",
     "smoke:river-run:free-trial:production": "deno run --env-file=.env --allow-env --allow-net scripts/river-run-free-trial-production-smoke.ts",
     "qa:river-run:visuals": "tsx scripts/river-run-visual-qa.ts",

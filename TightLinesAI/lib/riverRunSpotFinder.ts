@@ -17,6 +17,7 @@ export type RiverAccessSpot = {
   caution?: string;
   sourceLabel: string;
   sourceUrl: string;
+  sourceLocator: string;
   verifiedOn: string;
 };
 
@@ -33,20 +34,59 @@ export type RiverSpotFinder = {
   sections: RiverAccessSection[];
 };
 
-const DNR_BOATING_SOURCE = "https://www.michigan.gov/dnr/things-to-do/boating";
+const DNR_BOATING_SOURCE =
+  "https://experience.arcgis.com/experience/cc091ec1b6a24d7a98010f8de57fd189/page/Explore";
 const DNR_CENTRAL_FISHERIES_SOURCE =
   "https://www.michigan.gov/dnr/managing-resources/fisheries/units/c-michigan";
 const DNR_CLOSURES = "https://www.michigan.gov/dnr/about/newsroom/closures";
 const PM_DNR_MAP =
   "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/PublicLands/LandUse/PereMarquette_WandSCorr_BAS.pdf?hash=ABAC24175FEE11C3485EE721B453B6D5&rev=d2b6e8bef18642bab650618c7a6c4471";
-const HURON_MANISTEE_RECREATION_SOURCE =
-  "https://www.fs.usda.gov/r09/huron-manistee/recreation";
 const NILES_RECREATION_PLAN =
   "https://www.nilesmi.org/document_center/department/DPW/City%20of%20Niles%2021-26%20PR%20Plan%20Final.pdf";
 const WHITE_RIVER_MAP =
   "https://s34427.pcdn.co/wp-content/uploads/2021/09/NCTC_White-River_Map_11x17_8-20-21_web.pdf";
 const PLATTE_PARK_SOURCE =
   "https://www.gtrlc.org/recreation-events/preserve/platte-river-park/";
+
+const DNR_FACILITY_SEARCH_NAMES: Record<string, string> = {
+  betsie_river_road: "River Road",
+  betsie_grace_road: "Grace Road",
+  betsie_us31: "US 31",
+  betsie_homestead: "Homestead Dam",
+  grand_ada: "Ada",
+  grand_grandriverpark: "Georgetown",
+  grand_grandville: "Grandville",
+  grand_indian: "Indian Channel",
+  grand_ionia: "Ionia Fairground",
+  grand_jaycee: "Jaycees Park",
+  grand_johnson: "Johnson Park",
+  grand_knapp: "Knapp Street Bridge",
+  grand_lyons: "Lyons",
+  grand_moores: "Moores Park",
+  grand_riverside: "Riverside Drive",
+  grand_robinson: "Robinson",
+  grand_rogue: "Rogue River Mouth",
+  grand_saranac: "Saranac",
+  grand_towner: "Towner Road",
+  grand_webber: "Webber Impoundment",
+  manistee_tippy_lower: "Tippy Dam",
+  stjoe_benton: "Benton Harbor",
+  stjoe_buchanan: "Buchanan",
+  stjoe_jasper: "Jasper Dairy Road",
+  stjoe_riverview: "Riverview Park",
+};
+
+const SOURCE_LOCATOR_OVERRIDES: Record<string, string> = {
+  muskegon_bridgeton:
+    "On the linked DNR page, find “Warner Road (Bridgeton Township) boat access”.",
+  muskegon_anderson:
+    "On the linked DNR page, find “Felch Street (Anderson Flats) DNR boat access”.",
+  muskegon_72nd:
+    "On the linked DNR page, find “DNR 72nd Street shore fishing access”.",
+};
+
+const directSourceLocator = (name: string) =>
+  `The linked source names “${name}” and describes its public access.`;
 
 const dnrSpot = (
   id: string,
@@ -67,6 +107,12 @@ const dnrSpot = (
   caution,
   sourceLabel: "Michigan DNR public access inventory",
   sourceUrl,
+  sourceLocator: SOURCE_LOCATOR_OVERRIDES[id] ??
+    (sourceUrl === DNR_BOATING_SOURCE
+      ? `In the official facility finder, search “${
+        DNR_FACILITY_SEARCH_NAMES[id] ?? name
+      }”.`
+      : directSourceLocator(name)),
   verifiedOn: "2026-08-30",
 });
 
@@ -88,6 +134,7 @@ const namedSpot = (
   caution,
   sourceLabel,
   sourceUrl,
+  sourceLocator: directSourceLocator(name),
   verifiedOn: "2026-08-30",
 });
 
@@ -111,6 +158,7 @@ const sourcedCoordinateSpot = (
   caution,
   sourceLabel,
   sourceUrl,
+  sourceLocator: directSourceLocator(name),
   verifiedOn: "2026-08-30",
 });
 
@@ -135,6 +183,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
               "Township park on Indian Hill Road with public river frontage, fishing platforms, boardwalk and carry-in launch.",
             sourceLabel: "Homestead Township / GTRLC",
             sourceUrl: PLATTE_PARK_SOURCE,
+            sourceLocator:
+              "The linked preserve page names Platte River Park and documents its fishing decks, boardwalk and river access.",
             verifiedOn: "2026-08-30",
           },
         ],
@@ -150,6 +200,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.9440252,
             ["shore_fishing", "carry_in"],
             "Gravel public access with limited vehicle parking; Recreation Passport required.",
+            undefined,
+            "https://www.michigan.gov/recsearch/sfcampgroundsn-z/veteransmemorial",
           ),
           dnrSpot(
             "platte_state_forest_campground",
@@ -158,6 +210,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.97799558,
             ["shore_fishing", "walk_in"],
             "Gravel public access near the campground; Recreation Passport required; posted hours apply.",
+            undefined,
+            "https://www.michigan.gov/recsearch/sfcampgroundsn-z/PlatteRiver",
           ),
         ],
       },
@@ -180,6 +234,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -86.16838592,
             ["boat_ramp"],
             "Gravel launch sharing parking with the Betsie Valley Trail; Recreation Passport required.",
+            undefined,
+            "https://www.michigan.gov/recsearch/trails/betsie-valley-trail",
           ),
           dnrSpot(
             "betsie_river_road",
@@ -218,7 +274,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -86.07913487,
             ["carry_in", "shore_fishing"],
             "Gravel access with timber steps; Recreation Passport required.",
-            "Seasonal signed fishing closures around the barrier are mandatory. This pin is the access entrance, not permission to fish inside a closure.",
+            "Seasonal signed fishing closures around the barrier are mandatory. The listed access does not permit fishing inside a closure.",
+            DNR_CENTRAL_FISHERIES_SOURCE,
           ),
         ],
       },
@@ -291,8 +348,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.881054,
             ["shore_fishing", "carry_in"],
             "Forest Service river access with improved steps and angler entry.",
-            "U.S. Forest Service recreation directory",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Green Cottage River Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/green-cottage-river-access",
           ),
           sourcedCoordinateSpot(
             "pm_claybanks",
@@ -301,8 +358,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.883319,
             ["shore_fishing", "carry_in"],
             "Forest Service corridor access; use the signed public entrance.",
-            "U.S. Forest Service recreation directory",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Claybanks Campground",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/claybanks-campground",
           ),
           namedSpot(
             "pm_rainbow_rapids",
@@ -311,7 +368,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["shore_fishing", "carry_in"],
             "Forest Service river access and parking area in the national scenic corridor.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/rainbow-rapids-boat-launch",
           ),
           sourcedCoordinateSpot(
             "pm_gleasons",
@@ -320,8 +377,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.921563,
             ["shore_fishing", "boat_ramp"],
             "Forest Service campground and launch with riverside angler trails.",
-            "U.S. Forest Service recreation directory",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Gleason's Landing",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/gleasons-landing-campground",
             "Seasonal watercraft permits and site fees may apply.",
           ),
           namedSpot(
@@ -331,7 +388,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["shore_fishing", "boat_ramp", "walk_in"],
             "Forest Service campground and river access popular with anglers and paddlers.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/bowman-bridge-river-access",
             "Campground or day-use fees and seasonal watercraft permits may apply.",
           ),
           sourcedCoordinateSpot(
@@ -352,8 +409,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             -85.87164,
             ["shore_fishing", "walk_in"],
             "Designated Forest Service angler trail and fishing access.",
-            "U.S. Forest Service recreation directory",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — 72nd St. Angler Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/72nd-st-angler-access",
             "Special tackle and catch-and-release rules apply in this reach; verify current regulations.",
           ),
           dnrSpot(
@@ -557,6 +614,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             sourceLabel: "Michigan Water Trails / City of Whitehall",
             sourceUrl:
               "https://www.michiganwatertrails.org/location.asp?aid=160&ait=av",
+            sourceLocator:
+              "The linked Michigan Water Trails page names Covell Park and lists its address and public amenities.",
             verifiedOn: "2026-08-30",
           },
         ],
@@ -675,7 +734,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp", "shore_fishing"],
             "Forest Service public river access in the lower migratory corridor.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/rainbow-bend-river-access",
           ),
           namedSpot(
             "manistee_udell",
@@ -683,8 +742,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Udell Rollways Manistee River Access, Michigan",
             ["shore_fishing", "walk_in"],
             "Forest Service public access in the lower national recreation river corridor.",
-            "U.S. Forest Service Manistee National Recreation River map",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Udell Rollways Day Use Area",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/udell-rollways-day-use-area",
           ),
           namedSpot(
             "manistee_blacksmith",
@@ -693,7 +752,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp", "shore_fishing"],
             "Forest Service public access on the lower river.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/blacksmith-bayou-river-access",
           ),
         ],
       },
@@ -708,7 +767,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp", "shore_fishing"],
             "Public access at the middle/lower orientation marker.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/bear-creek-river-access",
           ),
           namedSpot(
             "manistee_high_bridge",
@@ -717,7 +776,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp", "shore_fishing"],
             "Forest Service public landing at the middle/upper orientation marker.",
             "U.S. Forest Service",
-            "https://www.fs.usda.gov/r09/huron-manistee/recreation",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/high-bridge-river-access",
           ),
           namedSpot(
             "manistee_sawdust",
@@ -725,8 +784,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Sawdust Hole Manistee River Access, Michigan",
             ["boat_ramp", "shore_fishing"],
             "Forest Service public river access in the middle corridor.",
-            "U.S. Forest Service Manistee National Recreation River map",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Sawdust Hole River Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/sawdust-hole-river-access",
           ),
           namedSpot(
             "manistee_suicide_bend",
@@ -734,8 +793,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Suicide Bend Manistee River Access, Michigan",
             ["carry_in", "shore_fishing"],
             "Named Forest Service public access in the national recreation river corridor.",
-            "U.S. Forest Service Manistee National Recreation River map",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Suicide Bend Fishing Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/suicide-bend-fishing-access",
           ),
           namedSpot(
             "manistee_tunk_hole",
@@ -743,8 +802,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Tunk Hole Manistee River Access, Michigan",
             ["carry_in", "shore_fishing"],
             "Named Forest Service public access in the national recreation river corridor.",
-            "U.S. Forest Service Manistee National Recreation River map",
-            HURON_MANISTEE_RECREATION_SOURCE,
+            "U.S. Forest Service — Tunk Hole Angler Access",
+            "https://www.fs.usda.gov/r09/huron-manistee/recreation/tunk-hole-angler-access",
           ),
         ],
       },
@@ -856,6 +915,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
               "Michigan DNR Trout Trails / Village of Berrien Springs",
             sourceUrl:
               "https://www.dnr.state.mi.us/publications/pdfs/ArcGISOnline/StoryMaps/fish_troutTrails/PDFs/TT2015119.pdf",
+            sourceLocator:
+              "The linked Michigan DNR Trout Trail sheet names Shamrock Park and documents the public fishing access.",
             verifiedOn: "2026-08-30",
           },
           namedSpot(
@@ -917,14 +978,6 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         id: "grand_lower",
         label: "Lower · Grand Haven to Sixth Street",
         spots: [
-          dnrSpot(
-            "grand_flahive",
-            "Scott A. Flahive Memorial",
-            43.06146617,
-            -86.20227158,
-            ["boat_ramp"],
-            "Municipal public river access near Grand Haven.",
-          ),
           dnrSpot("grand_indian", "Indian Channel", 43.03227719, -86.14577446, [
             "boat_ramp",
           ], "Gravel public launch; Recreation Passport required."),
@@ -936,21 +989,25 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp"],
             "Gravel public launch; Recreation Passport required.",
           ),
-          dnrSpot(
+          sourcedCoordinateSpot(
             "grand_bass",
             "Bass River Recreation Area",
             43.00551647,
             -86.01357259,
             ["boat_ramp"],
             "Two-lane gravel launch; Recreation Passport and posted hours apply.",
+            "Michigan DNR — Bass River Recreation Area",
+            "https://www.michigan.gov/recsearch/parks/bassriver",
           ),
-          dnrSpot(
+          sourcedCoordinateSpot(
             "grand_grandriverpark",
             "Grand River Park",
             42.94450465,
             -85.85465797,
             ["carry_in"],
             "Municipal paved carry-down with posted park hours.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/grand-river-park/",
           ),
           dnrSpot(
             "grand_grandville",
@@ -963,21 +1020,15 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
           dnrSpot("grand_johnson", "Johnson Park", 42.93025932, -85.75635125, [
             "boat_ramp",
           ], "County gravel public launch."),
-          dnrSpot(
+          sourcedCoordinateSpot(
             "grand_riverside2",
-            "Riverside Park #2",
-            43.00716584,
-            -85.67165455,
-            ["boat_ramp"],
-            "Municipal paved launch; park gates close at night.",
-          ),
-          dnrSpot(
-            "grand_riverside3",
-            "Riverside Park #3",
+            "Riverside Park River Access",
             43.0194346,
             -85.66280288,
-            ["boat_ramp"],
-            "Municipal paved launch; park gates close at night.",
+            ["carry_in"],
+            "Municipal accessible kayak launch and public river access; posted park hours apply.",
+            "City of Grand Rapids Parks & Recreation",
+            "https://www.grandrapidsmi.gov/departments/parks-recreation/recreation/kayaking/",
           ),
           dnrSpot(
             "grand_rogue",
@@ -1061,13 +1112,15 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "boat_ramp",
             "carry_in",
           ], "Municipal paved launch and accessible carry-down."),
-          dnrSpot(
+          sourcedCoordinateSpot(
             "grand_fitzgerald",
             "Fitzgerald Park Dam Portage",
             42.76271608,
             -84.76242817,
             ["carry_in", "fishing_platform"],
             "County-managed dam portage with upstream dock and downstream natural path; posted hours apply.",
+            "Eaton County Parks",
+            "https://www.eatoncounty.org/Facilities/Facility/Details/Fitzgerald-Park-4",
             "Use the signed portage and remain outside dam-safety boundaries.",
           ),
           dnrSpot(

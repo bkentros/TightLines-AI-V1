@@ -1731,6 +1731,14 @@ function SpotFinderCard({ finder }: { finder: RiverSpotFinder }) {
                     )
                     : null}
                   <View style={styles.spotFinderActions}>
+                    <View style={styles.spotFinderSourceGuide}>
+                      <Text style={styles.spotFinderSourceGuideLabel}>
+                        WHERE THE SOURCE EXPLAINS IT
+                      </Text>
+                      <Text style={styles.spotFinderSourceGuideText}>
+                        {spot.sourceLocator}
+                      </Text>
+                    </View>
                     <Pressable
                       style={({ pressed }) => [
                         styles.spotFinderSource,
@@ -3718,7 +3726,7 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
   },
   spotFinderListViewport: {
-    height: 464,
+    height: 560,
     borderWidth: 1,
     borderColor: "rgba(22,123,120,0.2)",
     borderRadius: 11,
@@ -3860,6 +3868,25 @@ const styles = StyleSheet.create({
   spotFinderActions: {
     gap: 5,
     paddingTop: 1,
+  },
+  spotFinderSourceGuide: {
+    gap: 2,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 7,
+    backgroundColor: "#F7F8F6",
+  },
+  spotFinderSourceGuideLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.75,
+    letterSpacing: .55,
+    color: "#167B78",
+  },
+  spotFinderSourceGuideText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 9.25,
+    lineHeight: 12.5,
+    color: paper.dashboardInk,
   },
   spotFinderSource: {
     minHeight: 34,
