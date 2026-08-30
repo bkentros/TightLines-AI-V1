@@ -133,9 +133,41 @@ export type RiverRunHandlerDeps = {
   configVersion?: string;
   configSource?: "static" | "database";
   publicEnabled?: boolean;
+  releasedRunIds?: readonly string[] | "all";
   internalSecret?: string;
   allowTestOverrides?: boolean;
 };
+
+// This is the catalog currently served by production. New profiles can be
+// owner-approved and committed without becoming reachable by installed app
+// builds. Production expansion requires an explicit RIVER_RUN_RELEASED_RUN_IDS
+// update after client and backend release checks pass.
+const LEGACY_RELEASED_RUN_IDS = new Set([
+  "pere_marquette_fall_chinook",
+  "pere_marquette_fall_coho",
+  "pere_marquette_fall_steelhead",
+  "betsie_fall_chinook",
+  "betsie_fall_coho",
+  "betsie_fall_steelhead",
+  "big_manistee_fall_chinook",
+  "big_manistee_fall_coho",
+  "big_manistee_fall_steelhead",
+  "muskegon_fall_chinook",
+  "muskegon_fall_coho",
+  "muskegon_fall_steelhead",
+  "st_joseph_fall_chinook",
+  "st_joseph_fall_coho",
+  "st_joseph_fall_steelhead",
+  "grand_fall_chinook",
+  "grand_fall_coho",
+  "grand_fall_steelhead",
+  "platte_fall_chinook",
+  "platte_fall_coho",
+  "platte_fall_steelhead",
+  "white_fall_chinook",
+  "white_fall_coho",
+  "white_fall_steelhead",
+]);
 
 type ConditionRefreshRow = {
   river_id: string;
@@ -270,6 +302,57 @@ async function resolveRuntimeCatalog(
   }
 }
 
+function releasedRuntimeCatalog(
+  catalog: {
+    rivers: RiverProfile[];
+    runs: RiverRunProfile[];
+    configVersionByRun: Map<string, string>;
+  },
+  deps: RiverRunHandlerDeps,
+) {
+  // Explicit injected catalogs are test/review boundaries and retain their
+  // supplied runs unless the caller also supplies a release set.
+  const configured = deps.releasedRunIds ??
+    (deps.rivers || deps.runs
+      ? "all"
+      : releasedRunIdsFromEnvironment(catalog.runs));
+  if (configured === "all") return catalog;
+  const released = new Set(configured);
+  const runs = catalog.runs.filter((run) => released.has(run.runId));
+  const riverIds = new Set(runs.map((run) => run.riverId));
+  return {
+    rivers: catalog.rivers.filter((river) => riverIds.has(river.riverId)),
+    runs,
+    configVersionByRun: new Map(
+      [...catalog.configVersionByRun].filter(([runId]) => released.has(runId)),
+    ),
+  };
+}
+
+function releasedRunIdsFromEnvironment(
+  availableRuns: readonly RiverRunProfile[],
+): readonly string[] | "all" {
+  const raw = Deno.env.get("RIVER_RUN_RELEASED_RUN_IDS")?.trim();
+  if (!raw) return [...LEGACY_RELEASED_RUN_IDS];
+  if (raw === "*") return "all";
+  const available = new Set(availableRuns.map((run) => run.runId));
+  const requested = [
+    ...new Set(
+      raw.split(",").map((id) => id.trim()).filter(
+        Boolean,
+      ),
+    ),
+  ];
+  const invalid = requested.filter((runId) => !available.has(runId));
+  if (!requested.length || invalid.length) {
+    console.error("[river-run] invalid released-run configuration", {
+      invalidRunIds: invalid,
+    });
+    return [...LEGACY_RELEASED_RUN_IDS];
+  }
+  return requested;
+}
+
 export async function handleRiverRunRequest(
   req: Request,
   deps: RiverRunHandlerDeps = {},
@@ -288,10 +371,11 @@ export async function handleRiverRunRequest(
   ) {
     return await handleOwnerReviewSnapshot(req, url, deps);
   }
-  const catalog = await resolveRuntimeCatalog(deps);
-  if (catalog instanceof Response) return catalog;
-  const rivers = deps.rivers ?? catalog.rivers;
-  const runs = deps.runs ?? catalog.runs;
+  const resolvedCatalog = await resolveRuntimeCatalog(deps);
+  if (resolvedCatalog instanceof Response) return resolvedCatalog;
+  const catalog = releasedRuntimeCatalog(resolvedCatalog, deps);
+  const rivers = catalog.rivers;
+  const runs = catalog.runs;
   const engineVersion = deps.engineVersion ?? ENGINE_VERSION;
   const publicEnabled = deps.publicEnabled ??
     Deno.env.get("RIVER_RUN_PUBLIC_ENABLED") === "true";

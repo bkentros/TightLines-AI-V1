@@ -6,7 +6,7 @@ const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
 const expectedEngineVersion = "river-run-v1.16.0";
 const expectedDataVersion = "river-live-conditions-v4";
-const expectedMetricsByRiver: Record<string, string[]> = {
+const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   betsie: [],
   big_manistee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -20,7 +20,7 @@ const expectedMetricsByRiver: Record<string, string[]> = {
   root: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   bois_brule: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
-const expectedSeasonalMetricsByRiver: Record<string, string[]> = {
+const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
   betsie: [],
   big_manistee: ["flow_cfs", "water_temp_f"],
@@ -34,6 +34,26 @@ const expectedSeasonalMetricsByRiver: Record<string, string[]> = {
   root: ["flow_cfs", "water_temp_f"],
   bois_brule: ["flow_cfs"],
 };
+const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
+    "full"
+  ? "full"
+  : "legacy";
+const legacyRiverIds = new Set([
+  "pere_marquette",
+  "betsie",
+  "big_manistee",
+  "muskegon",
+  "st_joseph",
+  "grand",
+  "platte",
+  "white",
+]);
+const expectedMetricsByRiver = selectExpectedRivers(
+  allExpectedMetricsByRiver,
+);
+const expectedSeasonalMetricsByRiver = selectExpectedRivers(
+  allExpectedSeasonalMetricsByRiver,
+);
 
 let userToken: string | null = null;
 let authenticationWarning: string | null = null;
@@ -198,6 +218,7 @@ console.log(JSON.stringify(
     ok: true,
     engineVersion: expectedEngineVersion,
     dataVersion: expectedDataVersion,
+    releaseMode,
     authenticatedSnapshotContractVerified: Boolean(userToken),
     authenticationWarning,
     uniqueRiverCount: targets.length,
@@ -208,6 +229,15 @@ console.log(JSON.stringify(
   null,
   2,
 ));
+
+function selectExpectedRivers(
+  values: Record<string, string[]>,
+): Record<string, string[]> {
+  if (releaseMode === "full") return values;
+  return Object.fromEntries(
+    Object.entries(values).filter(([riverId]) => legacyRiverIds.has(riverId)),
+  );
+}
 
 function latestStoredConditions(
   rows: JsonObject[],

@@ -406,6 +406,7 @@ function handleRiverRunRequest(
 ): Promise<Response> {
   return handleRiverRunRequestBase(req, {
     publicEnabled: true,
+    releasedRunIds: "all",
     allowTestOverrides: true,
     waterTemperatureObservationsBySource: {},
     ...deps,
@@ -608,6 +609,58 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   ) {
     assertEquals(runIds.includes(runId), true);
   }
+});
+
+Deno.test("runtime release gate can keep approved runs out of the live catalog", async () => {
+  const releasedRunIds = [
+    "pere_marquette_fall_chinook",
+    "pere_marquette_fall_coho",
+    "pere_marquette_fall_steelhead",
+  ];
+  const catalogResponse = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+    releasedRunIds,
+  });
+  const catalog = await json(catalogResponse);
+  const runIds = catalog.states.flatMap(
+    (state: { rivers: Array<{ runs: Array<{ runId: string }> }> }) =>
+      state.rivers.flatMap((river) => river.runs.map((run) => run.runId)),
+  );
+  assertEquals(catalogResponse.status, 200);
+  assertEquals(runIds, releasedRunIds);
+
+  const unreleased = await handleRiverRunRequestBase(
+    request(
+      "/snapshot?riverId=milwaukee&runId=milwaukee_fall_chinook&presentationState=WI",
+    ),
+    { publicEnabled: true, releasedRunIds },
+  );
+  assertEquals(unreleased.status, 404);
+  assertEquals((await json(unreleased)).error, "river_run_not_found");
+});
+
+Deno.test("production defaults to the previously released catalog", async () => {
+  const response = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+  });
+  const body = await json(response);
+  const rivers = body.states.flatMap((state: { rivers: unknown[] }) =>
+    state.rivers
+  );
+  const runIds = rivers.flatMap(
+    (river: { runs: Array<{ runId: string }> }) =>
+      river.runs.map((run) => run.runId),
+  );
+
+  assertEquals(response.status, 200);
+  assertEquals(rivers.length, 9);
+  assertEquals(runIds.length, 27);
+  assertEquals(new Set(runIds).size, 24);
+  assertEquals(runIds.includes("big_manistee_fall_brown_trout"), false);
+  assertEquals(
+    runIds.some((runId: string) => runId.startsWith("milwaukee_")),
+    false,
+  );
 });
 
 Deno.test("database config source loads only the published validated document", async () => {
