@@ -155,8 +155,8 @@ modern record.
 - Source: USGS `04087000`, Estabrook Park, Urban Greenway only.
 - Fixed baseline: 2019–2025 post-Estabrook-removal daily mean flow; 1,176 Aug.
   1–Jan. 15 observations with complete seven-year windows.
-- Bands: `<170` very low; `170–236` low; `237–593` ideal; `594–1519` high/very
-  high presentation water; `>=1520` blown-out presentation shape.
+- Bands: `<170` very low; `170–236` low; `237–594` ideal; `595–1110` high;
+  `1111–1519` very high; `>=1520` blown-out presentation shape.
 - Fishability never means fish abundance, legal access, wading/boating safety,
   harbor conditions, or North Shore conditions.
 - Gauge Read exposes independently fresh flow, height, and water temperature;
@@ -189,4 +189,4 @@ modern record.
 - [x] Owner accepts the hidden Activity behavior and two-season limitation.
 
 **Run decision:** `hidden_activity_owner_accepted`\
-**Configuration:** `2026-08-27-milwaukee-steelhead-local-peak.6`
+**Configuration:** `2026-08-27-milwaukee-fishability-reconciliation.7`

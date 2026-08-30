@@ -5,7 +5,7 @@ const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
 const expectedEngineVersion = "river-run-v1.16.0";
-const expectedDataVersion = "river-live-conditions-v2";
+const expectedDataVersion = "river-live-conditions-v4";
 const expectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   betsie: [],
@@ -15,6 +15,10 @@ const expectedMetricsByRiver: Record<string, string[]> = {
   grand: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   platte: ["flow_cfs", "gage_height_ft"],
   white: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  milwaukee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  sheboygan: ["flow_cfs", "gage_height_ft"],
+  root: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  bois_brule: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const expectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
@@ -25,6 +29,10 @@ const expectedSeasonalMetricsByRiver: Record<string, string[]> = {
   grand: ["flow_cfs"],
   platte: ["flow_cfs"],
   white: ["flow_cfs"],
+  milwaukee: ["flow_cfs", "water_temp_f"],
+  sheboygan: ["flow_cfs"],
+  root: ["flow_cfs", "water_temp_f"],
+  bois_brule: ["flow_cfs"],
 };
 
 let userToken: string | null = null;
@@ -49,11 +57,11 @@ assertStringArraysEqual(
   Object.keys(expectedMetricsByRiver),
   "production river coverage",
 );
-const liveRows = await restRows(
+const initialLiveRows = await restRows(
   "river_run_live_conditions",
   "river_id,local_date,refresh_slot,data_version,refreshed_at,conditions",
 );
-const currentLiveRows = liveRows.filter((row) =>
+const initialCurrentLiveRows = initialLiveRows.filter((row) =>
   stringField(row, "data_version") === expectedDataVersion
 );
 const contextRows = await restRows(
@@ -90,7 +98,10 @@ for (const target of targets) {
     }
     cacheReplayVerified = true;
   } else {
-    firstConditions = latestStoredConditions(currentLiveRows, target.riverId);
+    firstConditions = latestStoredConditions(
+      initialCurrentLiveRows,
+      target.riverId,
+    );
   }
   const dataVersion = stringField(firstConditions, "dataVersion");
   const refreshedAt = stringField(firstConditions, "refreshedAt");
@@ -138,6 +149,16 @@ for (const target of targets) {
   });
 }
 
+// Authenticated snapshots can create the first cache rows for a newly deployed
+// data version. Re-read storage after those snapshots so the persistence audit
+// verifies the rows produced by this run instead of a pre-deploy view.
+const verifiedLiveRows = await restRows(
+  "river_run_live_conditions",
+  "river_id,local_date,refresh_slot,data_version,refreshed_at,conditions",
+);
+const currentLiveRows = verifiedLiveRows.filter((row) =>
+  stringField(row, "data_version") === expectedDataVersion
+);
 const cachedRivers = new Set(
   currentLiveRows.map((row) => requiredString(row, "river_id")),
 );

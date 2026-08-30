@@ -237,13 +237,13 @@ export const WHITE_RIVER_PROFILE: RiverProfile = {
 };
 
 const WHITE_FISHABILITY: FishabilityBands = {
-  version: "white-fruitvale-fishability-v1-draft",
+  version: "white-fruitvale-fishability-v2",
   metric: "flow_cfs",
-  sourceLabel: "Fruitvale Road",
+  sourceLabel: "Fruitvale Road reach",
   tooLow: { max: 220 },
   lowFishable: { min: 220, max: 275 },
   ideal: { min: 275, max: 440 },
-  highFishable: { min: 440, max: 710 },
+  highFishable: { min: 440, max: 712 },
   blownOut: { min: 1020 },
   caps: {
     staleGauge: 55,
@@ -253,19 +253,19 @@ const WHITE_FISHABILITY: FishabilityBands = {
     sharpRiseHigh: 40,
   },
   evidenceNotes:
-    "Draft percentile scaffolding from 10,580 August–December USGS daily means, 1957–2026: p5 218, p25 275, median 341, p75 440, p95 712, and p99 1,020 CFS. These are Fruitvale presentation-shape inputs, not access or safety thresholds, and require replay and local owner review.",
+    "Accepted percentile calibration from the August–December USGS daily-mean distribution: p5 218, p25 275, median 341, p75 440, p95 712, and p99 1,020 CFS. The ideal band is the interquartile presentation range; high-fishable extends through p95, very-high occupies the p95–p99 tail, and blown-out presentation begins at p99. These are Fruitvale presentation-shape inputs, not access or safety thresholds.",
   sourceNotes:
-    "USGS 04122200 daily discharge audit recorded in the White Phase C Chinook and Steelhead packets.",
+    "USGS 04122200 daily discharge audit recorded in the White Phase C packets and reconciled across all public species on 2026-08-27.",
 };
 
 const WHITE_BASELINE = {
   metric: "flow_cfs" as const,
-  version: "white-fruitvale-1957-2026-draft",
+  version: "white-fruitvale-1957-2025-v1",
   hasPercentileBaselines: true,
   coveredWindowPercent: 0.999,
   minimumHistoryYears: 10,
   sourceNotes:
-    "USGS 04122200 daily discharge has near-complete coverage from 1957; draft Fishability replay uses the species window only.",
+    "USGS 04122200 daily discharge has near-complete coverage from 1957; the Fishability replay uses the complete August–December union shared by every public fall species.",
 };
 
 export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -564,7 +564,7 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-white-release.3",
+  configVersion: "2026-08-27-white-fishability-reconciliation.4",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

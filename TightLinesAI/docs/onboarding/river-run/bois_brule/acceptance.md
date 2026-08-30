@@ -56,14 +56,14 @@
 
 ## Release record
 
-- Configuration: `2026-08-27-bois-brule-steelhead-local-peak.3` (hidden)
+- Configuration: `2026-08-27-bois-brule-fishability-source-audit.5` (hidden)
 - Foundation: `bois-brule-foundation-v3-gate4a-2026-08-26`
 - Live source audit: `bois-brule-live-source-v3-gate4a-2026-08-26`
 - Historical-temperature baseline:
   `bois-brule-lower-approved-exact-date-temperature-2021-2023-v1`
-- Fixture generation: 1,136 private scenarios across 25 supported review runs;
+- Fixture generation: 1,157 private scenarios across 26 supported review runs;
   generated-file parity and review-mode structural/copy QA pass.
-- Test results: 358/358 engine tests, TypeScript project check, configuration
+- Test results: 374/374 engine tests, TypeScript project check, configuration
   validation, onboarding portfolio QA, and focused Brule tests pass.
 - Activity replay: four fixed 2007-2025 artifacts with 100% coverage; 9,253
   total usable species-days. Complete stage/block distributions and accepted

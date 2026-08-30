@@ -174,4 +174,4 @@ suppressed.
 - [x] Owner accepts the hidden Activity behavior and copy.
 
 **Run decision:** `hidden_activity_owner_accepted`\
-**Configuration:** `2026-08-27-milwaukee-steelhead-local-peak.6`
+**Configuration:** `2026-08-27-milwaukee-fishability-reconciliation.7`

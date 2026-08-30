@@ -454,8 +454,8 @@ Deno.test("Big Manistee flow boundaries remain deterministic at every configured
     [1100, "low"],
     [1399, "low"],
     [1400, "ideal"],
-    [1900, "ideal"],
-    [1901, "high_fishable"],
+    [1750, "ideal"],
+    [1751, "high_fishable"],
     [2500, "high_fishable"],
     [2501, "very_high"],
     [3499, "very_high"],
@@ -478,9 +478,29 @@ Deno.test("Big Manistee flow boundaries remain deterministic at every configured
     flowBand: "ideal",
     flowSignal: "stable",
     currentHydraulicValue: 1650,
+    copyStrategy: "big_manistee_tailwater",
   });
   assertEquals(ideal.score, 93);
-  assertEquals(ideal.rulesVersion, "big-manistee-tailwater-fishability-v1");
+  assertEquals(
+    ideal.rulesVersion,
+    "big-manistee-tailwater-fishability-v2-core-ideal",
+  );
+  assertMatch(
+    ideal.detail,
+    /Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands\./,
+  );
+
+  const upperWater = scoreFishability({
+    rules: run.fishabilityBands,
+    gaugeFreshness: "fresh",
+    flowBand: "high_fishable",
+    flowSignal: "stable",
+    currentHydraulicValue: 1800,
+    copyStrategy: "big_manistee_tailwater",
+  });
+  assertEquals(upperWater.score, 73);
+  assertEquals(upperWater.label, "Good");
+  assertMatch(upperWater.headline, /remains fishable/);
 
   const blownOut = scoreFishability({
     rules: run.fishabilityBands,

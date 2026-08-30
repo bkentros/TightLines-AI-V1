@@ -6,12 +6,13 @@ Current DNR assessment, historic Webber passage, species biology, regulations,
 and alias searches were checked. They establish recurring Coho passage and a
 public fishery; no contradictory exclusion was found.
 
-**Capability decision:** `supported_hidden_review` **Contradiction search
+**Capability decision:** `supported_public_reach_scoped` **Contradiction search
 completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+by/date:** completed in the 2026-08-25 observed-Activity audit and 2026-08-27
+Fishability reconciliation
 
 **River ID:** `grand` **Species slug:** `coho` **Created/researched:**
-2026-08-24 **Status:** `truth_profile_researched_calibration_and_replay_blocked`
+2026-08-24 **Status:** `public_enabled_with_fail_closed_passage_scope`
 
 > Coho have current DNR destination support below Moores Impoundment, but that
 > does not erase unresolved intermediate passage. Public guidance remains in the
@@ -111,17 +112,16 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
-> **Implementation update (2026-08-25):** The current hidden candidate is
+> **Implementation update (2026-08-25):** The current public profile is
 > `grand-fall-coho-observed-activity-v3-draft`. It combines Fulton flow, North
 > Park measured temperature, and Grand Rapids hourly weather only for the
 > downtown Grand Rapids mainstem. See
-> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
-> The accepted v3 stage means are Pre-run 22.76, Beginning 29.21, Building
-> 33.65, Peak 44.02, Tapering 40.00, Ending 36.90, and Post-run 26.18. The
-> bounded stage-response adjustment retains warm/barrier/blown-out caps and a
-> true 96-point maximum.
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`. The accepted v3
+> stage means are Pre-run 22.76, Beginning 29.21, Building 33.65, Peak 44.02,
+> Tapering 40.00, Ending 36.90, and Post-run 26.18. The bounded stage-response
+> adjustment retains warm/barrier/blown-out caps and a true 96-point maximum.
 
-- Mode: `observed_river`, implemented for hidden review.
+- Mode: `observed_river`, publicly enabled with the documented reach limits.
 - Measured temperature: North Park Street/Middle Grand Rapids reach only.
 - Hydraulics: Fulton Street/downtown Lower reach only.
 - Weather: proposed Grand Rapids point only; not basin-wide.
@@ -159,17 +159,17 @@ fixture gates pass. Rendered device review and owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
-Only the Fulton Street/downtown Lower reach has accepted hydraulics. Candidate
-bands use 1990–2025 Aug. 15–Dec. 15 seasonal percentiles as calibration
-scaffolding; they do not apply to Middle/Upper water.
+Only the Fulton Street/downtown Lower reach has accepted hydraulics. The shared
+Grand bands use the combined 1990–2025 fall distribution, are identical for all
+three public species, and do not apply to Middle/Upper water.
 
-| Boundary          | Proposed discharge | Rationale                                               |
-| ----------------- | -----------------: | ------------------------------------------------------- |
-| Too low maximum   |          1,300 CFS | near seasonal 10th percentile; local validation pending |
-| Low fishable      |          1,700 CFS | near seasonal 25th percentile                           |
-| Ideal             |    1,700–4,200 CFS | approximately seasonal 25th–80th percentile             |
-| High fishable     |    4,200–7,200 CFS | approximately seasonal 80th–95th percentile             |
-| Blown out minimum |          7,200 CFS | presentation proposal only, not flood/safety threshold  |
+| Boundary          | Proposed discharge | Rationale                                                 |
+| ----------------- | -----------------: | --------------------------------------------------------- |
+| Too low maximum   |          1,200 CFS | near the broad fall lower tail; Fulton presentation only  |
+| Low fishable      |          1,600 CFS | near the broad fall 25th-percentile corridor              |
+| Ideal             |    1,600–4,000 CFS | shared fall presentation range                            |
+| High fishable     |    4,001–6,399 CFS | upper fall presentation range                             |
+| Blown out minimum |          6,400 CFS | presentation threshold only; not a safety/flood threshold |
 
 - Source/reach: USGS discharge at Fulton Street; no gauge-height score.
 - Trend: 24-hour trend may affect presentation only.
@@ -181,8 +181,9 @@ scaffolding; they do not apply to Middle/Upper water.
 - Extreme guidance:
   `Treat an extreme station reading as poor local
   presentation and verify current river and access information.`
-- Acceptance: local expert review, lifecycle replay, band/trend/freshness
-  fixtures, and construction-era rating re-audit.
+- The 2026-08-27 cross-river audit reconciled all boundaries, trend/freshness
+  behavior, source scope, and review fixtures. Material construction or channel
+  change still requires a Fulton rating/source recheck.
 
 ## 7. Four-primitive acceptance
 
@@ -193,34 +194,34 @@ scaffolding; they do not apply to Middle/Upper water.
       owner-accepted.
 - [ ] Intermediate passage is current for every section that could be shown.
 - [x] Activity replay and controlled tests pass.
-- [ ] Fishability replay and rendered owner review pass.
+- [x] Shared Fishability calibration and automated boundary/reconciliation
+      review pass.
 - [ ] Complete intended-state fixtures, automated gates, and device review pass.
 
 ## 8. Research evidence ledger
 
-| ID      | Authority/title                                                                           | URL/path                                                                                                                                | Published/updated  | Accessed                                                            | Facts supported                                                                   | Limitations                   |
-| ------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------- |
-| H-R001  | Michigan DNR, _Coho salmon_                                                               | https://www.michigan.gov/dnr/education/michigan-species/fish-species/coho-salmon                                                        | current            | 2026-08-24                                                          | early-Sept.–Nov. spawning runs; later/longer migration; adults die after spawning | statewide, tributary-variable |
-| H-R002  | Michigan DNR, _Grand River, Ionia County — Status of the Fishery Resource Report 2009-78_ | https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2009-78.pdf                                    | 2009               | 1,575 Webber Coho; Sept./Oct./Nov. counts; Sept. 8–29 concentration | one historic year; no current abundance/operation proof                           |                               |
-| H-R003  | Bowlby & Roff, _Salmonid Spawning Runs and Estimated Ova Production in Normandale Creek_  | https://doi.org/10.1016/S0380-1330(81)72041-0                                                                                           | 1981               | observed Coho spawning at 1–10 °C and flow association              | Lake Erie creek; not Grand responsiveness or exact thresholds                     |                               |
-| H-R004  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,428 seasonal observations and percentile scaffolding              | hydrology does not establish fishability                                          |                               |
-| H-CAL01 | FinFindr Grand Coho Phase C proposal                                                      | this file                                                                                                                               | 2026-08-24         | dates, curve, ceiling, weights, thresholds, caps, copy intent       | owner/replay/QA pending                                                           |                               |
-| H-ACT01 | FinFindr Grand observed Activity audit                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                            | 2026-08-25         | Downtown proxy validation, 641/678-date replay, source failure states, downstream source decision | not catch-rate validation or whole-river evidence | |
+| ID      | Authority/title                                                                           | URL/path                                                                                                                                | Published/updated  | Accessed                                                                                          | Facts supported                                                                   | Limitations                   |
+| ------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------- |
+| H-R001  | Michigan DNR, _Coho salmon_                                                               | https://www.michigan.gov/dnr/education/michigan-species/fish-species/coho-salmon                                                        | current            | 2026-08-24                                                                                        | early-Sept.–Nov. spawning runs; later/longer migration; adults die after spawning | statewide, tributary-variable |
+| H-R002  | Michigan DNR, _Grand River, Ionia County — Status of the Fishery Resource Report 2009-78_ | https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2009-78.pdf                                    | 2009               | 1,575 Webber Coho; Sept./Oct./Nov. counts; Sept. 8–29 concentration                               | one historic year; no current abundance/operation proof                           |                               |
+| H-R003  | Bowlby & Roff, _Salmonid Spawning Runs and Estimated Ova Production in Normandale Creek_  | https://doi.org/10.1016/S0380-1330(81)72041-0                                                                                           | 1981               | observed Coho spawning at 1–10 °C and flow association                                            | Lake Erie creek; not Grand responsiveness or exact thresholds                     |                               |
+| H-R004  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,428 seasonal observations and percentile scaffolding                                            | hydrology does not establish fishability                                          |                               |
+| H-CAL01 | FinFindr Grand Coho Phase C proposal                                                      | this file                                                                                                                               | 2026-08-24         | dates, curve, ceiling, weights, thresholds, caps, copy intent                                     | owner/replay/QA pending                                                           |                               |
+| H-ACT01 | FinFindr Grand observed Activity audit                                                    | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                           | 2026-08-25         | Downtown proxy validation, 641/678-date replay, source failure states, downstream source decision | not catch-rate validation or whole-river evidence                                 |                               |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-007, E-009, E-010,
 E-018.
 
 ## 9. Run gate
 
-**Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+**Run decision:** `public_enabled_reach_scoped` **Configuration version:**
+`2026-08-27-grand-fishability-reconciliation.2` **Activity rules version:**
 `grand-fall-coho-observed-activity-v3-draft` **Presence curve version:**
-`grand-coho-presence-v1-proposed` **Copy version:**
-`grand-coho-copy-v1-proposed` **Replay artifact:**
-`docs/audits/river-run-grand-coho-activity-replay.json` **Owner
-acceptance/date:** numeric/research candidate approved for hidden app review /
-2026-08-24
+`grand-coho-presence-v1-proposed` **Copy version:** `onboarding_corridor`
+**Replay artifact:** `docs/audits/river-run-grand-coho-activity-replay.json`
+**Owner acceptance/date:** public release accepted / 2026-08-25; shared Fulton
+Fishability reconciled / 2026-08-27
 
-Blocking items: current passage through every displayed section; Fishability
-replay; rendered device/owner review; release authorization; and
-construction-era source/station-pair re-audit.
+Remaining limitations are fail-closed rather than release blockers: do not
+display an upstream section without current passage support, and re-audit the
+source/station pair after material construction or channel changes.

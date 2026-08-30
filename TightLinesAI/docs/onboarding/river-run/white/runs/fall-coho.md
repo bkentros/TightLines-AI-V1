@@ -7,13 +7,14 @@ accessible tributaries. It also describes only occasional catch and a desire for
 a larger run. That combination supports a recurring but sparse profile—not an
 absent/unsupported row and not a strong opportunity claim.
 
-**Capability decision:** `supported_sparse_hidden_review` **Contradiction search
-completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+**Capability decision:** `supported_sparse_public_reach_scoped` **Contradiction
+search completed by/date:** Codex / 2026-08-24 **Independent falsification
+review by/date:** completed in the 2026-08-26 observed-Activity audit and
+2026-08-27 Fishability reconciliation
 
 **River ID:** `white`\
 **Species slug:** `coho`\
-**Status:** `supported_sparse_hidden_review_correction`
+**Status:** `supported_sparse_public_enabled`
 
 ## 1. Species/run truth
 
@@ -71,17 +72,17 @@ not confirm live fish, access, catch, or safety.
 
 ## 5. Activity calibration
 
-> **Implementation update (2026-08-24):** The unavailable statement below is
-> superseded for weather-only mode while the split-reach observed composite
-> remains prohibited. The current hidden candidate is
-> `white-fall-coho-weather-activity-v1-draft`: 0.70 effective light / 0.30
-> same-block precipitation, Limited confidence, below-Hesperia Pines Point
-> weather scope, and no Fruitvale/Weaver scoring inputs. See
-> `docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
+> **Implementation update (2026-08-26):** The owner accepted the measured-input
+> profile `white-fall-coho-observed-activity-v3` after the fixed 2022–2025
+> replay. See
+> `docs/audits/river-run-white-observed-activity-audit-2026-08-26.md`.
 
-`unavailable`. Fruitvale hydraulics and Weaver Street temperature represent
-different reaches, and no White Coho weather-only calibration/replay is
-accepted. Do not borrow Chinook or Steelhead behavior.
+`observed_river`. The profile combines separately labeled Fruitvale hydraulics,
+Weaver Street temperature, and Pines Point weather as complementary
+below-Hesperia corridor inputs. Its 0.50 effective-light, 0.25 temperature, 0.15
+river-behavior, and 0.10 weather weights describe conditional response for a
+Coho already present. Activity cannot raise the sparse 2/10 presence ceiling,
+and the sensors must never be presented as co-located or river-wide.
 
 ## 6. Fishability
 
@@ -90,12 +91,12 @@ reach limitation. Fishability describes presentation shape, not Coho abundance.
 
 ## 7. Four-primitive acceptance
 
-- [ ] Sparse-run wording survives every Stage and Fish In River state.
-- [ ] Activity is deterministically unavailable.
-- [ ] Fishability never implies that a 2/10 run is abundant.
-- [ ] No state recommends above Hesperia Dam.
-- [ ] Terminal copy matches Coho mortality and removes score/marker.
-- [ ] Narrow iOS/Android and foreign-geography checks pass.
+- [x] Sparse-run wording survives every Stage and Fish In River state.
+- [x] Activity preserves independent source labeling and freshness gating.
+- [x] Fishability never implies that a 2/10 run is abundant.
+- [x] No state recommends above Hesperia Dam.
+- [x] Terminal copy matches Coho mortality and removes score/marker.
+- [x] Narrow iOS/Android and foreign-geography checks pass.
 
 ## 8. Evidence ledger
 
@@ -108,8 +109,11 @@ reach limitation. Fishability describes presentation shape, not Coho abundance.
 
 ## 9. Run gate
 
-**Run decision:** `supported_sparse_hidden_review`\
-**Configuration:** `white-fall-coho-phase-c-draft-v2`\
+**Run decision:** `supported_sparse_public_reach_scoped`\
+**Configuration:** `2026-08-27-white-fishability-reconciliation.4`\
+**Activity rules:** `white-fall-coho-observed-activity-v3`\
 **Presence curve:** `white-coho-presence-v2-draft`\
-**Owner acceptance:** required after regenerated fixture review\
-**Public enablement:** not authorized
+**Owner acceptance:** public observed-input release accepted 2026-08-26;
+Fruitvale Fishability reconciled 2026-08-27\
+**Public scope:** below Hesperia Dam; the 2/10 ceiling remains sparse and is not
+increased by Activity or Fishability

@@ -43,7 +43,7 @@ import {
   resolveWaterTemperatureRead,
 } from "./waterTemperature.ts";
 
-export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v3";
+export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v4";
 const USGS_ATTRIBUTION =
   "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.";
 
@@ -426,9 +426,13 @@ async function resolveSeasonalContext(input: {
     return input.seasonalContextsByMetric?.[input.metric] ?? null;
   }
   if (input.metric === "gage_height_ft") return null;
-  const baselineVersion = input.provider === "USGS"
-    ? USGS_SEASONAL_BASELINE_VERSION
-    : MMW_SEASONAL_BASELINE_VERSION;
+  const fixedFlowBaseline = input.metric === "flow_cfs"
+    ? input.river.fixedFlowSeasonalBaseline
+    : undefined;
+  const baselineVersion = fixedFlowBaseline?.baselineVersion ??
+    (input.provider === "USGS"
+      ? USGS_SEASONAL_BASELINE_VERSION
+      : MMW_SEASONAL_BASELINE_VERSION);
   const key = {
     river_id: input.river.riverId,
     source_id: input.sourceId,
@@ -449,7 +453,9 @@ async function resolveSeasonalContext(input: {
   }
   let context: RiverLiveSeasonalContext | null = null;
   try {
-    context = input.provider === "USGS"
+    context = fixedFlowBaseline
+      ? fixedFlowSeasonalContext(fixedFlowBaseline, input.localDate)
+      : input.provider === "USGS"
       ? await fetchUsgsSeasonalContext({
         fetchFn: input.fetchFn,
         siteId: input.siteId,
@@ -483,6 +489,22 @@ async function resolveSeasonalContext(input: {
     });
   }
   return stored.data ?? context;
+}
+
+function fixedFlowSeasonalContext(
+  baseline: NonNullable<RiverProfile["fixedFlowSeasonalBaseline"]>,
+  localDate: string,
+): RiverLiveSeasonalContext | null {
+  const normal = baseline.normals[localDate.slice(5)];
+  return normal
+    ? {
+      ...normal,
+      windowRadiusDays: 3,
+      recordKind: "recent",
+      baselineVersion: baseline.baselineVersion,
+      source: "usgs_approved_fixed_period_archive",
+    }
+    : null;
 }
 
 async function fetchMonitorSeasonalContext(input: {

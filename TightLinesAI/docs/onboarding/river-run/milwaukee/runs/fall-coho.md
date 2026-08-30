@@ -117,8 +117,8 @@ release limitation.
 
 USGS `04087000` supports independently fresh flow, height, and measured water
 temperature at Estabrook Park. Fishability uses the fixed 2019–2025 post-removal
-fall flow distribution: `<170`, `170–236`, `237–593`, `594–1519`, and
-`>=1520 CFS`. Copy explicitly limits the read to the Urban Greenway and
+fall flow distribution: `<170`, `170–236`, `237–594`, `595–1110`,
+`1111–1519`, and `>=1520 CFS`. Copy explicitly limits the read to the Urban Greenway and
 disclaims harbor, North Shore, access, and safety conclusions. The discontinuous
 temperature history does not qualify for a displayed daily average.
 
@@ -145,4 +145,4 @@ temperature history does not qualify for a displayed daily average.
 - [x] Owner accepts the hidden Activity behavior and two-season limitation.
 
 **Run decision:** `hidden_activity_owner_accepted`\
-**Configuration:** `2026-08-27-milwaukee-steelhead-local-peak.6`
+**Configuration:** `2026-08-27-milwaukee-fishability-reconciliation.7`

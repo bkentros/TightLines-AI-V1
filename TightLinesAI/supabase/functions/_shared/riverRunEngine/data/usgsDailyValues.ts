@@ -117,7 +117,7 @@ export function parseUsgsDailyFlowValues(
         (value as { dateTime?: unknown }).dateTime,
       );
       const numericValue = toFiniteNumber((value as { value?: unknown }).value);
-      if (!localDate || numericValue == null) continue;
+      if (!localDate || numericValue == null || numericValue < 0) continue;
       observations.push({
         riverId: options.riverId,
         metric: "flow_cfs",
@@ -162,7 +162,7 @@ function parseModernDailyFlowValues(
     const value = toFiniteNumber(properties.value);
     const unit = String(properties.unit_of_measure ?? "").toLowerCase();
     if (
-      !localDate || value == null ||
+      !localDate || value == null || value < 0 ||
       !(unit === "ft^3/s" || unit.includes("cubic feet"))
     ) {
       continue;

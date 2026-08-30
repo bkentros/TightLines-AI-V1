@@ -174,7 +174,7 @@ function fishabilityCopy(input: {
         input.gaugeFreshness,
       ),
       detail:
-        `${bandPoint} ${trendPoint} This read covers only the Upper river (High Bridge–Tippy Dam).`,
+        `${bandPoint} ${trendPoint} This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.`,
       tip: bigManisteeFishabilityTip(
         input.flowBand,
         input.flowSignal,
@@ -203,7 +203,7 @@ function fishabilityCopy(input: {
         "Croton area",
       ).replaceAll("Wellston", "Croton"),
       detail:
-        `${bandPoint} ${trendPoint} This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).`,
+        `${bandPoint} ${trendPoint} The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).`,
       tip: bigManisteeFishabilityTip(
         input.flowBand,
         input.flowSignal,
@@ -212,8 +212,11 @@ function fishabilityCopy(input: {
     };
   }
   const nilesScoped = input.sourceLabel === "Niles mainstem reach";
+  const fultonScoped = input.sourceLabel === "Fulton Street reach";
+  const fruitvaleScoped = input.sourceLabel === "Fruitvale Road reach";
   const estabrookScoped = input.sourceLabel ===
     "Estabrook Park Urban Greenway reach";
+  const sheboyganI43Scoped = input.sourceLabel === "Urban River near I-43";
   if (estabrookScoped) {
     return {
       headline: fishabilityHeadline(
@@ -223,7 +226,26 @@ function fishabilityCopy(input: {
       ),
       detail: `${flowBandMeaning(input.flowBand)} ${
         trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
-      } This read applies only near Estabrook Park in the Urban Greenway; it does not describe Milwaukee Harbor or the North Shore above Kletzsch.`,
+      } The live flow card compares this date with its recent history; this result uses fixed presentation bands only near Estabrook Park in the Urban Greenway. It does not describe Milwaukee Harbor or the North Shore above Kletzsch.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify the water and legal access directly before carrying this presentation read elsewhere.`,
+    };
+  }
+  if (sheboyganI43Scoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live flow card compares this date with its recent history; this result uses fixed presentation bands only near I-43 in the Urban River. It does not directly describe Sheboygan Harbor or the Kohler Reach above I-43.`,
       tip: `${
         fishabilityTip(
           input.flowBand,
@@ -242,7 +264,7 @@ function fishabilityCopy(input: {
       ),
       detail: `${flowBandMeaning(input.flowBand)} ${
         trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
-      } This read applies only to the Niles mainstem reach.`,
+      } Flow card: date-relative; result: Niles reach only.`,
       tip: `${
         bigManisteeFishabilityTip(
           input.flowBand,
@@ -250,6 +272,44 @@ function fishabilityCopy(input: {
           input.gaugeFreshness,
         ).replaceAll("Upper river", "Niles reach")
       } Verify every other section directly.`,
+    };
+  }
+  if (fultonScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live flow card compares this date, while this result assesses presentation only at the Fulton Street reach, not the full Grand River.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify water shape and safe access directly before carrying this read elsewhere.`,
+    };
+  }
+  if (fruitvaleScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live flow card compares this date, while this result assesses presentation near Fruitvale Road, not the full White River.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify water shape and safe access directly before carrying this read elsewhere.`,
     };
   }
   const scopeDetail = nilesScoped
@@ -404,7 +464,7 @@ function pereMarquetteFishabilityCopy(input: {
     input.gaugeFreshness,
   );
   const scopePoint =
-    "This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.";
+    "The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.";
   const tip = input.flowBand === "blown_out"
     ? "Choose another day and verify current conditions through authoritative local sources."
     : input.flowBand === "very_high" || input.flowSignal === "sharp_rise"

@@ -97,8 +97,8 @@ Chinook/Coho mortality semantics.
 ## 5. Conditions primitives
 
 - Fishability and partial Gauge Read use USGS `04086000` near I-43 only.
-- The common Sheboygan bands are `<87`, `87–117`, `118–337`, `338–874`, and
-  `>=875` CFS and describe presentation shape, not Brown Trout abundance.
+- The common Sheboygan bands are `<87`, `87–117`, `118–338`, `339–674`,
+  `675–874`, and `>=875` CFS and describe presentation shape, not Brown Trout abundance.
 - No measured river temperature, trend, or historical average is displayed.
 - Activity uses the Brown-specific response profile with modeled I-43 weather
   only, a 0.80 evidence scale, and a bounded five-point Peak response. The
@@ -137,4 +137,4 @@ Chinook/Coho mortality semantics.
 - [ ] Owner accepts the hidden Gate 4B Activity candidate.
 
 **Run decision:** `hidden_gate4b_ready_for_owner_review`\
-**Configuration:** `2026-08-27-sheboygan-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-sheboygan-fishability-reconciliation.4`

@@ -10,7 +10,7 @@
 | Identity, corridor, sections, operational facility, Horlick barrier | `river-foundation.md` | owner approved |
 | Live/history source feasibility | `live-conditions.md` | owner approved with upper-context limitation |
 | Species portfolio | 8/9/7/7, all broad | owner approved |
-| Four species calendars, curves, Stage/Fish In River/Fishability/copy | `runs/` + `root.ts` | Gate 4A owner approved |
+| Four species calendars, curves, Stage/Fish In River/copy | `runs/` + `root.ts` | Gate 4A owner approved |
 | Activity source mode | weather-only; both upstream river stations excluded | pass |
 | Four fixed 2007-2025 Activity replays | `activity-replay.md` + audit JSON | pass |
 | Chinook/Coho lifecycle decline | continuous terminal behavior | pass |
@@ -18,8 +18,9 @@
 | Brown calibration | rejected untuned baseline retained; bounded Peak +5 accepted | pass |
 | Push / Migration Timing | no accepted paired product-corridor baseline | unavailable |
 | Gauge Read source separation | Horlick flow/height; 60th Street temperature | pass; Partial by design |
+| Fishability source scope | both river sources are upstream of the product endpoint | unavailable; fails closed |
 | Hidden draft registry; no public leak | registry + tests | pass |
-| Complete review fixtures | 971 scenarios / 21 hidden review runs | pass |
+| Complete review fixtures | 1,157 scenarios / 26 hidden review runs | pass |
 | Full engine and project QA | commands below | pass |
 | Product-owner Gate 4B behavior/replay decision | this packet | owner approved |
 | Consolidated four-river review | after Bois Brule 4B | deferred |
@@ -34,6 +35,10 @@
   their accepted non-Activity surfaces, but both are excluded from Activity.
   They are outside the product corridor, are not co-located, and cannot form a
   lower-river observed model.
+- Fishability is unavailable because the Horlick gauge is upstream of the
+  product endpoint below the operated Steelhead Facility. A valid upper-river
+  measurement is not silently converted into a harbor-to-facility presentation
+  grade.
 - Copy states that product-corridor level, clarity, and measured water
   temperature are unknown. Weather does not imply river rise, clearing,
   cooling, movement, passage, abundance, or catch probability.
@@ -48,21 +53,21 @@
 
 ## Required release record
 
-- Configuration: `2026-08-27-root-steelhead-local-peak.3` (hidden)
+- Configuration: `2026-08-27-root-fishability-source-scope.5` (hidden)
 - Foundation: `root-foundation-v4-gate4b-2026-08-26`
 - Live source audit: `root-live-source-v4-gate4b-2026-08-26`
 - Activity replay: `root-*-weather-activity-v1-draft`, fixed 2007-2025.
 - Fixture generation: `npm run generate:river-run:onboarding-review-fixtures`
-  — 971 scenarios across 21 review runs.
-- Test results: 351/351 engine tests; focused Root/Sheboygan/corridor tests,
+  — 1,157 scenarios across 26 review runs.
+- Test results: 374/374 engine tests; focused Root/Sheboygan/corridor tests,
   TypeScript project check, onboarding validator/QA, generated-fixture check,
   and review-mode structural/copy QA pass.
 - Known limitations: facility totals are operational subsets; hydraulic and
   temperature sources lie upstream of the product corridor and are not
   co-located; temperature date average is unavailable pending a complete
   historical gap/QC audit; Activity does not know product-corridor level,
-  clarity, or water temperature; Fishability does not represent harbor/downtown
-  shape; no Push, Migration Timing, winter, or spring model; Brown
+  clarity, or water temperature; Fishability is unavailable for the modeled
+  corridor; no Push, Migration Timing, winter, or spring model; Brown
   hold-versus-lake-return share is unknown.
 - Owner Gate 4A acceptance date: 2026-08-26
 - Owner Gate 4B acceptance date: 2026-08-26

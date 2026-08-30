@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { riverRunRiverChoices } from "../lib/riverRunCatalogSelection";
+import {
+  riverRunRiverChoices,
+  riverRunStateChoices,
+} from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
 
 const root = resolve(import.meta.dirname, "..");
@@ -68,8 +71,8 @@ assert.match(
 );
 assert.match(
   catalogSelection,
-  /lake_run_brown_trout[^\n]*Migratory Brown Trout/,
-  "Migratory Brown Trout must be registered in the species picker",
+  /lake_run_brown_trout[^\n]*Lake-run Browns/,
+  "Lake-run Browns must be registered in the species picker",
 );
 const manisteeBrownCatalog = {
   states: [{
@@ -110,6 +113,55 @@ assert.match(
   speciesImages,
   /lake_run_brown_trout[^\n]*migratory_brown_trout\.png/,
   "Migratory Brown Trout must use its distinct app asset",
+);
+for (
+  const [species, scale] of [
+    ["lake_run_brown_trout", "1"],
+    ["chinook_salmon", "2"],
+    ["coho_salmon", "2.04"],
+    ["steelhead", "1.51"],
+    ["atlantic_salmon", "1.5"],
+  ]
+) {
+  assert.match(
+    speciesImages,
+    new RegExp(`${species}: ${scale.replace(".", "\\.")}`),
+    `${species} must retain its transparent-canvas-normalized hero scale`,
+  );
+}
+assert.match(
+  riverRunScreen,
+  /transform: \[\{ scale: speciesHeroScale \}\]/,
+  "Every report hero must apply its transparent-canvas-normalized fish scale",
+);
+
+const stateLabelCatalog = {
+  states: ["MI", "WI", "IN"].map((state) => ({
+    state,
+    displayName: state,
+    rivers: [{
+      riverId: `test_${state.toLowerCase()}`,
+      displayName: "Test River",
+      runs: [{
+        runId: `test_${state.toLowerCase()}_fall_chinook`,
+        displayName: "Fall Chinook",
+        species: "chinook_salmon",
+        season: "fall",
+        supportStatus: "beta",
+      }],
+    }],
+  })),
+} as RiverRunCatalogResponse;
+assert.deepEqual(
+  riverRunStateChoices(stateLabelCatalog).map(({ id, label }) => [id, label]),
+  [
+    ["MI", "Michigan"],
+    ["WI", "Wisconsin"],
+    ["IN", "Indiana"],
+    ["NY", "New York"],
+    ["OH", "Ohio"],
+  ],
+  "State picker must use full customer-facing names even when the API returns codes as display names",
 );
 for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
   assert.match(
@@ -157,6 +209,26 @@ assert.match(
   riverRunScreen,
   /SOURCES & DATA AGE[\s\S]*?liveMetricFreshnessCopy\(metric\)/,
   "Sources & Data Age must retain per-metric update details",
+);
+assert.match(
+  riverRunScreen,
+  /`Typical · \$\{typicalRange \?\? "Unavailable"\}`/,
+  "Live Gauge Read tiles must present the percentile range used by their status badge",
+);
+assert.match(
+  riverRunScreen,
+  /typical range · median \$\{median\}/,
+  "Gauge Read details must identify recent-era ranges and their median",
+);
+assert.match(
+  riverRunScreen,
+  /`Date avg · \$\{historicalAverage \?\? "Unavailable"\}`/,
+  "Historical-only temperature must retain its explicitly labeled date average",
+);
+assert.match(
+  riverRunScreen,
+  /\? "No live sensor"/,
+  "Historical-only temperature must use a compact one-line missing-sensor label",
 );
 
 assert.equal(

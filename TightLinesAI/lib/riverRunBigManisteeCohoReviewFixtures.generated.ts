@@ -106,7 +106,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -117,7 +117,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -482,7 +482,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -583,7 +583,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -594,7 +594,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -966,7 +966,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -1010,7 +1010,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Before migration",
             "headline": "Coho salmon may be staging near the river entrance.",
             "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
-            "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
+            "detail": "Staging context does not confirm dependable river entry. Coho salmon opportunity remains sectional.",
             "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from Migration Stage alone.",
             "reasonCodes": [
               "stage_pre_run",
@@ -1068,7 +1068,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -1079,7 +1079,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -1127,7 +1127,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -1519,7 +1519,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -1563,7 +1563,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "The first Coho salmon are entering the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "Early fish remain scattered. Coho opportunity is limited to select water.",
+            "detail": "Early fish remain scattered. Coho salmon opportunity is limited to select water.",
             "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -1649,7 +1649,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -1660,7 +1660,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -1684,7 +1684,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -1696,7 +1696,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -1708,7 +1708,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -2101,7 +2101,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -2145,7 +2145,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -2231,7 +2231,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2242,7 +2242,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -2266,7 +2266,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -2278,7 +2278,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -2290,7 +2290,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -2683,7 +2683,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -2727,7 +2727,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are becoming established through more of the river.",
             "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
-            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "detail": "Coho salmon may occupy more than one section, but the opportunity remains selective.",
             "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
@@ -2837,7 +2837,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2848,7 +2848,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -2896,7 +2896,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -3283,7 +3283,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -3327,7 +3327,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are established in select Big Manistee sections.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
-            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "detail": "More than one section may hold Coho salmon, but concentrations remain selective.",
             "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -3437,7 +3437,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3448,7 +3448,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -3496,7 +3496,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -3883,7 +3883,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -3927,7 +3927,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are approaching their strongest Big Manistee window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "Seasonal opportunity is broadening, but Coho remain concentrated in select water.",
+            "detail": "Seasonal opportunity is broadening, but Coho salmon remain concentrated in select water.",
             "tip": "Use Wellston only for Upper-river conditions and verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -4051,7 +4051,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4062,7 +4062,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -4110,7 +4110,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -4497,7 +4497,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -4541,7 +4541,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -4665,7 +4665,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4676,7 +4676,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -4724,7 +4724,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -5117,7 +5117,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -5161,7 +5161,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "Big Manistee Coho salmon presence remains near its seasonal peak.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "Coho remain sectional as the run begins shifting toward a later mix.",
+            "detail": "Coho salmon remain sectional as the run begins shifting toward a later mix.",
             "tip": "Look for genuinely fresh fish and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -5296,7 +5296,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5307,7 +5307,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -5355,7 +5355,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -5748,7 +5748,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -5927,7 +5927,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5938,7 +5938,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -5987,7 +5987,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 67,
+                "score": 66,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -6374,7 +6374,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -6553,7 +6553,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6564,7 +6564,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -6613,7 +6613,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 58,
+                "score": 57,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -7000,7 +7000,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -7179,7 +7179,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7190,7 +7190,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -7239,7 +7239,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 52,
+                "score": 51,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -7626,7 +7626,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -7805,7 +7805,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7816,7 +7816,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -7865,7 +7865,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 41,
+                "score": 40,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -8252,7 +8252,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -8417,7 +8417,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8428,7 +8428,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -8477,7 +8477,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 29,
+                "score": 28,
                 "activityLabel": "Reserved",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -8871,7 +8871,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -8978,7 +8978,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8989,7 +8989,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -9361,7 +9361,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -9462,7 +9462,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9473,7 +9473,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -9845,7 +9845,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -9946,7 +9946,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9957,7 +9957,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -10329,7 +10329,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -10430,7 +10430,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10441,7 +10441,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -10813,7 +10813,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -10914,7 +10914,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10925,7 +10925,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -11297,7 +11297,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -11398,7 +11398,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11409,7 +11409,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -11781,7 +11781,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -11825,7 +11825,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are becoming established through more of the river.",
             "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
-            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "detail": "Coho salmon may occupy more than one section, but the opportunity remains selective.",
             "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
@@ -11970,7 +11970,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11981,7 +11981,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -12029,7 +12029,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -12416,7 +12416,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -12466,7 +12466,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -12552,7 +12552,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12563,7 +12563,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -12587,7 +12587,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -12599,7 +12599,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -12611,7 +12611,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -12998,7 +12998,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -13042,7 +13042,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -13129,7 +13129,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 90,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13140,7 +13140,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 2,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -13576,7 +13576,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -13620,7 +13620,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -13705,7 +13705,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 88,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13716,7 +13716,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 0,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -14151,7 +14151,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -14195,7 +14195,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -14280,7 +14280,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14291,7 +14291,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": -8,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -14726,7 +14726,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -14770,7 +14770,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -14852,25 +14852,28 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
-            "score": 68,
-            "label": "Fishable",
+            "score": 40,
+            "label": "Tough",
             "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
-              "ideal_flow_band"
+              "high_fishable_flow_band",
+              "fishability_sharp_rise_high_cap"
             ],
             "components": {
-              "bandBase": 88,
+              "bandBase": 68,
               "trendModifier": -20,
-              "appliedCaps": []
+              "appliedCaps": [
+                40
+              ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 77,
+            "score": 76,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Coho responsiveness is active.",
@@ -14890,8 +14893,8 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 80,
-                "activityLabel": "Highly active",
+                "score": 78,
+                "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 60,
@@ -14902,7 +14905,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 71,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -14914,7 +14917,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Coho.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -14926,7 +14929,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -15074,7 +15077,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "observedAt": "2026-09-30T15:00:00.000Z",
             "primaryMetric": "flow_cfs",
             "value": 1850,
-            "band": "ideal",
+            "band": "high_fishable",
             "trend": "sharp_rise",
             "absoluteChange24h": 220,
             "percentChange24h": 13.5
@@ -15293,7 +15296,13 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": null,
+          "interpretationNote": {
+            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
+            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
+            "reasonCodes": [
+              "strong_push_low_fishability"
+            ]
+          },
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -15301,7 +15310,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -15345,7 +15354,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -15431,7 +15440,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15442,11 +15451,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 77,
+            "score": 76,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Coho responsiveness is active.",
@@ -15502,7 +15511,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -15877,7 +15886,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -15921,7 +15930,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -16008,7 +16017,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 69,
             "label": "Fishable",
             "headline": "Upper-river flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -16022,11 +16031,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 69
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 77,
+            "score": 76,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Coho responsiveness is active.",
@@ -16082,7 +16091,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -16457,7 +16466,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -16501,7 +16510,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -16586,24 +16595,25 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
-            "score": 55,
-            "label": "Fishable",
+            "score": 40,
+            "label": "Tough",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
-              "ideal_flow_band",
+              "high_fishable_flow_band",
+              "fishability_sharp_rise_high_cap",
               "fishability_stale_gauge_cap"
             ],
             "components": {
-              "bandBase": 88,
+              "bandBase": 68,
               "trendModifier": -20,
               "appliedCaps": [
-                55
+                40
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -16811,7 +16821,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "observedAt": "2026-09-30T15:00:00.000Z",
             "primaryMetric": "flow_cfs",
             "value": 1850,
-            "band": "ideal",
+            "band": "high_fishable",
             "trend": "sharp_rise",
             "absoluteChange24h": 220,
             "percentChange24h": 13.5
@@ -17038,7 +17048,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -17082,7 +17092,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -17170,7 +17180,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 0,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -17183,7 +17193,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": -20,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -17619,7 +17629,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -17663,7 +17673,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -17740,7 +17750,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -18142,7 +18152,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -18186,7 +18196,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -18259,7 +18269,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18270,11 +18280,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 53,
+            "score": 52,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Coho responsiveness is moderate.",
@@ -18306,7 +18316,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 47,
+                "score": 46,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -18330,7 +18340,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 55,
+                "score": 54,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -18668,7 +18678,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -18769,7 +18779,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18780,7 +18790,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -19152,7 +19162,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -19253,7 +19263,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19264,7 +19274,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": -8,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -19636,7 +19646,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -19737,7 +19747,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19748,7 +19758,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": -8,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -20120,7 +20130,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -20164,7 +20174,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -20250,7 +20260,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 40,
             "label": "Tough",
             "headline": "Very low Upper-river flow leaves limited depth and cover.",
-            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20262,7 +20272,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -20697,7 +20707,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -20747,7 +20757,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -20833,7 +20843,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 60,
             "label": "Fishable",
             "headline": "Low Upper-river flow remains workable with less depth and cover.",
-            "detail": "Low flow reduces depth and cover across the Upper river. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Low flow reduces depth and cover across the Upper river. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20844,7 +20854,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -21279,7 +21289,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -21323,7 +21333,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -21410,7 +21420,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 20,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21422,7 +21432,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -21858,7 +21868,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -21902,7 +21912,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -21987,7 +21997,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 88,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21998,11 +22008,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 0,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 77,
+            "score": 76,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Coho responsiveness is active.",
@@ -22058,7 +22068,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -22433,7 +22443,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -22477,7 +22487,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -22562,7 +22572,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 40,
             "label": "Tough",
             "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -22576,7 +22586,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 40
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -23017,7 +23027,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -23061,7 +23071,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -23148,7 +23158,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 69,
             "label": "Fishable",
             "headline": "Upper-river flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -23162,7 +23172,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 69
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -23186,7 +23196,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -23198,7 +23208,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -23210,7 +23220,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -23597,7 +23607,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -23641,7 +23651,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -23728,7 +23738,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -23742,7 +23752,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 55
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -24177,7 +24187,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -24221,7 +24231,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -24298,7 +24308,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -24700,7 +24710,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -24744,7 +24754,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -24830,7 +24840,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -24841,7 +24851,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -24865,7 +24875,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -24877,7 +24887,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -24889,7 +24899,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -25276,7 +25286,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -25320,7 +25330,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -25406,7 +25416,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 73,
             "label": "Good",
             "headline": "High Upper-river flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25417,11 +25427,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 72,
+            "score": 71,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Upper-river Coho responsiveness is active.",
@@ -25477,7 +25487,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 74,
+                "score": 73,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -25852,7 +25862,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -25896,7 +25906,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -25982,7 +25992,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 45,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25993,7 +26003,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -26428,7 +26438,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -26478,7 +26488,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Before migration",
             "headline": "Coho salmon may be staging near the river entrance.",
             "whereToStart": "Start at Manistee Lake, the harbor, and the river entrance. Add the Lower river (M-55–Bear Creek) only for an early-fish check.",
-            "detail": "Staging context does not confirm dependable river entry. Coho opportunity remains sectional.",
+            "detail": "Staging context does not confirm dependable river entry. Coho salmon opportunity remains sectional.",
             "tip": "Keep the river check brief. Do not move into the Middle river (Bear Creek–High Bridge) or Upper river (High Bridge–Tippy Dam) from Migration Stage alone.",
             "reasonCodes": [
               "stage_pre_run",
@@ -26536,7 +26546,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -26547,7 +26557,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -26988,7 +26998,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -27032,7 +27042,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -27118,7 +27128,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27129,11 +27139,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 83,
+            "score": 82,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Upper-river Coho responsiveness is highly active.",
@@ -27153,7 +27163,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 84,
+                "score": 83,
                 "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
@@ -27165,8 +27175,8 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 80,
-                "activityLabel": "Highly active",
+                "score": 79,
+                "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Water temperature limits responsiveness.",
                 "cloudCoverPct": 100,
@@ -27570,7 +27580,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -27614,7 +27624,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are established in select Big Manistee sections.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
-            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "detail": "More than one section may hold Coho salmon, but concentrations remain selective.",
             "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -27724,7 +27734,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27735,7 +27745,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -27795,7 +27805,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 83,
+                "score": 82,
                 "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -28170,7 +28180,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -28214,7 +28224,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -28338,7 +28348,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28349,7 +28359,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -28373,7 +28383,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 82,
+                "score": 81,
                 "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -28409,7 +28419,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 81,
+                "score": 80,
                 "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -28790,7 +28800,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -28834,7 +28844,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are established in select Big Manistee sections.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
-            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "detail": "More than one section may hold Coho salmon, but concentrations remain selective.",
             "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -28944,7 +28954,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 45,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28955,7 +28965,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -29390,7 +29400,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -29434,7 +29444,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -29520,7 +29530,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29531,7 +29541,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -29973,7 +29983,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -30017,7 +30027,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -30103,7 +30113,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30114,7 +30124,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -30556,7 +30566,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -30600,7 +30610,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -30725,7 +30735,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 20,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30737,7 +30747,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -31179,7 +31189,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -31358,7 +31368,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31369,7 +31379,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -31430,7 +31440,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 82,
+                "score": 81,
                 "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -31805,7 +31815,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -31984,7 +31994,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31995,7 +32005,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -32003,8 +32013,8 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Coho responsiveness is moderate.",
-            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM is the strongest remaining window because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
-            "tip": "Begin with 5–9 PM. Apply this window in the Upper river and verify downstream sections directly.",
+            "detail": "Conditions offer mixed support for Coho responsiveness. 5–9 PM and 1–5 PM are the leading remaining windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 PM and 1–5 PM using actual light. Verify downstream sections directly.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
@@ -32056,7 +32066,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 56,
+                "score": 55,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -32431,7 +32441,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -32596,7 +32606,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -32607,7 +32617,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -33050,7 +33060,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -33094,7 +33104,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -33205,7 +33215,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33216,7 +33226,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -33264,7 +33274,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 50,
+                "score": 49,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -33276,7 +33286,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 57,
+                "score": 56,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -33614,7 +33624,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -33658,7 +33668,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -33773,7 +33783,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -34175,7 +34185,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -34282,7 +34292,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34293,7 +34303,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -34665,7 +34675,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -34709,7 +34719,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "The first Coho salmon are entering the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "Early fish remain scattered. Coho opportunity is limited to select water.",
+            "detail": "Early fish remain scattered. Coho salmon opportunity is limited to select water.",
             "tip": "Cover travel water and the first substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -34795,7 +34805,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34806,7 +34816,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -34830,7 +34840,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -34842,7 +34852,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -34854,7 +34864,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -35247,7 +35257,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -35291,7 +35301,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -35377,7 +35387,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35388,7 +35398,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -35412,7 +35422,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -35424,7 +35434,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -35436,7 +35446,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -35829,7 +35839,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -35873,7 +35883,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are becoming established through more of the river.",
             "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
-            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "detail": "Coho salmon may occupy more than one section, but the opportunity remains selective.",
             "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
@@ -35983,7 +35993,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35994,7 +36004,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -36042,7 +36052,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -36429,7 +36439,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -36473,7 +36483,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are becoming established through more of the river.",
             "whereToStart": "Start in the Middle river (Bear Creek–High Bridge). Add the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area, when direct activity supports it.",
-            "detail": "Coho may occupy more than one section, but the opportunity remains selective.",
+            "detail": "Coho salmon may occupy more than one section, but the opportunity remains selective.",
             "tip": "Compare one section at a time; Wellston does not describe the Middle or Lower river.",
             "reasonCodes": [
               "stage_building"
@@ -36583,7 +36593,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -36594,7 +36604,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -36642,7 +36652,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -37029,7 +37039,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -37073,7 +37083,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are established in select Big Manistee sections.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) when direct activity favors it.",
-            "detail": "More than one section may hold Coho, but concentrations remain selective.",
+            "detail": "More than one section may hold Coho salmon, but concentrations remain selective.",
             "tip": "Use Wellston conditions only for the Upper river. Verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -37183,7 +37193,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37194,7 +37204,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -37242,7 +37252,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -37629,7 +37639,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -37673,7 +37683,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Building",
             "headline": "Coho salmon are approaching their strongest Big Manistee window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "Seasonal opportunity is broadening, but Coho remain concentrated in select water.",
+            "detail": "Seasonal opportunity is broadening, but Coho salmon remain concentrated in select water.",
             "tip": "Use Wellston only for Upper-river conditions and verify downstream water directly.",
             "reasonCodes": [
               "stage_building"
@@ -37797,7 +37807,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37808,7 +37818,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -37856,7 +37866,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -38243,7 +38253,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -38287,7 +38297,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -38411,7 +38421,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38422,7 +38432,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -38470,7 +38480,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -38863,7 +38873,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -38907,7 +38917,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Peak",
             "headline": "This is the strongest seasonal Big Manistee Coho salmon window.",
             "whereToStart": "Start in the Upper river (High Bridge–Tippy Dam), emphasizing the Tippy Dam area. Compare the Middle river (Bear Creek–High Bridge) for fresher fish.",
-            "detail": "This is still sectional opportunity; Coho will not be evenly distributed.",
+            "detail": "This is still sectional opportunity; Coho salmon will not be evenly distributed.",
             "tip": "Use Wellston only for Upper-river conditions and leave visible spawning fish undisturbed.",
             "reasonCodes": [
               "stage_peak"
@@ -39031,7 +39041,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39042,7 +39052,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -39090,7 +39100,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 68,
+                "score": 67,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -39483,7 +39493,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -39662,7 +39672,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39673,7 +39683,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -39722,7 +39732,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 67,
+                "score": 66,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -40109,7 +40119,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -40288,7 +40298,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40299,7 +40309,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -40348,7 +40358,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 62,
+                "score": 61,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -40735,7 +40745,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -40914,7 +40924,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40925,7 +40935,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -40974,7 +40984,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 53,
+                "score": 52,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -41361,7 +41371,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -41540,7 +41550,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41551,7 +41561,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -41600,7 +41610,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 41,
+                "score": 40,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -41987,7 +41997,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -42166,7 +42176,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42177,7 +42187,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -42226,7 +42236,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 29,
+                "score": 28,
                 "activityLabel": "Reserved",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -42619,7 +42629,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -42784,7 +42794,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42795,7 +42805,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -42844,7 +42854,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 29,
+                "score": 28,
                 "activityLabel": "Reserved",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -43237,7 +43247,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -43338,7 +43348,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43349,7 +43359,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -43714,7 +43724,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -43764,7 +43774,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -43849,7 +43859,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 32,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43860,7 +43870,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": -8,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -44301,7 +44311,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -44345,7 +44355,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -44432,7 +44442,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 90,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44443,7 +44453,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 2,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -44879,7 +44889,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -44923,7 +44933,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -44996,7 +45006,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45007,11 +45017,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 53,
+            "score": 52,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Coho responsiveness is moderate.",
@@ -45043,7 +45053,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 47,
+                "score": 46,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -45067,7 +45077,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 55,
+                "score": 54,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -45411,7 +45421,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -45512,7 +45522,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45523,7 +45533,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": null,
@@ -45895,7 +45905,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]
@@ -45945,7 +45955,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -46031,7 +46041,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -46042,7 +46052,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -46066,7 +46076,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 79,
+                "score": 78,
                 "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -46078,7 +46088,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 70,
+                "score": 69,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -46090,7 +46100,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 69,
+                "score": 68,
                 "activityLabel": "Active",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
@@ -46477,7 +46487,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -46521,7 +46531,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -46608,7 +46618,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -46622,7 +46632,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
                 55
               ]
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -47057,7 +47067,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -47101,7 +47111,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -47178,7 +47188,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
@@ -47580,7 +47590,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       },
       {
@@ -47624,7 +47634,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "label": "Beginning",
             "headline": "Coho salmon are accumulating through more of the Big Manistee.",
             "whereToStart": "Start in the Lower river (M-55–Bear Creek). Add the Middle river (Bear Creek–High Bridge) after direct fish activity supports the move.",
-            "detail": "More Coho are present, but concentrations remain selective.",
+            "detail": "More Coho salmon are present, but concentrations remain selective.",
             "tip": "Follow travel water into substantial holding areas before moving upstream.",
             "reasonCodes": [
               "stage_beginning"
@@ -47697,7 +47707,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -47708,11 +47718,11 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               "trendModifier": 5,
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "rulesVersion": "big-manistee-tailwater-fishability-v2-core-ideal",
             "copyVersion": "river-run-copy-v38"
           },
           "activity": {
-            "score": 53,
+            "score": 52,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Upper-river Coho responsiveness is moderate.",
@@ -47744,7 +47754,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 47,
+                "score": 46,
                 "activityLabel": "Moderate",
                 "positiveDriver": "The river level and its recent change are favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -47768,7 +47778,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 55,
+                "score": 54,
                 "activityLabel": "Moderate",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Measured water temperature is unavailable.",
@@ -48106,7 +48116,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-10-big-manistee-copy.1"
+          "configVersion": "2026-08-27-big-manistee-fishability.2"
         }
       }
     ]

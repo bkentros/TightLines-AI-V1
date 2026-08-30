@@ -27,7 +27,7 @@ verified biological outer barrier.
 | Corridor | Harbor & Downtown; City Parks; Lincoln Park | owner-approved foundation |
 | Product endpoint | downstream face of operated Steelhead Facility | conservative v1 scope, not biological exclusion |
 | Stage / Fish In River | available | calendar and curve below |
-| Fishability | available; upper Horlick context only | fixed 2019-2024 flow baseline |
+| Fishability | unavailable | Horlick gauge is upstream of the product endpoint |
 | Gauge Read | Horlick flow/height plus separately labeled 60th Street temperature | upper-river context, not product-corridor truth |
 | Activity | available; Limited weather-only | modeled Horlick weather only; both upstream river stations excluded |
 | Push / Migration Timing | unavailable | no accepted paired movement/baseline contract |
@@ -65,18 +65,18 @@ confirms passage, and section labels do not guarantee access or safety.
 
 ## 4. Conditions and evidence
 
-Fishability uses USGS `04087240` only as upper-river presentation context. Six
-complete Aug.-Jan. seasons (2019-2024; 1,104/1,104 days) produced p10 10.4,
-p25 20.375, median 46.8, p75 113.25, and p95 447.85 CFS. Hidden bands are
-`<10`, `10-20`, `20-113`, `113-447`, and `>=448` CFS. They do not describe
-harbor conditions, passage, abundance, clarity, access, or safety.
+USGS `04087240` remains visible as upper-river flow/height context. It is 350
+feet below Horlick Dam and 5.2 miles above the mouth, upstream of the product
+endpoint below the operated Steelhead Facility. Fishability therefore fails
+closed instead of converting that upstream measurement into a presentation
+grade for Harbor & Downtown, City Parks, or Lincoln Park below the facility.
 
 Primary evidence: [2025 fall summary](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSummaryFall2025.pdf), [2024-2025 facility report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSteelheadFacilityFall2024Spring2025.pdf), [facility page](https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/ROOTRIVER), and [current regulations](https://dnr.wisconsin.gov/topic/fishing/regulations).
 
 ## 5. Gate
 
 - [x] Capability, contradiction search, strength, endpoint, calendar, curve,
-      corridor copy, Fishability, Gauge Read, and hidden config reconciled.
+      corridor copy, unavailable Fishability, Gauge Read, and hidden config reconciled.
 - [x] Activity independently replayed for 2007-2025 with zero invariants; Push and Migration Timing fail closed.
 - [x] Owner calibration lowers Staging and Beginning by exactly five points;
       replay means are 69.21 and 69.54 versus 74.21 and 74.54 in the preserved
@@ -85,4 +85,4 @@ Primary evidence: [2025 fall summary](https://dnr.wisconsin.gov/sites/default/fi
 - [x] Owner approved Gate 4A truth/copy.
 - [x] Owner approved Gate 4B Activity behavior/replay on 2026-08-26.
 
-**Configuration:** `2026-08-27-root-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-root-fishability-source-scope.5`

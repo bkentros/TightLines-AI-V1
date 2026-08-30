@@ -226,7 +226,8 @@ export type RiverRunLiveSeasonalContext = {
   source:
     | "usgs_statistics"
     | "monitor_my_watershed_history"
-    | "usgs_approved_exact_date_archive";
+    | "usgs_approved_exact_date_archive"
+    | "usgs_approved_fixed_period_archive";
 };
 
 export type RiverRunLiveConditionMetric = {

@@ -7,12 +7,13 @@ and alias searches were checked. They establish recurring Chinook passage and a
 public fishery; no contradictory exclusion was found. Stocking was treated as
 supporting context, not sole proof.
 
-**Capability decision:** `supported_hidden_review` **Contradiction search
+**Capability decision:** `supported_public_reach_scoped` **Contradiction search
 completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+by/date:** completed in the 2026-08-25 observed-Activity audit and 2026-08-27
+Fishability reconciliation
 
 **River ID:** `grand` **Species slug:** `chinook` **Created/researched:**
-2026-08-24 **Status:** `truth_profile_researched_calibration_and_replay_blocked`
+2026-08-24 **Status:** `public_enabled_with_fail_closed_passage_scope`
 
 > The approved Chinook product endpoint is Webber Dam. Current operation at
 > Sixth Street and the status of Ada/Wagar passage remain unresolved, so public
@@ -84,7 +85,7 @@ the Middle passage corridor must be current before that section is shown.`
 
 ## 4. Fish In River proposal
 
-- Historical maximum: **7/10 hidden-review calibration**. This remains below
+- Historical maximum: **7/10 accepted calibration**. This remains below
   signature 8–10 portfolio runs because current adult-return quantification is
   incomplete and passage declines at successive ladders.
 - Public opportunity tier: `Moderate` proposal; never present as a fish count.
@@ -114,20 +115,19 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
-> **Implementation update (2026-08-25):** The current hidden candidate is
+> **Implementation update (2026-08-25):** The current public profile is
 > `grand-fall-chinook-observed-activity-v3-draft`. It combines Fulton flow,
 > North Park measured temperature, and Grand Rapids hourly weather only for the
 > downtown Grand Rapids mainstem. The proxy validation, six-season replay,
 > source-outage contract, and downstream rejection are recorded in
-> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
-> The accepted v3 stage means are Pre-run 26.42, Beginning 29.33, Building
-> 37.39, Peak 54.03, Tapering 48.11, Ending 45.94, and Post-run 38.43. The
-> bounded stage-response adjustment retains warm/barrier/blown-out caps and a
-> true 96-point maximum.
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`. The accepted v3
+> stage means are Pre-run 26.42, Beginning 29.33, Building 37.39, Peak 54.03,
+> Tapering 48.11, Ending 45.94, and Post-run 38.43. The bounded stage-response
+> adjustment retains warm/barrier/blown-out caps and a true 96-point maximum.
 
 ### Evidence and mode
 
-- Mode: `observed_river`, implemented for hidden review.
+- Mode: `observed_river`, publicly enabled with the documented reach limits.
 - Temperature: measured at North Park Street above Sixth Street; it describes
   that Grand Rapids reach only.
 - Hydraulics: discharge at Fulton Street below Sixth Street; it describes the
@@ -172,18 +172,18 @@ fixture gates pass. Rendered device review and owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
-Fishability can be proposed only for the Fulton Street/downtown Lower reach. It
-is unavailable for the Middle and Upper sections and cannot decide access,
-safety, clarity, or fish abundance. Candidate bands use 1990–2025 Aug. 1–Nov. 30
-daily-discharge percentiles as calibration scaffolding, not biological facts.
+Fishability applies only to the Fulton Street/downtown Lower reach. It is
+unavailable for the Middle and Upper sections and cannot decide access, safety,
+clarity, or fish abundance. The shared Grand bands use the combined 1990–2025
+fall distribution and are identical for Chinook, Coho, and Steelhead.
 
-| Boundary          | Proposed discharge | Evidence/calibration rationale                                                  |
-| ----------------- | -----------------: | ------------------------------------------------------------------------------- |
-| Too low maximum   |          1,200 CFS | near the seasonal 5th–10th percentile; local presentation validation required   |
-| Low fishable      |          1,600 CFS | near the seasonal 25th percentile                                               |
-| Ideal             |    1,600–3,800 CFS | approximately seasonal 25th–80th percentile; intentionally broad pending replay |
-| High fishable     |    3,800–6,400 CFS | approximately seasonal 80th–95th percentile                                     |
-| Blown out minimum |          6,400 CFS | replay candidate only; not a safety/flood threshold                             |
+| Boundary          | Proposed discharge | Evidence/calibration rationale                            |
+| ----------------- | -----------------: | --------------------------------------------------------- |
+| Too low maximum   |          1,200 CFS | near the broad fall lower tail; Fulton presentation only  |
+| Low fishable      |          1,600 CFS | near the broad fall 25th-percentile corridor              |
+| Ideal             |    1,600–4,000 CFS | shared fall presentation range                            |
+| High fishable     |    4,001–6,399 CFS | upper fall presentation range                             |
+| Blown out minimum |          6,400 CFS | presentation threshold only; not a safety/flood threshold |
 
 - Metric/source/reach: discharge, Grand River at Grand Rapids/Fulton Street; no
   gauge-height scoring.
@@ -196,9 +196,9 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 - Extreme guidance:
   `Treat an extreme reading as poor presentation at this
   station and verify current river and access information.`
-- Acceptance requires local expert review, historical replay by lifecycle phase,
-  percentile/subset counts, trend boundaries, construction-era rating re-audit,
-  and fixtures for every band/freshness/trend combination.
+- The 2026-08-27 cross-river audit reconciled all boundaries, trend/freshness
+  behavior, source scope, and review fixtures. Material construction or channel
+  change still requires a Fulton rating/source recheck.
 
 ## 7. Four-primitive copy and replay acceptance
 
@@ -209,7 +209,8 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 - [ ] Exact calendar, ceiling, curve, weights, caps, and Fishability bands are
       owner-accepted.
 - [x] Activity provider issue is resolved and five-plus-year replay passes.
-- [ ] Fishability replay and local presentation review pass.
+- [x] Shared Fishability calibration and automated boundary/reconciliation
+      review pass.
 - [x] Every Activity source/fallback state has an intended-state fixture.
 - [ ] Copy/geography/foreign-landmark/capability/contradiction/safety gates
       pass.
@@ -217,29 +218,28 @@ daily-discharge percentiles as calibration scaffolding, not biological facts.
 
 ## 8. Research evidence ledger
 
-| ID      | Authority/title                                                                           | URL/path                                                                                                                                | Published/updated  | Accessed                                                                                                  | Facts supported                                                                        | Limitations                                       |
-| ------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| C-R001  | Michigan DNR, _Chinook salmon_                                                            | https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon                                                     | current            | 2026-08-24                                                                                                | Late-summer upstream migration; catchable by mid-August; qualitative light sensitivity | statewide, not Grand-specific dates or thresholds |
-| C-R002  | Michigan DNR, _Grand River, Ionia County — Status of the Fishery Resource Report 2009-78_ | https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2009-78.pdf                                    | 2009               | 2008 Webber Chinook count and monthly distribution; passage route                                         | one historic year; not current abundance or operation                                  |                                                   |
-| C-R003  | Michigan DNR, _Salmon in the Classroom Teacher Guide_                                     | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Education/SIC/SIC-Teacher-Guide-2024.pdf                            | 2024               | Adult Chinook stage mid/late August, stop feeding in-river, and die after spawning                        | educational statewide biology; not a Grand calendar                                    |                                                   |
-| C-R004  | Strange, _Upper Thermal Limits to Migration in Adult Chinook Salmon_                      | https://doi.org/10.1577/T09-171.1                                                                                                       | 2010               | Warm water can inhibit adult upstream migration; reported initiation after inhibition around 21.8–24.0 °C | Klamath population/geography; does not define Grand Activity breakpoints               |                                                   |
-| C-R005  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,392 daily observations in Aug. 1–Nov. 30 seasonal slices; percentile scaffolding                        | hydrology only; does not establish fishability                                         |                                                   |
-| C-CAL01 | FinFindr Grand Chinook calibration decision                                               | `docs/audits/river-run-grand-platte-white-calendar-strength-audit-2026-08-24.md`                                                        | 2026-08-24         | Exact dates, cross-river comparison, current stocking context, and corrected 7/10 ceiling                 | hidden review; Activity and Fishability replay remain pending                          |                                                   |
-| C-ACT01 | FinFindr Grand observed Activity audit                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                           | 2026-08-25         | Downtown station-pair validation, 584/588-date replay, input fallback contract, downstream source decision | conditional response model; not catch-rate validation or whole-river evidence          |                                                   |
+| ID      | Authority/title                                                                           | URL/path                                                                                                                                | Published/updated  | Accessed                                                                                                   | Facts supported                                                                        | Limitations                                       |
+| ------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| C-R001  | Michigan DNR, _Chinook salmon_                                                            | https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon                                                     | current            | 2026-08-24                                                                                                 | Late-summer upstream migration; catchable by mid-August; qualitative light sensitivity | statewide, not Grand-specific dates or thresholds |
+| C-R002  | Michigan DNR, _Grand River, Ionia County — Status of the Fishery Resource Report 2009-78_ | https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2009-78.pdf                                    | 2009               | 2008 Webber Chinook count and monthly distribution; passage route                                          | one historic year; not current abundance or operation                                  |                                                   |
+| C-R003  | Michigan DNR, _Salmon in the Classroom Teacher Guide_                                     | https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Education/SIC/SIC-Teacher-Guide-2024.pdf                            | 2024               | Adult Chinook stage mid/late August, stop feeding in-river, and die after spawning                         | educational statewide biology; not a Grand calendar                                    |                                                   |
+| C-R004  | Strange, _Upper Thermal Limits to Migration in Adult Chinook Salmon_                      | https://doi.org/10.1577/T09-171.1                                                                                                       | 2010               | Warm water can inhibit adult upstream migration; reported initiation after inhibition around 21.8–24.0 °C  | Klamath population/geography; does not define Grand Activity breakpoints               |                                                   |
+| C-R005  | USGS 04119000 daily discharge endpoint                                                    | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 4,392 daily observations in Aug. 1–Nov. 30 seasonal slices; percentile scaffolding                         | hydrology only; does not establish fishability                                         |                                                   |
+| C-CAL01 | FinFindr Grand Chinook calibration decision                                               | `docs/audits/river-run-grand-platte-white-calendar-strength-audit-2026-08-24.md`                                                        | 2026-08-24         | Exact dates, cross-river comparison, current stocking context, and corrected 7/10 ceiling                  | Fishability superseded by the shared 2026-08-27 calibration                            |                                                   |
+| C-ACT01 | FinFindr Grand observed Activity audit                                                    | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                           | 2026-08-25         | Downtown station-pair validation, 584/588-date replay, input fallback contract, downstream source decision | conditional response model; not catch-rate validation or whole-river evidence          |                                                   |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-009, E-010, E-018.
 
 ## 9. Run gate
 
-**Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+**Run decision:** `public_enabled_reach_scoped` **Configuration version:**
+`2026-08-27-grand-fishability-reconciliation.2` **Activity rules version:**
 `grand-fall-chinook-observed-activity-v3-draft` **Presence curve version:**
-`grand-chinook-presence-v2-draft` **Copy version:**
-`grand-chinook-copy-v1-proposed` **Replay artifact:**
-`docs/audits/river-run-grand-chinook-activity-replay.json` **Owner
-acceptance/date:** numeric/research candidate approved for hidden app review /
-2026-08-24
+`grand-chinook-presence-v2-draft` **Copy version:** `onboarding_corridor`
+**Replay artifact:** `docs/audits/river-run-grand-chinook-activity-replay.json`
+**Owner acceptance/date:** public release accepted / 2026-08-25; shared Fulton
+Fishability reconciled / 2026-08-27
 
-Blocking items: current Sixth/Ada/Wagar passage verification; Fishability replay;
-rendered device/owner review; release authorization; and post-dam-work
-source/rating and station-pair re-audit.
+Blocking items for expanded upstream guidance: current Sixth/Ada/Wagar passage
+verification, rendered device/owner review, and post-dam-work source/rating and
+station-pair re-audit. Public Fulton Fishability calibration is complete.

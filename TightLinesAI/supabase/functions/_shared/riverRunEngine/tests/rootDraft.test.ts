@@ -15,7 +15,6 @@ import {
   ROOT_FALL_STEELHEAD_RUN_PROFILE,
   ROOT_RIVER_PROFILE,
   scoreActivity,
-  scoreFishability,
   scoreFishInRiver,
   validateConfigurationRevision,
   validateRiverProfile,
@@ -54,7 +53,14 @@ Deno.test("Root four-species Gate 4B foundation validates and remains hidden", (
     assertEquals(run.publicAudit.isEnabled, false, run.runId);
     assertEquals(run.primitiveCapabilities.migrationStage.status, "available");
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
-    assertEquals(run.primitiveCapabilities.fishability.status, "available");
+    const fishability = run.primitiveCapabilities.fishability;
+    assertEquals(fishability.status, "unavailable");
+    if (fishability.status !== "unavailable") throw new Error(run.runId);
+    assertEquals(
+      fishability.reason,
+      "no_accepted_hydraulic_source",
+    );
+    assertEquals(run.fishabilityBands, undefined);
     assertEquals(run.primitiveCapabilities.activity.status, "available");
     assertEquals(run.activity?.dataMode, "weather_only");
     assertEquals(run.activity?.inputReach?.hydraulicSourceIds, []);
@@ -219,21 +225,25 @@ Deno.test("Root Steelhead and Brown completion do not claim death or departure",
   );
 });
 
-Deno.test("Root Fishability is upper-Horlick context with fixed audited boundaries", () => {
-  const bands = ROOT_FALL_CHINOOK_RUN_PROFILE.fishabilityBands!;
-  assertEquals(bands.tooLow.max, 10);
-  assertEquals(bands.ideal, { min: 20, max: 113 });
-  assertEquals(bands.blownOut.min, 448);
-  assertMatch(bands.sourceLabel, /Upper Root below Horlick Dam/i);
-
-  const display = scoreFishability({
-    rules: bands,
-    gaugeFreshness: "fresh",
-    flowBand: "ideal",
-    currentHydraulicValue: 47,
-    flowSignal: "stable",
-  });
-  assert(display.score !== null);
-  assertMatch(display.detail, /presentation/i);
-  assertNotMatch(JSON.stringify(display), /harbor measurement|fish passage/i);
+Deno.test("Root keeps upper-Horlick hydraulics as Gauge Read context but fails corridor Fishability closed", () => {
+  assertEquals(ROOT_RIVER_PROFILE.foundation?.primaryGaugeReachId, null);
+  assertEquals(ROOT_RIVER_PROFILE.hydraulicSources[0].siteId, "04087240");
+  const baseline = ROOT_RIVER_PROFILE.fixedFlowSeasonalBaseline;
+  assert(baseline);
+  assertEquals(baseline.normals["02-15"]?.historicalYears, 6);
+  assertEquals(baseline.normals["02-15"]?.sampleCount, 42);
+  for (const run of runs) {
+    const fishability = run.primitiveCapabilities.fishability;
+    assertEquals(fishability.status, "unavailable");
+    if (fishability.status !== "unavailable") throw new Error(run.runId);
+    assertEquals(run.fishabilityBands, undefined);
+    assertMatch(
+      fishability.notes ?? "",
+      /upstream of the product endpoint/i,
+    );
+    assertMatch(
+      fishability.notes ?? "",
+      /Gauge Read context/i,
+    );
+  }
 });

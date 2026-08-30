@@ -138,4 +138,4 @@ claim that equal numbers occupy every section.
 - [ ] Owner accepts the hidden Gate 4B Activity candidate.
 
 **Run decision:** `hidden_gate4b_ready_for_owner_review`\
-**Configuration:** `2026-08-27-sheboygan-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-sheboygan-fishability-reconciliation.4`

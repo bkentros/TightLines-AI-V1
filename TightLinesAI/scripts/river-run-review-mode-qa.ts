@@ -240,7 +240,7 @@ for (const scenario of fishabilityScenarios) {
   if (display.score !== null) {
     assert.match(
       display.detail,
-      /This read applies to the Lower river .* not the full PM\./,
+      /(?:This read applies to|this result assesses) the Lower river .* not the full PM\./i,
       `${scenario.id} must preserve the Fishability evidence boundary`,
     );
   }

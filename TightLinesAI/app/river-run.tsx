@@ -62,7 +62,10 @@ import {
   resolveRiverRunVisualModel,
   type RiverRunVisualKind,
 } from "../lib/riverRunVisuals";
-import { getRiverRunSpeciesImage } from "../lib/riverRunSpeciesImages";
+import {
+  getRiverRunSpeciesHeroScale,
+  getRiverRunSpeciesImage,
+} from "../lib/riverRunSpeciesImages";
 import { getRiverRunRiverImage } from "../lib/riverRunChoiceImages";
 import { splitRiverRunDetailPoints } from "../lib/riverRunCopyFormatting";
 import {
@@ -1223,6 +1226,7 @@ function ResultHero({
   readDate: string;
 }) {
   const speciesImage = getRiverRunSpeciesImage(species);
+  const speciesHeroScale = getRiverRunSpeciesHeroScale(species);
   return (
     <View style={styles.resultHero}>
       <TopographicLines
@@ -1246,7 +1250,10 @@ function ResultHero({
           <View style={styles.resultFishStage}>
             <Image
               source={speciesImage}
-              style={styles.resultFishImage}
+              style={[
+                styles.resultFishImage,
+                { transform: [{ scale: speciesHeroScale }] },
+              ]}
               resizeMode="contain"
             />
           </View>
@@ -1520,8 +1527,8 @@ function LiveRiverConditionsCard({ conditions }: {
               {orderedMetrics.some((metric) =>
                   metric.seasonalContext?.windowRadiusDays === 0
                 )
-                ? "Flow date averages use the same calendar date ±3 days. Historical-only water temperature uses the exact calendar date and shows its qualifying-year count; it is not today's temperature. Provider readings may be revised."
-                : "Date averages use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
+                ? "Flow typical ranges use the same calendar date ±3 days. Historical-only water temperature uses the exact-date average and shows its qualifying-year count; it is not today's temperature. Provider readings may be revised."
+                : "Typical ranges and medians use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
             </Text>
           </View>
         )
@@ -1542,7 +1549,8 @@ function LiveMetricTile({
     liveMetricFreshnessCopy(metric)
   }`;
   const trend = liveMetricTrendCopy(metric);
-  const average = metric.seasonalContext
+  const typicalRange = liveMetricTypicalRange(metric);
+  const historicalAverage = metric.seasonalContext
     ? formatLiveMetricValue(metric, metric.seasonalContext.average)
     : null;
   const accessibilityLabel = [
@@ -1550,7 +1558,11 @@ function LiveMetricTile({
     metric.value == null
       ? "Current reading unavailable"
       : formatLiveMetricValue(metric, metric.value),
-    average ? "Average " + average : "Historical average unavailable",
+    typicalRange
+      ? "Typical range " + typicalRange
+      : historicalAverage
+      ? "Historical average " + historicalAverage
+      : "Historical context unavailable",
     liveMetricDetailedTrendCopy(metric),
     metric.seasonalContext?.comparisonLabel,
     freshness,
@@ -1585,9 +1597,15 @@ function LiveMetricTile({
       </View>
       {metric.value == null
         ? (
-          <Text style={styles.liveMetricUnavailable}>
+          <Text
+            style={styles.liveMetricUnavailable}
+            allowFontScaling={false}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.82}
+          >
             {isHistoricalOnlyMetric(metric)
-              ? "No current sensor"
+              ? "No live sensor"
               : "Unreadable"}
           </Text>
         )
@@ -1608,7 +1626,9 @@ function LiveMetricTile({
         adjustsFontSizeToFit
         minimumFontScale={0.8}
       >
-        {`Date avg · ${average ?? "Unavailable"}`}
+        {isHistoricalOnlyMetric(metric)
+          ? `Date avg · ${historicalAverage ?? "Unavailable"}`
+          : `Typical · ${typicalRange ?? "Unavailable"}`}
       </Text>
       {metric.seasonalContext
         ? (
@@ -1633,7 +1653,7 @@ function LiveMetricTile({
         : (
           <View style={styles.liveMetricComparisonUnavailablePill}>
             <Text style={styles.liveMetricComparisonUnavailable}>
-              NO AVERAGE
+              NO CONTEXT
             </Text>
           </View>
         )}
@@ -1766,10 +1786,33 @@ function liveMetricFreshnessColor(
 
 function liveMetricBaselineCopy(metric: RiverRunLiveConditionMetric): string {
   const context = metric.seasonalContext;
-  if (!context) return "Date average unavailable";
-  return `${context.historicalYears}-year date average · ${
+  if (!context) return "Historical context unavailable";
+  if (isHistoricalOnlyMetric(metric)) {
+    return `${context.historicalYears}-year exact-date average · ${
+      formatMonthDay(context.windowStartMonthDay)
+    }`;
+  }
+  const median = formatLiveMetricValue(metric, context.median);
+  const era = context.recordKind === "recent" ? "recent-era" : "historical";
+  return `${context.historicalYears}-year ${era} typical range · median ${median} · ${
     formatMonthDay(context.windowStartMonthDay)
   }–${formatMonthDay(context.windowEndMonthDay)}`;
+}
+
+function liveMetricTypicalRange(
+  metric: RiverRunLiveConditionMetric,
+): string | null {
+  const context = metric.seasonalContext;
+  if (!context || isHistoricalOnlyMetric(metric)) return null;
+  if (metric.metric === "flow_cfs") {
+    return `${Math.round(context.p25).toLocaleString("en-US")}–${
+      Math.round(context.p75).toLocaleString("en-US")
+    } CFS`;
+  }
+  if (metric.metric === "gage_height_ft") {
+    return `${context.p25.toFixed(2)}–${context.p75.toFixed(2)} ft`;
+  }
+  return `${context.p25.toFixed(1)}–${context.p75.toFixed(1)}°F`;
 }
 
 function liveMetricFreshnessCopy(
@@ -3268,7 +3311,6 @@ const styles = StyleSheet.create({
   resultFishImage: {
     width: "100%",
     height: "100%",
-    transform: [{ scale: 1.48 }],
   },
   resultHeroMeta: {
     width: "100%",
@@ -3431,8 +3473,10 @@ const styles = StyleSheet.create({
   },
   liveMetricUnavailable: {
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: 13.5,
+    lineHeight: 18,
+    minHeight: 24,
+    textAlignVertical: "center",
     color: paper.dashboardMuted,
   },
   liveMetricAverage: {

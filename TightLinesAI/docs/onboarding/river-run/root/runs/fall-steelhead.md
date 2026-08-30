@@ -24,7 +24,8 @@ not set the fall ceiling or the fall dates.
 | Strength/distribution | 7/10; broad | owner/local fall calibration plus multi-strain agency evidence |
 | Corridor/endpoint | Harbor through below operated Steelhead Facility | product scope; Horlick remains biological outer barrier |
 | Stage / Fish In River | available | fall-entry-only calendar and nonterminal curve |
-| Fishability / Gauge Read | upper Horlick flow; separate far-upstream temperature | context only; no passage inference |
+| Fishability | unavailable | no hydraulic source inside the product corridor |
+| Gauge Read | upper Horlick flow; separate far-upstream temperature | context only; no passage inference |
 | Activity | available; Limited weather-only | modeled Horlick weather only; no mortality or terminal decline |
 | Push / Migration Timing | unavailable | no accepted lower-corridor paired history |
 | Winter/spring handoff | none | no implemented Root winter or spring experience |
@@ -58,20 +59,21 @@ return lakeward.
 ## 3. Corridor, conditions, and evidence
 
 Restriction-first guidance progresses through the three approved sections and
-never directs above the operated facility. The upper-Horlick Fishability bands
-describe presentation only. Flow, temperature, facility handling, or the spring
-run cannot be converted into a live fall-abundance claim.
+never directs above the operated facility. Fishability fails closed because the
+upper-Horlick gauge is beyond that endpoint. Flow and temperature remain
+separately labeled Gauge Read context; neither facility handling nor the spring
+run can be converted into a live fall-abundance or presentation claim.
 
 Primary evidence: [2024-2025 facility report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSteelheadFacilityFall2024Spring2025.pdf), [spring 2025 summary](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSummarySpring2025.pdf), [Steelhead guide](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_steelhead.pdf), and [facility page](https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/ROOTRIVER).
 
 ## 4. Gate
 
 - [x] Fall opportunity separated from winter holding and spring spawning.
-- [x] Strength, endpoint, calendar, nonterminal curve/copy, Fishability, Gauge
+- [x] Strength, endpoint, calendar, nonterminal curve/copy, unavailable Fishability, Gauge
       Read, and hidden config reconciled.
 - [x] Activity independently replayed for 2007-2025 with zero invariants and no salmon lifecycle decline.
 - [x] Push, Migration Timing, winter, and spring models fail closed.
 - [x] Owner approved Gate 4A truth/copy.
 - [x] Owner approved Gate 4B Activity behavior/replay on 2026-08-26.
 
-**Configuration:** `2026-08-27-root-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-root-fishability-source-scope.5`

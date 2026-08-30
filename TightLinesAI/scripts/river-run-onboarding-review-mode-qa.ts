@@ -189,7 +189,10 @@ for (
   }
 
   const fishability = groups.find((group) => group.id === "fishability")!;
-  if (runId.startsWith("platte_") || runId.startsWith("bois_brule_")) {
+  if (
+    runId.startsWith("platte_") || runId.startsWith("root_") ||
+    runId.startsWith("bois_brule_")
+  ) {
     assert(
       fishability.scenarios.every((scenario) =>
         scenario.snapshot.fishability.label === "Unavailable" &&

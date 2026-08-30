@@ -12,6 +12,7 @@ import {
   MILWAUKEE_FALL_COHO_RUN_PROFILE,
   MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
   MILWAUKEE_RIVER_PROFILE,
+  resolveAdminOverrideBand,
   resolveRunStage,
   RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
@@ -21,6 +22,7 @@ import {
   validateConfigurationRevision,
   validateRiverProfile,
   validateRunProfile,
+  withSeasonalComparison,
 } from "../index.ts";
 
 const runs = [
@@ -138,6 +140,60 @@ Deno.test("Milwaukee Stage copy leads with restrictions and keeps Brown Trout lo
   assertMatch(brown.whereToStart ?? "", /North Shore/i);
   assertMatch(brown.detail, /concentrated toward the lower river/i);
   assertMatch(brown.detail, /Bridge Street Dam/i);
+});
+
+Deno.test("Milwaukee Beginning names one concrete lower-river starting section", () => {
+  for (
+    const run of [
+      MILWAUKEE_FALL_CHINOOK_RUN_PROFILE,
+      MILWAUKEE_FALL_COHO_RUN_PROFILE,
+      MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
+      MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
+    ]
+  ) {
+    const beginningDate = `2026-${run.runWindow.start}`;
+    const display = resolveRunStage(run, beginningDate);
+    assertMatch(display.whereToStart ?? "", /Start here:/i, run.runId);
+    assertMatch(
+      display.whereToStart ?? "",
+      /river mouth.*downtown.*below North Avenue/i,
+      run.runId,
+    );
+    assertMatch(
+      display.tip,
+      /river entrance.*downtown holding water first/i,
+      run.runId,
+    );
+  }
+});
+
+Deno.test("Milwaukee live flow context uses the post-removal date-window era", () => {
+  const baseline = MILWAUKEE_RIVER_PROFILE.fixedFlowSeasonalBaseline;
+  assert(baseline);
+  assertEquals(baseline.historicalStartYear, 2019);
+  assertEquals(baseline.historicalEndYear, 2025);
+  assertEquals(baseline.normals["02-15"]?.historicalYears, 7);
+  assertEquals(baseline.normals["02-15"]?.sampleCount, 49);
+  const august27 = baseline.normals["08-27"];
+  assert(august27);
+  assertEquals(august27.p10, 242.4);
+  assertEquals(august27.p25, 266);
+  assertEquals(august27.median, 416);
+  assertEquals(august27.p75, 576);
+  assertEquals(
+    withSeasonalComparison(
+      {
+        ...august27,
+        windowRadiusDays: 3,
+        recordKind: "recent",
+        baselineVersion: baseline.baselineVersion,
+        source: "usgs_approved_fixed_period_archive",
+      },
+      "flow_cfs",
+      159,
+    ).comparisonLabel,
+    "Much below the recent average",
+  );
 });
 
 Deno.test("lake-run Brown Trout use repeat-spawner lifecycle and nonterminal copy", () => {
@@ -283,7 +339,11 @@ Deno.test("Milwaukee Fishability is post-removal and Estabrook-reach scoped", ()
   const bands = MILWAUKEE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands!;
   assertEquals(bands.tooLow.max, 170);
   assertEquals(bands.ideal, { min: 237, max: 594 });
+  assertEquals(bands.highFishable, { min: 594, max: 1110 });
+  assertEquals(resolveAdminOverrideBand(594, bands), "ideal");
+  assertEquals(resolveAdminOverrideBand(594.5, bands), "high_fishable");
   assertEquals(bands.blownOut.min, 1520);
+  assertEquals(resolveAdminOverrideBand(1111, bands), "very_high");
   const display = scoreFishability({
     rules: bands,
     gaugeFreshness: "fresh",
@@ -292,6 +352,8 @@ Deno.test("Milwaukee Fishability is post-removal and Estabrook-reach scoped", ()
     currentHydraulicValue: 359,
   });
   assertMatch(display.detail, /Estabrook Park/i);
+  assertMatch(display.detail, /live flow card compares this date/i);
+  assertMatch(display.detail, /fixed presentation bands/i);
   assertMatch(display.detail, /does not describe Milwaukee Harbor/i);
   assertMatch(display.detail, /North Shore above Kletzsch/i);
 });

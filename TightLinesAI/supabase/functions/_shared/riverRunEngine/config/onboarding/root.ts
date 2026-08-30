@@ -1,6 +1,5 @@
 import type {
   AuditedRiverRunProfile,
-  FishabilityBands,
   HistoricalPresenceConfig,
   RiverProfile,
   RiverRunConfigurationDocument,
@@ -13,6 +12,7 @@ import {
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
+import { WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS } from "./wisconsinFixedFlowSeasonal.generated.ts";
 
 export const ROOT_RIVER_PROFILE: RiverProfile = {
   riverId: "root",
@@ -58,6 +58,14 @@ export const ROOT_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  fixedFlowSeasonalBaseline: {
+    baselineVersion: "root-horlick-date-window-2019-2024-v2",
+    historicalStartYear: 2019,
+    historicalEndYear: 2024,
+    attribution:
+      "U.S. Geological Survey approved daily mean discharge, fixed 2019–2024 comparison period, with date-relative coverage through Feb. 15. This is Gauge Read context only, not a Fishability calibration.",
+    normals: WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS.root,
+  },
   weatherPoints: [{
     weatherPointId: "root_horlick_weather",
     lat: 42.751389,
@@ -160,43 +168,16 @@ export const ROOT_RIVER_PROFILE: RiverProfile = {
     "From Sept. 15 through the first Saturday in May, Lake Michigan tributary night-fishing restrictions apply. Steelhead Facility operations can block, process, or pass fish. Verify current Wisconsin rules, facility status, advisories, signs, property access, and emergency orders.",
 };
 
-const ROOT_BASELINE = {
-  metric: "flow_cfs" as const,
-  version: "root-horlick-fall-winter-2019-2024-v1",
-  hasPercentileBaselines: true,
-  coveredWindowPercent: 1,
-  minimumHistoryYears: 6,
-  sourceNotes:
-    "USGS 04087240 approved daily mean discharge for six complete Aug. 1-Jan. 31 seasons in 2019-2024. The audit contained 1,104/1,104 observations: p10 10.4, p25 20.375, median 46.8, p75 113.25, p90 270, and p95 447.85 CFS.",
-};
-
-const ROOT_FISHABILITY: FishabilityBands = {
-  version: "root-horlick-fishability-v1-draft",
-  metric: "flow_cfs",
-  sourceLabel: "Upper Root below Horlick Dam",
-  tooLow: { max: 10 },
-  lowFishable: { min: 10, max: 20 },
-  ideal: { min: 20, max: 113 },
-  highFishable: { min: 113, max: 447 },
-  blownOut: { min: 448 },
-  caps: {
-    staleGauge: 55,
-    unknownTrend: 49,
-    veryLow: 45,
-    blownOut: 24,
-    sharpRiseHigh: 40,
-  },
-  evidenceNotes:
-    "Fixed recent-season percentile bands describe presentation shape only at the upper hydraulic station. They do not estimate fish abundance, clarity, passage, access, safety, or conditions in Lincoln Park, downtown, or the harbor.",
-  sourceNotes:
-    "USGS 04087240 daily mean discharge audit for six fixed complete Aug.-Jan. seasons, 2019-2024, executed 2026-08-26. Boundaries use rounded p10/p25/p75/p95 values and remain hidden for owner review.",
-};
-
 const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   migrationStage: { status: "available" },
   activity: { status: "available" },
   fishInRiver: { status: "available" },
-  fishability: { status: "available" },
+  fishability: {
+    status: "unavailable",
+    reason: "no_accepted_hydraulic_source",
+    notes:
+      "USGS 04087240 is 350 feet below Horlick Dam and 5.2 miles above the mouth, upstream of the product endpoint below the operated Steelhead Facility. It remains useful upper-river Gauge Read context but cannot support a presentation grade for the harbor-to-facility corridor.",
+  },
   migrationTiming: {
     status: "unavailable",
     reason: "no_accepted_historical_baseline",
@@ -233,8 +214,6 @@ const sharedRunFields = {
   season: "fall" as const,
   runStageCopyStrategy: "onboarding_corridor" as const,
   primitiveCapabilities,
-  fishabilityBands: ROOT_FISHABILITY,
-  baselineCoverage: ROOT_BASELINE,
   publicAudit: {
     isEnabled: false,
     notes:
@@ -532,7 +511,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const ROOT_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-root-steelhead-local-peak.3",
+  configVersion: "2026-08-27-root-fishability-source-scope.5",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

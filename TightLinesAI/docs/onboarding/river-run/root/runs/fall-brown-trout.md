@@ -25,7 +25,8 @@ curve may be reused.
 | Strength/distribution | 7/10; broad | owner-approved portfolio, brood sample, stocking, and timing-bias correction |
 | Corridor/endpoint | Harbor through below operated Steelhead Facility | current passage occurs operationally; v1 stays conservative |
 | Stage / Fish In River | available | later Brown calendar and nonterminal curve |
-| Fishability / Gauge Read | upper-river context only | no lower-reach or passage inference |
+| Fishability | unavailable | no hydraulic source inside the product corridor |
+| Gauge Read | upper-river context only | no lower-reach or passage inference |
 | Activity | available; Limited weather-only | 0.80 evidence scale and bounded Peak +5; no mortality/departure penalty |
 | Push / Migration Timing | unavailable | no accepted paired lower-corridor baseline |
 | Public audit | disabled | release unauthorized |
@@ -58,8 +59,9 @@ post-spawn holding and lakeward return as possibilities.
 
 Restriction-first guidance progresses Harbor & Downtown → City Parks → legal
 Lincoln Park below the facility, emphasizes leaving actively spawning fish
-undisturbed, and never equates later decline with mortality. Upper-Horlick
-Fishability describes presentation only and cannot validate Brown distribution.
+undisturbed, and never equates later decline with mortality. Upper-Horlick flow
+remains scoped Gauge Read context; Fishability is unavailable and cannot imply
+lower-corridor presentation or validate Brown distribution.
 
 Primary evidence: [2024-2025 facility report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSteelheadFacilityFall2024Spring2025.pdf), [2025 GLFC report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LMGLFC2025.pdf), [Brown Trout life history](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_browntrout.pdf), and [Lake Michigan trout/salmon Q&A](https://dnr.wisconsin.gov/topic/Fishing/questions/lakemichtroutsalmon.html).
 
@@ -67,11 +69,11 @@ Primary evidence: [2024-2025 facility report](https://dnr.wisconsin.gov/sites/de
 
 - [x] Facility-shutdown contradiction and later calendar reconciled.
 - [x] Separate repeat-spawner lifecycle, strength, endpoint, curve/copy,
-      Fishability, Gauge Read, and hidden config implemented.
+      unavailable Fishability, Gauge Read, and hidden config implemented.
 - [x] No mortality, universal winter-hold, or universal lake-return claim.
 - [x] Activity replayed for 2007-2025; rejected untuned baseline preserved and bounded Peak +5 passes every invariant.
 - [x] Push and Migration Timing fail closed.
 - [x] Owner approved Gate 4A truth/copy.
 - [x] Owner approved Gate 4B Activity behavior/replay on 2026-08-26.
 
-**Configuration:** `2026-08-27-root-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-root-fishability-source-scope.5`

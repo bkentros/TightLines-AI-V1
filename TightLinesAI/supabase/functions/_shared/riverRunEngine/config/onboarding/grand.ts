@@ -234,41 +234,39 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
 
 const GRAND_BASELINE = {
   metric: "flow_cfs" as const,
-  version: "grand-fulton-1930-2026-draft",
+  version: "grand-fulton-fall-1990-2025-v1",
   hasPercentileBaselines: true,
   coveredWindowPercent: 0.99,
   minimumHistoryYears: 10,
   sourceNotes:
-    "USGS 04119000 daily discharge record; draft seasonal Fishability bands require post-construction re-audit and local review.",
+    "USGS 04119000 daily discharge record; shared Fulton Street fall distribution audited across the Chinook, Coho, and Steelhead windows. Recheck the rating after material channel or construction changes.",
 };
 
-function fishability(
-  version: string,
-  tooLow: number,
-  low: number,
-  idealHigh: number,
-  high: number,
-): FishabilityBands {
+const GRAND_SHARED_FISHABILITY: FishabilityBands = {
+  version: "grand-fulton-shared-fishability-v2",
+  metric: "flow_cfs",
+  sourceLabel: "Fulton Street reach",
+  tooLow: { max: 1200 },
+  lowFishable: { min: 1200, max: 1600 },
+  ideal: { min: 1600, max: 4000 },
+  highFishable: { min: 4000, max: 6399 },
+  blownOut: { min: 6400 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "Shared Fulton Street presentation bands for every public Grand fall species. The 1,600-4,000 CFS ideal range approximates the combined fall 25th-to-80th-percentile corridor without allowing species selection to change the same river's Fishability. These are not access, flood, wading, boating, or safety thresholds.",
+  sourceNotes:
+    "USGS 04119000 daily discharge, 1990-2025 Grand fall run windows; reconciled against the station's date-specific statistics and the three earlier species proposals on 2026-08-27.",
+};
+
+function fishability(): FishabilityBands {
   return {
-    version,
-    metric: "flow_cfs",
-    sourceLabel: "Fulton Street",
-    tooLow: { max: tooLow },
-    lowFishable: { min: tooLow, max: low },
-    ideal: { min: low, max: idealHigh },
-    highFishable: { min: idealHigh, max: high - 1 },
-    blownOut: { min: high },
-    caps: {
-      staleGauge: 55,
-      unknownTrend: 49,
-      veryLow: 45,
-      blownOut: 24,
-      sharpRiseHigh: 40,
-    },
-    evidenceNotes:
-      "Draft Fulton Street seasonal-percentile scaffolding. These bands describe local presentation shape only and are not access, flood, wading, boating, or safety thresholds.",
-    sourceNotes:
-      "USGS 04119000 seasonal daily discharge audit in the species Phase C packet; replay and post-construction rating review pending.",
+    ...GRAND_SHARED_FISHABILITY,
   };
 }
 
@@ -407,16 +405,10 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Observed downtown Grand Rapids candidate for Chinook already present. Fulton hydraulics, North Park measured temperature, and hourly Grand Rapids weather are independently freshness-gated; the model never extends those observations to Grand Haven or the full corridor. The 35/35/25/5 calibration preserves meaningful light and temperature influence while retaining a distinct river-response component and restrained same-block precipitation. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. It does not infer migration, abundance, catch probability, access, or safety.",
   }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
-  fishabilityBands: fishability(
-    "grand-chinook-fulton-fishability-v1-draft",
-    1200,
-    1600,
-    3800,
-    6400,
-  ),
+  fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
   researchNotes:
-    "Hidden Phase C candidate. Calendar, curve, ceiling, Fishability bands, passage routing, post-construction source review, fixtures, and visual copy require acceptance.",
+    "Public release profile. Fishability now uses the shared, reach-scoped Fulton calibration; passage routing remains fail-closed and the station rating must be rechecked after material construction or channel changes.",
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-chinook.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
@@ -509,16 +501,10 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Observed downtown Grand Rapids candidate for Coho already present. The 25/40/30/5 calibration makes measured temperature the leading input, followed by Fulton river behavior, while hourly light separates fishing windows. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It does not infer migration, abundance, catch probability, access, or safety.",
   }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
-  fishabilityBands: fishability(
-    "grand-coho-fulton-fishability-v1-draft",
-    1300,
-    1700,
-    4200,
-    7200,
-  ),
+  fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
   researchNotes:
-    "Hidden Phase D candidate with fail-closed passage routing and independently replayed downtown observed Activity. Extrapolation to Grand Haven, the full Lower river, or upstream reaches remains prohibited.",
+    "Public release profile with shared Fulton Fishability, fail-closed passage routing, and independently replayed downtown observed Activity. Extrapolation to Grand Haven, the full Lower river, or upstream reaches remains prohibited.",
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-coho.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
@@ -607,16 +593,10 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Observed downtown Grand Rapids candidate for a living Steelhead already present. The 20/40/35/5 calibration makes measured temperature and Fulton river behavior dominant while hourly light separates response windows. Audited stage-response adjustments soften the warm-season cliff and preserve a Peak-led fall response shoulder; they do not imply salmon mortality and cannot bypass warm, barrier, or blown-out caps. The profile deliberately has no salmon mortality ramp, taper penalty, or ending cap. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It cannot infer migration, abundance, catch probability, access, or safety.",
   }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
-  fishabilityBands: fishability(
-    "grand-steelhead-fulton-fishability-v1-draft",
-    1400,
-    1900,
-    4800,
-    8000,
-  ),
+  fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
   researchNotes:
-    "Hidden Phase C fall-entry candidate. No salmon mortality semantics or unsupported spring handoff is allowed.",
+    "Public fall-entry profile with shared Fulton Fishability. No salmon mortality semantics or unsupported spring handoff is allowed.",
   sourceNotes:
     "docs/onboarding/river-run/grand/runs/fall-steelhead.md and its evidence ledger, completed 2026-08-24.",
   publicAudit: {
@@ -629,7 +609,7 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-25-grand-release.1",
+  configVersion: "2026-08-27-grand-fishability-reconciliation.2",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -6,9 +6,10 @@ The 2026 DNR assessment, stocking history, current species biology, historic
 assessment, regulations, and rainbow/Steelhead aliases establish a recurring,
 extremely popular destination fishery and substantial fall entry.
 
-**Capability decision:** `supported_hidden_review` **Contradiction search
+**Capability decision:** `supported_public_reach_scoped` **Contradiction search
 completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+by/date:** completed in the 2026-08-26 observed-Activity audit and 2026-08-27
+Fishability reconciliation
 
 **River ID:** `white`
 
@@ -16,7 +17,7 @@ by/date:** required before public enablement
 
 **Created / researched:** 2026-08-24
 
-**Status:** `phase_c_research_complete_replay_blocked`
+**Status:** `public_enabled_reach_scoped`
 
 This is a fall-entry experience, not a complete annual Steelhead-presence model.
 It uses the owner-approved corridor and stops at the downstream face of Hesperia
@@ -113,66 +114,51 @@ is a seasonal fall-entry opportunity estimate, never a live fish count.
 
 ## 5. Activity contract
 
-> **Implementation update (2026-08-24):** The split-reach unavailable contract
-> below remains the correct rejection of an observed-river composite, but its
-> rejection of weather-only mode is superseded. The current hidden candidate is
-> `white-fall-steelhead-weather-activity-v1-draft`: 0.70 effective light / 0.30
-> same-block precipitation, a 0.80 missing-primary-evidence scale, Limited
-> confidence, no salmon mortality logic, below-Hesperia Pines Point weather
-> scope, and no Fruitvale/Weaver scoring inputs. See
-> `docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
+> **Implementation update (2026-08-26):** The owner accepted the measured-input
+> profile `white-fall-steelhead-observed-activity-v4` after the fixed 2022–2025
+> replay. See
+> `docs/audits/river-run-white-observed-activity-audit-2026-08-26.md`.
 
-**Mode:** `unavailable_split_reach`.
+**Mode:** `observed_river`.
 
 - Flow/height: USGS 04122200 at Fruitvale Road in the Lower river.
 - Water temperature: Trout Unlimited/Monitor My Watershed at Weaver Street,
-  immediately below Hesperia Dam in the Upper accessible corridor.
-- Weather: NWS point at Pines Point, context only.
-- Decision: no observed Activity score may combine measurements from these two
-  reaches. Weather-only fallback is not accepted.
-- Component weights, lifecycle temperature rules, flow response, and Activity
-  caps: **not applicable while unavailable**.
+  immediately below Hesperia Dam.
+- Weather: Pines Point hourly weather context.
+- Scope: the sources are complementary below-Hesperia corridor inputs, not
+  co-located measurements; every Gauge Read remains labeled to its actual reach.
+- Weights: 0.25 effective light, 0.50 measured temperature, 0.15 river behavior,
+  and 0.10 same-block weather.
+- Lifecycle: bounded stage adjustments keep the fall-entry peak leading without
+  salmon mortality logic; winter holding remains outside this fall-entry model.
+- Failure behavior: inputs are freshness-gated independently; missing measured
+  river evidence cannot become a full-confidence positive read.
 
-Public headline:
-`Activity is unavailable because flow and water temperature
-come from different White River reaches.`
+Activity describes conditional responsiveness for a living Steelhead already
+present. It does not infer migration, abundance, catch probability, access, or
+safety, and it must not generalize either sensor to the full White River.
 
-Why This Read:
-`Fruitvale Road flow and water temperature below Hesperia Dam
-remain useful as separately labeled Gauge Read measurements, but they do not
-describe one shared reach.`
-
-Guide's Read:
-`Use each Gauge Read only for its named reach; do not infer a
-combined river response.`
-
-Fixtures must prove the unavailable state across fresh, partial, delayed, stale,
-and missing combinations, with no score, label, time block, fallback, or hidden
-cross-reach blend. Any future conservative model requires an explicit owner
-decision, coherent claim scope, predeclared multi-year replay, coverage and
-missingness counts, lifecycle and isolated-variable tests, distribution review,
-and new copy acceptance.
-
-## 6. Fishability proposal
+## 6. Fishability calibration
 
 Fishability can use only USGS 04122200 discharge at Fruitvale Road. August-
 December daily means for 1957-2026 (`n=10,580`) have minimum 162, p5 218, p10
 239, p25 275, median 341, p75 440, p90 580, p95 712, p99 1,020, and maximum
 4,650 CFS.
 
-| Band          | Proposed boundary | Calibration rationale                |
-| ------------- | ----------------: | ------------------------------------ |
-| Too low       |        `<220 CFS` | Approximately below p5               |
-| Low fishable  |     `220-274 CFS` | Low tail through p25                 |
-| Ideal         |     `275-439 CFS` | Interquartile historical range       |
-| High fishable |     `440-709 CFS` | Upper common range through about p95 |
-| Very high     |   `710-1,019 CFS` | Rare high-flow context               |
-| Blown out     |     `>=1,020 CFS` | Approximately p99 and above          |
+| Band          | Proposed boundary | Calibration rationale          |
+| ------------- | ----------------: | ------------------------------ |
+| Too low       |        `<220 CFS` | Approximately below p5         |
+| Low fishable  |     `220-274 CFS` | Low tail through p25           |
+| Ideal         |     `275-440 CFS` | Interquartile historical range |
+| High fishable |     `441-712 CFS` | Upper common range through p95 |
+| Very high     |   `713-1,019 CFS` | Rare p95-p99 context           |
+| Blown out     |     `>=1,020 CFS` | Approximately p99 and above    |
 
-These bands are replay inputs, not accepted local-usability or safety claims.
-Fishability remains blocked until historical replay and owner review. It uses
-the approved 2-hour fresh / 24-hour suppression contract and preserves unknown
-trend when no acceptable prior observation exists.
+These are accepted Fruitvale presentation bands, not local-usability or safety
+claims. The 1957-2025 replay covered 10,556 of 10,557 fall dates with zero
+invariant violations and a selective 48.8% Excellent rate. Fishability uses the
+approved 2-hour fresh / 24-hour suppression contract and preserves unknown trend
+when no acceptable prior observation exists.
 
 Permanent public scope note:
 `Presentation conditions reflect Fruitvale Road
@@ -180,8 +166,8 @@ flow, not the full White River, and are not a safety determination.`
 
 ## 7. Copy and replay acceptance
 
-- [ ] Every Stage state, curve transition, Activity unavailable data state, and
-      proposed Fishability band has a fixture.
+- [x] Every Stage state, curve transition, Activity freshness/fallback state,
+      and accepted Fishability band has a fixture.
 - [ ] Boundary fixtures run one minute before, at, and after each timestamp in
       `America/Detroit`, including year rollover and DST normalization.
 - [ ] Curve replay proves the 7/10 cap, monotonic rise, accepted high window,
@@ -189,8 +175,9 @@ flow, not the full White River, and are not a safety determination.`
 - [ ] Terminal copy says fall entry is complete without claiming fish absence,
       inactivity, mortality, or a winter handoff.
 - [ ] All geography remains below Hesperia and uses only approved labels.
-- [ ] Activity tests prove no cross-reach blend and no weather-only fallback.
-- [ ] Fishability replay reports seasonal label distribution, transitions,
+- [x] Activity tests prove independent source labeling, freshness gating,
+      accepted complementary-input scope, and Steelhead lifecycle behavior.
+- [x] Fishability replay reports seasonal label distribution, transitions,
       missing/prior-flow counts, and extreme-day samples.
 - [ ] No internal scores, thresholds, reason codes, provider IDs, catch
       probability, access promise, or safety language leaks publicly.
@@ -210,21 +197,22 @@ flow, not the full White River, and are not a safety determination.`
 
 ## 9. Run gate
 
-**Run decision:** `blocked_pending_replay_fixtures_and_owner_acceptance`
+**Run decision:** `public_enabled_reach_scoped`
 
-**Configuration version:** `2026-08-24-white-phase-c-draft.1` (hidden review
-only)
+**Configuration version:** `2026-08-27-white-fishability-reconciliation.4`
 
-**Activity rules version:** `white_activity_unavailable_split_reach_v1_research`
+**Activity rules version:** `white-fall-steelhead-observed-activity-v4`
 
-**Presence curve version:** `white_steelhead_fall_entry_v1_research`
+**Presence curve version:** `white-steelhead-fall-entry-v1-draft`
 
-**Copy version:** `white_steelhead_copy_v1_research`
+**Copy strategy:** `onboarding_corridor`
 
-**Replay artifact:** `not_generated`
+**Replay artifact:**
+`docs/audits/river-run-white-steelhead-activity-replay.json`
 
 **Owner acceptance/date:**
-`numeric/research candidate approved for hidden app review / 2026-08-24`
+`public observed-input release accepted / 2026-08-26; Fruitvale Fishability
+reconciled / 2026-08-27`
 
-Research is complete enough for fixture implementation. It does not authorize
-runtime registration, deployment, or public enablement.
+Public scope remains below Hesperia Dam. The terminal state ends only the fall
+entry model and does not claim that Steelhead leave the river in winter.

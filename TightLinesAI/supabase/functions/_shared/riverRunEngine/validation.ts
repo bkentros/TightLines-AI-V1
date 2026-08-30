@@ -1960,14 +1960,14 @@ function validateFishabilityBasis(
     bands.lowFishable.min >= bands.lowFishable.max ||
     bands.lowFishable.max > bands.ideal.min ||
     bands.ideal.min >= bands.ideal.max ||
-    bands.ideal.max > bands.highFishable.min ||
+    bands.ideal.max !== bands.highFishable.min ||
     bands.highFishable.min >= bands.highFishable.max ||
     bands.highFishable.max >= bands.blownOut.min
   ) {
     issues.push(
       issue(
         "fishabilityBands",
-        "Fishability thresholds must be non-negative, ordered, and non-overlapping.",
+        "Fishability thresholds must be non-negative, ordered, non-overlapping, and continuous from ideal through high-fishable water.",
         "config_invalid_value",
       ),
     );

@@ -106,7 +106,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -489,7 +489,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -590,7 +590,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -973,7 +973,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -1075,7 +1075,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -1526,7 +1526,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -1659,7 +1659,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2111,7 +2111,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -2244,7 +2244,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2690,7 +2690,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -2856,7 +2856,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3302,7 +3302,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -3477,7 +3477,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3929,7 +3929,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -4110,7 +4110,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4562,7 +4562,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -4743,7 +4743,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5190,7 +5190,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -5371,7 +5371,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5818,7 +5818,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -5985,7 +5985,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6439,7 +6439,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -6606,7 +6606,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6990,7 +6990,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -7097,7 +7097,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7480,7 +7480,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -7581,7 +7581,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7964,7 +7964,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -8065,7 +8065,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8448,7 +8448,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -8549,7 +8549,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8932,7 +8932,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -9033,7 +9033,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9416,7 +9416,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -9517,7 +9517,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9900,7 +9900,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -10113,7 +10113,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10559,7 +10559,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -10698,7 +10698,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11144,7 +11144,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -11278,7 +11278,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11725,7 +11725,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -11857,7 +11857,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The early rise is adding depth and cover, but the best travel lanes are beginning to shift. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12303,7 +12303,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -12435,7 +12435,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12881,7 +12881,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -13013,7 +13013,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 68,
             "label": "Fishable",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges. Flow card: date-relative; result: Niles reach only.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13459,7 +13459,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -13592,7 +13592,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14038,7 +14038,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -14172,7 +14172,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Flow card: date-relative; result: Niles reach only.",
             "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14621,7 +14621,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -14756,7 +14756,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Flow card: date-relative; result: Niles reach only.",
             "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
@@ -15205,7 +15205,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -15340,7 +15340,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 0,
             "label": "Poor",
             "headline": "The river is blown out and still rising fast, so normal fishing water is not dependable.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Flow card: date-relative; result: Niles reach only.",
             "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15789,7 +15789,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -16315,7 +16315,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -16435,7 +16435,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -16844,7 +16844,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -16945,7 +16945,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -17322,7 +17322,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -17423,7 +17423,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -17806,7 +17806,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -17907,7 +17907,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18290,7 +18290,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -18423,7 +18423,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.",
-            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is unusually low, reducing cover and concentrating the best depth into fewer places. The low water is holding rather than refilling, so the few deeper slots should remain easy to identify. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18870,7 +18870,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -19009,7 +19009,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 60,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The lower flow is holding steady, so its limited depth and cover should remain consistent. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19455,7 +19455,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -19589,7 +19589,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Flow card: date-relative; result: Niles reach only.",
             "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20037,7 +20037,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -20169,7 +20169,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 88,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20615,7 +20615,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -20747,7 +20747,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. This read applies only to the Niles mainstem reach.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins. Flow card: date-relative; result: Niles reach only.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21202,7 +21202,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -21336,7 +21336,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "The river appears fishable, but its direction is unclear, so confidence is limited.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read. Flow card: date-relative; result: Niles reach only.",
             "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21785,7 +21785,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -21919,7 +21919,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Flow card: date-relative; result: Niles reach only.",
             "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
@@ -22368,7 +22368,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -22894,7 +22894,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -23027,7 +23027,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -23473,7 +23473,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -23606,7 +23606,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 73,
             "label": "Good",
             "headline": "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.",
-            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. This read applies only to the Niles mainstem reach.",
+            "detail": "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable. The higher flow is not climbing, so softer edges beside the main current should remain well defined. Flow card: date-relative; result: Niles reach only.",
             "tip": "Prioritize inside seams, protected edges, and current breaks. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -24052,7 +24052,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -24185,7 +24185,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Flow card: date-relative; result: Niles reach only.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -24631,7 +24631,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -24739,7 +24739,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25191,7 +25191,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -25324,7 +25324,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25770,7 +25770,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -25936,7 +25936,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -26382,7 +26382,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -26557,7 +26557,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27009,7 +27009,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -27175,7 +27175,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. This read applies only to the Niles mainstem reach.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Flow card: date-relative; result: Niles reach only.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27621,7 +27621,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -27754,7 +27754,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28201,7 +28201,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -28335,7 +28335,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28782,7 +28782,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -28958,7 +28958,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
-            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. This read applies only to the Niles mainstem reach.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Flow card: date-relative; result: Niles reach only.",
             "tip": "Choose another day and verify current conditions through authoritative local sources. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29412,7 +29412,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -29593,7 +29593,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30040,7 +30040,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -30221,7 +30221,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30668,7 +30668,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -30835,7 +30835,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31289,7 +31289,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -31451,7 +31451,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31860,7 +31860,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -32428,7 +32428,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -32535,7 +32535,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -32918,7 +32918,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -33051,7 +33051,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33503,7 +33503,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -33636,7 +33636,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34088,7 +34088,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -34221,7 +34221,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34667,7 +34667,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -34800,7 +34800,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35246,7 +35246,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -35412,7 +35412,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35858,7 +35858,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -36024,7 +36024,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -36470,7 +36470,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -36645,7 +36645,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37097,7 +37097,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -37272,7 +37272,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37724,7 +37724,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -37905,7 +37905,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38357,7 +38357,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -38538,7 +38538,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38985,7 +38985,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -39166,7 +39166,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39613,7 +39613,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -39794,7 +39794,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40241,7 +40241,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -40408,7 +40408,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40862,7 +40862,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -41029,7 +41029,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41482,7 +41482,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -41583,7 +41583,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41959,7 +41959,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -42097,7 +42097,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 32,
             "label": "Tough",
             "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
-            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. This read applies only to the Niles mainstem reach.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges. Flow card: date-relative; result: Niles reach only.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42549,7 +42549,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -42683,7 +42683,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 57,
             "label": "Fishable",
             "headline": "The river is fishable, but lower water leaves less cover and less room for error.",
-            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. This read applies only to the Niles mainstem reach.",
+            "detail": "Water is lower than ideal but still workable, with less depth and cover across the river. The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important. Flow card: date-relative; result: Niles reach only.",
             "tip": "Use the deepest connected water and keep disturbance low. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43130,7 +43130,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -43250,7 +43250,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43659,7 +43659,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -43760,7 +43760,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44143,7 +44143,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]
@@ -44282,7 +44282,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44728,7 +44728,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -44862,7 +44862,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The last river reading was fishable, but it is aging and may no longer describe the water accurately.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. Because the latest reading is aging, the river may have changed since it was reported. Flow card: date-relative; result: Niles reach only.",
             "tip": "Verify the Niles reach directly before choosing presentation water. Verify every other section directly.",
             "reasonCodes": [
               "gauge_stale",
@@ -45311,7 +45311,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -45837,7 +45837,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       },
       {
@@ -45957,7 +45957,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "The river is in an excellent range for covering water and presenting effectively.",
-            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. This read applies only to the Niles mainstem reach.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Flow card: date-relative; result: Niles reach only.",
             "tip": "Cover readable seams and holding water with a controlled presentation. Verify every other section directly.",
             "reasonCodes": [
               "gauge_fresh",
@@ -46366,7 +46366,7 @@ export const RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-09-st-joseph-chinook-activity.2"
+          "configVersion": "2026-08-27-st-joseph-fishability-reconciliation.3"
         }
       }
     ]

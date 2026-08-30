@@ -115,6 +115,7 @@ function usgsDailyPayload() {
               { dateTime: "2024-09-20T00:00:00.000-04:00", value: "" },
               { dateTime: "2024-09-21", value: "620.5" },
               { dateTime: "2024-09-22", value: "Ice" },
+              { dateTime: "2024-09-23", value: "-999999" },
             ],
           }],
         },

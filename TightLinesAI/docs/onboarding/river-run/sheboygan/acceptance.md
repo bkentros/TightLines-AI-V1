@@ -54,7 +54,7 @@
 
 ## Required release record
 
-- Configuration version: `2026-08-27-sheboygan-steelhead-local-peak.3`
+- Configuration version: `2026-08-27-sheboygan-fishability-reconciliation.4`
   (hidden)
 - Copy versions:
 - Replay artifact versions: four adjusted weather-only JSON artifacts plus the
@@ -67,9 +67,9 @@
   Peak; Steelhead remains nonterminal; Brown Peak exceeds adjacent shoulders;
   all adjusted invariant sets are zero.
 - Fixture generation command/result:
-  `npm run generate:river-run:onboarding-review-fixtures` — 787 private
-  scenarios across 17 runs; current-file and structural QA pass.
-- Test commands/results: full engine suite — 344 passed; onboarding validator,
+  `npm run generate:river-run:onboarding-review-fixtures` — 1,157 private
+  scenarios across 26 runs; current-file and structural QA pass.
+- Test commands/results: full engine suite — 374 passed; onboarding validator,
   onboarding QA, weather-only QA, and review-mode structural/copy QA pass.
 - Known limitations: no accepted live or historical Sheboygan River temperature
   source; I-43 gauge does not directly measure the harbor and USGS warns it may

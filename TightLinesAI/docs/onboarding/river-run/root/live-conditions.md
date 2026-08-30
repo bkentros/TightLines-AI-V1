@@ -91,8 +91,8 @@ flow response, clarity, or fish movement.
 - [x] Regional source audit corrected the initial co-located-only temperature conclusion.
 - [x] Upstream reach limitation explicit.
 - [x] Owner accepts explicitly labeled upstream-context Gauge Read.
-- [x] Gate 4A hidden Gauge Read and upper-Horlick Fishability implemented with
-      separate hydraulic/temperature station labels.
+- [x] Gauge Read retains separate upper-river hydraulic/temperature labels;
+      Fishability fails closed because neither source represents the product corridor.
 - [x] Gate 4B excludes both stations from Activity and passes the fixed
       2007-2025 four-species weather-only replay.
 - [ ] Fault, recovery, freshness, trend, history, and rendered matrices run

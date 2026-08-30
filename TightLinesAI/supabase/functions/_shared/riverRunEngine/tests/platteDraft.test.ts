@@ -47,7 +47,13 @@ Deno.test("Platte Chinook and Fall Steelhead are valid public weather-only runs"
     assertEquals(run.activity?.dataMode, "weather_only");
     assertEquals(run.activity?.weights.riverBehavior, 0);
     assertEquals(run.activity?.weights.waterTemperature, 0);
-    assertEquals(run.primitiveCapabilities.fishability.status, "unavailable");
+    const fishability = run.primitiveCapabilities.fishability;
+    assert(fishability.status === "unavailable");
+    assertEquals(run.fishabilityBands, undefined);
+    assertEquals(
+      fishability.reason,
+      "no_accepted_hydraulic_source",
+    );
   }
 });
 
@@ -72,6 +78,7 @@ Deno.test("Platte Coho is a valid public weather-only run with unavailable Fisha
     PLATTE_FALL_COHO_RUN_PROFILE.primitiveCapabilities.fishability.status,
     "unavailable",
   );
+  assertEquals(PLATTE_FALL_COHO_RUN_PROFILE.fishabilityBands, undefined);
 });
 
 Deno.test("Platte release is present in public registries", () => {

@@ -6,9 +6,10 @@ The 2026 DNR assessment, historic assessment, current agency observations,
 biology, regulations, and king/Chinook aliases establish a strong,
 self-sustaining destination run below Hesperia Dam.
 
-**Capability decision:** `supported_hidden_review` **Contradiction search
+**Capability decision:** `supported_public_reach_scoped` **Contradiction search
 completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+by/date:** completed in the 2026-08-26 observed-Activity audit and 2026-08-27
+Fishability reconciliation
 
 **River ID:** `white`
 
@@ -16,13 +17,11 @@ by/date:** required before public enablement
 
 **Created / researched:** 2026-08-24
 
-**Status:** `phase_c_research_complete_replay_blocked`
+**Status:** `public_enabled_reach_scoped`
 
 This packet uses the owner-approved White River sections and ends at the
 downstream face of Hesperia Dam. Dates, curve anchors, the 7/10 ceiling, and
-Fishability bands below are owner-calibrated proposals. They are not direct
-counts and are not accepted for runtime until replay, fixtures, and owner review
-pass.
+Fishability bands are accepted product calibrations rather than direct counts.
 
 ## 1. Species and run truth
 
@@ -119,67 +118,49 @@ value instead.
 
 ## 5. Activity contract
 
-> **Implementation update (2026-08-24):** The split-reach unavailable contract
-> below remains the correct rejection of an observed-river composite, but its
-> rejection of weather-only mode is superseded. The current hidden candidate is
-> `white-fall-chinook-weather-activity-v1-draft`: 0.75 effective light / 0.25
-> same-block precipitation, Limited confidence, below-Hesperia Pines Point
-> weather scope, and no Fruitvale/Weaver scoring inputs. See
-> `docs/audits/river-run-grand-platte-white-activity-calibration-2026-08-24.md`.
+> **Implementation update (2026-08-26):** The owner accepted the measured-input
+> profile `white-fall-chinook-observed-activity-v3` after the fixed 2022–2025
+> replay. See
+> `docs/audits/river-run-white-observed-activity-audit-2026-08-26.md`.
 
-**Mode:** `unavailable_split_reach`.
+**Mode:** `observed_river`.
 
 - Flow/height: USGS 04122200 at Fruitvale Road in the Lower river.
-- Water temperature: Trout Unlimited/Monitor My Watershed at Weaver Street, 0.25
-  mile below Hesperia Dam in the Upper accessible corridor.
-- Weather: NWS point at Pines Point; context only.
-- Decision: do not combine these mismatched reaches into an observed Activity
-  score. Weather-only mode is also not approved as a substitute.
-- Component weights, lifecycle temperature bands, flow response, and Activity
-  caps: **not applicable while unavailable**.
+- Water temperature: Trout Unlimited/Monitor My Watershed at Weaver Street,
+  immediately below Hesperia Dam.
+- Weather: Pines Point hourly weather context.
+- Scope: the sources are complementary below-Hesperia corridor inputs, not
+  co-located measurements; every Gauge Read remains labeled to its actual reach.
+- Weights: 0.55 effective light, 0.20 measured temperature, 0.15 river behavior,
+  and 0.10 same-block weather.
+- Failure behavior: inputs are freshness-gated independently; missing measured
+  river evidence cannot become a full-confidence positive read.
 
-Public headline:
-`Activity is unavailable because flow and water temperature
-come from different White River reaches.`
+Activity describes conditional responsiveness for a fish already present. It
+does not infer migration, abundance, catch probability, access, or safety, and
+it must not generalize either sensor to the full White River.
 
-Why This Read:
-`Fruitvale Road flow and water temperature below Hesperia Dam
-remain useful as separately labeled Gauge Read measurements, but they do not
-describe one shared reach.`
-
-Guide's Read:
-`Use each Gauge Read only for its named reach; do not infer a
-combined river response.`
-
-Required acceptance fixtures must prove deterministic unavailability for fresh,
-partial, delayed, stale, and missing combinations; no score, label, block,
-best-time recommendation, hidden fallback, or cross-reach blend may appear. A
-future Activity model requires a separately accepted coherent-reach source or an
-explicitly researched conservative model, plus predeclared multi-year replay,
-isolated-variable tests, lifecycle-boundary continuity, missing-data counts,
-distribution review, and owner sign-off. No such model is accepted here.
-
-## 6. Fishability proposal
+## 6. Fishability calibration
 
 The only accepted hydraulic record is USGS 04122200 discharge at Fruitvale Road.
 For August-December daily means from 1957-2026 (`n=10,580`), research quantiles
 are: minimum 162, p5 218, p10 239, p25 275, median 341, p75 440, p90 580, p95
 712, p99 1,020, maximum 4,650 CFS.
 
-| Band          | Proposed boundary | Calibration rationale                |
-| ------------- | ----------------: | ------------------------------------ |
-| Too low       |        `<220 CFS` | Approximately below p5               |
-| Low fishable  |     `220-274 CFS` | Low tail through p25                 |
-| Ideal         |     `275-439 CFS` | Interquartile historical range       |
-| High fishable |     `440-709 CFS` | Upper common range through about p95 |
-| Very high     |   `710-1,019 CFS` | Rare high-flow context               |
-| Blown out     |     `>=1,020 CFS` | Approximately p99 and above          |
+| Band          | Proposed boundary | Calibration rationale          |
+| ------------- | ----------------: | ------------------------------ |
+| Too low       |        `<220 CFS` | Approximately below p5         |
+| Low fishable  |     `220-274 CFS` | Low tail through p25           |
+| Ideal         |     `275-440 CFS` | Interquartile historical range |
+| High fishable |     `441-712 CFS` | Upper common range through p95 |
+| Very high     |   `713-1,019 CFS` | Rare p95-p99 context           |
+| Blown out     |     `>=1,020 CFS` | Approximately p99 and above    |
 
-These are replay inputs, not accepted claims of local wading or fishing quality.
-Fishability remains blocked until historical replay and owner review establish
-usable presentation bands. It uses discharge only, follows the approved 2-hour
-fresh / 24-hour suppression contract, and must show unknown trend rather than
-manufacture one.
+These are accepted Fruitvale presentation bands, not claims of local wading or
+safety. The 1957-2025 replay covered 10,556 of 10,557 fall dates with zero
+invariant violations and a selective 48.8% Excellent rate. Fishability uses
+discharge only, follows the approved 2-hour fresh / 24-hour suppression
+contract, and must show unknown trend rather than manufacture one.
 
 Permanent public scope note:
 `Presentation conditions reflect Fruitvale Road
@@ -190,16 +171,17 @@ must not say the river is safe, unsafe, clear, muddy, open, or closed.
 
 ## 7. Copy and replay acceptance
 
-- [ ] Every Stage state, Fish In River transition, Activity unavailable data
-      state, and proposed Fishability band has a fixture.
+- [x] Every Stage state, Fish In River transition, Activity freshness/fallback
+      state, and accepted Fishability band has a fixture.
 - [ ] Exact boundaries test at one minute before, at, and one minute after in
       `America/Detroit`, including DST normalization.
 - [ ] Curve replay proves monotonic rise/fall segments, the 7/10 cap, matching
       marker/copy, state-preserving rounding, and no zero at completion.
 - [ ] Geography uses only Lower river, Forest corridor, and Upper accessible
       corridor; Hesperia Dam is the hard endpoint.
-- [ ] Activity tests prove no cross-reach blend and no weather-only fallback.
-- [ ] Fishability replay reports daily and seasonal label distributions,
+- [x] Activity tests prove independent source labeling, freshness gating, and
+      the accepted below-Hesperia complementary-input scope.
+- [x] Fishability replay reports daily and seasonal label distributions,
       transition counts, missing/prior-flow counts, and extreme-day samples.
 - [ ] Copy contains no internal scores, thresholds, reason codes, provider IDs,
       live-arrival claims, catch probability, access promise, or safety claim.
@@ -224,21 +206,22 @@ must not say the river is safe, unsafe, clear, muddy, open, or closed.
 
 ## 9. Run gate
 
-**Run decision:** `blocked_pending_replay_fixtures_and_owner_acceptance`
+**Run decision:** `public_enabled_reach_scoped`
 
-**Configuration version:** `2026-08-24-white-phase-c-draft.1` (hidden review
-only)
+**Configuration version:** `2026-08-27-white-fishability-reconciliation.4`
 
-**Activity rules version:** `white_activity_unavailable_split_reach_v1_research`
+**Activity rules version:** `white-fall-chinook-observed-activity-v3`
 
-**Presence curve version:** `white_chinook_presence_v1_research`
+**Presence curve version:** `white-chinook-presence-v2-draft`
 
-**Copy version:** `white_chinook_copy_v1_research`
+**Copy strategy:** `onboarding_corridor`
 
-**Replay artifact:** `not_generated`
+**Replay artifact:** `docs/audits/river-run-white-chinook-activity-replay.json`
 
 **Owner acceptance/date:**
-`numeric/research candidate approved for hidden app review / 2026-08-24`
+`public observed-input release accepted / 2026-08-26; Fruitvale Fishability
+reconciled / 2026-08-27`
 
-Phase C research is complete enough to implement fixtures, but it does not
-authorize runtime registration, deployment, or public enablement.
+Public scope remains below Hesperia Dam. Fruitvale hydraulics and Weaver Street
+temperature stay separately labeled, and neither may be generalized to the full
+White River.

@@ -124,7 +124,7 @@ export const PLATTE_RIVER_PROFILE: RiverProfile = {
         "Michigan DNR 2026 Fishing Regulations and National Park Service fishing guidance; recheck before release.",
     }],
     evidenceNotes:
-      "The seasonal Lower Platte River Weir is the conservative product endpoint. Michigan DNR lower-weir records directly support fall Chinook, Coho, and Steelhead in this corridor; all three remain hidden Phase C candidates pending review.",
+      "The seasonal Lower Platte River Weir is the conservative product endpoint. Michigan DNR lower-weir records directly support fall Chinook, Coho, and Steelhead in this corridor. The 2026-08-27 source re-audit confirmed that Honor is separated from the fishing corridor by Platte Lake and that the lower-weir and M-22 USGS inventories supply no continuous discharge, height, or temperature. Honor remains Gauge Read context only and lower-corridor Fishability remains unavailable.",
   },
   conditionRefreshSchedule: {
     activeSlots: [
@@ -435,7 +435,7 @@ export const PLATTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const PLATTE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-25-platte-release.1",
+  configVersion: "2026-08-27-platte-fishability-source-audit.2",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

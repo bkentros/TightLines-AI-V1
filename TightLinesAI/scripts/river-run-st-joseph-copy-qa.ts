@@ -184,7 +184,10 @@ for (const [species, groups] of runs) {
   }
   for (const scenario of requiredGroup(groups, "fishability").scenarios) {
     if (scenario.snapshot.fishability.label === "Unavailable") continue;
-    assert.match(scenario.snapshot.fishability.detail, /Niles mainstem reach/i);
+    assert.match(
+      scenario.snapshot.fishability.detail,
+      /Niles (?:mainstem )?reach/i,
+    );
     assert.match(
       scenario.snapshot.fishability.tip,
       /Niles|every other section/i,

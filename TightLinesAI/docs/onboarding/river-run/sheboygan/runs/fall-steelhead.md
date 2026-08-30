@@ -95,7 +95,7 @@ Lake Michigan. No winter or spring handoff exists yet.
 
 - Fishability and Gauge Read use only USGS `04086000` near I-43, with no river
   temperature field or inferred temperature.
-- The shared flow bands are `<87`, `87–117`, `118–337`, `338–874`, and `>=875`
+- The shared flow bands are `<87`, `87–117`, `118–338`, `339–674`, `675–874`, and `>=875`
   CFS; they describe presentation shape, not fish abundance or safety.
 - Activity uses modeled I-43 weather only, remains Limited, and cannot infer
   flow response or fish movement. The 2007-2025 replay covered 3,192/3,192
@@ -131,4 +131,4 @@ Lake Michigan. No winter or spring handoff exists yet.
 - [ ] Owner accepts the hidden Gate 4B Activity candidate.
 
 **Run decision:** `hidden_gate4b_ready_for_owner_review`\
-**Configuration:** `2026-08-27-sheboygan-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-sheboygan-fishability-reconciliation.4`

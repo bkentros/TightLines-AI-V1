@@ -748,7 +748,7 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v3",
+    "river-live-conditions-v4",
   );
   assertEquals(body.activity.label, "Unavailable");
 });

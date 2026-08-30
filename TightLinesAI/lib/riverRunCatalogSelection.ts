@@ -23,9 +23,9 @@ const COMING_LATER_SUBTITLE = "Coming later";
 
 const STATE_PRESENTATION: RiverRunChoice[] = [
   { id: "MI", label: "Michigan" },
+  { id: "WI", label: "Wisconsin" },
   { id: "IN", label: "Indiana" },
   { id: "NY", label: "New York" },
-  { id: "WI", label: "Wisconsin" },
   { id: "OH", label: "Ohio" },
 ];
 
@@ -40,7 +40,7 @@ const SPECIES_PRESENTATION: RiverRunChoice[] = [
   { id: "chinook_salmon", label: "Chinook Salmon" },
   { id: "coho_salmon", label: "Coho Salmon" },
   { id: "steelhead", label: "Steelhead" },
-  { id: "lake_run_brown_trout", label: "Migratory Brown Trout" },
+  { id: "lake_run_brown_trout", label: "Lake-run Browns" },
   { id: "atlantic_salmon", label: "Atlantic Salmon" },
 ];
 
@@ -73,13 +73,16 @@ function mergeWithPresentation(
   );
   const presentedIds = new Set(presentationChoices.map((choice) => choice.id));
   return [
-    ...presentationChoices.map((choice) =>
-      supportedById.get(choice.id) ?? {
-        ...choice,
-        subtitle: COMING_LATER_SUBTITLE,
-        disabled: true,
-      }
-    ),
+    ...presentationChoices.map((choice) => {
+      const supported = supportedById.get(choice.id);
+      return supported
+        ? { ...supported, label: choice.label }
+        : {
+          ...choice,
+          subtitle: COMING_LATER_SUBTITLE,
+          disabled: true,
+        };
+    }),
     ...supportedChoices.filter((choice) => !presentedIds.has(choice.id)),
   ];
 }
@@ -95,7 +98,7 @@ function uniqueById<T extends { id: string }>(items: T[]): T[] {
 
 export function formatRiverRunSpecies(species: string): string {
   if (species.trim().toLowerCase() === "lake_run_brown_trout") {
-    return "Migratory Brown Trout";
+    return "Lake-run Browns";
   }
   return species
     .trim()

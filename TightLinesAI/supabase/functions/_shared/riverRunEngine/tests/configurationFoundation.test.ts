@@ -69,7 +69,7 @@ Deno.test("PM configuration document binds both implemented fall movement branch
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-08-07.16",
+    "2026-08-27-pm-fishability-reconciliation.17",
   );
 });
 

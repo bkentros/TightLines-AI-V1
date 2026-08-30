@@ -377,7 +377,30 @@ export type RiverLiveSeasonalContext = {
   source:
     | "usgs_statistics"
     | "monitor_my_watershed_history"
-    | "usgs_approved_exact_date_archive";
+    | "usgs_approved_exact_date_archive"
+    | "usgs_approved_fixed_period_archive";
+};
+
+export type FixedFlowSeasonalNormal = {
+  average: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  historicalYears: number;
+  sampleCount: number;
+  availableWindowDays: number;
+  windowStartMonthDay: string;
+  windowEndMonthDay: string;
+};
+
+export type FixedFlowSeasonalBaseline = {
+  baselineVersion: string;
+  historicalStartYear: number;
+  historicalEndYear: number;
+  attribution: string;
+  normals: Readonly<Record<string, FixedFlowSeasonalNormal>>;
 };
 
 export type RiverLiveConditionMetric = {
@@ -564,6 +587,8 @@ export type RiverProfile = {
   waterTemperatureSources: WaterTemperatureSourceConfig[];
   /** Optional historical-only context; never a current measured reading. */
   historicalWaterTemperatureSource?: HistoricalWaterTemperatureSourceConfig;
+  /** Optional fixed-era flow context used when the modern gauge regime is the accepted comparison. */
+  fixedFlowSeasonalBaseline?: FixedFlowSeasonalBaseline;
   weatherPoints: WeatherPointConfig[];
   foundation?: RiverFoundationConfig;
   conditionRefreshSchedule: ConditionRefreshSchedule;

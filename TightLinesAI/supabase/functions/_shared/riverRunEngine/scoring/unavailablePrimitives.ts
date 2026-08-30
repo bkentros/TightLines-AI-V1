@@ -98,10 +98,11 @@ export function unavailablePush(
 }
 
 export function unavailableFishability(
-  _reason: PrimitiveUnavailableReason,
+  reason: PrimitiveUnavailableReason,
   copyStrategy?: RunStageCopyStrategy,
 ): FishabilityScoreResult {
   const betsie = copyStrategy === "betsie_homestead";
+  const gaugeOutsideCorridor = reason === "no_accepted_hydraulic_source";
   return {
     score: null,
     label: "Unavailable",
@@ -110,9 +111,13 @@ export function unavailableFishability(
       : "Fishability is not available for this river.",
     detail: betsie
       ? "The Betsie lacks a continuous live flow gauge representing the two River Run reaches."
+      : gaugeOutsideCorridor
+      ? "A live flow gauge is available, but it does not represent the approved fishing corridor closely enough to support a dependable Fishability score."
       : "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
     tip: betsie
       ? "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river."
+      : gaugeOutsideCorridor
+      ? "Use Gauge Read only as the labeled upstream context, then verify conditions directly at a legal access in the fishing corridor."
       : "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
     reasonCodes: ["primitive_fishability_unavailable_for_river"],
     copyVersion: RIVER_RUN_COPY_VERSION,

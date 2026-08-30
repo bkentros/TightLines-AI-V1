@@ -57,4 +57,4 @@ and the 2023-2024 updates cataloged in `../timing-audit.md`.
 - [x] Product-owner Gate 4A truth/copy acceptance on 2026-08-26.
 - [x] Product-owner Gate 4B Activity behavior/replay acceptance on 2026-08-26.
 
-**Configuration:** `2026-08-27-bois-brule-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-bois-brule-fishability-source-audit.5`

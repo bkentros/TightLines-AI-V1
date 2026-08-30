@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   type FishabilityScoreInput,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -577,6 +577,22 @@ Deno.test("stable 480 cfs Scottville flow is Fishable, not Good", () => {
   assertEquals(result.score, 60);
   assertEquals(result.label, "Fishable");
   assertEquals(result.rulesVersion, "pm-scottville-fishability-v2");
+});
+
+Deno.test("PM Fishability explains why Gauge Read can use a different label", () => {
+  const result = fishabilityWith({
+    flowBand: "low",
+    flowSignal: "stable",
+    currentHydraulicValue: 428,
+    copyStrategy: "pere_marquette",
+  });
+
+  assertEquals(result.score, 60);
+  assertEquals(result.label, "Fishable");
+  assertMatch(
+    result.detail,
+    /The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM\./,
+  );
 });
 
 Deno.test("Fishability copy remains river-neutral and hides source identity", () => {

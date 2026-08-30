@@ -213,6 +213,19 @@ Seasonal percentiles support calibration and relative context but never assign
 the live fishing-shape band. This allows a supportive Push event and difficult
 Fishability to coexist without contradiction.
 
+The August 27, 2026 cross-river Fishability review retained these thresholds.
+Unlike the former Big Manistee band, Scottville's 525-750 CFS ideal range begins
+near the modern median, ends below p90, and produced 283 Excellent results in
+740 usable Chinook replay days (38.2%). The app now explains in plain language
+that Gauge Read is date-relative while Fishability assesses presentation in the
+Scottville-represented Lower river.
+For example, the official USGS August 25 distribution placed 428 CFS inside its
+long-record p25-p75 normal range, while the fixed presentation model correctly
+called the same stable flow Fishable rather than Excellent. Gauge height is not
+scored separately because it is a shorter-record hydraulic expression of the
+same river state; measured temperature remains Activity and Push evidence, not
+Scottville presentation-control evidence.
+
 The replay command is:
 
 ```sh

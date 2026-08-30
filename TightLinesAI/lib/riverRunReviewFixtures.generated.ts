@@ -245,7 +245,7 @@ const BASE_SNAPSHOT = {
     "score": 93,
     "label": "Excellent",
     "headline": "Scottville flow is in its best presentation range.",
-    "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+    "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
     "tip": "Cover readable seams and holding water with a controlled presentation.",
     "reasonCodes": [
       "gauge_fresh",
@@ -451,7 +451,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.9.0-review",
-  "configVersion": "2026-08-07.16-review"
+  "configVersion": "2026-08-27-pm-fishability-reconciliation.17-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [
@@ -12282,7 +12282,7 @@ const GROUP_SEEDS = [
             "score": 40,
             "label": "Tough",
             "headline": "Very low Scottville flow leaves limited depth and cover.",
-            "detail": "Unusually low flow concentrates useful depth into fewer places. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12308,7 +12308,7 @@ const GROUP_SEEDS = [
             "score": 60,
             "label": "Fishable",
             "headline": "Low Scottville flow remains workable with less depth and cover.",
-            "detail": "Lower flow reduces depth and cover across the reach. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Lower flow reduces depth and cover across the reach. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Prioritize deeper seams and current breaks with enough cover.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12333,7 +12333,7 @@ const GROUP_SEEDS = [
             "score": 75,
             "label": "Good",
             "headline": "Scottville flow is in a comfortable presentation range.",
-            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12364,7 +12364,7 @@ const GROUP_SEEDS = [
             "score": 73,
             "label": "Good",
             "headline": "High Scottville flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12389,7 +12389,7 @@ const GROUP_SEEDS = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Scottville flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12414,7 +12414,7 @@ const GROUP_SEEDS = [
             "score": 20,
             "label": "Poor",
             "headline": "Scottville flow is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12440,7 +12440,7 @@ const GROUP_SEEDS = [
             "score": 90,
             "label": "Excellent",
             "headline": "Scottville flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Falling flow should sharpen established seams as the reach settles. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Falling flow should sharpen established seams as the reach settles. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12465,7 +12465,7 @@ const GROUP_SEEDS = [
             "score": 88,
             "label": "Excellent",
             "headline": "Scottville flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Rising flow is beginning to shift lanes toward softer edges. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Rising flow is beginning to shift lanes toward softer edges. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12490,7 +12490,7 @@ const GROUP_SEEDS = [
             "score": 60,
             "label": "Fishable",
             "headline": "High Scottville flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A clear rise is moving controllable presentations toward inside seams and current breaks. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A clear rise is moving controllable presentations toward inside seams and current breaks. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12515,7 +12515,7 @@ const GROUP_SEEDS = [
             "score": 40,
             "label": "Tough",
             "headline": "High Scottville flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is quickly replacing settled lanes with heavier current. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is quickly replacing settled lanes with heavier current. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12543,7 +12543,7 @@ const GROUP_SEEDS = [
             "score": 69,
             "label": "Fishable",
             "headline": "Scottville flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Recent Scottville history cannot show whether presentation water is improving or worsening. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. Recent Scottville history cannot show whether presentation water is improving or worsening. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12571,7 +12571,7 @@ const GROUP_SEEDS = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Scottville reading limits confidence in Lower river Fishability.",
-            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. The river may have changed since the last Scottville reading. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band offers the broadest mix of depth, seams, and presentation control. The river may have changed since the last Scottville reading. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_stale",
@@ -28144,7 +28144,7 @@ const GROUP_SEEDS = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Scottville flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "Very high flow compresses controllable water into the slowest protected edges. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28734,7 +28734,7 @@ const GROUP_SEEDS = [
             "score": 75,
             "label": "Good",
             "headline": "Scottville flow is in a comfortable presentation range.",
-            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. This read applies to the Lower river (Pere Marquette Lake–Scottville), not the full PM.",
+            "detail": "The flow band supports readable lanes, seams, and holding water. Stable flow should keep presentation lanes consistent. The live flow card compares this date, while this result assesses the Lower river from Pere Marquette Lake to Scottville, not the full PM.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",

@@ -6,12 +6,13 @@ Current DNR assessment, historic Webber passage, 2024 agency observations,
 species biology, regulations, and rainbow/Steelhead aliases were checked. They
 establish recurring fall entry; no contradictory exclusion was found.
 
-**Capability decision:** `supported_hidden_review` **Contradiction search
+**Capability decision:** `supported_public_reach_scoped` **Contradiction search
 completed by/date:** Codex / 2026-08-24 **Independent falsification review
-by/date:** required before public enablement
+by/date:** completed in the 2026-08-25 observed-Activity audit and 2026-08-27
+Fishability reconciliation
 
 **River ID:** `grand` **Species slug:** `steelhead` **Created/researched:**
-2026-08-24 **Status:** `truth_profile_researched_calibration_and_replay_blocked`
+2026-08-24 **Status:** `public_enabled_with_fail_closed_passage_scope`
 
 > This is a fall-entry profile, not a complete Steelhead lifecycle. Steelhead
 > can overwinter and spawn in spring; the terminal state ends fall movement
@@ -83,7 +84,7 @@ product boundary remains below Moores Park Dam.`
 
 ## 4. Fish In River proposal
 
-- Historical maximum: **7/10 hidden-review calibration for fall entry only**.
+- Historical maximum: **7/10 accepted calibration for fall entry only**.
 - Public opportunity tier: `Moderate` proposal.
 - Distribution: Lower-first; verified Middle conditional; Upper withheld until
   the full passage route is current.
@@ -114,18 +115,18 @@ never a live fish count, and the completed state must not display numeric zero.
 
 ## 5. Activity capability and proposed calibration
 
-> **Implementation update (2026-08-25):** The current hidden candidate is
+> **Implementation update (2026-08-25):** The current public profile is
 > `grand-fall-steelhead-observed-activity-v3-draft`. It combines Fulton flow,
 > North Park measured temperature, and Grand Rapids hourly weather only for the
 > downtown Grand Rapids mainstem, with no salmon mortality logic. See
-> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`.
-> The accepted v3 stage means are Pre-run 26.50, Beginning 36.51, Building
-> 73.58, Peak 82.90, Tapering 66.75, Ending 60.95, and Post-run 57.00. The
-> bounded stage-response adjustment softens the warm-season cliff while
-> retaining warm/barrier/blown-out caps, a true 96-point maximum, and living-
-> fish late-season semantics.
+> `docs/audits/river-run-grand-observed-activity-2026-08-25.md`. The accepted v3
+> stage means are Pre-run 26.50, Beginning 36.51, Building 73.58, Peak 82.90,
+> Tapering 66.75, Ending 60.95, and Post-run 57.00. The bounded stage-response
+> adjustment softens the warm-season cliff while retaining
+> warm/barrier/blown-out caps, a true 96-point maximum, and living- fish
+> late-season semantics.
 
-- Mode: `observed_river`, implemented for hidden review.
+- Mode: `observed_river`, publicly enabled with the documented reach limits.
 - Temperature: North Park Street/Middle Grand Rapids reach only.
 - Hydraulics: Fulton Street/downtown Lower reach only.
 - Weather: one Grand Rapids point, not corridor-wide.
@@ -167,16 +168,17 @@ owner acceptance remain required.
 
 ## 6. Fishability capability and proposed bands
 
-Fishability is possible only for the Fulton Street/downtown Lower reach. Bands
-use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
+Fishability applies only to the Fulton Street/downtown Lower reach. The shared
+Grand bands use the combined 1990–2025 fall distribution and are identical for
+Chinook, Coho, and Steelhead.
 
-| Boundary          | Proposed discharge | Rationale                                               |
-| ----------------- | -----------------: | ------------------------------------------------------- |
-| Too low maximum   |          1,400 CFS | near seasonal 10th percentile; local validation pending |
-| Low fishable      |          1,900 CFS | near seasonal 25th percentile                           |
-| Ideal             |    1,900–4,800 CFS | approximately seasonal 25th–80th percentile             |
-| High fishable     |    4,800–8,000 CFS | approximately seasonal 80th–95th percentile             |
-| Blown out minimum |          8,000 CFS | presentation proposal only; not safety/flood threshold  |
+| Boundary          | Proposed discharge | Rationale                                                 |
+| ----------------- | -----------------: | --------------------------------------------------------- |
+| Too low maximum   |          1,200 CFS | near the broad fall lower tail; Fulton presentation only  |
+| Low fishable      |          1,600 CFS | near the broad fall 25th-percentile corridor              |
+| Ideal             |    1,600–4,000 CFS | shared fall presentation range                            |
+| High fishable     |    4,001–6,399 CFS | upper fall presentation range                             |
+| Blown out minimum |          6,400 CFS | presentation threshold only; not a safety/flood threshold |
 
 - Source/reach: Fulton Street discharge only; no gauge-height score.
 - Trend: 24-hour trend changes presentation only, never proves movement.
@@ -188,8 +190,9 @@ use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
 - Extreme guidance:
   `Treat an extreme station reading as poor local
   presentation and verify current river and access information.`
-- Acceptance: local expert review, historical/lifecycle replay, all band and
-  trend fixtures, and post-construction rating/source re-audit.
+- The 2026-08-27 cross-river audit reconciled all boundaries, trend/freshness
+  behavior, source scope, and review fixtures. Material construction or channel
+  change still requires a Fulton rating/source recheck.
 
 ## 7. Four-primitive acceptance
 
@@ -201,7 +204,8 @@ use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
       owner-accepted.
 - [ ] Every displayed upstream route has current passage support.
 - [x] Activity replay, controlled tests, fixtures, and automated gates pass.
-- [ ] Fishability replay and rendered device/owner review pass.
+- [x] Shared Fishability calibration and automated boundary/reconciliation
+      review pass.
 
 ## 8. Research evidence ledger
 
@@ -213,23 +217,23 @@ use 1990–2025 Sept. 15–Dec. 31 seasonal percentiles as scaffolding.
 | S-R004  | Workman, Hayes & Coon, _A Model of Steelhead Movement in Relation to Water Temperature in Two Lake Michigan Tributaries_ | https://doi.org/10.1577/1548-8659(2002)131%3C0463:AMOSMI%3E2.0.CO;2                                                                     | 2002               | Lake Michigan tributary adult movement was temperature-dependent; ~4 °C movement threshold reported   | Pere Marquette/St. Joseph; movement is not Activity responsiveness                        |                                   |
 | S-R005  | USGS 04119000 daily discharge endpoint                                                                                   | https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04119000&parameterCd=00060&startDT=1990-01-01&endDT=2025-12-31&siteStatus=all | queried 2026-08-24 | 3,888 seasonal observations and percentile scaffolding                                                | hydrology does not establish fishability                                                  |                                   |
 | S-CAL01 | FinFindr Grand Steelhead Phase C proposal                                                                                | this file                                                                                                                               | 2026-08-24         | dates, curve, ceiling, weights, thresholds, caps, copy intent                                         | owner/replay/QA pending                                                                   |                                   |
-| S-ACT01 | FinFindr Grand observed Activity audit                                                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                            | 2026-08-25         | Downtown proxy validation, cross-year 724/768-date replay, source failure states, downstream decision | not catch-rate validation or whole-river evidence                                        |                                   |
+| S-ACT01 | FinFindr Grand observed Activity audit                                                                                   | `docs/audits/river-run-grand-observed-activity-2026-08-25.md`                                                                           | 2026-08-25         | Downtown proxy validation, cross-year 724/768-date replay, source failure states, downstream decision | not catch-rate validation or whole-river evidence                                         |                                   |
 
 Foundation evidence used: E-002, E-003, E-004, E-006, E-007, E-009, E-010,
 E-018.
 
 ## 9. Run gate
 
-**Run decision:** `truth_profile_complete_configuration_blocked` **Configuration
-version:** `2026-08-25-grand-observed-activity-draft.3` **Activity rules version:**
+**Run decision:** `public_enabled_reach_scoped` **Configuration version:**
+`2026-08-27-grand-fishability-reconciliation.2` **Activity rules version:**
 `grand-fall-steelhead-observed-activity-v3-draft` **Presence curve version:**
-`grand-steelhead-fall-presence-v2-draft` **Copy version:**
-`grand-steelhead-fall-copy-v1-proposed` **Replay artifact:**
+`grand-steelhead-fall-presence-v2-draft` **Copy version:** `onboarding_corridor`
+**Replay artifact:**
 `docs/audits/river-run-grand-steelhead-activity-replay.json` **Owner
-acceptance/date:** numeric/research candidate approved for hidden app review /
-2026-08-24
+acceptance/date:** public release accepted / 2026-08-25; shared Fulton
+Fishability reconciled / 2026-08-27
 
-Blocking items: current passage through every displayed section; Fishability
-replay; rendered device/owner review; release authorization;
-construction-era source/station-pair re-audit; no implemented
-spring destination for a handoff.
+Remaining limitations are fail-closed rather than release blockers: do not
+display an upstream section without current passage support, re-audit the
+source/station pair after material construction or channel changes, and do not
+invent a spring handoff that is not implemented.

@@ -13,6 +13,7 @@ import {
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
+import { WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS } from "./wisconsinFixedFlowSeasonal.generated.ts";
 
 export const SHEBOYGAN_RIVER_PROFILE: RiverProfile = {
   riverId: "sheboygan",
@@ -37,6 +38,14 @@ export const SHEBOYGAN_RIVER_PROFILE: RiverProfile = {
       "Measured 0.2 mile below I-43 and 3.9 miles above the mouth. It directly represents the upper Urban River, gives downstream context for Kohler, and does not directly measure the harbor.",
   }],
   waterTemperatureSources: [],
+  fixedFlowSeasonalBaseline: {
+    baselineVersion: "sheboygan-i43-recent-date-window-2019-2025-v2",
+    historicalStartYear: 2019,
+    historicalEndYear: 2025,
+    attribution:
+      "U.S. Geological Survey approved daily mean discharge, fixed 2019–2025 recent-regime comparison period, with date-relative coverage through Feb. 15 for the complete supported report tail.",
+    normals: WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS.sheboygan,
+  },
   weatherPoints: [{
     weatherPointId: "sheboygan_i43_weather",
     lat: 43.7413889,
@@ -154,13 +163,13 @@ const SHEBOYGAN_BASELINE = {
 };
 
 const SHEBOYGAN_FISHABILITY: FishabilityBands = {
-  version: "sheboygan-i43-fishability-v1-draft",
+  version: "sheboygan-i43-fishability-v2",
   metric: "flow_cfs",
   sourceLabel: "Urban River near I-43",
   tooLow: { max: 87 },
   lowFishable: { min: 87, max: 118 },
   ideal: { min: 118, max: 338 },
-  highFishable: { min: 338, max: 874 },
+  highFishable: { min: 338, max: 674 },
   blownOut: { min: 875 },
   caps: {
     staleGauge: 55,
@@ -170,9 +179,9 @@ const SHEBOYGAN_FISHABILITY: FishabilityBands = {
     sharpRiseHigh: 40,
   },
   evidenceNotes:
-    "Draft recent-season percentile bands describe presentation shape only near the I-43 station. They do not estimate fish abundance, clarity, access, wading or boating safety, harbor conditions, or the ungauged Kohler reach.",
+    "Accepted recent-season percentile bands describe presentation shape only near the I-43 station. The p90-p95 interval is intentionally very high rather than being folded into ordinary high-fishable water. They do not estimate fish abundance, clarity, access, wading or boating safety, harbor conditions, or the ungauged Kohler reach.",
   sourceNotes:
-    "USGS 04086000 daily mean discharge audit for Aug. 1-Jan. 31 in 2019-2025, executed 2026-08-26. Boundaries use p10/p25/p75/p95 and remain hidden for owner review.",
+    "USGS 04086000 daily mean discharge audit for Aug. 1-Jan. 31 in 2019-2025, rechecked 2026-08-27. Boundaries use p10/p25/p75/p90/p95 so exceptional high water cannot receive the same grade as an ordinary high-fishable presentation.",
 };
 
 const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
@@ -425,7 +434,8 @@ export const SHEBOYGAN_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2024 Lake Michigan stocking summary, 2026 Steelhead strain timing, Sheboygan access material, current regulations, and owner-relayed Wisconsin local calibration recorded 2026-08-26.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "sheboygan-fall-steelhead-weather-activity-v2-local-calendar-draft",
+    version:
+      "sheboygan-fall-steelhead-weather-activity-v2-local-calendar-draft",
     profile: "steelhead_feeding",
     reachIds: [
       "sheboygan_harbor_lower_city",
@@ -519,7 +529,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const SHEBOYGAN_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-sheboygan-steelhead-local-peak.3",
+  configVersion: "2026-08-27-sheboygan-fishability-reconciliation.4",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -5,6 +5,7 @@ import {
   assertNotMatch,
 } from "jsr:@std/assert";
 import {
+  resolveAdminOverrideBand,
   resolveRunStage,
   RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RUN_PROFILES,
@@ -330,10 +331,18 @@ Deno.test("Sheboygan Steelhead completion ends only the fall-entry model", () =>
 });
 
 Deno.test("Sheboygan Fishability is I-43 scoped and honors audited boundaries", () => {
+  const baseline = SHEBOYGAN_RIVER_PROFILE.fixedFlowSeasonalBaseline;
+  assert(baseline);
+  assertEquals(baseline.normals["02-15"]?.historicalYears, 7);
+  assertEquals(baseline.normals["02-15"]?.sampleCount, 49);
   const bands = SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE.fishabilityBands!;
   assertEquals(bands.tooLow.max, 87);
   assertEquals(bands.ideal, { min: 118, max: 338 });
+  assertEquals(bands.highFishable, { min: 338, max: 674 });
+  assertEquals(resolveAdminOverrideBand(338, bands), "ideal");
+  assertEquals(resolveAdminOverrideBand(338.5, bands), "high_fishable");
   assertEquals(bands.blownOut.min, 875);
+  assertEquals(resolveAdminOverrideBand(675, bands), "very_high");
 
   const display = scoreFishability({
     rules: bands,
@@ -343,6 +352,10 @@ Deno.test("Sheboygan Fishability is I-43 scoped and honors audited boundaries", 
     flowSignal: "stable",
   });
   assertEquals(display.label, "Excellent");
-  assertMatch(JSON.stringify(display), /presentation/i);
+  assertMatch(display.detail, /live flow card compares this date/i);
+  assertMatch(display.detail, /fixed presentation bands/i);
+  assertMatch(display.detail, /I-43/i);
+  assertMatch(display.detail, /Sheboygan Harbor/i);
+  assertMatch(display.detail, /Kohler Reach/i);
   assertNotMatch(JSON.stringify(display), /fish abundance|safe to wade/i);
 });

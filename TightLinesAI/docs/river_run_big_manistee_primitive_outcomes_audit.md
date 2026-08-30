@@ -1,6 +1,6 @@
 # Big Manistee — Historical Primitive Outcomes Audit
 
-**Audit date:** 2026-08-06
+**Audit date:** 2026-08-27 (Fishability bands revised)
 **Primary gauge:** USGS `04125550`, Manistee River near Wellston
 **Primitives:** Fishability, Push, Migration Timing
 **Runs:** Fall Chinook, Fall Coho, Fall Steelhead
@@ -24,16 +24,24 @@ the implemented fall runs, August 15 through December 22, for 1996–2025.
 
 | Result | Days | Share of usable days |
 |---|---:|---:|
-| Excellent | 1,891 | 56.3% |
-| Good | 461 | 13.7% |
-| Fishable | 872 | 26.0% |
-| Tough | 116 | 3.5% |
+| Excellent | 1,564 | 46.6% |
+| Good | 709 | 21.1% |
+| Fishable | 929 | 27.7% |
+| Tough | 138 | 4.1% |
 | Poor | 17 | 0.5% |
 | **Total usable** | **3,357** | **100%** |
 
-Thus 3,224 of 3,357 usable dates (96.0%) were at least Fishable, while 133
-(4.0%) were Tough or Poor. “Fishable” in the table is the exact middle label;
+Thus 3,202 of 3,357 usable dates (95.4%) were at least Fishable, while 155
+(4.6%) were Tough or Poor. “Fishable” in the table is the exact middle label;
 it does not include Good or Excellent.
+
+The revised absolute bands reserve Excellent eligibility for the rounded
+historical p25-p75 core, 1,400-1,750 CFS. The prior 1,400-1,900 ideal band
+extended almost to the fall p90 and made 56.3% of usable days Excellent. Water
+from 1,750-2,500 CFS remains high-but-fishable; stable flow there scores Good
+rather than implying universally ideal presentation. This absolute presentation
+classification is intentionally separate from Gauge Read's date-relative
+Normal/Higher comparison.
 
 The replay requested 3,900 dates and resolved 3,357 (86.08%). The 543 excluded
 dates lacked either that day's approved daily mean flow or the paired prior-day
@@ -42,8 +50,8 @@ in every year; no missing date was silently bridged.
 
 Band/label combinations:
 
-- Ideal: 1,891 Excellent, 119 Good, 56 Fishable
-- High-fishable: 342 Good, 99 Fishable, 49 Tough
+- Ideal: 1,564 Excellent, 92 Good, 34 Fishable
+- High-fishable: 617 Good, 178 Fishable, 71 Tough
 - Low: 717 Fishable, 23 Tough
 - Very high: 41 Tough, 15 Poor
 - Very low: 3 Tough
@@ -148,7 +156,8 @@ Typical rather than generating unstable timing claims.
 ## Product conclusion
 
 The Big Manistee primitives are operating in a credible range. Fishability is
-usually favorable but still detects rare difficult water. Push is selective:
+usually favorable but now reserves Excellent for the central presentation core
+and still detects rare difficult water. Push is selective:
 Strong plus Very strong occurred on only 6.6% of usable Chinook days, 7.5% of
 Coho days, and 4.1% of Steelhead days. Migration Timing favors stable Typical
 reads while retaining material Ahead and Delayed histories.

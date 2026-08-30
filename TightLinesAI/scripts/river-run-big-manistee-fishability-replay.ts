@@ -8,19 +8,50 @@ import {
   resolveAdminOverrideBand,
   resolveFlowTrendSignal,
   scoreFishability,
+  WHITE_FALL_CHINOOK_RUN_PROFILE,
+  WHITE_RIVER_PROFILE,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
 const useMuskegon = Deno.args.includes("--muskegon");
-const selectedRiver = useMuskegon ? MUSKEGON_RIVER_PROFILE : river;
-const selectedRun = useMuskegon ? MUSKEGON_FALL_CHINOOK_RUN_PROFILE : run;
+const useWhite = Deno.args.includes("--white");
+const selectedRiver = useWhite
+  ? WHITE_RIVER_PROFILE
+  : useMuskegon
+  ? MUSKEGON_RIVER_PROFILE
+  : river;
+const selectedRun = useWhite
+  ? WHITE_FALL_CHINOOK_RUN_PROFILE
+  : useMuskegon
+  ? MUSKEGON_FALL_CHINOOK_RUN_PROFILE
+  : run;
 const gauge = getPrimaryHydraulicSource(selectedRiver);
-const observations = await fetchUsgsDailyFlowBaselineObservations({
-  fetchFn: fetch,
-  riverId: selectedRiver.riverId,
-  siteId: gauge.siteId,
-  startDate: `${useMuskegon ? 2007 : 1996}-08-14`,
-  endDate: "2025-12-22",
-});
+const bands = selectedRun.fishabilityBands;
+if (!bands) throw new Error(`${selectedRun.runId} has no Fishability bands.`);
+const firstYear = useWhite ? 1957 : useMuskegon ? 2007 : 1996;
+const replayStart = useWhite ? "08-01" : "08-15";
+const replayEnd = useWhite ? "12-31" : "12-22";
+const observationRanges = useWhite
+  ? Array.from(
+    { length: Math.ceil((2025 - firstYear + 1) / 5) },
+    (_, index) => ({
+      startYear: firstYear + index * 5,
+      endYear: Math.min(firstYear + index * 5 + 4, 2025),
+    }),
+  )
+  : [{ startYear: firstYear, endYear: 2025 }];
+const observations = (
+  await Promise.all(
+    observationRanges.map((range) =>
+      fetchUsgsDailyFlowBaselineObservations({
+        fetchFn: fetch,
+        riverId: selectedRiver.riverId,
+        siteId: gauge.siteId,
+        startDate: `${range.startYear}-${useWhite ? "07-31" : "08-14"}`,
+        endDate: `${range.endYear}-${useWhite ? "12-31" : "12-22"}`,
+      })
+    ),
+  )
+).flat();
 const byDate = new Map(
   observations.map((item) => [item.localDate, item.value]),
 );
@@ -30,12 +61,17 @@ const yearlyMissing = new Map<string, number>();
 let usableDays = 0;
 let violations = 0;
 let missingFlowDays = 0;
-const firstYear = useMuskegon ? 2007 : 1996;
-const expectedDays = activeDayCount("08-15", "12-22") * (2025 - firstYear + 1);
+const expectedDays = activeDayCount(replayStart, replayEnd) *
+  (2025 - firstYear + 1);
+const hydraulicThresholds = selectedRun.push?.hydraulic ??
+  selectedRun.activity?.hydraulicTrend;
+if (!hydraulicThresholds) {
+  throw new Error(`${selectedRun.runId} has no audited hydraulic thresholds.`);
+}
 for (let year = firstYear; year <= 2025; year++) {
   for (
-    let date = `${year}-08-15`;
-    date <= `${year}-12-22`;
+    let date = `${year}-${replayStart}`;
+    date <= `${year}-${replayEnd}`;
     date = addDays(date, 1)
   ) {
     const flow = byDate.get(date);
@@ -51,18 +87,16 @@ for (let year = firstYear; year <= 2025; year++) {
     const trend = resolveFlowTrendSignal({
       currentValue: flow,
       value24hAgo: prior,
-      rising24hAbsolute: selectedRun.push.hydraulic.rising24h.absolute,
-      rising24hPercent: selectedRun.push.hydraulic.rising24h.percent,
-      meaningfulRise24hAbsolute:
-        selectedRun.push.hydraulic.meaningfulRise24h.absolute,
-      meaningfulRise24hPercent:
-        selectedRun.push.hydraulic.meaningfulRise24h.percent,
-      sharpRise24hAbsolute: selectedRun.push.hydraulic.sharpRise24h.absolute,
-      sharpRise24hPercent: selectedRun.push.hydraulic.sharpRise24h.percent,
+      rising24hAbsolute: hydraulicThresholds.rising24h.absolute,
+      rising24hPercent: hydraulicThresholds.rising24h.percent,
+      meaningfulRise24hAbsolute: hydraulicThresholds.meaningfulRise24h.absolute,
+      meaningfulRise24hPercent: hydraulicThresholds.meaningfulRise24h.percent,
+      sharpRise24hAbsolute: hydraulicThresholds.sharpRise24h.absolute,
+      sharpRise24hPercent: hydraulicThresholds.sharpRise24h.percent,
     });
-    const band = resolveAdminOverrideBand(flow, selectedRun.fishabilityBands);
+    const band = resolveAdminOverrideBand(flow, bands);
     const result = scoreFishability({
-      rules: selectedRun.fishabilityBands,
+      rules: bands,
       gaugeFreshness: "fresh",
       flowBand: band,
       flowSignal: trend.rawSignal,
@@ -82,29 +116,31 @@ for (let year = firstYear; year <= 2025; year++) {
     ) violations++;
     if (
       band === "very_low" &&
-      (result.score ?? 100) > selectedRun.fishabilityBands.caps.veryLow
+      (result.score ?? 100) > bands.caps.veryLow
     ) violations++;
     if (
       band === "blown_out" &&
-      (result.score ?? 100) > selectedRun.fishabilityBands.caps.blownOut
+      (result.score ?? 100) > bands.caps.blownOut
     ) violations++;
     if (
       trend.rawSignal === "sharp_rise" &&
       ["high_fishable", "very_high", "blown_out"].includes(band) &&
-      (result.score ?? 100) > selectedRun.fishabilityBands.caps.sharpRiseHigh
+      (result.score ?? 100) > bands.caps.sharpRiseHigh
     ) violations++;
   }
 }
 console.log(JSON.stringify(
   {
     riverId: selectedRiver.riverId,
-    runId: useMuskegon
+    runId: useWhite
+      ? "white_shared_fall_fishability"
+      : useMuskegon
       ? "muskegon_shared_fall_fishability"
       : "big_manistee_shared_fall_fishability",
     gaugeSiteId: gauge.siteId,
     replayYears: `${firstYear}-2025`,
     replayWindow:
-      `08-15 through 12-22 (union of implemented ${selectedRiver.displayName} fall runs)`,
+      `${replayStart} through ${replayEnd} (union of implemented ${selectedRiver.displayName} fall runs)`,
     expectedDays,
     usableDays,
     coveragePercent: Math.round(usableDays / expectedDays * 10000) / 100,

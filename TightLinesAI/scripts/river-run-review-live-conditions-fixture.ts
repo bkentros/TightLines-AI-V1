@@ -243,7 +243,10 @@ function seasonalContext(input: {
   average: number;
   value: number;
   historicalYears: number;
-  source: "usgs_statistics" | "monitor_my_watershed_history";
+  source:
+    | "usgs_statistics"
+    | "monitor_my_watershed_history"
+    | "usgs_approved_fixed_period_archive";
 }) {
   const spread = input.metric === "flow_cfs"
     ? Math.max(40, input.average * .2)

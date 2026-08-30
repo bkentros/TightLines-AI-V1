@@ -319,7 +319,7 @@ export const BETSIE_RIVER_PROFILE: RiverProfile = {
       },
     ],
     evidenceNotes:
-      "Foundation researched and approved 2026-08-10 in docs/river_run_betsie_copy_foundation.md. The public river model uses two named reaches: Betsie Lake–US-31 and US-31–Homestead, ending at the current signed closure. Lower/Middle/Upper terminology is prohibited. Michigan DNR describes limited fish passage at Homestead, so River Run treats it as a conservative public guidance endpoint without claiming absolute biological impassability. No accepted continuous hydraulic or measured-water-temperature source represents the corridor; Activity remains weather-only with Limited confidence.",
+      "Foundation researched and approved 2026-08-10 in docs/river_run_betsie_copy_foundation.md. The public river model uses two named reaches: Betsie Lake–US-31 and US-31–Homestead, ending at the current signed closure. Lower/Middle/Upper terminology is prohibited. Michigan DNR describes limited fish passage at Homestead, so River Run treats it as a conservative public guidance endpoint without claiming absolute biological impassability. The 2026-08-27 source re-audit checked the USGS US-31, River Road, M-115, and historic Karlin inventories plus local citizen staff-gauge programs; none supplies dependable continuous discharge or measured temperature for runtime scoring. Activity remains weather-only with Limited confidence.",
   },
   conditionRefreshSchedule: {
     activeSlots: [

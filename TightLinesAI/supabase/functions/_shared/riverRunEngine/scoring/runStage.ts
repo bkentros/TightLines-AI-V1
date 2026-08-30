@@ -483,7 +483,7 @@ function onboardingCorridorStageCopy(input: {
     } ${route.limit}`,
     tip: route.tip,
     whereToStart: input.riverId === "milwaukee"
-      ? `Restrictions first: stay outside the signed Kletzsch fish-passage refuge; from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. ${route.whereToStart}`
+      ? `Restrictions first: stay outside the Kletzsch refuge and obey the seasonal night-fishing restriction. Start here: ${route.whereToStart}`
       : input.riverId === "sheboygan"
       ? `Restrictions first: from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. Verify current signs and property access. ${route.whereToStart}`
       : input.riverId === "root"
@@ -602,10 +602,10 @@ function onboardingCorridorRoute(input: {
       if (stage === "beginning") {
         return {
           whereToStart:
-            "Harbor & Downtown first; add the Urban Greenway selectively as the run builds.",
+            "Harbor & Downtown, from the river mouth through downtown below North Avenue. Cover this section before checking the Urban Greenway.",
           limit,
           tip:
-            "Keep the search lower-river weighted and compare sections before expanding inland.",
+            "Fish the river entrance and first deep downtown holding water first. Move inland only after that lower section has been covered.",
         };
       }
       if (stage === "building") {
@@ -662,10 +662,11 @@ function onboardingCorridorRoute(input: {
     }
     if (stage === "beginning") {
       return {
-        whereToStart: "Harbor & Downtown — Lake Michigan to North Avenue.",
+        whereToStart:
+          "Harbor & Downtown, from the river mouth through downtown below North Avenue. Cover this section before checking the Urban Greenway.",
         limit,
         tip:
-          "Start low and require direct fish evidence before adding the Urban Greenway.",
+          "Fish the river entrance and first deep downtown holding water first. Move inland only after that lower section has been covered.",
       };
     }
     if (stage === "building" && !input.establishedBuildingContext) {

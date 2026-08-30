@@ -106,7 +106,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -482,7 +482,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -583,7 +583,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -966,7 +966,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -1068,7 +1068,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -1519,7 +1519,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -1650,7 +1650,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2102,7 +2102,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -2233,7 +2233,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2685,7 +2685,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -2835,7 +2835,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3281,7 +3281,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -3431,7 +3431,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3877,7 +3877,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -4046,7 +4046,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4492,7 +4492,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -4661,7 +4661,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5113,7 +5113,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -5293,7 +5293,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5745,7 +5745,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -5925,7 +5925,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6372,7 +6372,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -6552,7 +6552,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6999,7 +6999,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -7179,7 +7179,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7626,7 +7626,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -7806,7 +7806,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8259,7 +8259,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -8425,7 +8425,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8879,7 +8879,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -8986,7 +8986,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9369,7 +9369,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -9470,7 +9470,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9853,7 +9853,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -9954,7 +9954,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10337,7 +10337,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -10438,7 +10438,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10821,7 +10821,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -10922,7 +10922,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11305,7 +11305,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -11406,7 +11406,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11789,7 +11789,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -11970,7 +11970,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12416,7 +12416,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -12553,7 +12553,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12999,7 +12999,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -13131,7 +13131,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 90,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13578,7 +13578,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -13708,7 +13708,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 88,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14154,7 +14154,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -14284,7 +14284,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14730,7 +14730,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -14860,7 +14860,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 68,
             "label": "Fishable",
             "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A fast rise is replacing settled lanes with heavier current. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15306,7 +15306,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -15437,7 +15437,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15883,7 +15883,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -16015,7 +16015,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "Croton-area flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -16464,7 +16464,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -16597,7 +16597,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -17046,7 +17046,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -17179,7 +17179,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 0,
             "label": "Poor",
             "headline": "The Croton area is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -17628,7 +17628,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -18152,7 +18152,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -18270,7 +18270,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18679,7 +18679,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -18780,7 +18780,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19163,7 +19163,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -19264,7 +19264,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19647,7 +19647,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -19748,7 +19748,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20131,7 +20131,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -20262,7 +20262,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "Very low Croton-area flow leaves limited depth and cover.",
-            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20709,7 +20709,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -20846,7 +20846,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 60,
             "label": "Fishable",
             "headline": "Low Croton-area flow remains workable with less depth and cover.",
-            "detail": "Low flow reduces depth and cover across the Croton area. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Low flow reduces depth and cover across the Croton area. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21292,7 +21292,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -21424,7 +21424,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The Croton area is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21872,7 +21872,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -22002,7 +22002,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 88,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -22448,7 +22448,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -22578,7 +22578,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "A fast Croton-area rise is shifting usable water toward protected edges.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -23033,7 +23033,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -23165,7 +23165,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "Croton-area flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Croton history cannot establish the flow direction. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -23614,7 +23614,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -23746,7 +23746,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -24195,7 +24195,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -24719,7 +24719,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -24850,7 +24850,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25296,7 +25296,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -25427,7 +25427,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 73,
             "label": "Good",
             "headline": "High Croton-area flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25873,7 +25873,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -26004,7 +26004,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Croton-area flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -26450,7 +26450,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -26558,7 +26558,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27010,7 +27010,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -27141,7 +27141,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27593,7 +27593,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -27743,7 +27743,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28189,7 +28189,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -28358,7 +28358,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28810,7 +28810,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -28960,7 +28960,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Croton-area flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29406,7 +29406,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -29537,7 +29537,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29990,7 +29990,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -30121,7 +30121,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30574,7 +30574,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -30744,7 +30744,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The Croton area is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31198,7 +31198,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -31378,7 +31378,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31825,7 +31825,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -32005,7 +32005,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -32452,7 +32452,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -32618,7 +32618,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33072,7 +33072,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -33228,7 +33228,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33637,7 +33637,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -34199,7 +34199,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -34306,7 +34306,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34689,7 +34689,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -34820,7 +34820,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35272,7 +35272,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -35403,7 +35403,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35855,7 +35855,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -36005,7 +36005,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -36451,7 +36451,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -36601,7 +36601,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37047,7 +37047,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -37197,7 +37197,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37643,7 +37643,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -37812,7 +37812,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38258,7 +38258,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -38427,7 +38427,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38879,7 +38879,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -39048,7 +39048,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39500,7 +39500,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -39680,7 +39680,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40127,7 +40127,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -40307,7 +40307,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40754,7 +40754,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -40934,7 +40934,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41381,7 +41381,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -41561,7 +41561,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42008,7 +42008,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -42174,7 +42174,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42628,7 +42628,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -42794,7 +42794,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43247,7 +43247,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -43348,7 +43348,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43724,7 +43724,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -43860,7 +43860,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 32,
             "label": "Tough",
             "headline": "Very high Croton-area flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44312,7 +44312,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -44444,7 +44444,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 90,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44891,7 +44891,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -45009,7 +45009,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45424,7 +45424,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -45525,7 +45525,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45908,7 +45908,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]
@@ -46064,7 +46064,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -46510,7 +46510,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -46642,7 +46642,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Croton reading limits Croton-area Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. The Croton area may have changed since the last Croton reading. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Verify the Croton area directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -47091,7 +47091,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -47615,7 +47615,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       },
       {
@@ -47733,7 +47733,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Croton-area flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read applies only near Croton Dam within the Upper river (Newaygo–Croton Dam).",
+            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. The live flow card compares this date, while this result applies only near Croton Dam in the Upper river (Newaygo–Croton Dam).",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -48142,7 +48142,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-11-muskegon-copy.1"
+          "configVersion": "2026-08-27-muskegon-fishability-reconciliation.2"
         }
       }
     ]

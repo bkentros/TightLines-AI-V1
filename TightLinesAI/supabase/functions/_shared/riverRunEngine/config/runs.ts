@@ -364,13 +364,13 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
         "USGS 04125550 daily discharge API, 1996-2025: https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04125550&startDT=1996-10-01&endDT=2025-12-31&statCd=00003&parameterCd=00060&siteStatus=all . Michigan EGLE documents the Wellston reach as completely regulated by Tippy Dam, and Michigan DNR documents the regulated tailwater fishery. Local 2024 Big Manistee guide reports describe 1,200 CFS as low and clear with salmon still present, and 2,800-3,000 CFS as swollen or challenging: https://manisteeriverlodge.com/fishingreport/2024-archived-fishing-report/ .",
     },
     fishabilityBands: {
-      version: "big-manistee-tailwater-fishability-v1",
+      version: "big-manistee-tailwater-fishability-v2-core-ideal",
       metric: "flow_cfs",
       sourceLabel: "Wellston tailwater",
       tooLow: { max: 1100 },
       lowFishable: { min: 1100, max: 1400 },
-      ideal: { min: 1400, max: 1900 },
-      highFishable: { min: 1900, max: 2500 },
+      ideal: { min: 1400, max: 1750 },
+      highFishable: { min: 1750, max: 2500 },
       blownOut: { min: 3500 },
       caps: {
         staleGauge: 55,
@@ -380,7 +380,7 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
         sharpRiseHigh: 40,
       },
       evidenceNotes:
-        "These bands describe the fishing shape of the regulated Tippy tailwater, not safety, abundance, or the full lower river. Wellston August 15-November 15 daily discharge from 1996-2025 has p10 near 1,280 CFS, p25 near 1,370, median near 1,530, p75 near 1,720, p90 near 1,950, p95 near 2,140, and p99 near 2,496. The low band preserves the documented 1,200 CFS low-but-clear field condition; 1,400-1,900 represents the central working range; 1,900-2,500 is high but still potentially fishable; 2,500-3,500 resolves as very high/difficult; and 3,500+ is reserved for rare major-water events rather than ordinary high fall flow.",
+        "These bands describe presentation shape in the regulated Tippy tailwater, not safety, abundance, catch probability, or the full lower river. Wellston August 15-November 15 daily discharge from 1996-2025 has p10 near 1,280 CFS, p25 near 1,370, median near 1,530, p75 near 1,720, p90 near 1,950, p95 near 2,140, and p99 near 2,496. The low band preserves the documented 1,200 CFS low-but-clear field condition. The Excellent-eligible core is narrowed to 1,400-1,750, approximately the central p25-p75 working range after rounding. Flow from 1,750-2,500 remains fishable but is classified as upper water rather than universally ideal; 2,500-3,500 resolves as very high/difficult, and 3,500+ is reserved for rare major-water events. Gauge Read remains a separate date-relative comparison, so its Normal/Higher label need not equal this absolute presentation band.",
       sourceNotes:
         "USGS 04125550 daily discharge API, 1996-2025: https://waterservices.usgs.gov/nwis/dv/?format=json&sites=04125550&startDT=1996-10-01&endDT=2025-12-31&statCd=00003&parameterCd=00060&siteStatus=all . Michigan DNR Tippy Dam plan: https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/PRD/MgtPlans-archive/TippyDam_GMP.pdf?hash=711FB9980B95B1D4C9FBE8F542DAAC1E&rev=f400230ab660446d8eb2234c504c56ca . Local Big Manistee guide observations: https://manisteeriverlodge.com/fishingreport/2024-archived-fishing-report/ .",
     },
@@ -543,7 +543,7 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
     fishabilityBands: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
       evidenceNotes:
-        "The accepted Wellston bands are shared across fall migratory species because they describe the regulated Tippy-tailwater fishing shape, not salmon abundance. They remain explicitly limited to the gauged tailwater: below 1,100 unusually low, 1,100-1,400 low but fishable, 1,400-1,900 ideal, 1,900-2,500 high but fishable, 2,500-3,500 very high/difficult, and 3,500+ blown out.",
+        "The accepted Wellston bands are shared across fall migratory species because they describe the regulated Tippy-tailwater fishing shape, not salmon abundance. They remain explicitly limited to the gauged tailwater: below 1,100 unusually low, 1,100-1,400 low but fishable, 1,400-1,750 the Excellent-eligible core, 1,750-2,500 high but fishable, 2,500-3,500 very high/difficult, and 3,500+ blown out.",
     },
     baselineCoverage: {
       metric: "flow_cfs",
@@ -696,7 +696,7 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
     fishabilityBands: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
       evidenceNotes:
-        "The accepted Wellston bands are shared because they classify the regulated Tippy-tailwater fishing shape rather than species abundance: below 1,100 unusually low, 1,100-1,400 low but fishable, 1,400-1,900 ideal, 1,900-2,500 high but fishable, 2,500-3,500 very high/difficult, and 3,500+ blown out. They do not certify downstream conditions or personal safety.",
+        "The accepted Wellston bands are shared because they classify the regulated Tippy-tailwater fishing shape rather than species abundance: below 1,100 unusually low, 1,100-1,400 low but fishable, 1,400-1,750 the Excellent-eligible core, 1,750-2,500 high but fishable, 2,500-3,500 very high/difficult, and 3,500+ blown out. They do not certify downstream conditions or personal safety.",
     },
     baselineCoverage: {
       metric: "flow_cfs",

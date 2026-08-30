@@ -2,8 +2,10 @@ import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   buildConditionRefresh,
   buildDailySnapshot,
+  resolveFlowBand,
   RIVER_RUN_RUN_PROFILES,
   scoreActivity,
+  scoreFishability,
   validateConfigurationRevision,
   validateRiverProfile,
   validateRunProfile,
@@ -25,6 +27,67 @@ Deno.test("White foundation keeps split Gauge Read stations explicitly scoped", 
   assertEquals(WHITE_RIVER_PROFILE.waterTemperatureSources[0].seriesId, "5989");
   assertMatch(WHITE_RIVER_PROFILE.gaugeLimitationCopy, /Fruitvale Road/i);
   assertMatch(WHITE_RIVER_PROFILE.gaugeLimitationCopy, /below Hesperia Dam/i);
+});
+
+Deno.test("White Fishability is shared, deterministic, and Fruitvale-scoped", () => {
+  const runs = [
+    WHITE_FALL_CHINOOK_RUN_PROFILE,
+    WHITE_FALL_COHO_RUN_PROFILE,
+    WHITE_FALL_STEELHEAD_RUN_PROFILE,
+  ];
+  const expectedBands: Array<[number, string]> = [
+    [219, "very_low"],
+    [220, "low"],
+    [274, "low"],
+    [275, "ideal"],
+    [440, "ideal"],
+    [440.5, "high_fishable"],
+    [441, "high_fishable"],
+    [712, "high_fishable"],
+    [713, "very_high"],
+    [1019, "very_high"],
+    [1020, "blown_out"],
+  ];
+
+  for (const run of runs) {
+    assertEquals(
+      run.fishabilityBands?.version,
+      "white-fruitvale-fishability-v2",
+    );
+    for (const [value, expectedBand] of expectedBands) {
+      assertEquals(
+        resolveFlowBand({
+          metric: "flow_cfs",
+          value,
+          fishabilityBands: run.fishabilityBands,
+        })?.band,
+        expectedBand,
+        `${run.runId} at ${value} CFS`,
+      );
+    }
+  }
+
+  const results = runs.map((run) =>
+    scoreFishability({
+      rules: run.fishabilityBands!,
+      gaugeFreshness: "fresh",
+      flowBand: "low",
+      flowSignal: "stable",
+      currentHydraulicValue: 241,
+      copyStrategy: run.runStageCopyStrategy,
+    })
+  );
+  assertEquals(results.map((result) => result.score), [60, 60, 60]);
+  assertEquals(results.map((result) => result.label), [
+    "Fishable",
+    "Fishable",
+    "Fishable",
+  ]);
+  for (const result of results) {
+    assertMatch(result.detail, /live flow card compares this date/i);
+    assertMatch(result.detail, /Fruitvale Road/i);
+    assertMatch(result.detail, /not the full White River/i);
+  }
 });
 
 Deno.test("White Steelhead observed Activity is Peak-led without salmon lifecycle semantics", () => {

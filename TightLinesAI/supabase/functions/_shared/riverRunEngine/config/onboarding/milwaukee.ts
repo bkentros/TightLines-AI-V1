@@ -13,6 +13,7 @@ import {
   GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
+import { WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS } from "./wisconsinFixedFlowSeasonal.generated.ts";
 
 const MILWAUKEE_ESTABROOK_ACTIVITY_SCOPE =
   "This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch.";
@@ -117,6 +118,15 @@ export const MILWAUKEE_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  fixedFlowSeasonalBaseline: {
+    baselineVersion:
+      "milwaukee-estabrook-post-removal-date-window-2019-2025-v2",
+    historicalStartYear: 2019,
+    historicalEndYear: 2025,
+    attribution:
+      "U.S. Geological Survey approved daily mean discharge, fixed 2019–2025 post-Estabrook-removal comparison period, with date-relative coverage through Feb. 15 for the complete supported report tail.",
+    normals: WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS.milwaukee,
+  },
   weatherPoints: [{
     weatherPointId: "milwaukee_estabrook_weather",
     lat: 43.1000116,
@@ -230,13 +240,13 @@ const MILWAUKEE_BASELINE = {
 };
 
 const MILWAUKEE_FISHABILITY: FishabilityBands = {
-  version: "milwaukee-estabrook-fishability-v1-draft",
+  version: "milwaukee-estabrook-fishability-v2",
   metric: "flow_cfs",
   sourceLabel: "Estabrook Park Urban Greenway reach",
   tooLow: { max: 170 },
   lowFishable: { min: 170, max: 237 },
   ideal: { min: 237, max: 594 },
-  highFishable: { min: 594, max: 1519 },
+  highFishable: { min: 594, max: 1110 },
   blownOut: { min: 1520 },
   caps: {
     staleGauge: 55,
@@ -246,9 +256,9 @@ const MILWAUKEE_FISHABILITY: FishabilityBands = {
     sharpRiseHigh: 40,
   },
   evidenceNotes:
-    "Draft post-removal seasonal-percentile bands describe presentation shape near Estabrook Park only. They do not establish fish abundance, access, wading or boating safety, or conditions in the harbor or North Shore.",
+    "Accepted post-removal seasonal-percentile bands describe presentation shape near Estabrook Park only. The p90-p95 interval is intentionally very high rather than being folded into ordinary high-fishable water. These bands do not establish fish abundance, access, wading or boating safety, or conditions in the harbor or North Shore.",
   sourceNotes:
-    "USGS 04087000 daily mean discharge audit for Aug. 1-Jan. 15 in 2019-2025, executed 2026-08-26. Boundary values use p10/p25/p75/p95 and remain owner-review gated.",
+    "USGS 04087000 daily mean discharge audit for Aug. 1-Jan. 15 in 2019-2025, rechecked 2026-08-27. Boundaries use p10/p25/p75/p90/p95 so exceptional high water cannot receive the same grade as an ordinary high-fishable presentation.",
 };
 
 const primitiveCapabilities = {
@@ -514,7 +524,8 @@ export const MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Steelhead lifecycle and stocking/passage evidence plus owner-supplied Wisconsin local peak-date calibration recorded 2026-08-26.",
   }),
   activity: milwaukeeObservedActivity({
-    version: "milwaukee-fall-steelhead-observed-activity-v4-local-calendar-draft",
+    version:
+      "milwaukee-fall-steelhead-observed-activity-v4-local-calendar-draft",
     profile: "steelhead_feeding",
     weights: {
       light: .2,
@@ -628,7 +639,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const MILWAUKEE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-milwaukee-steelhead-local-peak.6",
+  configVersion: "2026-08-27-milwaukee-fishability-reconciliation.7",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -107,7 +107,7 @@ that fish occupy a named pool.
 ## 5. Conditions primitives
 
 - Fishability uses USGS `04086000` only near I-43: `<87` very low, `87–117` low,
-  `118–337` ideal, `338–874` high, and `>=875` blown out.
+  `118–338` ideal, `339–674` high, `675–874` very high, and `>=875` blown out.
 - Gauge Read exposes flow and height independently, with exact observation time,
   age, provisional attribution, and no temperature placeholder.
 - The gauge does not directly represent the harbor or the full Kohler Reach and
@@ -148,4 +148,4 @@ that fish occupy a named pool.
 - [ ] Owner accepts the hidden Gate 4B Activity candidate.
 
 **Run decision:** `hidden_gate4b_ready_for_owner_review`\
-**Configuration:** `2026-08-27-sheboygan-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-sheboygan-fishability-reconciliation.4`

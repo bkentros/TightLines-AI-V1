@@ -21,7 +21,8 @@ not a complete river count or an angler catch rate.
 | Strength/distribution | 9/10; broad | owner-approved portfolio plus near-record current count |
 | Corridor/endpoint | three sections through below the operated Steelhead Facility | owner-approved conservative v1 scope |
 | Stage / Fish In River | available | independent Coho calendar and curve |
-| Fishability / Gauge Read | upper Horlick flow context; separately labeled 60th Street temperature | not lower-corridor measurements |
+| Fishability | unavailable | Horlick flow is upstream of the product endpoint |
+| Gauge Read | upper Horlick flow context; separately labeled 60th Street temperature | not lower-corridor measurements |
 | Activity | available; Limited weather-only | modeled Horlick weather only; both upstream river stations excluded |
 | Push / Migration Timing | unavailable | no accepted paired history/movement contract |
 | Public audit | disabled | release unauthorized |
@@ -52,16 +53,17 @@ catch probability, or equal-distribution statement.
 
 Stage guidance leads with the tributary night restriction and operational
 facility warning, then progresses Harbor & Downtown → City Parks → legal
-Lincoln Park water below the facility. Fishability shares the audited
-`<10/10-20/20-113/113-447/>=448` CFS upper-Horlick bands but does not use flow
-as evidence of abundance or passage.
+Lincoln Park water below the facility. Fishability is unavailable because the
+upper-Horlick gauge lies upstream of that product endpoint. Gauge Read retains
+the measurement as explicitly scoped context and never uses it as evidence of
+lower-corridor presentation, abundance, or passage.
 
 Primary evidence: [2025 fall summary](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSummaryFall2025.pdf), [2024-2025 facility report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSteelheadFacilityFall2024Spring2025.pdf), [facility page](https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/ROOTRIVER), and [current regulations](https://dnr.wisconsin.gov/topic/fishing/regulations).
 
 ## 4. Gate
 
 - [x] Capability, strength, endpoint, calendar, curve, corridor copy,
-      Fishability, Gauge Read, and hidden config reconciled.
+      unavailable Fishability, Gauge Read, and hidden config reconciled.
 - [x] Coho timing and terminal copy remain independent of Chinook.
 - [x] Activity independently replayed for 2007-2025 with zero invariants; Push and Migration Timing fail closed; public registry unchanged.
 - [x] Owner calibration lowers Staging and Beginning by exactly five points;
@@ -70,4 +72,4 @@ Primary evidence: [2025 fall summary](https://dnr.wisconsin.gov/sites/default/fi
 - [x] Owner approved Gate 4A truth/copy.
 - [x] Owner approved Gate 4B Activity behavior/replay on 2026-08-26.
 
-**Configuration:** `2026-08-27-root-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-root-fishability-source-scope.5`

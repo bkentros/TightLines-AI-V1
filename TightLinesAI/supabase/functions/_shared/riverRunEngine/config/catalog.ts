@@ -47,7 +47,7 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-07.16",
+    configVersion: "2026-08-27-pm-fishability-reconciliation.17",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -63,7 +63,7 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
 
 export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-10-betsie-copy.1",
+  configVersion: "2026-08-27-betsie-fishability-source-audit.2",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -85,7 +85,7 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-10-big-manistee-copy.1",
+    configVersion: "2026-08-27-big-manistee-fishability.2",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -106,7 +106,7 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-11-muskegon-copy.1",
+  configVersion: "2026-08-27-muskegon-fishability-reconciliation.2",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -126,7 +126,7 @@ export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 
 export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-09-st-joseph-chinook-activity.2",
+  configVersion: "2026-08-27-st-joseph-fishability-reconciliation.3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

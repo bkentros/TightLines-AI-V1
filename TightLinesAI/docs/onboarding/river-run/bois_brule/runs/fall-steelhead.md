@@ -57,4 +57,4 @@ Primary evidence:
       zero invariants.
 - [x] Product-owner Gate 4B Activity behavior/replay acceptance on 2026-08-26.
 
-**Configuration:** `2026-08-27-bois-brule-steelhead-local-peak.3`
+**Configuration:** `2026-08-27-bois-brule-fishability-source-audit.5`

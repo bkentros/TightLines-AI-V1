@@ -55,7 +55,7 @@
 
 ## Required release record
 
-- Configuration version: `2026-08-27-milwaukee-steelhead-local-peak.6` (hidden)
+- Configuration version: `2026-08-27-milwaukee-fishability-reconciliation.7` (hidden)
 - Copy versions:
 - Replay artifact versions: final and no-stage-adjustment baseline JSON/CSV
   under `docs/audits/river-run-milwaukee-*activity*`
@@ -68,9 +68,9 @@
   is a measured repeat-spawner model with no terminal lifecycle violations, and
   Steelhead has no salmon mortality or late-stage penalty.
 - Fixture generation command/result:
-  `npm run generate:river-run:onboarding-review-fixtures` — 787 private
-  scenarios across 17 runs; current-file check and structural review QA pass.
-- Test commands/results: full engine suite — 344 passed; endpoint type check,
+  `npm run generate:river-run:onboarding-review-fixtures` — 1,157 private
+  scenarios across 26 runs; current-file check and structural review QA pass.
+- Test commands/results: full engine suite — 374 passed; endpoint type check,
   TypeScript project check, onboarding QA/validator, and review-mode QA all
   pass.
 - Known limitations: observed Activity has only two qualifying modern seasons
