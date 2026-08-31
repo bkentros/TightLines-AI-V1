@@ -29,9 +29,9 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   grand: ["flow_cfs"],
   platte: ["flow_cfs"],
   white: ["flow_cfs"],
-  milwaukee: ["flow_cfs", "water_temp_f"],
+  milwaukee: ["flow_cfs"],
   sheboygan: ["flow_cfs"],
-  root: ["flow_cfs", "water_temp_f"],
+  root: ["flow_cfs"],
   bois_brule: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
@@ -145,8 +145,9 @@ for (const target of targets) {
     auditMetric(
       target.riverId,
       metric,
-      !(["grand", "white"].includes(target.riverId) &&
-        requiredString(metric, "metric") === "water_temp_f"),
+      expectedSeasonalMetricsByRiver[target.riverId].includes(
+        requiredString(metric, "metric"),
+      ),
     )
   );
   if (target.riverId === "betsie") {
@@ -315,14 +316,23 @@ function auditMetric(
       );
     }
   } else if (Object.keys(seasonal).length) {
-    if (average == null || !stringField(seasonal, "comparisonLabel")) {
+    if (average == null) {
       throw new Error(
-        `${riverId} ${id} has an incomplete seasonal comparison.`,
+        `${riverId} ${id} has seasonal context without a historical average.`,
       );
     }
-    if (numberField(seasonal, "windowRadiusDays") !== 3) {
+    if (value != null && !stringField(seasonal, "comparisonLabel")) {
       throw new Error(
-        `${riverId} ${id} is not using the required ±3-day window.`,
+        `${riverId} ${id} has a current value without a comparison label.`,
+      );
+    }
+    const windowRadiusDays = numberField(seasonal, "windowRadiusDays");
+    const baselineVersion = stringField(seasonal, "baselineVersion") ?? "";
+    const isExactDateArchive = windowRadiusDays === 0 &&
+      baselineVersion.includes("exact-date");
+    if (windowRadiusDays !== 3 && !isExactDateArchive) {
+      throw new Error(
+        `${riverId} ${id} has an unsupported seasonal-context window.`,
       );
     }
   }
