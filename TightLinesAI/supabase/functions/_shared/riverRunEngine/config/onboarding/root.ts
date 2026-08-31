@@ -266,7 +266,7 @@ export const ROOT_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2023-2025 fall summaries, 2024-2025 facility report, regional Chinook biology, current regulations, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-chinook-weather-activity-v2-release",
+    version: "root-fall-chinook-weather-activity-v3-gauge-clarity-release",
     profile: "chinook_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -277,7 +277,7 @@ export const ROOT_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     inputNotes:
       "Horlick hydraulics and 60th Street water temperature remain available to their accepted non-Activity surfaces but are excluded from Activity because both are upstream of the product corridor, are not co-located, and are separated from the corridor by the operated facility and additional reach. Modeled Horlick weather is the only Activity scoring source.",
     scopeCopy:
-      "This Limited weather-only read uses modeled weather near Horlick for the Harbor & Downtown, City Parks, and Lincoln Park corridor below the Steelhead Facility; it does not measure river level, clarity, or water temperature in those reaches.",
+      "A live water-temperature gauge exists at 60th Street, but it is upstream of Horlick Dam and does not represent the supported corridor below the Steelhead Facility, so Activity excludes it. This Limited read uses modeled weather near Horlick and does not measure river level, clarity, or water temperature in the supported reaches.",
     stageResponseAdjustment: {
       pre_run: -5,
       beginning: -5,
@@ -344,7 +344,7 @@ export const ROOT_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2023-2025 fall summaries, 2024-2025 facility report, regional Coho biology, current regulations, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-coho-weather-activity-v2-release",
+    version: "root-fall-coho-weather-activity-v3-gauge-clarity-release",
     profile: "coho_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -355,7 +355,7 @@ export const ROOT_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     inputNotes:
       "Horlick hydraulics and 60th Street water temperature remain available to their accepted non-Activity surfaces but are excluded from Activity because both are upstream of the product corridor, are not co-located, and are separated from the corridor by the operated facility and additional reach. Modeled Horlick weather is the only Activity scoring source.",
     scopeCopy:
-      "This Limited weather-only read uses modeled weather near Horlick for the Harbor & Downtown, City Parks, and Lincoln Park corridor below the Steelhead Facility; it does not measure river level, clarity, or water temperature in those reaches.",
+      "A live water-temperature gauge exists at 60th Street, but it is upstream of Horlick Dam and does not represent the supported corridor below the Steelhead Facility, so Activity excludes it. This Limited read uses modeled weather near Horlick and does not measure river level, clarity, or water temperature in the supported reaches.",
     stageResponseAdjustment: {
       pre_run: -5,
       beginning: -5,
@@ -419,7 +419,8 @@ export const ROOT_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR Root River 2019-2025 facility reports, Steelhead strain guide, 2024 stocking summary, current regulations, and owner-relayed Wisconsin local calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-steelhead-weather-activity-v2-local-calendar-release",
+    version:
+      "root-fall-steelhead-weather-activity-v3-gauge-clarity-local-calendar-release",
     profile: "steelhead_feeding",
     reachIds: [
       "root_harbor_downtown",
@@ -430,7 +431,7 @@ export const ROOT_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     inputNotes:
       "Horlick hydraulics and 60th Street water temperature remain available to their accepted non-Activity surfaces but are excluded from Activity because both are upstream of the product corridor, are not co-located, and are separated from the corridor by the operated facility and additional reach. Modeled Horlick weather is the only Activity scoring source.",
     scopeCopy:
-      "This Limited weather-only read uses modeled weather near Horlick for the Harbor & Downtown, City Parks, and Lincoln Park corridor below the Steelhead Facility; it does not measure river level, clarity, or water temperature in those reaches.",
+      "A live water-temperature gauge exists at 60th Street, but it is upstream of Horlick Dam and does not represent the supported corridor below the Steelhead Facility, so Activity excludes it. This Limited read uses modeled weather near Horlick and does not measure river level, clarity, or water temperature in the supported reaches.",
     evidenceNotes:
       "Hidden Steelhead response candidate for a living fish already present in the Root product corridor. It scores effective light and restrained same-block precipitation, applies the 0.80 Limited-evidence scale, and has no salmon mortality ramp, taper penalty, or ending cap. It cannot infer temperature-led feeding, river response, passage, movement, abundance, catch probability, access, or safety.",
   }),
@@ -481,7 +482,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
       "Wisconsin DNR 2025 GLFC report, 2023-2025 Root facility reports, 2024 stocking summary, Brown Trout life history, trout/salmon Q&A, and owner-approved portfolio calibration.",
   }),
   activity: buildWeatherOnlyActivity({
-    version: "root-fall-brown-trout-weather-activity-v1-release",
+    version: "root-fall-brown-trout-weather-activity-v2-gauge-clarity-release",
     profile: "brown_trout_fall_reaction",
     reachIds: [
       "root_harbor_downtown",
@@ -492,7 +493,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
     inputNotes:
       "Horlick hydraulics and 60th Street water temperature remain available to their accepted non-Activity surfaces but are excluded from Activity because both are upstream of the product corridor, are not co-located, and are separated from the corridor by the operated facility and additional reach. Modeled Horlick weather is the only Activity scoring source.",
     scopeCopy:
-      "This Limited weather-only read uses modeled weather near Horlick for the Harbor & Downtown, City Parks, and Lincoln Park corridor below the Steelhead Facility; it does not measure river level, clarity, or water temperature in those reaches.",
+      "A live water-temperature gauge exists at 60th Street, but it is upstream of Horlick Dam and does not represent the supported corridor below the Steelhead Facility, so Activity excludes it. This Limited read uses modeled weather near Horlick and does not measure river level, clarity, or water temperature in the supported reaches.",
     stageResponseAdjustment: {
       pre_run: 0,
       beginning: 0,
@@ -512,7 +513,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const ROOT_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-29-root-four-species-release.6",
+  configVersion: "2026-08-30-root-four-species-release.7",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
