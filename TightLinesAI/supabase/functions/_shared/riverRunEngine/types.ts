@@ -382,14 +382,24 @@ export type FishCountObservationType =
 
 export type FishCountSourceConfig = {
   sourceId: string;
-  provider: "WDFW_ESCAPEMENT" | "TACOMA_POWER";
+  provider:
+    | "WDFW_ESCAPEMENT"
+    | "TACOMA_POWER"
+    | "INDIANA_DNR_TABLEAU"
+    | "WISCONSIN_DNR_ROOT"
+    | "WISCONSIN_DNR_BRULE";
   facilityName: string;
   /** Exact label used in the provider document when it differs from public copy. */
   reportFacilityName?: string;
   observationType: FishCountObservationType;
-  eligibleSpecies: Array<"chinook_salmon" | "coho_salmon" | "steelhead">;
+  eligibleSpecies: Array<
+    | "chinook_salmon"
+    | "coho_salmon"
+    | "steelhead"
+    | "lake_run_brown_trout"
+  >;
   sourceUrl: string;
-  updateCadence: "daily" | "weekly";
+  updateCadence: "daily" | "weekly" | "seasonal";
   maximumAgeHours: number;
   preliminary: boolean;
   operatingSeason: string;
@@ -405,7 +415,11 @@ export type RiverRunFishCountRead = {
   provider: FishCountSourceConfig["provider"];
   facilityName: string;
   observationType: FishCountObservationType;
-  species: "chinook_salmon" | "coho_salmon" | "steelhead";
+  species:
+    | "chinook_salmon"
+    | "coho_salmon"
+    | "steelhead"
+    | "lake_run_brown_trout";
   period: "weekly" | "season_to_date";
   adultTotal: number | null;
   jackTotal: number | null;

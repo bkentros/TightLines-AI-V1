@@ -351,10 +351,21 @@ function validateFishCountSources(
   const sourceIds = new Set<string>();
   river.fishCountSources.forEach((source, index) => {
     const field = `fishCountSources[${index}]`;
-    const allowedSpecies = ["chinook_salmon", "coho_salmon", "steelhead"];
+    const allowedSpecies = [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ];
     if (
       !hasText(source.sourceId) || sourceIds.has(source.sourceId) ||
-      !["WDFW_ESCAPEMENT", "TACOMA_POWER"].includes(source.provider) ||
+      ![
+        "WDFW_ESCAPEMENT",
+        "TACOMA_POWER",
+        "INDIANA_DNR_TABLEAU",
+        "WISCONSIN_DNR_ROOT",
+        "WISCONSIN_DNR_BRULE",
+      ].includes(source.provider) ||
       !hasText(source.facilityName) ||
       ![
         "hatchery_return",
@@ -370,7 +381,7 @@ function validateFishCountSources(
         !allowedSpecies.includes(species)
       ) ||
       !/^https:\/\//.test(source.sourceUrl) ||
-      !["daily", "weekly"].includes(source.updateCadence) ||
+      !["daily", "weekly", "seasonal"].includes(source.updateCadence) ||
       !hasNumber(source.maximumAgeHours) || source.maximumAgeHours <= 0 ||
       !hasText(source.operatingSeason) || !hasText(source.representedReach) ||
       !hasText(source.limitation) || !hasText(source.recapturePolicy) ||

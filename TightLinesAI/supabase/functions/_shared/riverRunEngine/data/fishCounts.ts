@@ -9,6 +9,7 @@ import type { RiverRunFetch } from "./usgs.ts";
 const DATA_VERSION = "river-run-fish-counts-v1";
 const WDFW_REPORTS_URL =
   "https://wdfw.wa.gov/fishing/management/hatcheries/escapement";
+const TABLEAU_REFRESH_QUERY = "?:showVizHome=no&:refresh=yes";
 const PROVIDER_REQUEST_INIT: RequestInit = {
   cache: "no-store",
   headers: {
@@ -31,7 +32,13 @@ export async function fetchRiverRunFishCount(input: {
   try {
     const parsed = source.provider === "WDFW_ESCAPEMENT"
       ? await fetchWdfwCount(source, input.species, input.fetchFn)
-      : await fetchTacomaPowerCount(source, input.species, input.fetchFn);
+      : source.provider === "TACOMA_POWER"
+      ? await fetchTacomaPowerCount(source, input.species, input.fetchFn)
+      : source.provider === "INDIANA_DNR_TABLEAU"
+      ? await fetchIndianaDnrCount(source, input.species, input.fetchFn)
+      : source.provider === "WISCONSIN_DNR_ROOT"
+      ? await fetchWisconsinRootCount(source, input.species, input.fetchFn)
+      : await fetchWisconsinBruleCount(source, input.species, input.fetchFn);
     return resolveFishCountFreshness(parsed, source, input.now ?? new Date());
   } catch (error) {
     console.error("[river-run] fish-count provider failed", {
@@ -72,6 +79,7 @@ async function extractPdfPageText(buffer: ArrayBuffer): Promise<string[]> {
   const document = await pdfjs.getDocument({
     data: new Uint8Array(buffer),
     disableWorker: true,
+    verbosity: 0,
   } as never).promise;
   const pages: string[] = [];
   for (let pageNumber = 1; pageNumber <= document.numPages; pageNumber++) {
@@ -83,6 +91,61 @@ async function extractPdfPageText(buffer: ArrayBuffer): Promise<string[]> {
     );
   }
   return pages;
+}
+
+async function extractPdfVisualText(buffer: ArrayBuffer): Promise<string> {
+  const pdfjs = await import("npm:pdfjs-dist@4.10.38/legacy/build/pdf.mjs");
+  const document = await pdfjs.getDocument({
+    data: new Uint8Array(buffer),
+    disableWorker: true,
+    verbosity: 0,
+  } as never).promise;
+  const pages: string[] = [];
+  for (let pageNumber = 1; pageNumber <= document.numPages; pageNumber++) {
+    const page = await document.getPage(pageNumber);
+    const content = await page.getTextContent();
+    const rows: Array<{
+      y: number;
+      items: Array<{
+        x: number;
+        width: number;
+        height: number;
+        value: string;
+      }>;
+    }> = [];
+    for (const item of content.items) {
+      if (!("str" in item) || !item.str) continue;
+      const y = item.transform[5];
+      let row = rows.find((candidate) => Math.abs(candidate.y - y) <= 1);
+      if (!row) {
+        row = { y, items: [] };
+        rows.push(row);
+      }
+      row.items.push({
+        x: item.transform[4],
+        width: item.width,
+        height: item.height,
+        value: item.str,
+      });
+    }
+    pages.push(
+      rows.toSorted((a, b) => b.y - a.y).map((row) => {
+        const items = row.items.toSorted((a, b) => a.x - b.x);
+        let value = "";
+        let previousEnd: number | null = null;
+        for (const item of items) {
+          if (
+            previousEnd != null &&
+            item.x - previousEnd > Math.max(1, item.height * 0.12)
+          ) value += " ";
+          value += item.value;
+          previousEnd = item.x + item.width;
+        }
+        return value.trim();
+      }).filter(Boolean).join("\n"),
+    );
+  }
+  return pages.join("\n");
 }
 
 export function latestWdfwReport(html: string): {
@@ -248,6 +311,234 @@ export function parseTacomaPowerCount(input: {
   });
 }
 
+async function fetchIndianaDnrCount(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountRead["species"],
+  fetchFn: RiverRunFetch,
+): Promise<RiverRunFishCountRead> {
+  const indexResponse = await fetchFn(source.sourceUrl, PROVIDER_REQUEST_INIT);
+  const html = indexResponse.ok && indexResponse.text
+    ? await indexResponse.text()
+    : "";
+  const reportUrl = indianaDnrTableauPdfUrl(html);
+  if (!reportUrl) return unavailable(source, species, "parser_changed");
+  const reportResponse = await fetchFn(reportUrl, PROVIDER_REQUEST_INIT);
+  if (!reportResponse.ok || !reportResponse.arrayBuffer) {
+    return unavailable(source, species, "provider_failed", reportUrl);
+  }
+  const text = await extractPdfVisualText(await reportResponse.arrayBuffer());
+  return parseIndianaDnrLadderCount({ source, species, text, reportUrl });
+}
+
+export function indianaDnrTableauPdfUrl(html: string): string | null {
+  const source = decodeHtml(html).match(
+    /<tableau-viz[^>]+src=["'](https:\/\/[^"']+\/views\/([^/"']+)\/([^/"'?]+))[^"']*["']/i,
+  );
+  if (!source) return null;
+  const url = new URL(source[1]);
+  return `${url.origin}/views/${source[2]}/${
+    source[3]
+  }.pdf${TABLEAU_REFRESH_QUERY}`;
+}
+
+export function parseIndianaDnrLadderCount(input: {
+  source: FishCountSourceConfig;
+  species: RiverRunFishCountRead["species"];
+  text: string;
+  reportUrl: string;
+}): RiverRunFishCountRead {
+  const reportDateToken = input.text.match(
+    /LAST\s*UPDATED\s*:\s*(\d{1,2}\/\d{1,2}\/\d{4})/i,
+  )?.[1];
+  const totals = input.text.replace(/\s+/g, " ").match(
+    /Total\s*Steelhead\s+Total\s*Coho\s+Total\s*Chinook\s+Total\s*Brown\s*Trout\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)/i,
+  );
+  const reportDate = reportDateToken ? slashDate(reportDateToken) : null;
+  if (!reportDate || !totals) {
+    return unavailable(
+      input.source,
+      input.species,
+      "parser_changed",
+      input.reportUrl,
+    );
+  }
+  const index = input.species === "steelhead"
+    ? 1
+    : input.species === "coho_salmon"
+    ? 2
+    : input.species === "chinook_salmon"
+    ? 3
+    : 4;
+  const total = countToken(totals[index]);
+  if (total == null) {
+    return unavailable(
+      input.source,
+      input.species,
+      "not_reported",
+      input.reportUrl,
+    );
+  }
+  return baseRead(input.source, input.species, {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: null,
+    jackTotal: null,
+    observedTotal: total,
+    observedThrough: reportDate,
+    reportDate,
+    freshness: "fresh",
+    categoriesIncluded: [
+      "all fish identified to species at the South Bend ladder",
+    ],
+    sourceUrl: input.reportUrl,
+  });
+}
+
+async function fetchWisconsinRootCount(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountRead["species"],
+  fetchFn: RiverRunFetch,
+): Promise<RiverRunFishCountRead> {
+  const response = await fetchFn(source.sourceUrl, PROVIDER_REQUEST_INIT);
+  const html = response.ok && response.text ? await response.text() : "";
+  return parseWisconsinRootCount({ source, species, html });
+}
+
+export function parseWisconsinRootCount(input: {
+  source: FishCountSourceConfig;
+  species: RiverRunFishCountRead["species"];
+  html: string;
+}): RiverRunFishCountRead {
+  const table = input.html.match(
+    /<table[^>]*>[\s\S]*?Totals as of[\s\S]*?<\/table>/i,
+  )?.[0];
+  const reportDateToken = table?.match(/Totals as of\s*([^<]+)/i)?.[1]?.trim();
+  const reportDate = reportDateToken
+    ? longDate(decodeHtml(reportDateToken))
+    : null;
+  if (!table || !reportDate) {
+    return unavailable(input.source, input.species, "parser_changed");
+  }
+  const rows = [...table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((row) =>
+    [...row[1].matchAll(/<(?:th|td)[^>]*>([\s\S]*?)<\/(?:th|td)>/gi)]
+      .map((cell) => htmlText(cell[1]))
+  );
+  const headers = rows.find((row) => row.includes("Chinook Salmon"));
+  const totals = rows.find((row) => row[0] === "Total Captured");
+  const label = input.species === "steelhead"
+    ? "Rainbow Trout"
+    : input.species === "coho_salmon"
+    ? "Coho Salmon"
+    : input.species === "chinook_salmon"
+    ? "Chinook Salmon"
+    : "Brown Trout";
+  const column = headers?.indexOf(label) ?? -1;
+  const total = column >= 0 ? countToken(totals?.[column]) : null;
+  if (total == null) {
+    return unavailable(input.source, input.species, "not_reported");
+  }
+  return baseRead(input.source, input.species, {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: null,
+    jackTotal: null,
+    observedTotal: total,
+    observedThrough: reportDate,
+    reportDate,
+    freshness: "fresh",
+    categoriesIncluded: [
+      "total fish captured at the operated Steelhead Facility",
+    ],
+    sourceUrl: input.source.sourceUrl,
+  });
+}
+
+async function fetchWisconsinBruleCount(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountRead["species"],
+  fetchFn: RiverRunFetch,
+): Promise<RiverRunFishCountRead> {
+  const indexResponse = await fetchFn(source.sourceUrl, PROVIDER_REQUEST_INIT);
+  const html = indexResponse.ok && indexResponse.text
+    ? await indexResponse.text()
+    : "";
+  const report = latestWisconsinBruleFallReport(html, source.sourceUrl);
+  if (!report) return unavailable(source, species, "parser_changed");
+  const reportResponse = await fetchFn(report.url, PROVIDER_REQUEST_INIT);
+  if (!reportResponse.ok || !reportResponse.arrayBuffer) {
+    return unavailable(source, species, "provider_failed", report.url);
+  }
+  const text = await extractPdfVisualText(await reportResponse.arrayBuffer());
+  return parseWisconsinBruleCount({
+    source,
+    species,
+    text,
+    reportUrl: report.url,
+    seasonYear: report.seasonYear,
+  });
+}
+
+export function latestWisconsinBruleFallReport(
+  html: string,
+  indexUrl: string,
+): { url: string; seasonYear: number } | null {
+  const reports = [...html.matchAll(
+    /<a[^>]+href=["']([^"']+)["'][^>]*>\s*(\d{4})\s+Brule River fall fishway update\s*<\/a>/gi,
+  )].map((match) => ({
+    url: new URL(decodeHtml(match[1]), indexUrl).toString(),
+    seasonYear: Number(match[2]),
+  })).filter((report) => Number.isInteger(report.seasonYear));
+  return reports.toSorted((a, b) => b.seasonYear - a.seasonYear)[0] ?? null;
+}
+
+export function parseWisconsinBruleCount(input: {
+  source: FishCountSourceConfig;
+  species: RiverRunFishCountRead["species"];
+  text: string;
+  reportUrl: string;
+  seasonYear: number;
+}): RiverRunFishCountRead {
+  const totalsLine = input.text.split("\n").map((line) => line.trim()).find(
+    (line) => /^(?:[\d,]+\s+){6}[\d,]+$/.test(line),
+  );
+  const values = totalsLine?.split(/\s+/).map(countToken) ?? [];
+  const publicationToken = input.text.match(
+    /([A-Z][a-z]+\s+\d{1,2},\s+\d{4})/,
+  )?.[1];
+  const reportDate = publicationToken ? longDate(publicationToken) : null;
+  if (
+    values.length !== 7 || values.some((value) => value == null) || !reportDate
+  ) {
+    return unavailable(
+      input.source,
+      input.species,
+      "parser_changed",
+      input.reportUrl,
+    );
+  }
+  const index = input.species === "lake_run_brown_trout"
+    ? 0
+    : input.species === "chinook_salmon"
+    ? 1
+    : input.species === "coho_salmon"
+    ? 2
+    : 3;
+  return baseRead(input.source, input.species, {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: null,
+    jackTotal: null,
+    observedTotal: values[index]!,
+    observedThrough: `${input.seasonYear}-11-30`,
+    reportDate,
+    freshness: "fresh",
+    categoriesIncluded: [
+      "fall fishway video observations identified to species",
+    ],
+    sourceUrl: input.reportUrl,
+  });
+}
+
 export function resolveFishCountFreshness(
   read: RiverRunFishCountRead,
   source: FishCountSourceConfig,
@@ -336,6 +627,14 @@ function shortDate(value: string): string | null {
   return match ? `20${match[3]}-${match[1]}-${match[2]}` : null;
 }
 
+function slashDate(value: string): string | null {
+  const match = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!match) return null;
+  return `${match[3]}-${match[1].padStart(2, "0")}-${
+    match[2].padStart(2, "0")
+  }`;
+}
+
 function longDate(value: string): string | null {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed)
@@ -350,6 +649,10 @@ function decodeHtml(value: string): string {
   ).replaceAll("&#8217;", "’");
 }
 
+function htmlText(value: string): string {
+  return decodeHtml(value.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+}
+
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -357,5 +660,10 @@ function escapeRegex(value: string): string {
 function isCountSpecies(
   species: RiverRunSpecies,
 ): species is RiverRunFishCountRead["species"] {
-  return ["chinook_salmon", "coho_salmon", "steelhead"].includes(species);
+  return [
+    "chinook_salmon",
+    "coho_salmon",
+    "steelhead",
+    "lake_run_brown_trout",
+  ].includes(species);
 }

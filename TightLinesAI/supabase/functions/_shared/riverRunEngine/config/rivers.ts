@@ -864,6 +864,28 @@ export const ST_JOSEPH_RIVER_PROFILE: RiverProfile = {
         "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
     },
   ],
+  fishCountSources: [{
+    sourceId: "st_joseph_south_bend_ladder",
+    provider: "INDIANA_DNR_TABLEAU",
+    facilityName: "South Bend Fish Ladder",
+    observationType: "ladder_passage",
+    eligibleSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    sourceUrl:
+      "https://www.in.gov/dnr/fish-and-wildlife/fishing/lake-michigan-fishing/south-bend-fish-ladder",
+    updateCadence: "daily",
+    maximumAgeHours: 72,
+    preliminary: true,
+    operatingSeason:
+      "Year-round dashboard when the ladder is operating and Indiana DNR has completed video review",
+    representedReach:
+      "South Bend ladder, upstream of the three Michigan ladders and downstream of Twin Branch Dam",
+    limitation:
+      "Video-reviewed passage at South Bend is not a count of fish below the ladder, fish harvested downstream, or total St. Joseph River abundance. Agency review can be delayed.",
+    recapturePolicy:
+      "Use only the dashboard's species totals for the selected calendar year; never sum daily charts into the published total.",
+    attribution:
+      "Indiana Department of Natural Resources South Bend Fish Ladder dashboard",
+  }],
   weatherPoints: [
     {
       weatherPointId: "st_joseph_niles_weather",

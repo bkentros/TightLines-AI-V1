@@ -58,6 +58,33 @@ export const ROOT_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  fishCountSources: [{
+    sourceId: "root_wdnr_steelhead_facility",
+    provider: "WISCONSIN_DNR_ROOT",
+    facilityName: "Root River Steelhead Facility",
+    observationType: "trap_recovery",
+    eligibleSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
+    sourceUrl:
+      "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/rootriverreport",
+    updateCadence: "weekly",
+    maximumAgeHours: 240,
+    preliminary: true,
+    operatingSeason:
+      "Wisconsin DNR normally reports September-December and March-May while the facility is operating",
+    representedReach:
+      "Operated Steelhead Facility weir in Lincoln Park at the upstream end of the supported corridor",
+    limitation:
+      "Facility captures are not a mouth count or a census of fish available below the weir. Fish can be harvested, hold, or spawn downstream without entering the facility.",
+    recapturePolicy:
+      "Use the official Total Captured row by species; do not add Passed Upstream or Spawned at Facility because they are dispositions of captured fish.",
+    attribution:
+      "Wisconsin Department of Natural Resources Root River Steelhead Facility Report",
+  }],
   fixedFlowSeasonalBaseline: {
     baselineVersion: "root-horlick-date-window-2019-2024-v2",
     historicalStartYear: 2019,
@@ -513,7 +540,7 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const ROOT_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-30-root-four-species-release.7",
+  configVersion: "2026-08-31-root-fish-counts.8",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -490,6 +490,9 @@ function onboardingCorridorStageCopy(input: {
       ? `Restrictions first: from Sept. 15 through the first Saturday in May, the Lake Michigan tributary night-fishing restriction applies. Steelhead Facility operations can block, process, or pass fish; verify current operations and posted signs. ${route.whereToStart}`
       : input.riverId === "bois_brule"
       ? `Restrictions first: the lower river below Highway 2 is open only from the last Saturday in March through Nov. 15 and fishing is prohibited from one-half hour after sunset to one-half hour before sunrise. Box Car Hole is closed July 15-Oct. 31, Mays Ledges is closed Sept. 1-May 31, and the signed 500-foot refuge on both sides of the sea-lamprey barrier is never open. ${route.whereToStart}`
+      : input.riverId === "salmon_ny" || input.riverId === "oak_orchard" ||
+          input.riverId === "lower_genesee"
+      ? `Use Spot Finder for vetted public access. ${route.whereToStart}`
       : route.whereToStart,
   };
 }
@@ -588,6 +591,16 @@ function onboardingCorridorRoute(input: {
     input.riverId === "cowlitz"
   ) {
     return washingtonOnboardingCorridorRoute(input);
+  }
+  if (
+    input.riverId === "salmon_ny" || input.riverId === "oak_orchard" ||
+    input.riverId === "lower_genesee"
+  ) {
+    const route = newYorkOnboardingCorridorRoute(input);
+    return {
+      ...route,
+      whereToStart: `Spot Finder: ${route.whereToStart}`,
+    };
   }
   if (input.riverId === "milwaukee") {
     const brown = input.species === "lake_run_brown_trout";
@@ -1184,6 +1197,112 @@ function onboardingCorridorRoute(input: {
     tip: input.fallEntry
       ? "Fall-entry tracking has ended; this is not a complete winter-presence model."
       : "Do not build a Grand River trip around isolated fish outside the modeled run.",
+  };
+}
+
+function newYorkOnboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  fallEntry: boolean;
+}): { whereToStart: string; limit: string; tip: string } {
+  const corridor = input.riverId === "salmon_ny"
+    ? {
+      river: "Salmon River",
+      lake: "Lake Ontario at Port Ontario",
+      lower: "Lower Salmon from Port Ontario to Pulaski",
+      middle: "Middle Salmon from Pulaski to Pineville",
+      upper: "Upper Salmon from Pineville to the Lighthouse Hill tailrace",
+      barrier: "Lighthouse Hill Reservoir dam",
+    }
+    : input.riverId === "oak_orchard"
+    ? {
+      river: "Oak Orchard Creek",
+      lake: "Lake Ontario at Point Breeze",
+      lower: "Lower Oak Orchard from Point Breeze to Route 18",
+      middle: "Middle Oak Orchard from Route 18 to the Park Avenue area",
+      upper: "Upper Oak Orchard from Park Avenue to Waterport Dam",
+      barrier: "Waterport Dam",
+    }
+    : {
+      river: "Lower Genesee River",
+      lake: "Lake Ontario at the Genesee mouth",
+      lower: "Harbor reach from Lake Ontario to Route 104",
+      middle: "Lower Gorge from Route 104 to Seth Green",
+      upper: "Lower Falls terminal reach from Seth Green to Lower Falls",
+      barrier: "natural Lower Falls",
+    };
+  const limit =
+    `${corridor.river} guidance ends below the ${corridor.barrier}. Use Spot Finder for vetted public access; public fishing rights do not imply access outside mapped easements or posted sites, and current New York tributary regulations still apply.`;
+  if (input.stage === "pre_run") {
+    return input.stagingContext
+      ? {
+        whereToStart:
+          `${corridor.lake}; check the ${corridor.lower} only with direct fish evidence.`,
+        limit,
+        tip:
+          "Treat lake staging as context, not proof that the river run or inland distribution is established.",
+      }
+      : {
+        whereToStart: `${corridor.lake}—not inland river sections yet.`,
+        limit,
+        tip:
+          "Wait for the staging window before using the river corridor as a migration plan.",
+      };
+  }
+  if (input.stage === "beginning") {
+    return {
+      whereToStart: corridor.lower,
+      limit,
+      tip:
+        "Start low and require direct fish evidence before adding an inland section.",
+    };
+  }
+  if (input.stage === "building" && !input.establishedBuildingContext) {
+    return {
+      whereToStart:
+        `${corridor.lower}; add the ${corridor.middle} as a secondary check.`,
+      limit,
+      tip:
+        "Compare the lower two sections rather than treating seasonal timing as equal distribution.",
+    };
+  }
+  if (input.stage === "building" && !input.broadBuildingContext) {
+    return {
+      whereToStart:
+        `${corridor.middle}; compare the ${corridor.lower} for newer arrivals.`,
+      limit,
+      tip:
+        `Keep the ${corridor.upper} conditional on direct fish activity and legal access.`,
+    };
+  }
+  if (input.stage === "building" || input.stage === "peak") {
+    return {
+      whereToStart:
+        `${corridor.middle}; add legal water in the ${corridor.upper} for established fish.`,
+      limit,
+      tip:
+        "Compare vetted sections instead of assuming uniform distribution, and leave actively spawning fish undisturbed.",
+    };
+  }
+  if (input.stage === "tapering" || input.stage === "ending") {
+    return {
+      whereToStart:
+        `Established holding water in the ${corridor.middle} or ${corridor.upper}.`,
+      limit,
+      tip: input.fallEntry
+        ? "Favor established holding water; fewer fresh arrivals do not mean Steelhead have left the river."
+        : "Narrow the search to established holding water and leave visible spawning fish undisturbed.",
+    };
+  }
+  return {
+    whereToStart: `No active ${corridor.river} starting section in this model.`,
+    limit,
+    tip: input.fallEntry
+      ? "Fall-entry tracking has ended; Steelhead may remain through winter before a separately modeled spring phase."
+      : `Do not build a ${corridor.river} trip around isolated fish outside the modeled run.`,
   };
 }
 

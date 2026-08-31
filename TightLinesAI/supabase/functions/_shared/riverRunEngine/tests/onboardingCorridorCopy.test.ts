@@ -124,6 +124,30 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
       assertMatch(display.detail, /Barrier Dam exclusion/i, run.runId);
       assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
       assertNotMatch(JSON.stringify(display), /Grand River/i, run.runId);
+    } else if (run.riverId === "salmon_ny") {
+      assertMatch(display.detail, /Lighthouse Hill/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(
+        JSON.stringify(display),
+        /Waterport|Lower Falls/i,
+        run.runId,
+      );
+    } else if (run.riverId === "oak_orchard") {
+      assertMatch(display.detail, /Waterport/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(
+        JSON.stringify(display),
+        /Lighthouse Hill|Lower Falls/i,
+        run.runId,
+      );
+    } else if (run.riverId === "lower_genesee") {
+      assertMatch(display.detail, /Lower Falls/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(
+        JSON.stringify(display),
+        /Lighthouse Hill|Waterport/i,
+        run.runId,
+      );
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

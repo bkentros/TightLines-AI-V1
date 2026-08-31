@@ -907,24 +907,28 @@ function FishCountsCard({
                           : "Observation date supplied by source"}
                       </Text>
                     </View>
-                    <View style={styles.fishCountsBreakdown}>
-                      <View style={styles.fishCountsBreakdownItem}>
-                        <Text style={styles.fishCountsBreakdownValue}>
-                          {(counts.adultTotal ?? 0).toLocaleString()}
-                        </Text>
-                        <Text style={styles.fishCountsBreakdownLabel}>
-                          ADULTS
-                        </Text>
-                      </View>
-                      <View style={styles.fishCountsBreakdownItem}>
-                        <Text style={styles.fishCountsBreakdownValue}>
-                          {(counts.jackTotal ?? 0).toLocaleString()}
-                        </Text>
-                        <Text style={styles.fishCountsBreakdownLabel}>
-                          JACKS
-                        </Text>
-                      </View>
-                    </View>
+                    {counts.adultTotal != null || counts.jackTotal != null
+                      ? (
+                        <View style={styles.fishCountsBreakdown}>
+                          <View style={styles.fishCountsBreakdownItem}>
+                            <Text style={styles.fishCountsBreakdownValue}>
+                              {(counts.adultTotal ?? 0).toLocaleString()}
+                            </Text>
+                            <Text style={styles.fishCountsBreakdownLabel}>
+                              ADULTS
+                            </Text>
+                          </View>
+                          <View style={styles.fishCountsBreakdownItem}>
+                            <Text style={styles.fishCountsBreakdownValue}>
+                              {(counts.jackTotal ?? 0).toLocaleString()}
+                            </Text>
+                            <Text style={styles.fishCountsBreakdownLabel}>
+                              JACKS
+                            </Text>
+                          </View>
+                        </View>
+                      )
+                      : null}
                   </View>
                   {counts.preliminary
                     ? (
@@ -2297,6 +2301,7 @@ function LiveMetricTile({
   const historicalAverage = metric.seasonalContext
     ? formatLiveMetricValue(metric, metric.seasonalContext.average)
     : null;
+  const historicalOnly = isHistoricalOnlyMetric(metric);
   const accessibilityLabel = [
     metric.label,
     metric.value == null
@@ -2339,7 +2344,19 @@ function LiveMetricTile({
           {liveMetricShortLabel(metric.metric)}
         </Text>
       </View>
-      {metric.value == null
+      {historicalOnly
+        ? (
+          <Text
+            style={styles.liveMetricValue}
+            allowFontScaling={false}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.72}
+          >
+            {historicalAverage ?? "—"}
+          </Text>
+        )
+        : metric.value == null
         ? (
           <Text
             style={styles.liveMetricUnavailable}
@@ -2348,7 +2365,7 @@ function LiveMetricTile({
             adjustsFontSizeToFit
             minimumFontScale={0.82}
           >
-            {isHistoricalOnlyMetric(metric) ? "No live sensor" : "Unreadable"}
+            Unreadable
           </Text>
         )
         : (
@@ -2368,11 +2385,27 @@ function LiveMetricTile({
         adjustsFontSizeToFit
         minimumFontScale={0.8}
       >
-        {isHistoricalOnlyMetric(metric)
-          ? `Date avg · ${historicalAverage ?? "Unavailable"}`
+        {historicalOnly
+          ? "HISTORICAL DATE AVG"
           : `Typical · ${typicalRange ?? "Unavailable"}`}
       </Text>
-      {metric.seasonalContext
+      {historicalOnly
+        ? (
+          <View
+            style={[
+              styles.liveMetricComparisonPill,
+              { backgroundColor: visual.tint },
+            ]}
+          >
+            <Text
+              style={[styles.liveMetricComparison, { color: visual.accent }]}
+              numberOfLines={1}
+            >
+              NO LIVE SENSOR
+            </Text>
+          </View>
+        )
+        : metric.seasonalContext
         ? (
           <View
             style={[
@@ -2400,14 +2433,16 @@ function LiveMetricTile({
           </View>
         )}
       <View style={styles.liveMetricTrendRow}>
-        <Text style={styles.liveMetricTrendLabel}>24H</Text>
+        <Text style={styles.liveMetricTrendLabel}>
+          {historicalOnly ? "ARCHIVE" : "24H"}
+        </Text>
         <Text
           style={styles.liveMetricTrend}
           numberOfLines={1}
           adjustsFontSizeToFit
           minimumFontScale={0.72}
         >
-          {trend}
+          {historicalOnly ? "No 24H trend" : trend}
         </Text>
       </View>
     </View>
@@ -2516,9 +2551,9 @@ function liveMetricFreshnessLabel(
 }
 
 function isHistoricalOnlyMetric(metric: RiverRunLiveConditionMetric): boolean {
-  return metric.value == null &&
-    metric.seasonalContext?.source.startsWith("usgs_approved_") === true &&
-    metric.seasonalContext.source.endsWith("_archive");
+  return metric.metric === "water_temp_f" &&
+    metric.value == null &&
+    metric.seasonalContext?.source.endsWith("_archive") === true;
 }
 
 function liveMetricFreshnessColor(

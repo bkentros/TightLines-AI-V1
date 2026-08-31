@@ -297,6 +297,11 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
+  /counts\.adultTotal != null \|\| counts\.jackTotal != null[\s\S]*?ADULTS[\s\S]*?JACKS/,
+  "Fish Counts must hide adult/jack breakdowns when a source publishes only an undivided species total",
+);
+assert.match(
+  riverRunScreen,
   /Official report issued \$\{reportDateLabel\}[\s\S]*?Facility observations through \$\{dateLabel\}/,
   "Fish Counts must distinguish the source publication date from the facility observation-through date",
 );
@@ -1092,13 +1097,23 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /`Date avg · \$\{historicalAverage \?\? "Unavailable"\}`/,
-  "Historical-only temperature must retain its explicitly labeled date average",
+  /historicalAverage \?\? "—"[\s\S]*?HISTORICAL DATE AVG/,
+  "Historical-only temperature must present its archival value as an explicitly labeled date average",
 );
 assert.match(
   riverRunScreen,
-  /\? "No live sensor"/,
-  "Historical-only temperature must use a compact one-line missing-sensor label",
+  /NO LIVE SENSOR[\s\S]*?historicalOnly \? "ARCHIVE" : "24H"[\s\S]*?historicalOnly \? "No 24H trend" : trend/,
+  "Historical-only temperature must use compact sensor and trend status labels",
+);
+assert.match(
+  riverRunScreen,
+  /metric\.metric === "water_temp_f"[\s\S]*?metric\.value == null[\s\S]*?seasonalContext\?\.source\.endsWith\("_archive"\) === true/,
+  "Historical-only temperature must recognize archive context from every approved provider",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /seasonalContext\?\.source\.startsWith\("usgs_approved_"\)/,
+  "Historical-only temperature display must not be limited to USGS archive sources",
 );
 
 assert.equal(

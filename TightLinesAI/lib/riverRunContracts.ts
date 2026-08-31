@@ -291,7 +291,12 @@ export type RiverRunLiveConditions = {
 export type RiverRunFishCounts = {
   status: "available" | "stale" | "unavailable";
   sourceId: string;
-  provider: "WDFW_ESCAPEMENT" | "TACOMA_POWER";
+  provider:
+    | "WDFW_ESCAPEMENT"
+    | "TACOMA_POWER"
+    | "INDIANA_DNR_TABLEAU"
+    | "WISCONSIN_DNR_ROOT"
+    | "WISCONSIN_DNR_BRULE";
   facilityName: string;
   observationType:
     | "hatchery_return"
@@ -299,7 +304,11 @@ export type RiverRunFishCounts = {
     | "weir_passage"
     | "trap_recovery"
     | "separator_recovery";
-  species: "chinook_salmon" | "coho_salmon" | "steelhead";
+  species:
+    | "chinook_salmon"
+    | "coho_salmon"
+    | "steelhead"
+    | "lake_run_brown_trout";
   period: "weekly" | "season_to_date";
   adultTotal: number | null;
   jackTotal: number | null;

@@ -8,11 +8,10 @@ deployment:** `not_performed`
 The owner approved the four Bois Brule runs for public static-catalog promotion.
 All four `publicAudit` gates are enabled, the river/runs/configuration document
 are in the canonical public registries, and the former draft entries are
-removed. The release configuration is
-`2026-08-29-bois-brule-four-species-release.6`. This supersedes older
-hidden/pending state language below, which remains as historical gate evidence.
-No Edge Function deployment, database publication, app build, or store
-submission was performed by this approval reconciliation.
+removed. The current configuration is `2026-08-31-bois-brule-fish-counts.7`.
+This supersedes older hidden/pending state language below, which remains as
+historical gate evidence. No Edge Function deployment, database publication, app
+build, or store submission is recorded by this source change.
 
 ## Gate record
 
@@ -32,6 +31,7 @@ submission was performed by this approval reconciliation.
 | Push / Migration Timing                     | no accepted current same-reach baseline                                   | unavailable                     |
 | Gauge Read current temperature              | unavailable; no current value or trend                                    | pass                            |
 | Historical temperature                      | 101 exact-date normals, minimum two qualifying years, no imputation       | pass                            |
+| Fish Counts                                 | newest official finalized fall fishway PDF, checked without app cache     | pass; seasonal, not live        |
 | Hidden draft registry; no public leak       | config and focused tests                                                  | pass                            |
 | Generated four-primitive fixtures           | 1,136 scenarios across 25 hidden review runs                              | pass                            |
 | Full engine/project QA                      | 358 tests; typecheck; onboarding validation/QA; review QA                 | pass                            |
@@ -64,10 +64,16 @@ submission was performed by this approval reconciliation.
   calibration. Steelhead has no salmon lifecycle decline. Browns use the minimum
   passing Peak-only +6 correction, still bounded by the 0.80 evidence scale and
   stage-response ceiling, without mortality or departure logic.
+- Fish Counts checks the Wisconsin DNR report index and newest official fall PDF
+  on every report request with cache bypass. The published summary totals
+  support Chinook, Coho, Steelhead, and lake-run Brown Trout. DNR currently
+  publishes a finalized seasonal update rather than an in-season live feed, so
+  prior-season totals are explicitly stale and never presented as current fish
+  location, whole-river abundance, or a scoring input.
 
 ## Release record
 
-- Configuration: `2026-08-27-bois-brule-fishability-source-audit.5` (hidden)
+- Configuration: `2026-08-31-bois-brule-fish-counts.7`
 - Foundation: `bois-brule-foundation-v3-gate4a-2026-08-26`
 - Live source audit: `bois-brule-live-source-v3-gate4a-2026-08-26`
 - Historical-temperature baseline:

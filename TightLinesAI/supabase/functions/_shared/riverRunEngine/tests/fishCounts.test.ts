@@ -1,13 +1,21 @@
 import { assertEquals } from "jsr:@std/assert";
 import {
+  BOIS_BRULE_RIVER_PROFILE,
   COWLITZ_RIVER_PROFILE,
   fetchRiverRunFishCount,
   GREEN_RIVER_PROFILE,
+  indianaDnrTableauPdfUrl,
   latestWdfwReport,
+  latestWisconsinBruleFallReport,
+  parseIndianaDnrLadderCount,
   parseTacomaPowerCount,
   parseWdfwFacilityCount,
+  parseWisconsinBruleCount,
+  parseWisconsinRootCount,
   PUYALLUP_RIVER_PROFILE,
   resolveFishCountFreshness,
+  ROOT_RIVER_PROFILE,
+  ST_JOSEPH_RIVER_PROFILE,
 } from "../index.ts";
 
 Deno.test("WDFW count reader bypasses caches whenever a report is requested", async () => {
@@ -118,6 +126,151 @@ Deno.test("Tacoma Power parser counts recoveries but ignores transported/recycle
   assertEquals(chinook.reportDate, "2026-08-24");
   assertEquals(coho.adultTotal, 0);
   assertEquals(coho.jackTotal, 1);
+});
+
+Deno.test("Indiana DNR ladder parser reads the forced-refresh Tableau species totals", () => {
+  const source = ST_JOSEPH_RIVER_PROFILE.fishCountSources![0];
+  const html =
+    "<tableau-viz src='https://datavizpublic.in.gov/views/LakeMichiganFishLadder/Home/session/ignored'></tableau-viz>";
+  const reportUrl = indianaDnrTableauPdfUrl(html)!;
+  assertEquals(
+    reportUrl,
+    "https://datavizpublic.in.gov/views/LakeMichiganFishLadder/Home.pdf?:showVizHome=no&:refresh=yes",
+  );
+  const text = `
+    LAST UPDATED: 8/31/2026
+    Total Steelhead Total Coho Total Chinook Total Brown Trout
+    4,001 205 810 12
+  `;
+  const chinook = parseIndianaDnrLadderCount({
+    source,
+    species: "chinook_salmon",
+    text,
+    reportUrl,
+  });
+  assertEquals(chinook.observedTotal, 810);
+  assertEquals(chinook.observedThrough, "2026-08-31");
+  assertEquals(chinook.adultTotal, null);
+  assertEquals(chinook.jackTotal, null);
+});
+
+Deno.test("Wisconsin DNR Root parser uses Total Captured without double-counting dispositions", () => {
+  const source = ROOT_RIVER_PROFILE.fishCountSources![0];
+  const html = `
+    <table><thead>
+      <tr><th colspan="6">Totals as of October 20, 2026</th></tr>
+      <tr><th></th><th>Rainbow Trout</th><th>Chinook Salmon</th><th>Coho Salmon</th><th>Brown Trout</th><th>Pink Salmon</th></tr>
+    </thead><tbody>
+      <tr><td>Total Captured</td><td>301</td><td>1,250</td><td>620</td><td>88</td><td>2</td></tr>
+      <tr><td>Passed Upstream</td><td>250</td><td>0</td><td>500</td><td>70</td><td>0</td></tr>
+      <tr><td>Spawned at Facility</td><td>175</td><td>900</td><td>300</td><td>40</td><td>0</td></tr>
+    </tbody></table>`;
+  const coho = parseWisconsinRootCount({
+    source,
+    species: "coho_salmon",
+    html,
+  });
+  const brown = parseWisconsinRootCount({
+    source,
+    species: "lake_run_brown_trout",
+    html,
+  });
+  assertEquals(coho.observedTotal, 620);
+  assertEquals(brown.observedTotal, 88);
+  assertEquals(coho.reportDate, "2026-10-20");
+});
+
+Deno.test("Wisconsin DNR Brule parser selects the newest final fall report and fixed summary row", () => {
+  const source = BOIS_BRULE_RIVER_PROFILE.fishCountSources![0];
+  const report = latestWisconsinBruleFallReport(
+    `<a href="/2024.pdf">2024 Brule River fall fishway update</a>
+     <a href="/2025.pdf">2025 Brule River fall fishway update</a>`,
+    source.sourceUrl,
+  );
+  assertEquals(report, {
+    url: "https://dnr.wisconsin.gov/2025.pdf",
+    seasonYear: 2025,
+  });
+  const text = `
+    2025 Bois Brule River Fall Fishway Update
+    Brown Chinook Coho Fall Run Brook Pink
+    Splake
+    Trout Salmon Salmon Steelhead Trout Salmon
+    3143 612 2090 4497 4 100 5
+    DNR – Lake Superior Fisheries Team - Superior Office March 2, 2026
+  `;
+  const steelhead = parseWisconsinBruleCount({
+    source,
+    species: "steelhead",
+    text,
+    reportUrl: report!.url,
+    seasonYear: report!.seasonYear,
+  });
+  const brown = parseWisconsinBruleCount({
+    source,
+    species: "lake_run_brown_trout",
+    text,
+    reportUrl: report!.url,
+    seasonYear: report!.seasonYear,
+  });
+  assertEquals(steelhead.observedTotal, 4497);
+  assertEquals(brown.observedTotal, 3143);
+  assertEquals(steelhead.observedThrough, "2025-11-30");
+  assertEquals(steelhead.reportDate, "2026-03-02");
+});
+
+Deno.test("every official count provider request bypasses app and intermediary caches", async () => {
+  for (
+    const [river, species] of [
+      [ST_JOSEPH_RIVER_PROFILE, "chinook_salmon"],
+      [ROOT_RIVER_PROFILE, "coho_salmon"],
+      [BOIS_BRULE_RIVER_PROFILE, "steelhead"],
+    ] as const
+  ) {
+    const requests: Array<{ url: string; init?: RequestInit }> = [];
+    await fetchRiverRunFishCount({
+      river,
+      species,
+      fetchFn: async (input, init) => {
+        const url = String(input);
+        requests.push({ url, init });
+        if (river.riverId === "st_joseph" && requests.length === 1) {
+          return {
+            ok: true,
+            json: async () => ({}),
+            text: async () =>
+              "<tableau-viz src='https://datavizpublic.in.gov/views/LakeMichiganFishLadder/Home/session'></tableau-viz>",
+          };
+        }
+        if (river.riverId === "bois_brule" && requests.length === 1) {
+          return {
+            ok: true,
+            json: async () => ({}),
+            text: async () =>
+              '<a href="/fall.pdf">2025 Brule River fall fishway update</a>',
+          };
+        }
+        return {
+          ok: false,
+          json: async () => ({}),
+          text: async () => "",
+          arrayBuffer: async () => new ArrayBuffer(0),
+        };
+      },
+      now: new Date("2026-08-31T12:00:00Z"),
+    });
+    assertEquals(
+      requests.every((request) => request.init?.cache === "no-store"),
+      true,
+    );
+    assertEquals(
+      requests.every((request) =>
+        (request.init?.headers as Record<string, string>)["Cache-Control"] ===
+          "no-cache"
+      ),
+      true,
+    );
+  }
 });
 
 Deno.test("Fish Counts freshness is explicit and does not preserve an old number as current", () => {

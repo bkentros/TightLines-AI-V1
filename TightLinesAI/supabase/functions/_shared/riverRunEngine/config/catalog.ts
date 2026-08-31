@@ -135,7 +135,7 @@ export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 
 export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-st-joseph-fishability-reconciliation.3",
+  configVersion: "2026-08-31-st-joseph-fish-counts.4",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

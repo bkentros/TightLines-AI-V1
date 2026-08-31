@@ -53,6 +53,33 @@ export const BOIS_BRULE_RIVER_PROFILE: RiverProfile = {
       "U.S. Geological Survey approved 15-minute archive; one daily mean requires at least 72 valid observations and each displayed exact-date average requires at least two qualifying years.",
     normals: BOIS_BRULE_HISTORICAL_WATER_TEMPERATURE_NORMALS,
   },
+  fishCountSources: [{
+    sourceId: "bois_brule_wdnr_fall_fishway",
+    provider: "WISCONSIN_DNR_BRULE",
+    facilityName: "Bois Brule Sea Lamprey Barrier Fishway",
+    observationType: "weir_passage",
+    eligibleSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
+    sourceUrl:
+      "https://dnr.wisconsin.gov/topic/Fishing/lakesuperior/boisbrulefishing",
+    updateCadence: "seasonal",
+    maximumAgeHours: 240,
+    preliminary: false,
+    operatingSeason:
+      "Fall video-monitoring period, generally July-November; Wisconsin DNR currently publishes a finalized seasonal update",
+    representedReach:
+      "Fishway at the sea lamprey barrier roughly six river miles upstream of Lake Superior",
+    limitation:
+      "The finalized fishway count omits fish that remain or are harvested below the barrier and is not a live whole-river abundance estimate. Publication can occur after the monitored season.",
+    recapturePolicy:
+      "Use the newest official fall report's species summary totals once; never add weekly phenology bars to the reported totals.",
+    attribution:
+      "Wisconsin Department of Natural Resources Bois Brule River Fall Fishway Update",
+  }],
   weatherPoints: [{
     weatherPointId: "bois_brule_hwy2_weather",
     lat: 46.5377778,
@@ -509,7 +536,7 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 export const BOIS_BRULE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument =
   {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-29-bois-brule-four-species-release.6",
+    configVersion: "2026-08-31-bois-brule-fish-counts.7",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
