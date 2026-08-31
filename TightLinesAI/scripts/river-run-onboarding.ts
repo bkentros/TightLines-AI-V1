@@ -124,7 +124,10 @@ async function validatePacket(): Promise<void> {
       ["regulations", /## 6\. Regulations/],
       ["source capability", /## 7\. Source and capability audit/],
       ["Spot Finder", /## 8\. Spot Finder/],
-      ["candidate species matrix", /## 9\. Candidate species matrix/],
+      [
+        "candidate species/run matrix",
+        /## 9\. Candidate species(?:\/run)? matrix/,
+      ],
       ["run records", /## 10\. Species\/run records/],
       ["Activity tuning", /### Activity tuning and fixed replay/],
       ["configuration reconciliation", /## 11\. Configuration reconciliation/],
@@ -316,6 +319,8 @@ function dossierTemplate(): string {
 | Capability | Decision and exact represented reach | Required calibration/artifact | Status |
 | --- | --- | --- | --- |
 | Gauge Read |  | freshness/trend/date-context/fault QA | unresolved |
+| Historical-only water temperature |  | archive extraction, date-window/year-count QA, non-scoring proof, or explicit unavailability | unresolved |
+| Fish Counts |  | source/fetch/publication/observation cadence, parser/revision/duplicate QA, or explicit unavailability | unresolved |
 | Fishing Shape |  | bands and replay, or explicit unavailability | unresolved |
 | Activity source pairing |  | observed compatibility or weather-only limitation | unresolved |
 
@@ -331,18 +336,22 @@ function dossierTemplate(): string {
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
-## 9. Candidate species matrix
+## 9. Candidate species/run matrix
 
-| Species | Occurs | Recurring run | Dependable opportunity | Endpoint supported | Calibration quality | Contradictions | Decision/evidence IDs |
+Duplicate rows when one species has distinct seasonal or life-history runs. Do
+not merge spring/fall Chinook, summer/winter Steelhead, or other materially
+different runs merely because the species is the same.
+
+| Candidate run | Occurs | Recurring run | Dependable opportunity | Endpoint supported | Calibration quality | Contradictions | Decision/evidence IDs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook |  |  |  |  |  |  | unresolved |
-| Coho |  |  |  |  |  |  | unresolved |
-| Steelhead |  |  |  |  |  |  | unresolved |
-| Lake-run brown trout |  |  |  |  |  |  | unresolved |
+| Chinook — season/run type |  |  |  |  |  |  | unresolved |
+| Coho — season/run type |  |  |  |  |  |  | unresolved |
+| Steelhead — season/run type |  |  |  |  |  |  | unresolved |
+| Lake-run brown trout — season/run type |  |  |  |  |  |  | unresolved |
 
 ## 10. Species/run records
 
-Duplicate this subsection once for every supported species. Delete unused
+Duplicate this subsection once for every supported run. Delete unused
 candidate rows only after the contradiction/falsification audit is recorded.
 
 ### Run: SPECIES
@@ -421,6 +430,8 @@ configured.
 | Foundation/source/species truth | this dossier | pending |  |  |
 | Activity full replay and controlled tests |  | pending |  |  |
 | Fishing Shape replay/unavailability |  | pending |  |  |
+| Historical-only temperature context/unavailability |  | pending |  |  |
+| Fish Counts semantics/parser/isolation/unavailability |  | pending |  |  |
 | Seasonal Zone/Spot Finder alignment |  | pending |  |  |
 | Configuration and packet validation |  | pending |  |  |
 | Fixtures/copy/UI/visual/type QA |  | pending |  |  |

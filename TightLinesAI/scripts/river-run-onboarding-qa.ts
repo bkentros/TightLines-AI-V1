@@ -190,10 +190,42 @@ for (
       "passage chains",
       /complete mouth-to-endpoint passage chain for each species/,
     ],
+    [
+      "managed transport boundary",
+      /trap-and-haul[\s\S]*without establishing continuous natural passage/,
+    ],
     ["calendar protocol", /Full calendar protocol/],
     ["strength protocol", /Strength and distribution/],
     ["Spot Finder fail closed", /Spot Finder is optional and fail-closed/],
-    ["Activity tuning", /Activity tuning — mandatory per river\/species/],
+    [
+      "Seasonal Zone recommendation ownership",
+      /Spot Finder recommends only audited sections whose `foundationReachIds`[\s\S]*seasonalZone\.foundationReachIds/,
+    ],
+    [
+      "Spot Finder legal-season overlap",
+      /Audit legal-season overlap for each species, section, and modeled run window/,
+    ],
+    [
+      "historical-only temperature",
+      /historical average with its year count[\s\S]*not a live sensor/,
+    ],
+    [
+      "tidal source isolation",
+      /tidal or reversing-flow stations[\s\S]*specific normalization/,
+    ],
+    [
+      "unmeasured Fishing Shape factors",
+      /turbidity\/visibility[\s\S]*Never\s+infer them from discharge/,
+    ],
+    [
+      "Fish Counts cadence separation",
+      /app fetch\/check cadence[\s\S]*source publication cadence[\s\S]*observation-through date/,
+    ],
+    [
+      "distinct seasonal runs",
+      /spring and fall Chinook[\s\S]*summer\s+and winter Steelhead/,
+    ],
+    ["Activity tuning", /Activity tuning — mandatory per river\/run/],
     ["observed Activity", /Observed-river mode/],
     ["weather-only Activity", /Weather-only mode/],
     ["fixed replay", /Fixed historical replay/],
@@ -258,6 +290,19 @@ assert(
     ),
   "The onboarding workbench must scaffold and validate one river dossier.",
 );
+for (
+  const requiredScaffoldPrompt of [
+    "Historical-only water temperature",
+    "Fish Counts",
+    "Candidate species/run matrix",
+    "distinct seasonal or life-history runs",
+  ]
+) {
+  assert(
+    onboardingWorkbench.includes(requiredScaffoldPrompt),
+    `The onboarding scaffold is missing ${requiredScaffoldPrompt}.`,
+  );
+}
 assert(
   !/docs\/templates\/river_run_|runs\/fall-(?:chinook|coho|steelhead)\.md/.test(
     onboardingWorkbench,

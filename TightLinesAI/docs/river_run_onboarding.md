@@ -1,8 +1,9 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.1\
+**Version:** 3.2\
 **Established:** 2026-08-30\
+**Revised:** 2026-08-31\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
 and each supported migratory run
 
@@ -43,7 +44,7 @@ and migration corridor.
 | Spot Finder       | Engine-derived seasonal-zone sections and source-listed public fishing access                                           | A best spot, live fish location, parking legality, road status, or safe entry                                         |
 | Migration Stage   | Fixed researched seasonal phase                                                                                         | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
 | Activity Outlook  | Conditional responsiveness by four time blocks if fish are present                                                      | Abundance, migration progress, feeding proof, or catch probability                                                    |
-| Seasonal Presence | Historical seasonal presence relative to this river/species ceiling                                                     | A fish count, today's movement, bite quality, or current conditions                                                   |
+| Seasonal Presence | Historical seasonal presence relative to this river/run ceiling                                                         | A fish count, today's movement, bite quality, or current conditions                                                   |
 
 Do not author or expose `WHERE TO START`, `WHY THIS READ`, `GUIDE'S READ`, a
 standalone Fishability tab, public Push, or public Migration Timing. Legacy API
@@ -218,13 +219,23 @@ also does not prove unrestricted, year-round, species-neutral passage. Limited
 passage is not rewritten as impassable; instead, conservatively limit the
 product corridor when the complete chain cannot be proven.
 
+Capture, trap-and-haul, recycling, or operator transport can establish fish at a
+facility or managed destination without establishing continuous natural passage.
+Do not extend the Seasonal Zone through the structure or merge the upstream
+destination into the same run corridor unless the complete movement chain and
+product scope are independently supported.
+
 ### 4.3 Regulations
 
 Record the current issuing authority, regulation version/effective dates,
 jurisdiction, affected reach, official source, exact public reminder, and
-access/safety limitation. Recheck time-sensitive rules immediately before
-release. River sections never promise uniform tackle rules, harvest legality,
-parking, permission, or safe entry.
+access/safety limitation. Check both the permanent regulation and every
+applicable emergency, temporary, in-season, or co-manager action. Recheck them
+immediately before release. Separate biological migration support from legal
+fishing opportunity: a release-only run may remain biologically supported, but a
+closed reach cannot be presented as currently fishable. River sections never
+promise uniform tackle rules, harvest legality, parking, permission, or safe
+entry.
 
 ## 5. Gauge Read and source capability
 
@@ -244,6 +255,11 @@ Use exactly one primary hydraulic source when hydraulics are accepted. Other
 gauges are context unless independently normalized and audited. Temperature
 sources use priority order and are never averaged.
 
+Treat tidal or reversing-flow stations as a separate hydraulic case. Raw signed
+discharge is not ordinary downstream river flow and cannot drive trend, Fishing
+Shape, or Activity without a specific normalization, reach contract, historical
+replay, and fail-closed QA.
+
 Gauge Read supports discharge, gauge height, and measured water temperature
 only. Every metric independently owns freshness, observation age, 24-hour trend,
 station, and reach. Provider `observedAt`, FinFindr `refreshedAt`, and device
@@ -259,6 +275,15 @@ scoring slots merely to obtain fresher measurements.
 Historical date context uses the target calendar date ±3 days across prior
 years. Do not substitute a broad seasonal average. Gauge-height history remains
 `No average` unless datum-consistent support is implemented and audited.
+
+An official, reach-representative archival water-temperature record may support
+historical-only calendar context when no live sensor exists. Record its exact
+years, calendar window, qualifying-year threshold, gaps, unit conversion,
+method/datum changes, and extraction artifact. Missing dates are not imputed.
+The UI must label it as a historical average with its year count and explicitly
+state that it is not a live sensor or today's temperature. It has no freshness
+or trend claim and contributes zero to Activity, Fishing Shape, Stage, and
+Seasonal Presence.
 
 Test fresh, delayed, partial, older-than-24-hours, unreadable, missing,
 fallback, and recovered states. A provider fault suppresses bad numeric values,
@@ -284,6 +309,13 @@ eligible species, operating season, cadence, freshness limit, preliminary/final
 status, adult/jack and hatchery/natural categories, bypass/capture limitations,
 transport/recycling/recapture handling, revision behavior, and attribution.
 
+Keep four times distinct: app fetch/check cadence, source publication cadence,
+source report date, and observation-through date. Checking daily does not mean
+the operator publishes daily or that observations are current through the check
+date. Bypass intermediary caches when the authoritative source permits it, but
+never manufacture freshness. For HTML/PDF/spreadsheet sources, fixture the
+source structure and fail closed on layout, heading, period, or category drift.
+
 The public record must show count interval, observed-through date, report/update
 time, facility, included categories, freshness, direct source, and a permanent
 facility limitation. Never sum disposition columns into passage, merge adults
@@ -307,6 +339,12 @@ If the gauge is upstream, separated by a lake/dam, context-only, or otherwise
 unrepresentative, mark Fishing Shape unavailable and omit calibration fields. Do
 not borrow another river's bands. It may be available without measured water
 temperature and unavailable even when a gauge exists.
+
+Record material workability factors the source does not measure, including
+turbidity/visibility, tide, debris, ice, and project-release effects. Never
+infer them from discharge. If hydraulic-only output would be materially
+misleading without one of those factors, keep Fishing Shape unavailable;
+otherwise state the exact reach and omitted-factor limitation.
 
 Public output is only the canonical label and matching five-stop red-to-green
 meter: Poor, Tough, Fishable, Good, Excellent. It is never safety advice.
@@ -332,30 +370,47 @@ reach lacks defensible fishing access. Never relabel the first verified access
 as `lower` merely to satisfy a three-section shape. The orientation note must
 name every omitted corridor portion and why it failed closed.
 
+Audit legal-season overlap for each species, section, and modeled run window. An
+access that is public in general but closed to the modeled fishery during the
+relevant phase is not a static recommendation. Omit it, constrain eligibility
+only when the rule is durable and representable, or keep Spot Finder
+unavailable; never rely on a generic park/access listing to override fishing
+regulations.
+
 Each access requires stable ID/name, access kinds, concise factual detail,
 material caution, official or accepted land-manager URL, source locator
 instructions, source label, and verification date. Include every eligible access
 in a recommended section; never rank an individual access.
 
-Shared recommendation logic:
+Recommendation ownership:
 
-- one eligible section: every active phase recommends it;
-- two: Beginning first audited section; Building/Peak both; Tapering/Ending
-  second audited section;
-- three or more: Beginning first; Building first two; Peak all; Tapering/Ending
-  last two;
-- pre-run, post-run, missing stage, state mismatch, species mismatch, or
-  corridor mismatch: no recommendation or no Spot Finder.
+- the engine resolves one Seasonal Zone from the fixed calendar, ordered
+  foundation reaches, presentation-state limits, species endpoint, and
+  distribution scope;
+- Spot Finder recommends only audited sections whose `foundationReachIds`
+  intersect the engine's active `seasonalZone.foundationReachIds`;
+- do not recreate a generic Stage-to-section progression in the client, Spot
+  Finder data, or per-river copy;
+- an inactive/complete zone, empty reach list, state/species mismatch, corridor
+  mismatch, or zero audited overlap produces no recommendation;
+- non-overlapping audited sections may remain available as other access, but are
+  never relabeled to force a recommendation.
 
 Sections and access details start collapsed. Recommendations are broad
 calendar-based starting areas, not live fish-location reports.
 
-## 8. Candidate species truth matrix
+## 8. Candidate species/run truth matrix
 
 Evaluate every current candidate independently using common, scientific, and
 local names. Search agency assessments, current/historic stocking, creel and
 harvest records, weir/ladder/trap/egg-take reports, passage material, field
 observations, technical archives, and regulations as context.
+
+Enumerate distinct seasonal/life-history candidates before deciding support. One
+species may require multiple profiles—such as spring and fall Chinook or summer
+and winter Steelhead—with different calendars, endpoints, hatchery or natural
+components, regulations, and terminal semantics. Never merge them into one
+convenient species row or copy a salmon season onto Steelhead.
 
 Keep these conclusions separate:
 
@@ -374,7 +429,7 @@ run.
 
 ## 9. Species/run configuration
 
-For every supported species record and reconcile:
+For every supported run record and reconcile:
 
 - run ID/display name, species, season, run type, movement engine, biology
   profile, migration purpose, lifecycle, and terminal semantics;
@@ -444,19 +499,21 @@ headline, explanation, or guide paragraph.
 
 Stage uses global phase sentences. Seasonal Zone is derived from ordered
 foundation reaches, presentation-state limits, the optional species endpoint,
-and the fixed calendar. Beginning starts low, Building broadens, Peak can cover
-the core corridor, and Tapering/Ending orient to established upstream sections.
-It never crosses a barrier or claims current fish location.
+distribution scope, and the fixed calendar. Phase-specific reach selection is
+engine-owned and must be replayed rather than duplicated in UI logic. It never
+crosses a barrier or claims current fish location.
 
-Do not author `Where to Start`. Spot Finder translates Stage into access
-sections when an audited inventory exists.
+Do not author `Where to Start` or present Seasonal Zone inside the Stage
+primitive. Spot Finder is the only public presentation surface for the engine's
+zone and maps its reach IDs into audited access sections when an inventory
+exists.
 
-## 10. Activity tuning — mandatory per river/species
+## 10. Activity tuning — mandatory per river/run
 
 Activity is the most calibration-sensitive public read. Shared code supplies
-mechanics only. Every river/species combination requires its own evidence
-review, data-mode decision, source-reach contract, versioned tuning, fixed
-historical replay, controlled tests, and owner acceptance.
+mechanics only. Every river/run combination requires its own evidence review,
+data-mode decision, source-reach contract, versioned tuning, fixed historical
+replay, controlled tests, and owner acceptance.
 
 Activity estimates conditional responsiveness of fish already present. It does
 not estimate abundance, fresh entry, migration, exact location, feeding proof,
@@ -573,7 +630,7 @@ Implementation order:
 
 Use stable snake_case IDs and version configuration, presence curve, Activity
 rules, Fishing Shape bands, source data, and audit decisions. Reuse helpers only
-for genuinely identical mechanics; keep evidence and decisions river/species
+for genuinely identical mechanics; keep evidence and decisions river/run
 specific. Do not relax validation to make incomplete research pass.
 
 The configuration-field reconciliation must prove every code value appears in
@@ -607,7 +664,10 @@ cross-surface tensions.
 
 Replay Seasonal Zone every active calendar day and ensure canonical ordering,
 presentation/species endpoint limits, and barrier compliance. Owner-review
-selectors must expose both sides of every Stage or Zone transition.
+selectors must expose both sides of every Stage or Zone transition. Prove Spot
+Finder consumes those exact reach IDs, fails closed without audited overlap, and
+does not contain a parallel stage-progression algorithm. Recheck section-level
+legal-season overlap at the same time.
 
 Current Live owner review must use authenticated production-shaped providers.
 Scenario fixtures may control primitives but never replace visible Gauge Read
@@ -621,7 +681,7 @@ A river is accepted only when:
 
 - identity, reaches, barriers, passage chains, endpoints, regulations, and
   sources are versioned and approved;
-- every supported species has independent calendar, strength, distribution,
+- every supported run has independent calendar, strength, distribution,
   presence, lifecycle, Activity, and capability decisions;
 - Activity's final fixed replay, stage-by-block table, calibration ledger, and
   controlled tests pass;
@@ -660,10 +720,12 @@ the scaffold command. It contains these compact records:
 - complete barrier and species passage-chain table;
 - regulation table;
 - source probe/capability table;
+- historical-only temperature and Fish Counts capability records or explicit
+  unavailable decisions;
 - Spot Finder section/access table or explicit fail-closed decision;
-- candidate species matrix;
+- candidate species/run matrix with distinct seasonal life histories;
 - one repeated run field/calendar/presence/Activity/Fishing Shape section per
-  supported species;
+  supported run;
 - Activity stage-by-block replay link and calibration ledger;
 - code reconciliation, QA, owner acceptance, release, migration, deployment, and
   repository handoff record;
