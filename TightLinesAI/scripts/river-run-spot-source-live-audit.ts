@@ -16,6 +16,7 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "www.michigan.gov",
   "www.michiganwatertrails.org",
   "www.nilesmi.org",
+  "www.nps.gov",
   "www.villageofberriensprings.com",
   "dnr.wisconsin.gov",
   "www.village.thiensville.wi.us",

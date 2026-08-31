@@ -426,7 +426,7 @@ const riverCoordinateBounds: Record<
   big_manistee: { minLat: 44.15, maxLat: 44.4, minLon: -86.4, maxLon: -85.8 },
   muskegon: { minLat: 43.2, maxLat: 43.5, minLon: -86.25, maxLon: -85.6 },
   st_joseph: { minLat: 41.7, maxLat: 42.2, minLon: -86.6, maxLon: -86.2 },
-  platte: { minLat: 44.6, maxLat: 44.71, minLon: -86.08, maxLon: -85.9 },
+  platte: { minLat: 44.7, maxLat: 44.75, minLon: -86.18, maxLon: -86.12 },
   grand: { minLat: 42.6, maxLat: 43.2, minLon: -86.3, maxLon: -84.4 },
   white: { minLat: 43.35, maxLat: 43.65, minLon: -86.45, maxLon: -85.9 },
 };
@@ -494,6 +494,7 @@ for (
         "www.michigan.gov",
         "www.michiganwatertrails.org",
         "www.nilesmi.org",
+        "www.nps.gov",
         "www.villageofberriensprings.com",
         "dnr.wisconsin.gov",
         "www.village.thiensville.wi.us",
@@ -551,11 +552,27 @@ for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
     }
   }
 }
-assert.equal(
-  riverRunSpotFinderForRiver("platte", "coho_salmon"),
-  undefined,
-  "Platte Spot Finder must stay hidden until access matches its lower migration corridor",
-);
+for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+  const platteFinder = riverRunSpotFinderForRiver("platte", species, "MI");
+  assert(platteFinder, `Platte Spot Finder must be available for ${species}`);
+  assert.deepEqual(
+    platteFinder.sections.map((section) => section.foundationReachIds),
+    [["platte_lower_entry"], ["platte_weir_approach"]],
+    `Platte ${species} access must match its approved lower migration corridor`,
+  );
+  assert.deepEqual(
+    resolveRiverSpotFinderRecommendedSections(platteFinder, "beginning")
+      .recommendedSections.map((section) => section.id),
+    ["platte_lower_entry"],
+    `Platte ${species} Beginning must recommend the mouth-to-El Dorado section`,
+  );
+  assert.deepEqual(
+    resolveRiverSpotFinderRecommendedSections(platteFinder, "ending")
+      .recommendedSections.map((section) => section.id),
+    ["platte_weir_approach"],
+    `Platte ${species} Ending must recommend the El Dorado-to-closure section`,
+  );
+}
 assert.deepEqual(
   riverRunSpotFinderForRiver("grand", "chinook_salmon")?.sections.map((section) =>
     section.id
@@ -811,16 +828,15 @@ const platteSpots = RIVER_RUN_SPOT_FINDERS.platte.sections.flatMap((section) =>
 assert.deepEqual(
   platteSpots.map((spot) => spot.name),
   [
-    "Platte River Park",
-    "Veterans Memorial State Forest Campground",
-    "Platte River State Forest Campground",
+    "Platte River Point Water Access",
+    "El Dorado Platte River Access",
   ],
-  "Platte Spot Finder must remain scoped to Honor and upstream public angler access",
+  "Platte Spot Finder must use only official access inside the lower migration corridor",
 );
-assert.doesNotMatch(
-  JSON.stringify(RIVER_RUN_SPOT_FINDERS.platte),
-  /Lake Michigan Road|Platte Point|Platte Lake outlet/i,
-  "Platte Spot Finder must exclude the lower paddling/outlet corridor",
+assert.match(
+  RIVER_RUN_SPOT_FINDERS.platte.orientationNote,
+  /Platte River Point[\s\S]*signed Lower Platte River Weir closure[\s\S]*Honor[\s\S]*excluded/,
+  "Platte Spot Finder must state both its supported corridor and exclusions",
 );
 const sectionSpotNames = (riverId: string, sectionId: string) =>
   RIVER_RUN_SPOT_FINDERS[riverId].sections.find((section) =>

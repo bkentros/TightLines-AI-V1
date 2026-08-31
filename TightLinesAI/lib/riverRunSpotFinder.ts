@@ -147,8 +147,6 @@ const NILES_RECREATION_PLAN =
   "https://www.nilesmi.org/document_center/department/DPW/City%20of%20Niles%2021-26%20PR%20Plan%20Final.pdf";
 const WHITE_RIVER_MAP =
   "https://s34427.pcdn.co/wp-content/uploads/2021/09/NCTC_White-River_Map_11x17_8-20-21_web.pdf";
-const PLATTE_PARK_SOURCE =
-  "https://www.gtrlc.org/recreation-events/preserve/platte-river-park/";
 const WI_MILWAUKEE_ACCESS_MAP =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_MilwaukeeRiverAccess.pdf";
 const WI_SHEBOYGAN_ACCESS_MAP =
@@ -303,56 +301,43 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverId: "platte",
     riverName: "Platte River",
     orientationNote:
-      "Angler access is organized around Honor and the river upstream. The lower outlet corridor between Platte Lake and Lake Michigan is intentionally excluded.",
-    riverRunAligned: false,
+      "Sections cover only the approved lower migration corridor from Platte River Point to the downstream edge of the signed Lower Platte River Weir closure. Honor and water above the closure are excluded.",
     sections: [
       {
-        id: "platte_honor",
-        foundationReachIds: [],
+        id: "platte_lower_entry",
+        foundationReachIds: ["platte_lower_entry"],
         position: "lower",
-        rangeLabel: "Honor area",
+        rangeLabel: "Platte River Point to El Dorado",
         spots: [
-          {
-            id: "platte_river_park",
-            name: "Platte River Park",
-            latitude: 44.6698,
-            longitude: -86.0331,
-            accessKinds: ["shore_fishing", "fishing_platform", "carry_in"],
-            detail:
-              "Township park on Indian Hill Road with public river frontage, fishing platforms, boardwalk and carry-in launch.",
-            sourceLabel: "Homestead Township / GTRLC",
-            sourceUrl: PLATTE_PARK_SOURCE,
-            sourceLocator:
-              "The linked preserve page names Platte River Park and documents its fishing decks, boardwalk and river access.",
-            verifiedOn: "2026-08-30",
-          },
+          sourcedCoordinateSpot(
+            "platte_river_point",
+            "Platte River Point Water Access",
+            44.7296,
+            -86.1562,
+            ["boat_ramp", "carry_in"],
+            "National Park Service water access at the river mouth with a paved trailer ramp toward Lake Michigan and a separate small-craft river access.",
+            "U.S. National Park Service — Sleeping Bear Dunes",
+            "https://www.nps.gov/places/000/platte-river-point-water-access.htm",
+            "Park entrance requirements apply, parking can fill, and river-mouth conditions can change quickly.",
+          ),
         ],
       },
       {
-        id: "platte_upstream",
-        foundationReachIds: [],
+        id: "platte_weir_approach",
+        foundationReachIds: ["platte_weir_approach"],
         position: "upper",
-        rangeLabel: "Upstream of Honor",
+        rangeLabel: "El Dorado to signed Lower Weir closure",
         spots: [
-          dnrSpot(
-            "platte_veterans_memorial",
-            "Veterans Memorial State Forest Campground",
-            44.659344,
-            -85.9440252,
-            ["shore_fishing", "carry_in"],
-            "Gravel public access with limited vehicle parking; Recreation Passport required.",
-            undefined,
-            "https://www.michigan.gov/recsearch/sfcampgroundsn-z/veteransmemorial",
-          ),
-          dnrSpot(
-            "platte_state_forest_campground",
-            "Platte River State Forest Campground",
-            44.64316435,
-            -85.97799558,
-            ["shore_fishing", "walk_in"],
-            "Gravel public access near the campground; Recreation Passport required; posted hours apply.",
-            undefined,
-            "https://www.michigan.gov/recsearch/sfcampgroundsn-z/PlatteRiver",
+          sourcedCoordinateSpot(
+            "platte_el_dorado",
+            "El Dorado Platte River Access",
+            44.7265,
+            -86.1436,
+            ["shore_fishing", "fishing_platform", "carry_in"],
+            "National Park Service lower-river access with parking, a small-craft launch and a deck where visitors may fish or watch the river.",
+            "U.S. National Park Service — Sleeping Bear Dunes",
+            "https://www.nps.gov/places/000/el-dorado-platte-river-access.htm",
+            "This access does not authorize fishing inside the signed Lower Weir closure; current signs and annual weir operations control.",
           ),
         ],
       },
