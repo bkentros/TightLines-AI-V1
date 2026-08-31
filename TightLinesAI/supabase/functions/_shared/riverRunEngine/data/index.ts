@@ -10,5 +10,6 @@ export * from "./waterTemperature.ts";
 export * from "./seasonalContext.ts";
 export * from "./liveConditions.ts";
 export * from "./fishCounts.ts";
+export * from "./fishCountCache.ts";
 export * from "./conditionsSuggestBaselineGeneration.ts";
 export * from "./conditionsSuggestBaselineSqlExport.ts";

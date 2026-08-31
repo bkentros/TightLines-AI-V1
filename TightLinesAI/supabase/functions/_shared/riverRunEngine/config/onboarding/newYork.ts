@@ -8,6 +8,7 @@ import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
+  GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
@@ -24,11 +25,6 @@ const ACTIVE_SLOTS = [
 const NY_RULE_COPY =
   "Lake Ontario tributary rules vary by reach and season. Check current NYSDEC Great Lakes tributary regulations, posted boundaries, and access restrictions before fishing.";
 
-const unavailableHydraulics = {
-  status: "unavailable" as const,
-  notes:
-    "No live source is accepted as representative of the configured migratory corridor.",
-};
 const unavailableTemperature = {
   status: "unavailable" as const,
   notes:
@@ -70,7 +66,12 @@ export const SALMON_NY_RIVER_PROFILE: RiverProfile = {
     corridorLengthMiles: 17,
     downstreamTerminus: "Lake Ontario mouth at Port Ontario",
     upstreamTerminus: "Lighthouse Hill Reservoir tailrace above Altmar",
-    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    targetSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "salmon_ny_lower",
@@ -147,7 +148,7 @@ export const SALMON_NY_RIVER_PROFILE: RiverProfile = {
         "NYSDEC Great Lakes and Tributaries Special Regulations, checked 2026-08-31; recheck immediately before release.",
     }],
     evidenceNotes:
-      "The supported corridor is the 17-mile Lake Ontario-to-Lighthouse Hill mainstem. Chinook, coho, and fall-entry Washington-strain steelhead are independent profiles. The discontinued Skamania summer program and spring-entry/spawn phase are not merged into fall Steelhead.",
+      "The supported corridor is the 17-mile Lake Ontario-to-Lighthouse Hill mainstem. Chinook, coho, fall-entry Washington-strain steelhead, and fall lake-run Brown Trout are independent profiles. The discontinued Skamania summer program and spring-entry/spawn phase are not merged into fall Steelhead. Atlantic Salmon remains engine-gated and hidden rather than being merged with another salmonid.",
   },
   conditionRefreshSchedule: {
     activeSlots: ACTIVE_SLOTS,
@@ -173,8 +174,39 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
   timezone: "America/New_York",
   mouthLat: 43.373,
   mouthLon: -78.191,
-  hydraulicSources: [],
-  waterTemperatureSources: [],
+  hydraulicSources: [{
+    sourceId: "oak_orchard_shelby_usgs",
+    provider: "USGS",
+    siteId: "04220045",
+    name: "Oak Orchard Creek near Shelby, NY",
+    role: "primary",
+    primaryMetric: "flow_cfs",
+    availableMetrics: ["flow_cfs", "gage_height_ft"],
+    historyYearsAvailable: 17,
+    maxAgeHours: 2,
+    reachQuality: "acceptable",
+    reachNotes:
+      "Context only: the Shelby station is roughly 20 river miles upstream of the Point Breeze-to-Waterport migratory corridor and is separated from it by the Erie Canal crossing, Waterport Reservoir, and Waterport Dam. It is not a tailrace or lower-creek reading.",
+  }],
+  waterTemperatureSources: [{
+    sourceId: "oak_orchard_shelby_temperature",
+    provider: "USGS",
+    siteId: "04220045",
+    name: "Oak Orchard Creek near Shelby — measured water temperature",
+    role: "primary",
+    priority: 1,
+    sourceType: "nearby_gauge",
+    maxAgeHours: 2,
+    smoothingWindowHours: 3,
+    minValidF: 30,
+    maxValidF: 90,
+    maxRateChangeFPerHour: 4,
+    maxPeerDifferenceF: 6,
+    reachNotes:
+      "Context only at Shelby, upstream of the Erie Canal crossing, Waterport Reservoir, and Waterport Dam. It must not be labeled as tailrace, lower-creek, or fish-holding water temperature.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
+  }],
   fishCountSources: [],
   weatherPoints: [{
     weatherPointId: "oak_orchard_waterport_weather",
@@ -187,7 +219,12 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
     corridorLengthMiles: 5.9,
     downstreamTerminus: "Lake Ontario mouth at Point Breeze",
     upstreamTerminus: "Waterport Dam tailrace",
-    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    targetSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "oak_orchard_lower",
@@ -216,7 +253,7 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
         role: "terminal",
         gaugeRepresented: false,
         notes:
-          "Terminal tailwater corridor; reservoir and upstream Shelby gauge are excluded.",
+          "Terminal tailwater corridor; the reservoir is excluded and the upstream Shelby gauge is displayed only as separately labeled watershed context.",
         sourceNotes:
           "NYSDEC Oak Orchard PFR map, Waterport Reservoir report, and USGS 04220045 metadata.",
       },
@@ -263,21 +300,21 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
         "NYSDEC Great Lakes and Tributaries Special Regulations and Oak Orchard PFR map, checked 2026-08-31.",
     }],
     evidenceNotes:
-      "Waterport Dam is the conservative endpoint. USGS 04220045 at Shelby measures water upstream of Waterport Reservoir/Dam and is rejected for migratory-corridor display and scoring.",
+      "Waterport Dam is the conservative endpoint. Chinook, coho, fall-entry Steelhead, and fall lake-run Brown Trout are independent profiles. USGS 04220045 at Shelby is accepted only as transparently labeled upstream watershed context; the reservoir and dam prevent it from representing or scoring the migratory corridor. Atlantic Salmon remains engine-gated and hidden.",
   },
   conditionRefreshSchedule: {
     activeSlots: ACTIVE_SLOTS,
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "No accepted live migratory-corridor metric. Shelby data remain context-only across an impassable dam and reservoir.",
+      "USGS 04220045 supplies current 15-minute flow, height, and measured temperature as upstream context only. It remains excluded from Activity and Fishing Shape across Waterport Reservoir and Dam.",
   },
   conditionDataCapabilities: {
-    hydraulics: unavailableHydraulics,
-    waterTemperature: unavailableTemperature,
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "No live gauge is presented for the Point Breeze-to-Waterport migratory corridor. The active Shelby station is upstream of Waterport Reservoir and Dam and is not substituted for tailwater conditions.",
+    "Live flow, height, and measured temperature are from USGS Shelby, roughly 20 river miles upstream and separated from the fishing corridor by the Erie Canal crossing, Waterport Reservoir, and Waterport Dam. They are upstream watershed context only—not tailrace conditions—and do not drive Activity or Fishing Shape.",
   regulationReminderCopy: NY_RULE_COPY,
 };
 
@@ -289,8 +326,39 @@ export const LOWER_GENESEE_RIVER_PROFILE: RiverProfile = {
   timezone: "America/New_York",
   mouthLat: 43.259,
   mouthLon: -77.598,
-  hydraulicSources: [],
-  waterTemperatureSources: [],
+  hydraulicSources: [{
+    sourceId: "lower_genesee_ford_street_usgs",
+    provider: "USGS",
+    siteId: "04231600",
+    name: "Genesee River at Ford Street Bridge, Rochester, NY",
+    role: "primary",
+    primaryMetric: "flow_cfs",
+    availableMetrics: ["flow_cfs", "gage_height_ft"],
+    historyYearsAvailable: 121,
+    maxAgeHours: 2,
+    reachQuality: "acceptable",
+    reachNotes:
+      "Context only: Ford Street is upstream of High, Middle, and Lower Falls and the lower migratory corridor. The long discharge record has station-name/site transitions, and intervening falls, hydropower operations, and urban routing prevent this reading from being treated as lower-gorge or harbor conditions.",
+  }],
+  waterTemperatureSources: [{
+    sourceId: "lower_genesee_ford_street_temperature",
+    provider: "USGS",
+    siteId: "04231600",
+    name: "Genesee River at Ford Street Bridge — measured water temperature",
+    role: "primary",
+    priority: 1,
+    sourceType: "nearby_gauge",
+    maxAgeHours: 2,
+    smoothingWindowHours: 3,
+    minValidF: 30,
+    maxValidF: 90,
+    maxRateChangeFPerHour: 4,
+    maxPeerDifferenceF: 6,
+    reachNotes:
+      "Context only at Ford Street, upstream of all three Rochester falls. It is not a measurement of the Lower Falls tailwater, gorge, harbor, or Lake Ontario mixing zone.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
+  }],
   fishCountSources: [],
   weatherPoints: [{
     weatherPointId: "lower_genesee_rochester_weather",
@@ -303,7 +371,11 @@ export const LOWER_GENESEE_RIVER_PROFILE: RiverProfile = {
     corridorLengthMiles: 6.5,
     downstreamTerminus: "Lake Ontario mouth at Charlotte",
     upstreamTerminus: "natural Lower Falls above Driving Park Avenue",
-    targetSpecies: ["chinook_salmon", "steelhead"],
+    targetSpecies: [
+      "chinook_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "lower_genesee_harbor",
@@ -360,7 +432,7 @@ export const LOWER_GENESEE_RIVER_PROFILE: RiverProfile = {
         "NYSDEC identifies Lower Falls as the first natural impassable barrier; Seth Green is the source-listed public fishing area.",
     }],
     primaryGaugeReachId: null,
-    contextualGaugeSiteIds: ["04231600", "04232000"],
+    contextualGaugeSiteIds: ["04231600"],
     weatherStrategy: {
       mode: "single_point",
       primaryWeatherPointId: "lower_genesee_rochester_weather",
@@ -380,21 +452,21 @@ export const LOWER_GENESEE_RIVER_PROFILE: RiverProfile = {
         "NYSDEC Great Lakes and Tributaries Special Regulations and Lower Genesee PFR brochure, checked 2026-08-31.",
     }],
     evidenceNotes:
-      "The natural Lower Falls is the complete species endpoint for v1. Ford Street and legacy Rochester gauges are upstream of the falls and cannot represent this corridor.",
+      "The natural Lower Falls is the complete species endpoint for v2. Chinook, fall-entry Steelhead, and fall lake-run Brown Trout are independent profiles. Ford Street is accepted only as transparently labeled upstream-basin context and cannot represent or score this corridor; discontinued USGS 04232000 is not presented as live. Coho and Atlantic Salmon remain research-unresolved and hidden.",
   },
   conditionRefreshSchedule: {
     activeSlots: ACTIVE_SLOTS,
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "No accepted live metric exists below Lower Falls; upstream Rochester observations are not substituted.",
+      "USGS 04231600 supplies current 15-minute flow, height, and measured temperature as upstream-basin context only. The discontinued 04232000 record is never presented as live, and Ford Street remains excluded from Activity and Fishing Shape.",
   },
   conditionDataCapabilities: {
-    hydraulics: unavailableHydraulics,
-    waterTemperature: unavailableTemperature,
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "No live gauge is presented for the Lake Ontario-to-Lower Falls corridor. Active Rochester measurements are upstream of the natural impassable falls and are not treated as lower-river conditions.",
+    "Live flow, height, and measured temperature are from USGS Ford Street, upstream of High, Middle, and Lower Falls. They are upstream-basin context only—not Lower Falls tailwater, gorge, or harbor conditions—and do not drive Activity or Fishing Shape. Discontinued USGS 04232000 is not shown as live.",
   regulationReminderCopy: NY_RULE_COPY,
 };
 
@@ -452,7 +524,8 @@ function weatherActivity(
     profile:
       | "chinook_fall_reaction"
       | "coho_fall_reaction"
-      | "steelhead_feeding";
+      | "steelhead_feeding"
+      | "brown_trout_fall_reaction";
     reachIds: string[];
     weatherPointId: string;
     peakEnd: string;
@@ -461,9 +534,14 @@ function weatherActivity(
     excluded: string;
   },
 ) {
-  const salmon = input.profile !== "steelhead_feeding";
+  const salmon = input.profile === "chinook_fall_reaction" ||
+    input.profile === "coho_fall_reaction";
+  const steelhead = input.profile === "steelhead_feeding";
+  const brownTrout = input.profile === "brown_trout_fall_reaction";
   const activity = buildWeatherOnlyActivity({
-    version: `${input.runId}-weather-activity-v1-owner-review`,
+    version: `${input.runId}-weather-activity-${
+      steelhead ? "v4-stage-shape" : brownTrout ? "v3-stage-shape" : "v1"
+    }-owner-review`,
     profile: input.profile,
     reachIds: input.reachIds,
     weatherPointId: input.weatherPointId,
@@ -472,7 +550,12 @@ function weatherActivity(
       "This Limited weather-only read estimates conditional responsiveness from modeled light and same-block precipitation. It does not measure water temperature, river response, migration, abundance, or angler outcome.",
     stageResponseAdjustment: salmon
       ? { pre_run: -5, beginning: -5 }
+      : steelhead
+      ? { peak: 2, ending: -1, post_run: -1 }
+      : brownTrout
+      ? { peak: 5, tapering: -1, ending: -2, post_run: -2 }
       : undefined,
+    stageResponseMaximum: steelhead || brownTrout ? 69 : undefined,
     ...(salmon
       ? {
         lifecycle: {
@@ -483,12 +566,24 @@ function weatherActivity(
       }
       : {}),
     evidenceNotes:
-      "River/run-specific owner-review calibration. Only hourly light and same-block precipitation are inputs; excluded gauges, air temperature, counts, Stage, and Presence provide no environmental credit.",
+      "River/run-specific owner-review calibration. Only hourly light and same-block precipitation are inputs; excluded gauges, air temperature, counts, Stage, and Presence provide no environmental credit. The repeat-spawning Brown Trout profile uses a five-point Peak response plus modest one- and two-point post-peak stage reductions so the historical weather-only replay preserves the evidence-supported November crest without adding a salmon mortality curve or assuming post-spawn death.",
   });
   if (input.profile === "coho_fall_reaction") {
     activity.caps.ending = 49;
     activity.evidenceNotes +=
       " The coho Ending constraint is 49 so the researched short terminal calendar remains continuous without extending biological presence to satisfy scoring mechanics.";
+  }
+  if (steelhead) {
+    activity.caps.weatherOnlyMaximum = 69;
+    activity.caps.weatherOnlyTomorrowMaximum = 69;
+    activity.evidenceNotes +=
+      " Because measured water temperature—the primary response driver—is absent, the Limited weather-only model has a true 69-point maximum and cannot claim Highly active. A bounded two-point Peak response correction prevents shorter late-fall daylight from making the unshaped Ending or post-run period look stronger than the researched core fall-entry window. Tapering, Ending, and post-run receive identical zero adjustment; no mortality, forced departure, or winter-absence claim is introduced.";
+  }
+  if (brownTrout) {
+    activity.caps.weatherOnlyMaximum = 69;
+    activity.caps.weatherOnlyTomorrowMaximum = 69;
+    activity.evidenceNotes +=
+      " Because measured water temperature—the primary response driver—is absent, the Limited weather-only model has a true 69-point maximum and cannot claim Highly active. A bounded five-point Peak response correction preserves the NYSDEC November tributary-catch peak without a salmon mortality curve or a forced post-spawn departure assumption.";
   }
   return activity;
 }
@@ -498,8 +593,16 @@ function baseRun(input: {
   riverId: string;
   biologyProfileId: string;
   displayName: string;
-  species: "chinook_salmon" | "coho_salmon" | "steelhead";
-  profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
+  species:
+    | "chinook_salmon"
+    | "coho_salmon"
+    | "steelhead"
+    | "lake_run_brown_trout";
+  profile:
+    | "chinook_fall_reaction"
+    | "coho_fall_reaction"
+    | "steelhead_feeding"
+    | "brown_trout_fall_reaction";
   reaches: string[];
   weatherPointId: string;
   runWindow: AuditedRiverRunProfile["runWindow"];
@@ -508,6 +611,7 @@ function baseRun(input: {
   dossier: string;
 }): AuditedRiverRunProfile {
   const steelhead = input.species === "steelhead";
+  const brownTrout = input.species === "lake_run_brown_trout";
   return {
     runId: input.runId,
     riverId: input.riverId,
@@ -515,10 +619,28 @@ function baseRun(input: {
     displayName: input.displayName,
     species: input.species,
     season: "fall",
-    runType: steelhead ? "fall_entry" : "fall_spawn",
-    movementEngineId: steelhead ? "fall_entry_cooling" : "fall_cooling",
+    runType: steelhead
+      ? "fall_entry"
+      : brownTrout
+      ? "fall_repeat_spawn"
+      : "fall_spawn",
+    movementEngineId: steelhead
+      ? "fall_entry_cooling"
+      : brownTrout
+      ? "fall_repeat_spawner_cooling"
+      : "fall_cooling",
     runStageCopyStrategy: "onboarding_corridor",
-    primitiveCapabilities: capabilities,
+    primitiveCapabilities: {
+      ...capabilities,
+      fishability: input.riverId === "salmon_ny"
+        ? capabilities.fishability
+        : {
+          status: "unavailable",
+          reason: "no_accepted_hydraulic_source",
+          notes:
+            "The displayed hydraulic source is context-only outside the migratory corridor, so no corridor Fishing Shape calibration is permitted.",
+        },
+    },
     runWindow: input.runWindow,
     historicalPresence: input.historicalPresence,
     activity: weatherActivity({
@@ -533,6 +655,8 @@ function baseRun(input: {
     }),
     researchNotes: steelhead
       ? "This profile covers the independently evidenced fall-entry Steelhead phase only. Winter holding and the separate March-April spring-entry/spawn phase are not relabeled as this run."
+      : brownTrout
+      ? "This profile covers the independently evidenced fall lake-run Brown Trout spawning migration. Brown Trout are repeat spawners; the terminal state does not claim mortality, universal departure, or winter absence."
       : "Fall spawning run researched independently for this river; dates, strength, and endpoint are not inherited from another river or species.",
     sourceNotes: input.dossier,
     publicAudit: hiddenAudit,
@@ -690,6 +814,51 @@ export const SALMON_NY_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   dossier: "docs/onboarding/river-run/salmon_ny/river-onboarding.md",
 });
 
+export const SALMON_NY_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
+  runId: "salmon_ny_fall_brown_trout",
+  riverId: "salmon_ny",
+  biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
+  displayName: "Fall lake-run Brown Trout",
+  species: "lake_run_brown_trout",
+  profile: "brown_trout_fall_reaction",
+  reaches: salmonReaches,
+  weatherPointId: "salmon_ny_pineville_weather",
+  runWindow: {
+    preRunStart: "08-25",
+    stagingStart: "09-05",
+    start: "09-15",
+    beginningEnd: "09-30",
+    buildingEstablishedStart: "10-01",
+    buildingBroadStart: "10-15",
+    peakStart: "11-01",
+    peak: "11-10",
+    peakEnd: "11-20",
+    taperingEnd: "12-05",
+    end: "12-15",
+    lateEnd: "12-20",
+    postRunLateCopyEnd: "12-25",
+  },
+  historicalPresence: presence(
+    5,
+    "sectional",
+    "salmon-ny-brown-trout-presence-v1-owner-review",
+    [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
+      { dayOffsetFromStart: 16, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 31, fractionOfMaximum: .55 },
+      { dayOffsetFromStart: 47, fractionOfMaximum: .82 },
+      { dayOffsetFromStart: 56, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 66, fractionOfMaximum: .82 },
+      { dayOffsetFromStart: 82, fractionOfMaximum: .45 },
+      { dayOffsetFromStart: 96, fractionOfMaximum: .2 },
+    ],
+    "NYSDEC identifies a mid-September-to-mid-November spawning entry, while the lakewide stocking strategy shows tributary catches increasing through October, peaking in November, and declining in late December. The 2022-23 survey estimated 1,671 Salmon River Brown Trout against a 6,284 long-term mean.",
+  ),
+  excluded:
+    "Pineville hydraulics remain outside Activity because no compatible measured water temperature exists; this is not a resident-trout profile.",
+  dossier: "docs/onboarding/river-run/salmon_ny/river-onboarding.md",
+});
+
 export const OAK_ORCHARD_FALL_CHINOOK_RUN_PROFILE = baseRun({
   runId: "oak_orchard_fall_chinook",
   riverId: "oak_orchard",
@@ -825,6 +994,51 @@ export const OAK_ORCHARD_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   dossier: "docs/onboarding/river-run/oak_orchard/river-onboarding.md",
 });
 
+export const OAK_ORCHARD_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
+  runId: "oak_orchard_fall_brown_trout",
+  riverId: "oak_orchard",
+  biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
+  displayName: "Fall lake-run Brown Trout",
+  species: "lake_run_brown_trout",
+  profile: "brown_trout_fall_reaction",
+  reaches: oakReaches,
+  weatherPointId: "oak_orchard_waterport_weather",
+  runWindow: {
+    preRunStart: "09-01",
+    stagingStart: "09-15",
+    start: "10-01",
+    beginningEnd: "10-15",
+    buildingEstablishedStart: "10-16",
+    buildingBroadStart: "11-01",
+    peakStart: "11-05",
+    peak: "11-15",
+    peakEnd: "11-30",
+    taperingEnd: "12-15",
+    end: "12-25",
+    lateEnd: "12-31",
+    postRunLateCopyEnd: "01-05",
+  },
+  historicalPresence: presence(
+    6,
+    "sectional",
+    "oak-orchard-brown-trout-presence-v1-owner-review",
+    [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
+      { dayOffsetFromStart: 15, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 31, fractionOfMaximum: .6 },
+      { dayOffsetFromStart: 45, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 60, fractionOfMaximum: .85 },
+      { dayOffsetFromStart: 75, fractionOfMaximum: .5 },
+      { dayOffsetFromStart: 85, fractionOfMaximum: .28 },
+      { dayOffsetFromStart: 91, fractionOfMaximum: .18 },
+    ],
+    "NYSDEC's lakewide tributary record places increasing Brown Trout catch through October and a November peak. Point Breeze received 35,000 Brown Trout in 2023, and the 2022-23 tributary survey estimated 3,488 Oak Orchard fish against a 7,906 long-term mean.",
+  ),
+  excluded:
+    "The Shelby gauge remains excluded across Waterport Reservoir and Dam; this is a lake-run spawning profile, not a resident-creek estimate.",
+  dossier: "docs/onboarding/river-run/oak_orchard/river-onboarding.md",
+});
+
 export const LOWER_GENESEE_FALL_CHINOOK_RUN_PROFILE = baseRun({
   runId: "lower_genesee_fall_chinook",
   riverId: "lower_genesee",
@@ -915,6 +1129,51 @@ export const LOWER_GENESEE_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   dossier: "docs/onboarding/river-run/lower_genesee/river-onboarding.md",
 });
 
+export const LOWER_GENESEE_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
+  runId: "lower_genesee_fall_brown_trout",
+  riverId: "lower_genesee",
+  biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
+  displayName: "Fall lake-run Brown Trout",
+  species: "lake_run_brown_trout",
+  profile: "brown_trout_fall_reaction",
+  reaches: geneseeReaches,
+  weatherPointId: "lower_genesee_rochester_weather",
+  runWindow: {
+    preRunStart: "09-05",
+    stagingStart: "09-20",
+    start: "10-05",
+    beginningEnd: "10-20",
+    buildingEstablishedStart: "10-21",
+    buildingBroadStart: "11-05",
+    peakStart: "11-10",
+    peak: "11-20",
+    peakEnd: "11-30",
+    taperingEnd: "12-15",
+    end: "12-25",
+    lateEnd: "12-31",
+    postRunLateCopyEnd: "01-05",
+  },
+  historicalPresence: presence(
+    2,
+    "concentrated",
+    "lower-genesee-brown-trout-presence-v1-owner-review",
+    [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
+      { dayOffsetFromStart: 16, fractionOfMaximum: .22 },
+      { dayOffsetFromStart: 31, fractionOfMaximum: .55 },
+      { dayOffsetFromStart: 46, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 56, fractionOfMaximum: .82 },
+      { dayOffsetFromStart: 71, fractionOfMaximum: .45 },
+      { dayOffsetFromStart: 81, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 87, fractionOfMaximum: .15 },
+    ],
+    "The current NYSDEC lower-river record lists seasonal Lake Ontario Brown Trout, Rochester received 23,750 stocked Brown Trout in 2023, and the 2022-23 tributary survey estimated 241 fish. This supports a real but limited, concentrated run rather than erasing occurrence or borrowing Oak Orchard strength.",
+  ),
+  excluded:
+    "Upstream Rochester gauges remain excluded above Lower Falls; the 2/10 ceiling reflects sparse direct lower-river opportunity evidence.",
+  dossier: "docs/onboarding/river-run/lower_genesee/river-onboarding.md",
+});
+
 export const NEW_YORK_DRAFT_RIVERS = [
   SALMON_NY_RIVER_PROFILE,
   OAK_ORCHARD_RIVER_PROFILE,
@@ -924,11 +1183,14 @@ export const NEW_YORK_DRAFT_RUNS = [
   SALMON_NY_FALL_CHINOOK_RUN_PROFILE,
   SALMON_NY_FALL_COHO_RUN_PROFILE,
   SALMON_NY_FALL_STEELHEAD_RUN_PROFILE,
+  SALMON_NY_FALL_BROWN_TROUT_RUN_PROFILE,
   OAK_ORCHARD_FALL_CHINOOK_RUN_PROFILE,
   OAK_ORCHARD_FALL_COHO_RUN_PROFILE,
   OAK_ORCHARD_FALL_STEELHEAD_RUN_PROFILE,
+  OAK_ORCHARD_FALL_BROWN_TROUT_RUN_PROFILE,
   LOWER_GENESEE_FALL_CHINOOK_RUN_PROFILE,
   LOWER_GENESEE_FALL_STEELHEAD_RUN_PROFILE,
+  LOWER_GENESEE_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 
 function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
@@ -938,16 +1200,18 @@ function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   const biologyIds = new Set(runs.map((run) => run.biologyProfileId));
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion: `2026-08-31-${river.riverId}-new-york-owner-review.1`,
+    configVersion: `2026-08-31-${river.riverId}-new-york-owner-review.2`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
+      getMovementEngineDefinition("fall_repeat_spawner_cooling").version,
     ].join("+"),
     river,
     biologyProfiles: [
       GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
       GREAT_LAKES_COHO_BIOLOGY_PROFILE,
       GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+      GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
     ].filter((profile) => biologyIds.has(profile.biologyProfileId)),
     runs,
   };

@@ -2,11 +2,13 @@ import type {
   FishCountSourceConfig,
   RiverProfile,
   RiverRunFishCountRead,
+  RiverRunFishCountReport,
+  RiverRunFishCountSpecies,
   RiverRunSpecies,
 } from "../types.ts";
 import type { RiverRunFetch } from "./usgs.ts";
 
-const DATA_VERSION = "river-run-fish-counts-v1";
+const DATA_VERSION = "river-run-fish-counts-v2";
 const WDFW_REPORTS_URL =
   "https://wdfw.wa.gov/fishing/management/hatcheries/escapement";
 const TABLEAU_REFRESH_QUERY = "?:showVizHome=no&:refresh=yes";
@@ -29,24 +31,165 @@ export async function fetchRiverRunFishCount(input: {
     item.eligibleSpecies.includes(input.species as never)
   );
   if (!source || !isCountSpecies(input.species)) return undefined;
+  const report = await fetchRiverRunFishCountReport({
+    source,
+    fetchFn: input.fetchFn,
+    now: input.now,
+  });
+  return fishCountReadFromReport(
+    report,
+    source,
+    input.species,
+    input.now ?? new Date(),
+  );
+}
+
+export async function fetchRiverRunFishCountReport(input: {
+  source: FishCountSourceConfig;
+  fetchFn: RiverRunFetch;
+  now?: Date;
+}): Promise<RiverRunFishCountReport> {
+  const fetchedAt = (input.now ?? new Date()).toISOString();
+  const fetchFn = memoizeProviderFetch(input.fetchFn);
+  const reads: RiverRunFishCountReport["reads"] = {};
   try {
-    const parsed = source.provider === "WDFW_ESCAPEMENT"
-      ? await fetchWdfwCount(source, input.species, input.fetchFn)
-      : source.provider === "TACOMA_POWER"
-      ? await fetchTacomaPowerCount(source, input.species, input.fetchFn)
-      : source.provider === "INDIANA_DNR_TABLEAU"
-      ? await fetchIndianaDnrCount(source, input.species, input.fetchFn)
-      : source.provider === "WISCONSIN_DNR_ROOT"
-      ? await fetchWisconsinRootCount(source, input.species, input.fetchFn)
-      : await fetchWisconsinBruleCount(source, input.species, input.fetchFn);
-    return resolveFishCountFreshness(parsed, source, input.now ?? new Date());
+    await Promise.all(input.source.eligibleSpecies.map(async (species) => {
+      reads[species] = await fetchCountFromSource(
+        input.source,
+        species,
+        fetchFn,
+      );
+    }));
   } catch (error) {
     console.error("[river-run] fish-count provider failed", {
-      sourceId: source.sourceId,
+      sourceId: input.source.sourceId,
       message: error instanceof Error ? error.message : String(error),
     });
-    return unavailable(source, input.species, "provider_failed");
+    for (const species of input.source.eligibleSpecies) {
+      reads[species] = unavailable(input.source, species, "provider_failed");
+    }
   }
+  const values = Object.values(reads).filter((
+    read,
+  ): read is RiverRunFishCountRead => Boolean(read));
+  const hardFailures = values.filter((read) =>
+    read.status === "unavailable" &&
+    (read.unavailableReason === "provider_failed" ||
+      read.unavailableReason === "parser_changed")
+  );
+  const fetchStatus = values.length > 0 && hardFailures.length === values.length
+    ? "failed"
+    : "success";
+  return {
+    sourceId: input.source.sourceId,
+    provider: input.source.provider,
+    fetchedAt,
+    reportIdentity: await reportIdentity(input.source.sourceId, reads),
+    fetchStatus,
+    failureReason: fetchStatus === "failed"
+      ? hardFailures.some((read) =>
+          read.unavailableReason === "provider_failed"
+        )
+        ? "provider_failed"
+        : "parser_changed"
+      : undefined,
+    reads,
+    dataVersion: DATA_VERSION,
+  };
+}
+
+export function fishCountReadFromReport(
+  report: RiverRunFishCountReport,
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountSpecies,
+  now: Date,
+): RiverRunFishCountRead {
+  const read = report.reads[species] ??
+    unavailable(source, species, "not_reported");
+  const resolved = resolveFishCountFreshness(read, source, now);
+  return report.fetchStatus === "failed" && resolved.status === "available"
+    ? { ...resolved, status: "stale", freshness: "stale" }
+    : resolved;
+}
+
+async function fetchCountFromSource(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountSpecies,
+  fetchFn: RiverRunFetch,
+): Promise<RiverRunFishCountRead> {
+  return source.provider === "WDFW_ESCAPEMENT"
+    ? await fetchWdfwCount(source, species, fetchFn)
+    : source.provider === "TACOMA_POWER"
+    ? await fetchTacomaPowerCount(source, species, fetchFn)
+    : source.provider === "INDIANA_DNR_TABLEAU"
+    ? await fetchIndianaDnrCount(source, species, fetchFn)
+    : source.provider === "WISCONSIN_DNR_ROOT"
+    ? await fetchWisconsinRootCount(source, species, fetchFn)
+    : await fetchWisconsinBruleCount(source, species, fetchFn);
+}
+
+function memoizeProviderFetch(fetchFn: RiverRunFetch): RiverRunFetch {
+  const responses = new Map<
+    string,
+    Promise<Awaited<ReturnType<RiverRunFetch>>>
+  >();
+  const textBodies = new Map<string, Promise<string>>();
+  const binaryBodies = new Map<string, Promise<ArrayBuffer>>();
+  return async (input, init) => {
+    const key = typeof input === "string" ? input : input.toString();
+    const response = await (responses.get(key) ?? (() => {
+      const request = fetchFn(input, init);
+      responses.set(key, request);
+      return request;
+    })());
+    return {
+      ok: response.ok,
+      json: () => response.json(),
+      text: response.text
+        ? () => {
+          const body = textBodies.get(key) ?? response.text!();
+          textBodies.set(key, body);
+          return body;
+        }
+        : undefined,
+      arrayBuffer: response.arrayBuffer
+        ? () => {
+          const body = binaryBodies.get(key) ?? response.arrayBuffer!();
+          binaryBodies.set(key, body);
+          return body.then((value) => value.slice(0));
+        }
+        : undefined,
+    };
+  };
+}
+
+async function reportIdentity(
+  sourceId: string,
+  reads: RiverRunFishCountReport["reads"],
+): Promise<string> {
+  const canonical = JSON.stringify(
+    Object.entries(reads).toSorted().map(
+      (
+        [species, read],
+      ) => [
+        species,
+        read?.reportDate,
+        read?.observedThrough,
+        read?.adultTotal,
+        read?.jackTotal,
+        read?.observedTotal,
+        read?.sourceUrl,
+      ],
+    ),
+  );
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(canonical),
+  );
+  const hash = [...new Uint8Array(digest)].map((byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
+  return `${sourceId}:${hash}`;
 }
 
 async function fetchWdfwCount(

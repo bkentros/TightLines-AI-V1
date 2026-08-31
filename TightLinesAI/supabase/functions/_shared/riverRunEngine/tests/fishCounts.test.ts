@@ -3,6 +3,8 @@ import {
   BOIS_BRULE_RIVER_PROFILE,
   COWLITZ_RIVER_PROFILE,
   fetchRiverRunFishCount,
+  fetchRiverRunFishCountReport,
+  fishCountReadFromReport,
   GREEN_RIVER_PROFILE,
   indianaDnrTableauPdfUrl,
   latestWdfwReport,
@@ -126,6 +128,61 @@ Deno.test("Tacoma Power parser counts recoveries but ignores transported/recycle
   assertEquals(chinook.reportDate, "2026-08-24");
   assertEquals(coho.adultTotal, 0);
   assertEquals(coho.jackTotal, 1);
+});
+
+Deno.test("one source fetch produces the complete multi-species report", async () => {
+  const source = COWLITZ_RIVER_PROFILE.fishCountSources![0];
+  let requests = 0;
+  const report = await fetchRiverRunFishCountReport({
+    source,
+    fetchFn: async () => {
+      requests++;
+      return {
+        ok: true,
+        json: async () => ({}),
+        text: async () =>
+          "<p><strong>Cowlitz Fish Report</strong></p><p>August 24, 2026</p>" +
+          "<p>Last week, Tacoma Power employees recovered two Coho adults, " +
+          "17 Fall Chinook adults and three Fall Chinook jacks over five days " +
+          "of operations at the Cowlitz Salmon Hatchery separator.</p>",
+      };
+    },
+    now: new Date("2026-08-31T12:00:00Z"),
+  });
+  assertEquals(requests, 1);
+  assertEquals(report.fetchStatus, "success");
+  assertEquals(report.reads.chinook_salmon?.observedTotal, 20);
+  assertEquals(report.reads.coho_salmon?.observedTotal, 2);
+});
+
+Deno.test("a failed refresh marks a preserved report stale", () => {
+  const source = COWLITZ_RIVER_PROFILE.fishCountSources![0];
+  const parsed = parseTacomaPowerCount({
+    source,
+    species: "chinook_salmon",
+    html: "<p><strong>Cowlitz Fish Report</strong></p><p>August 30, 2026</p>" +
+      "<p>Last week, Tacoma Power employees recovered 17 Fall Chinook adults " +
+      "and three Fall Chinook jacks over five days of operations at the " +
+      "Cowlitz Salmon Hatchery separator.</p>",
+  });
+  const read = fishCountReadFromReport(
+    {
+      sourceId: source.sourceId,
+      provider: source.provider,
+      fetchedAt: "2026-08-31T12:00:00Z",
+      reportIdentity: "preserved",
+      fetchStatus: "failed",
+      failureReason: "provider_failed",
+      reads: { chinook_salmon: parsed },
+      dataVersion: "test-v1",
+    },
+    source,
+    "chinook_salmon",
+    new Date("2026-08-31T12:00:00Z"),
+  );
+  assertEquals(read.status, "stale");
+  assertEquals(read.freshness, "stale");
+  assertEquals(read.observedTotal, 20);
 });
 
 Deno.test("Indiana DNR ladder parser reads the forced-refresh Tableau species totals", () => {

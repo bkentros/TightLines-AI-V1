@@ -11,6 +11,7 @@ type WeatherOnlyActivityInput = {
   scopeCopy: string;
   evidenceNotes: string;
   stageResponseAdjustment?: ActivityRules["stageResponseAdjustment"];
+  stageResponseMaximum?: number;
   lifecycle?: {
     peakEnd: string;
     taperingEnd: string;
@@ -126,7 +127,10 @@ export function buildWeatherOnlyActivity(
       weatherOnlyMaximum: 90,
       weatherOnlyTomorrowMaximum: 85,
       ...(input.stageResponseAdjustment
-        ? { stageResponseMaximum: hasPositiveStageAdjustment ? 80 : 90 }
+        ? {
+          stageResponseMaximum: input.stageResponseMaximum ??
+            (hasPositiveStageAdjustment ? 80 : 90),
+        }
         : {}),
       ...(!salmon ? { weatherOnlyEvidenceScale: 0.8 } : {}),
       lateRun: salmon ? 75 : 100,

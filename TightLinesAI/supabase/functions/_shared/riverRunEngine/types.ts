@@ -380,6 +380,12 @@ export type FishCountObservationType =
   | "trap_recovery"
   | "separator_recovery";
 
+export type RiverRunFishCountSpecies =
+  | "chinook_salmon"
+  | "coho_salmon"
+  | "steelhead"
+  | "lake_run_brown_trout";
+
 export type FishCountSourceConfig = {
   sourceId: string;
   provider:
@@ -392,12 +398,7 @@ export type FishCountSourceConfig = {
   /** Exact label used in the provider document when it differs from public copy. */
   reportFacilityName?: string;
   observationType: FishCountObservationType;
-  eligibleSpecies: Array<
-    | "chinook_salmon"
-    | "coho_salmon"
-    | "steelhead"
-    | "lake_run_brown_trout"
-  >;
+  eligibleSpecies: RiverRunFishCountSpecies[];
   sourceUrl: string;
   updateCadence: "daily" | "weekly" | "seasonal";
   maximumAgeHours: number;
@@ -415,11 +416,7 @@ export type RiverRunFishCountRead = {
   provider: FishCountSourceConfig["provider"];
   facilityName: string;
   observationType: FishCountObservationType;
-  species:
-    | "chinook_salmon"
-    | "coho_salmon"
-    | "steelhead"
-    | "lake_run_brown_trout";
+  species: RiverRunFishCountSpecies;
   period: "weekly" | "season_to_date";
   adultTotal: number | null;
   jackTotal: number | null;
@@ -439,6 +436,18 @@ export type RiverRunFishCountRead = {
     | "not_reported"
     | "provider_failed"
     | "parser_changed";
+  dataVersion: string;
+};
+
+/** One authoritative provider artifact parsed once for every eligible species. */
+export type RiverRunFishCountReport = {
+  sourceId: string;
+  provider: FishCountSourceConfig["provider"];
+  fetchedAt: string;
+  reportIdentity: string;
+  fetchStatus: "success" | "failed";
+  failureReason?: "provider_failed" | "parser_changed";
+  reads: Partial<Record<RiverRunFishCountSpecies, RiverRunFishCountRead>>;
   dataVersion: string;
 };
 

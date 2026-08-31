@@ -6,6 +6,7 @@ import type {
   RiverLiveMetricId,
   RiverLiveSeasonalContext,
   RiverMetric,
+  RiverRunFishCountReport,
   RiverRunReasonCode,
 } from "../types.ts";
 
@@ -205,6 +206,34 @@ export type RiverMetricSeasonalContextRow = {
   day_of_year: number;
   baseline_version: string;
   context: RiverLiveSeasonalContext;
+};
+
+export type StoredFishCountSourceCache = {
+  riverId: string;
+  sourceId: string;
+  checkedAt: string;
+  lastSuccessAt?: string;
+  report: RiverRunFishCountReport;
+};
+
+export type RiverRunFishCountSourceCacheRow = {
+  river_id: string;
+  source_id: string;
+  checked_at: string;
+  last_success_at: string | null;
+  report_identity: string;
+  data_version: string;
+  report: RiverRunFishCountReport;
+};
+
+export type RiverRunFishCountReportRow = {
+  river_id: string;
+  source_id: string;
+  report_identity: string;
+  report_date: string | null;
+  observed_through: string | null;
+  data_version: string;
+  report: RiverRunFishCountReport;
 };
 
 export function storageError(

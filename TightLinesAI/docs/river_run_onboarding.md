@@ -316,6 +316,16 @@ date. Bypass intermediary caches when the authoritative source permits it, but
 never manufacture freshness. For HTML/PDF/spreadsheet sources, fixture the
 source structure and fail closed on layout, heading, period, or category drift.
 
+Cache Fish Counts as a complete source/facility report, independently from the
+daily progression and condition-refresh caches. The protected hourly refresh
+must fetch each unique source once, parse every eligible species from that
+artifact, update the latest source cache, and archive each distinct report
+identity. App reads use the shared source cache and may refresh it on demand
+when its hourly check interval has expired. A failed refresh may retain the last
+valid numeric report only as explicitly stale; it must never remain Current. Key
+the cache by river and source, not presentation state, run, or species, because
+those are projections of the same official artifact.
+
 The public record must show count interval, observed-through date, report/update
 time, facility, included categories, freshness, direct source, and a permanent
 facility limitation. Never sum disposition columns into passage, merge adults

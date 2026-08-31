@@ -735,7 +735,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog is admin-only and includes Wisconsin plus hidden Washington", async () => {
+Deno.test("owner-review catalog is admin-only and includes Wisconsin, Washington, and hidden New York", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers"),
     { createAdminClient: () => new MockClient() },
@@ -756,6 +756,9 @@ Deno.test("owner-review catalog is admin-only and includes Wisconsin plus hidden
   );
   const washington = body.states.find(
     (state: { state: string }) => state.state === "WA",
+  );
+  const newYork = body.states.find(
+    (state: { state: string }) => state.state === "NY",
   );
 
   assertEquals(response.status, 200);
@@ -785,6 +788,170 @@ Deno.test("owner-review catalog is admin-only and includes Wisconsin plus hidden
     ),
     true,
   );
+  assertEquals(
+    newYork.rivers.map((river: { riverId: string }) => river.riverId).sort(),
+    ["lower_genesee", "oak_orchard", "salmon_ny"],
+  );
+  assertEquals(
+    newYork.rivers.map(
+      (river: { riverId: string; runs: unknown[] }) => [
+        river.riverId,
+        river.runs.length,
+      ],
+    ).sort(),
+    [["lower_genesee", 3], ["oak_orchard", 4], ["salmon_ny", 4]],
+  );
+});
+
+Deno.test("Salmon River owner-review snapshot keeps Pineville Gauge Read separate from Limited Activity", async () => {
+  const now = new Date("2026-10-01T16:00:00.000Z");
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=salmon_ny&runId=salmon_ny_fall_chinook&presentationState=NY",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now,
+      gaugeObservations: [{
+        provider: "USGS",
+        siteId: "04250200",
+        observedAt: "2026-10-01T15:45:00.000Z",
+        flow_cfs: 335,
+        gage_height_ft: 5.42,
+        source: "usgs_continuous_values",
+      }],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: {
+        fetched_at: now.toISOString(),
+        weather_available: true,
+        hourly_activity_weather: Array.from({ length: 24 }, (_, hour) => ({
+          time_local: `2026-10-01T${String(hour).padStart(2, "0")}:00`,
+          cloud_cover_pct: 55,
+          shortwave_w_m2: hour >= 7 && hour < 19 ? 280 : 0,
+          clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+          precipitation_in: 0,
+        })),
+      },
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.riverConditions.status, "available");
+  assertEquals(
+    body.riverConditions.metrics.find((metric: { metric: string }) =>
+      metric.metric === "flow_cfs"
+    ).value,
+    335,
+  );
+  assertEquals(
+    body.riverConditions.metrics.every((metric: { siteId: string }) =>
+      metric.siteId === "04250200"
+    ),
+    true,
+  );
+  assertEquals(body.waterTemperature, undefined);
+  assertEquals(body.activity.confidence, "Limited");
+  assertEquals(body.fishability.label, "Unavailable");
+  assertMatch(body.activity.detail, /weather-only/i);
+});
+
+Deno.test("New York contextual gauges display live but cannot create Fishing Shape or Full Activity", async () => {
+  const now = new Date("2026-10-15T16:00:00.000Z");
+  const cases = [
+    {
+      riverId: "oak_orchard",
+      runId: "oak_orchard_fall_chinook",
+      siteId: "04220045",
+      sourceId: "oak_orchard_shelby_temperature",
+      flowCfs: 64.2,
+      gageHeightFt: 6.55,
+      waterTempF: 66.2,
+      reachPattern: /Context only.*Shelby.*Waterport Reservoir.*Waterport Dam/i,
+    },
+    {
+      riverId: "lower_genesee",
+      runId: "lower_genesee_fall_chinook",
+      siteId: "04231600",
+      sourceId: "lower_genesee_ford_street_temperature",
+      flowCfs: 694,
+      gageHeightFt: 12.83,
+      waterTempF: 70.7,
+      reachPattern: /Context only.*Ford Street.*Lower Falls/i,
+    },
+  ] as const;
+
+  for (const item of cases) {
+    const response = await handleRiverRunRequestBase(
+      request(
+        `/review/snapshot?riverId=${item.riverId}&runId=${item.runId}&presentationState=NY`,
+      ),
+      {
+        createAdminClient: () =>
+          new MockClient({ email: "brandonkentros@icloud.com" }),
+        now,
+        gaugeObservations: [{
+          provider: "USGS",
+          siteId: item.siteId,
+          observedAt: "2026-10-15T15:45:00.000Z",
+          flow_cfs: item.flowCfs,
+          gage_height_ft: item.gageHeightFt,
+          source: "usgs_continuous_values",
+        }],
+        waterTemperatureObservationsBySource: {
+          [item.sourceId]: [{
+            provider: "USGS",
+            sourceId: item.sourceId,
+            siteId: item.siteId,
+            observedAt: "2026-10-15T15:45:00.000Z",
+            waterTempF: item.waterTempF,
+            approvalStatus: "provisional",
+            source: "usgs_continuous_values",
+          }],
+        },
+        weatherSnapshot: {
+          fetched_at: now.toISOString(),
+          weather_available: true,
+          hourly_activity_weather: Array.from({ length: 24 }, (_, hour) => ({
+            time_local: `2026-10-15T${String(hour).padStart(2, "0")}:00`,
+            cloud_cover_pct: 55,
+            shortwave_w_m2: hour >= 7 && hour < 19 ? 280 : 0,
+            clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+            precipitation_in: 0,
+          })),
+        },
+        seasonalContextsByMetric: {
+          flow_cfs: null,
+          gage_height_ft: null,
+          water_temp_f: null,
+        },
+      },
+    );
+    const body = await json(response);
+    const flow = body.riverConditions.metrics.find(
+      (metric: { metric: string }) => metric.metric === "flow_cfs",
+    );
+    const temperature = body.riverConditions.metrics.find(
+      (metric: { metric: string }) => metric.metric === "water_temp_f",
+    );
+
+    assertEquals(response.status, 200, item.riverId);
+    assertEquals(body.riverConditions.status, "available", item.riverId);
+    assertEquals(flow.value, item.flowCfs, item.riverId);
+    assertEquals(temperature.value, item.waterTempF, item.riverId);
+    assertEquals(flow.siteId, item.siteId, item.riverId);
+    assertEquals(temperature.siteId, item.siteId, item.riverId);
+    assertMatch(flow.representedReach, item.reachPattern, item.riverId);
+    assertEquals(body.activity.confidence, "Limited", item.riverId);
+    assertMatch(body.activity.detail, /weather-only/i, item.riverId);
+    assertEquals(body.fishability.label, "Unavailable", item.riverId);
+  }
 });
 
 Deno.test("Cowlitz owner-review snapshot includes a facility-scoped count without using dispositions", async () => {

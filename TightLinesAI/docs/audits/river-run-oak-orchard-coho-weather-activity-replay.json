@@ -946,6 +946,7 @@
     "lifecycleCalendarCliff": 0,
     "lifecycleNotDeclining": 0,
     "repeatSpawnerMortalityLanguage": 0,
-    "repeatSpawnerStageShape": 0
+    "repeatSpawnerStageShape": 0,
+    "historicalStageShape": 0
   }
 }

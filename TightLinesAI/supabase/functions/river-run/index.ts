@@ -7,7 +7,6 @@ import {
   compareLocalDates,
   type ConditionsSuggestEvidenceByDate,
   fetchMonitorMyWatershedTemperature,
-  fetchRiverRunFishCount,
   fetchRiverRunWeatherSnapshot,
   fetchUsgsInstantaneousValues,
   fetchUsgsWaterTemperature,
@@ -37,6 +36,8 @@ import {
   type PushWindowConditions,
   readConditionsSuggestBaselines,
   readOrBuildRiverLiveConditions,
+  readOrRefreshFishCountSource,
+  readOrRefreshRiverRunFishCount,
   readTimingObservations,
   type RecentDailyPushConditions,
   type RefreshSlot,
@@ -54,13 +55,13 @@ import {
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   type RiverLiveConditions,
-  type RiverRunFishCountRead,
   type RiverLiveMetricId,
   type RiverLiveSeasonalContext,
   type RiverProfile,
   type RiverRunConditionRefresh,
   type RiverRunConditionsSuggestBaseline,
   type RiverRunFetch,
+  type RiverRunFishCountRead,
   type RiverRunProfile,
   type RiverRunReasonCode,
   staticConfigurationVersionForRun,
@@ -552,7 +553,8 @@ export async function handleRiverRunRequest(
           deps.waterTemperatureObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
       }),
-      fetchRiverRunFishCount({
+      readOrRefreshRiverRunFishCount({
+        client,
         river,
         species: run.species,
         fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
@@ -772,7 +774,8 @@ async function handleOwnerReviewSnapshot(
           deps.waterTemperatureObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
       }),
-      fetchRiverRunFishCount({
+      readOrRefreshRiverRunFishCount({
+        client,
         river,
         species: run.species,
         fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
@@ -1093,6 +1096,51 @@ async function handleInternalRefresh(
   const results: Array<Record<string, unknown>> = [];
   let failed = 0;
 
+  const fishCountSources = new Map<string, {
+    riverId: string;
+    source: NonNullable<RiverProfile["fishCountSources"]>[number];
+  }>();
+  for (const target of targets) {
+    for (const source of target.river.fishCountSources ?? []) {
+      fishCountSources.set(source.sourceId, {
+        riverId: target.river.riverId,
+        source,
+      });
+    }
+  }
+  const providerFetch = deps.fetchFn ?? fetch;
+  const fishCountResults: Array<Record<string, unknown>> = [];
+  for (const target of fishCountSources.values()) {
+    try {
+      const report = await readOrRefreshFishCountSource({
+        client,
+        riverId: target.riverId,
+        source: target.source,
+        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+        now,
+        forceRefresh: true,
+      });
+      fishCountResults.push({
+        riverId: target.riverId,
+        sourceId: target.source.sourceId,
+        reportIdentity: report.reportIdentity,
+        fetchStatus: report.fetchStatus,
+      });
+    } catch (error) {
+      failed++;
+      fishCountResults.push({
+        riverId: target.riverId,
+        sourceId: target.source.sourceId,
+        error: "refresh_failed",
+      });
+      console.error("[river-run] fish-count refresh failed", {
+        riverId: target.riverId,
+        sourceId: target.source.sourceId,
+        message: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
   for (const target of targets) {
     const timing = resolveRequestTiming(
       new URL(req.url),
@@ -1172,8 +1220,10 @@ async function handleInternalRefresh(
     {
       refreshedAt: now.toISOString(),
       targetCount: targets.length,
+      fishCountSourceCount: fishCountSources.size,
       failedCount: failed,
       results,
+      fishCountResults,
     },
     failed > 0 ? 503 : 200,
   );

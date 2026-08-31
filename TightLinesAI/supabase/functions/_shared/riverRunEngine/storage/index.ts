@@ -6,3 +6,4 @@ export * from "./baselines.ts";
 export * from "./conditionsSuggestBaselines.ts";
 export * from "./configRevisions.ts";
 export * from "./liveConditions.ts";
+export * from "./fishCountReports.ts";

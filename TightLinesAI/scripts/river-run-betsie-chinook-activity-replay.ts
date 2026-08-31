@@ -171,7 +171,7 @@ const invariants = {
     ).length,
   lifecycleCalendarCliff: lifecycle.maximumAdjacentDelta > 2 ? 1 : 0,
   lifecycleNotDeclining: steelhead
-    ? (lifecycle.scores.some((score) => score !== lifecycle.scores[0]) ? 1 : 0)
+    ? (!steelheadTailShapeIsValid(lifecycle.scores) ? 1 : 0)
     : repeatSpawner
     ? 0
     : lifecycle.scores.at(-1)! >= lifecycle.scores[0]
@@ -187,6 +187,7 @@ const invariants = {
   repeatSpawnerStageShape: repeatSpawner && !activityStageShapeIsValid()
     ? 1
     : 0,
+  historicalStageShape: activityStageShapeIsValid() ? 0 : 1,
 };
 
 const report = {
@@ -425,6 +426,14 @@ function steelheadStageInvarianceAudit() {
   };
 }
 
+function steelheadTailShapeIsValid(scores: number[]): boolean {
+  const [peak, ...tail] = scores;
+  return tail.length > 0 &&
+    scores.every((score, index) => index === 0 || score <= scores[index - 1]) &&
+    peak >= tail.at(-1)! &&
+    peak - tail.at(-1)! <= 2;
+}
+
 function repeatSpawnerContinuityAudit() {
   const interval = seasonInterval(2026);
   const stageDates = [
@@ -477,29 +486,39 @@ function repeatSpawnerContinuityAudit() {
 }
 
 function activityStageShapeIsValid(): boolean {
+  const stages = [
+    "pre_run",
+    "beginning",
+    "building",
+    "peak",
+    "tapering",
+    "ending",
+    "post_run",
+  ];
   const means = Object.fromEntries(
-    [
-      "pre_run",
-      "beginning",
-      "building",
-      "peak",
-      "tapering",
-      "ending",
-      "post_run",
-    ].map((stage) => {
+    stages.map((stage) => {
       const values = rows.filter((row) => row.stage === stage).map((row) =>
         row.score
       );
       return [
         stage,
-        values.reduce((sum, value) => sum + value, 0) / values.length,
+        values.length
+          ? values.reduce((sum, value) => sum + value, 0) / values.length
+          : null,
       ];
     }),
-  );
-  return means.building < means.peak && means.peak - means.building <= 20 &&
-    means.tapering < means.peak && means.peak - means.tapering <= 20 &&
+  ) as Record<string, number | null>;
+  if (
+    ["pre_run", "beginning", "building", "peak", "tapering", "ending"]
+      .some((stage) => means[stage] == null)
+  ) return false;
+  const peak = means.peak!;
+  const building = means.building!;
+  const tapering = means.tapering!;
+  return building < peak && peak - building <= 20 &&
+    tapering < peak && peak - tapering <= 20 &&
     [means.pre_run, means.beginning, means.ending, means.post_run].every(
-      (mean) => mean < means.peak,
+      (mean) => mean == null || mean < peak,
     );
 }
 

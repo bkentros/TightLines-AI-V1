@@ -6,6 +6,7 @@ import {
   deserializeDailySnapshot,
   getConditionRefresh,
   getDailySnapshot,
+  getFishCountSourceCache,
   getLastSupportivePushConditions,
   getLatestPriorActivity,
   getLiveConditions,
@@ -20,6 +21,7 @@ import {
   readTimingObservations,
   type RiverLiveConditions,
   type RiverRunConditionsSuggestBaselineRow,
+  type RiverRunFishCountReport,
   type RiverRunGaugeBaselineRow,
   scoreActivity,
   serializeConditionRefresh,
@@ -29,6 +31,7 @@ import {
   upsertConditionRefresh,
   upsertDailySnapshot,
   upsertDraftConfiguration,
+  upsertFishCountSourceCache,
   upsertLiveConditions,
   upsertTimingObservationFromConditionRefresh,
 } from "../index.ts";
@@ -186,6 +189,18 @@ function storedConditionRefresh(): StoredConditionRefresh {
   };
 }
 
+function fishCountReport(): RiverRunFishCountReport {
+  return {
+    sourceId: "test_ladder",
+    provider: "INDIANA_DNR_TABLEAU",
+    fetchedAt: "2026-08-31T16:00:00Z",
+    reportIdentity: "test_ladder:abc123",
+    fetchStatus: "success",
+    reads: {},
+    dataVersion: "test-v1",
+  };
+}
+
 Deno.test("daily snapshot upsert uses required unique-key columns", async () => {
   const client = new MockSupabaseClient();
   await upsertDailySnapshot(client, storedDailySnapshot());
@@ -208,6 +223,40 @@ Deno.test("condition refresh upsert uses required unique-key columns", async () 
   assertEquals(
     client.upserts[0].options?.onConflict,
     "river_id,run_id,local_date,refresh_slot,engine_version,config_version",
+  );
+});
+
+Deno.test("fish-count cache is shared by river and source, not run or species", async () => {
+  const client = new MockSupabaseClient();
+  await upsertFishCountSourceCache(client, {
+    riverId: "st_joseph",
+    sourceId: "test_ladder",
+    checkedAt: "2026-08-31T16:00:00Z",
+    lastSuccessAt: "2026-08-31T16:00:00Z",
+    report: fishCountReport(),
+  });
+  assertEquals(client.upserts[0].table, "river_run_fish_count_source_cache");
+  assertEquals(
+    client.upserts[0].options?.onConflict,
+    "river_id,source_id",
+  );
+
+  client.singleResponse = { data: null, error: null };
+  await getFishCountSourceCache(client, "st_joseph", "test_ladder");
+  assertEquals(
+    client.filters.slice(-2),
+    [
+      {
+        table: "river_run_fish_count_source_cache",
+        column: "river_id",
+        value: "st_joseph",
+      },
+      {
+        table: "river_run_fish_count_source_cache",
+        column: "source_id",
+        value: "test_ladder",
+      },
+    ],
   );
 });
 

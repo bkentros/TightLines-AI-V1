@@ -28,6 +28,9 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "www.mylongview.com",
   "www.mytpu.org",
   "wdfw.wa.gov",
+  "dec.ny.gov",
+  "www.monroecounty.gov",
+  "www.orleanscountytourism.com",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =
