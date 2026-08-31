@@ -297,52 +297,6 @@ const sourceMappedSpot = (
 });
 
 export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
-  platte: {
-    riverId: "platte",
-    riverName: "Platte River",
-    orientationNote:
-      "Sections cover only the approved lower migration corridor from Platte River Point to the downstream edge of the signed Lower Platte River Weir closure. Honor and water above the closure are excluded.",
-    sections: [
-      {
-        id: "platte_lower_entry",
-        foundationReachIds: ["platte_lower_entry"],
-        position: "lower",
-        rangeLabel: "Platte River Point to El Dorado",
-        spots: [
-          sourcedCoordinateSpot(
-            "platte_river_point",
-            "Platte River Point Water Access",
-            44.7296,
-            -86.1562,
-            ["boat_ramp", "carry_in"],
-            "National Park Service water access at the river mouth with a paved trailer ramp toward Lake Michigan and a separate small-craft river access.",
-            "U.S. National Park Service — Sleeping Bear Dunes",
-            "https://www.nps.gov/places/000/platte-river-point-water-access.htm",
-            "Park entrance requirements apply, parking can fill, and river-mouth conditions can change quickly.",
-          ),
-        ],
-      },
-      {
-        id: "platte_weir_approach",
-        foundationReachIds: ["platte_weir_approach"],
-        position: "upper",
-        rangeLabel: "El Dorado to signed Lower Weir closure",
-        spots: [
-          sourcedCoordinateSpot(
-            "platte_el_dorado",
-            "El Dorado Platte River Access",
-            44.7265,
-            -86.1436,
-            ["shore_fishing", "fishing_platform", "carry_in"],
-            "National Park Service lower-river access with parking, a small-craft launch and a deck where visitors may fish or watch the river.",
-            "U.S. National Park Service — Sleeping Bear Dunes",
-            "https://www.nps.gov/places/000/el-dorado-platte-river-access.htm",
-            "This access does not authorize fishing inside the signed Lower Weir closure; current signs and annual weir operations control.",
-          ),
-        ],
-      },
-    ],
-  },
   betsie: {
     riverId: "betsie",
     riverName: "Betsie River",
