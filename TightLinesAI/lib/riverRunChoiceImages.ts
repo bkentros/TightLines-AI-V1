@@ -23,6 +23,9 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   sheboygan: "medium",
   root: "medium",
   bois_brule: "small",
+  green: "medium",
+  puyallup: "large",
+  cowlitz: "large",
 };
 
 export function getRiverRunRiverSize(

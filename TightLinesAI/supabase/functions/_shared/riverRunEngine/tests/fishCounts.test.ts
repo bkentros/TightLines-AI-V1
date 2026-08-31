@@ -1,0 +1,146 @@
+import { assertEquals } from "jsr:@std/assert";
+import {
+  COWLITZ_RIVER_PROFILE,
+  fetchRiverRunFishCount,
+  GREEN_RIVER_PROFILE,
+  latestWdfwReport,
+  parseTacomaPowerCount,
+  parseWdfwFacilityCount,
+  PUYALLUP_RIVER_PROFILE,
+  resolveFishCountFreshness,
+} from "../index.ts";
+
+Deno.test("WDFW count reader bypasses caches whenever a report is requested", async () => {
+  const requests: Array<{ url: string; init?: RequestInit }> = [];
+  await fetchRiverRunFishCount({
+    river: GREEN_RIVER_PROFILE,
+    species: "chinook_salmon",
+    fetchFn: async (input, init) => {
+      const url = String(input);
+      requests.push({ url, init });
+      if (url.includes("weekly-escapement")) {
+        return {
+          ok: false,
+          json: async () => ({}),
+          arrayBuffer: async () => new ArrayBuffer(0),
+        };
+      }
+      return {
+        ok: true,
+        json: async () => ({}),
+        text: async () =>
+          '<a href="/sites/default/files/2026-08/weekly-escapement-08-27-2026.pdf">current</a>',
+      };
+    },
+    now: new Date("2026-08-31T12:00:00Z"),
+  });
+  assertEquals(requests.length, 2);
+  assertEquals(requests.map((request) => request.init?.cache), [
+    "no-store",
+    "no-store",
+  ]);
+  assertEquals(
+    requests.map((request) =>
+      (request.init?.headers as Record<string, string>)["Cache-Control"]
+    ),
+    ["no-cache", "no-cache"],
+  );
+});
+
+Deno.test("WDFW weekly index resolves the newest dated report", () => {
+  assertEquals(
+    latestWdfwReport(`
+    <a href="/sites/default/files/2026-08/weekly-escapement-08-20-2026.pdf">old</a>
+    <a href="/sites/default/files/2026-08/weekly-escapement-08-27-2026.pdf">new</a>
+    <a href="/sites/default/files/2025-11/weekly-escapement-11-26-2025.pdf">older year</a>
+  `),
+    {
+      url:
+        "https://wdfw.wa.gov/sites/default/files/2026-08/weekly-escapement-08-27-2026.pdf",
+      reportDate: "2026-08-27",
+    },
+  );
+});
+
+Deno.test("WDFW parser aggregates facility origin rows without dispositions", () => {
+  const source = GREEN_RIVER_PROFILE.fishCountSources![0];
+  const read = parseWdfwFacilityCount({
+    source,
+    species: "chinook_salmon",
+    reportDate: "2026-09-11",
+    reportUrl: "https://wdfw.wa.gov/example.pdf",
+    pageTexts: [
+      "Adult Total Fall Chinook Jack Total Surplus On Hand Jacks " +
+      "SOOS CREEK HATCHERY Big Soos Creek- H - - - - - - 09/04/26 820 75 - 800 70 " +
+      "SOOS CREEK HATCHERY Big Soos Creek- W - - - - - - 09/05/26 205 50 - 190 40 " +
+      "VOIGHTS CR HATCHERY Puyallup River- H - - - - - - 09/05/26 350 25 - 300 20 Thursday, September 10, 2026",
+    ],
+  });
+  assertEquals(read.status, "available");
+  assertEquals(read.adultTotal, 1025);
+  assertEquals(read.jackTotal, 125);
+  assertEquals(read.observedTotal, 1150);
+  assertEquals(read.observedThrough, "2026-09-05");
+});
+
+Deno.test("WDFW parser honors provider label aliases", () => {
+  const source = PUYALLUP_RIVER_PROFILE.fishCountSources![0];
+  const read = parseWdfwFacilityCount({
+    source,
+    species: "chinook_salmon",
+    reportDate: "2026-08-27",
+    reportUrl: "https://wdfw.wa.gov/example.pdf",
+    pageTexts: [
+      "Adult Total Fall Chinook Jack Total Surplus On Hand Jacks " +
+      "VOIGHTS CR HATCHERY Puyallup River- H - - - - 6 - 08/23/26 196 10 - 190 10 " +
+      "GARRISON HATCHERY Garrison Springs- H - - - - - - 08/23/26 50 2 - 48 2 Wednesday, August 26, 2026",
+    ],
+  });
+  assertEquals(read.observedTotal, 206);
+});
+
+Deno.test("Tacoma Power parser counts recoveries but ignores transported/recycled fish", () => {
+  const source = COWLITZ_RIVER_PROFILE.fishCountSources![0];
+  const html = `
+    <p><strong>Cowlitz Fish Report</strong></p><p>August 24, 2026</p>
+    <p>Last week, Tacoma Power employees recovered one Coho jack, 17 Fall Chinook adults,
+    three Fall Chinook jacks over five days of operations at the Cowlitz Salmon Hatchery separator.</p>
+    <p>Tacoma Power employees released 15 Fall Chinook adults and three Fall Chinook jacks into the Tilton River.</p>
+    <p>Tacoma Power recycled 1,821 Summer-run Steelhead.</p>`;
+  const chinook = parseTacomaPowerCount({
+    source,
+    species: "chinook_salmon",
+    html,
+  });
+  const coho = parseTacomaPowerCount({ source, species: "coho_salmon", html });
+  assertEquals(chinook.observedTotal, 20);
+  assertEquals(chinook.operatingDays, 5);
+  assertEquals(chinook.reportDate, "2026-08-24");
+  assertEquals(coho.adultTotal, 0);
+  assertEquals(coho.jackTotal, 1);
+});
+
+Deno.test("Fish Counts freshness is explicit and does not preserve an old number as current", () => {
+  const source = COWLITZ_RIVER_PROFILE.fishCountSources![0];
+  const parsed = parseTacomaPowerCount({
+    source,
+    species: "chinook_salmon",
+    html:
+      "<p><strong>Cowlitz Fish Report</strong></p><p>August 24, 2026</p><p>Last week, Tacoma Power employees recovered 17 Fall Chinook adults and three Fall Chinook jacks over five days of operations at the Cowlitz Salmon Hatchery separator.</p>",
+  });
+  const fresh = resolveFishCountFreshness(
+    parsed,
+    source,
+    new Date("2026-08-30T12:00:00Z"),
+  );
+  const stale = resolveFishCountFreshness(
+    parsed,
+    source,
+    new Date("2026-09-05T12:00:00Z"),
+  );
+  assertEquals(fresh.status, "available");
+  assertEquals(fresh.freshness, "fresh");
+  assertEquals(stale.status, "stale");
+  assertEquals(stale.freshness, "stale");
+  assertEquals(stale.observedTotal, 20);
+});

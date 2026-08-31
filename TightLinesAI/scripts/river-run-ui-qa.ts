@@ -7,14 +7,21 @@ import {
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
 import {
+  resolveRiverSpotFinderRecommendedSections,
   RIVER_ACCESS_GENERAL_WARNING,
   RIVER_RUN_SPOT_FINDERS,
   riverAccessSectionLabel,
   riverRunSpotFinderForRiver,
-  resolveRiverSpotFinderRecommendedSections,
 } from "../lib/riverRunSpotFinder";
 import { RIVER_RUN_CONFIGURATION_DOCUMENTS } from "../supabase/functions/_shared/riverRunEngine/config/catalog";
+import { RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS } from "../supabase/functions/_shared/riverRunEngine/config/onboarding/index";
+import { resolveSeasonalZone } from "../supabase/functions/_shared/riverRunEngine/presentation/seasonalZone";
 import { resolveRunStage } from "../supabase/functions/_shared/riverRunEngine/scoring/runStage";
+
+const ALL_CONFIGURATION_DOCUMENTS = [
+  ...RIVER_RUN_CONFIGURATION_DOCUMENTS,
+  ...RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS,
+];
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
@@ -173,11 +180,21 @@ assert.deepEqual(
   ],
   "State picker must use full customer-facing names even when the API returns codes as display names",
 );
-for (const riverId of ["milwaukee", "sheboygan", "root", "bois_brule"]) {
+for (
+  const [riverId, expectedSize] of [
+    ["milwaukee", "large"],
+    ["sheboygan", "medium"],
+    ["root", "medium"],
+    ["bois_brule", "small"],
+    ["green", "medium"],
+    ["puyallup", "large"],
+    ["cowlitz", "large"],
+  ]
+) {
   assert.match(
     riverImages,
-    new RegExp(`${riverId}: \\"(small|medium|large)\\"`),
-    `${riverId} must be registered for river-picker artwork`,
+    new RegExp(`${riverId}: \\"${expectedSize}\\"`),
+    `${riverId} must use ${expectedSize} river-picker artwork`,
   );
 }
 assert.deepEqual(
@@ -185,7 +202,9 @@ assert.deepEqual(
     ["milwaukee", "sheboygan", "root", "bois_brule"].map((riverId) => [
       riverId,
       RIVER_RUN_SPOT_FINDERS[riverId].sections.map((section) => ({
-        label: `${riverAccessSectionLabel(section.position)} · ${section.rangeLabel}`,
+        label: `${
+          riverAccessSectionLabel(section.position)
+        } · ${section.rangeLabel}`,
         spots: section.spots.length,
       })),
     ]),
@@ -258,13 +277,28 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /const primitiveTabStickyIndex = resultSpotFinder \? 3 : 2;/,
-  "The production sticky-header index must account for Gauge Read and the conditional Spot Finder card",
+  /const primitiveTabStickyIndex = 2 \+\s*\(resultSnapshot\?\.fishCounts \? 1 : 0\) \+\s*\(resultSpotFinder \? 1 : 0\);/,
+  "The production sticky-header index must account for Gauge Read and conditional Fish Counts and Spot Finder cards",
 );
 assert.match(
   riverRunScreen,
-  /<LiveRiverConditionsCard[\s\S]*?<SpotFinderCard[\s\S]*?<PrimitiveTabBar/,
-  "Spot Finder must render directly below Gauge Read and above the River Run tabs",
+  /<LiveRiverConditionsCard[\s\S]*?<FishCountsCard[\s\S]*?<SpotFinderCard[\s\S]*?<PrimitiveTabBar/,
+  "Fish Counts and Spot Finder must render below Gauge Read and above the River Run tabs",
+);
+assert.match(
+  riverRunScreen,
+  /OFFICIAL FACILITY REPORT[\s\S]*?PRELIMINARY · SOURCE MAY REVISE[\s\S]*?No\s+value is inferred[\s\S]*?OPEN OFFICIAL SOURCE/,
+  "Fish Counts must preserve facility provenance, revision status, fail-closed copy, and an official-source link",
+);
+assert.match(
+  riverRunScreen,
+  /function FishCountsCard[\s\S]*?useState\(false\)[\s\S]*?accessibilityState=\{\{ expanded: open \}\}[\s\S]*?open\s*\?\s*\([\s\S]*?styles\.fishCountsContent/,
+  "Fish Counts must remain a compact, collapsed-by-default disclosure card",
+);
+assert.match(
+  riverRunScreen,
+  /Official report issued \$\{reportDateLabel\}[\s\S]*?Facility observations through \$\{dateLabel\}/,
+  "Fish Counts must distinguish the source publication date from the facility observation-through date",
 );
 assert.match(
   riverRunScreen,
@@ -311,21 +345,28 @@ assert.doesNotMatch(
   /tabTitle:\s*"FISHABILITY"|cardTitle:\s*"Fishability"|\/ 04/,
   "Fishability must not remain a standalone fourth read",
 );
-for (const retiredPublicSurface of [
-  "WHERE TO START",
-  "WHY THIS READ",
-  "GUIDE&apos;S READ",
-]) {
+for (
+  const retiredPublicSurface of [
+    "WHERE TO START",
+    "WHY THIS READ",
+    "GUIDE&apos;S READ",
+  ]
+) {
   assert.doesNotMatch(
     riverRunScreen,
     new RegExp(retiredPublicSurface),
     `${retiredPublicSurface} must not remain in the public River Run UI`,
   );
 }
+assert.doesNotMatch(
+  riverRunScreen,
+  /SEASONAL ZONE|Calendar-based orientation · not a live location report|Seasonal timing and broad river orientation/,
+  "Stage must not duplicate the section guidance owned by Spot Finder",
+);
 assert.match(
   riverRunScreen,
-  /SEASONAL ZONE[\s\S]*?Calendar-based orientation · not a live location report/,
-  "Stage must use a structured, explicitly calendar-based Seasonal Zone",
+  /Seasonal timing context · not live movement or a fish-location report/,
+  "Stage must describe timing only",
 );
 assert.doesNotMatch(
   riverRunScreen,
@@ -339,8 +380,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /resolveRiverSpotFinderRecommendedSections\(finder, runStage\?\.stage\)[\s\S]*?RECOMMENDED[\s\S]*?OTHER RIVER ACCESS/,
-  "Spot Finder must prioritize stage-derived recommended sections while retaining other river access",
+  /seasonalZone=\{resultSnapshot\?\.seasonalZone\}[\s\S]*?resolveRiverSpotFinderRecommendedSections\(finder, seasonalZone\)[\s\S]*?RECOMMENDED[\s\S]*?OTHER RIVER ACCESS/,
+  "Spot Finder must consume the engine's seasonal-zone reach IDs while retaining other river access",
 );
 assert.match(
   riverRunScreen,
@@ -349,7 +390,7 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /Sections describe the supported migration corridor, not the entire river\. \{finder\.orientationNote\}/,
+  /Sections describe the supported migration corridor, not the\s+entire river\. \{finder\.orientationNote\}/,
   "Spot Finder must distinguish run-corridor position from whole-river geography",
 );
 assert.match(
@@ -429,6 +470,9 @@ const riverCoordinateBounds: Record<
   st_joseph: { minLat: 41.7, maxLat: 42.2, minLon: -86.6, maxLon: -86.2 },
   grand: { minLat: 42.6, maxLat: 43.2, minLon: -86.3, maxLon: -84.4 },
   white: { minLat: 43.35, maxLat: 43.65, minLon: -86.45, maxLon: -85.9 },
+  green: { minLat: 47.1, maxLat: 47.7, minLon: -122.5, maxLon: -121.8 },
+  puyallup: { minLat: 47.05, maxLat: 47.35, minLon: -122.5, maxLon: -122.1 },
+  cowlitz: { minLat: 46.05, maxLat: 46.6, minLon: -123.05, maxLon: -122.5 },
 };
 
 for (
@@ -444,6 +488,9 @@ for (
     "sheboygan",
     "root",
     "bois_brule",
+    "green",
+    "puyallup",
+    "cowlitz",
   ]
 ) {
   const finder = RIVER_RUN_SPOT_FINDERS[riverId];
@@ -497,6 +544,14 @@ for (
         "dnr.wisconsin.gov",
         "www.village.thiensville.wi.us",
         "www.villageofgraftonwi.gov",
+        "www.auburnwa.gov",
+        "www.cityofpuyallup.org",
+        "www.puyallupwa.gov",
+        "www.co.cowlitz.wa.us",
+        "www.kentwa.gov",
+        "www.mylongview.com",
+        "www.mytpu.org",
+        "wdfw.wa.gov",
       ].includes(new URL(spot.sourceUrl).hostname),
       `${spot.id} must use an approved government, land-manager, or regional public-access source`,
     );
@@ -514,24 +569,32 @@ for (
 
 for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
   if (finder.riverRunAligned === false) continue;
-  const document = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((candidate) =>
+  const document = ALL_CONFIGURATION_DOCUMENTS.find((candidate) =>
     candidate.river.riverId === finder.riverId
   );
-  assert(document?.river.foundation, `${finder.riverId} needs a river foundation`);
+  assert(
+    document?.river.foundation,
+    `${finder.riverId} needs a river foundation`,
+  );
   const reachIds = new Set(
     document.river.foundation.reaches.map((reach) => reach.reachId),
   );
   const positions = finder.sections.map((section) => section.position);
+  const positionOrder = positions.map((position) =>
+    ["lower", "middle", "upper"].indexOf(position)
+  );
   assert(
-    positions.length === 1 && positions[0] === "lower" ||
-      positions.length === 2 && positions.join(",") === "lower,upper" ||
-      positions.length === 3 && positions.join(",") === "lower,middle,upper",
-    `${finder.riverId} must use the canonical downstream-to-upstream section structure`,
+    positionOrder.every((order, index) =>
+      order >= 0 && (index === 0 || order > positionOrder[index - 1])
+    ),
+    `${finder.riverId} must use a unique downstream-to-upstream subset of the canonical section structure`,
   );
   for (const section of finder.sections) {
     assert.equal(
       riverAccessSectionLabel(section.position),
-      `${section.position[0].toUpperCase()}${section.position.slice(1)} Run Section`,
+      `${section.position[0].toUpperCase()}${
+        section.position.slice(1)
+      } Run Section`,
       `${finder.riverId}/${section.id} must derive its public section name from position`,
     );
     assert(
@@ -558,9 +621,9 @@ for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
   );
 }
 assert.deepEqual(
-  riverRunSpotFinderForRiver("grand", "chinook_salmon")?.sections.map((section) =>
-    section.id
-  ),
+  riverRunSpotFinderForRiver("grand", "chinook_salmon")?.sections.map((
+    section,
+  ) => section.id),
   ["grand_lower", "grand_middle"],
   "Grand Chinook must not receive access beyond its Webber Dam endpoint",
 );
@@ -576,22 +639,19 @@ const grandChinookFinder = riverRunSpotFinderForRiver(
   "chinook_salmon",
 );
 assert(grandChinookFinder);
-for (
-  const stage of [
-    "beginning",
-    "building",
-    "peak",
-    "tapering",
-    "ending",
-  ] as const
-) {
-  assert.equal(
-    resolveRiverSpotFinderRecommendedSections(grandChinookFinder, stage)
-      .recommendedSections.some((section) => section.id === "grand_upper"),
-    false,
-    `Grand Chinook must never recommend the species-ineligible above-Webber section while ${stage}`,
-  );
-}
+assert.equal(
+  resolveRiverSpotFinderRecommendedSections(grandChinookFinder, {
+    status: "active",
+    foundationReachIds: [
+      ...grandChinookFinder.sections.flatMap((section) =>
+        section.foundationReachIds
+      ),
+      "grand_upper",
+    ],
+  }).recommendedSections.some((section) => section.id === "grand_upper"),
+  false,
+  "Grand Chinook must never recommend the species-ineligible above-Webber section",
+);
 
 for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
   const betsieFinder = riverRunSpotFinderForRiver("betsie", species, "MI");
@@ -611,10 +671,13 @@ for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
     `Betsie ${species} must present two relative run sections ending at Homestead`,
   );
   assert.deepEqual(
-    resolveRiverSpotFinderRecommendedSections(betsieFinder, "ending")
+    resolveRiverSpotFinderRecommendedSections(betsieFinder, {
+      status: "active",
+      foundationReachIds: betsieFinder.sections[1].foundationReachIds,
+    })
       .recommendedSections.map((section) => section.id),
     ["betsie_us31_homestead"],
-    `Betsie ${species} Ending must recommend only the terminal supported reach below Homestead`,
+    `Betsie ${species} must map the terminal seasonal zone only to the supported reach below Homestead`,
   );
 }
 
@@ -631,14 +694,17 @@ const pmRecommendations = {
   ending: ["pm_middle", "pm_upper"],
 } as const;
 for (const [stage, expectedSectionIds] of Object.entries(pmRecommendations)) {
+  const seasonalZoneReachIds = pmFinder.sections
+    .filter((section) => expectedSectionIds.some((id) => id === section.id))
+    .flatMap((section) => section.foundationReachIds);
   const result = resolveRiverSpotFinderRecommendedSections(
     pmFinder,
-    stage as keyof typeof pmRecommendations,
+    { status: "active", foundationReachIds: seasonalZoneReachIds },
   );
   assert.deepEqual(
     result.recommendedSections.map((section) => section.id),
     expectedSectionIds,
-    `Pere Marquette ${stage} recommendations must follow the shared three-section progression`,
+    `Pere Marquette ${stage} recommendations must follow the engine-owned seasonal zone`,
   );
   assert.equal(result.hasRecommendation, true);
   for (const section of result.recommendedSections) {
@@ -649,34 +715,37 @@ for (const [stage, expectedSectionIds] of Object.entries(pmRecommendations)) {
     );
   }
 }
-for (const stage of [undefined, "pre_run", "post_run"] as const) {
-  const result = resolveRiverSpotFinderRecommendedSections(pmFinder, stage);
+for (
+  const [label, seasonalZone] of [
+    ["missing", undefined],
+    ["not started", { status: "not_started", foundationReachIds: [] }],
+    ["complete", { status: "complete", foundationReachIds: [] }],
+  ] as const
+) {
+  const result = resolveRiverSpotFinderRecommendedSections(
+    pmFinder,
+    seasonalZone,
+  );
   assert.equal(
     result.hasRecommendation,
     false,
-    `${stage ?? "missing"} stage must not imply a section recommendation`,
+    `${label} seasonal zone must not imply a section recommendation`,
   );
   assert.deepEqual(result.otherSections, pmFinder.sections);
 }
-for (
-  const stage of [
-    "beginning",
-    "building",
-    "peak",
-    "tapering",
-    "ending",
-  ] as const
-) {
-  const oneSection = resolveRiverSpotFinderRecommendedSections(
-    { sections: pmFinder.sections.slice(0, 1) },
-    stage,
-  );
-  assert.deepEqual(
-    oneSection.recommendedSections.map((section) => section.id),
-    ["pm_lower"],
-    `A one-section corridor must retain its only eligible section while ${stage}`,
-  );
-}
+const oneSectionFinder = { sections: pmFinder.sections.slice(0, 1) };
+const oneSection = resolveRiverSpotFinderRecommendedSections(
+  oneSectionFinder,
+  {
+    status: "active",
+    foundationReachIds: oneSectionFinder.sections[0].foundationReachIds,
+  },
+);
+assert.deepEqual(
+  oneSection.recommendedSections.map((section) => section.id),
+  ["pm_lower"],
+  "A one-section corridor must retain its only eligible section when its reach is active",
+);
 
 for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
   const finder = riverRunSpotFinderForRiver("st_joseph", species, "MI");
@@ -695,11 +764,20 @@ for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
     `Indiana St. Joseph Spot Finder must remain hidden until its access inventory is audited for ${species}`,
   );
 }
-const stJosephFinder = riverRunSpotFinderForRiver("st_joseph", "steelhead", "MI");
+const stJosephFinder = riverRunSpotFinderForRiver(
+  "st_joseph",
+  "steelhead",
+  "MI",
+);
 assert(stJosephFinder);
 const stJosephBuilding = resolveRiverSpotFinderRecommendedSections(
   stJosephFinder,
-  "building",
+  {
+    status: "active",
+    foundationReachIds: stJosephFinder.sections.flatMap((section) =>
+      section.foundationReachIds
+    ),
+  },
 );
 assert.deepEqual(
   stJosephBuilding.recommendedSections.map((section) => section.id),
@@ -708,7 +786,10 @@ assert.deepEqual(
 );
 const stJosephEnding = resolveRiverSpotFinderRecommendedSections(
   stJosephFinder,
-  "ending",
+  {
+    status: "active",
+    foundationReachIds: stJosephFinder.sections.at(-1)!.foundationReachIds,
+  },
 );
 assert.deepEqual(
   stJosephEnding.recommendedSections.map((section) => section.id),
@@ -716,8 +797,66 @@ assert.deepEqual(
   "A two-section corridor must recommend only its upstream section while Ending",
 );
 
+for (const species of ["chinook_salmon", "coho_salmon"] as const) {
+  const greenFinder = riverRunSpotFinderForRiver("green", species, "WA");
+  assert(greenFinder, `Green Spot Finder must be available for ${species}`);
+  assert.deepEqual(
+    greenFinder.sections.map((section) => section.id),
+    ["green_lower_audited", "green_middle_audited"],
+    `Green ${species} must expose only the two audited sections below Highway 18`,
+  );
+  assert.doesNotMatch(
+    JSON.stringify(greenFinder),
+    /Flaming Geyser|Green River Natural Area|Duwamish Gardens/,
+    `Green ${species} must withhold access with a seasonal or fishing-source mismatch`,
+  );
+
+  const puyallupFinder = riverRunSpotFinderForRiver(
+    "puyallup",
+    species,
+    "WA",
+  );
+  assert(
+    puyallupFinder,
+    `Puyallup Spot Finder must be available for ${species}`,
+  );
+  assert.deepEqual(
+    puyallupFinder.sections.map((section) => section.position),
+    ["middle", "upper"],
+    `Puyallup ${species} must preserve the missing lower-access section instead of relabeling`,
+  );
+  assert.match(
+    puyallupFinder.orientationNote,
+    /No lower-river public sport-fishing access/i,
+  );
+
+  const cowlitzFinder = riverRunSpotFinderForRiver("cowlitz", species, "WA");
+  assert(cowlitzFinder, `Cowlitz Spot Finder must be available for ${species}`);
+  assert.deepEqual(
+    cowlitzFinder.sections.map((section) => section.position),
+    ["lower", "middle", "upper"],
+  );
+  assert.deepEqual(
+    cowlitzFinder.sections.at(-1)?.spots.map((spot) => spot.name),
+    ["Wallace Bar", "Blue Creek", "Barrier Dam"],
+    "Cowlitz terminal access must retain the three source-audited sites and stop at the Barrier deadline",
+  );
+}
+for (const riverId of ["green", "puyallup", "cowlitz"]) {
+  assert.equal(
+    RIVER_RUN_SPOT_FINDERS[riverId].safetyLink?.url,
+    "https://wdfw.wa.gov/fishing/regulations/emergency-rules",
+    `${riverId} must open current WDFW emergency rules`,
+  );
+  assert.equal(
+    riverRunSpotFinderForRiver(riverId, "steelhead", "WA"),
+    undefined,
+    `${riverId} Spot Finder must remain unavailable for deferred Steelhead`,
+  );
+}
+
 let recommendationMatrixCases = 0;
-for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
+for (const document of ALL_CONFIGURATION_DOCUMENTS) {
   const presentations = document.river.presentationContexts ?? [{
     state: document.river.state,
     foundationReachIds: undefined,
@@ -737,33 +876,36 @@ for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
       if (!finder) continue;
       for (const localDate of checkpointDates) {
         const stage = resolveRunStage(run, localDate);
+        const seasonalZone = resolveSeasonalZone({
+          river: document.river,
+          run,
+          stage,
+          localDate,
+          presentationReachIds: presentation.foundationReachIds,
+        });
         const result = resolveRiverSpotFinderRecommendedSections(
           finder,
-          stage.stage,
+          seasonalZone,
         );
         recommendationMatrixCases += 1;
-        if (stage.stage === "pre_run" || stage.stage === "post_run") {
+        const expected = finder.sections.filter((section) =>
+          section.foundationReachIds.some((reachId) =>
+            seasonalZone.foundationReachIds.includes(reachId)
+          )
+        );
+        if (seasonalZone.status !== "active" || expected.length === 0) {
           assert.equal(
             result.hasRecommendation,
             false,
-            `${run.runId}/${presentation.state}/${localDate} must not recommend sections outside the active migration`,
+            `${run.runId}/${presentation.state}/${localDate} must fail closed without an active seasonal-zone overlap`,
           );
           assert.deepEqual(result.otherSections, finder.sections);
           continue;
         }
-        const expected = stage.stage === "beginning"
-          ? finder.sections.slice(0, 1)
-          : stage.stage === "building"
-          ? finder.sections.slice(0, Math.min(2, finder.sections.length))
-          : stage.stage === "peak"
-          ? finder.sections
-          : finder.sections.length >= 3
-          ? finder.sections.slice(-2)
-          : finder.sections.slice(-1);
         assert.deepEqual(
           result.recommendedSections.map((section) => section.id),
           expected.map((section) => section.id),
-          `${run.runId}/${presentation.state}/${localDate} must follow the shared ${stage.stage} progression`,
+          `${run.runId}/${presentation.state}/${localDate} must map the engine's seasonal-zone reaches exactly`,
         );
         assert.equal(result.hasRecommendation, true);
         for (const section of result.recommendedSections) {
@@ -817,7 +959,11 @@ const sectionSpotNames = (riverId: string, sectionId: string) =>
   )?.spots.map((spot) => spot.name);
 assert.deepEqual(
   sectionSpotNames("pere_marquette", "pm_middle")?.slice(0, 3),
-  ["Indian Bridge River Access", "Walhalla Road Bridge", "Sulak / Upper Branch"],
+  [
+    "Indian Bridge River Access",
+    "Walhalla Road Bridge",
+    "Sulak / Upper Branch",
+  ],
   "Pere Marquette middle access must follow the audited downstream-to-upstream order",
 );
 assert.deepEqual(

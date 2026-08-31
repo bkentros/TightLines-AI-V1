@@ -217,6 +217,69 @@ function fishabilityCopy(input: {
   const estabrookScoped = input.sourceLabel ===
     "Estabrook Park Urban Greenway reach";
   const sheboyganI43Scoped = input.sourceLabel === "Urban River near I-43";
+  const greenAuburnScoped = input.sourceLabel ===
+    "Auburn / Big Soos mainstem reach";
+  const puyallupClarksScoped = input.sourceLabel ===
+    "Puyallup / Clarks lower-mainstem reach";
+  const cowlitzCastleRockScoped = input.sourceLabel ===
+    "Castle Rock lower-mainstem reach";
+  if (puyallupClarksScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live Puyallup flow card is converted into a presentation-shape read only for the lower mainstem near Puyallup and Clarks Creek. It does not infer glacial turbidity or describe the Carbon confluence, fish abundance, legal access, or catch probability.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify the specific reach, current WDFW rule, visibility, and safe public access before fishing.`,
+    };
+  }
+  if (cowlitzCastleRockScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live Castle Rock flow card is converted into a presentation-shape read only for the lower mainstem near Castle Rock, downstream of the Toutle. It does not describe the Barrier Dam tailwater, project-release changes upstream, fish abundance, legal access, or catch probability.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Check current dam operations, the specific reach, WDFW rules, and safe access before fishing.`,
+    };
+  }
+  if (greenAuburnScoped) {
+    return {
+      headline: fishabilityHeadline(
+        input.flowBand,
+        input.flowSignal,
+        input.gaugeFreshness,
+      ),
+      detail: `${flowBandMeaning(input.flowBand)} ${
+        trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+      } The live Auburn flow card is converted into a presentation-shape read only for the Auburn/Big Soos mainstem. It does not describe the tidal Duwamish, upper Green, fish abundance, legal access, or catch probability.`,
+      tip: `${
+        fishabilityTip(
+          input.flowBand,
+          input.flowSignal,
+          input.gaugeFreshness,
+        )
+      } Verify the specific reach, current WDFW rule, and safe public access before fishing.`,
+    };
+  }
   if (estabrookScoped) {
     return {
       headline: fishabilityHeadline(

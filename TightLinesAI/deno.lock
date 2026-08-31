@@ -5284,6 +5284,7 @@
         "npm:expo@~55.0.30",
         "npm:ngrok@^5.0.0-beta.2",
         "npm:patch-package@^8.0.1",
+        "npm:pdfjs-dist@^4.10.38",
         "npm:posthog-react-native@^4.45.16",
         "npm:react-dom@19.2.0",
         "npm:react-native-nitro-google-signin@^1.3.0",

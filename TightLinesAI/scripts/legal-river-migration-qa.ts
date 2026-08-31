@@ -28,8 +28,10 @@ for (const phrase of ["Instally", "install-attribution identifiers", "creator re
 }
 
 for (const phrase of [
-  "River Migration outputs are estimates and inferences",
-  "They are not direct observations, biological surveys, sonar readings, fish counts, catch probabilities",
+  "River Migration stage, activity, presence, and section outputs are estimates and inferences",
+  "They are not direct observations, biological surveys, sonar readings, catch probabilities",
+  "When an official Fish Counts card is shown, its number is a direct observation only at the named facility",
+  "it is not total river abundance, a live fish-location report, catch probability",
   "Activity Outlook estimates conditional fish movement or responsiveness",
   "Spot Finder identifies configured public-access names and broad, stage-based starting sections",
   "A listed access name does not guarantee legal parking",
@@ -44,7 +46,7 @@ for (const phrase of [
   "A Fishing Shape description addresses expected presentation workability only",
   "A Spot Finder listing or recommended river section does not confirm legal parking",
   "Dams, weirs, fish ladders, spillways, refuges",
-  "Migration Stage, Activity Outlook, Seasonal Presence, Gauge Read, and a Spot Finder recommendation",
+  "Migration Stage, Activity Outlook, Seasonal Presence, Gauge Read, Fish Counts, and a Spot Finder recommendation",
 ]) {
   assert.ok(appLegal.includes(phrase), `In-app Safety missing: ${phrase}`);
   assert.ok(safety.includes(phrase), `Web Safety missing: ${phrase}`);

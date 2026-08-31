@@ -74,13 +74,13 @@ import {
   riverRunFishingGuideForSpecies,
 } from "../lib/riverRunFishingGuides";
 import {
+  resolveRiverSpotFinderRecommendedSections,
   RIVER_ACCESS_CLOSURES_URL,
   RIVER_ACCESS_GENERAL_WARNING,
   type RiverAccessKind,
   type RiverAccessSection,
   riverAccessSectionLabel,
   riverRunSpotFinderForRiver,
-  resolveRiverSpotFinderRecommendedSections,
   type RiverSpotFinder,
 } from "../lib/riverRunSpotFinder";
 import {
@@ -168,6 +168,10 @@ const STATE_ICON_THEMES: Record<string, ChoiceIconTheme> = {
   IN: {
     background: "#FFF3DF",
     foreground: "#B77A2F",
+  },
+  WA: {
+    background: "#E8F3EE",
+    foreground: "#34775F",
   },
 };
 
@@ -571,7 +575,9 @@ export default function RiverRunScreen() {
     resultSpecies,
     resultSnapshot?.presentation?.state,
   );
-  const primitiveTabStickyIndex = resultSpotFinder ? 3 : 2;
+  const primitiveTabStickyIndex = 2 +
+    (resultSnapshot?.fishCounts ? 1 : 0) +
+    (resultSpotFinder ? 1 : 0);
   const navSpecies = formatRiverRunSpecies(resultSpecies)
     .replace(/\s+Salmon$/i, "");
   const navTitle = screenState === "result"
@@ -692,12 +698,19 @@ export default function RiverRunScreen() {
                 )
                 : null}
 
+              {resultSnapshot?.fishCounts
+                ? <FishCountsCard counts={resultSnapshot.fishCounts} />
+                : null}
+
               {resultSpotFinder
                 ? (
                   <SpotFinderCard
-                    key={`${resultSpotFinder.riverId}:${resultSpecies}:${resultSnapshot?.presentation?.state ?? ""}`}
+                    key={`${resultSpotFinder.riverId}:${resultSpecies}:${
+                      resultSnapshot?.presentation?.state ?? ""
+                    }`}
                     finder={resultSpotFinder}
                     runStage={resultSnapshot?.runStage}
+                    seasonalZone={resultSnapshot?.seasonalZone}
                   />
                 )
                 : null}
@@ -786,6 +799,178 @@ export default function RiverRunScreen() {
         }}
       />
     </SafeAreaView>
+  );
+}
+
+function FishCountsCard({
+  counts,
+}: {
+  counts: NonNullable<RiverRunSnapshotResponse["fishCounts"]>;
+}) {
+  const [open, setOpen] = useState(false);
+  const available = counts.status === "available";
+  const stale = counts.status === "stale";
+  const periodLabel = counts.period === "weekly"
+    ? "LAST REPORTED WEEK"
+    : "SEASON TO DATE";
+  const dateLabel = counts.observedThrough
+    ? new Date(`${counts.observedThrough}T12:00:00`).toLocaleDateString(
+      undefined,
+      { month: "short", day: "numeric", year: "numeric" },
+    )
+    : null;
+  const reportDateLabel = counts.reportDate
+    ? new Date(`${counts.reportDate}T12:00:00`).toLocaleDateString(
+      undefined,
+      { month: "short", day: "numeric", year: "numeric" },
+    )
+    : null;
+  const collapsedSummary = available || stale
+    ? `${(counts.observedTotal ?? 0).toLocaleString()} reported${
+      dateLabel ? ` · observed through ${dateLabel}` : ""
+    }`
+    : "No current numerical report for this species";
+  return (
+    <View
+      style={styles.fishCountsCard}
+      testID="river-fish-counts"
+      accessible={false}
+    >
+      <Pressable
+        style={({ pressed }) => [
+          styles.fishCountsToggle,
+          pressed && { opacity: 0.82 },
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setOpen((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        accessibilityLabel={`Fish Counts at ${counts.facilityName}. ${collapsedSummary}. ${
+          open ? "Collapse" : "Expand"
+        } details. Facility observations are not total river abundance.`}
+      >
+        <View style={styles.fishCountsIcon}>
+          <Ionicons name="fish-outline" size={19} color="#7E382C" />
+        </View>
+        <View style={styles.fishCountsHeadingCopy}>
+          <Text style={styles.fishCountsTitle}>Fish Counts</Text>
+          <Text style={styles.fishCountsFacility} numberOfLines={2}>
+            {counts.facilityName} · {collapsedSummary}
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.fishCountsStatus,
+            available
+              ? styles.fishCountsStatusCurrent
+              : stale
+              ? styles.fishCountsStatusStale
+              : styles.fishCountsStatusUnavailable,
+          ]}
+        >
+          <Text style={styles.fishCountsStatusText}>
+            {available ? "CURRENT" : stale ? "STALE" : "NO COUNT"}
+          </Text>
+        </View>
+        <Ionicons
+          name={open ? "chevron-up" : "chevron-down"}
+          size={19}
+          color="#7E382C"
+        />
+      </Pressable>
+
+      {open
+        ? (
+          <View style={styles.fishCountsContent}>
+            <Text style={styles.fishCountsEyebrow}>
+              OFFICIAL FACILITY REPORT
+            </Text>
+            {available || stale
+              ? (
+                <View style={styles.fishCountsBody}>
+                  <View style={styles.fishCountsTotalRow}>
+                    <View>
+                      <Text style={styles.fishCountsPeriod}>{periodLabel}</Text>
+                      <Text style={styles.fishCountsTotal}>
+                        {(counts.observedTotal ?? 0).toLocaleString()}
+                      </Text>
+                      <Text style={styles.fishCountsDate}>
+                        {reportDateLabel
+                          ? `Official report issued ${reportDateLabel}`
+                          : "Report date supplied by source"}
+                      </Text>
+                      <Text style={styles.fishCountsDate}>
+                        {dateLabel
+                          ? `Facility observations through ${dateLabel}`
+                          : "Observation date supplied by source"}
+                      </Text>
+                    </View>
+                    <View style={styles.fishCountsBreakdown}>
+                      <View style={styles.fishCountsBreakdownItem}>
+                        <Text style={styles.fishCountsBreakdownValue}>
+                          {(counts.adultTotal ?? 0).toLocaleString()}
+                        </Text>
+                        <Text style={styles.fishCountsBreakdownLabel}>
+                          ADULTS
+                        </Text>
+                      </View>
+                      <View style={styles.fishCountsBreakdownItem}>
+                        <Text style={styles.fishCountsBreakdownValue}>
+                          {(counts.jackTotal ?? 0).toLocaleString()}
+                        </Text>
+                        <Text style={styles.fishCountsBreakdownLabel}>
+                          JACKS
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  {counts.preliminary
+                    ? (
+                      <Text style={styles.fishCountsPreliminary}>
+                        PRELIMINARY · SOURCE MAY REVISE
+                      </Text>
+                    )
+                    : null}
+                </View>
+              )
+              : (
+                <View style={styles.fishCountsUnavailable}>
+                  <Ionicons
+                    name="calendar-outline"
+                    size={18}
+                    color={paper.dashboardMuted}
+                  />
+                  <Text style={styles.fishCountsUnavailableText}>
+                    The official source has no current numerical row for this
+                    species, or the latest report could not be verified. No
+                    value is inferred.
+                  </Text>
+                </View>
+              )}
+
+            <Text style={styles.fishCountsLimitation}>{counts.limitation}</Text>
+            <Pressable
+              style={(
+                { pressed },
+              ) => [
+                styles.fishCountsSourceButton,
+                pressed && { opacity: 0.72 },
+              ]}
+              onPress={() => void Linking.openURL(counts.sourceUrl)}
+              accessibilityRole="link"
+              accessibilityLabel={`Open official fish-count source from ${counts.attribution}`}
+            >
+              <Text style={styles.fishCountsSourceText}>
+                OPEN OFFICIAL SOURCE
+              </Text>
+              <Ionicons name="open-outline" size={14} color="#7E382C" />
+            </Pressable>
+          </View>
+        )
+        : null}
+    </View>
   );
 }
 
@@ -1620,10 +1805,8 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
               </Text>
             </View>
             <Text style={styles.liveConditionsMethodNote}>
-              {orderedMetrics.some((metric) =>
-                  metric.seasonalContext?.windowRadiusDays === 0
-                )
-                ? "Flow typical ranges use the same calendar date ±3 days. Historical-only water temperature uses the exact-date average and shows its qualifying-year count; it is not today's temperature. Provider readings may be revised."
+              {orderedMetrics.some(isHistoricalOnlyMetric)
+                ? "Flow typical ranges use the same calendar date ±3 days. Historical-only water temperature shows its labeled archival calendar window and qualifying-year count; it is not today's temperature. Provider readings may be revised."
                 : "Typical ranges and medians use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
             </Text>
           </View>
@@ -1645,14 +1828,16 @@ const RIVER_ACCESS_KIND_LABELS: Record<RiverAccessKind, string> = {
 function SpotFinderCard({
   finder,
   runStage,
+  seasonalZone,
 }: {
   finder: RiverSpotFinder;
   runStage?: RiverRunSnapshotResponse["runStage"];
+  seasonalZone?: RiverRunSnapshotResponse["seasonalZone"];
 }) {
   const [open, setOpen] = useState(false);
   const recommendation = useMemo(
-    () => resolveRiverSpotFinderRecommendedSections(finder, runStage?.stage),
-    [finder, runStage?.stage],
+    () => resolveRiverSpotFinderRecommendedSections(finder, seasonalZone),
+    [finder, seasonalZone],
   );
   const recommendationSignature = recommendation.recommendedSections
     .map((section) => section.id)
@@ -1725,9 +1910,9 @@ function SpotFinderCard({
           accessibilityState={{ expanded: sectionOpen }}
           accessibilityLabel={`${sectionLabel}. ${section.rangeLabel}. ${section.spots.length} source-listed access ${
             section.spots.length === 1 ? "name" : "names"
-          }. ${recommended ? "Recommended section for this migration stage. " : ""}${
-            sectionOpen ? "Collapse" : "Expand"
-          }.`}
+          }. ${
+            recommended ? "Recommended section for this migration stage. " : ""
+          }${sectionOpen ? "Collapse" : "Expand"}.`}
         >
           <View style={styles.spotFinderSectionCopy}>
             {recommended
@@ -1759,9 +1944,8 @@ function SpotFinderCard({
                 recommended && styles.spotFinderSectionCountRecommended,
               ]}
             >
-              {section.spots.length} {section.spots.length === 1
-                ? "ACCESS POINT"
-                : "ACCESS POINTS"}
+              {section.spots.length}{" "}
+              {section.spots.length === 1 ? "ACCESS POINT" : "ACCESS POINTS"}
             </Text>
           </View>
           <Ionicons
@@ -1938,7 +2122,8 @@ function SpotFinderCard({
                   <View style={styles.spotFinderRecommendationIntroHeading}>
                     <Ionicons name="leaf-outline" size={16} color="#167B78" />
                     <Text style={styles.spotFinderRecommendationIntroLabel}>
-                      RECOMMENDED {recommendation.recommendedSections.length === 1
+                      RECOMMENDED{" "}
+                      {recommendation.recommendedSections.length === 1
                         ? "SECTION"
                         : "SECTIONS"}
                     </Text>
@@ -1957,7 +2142,8 @@ function SpotFinderCard({
                     NO RUN-BASED RECOMMENDATION
                   </Text>
                   <Text style={styles.spotFinderNoRecommendationText}>
-                    The migration is not in an active stage. Browse supported-corridor access below.
+                    The migration is not in an active stage. Browse
+                    supported-corridor access below.
                   </Text>
                 </View>
               )}
@@ -2032,7 +2218,8 @@ function SpotFinderCard({
               {orientationOpen
                 ? (
                   <Text style={styles.spotFinderFooterText}>
-                    Sections describe the supported migration corridor, not the entire river. {finder.orientationNote}
+                    Sections describe the supported migration corridor, not the
+                    entire river. {finder.orientationNote}
                   </Text>
                 )
                 : null}
@@ -2238,7 +2425,9 @@ function liveMetricShortLabel(
 function liveMetricProviderLabel(
   provider: RiverRunLiveConditionMetric["provider"],
 ): string {
-  return provider === "USGS" ? "USGS" : "Monitor My Watershed";
+  if (provider === "USGS") return "USGS";
+  if (provider === "WA_ECOLOGY") return "Washington Ecology";
+  return "Monitor My Watershed";
 }
 
 function liveMetricCompactComparison(label?: string): string {
@@ -2328,7 +2517,8 @@ function liveMetricFreshnessLabel(
 
 function isHistoricalOnlyMetric(metric: RiverRunLiveConditionMetric): boolean {
   return metric.value == null &&
-    metric.seasonalContext?.windowRadiusDays === 0;
+    metric.seasonalContext?.source.startsWith("usgs_approved_") === true &&
+    metric.seasonalContext.source.endsWith("_archive");
 }
 
 function liveMetricFreshnessColor(
@@ -2343,9 +2533,13 @@ function liveMetricBaselineCopy(metric: RiverRunLiveConditionMetric): string {
   const context = metric.seasonalContext;
   if (!context) return "Historical context unavailable";
   if (isHistoricalOnlyMetric(metric)) {
-    return `${context.historicalYears}-year exact-date average · ${
-      formatMonthDay(context.windowStartMonthDay)
-    }`;
+    return context.windowRadiusDays === 0
+      ? `${context.historicalYears}-year exact-date average · ${
+        formatMonthDay(context.windowStartMonthDay)
+      }`
+      : `${context.historicalYears}-year historical ±${context.windowRadiusDays}-day average · ${
+        formatMonthDay(context.windowStartMonthDay)
+      }–${formatMonthDay(context.windowEndMonthDay)}`;
   }
   const median = formatLiveMetricValue(metric, context.median);
   const era = context.recordKind === "recent" ? "recent-era" : "historical";
@@ -2573,7 +2767,6 @@ function SnapshotView({
           title={tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
-          seasonalZone={tab.id === "run_stage" ? snapshot.seasonalZone : undefined}
           contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
             : undefined}
@@ -2711,7 +2904,9 @@ function ActivityBreakdown(
   const forecast = activity.targetDayLabel === "Tomorrow" ||
     activity.reasonCodes?.includes("activity_forecast") === true;
   const bestScore = Math.max(...activity.blocks.map((block) => block.score));
-  const bestBlocks = activity.blocks.filter((block) => block.score === bestScore);
+  const bestBlocks = activity.blocks.filter((block) =>
+    block.score === bestScore
+  );
   const bestBlock = bestBlocks[0];
   return (
     <View style={styles.activityBreakdown}>
@@ -2879,7 +3074,9 @@ function ActivityBreakdown(
             style={styles.activityEvidence}
             accessible
             accessibilityRole="text"
-            accessibilityLabel={`Best window: ${bestBlocks.map((block) => block.label).join(", ")}. Favorable factor: ${bestBlock.positiveDriver} Limiting factor: ${bestBlock.limitingFactor}`}
+            accessibilityLabel={`Best window: ${
+              bestBlocks.map((block) => block.label).join(", ")
+            }. Favorable factor: ${bestBlock.positiveDriver} Limiting factor: ${bestBlock.limitingFactor}`}
           >
             <Text style={styles.activityEvidenceEyebrow}>BEST WINDOW</Text>
             <Text style={styles.activityEvidenceWindow}>
@@ -2892,7 +3089,11 @@ function ActivityBreakdown(
               </Text>
             </View>
             <View style={styles.activityEvidenceRow}>
-              <Ionicons name="remove-circle-outline" size={14} color="#A85220" />
+              <Ionicons
+                name="remove-circle-outline"
+                size={14}
+                color="#A85220"
+              />
               <Text style={styles.activityEvidenceText}>
                 {bestBlock.limitingFactor}
               </Text>
@@ -2949,7 +3150,6 @@ function PrimitiveSection({
   headerMeta,
   contextLine,
   contextContent,
-  seasonalZone,
 }: {
   index: string;
   title: string;
@@ -2958,7 +3158,6 @@ function PrimitiveSection({
   headerMeta?: string;
   contextLine?: string;
   contextContent?: ReactNode;
-  seasonalZone?: RiverRunSnapshotResponse["seasonalZone"];
 }) {
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
@@ -2973,7 +3172,7 @@ function PrimitiveSection({
     ? primitive.headline
     : undefined;
   const scopeNote = visualKind === "run_stage"
-    ? "Seasonal timing and broad river orientation · not a live fish-location report"
+    ? "Seasonal timing context · not live movement or a fish-location report"
     : visualKind === "activity"
     ? "Expected responsiveness if fish are present · not abundance or catch probability"
     : "Seasonal presence estimate · not a live fish count or today’s river conditions";
@@ -3026,29 +3225,6 @@ function PrimitiveSection({
           ? (
             <View style={styles.primitiveResult}>
               <PrimitiveHeadlineCopy value={publicHeadline} />
-            </View>
-          )
-          : null}
-
-        {stageOnly && seasonalZone
-          ? (
-            <View style={styles.primitiveLocation}>
-              <View style={styles.primitiveLocationHeading}>
-                <Ionicons
-                  name="map-outline"
-                  size={14}
-                  color={paper.dashboardBlue}
-                />
-                <Text style={styles.primitiveLocationLabel}>
-                  SEASONAL ZONE
-                </Text>
-              </View>
-              <Text style={styles.primitiveLocationText}>
-                {seasonalZone.label}
-              </Text>
-              <Text style={styles.primitiveHeaderMeta}>
-                Calendar-based orientation · not a live location report
-              </Text>
             </View>
           )
           : null}
@@ -3838,6 +4014,172 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     backgroundColor: "#FDFDFC",
     ...paperShadows.hard,
+  },
+  fishCountsCard: {
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(126,56,44,0.28)",
+    borderRadius: 13,
+    backgroundColor: "#FFF9F6",
+    ...paperShadows.hard,
+  },
+  fishCountsToggle: {
+    minHeight: 66,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    paddingHorizontal: 13,
+    paddingVertical: 11,
+    borderTopWidth: 3,
+    borderTopColor: "#A95A4C",
+    backgroundColor: "#FFF9F6",
+  },
+  fishCountsContent: {
+    gap: 10,
+    padding: 12,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(126,56,44,0.18)",
+    backgroundColor: "#FDF7F4",
+  },
+  fishCountsIcon: {
+    width: 35,
+    height: 35,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 18,
+    backgroundColor: "#F8E4DD",
+  },
+  fishCountsHeadingCopy: { flex: 1, minWidth: 0, gap: 2 },
+  fishCountsEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.2,
+    color: "#9A5548",
+  },
+  fishCountsTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 18,
+    lineHeight: 21,
+    color: paper.dashboardInk,
+  },
+  fishCountsFacility: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  fishCountsStatus: {
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    borderRadius: 6,
+    borderWidth: 1,
+  },
+  fishCountsStatusCurrent: {
+    backgroundColor: "#E8F4E8",
+    borderColor: "#8FBC8F",
+  },
+  fishCountsStatusStale: { backgroundColor: "#FFF0D2", borderColor: "#D7AA4A" },
+  fishCountsStatusUnavailable: {
+    backgroundColor: "#F1EFEC",
+    borderColor: paper.dashboardLine,
+  },
+  fishCountsStatusText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.8,
+    color: paper.dashboardInk,
+  },
+  fishCountsBody: {
+    gap: 7,
+    padding: 11,
+    borderRadius: 9,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "rgba(126,56,44,0.14)",
+  },
+  fishCountsTotalRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  fishCountsPeriod: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.1,
+    color: "#9A5548",
+  },
+  fishCountsTotal: {
+    fontFamily: paperFonts.display,
+    fontSize: 35,
+    lineHeight: 39,
+    color: "#7E382C",
+  },
+  fishCountsDate: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    lineHeight: 13,
+    color: paper.dashboardMuted,
+  },
+  fishCountsBreakdown: { flexDirection: "row", gap: 7 },
+  fishCountsBreakdownItem: {
+    minWidth: 52,
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 7,
+    borderRadius: 7,
+    backgroundColor: "#F8EEE9",
+  },
+  fishCountsBreakdownValue: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 15,
+    color: paper.dashboardInk,
+  },
+  fishCountsBreakdownLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 0.8,
+    color: paper.dashboardMuted,
+  },
+  fishCountsPreliminary: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.8,
+    color: "#9A5548",
+  },
+  fishCountsUnavailable: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    padding: 11,
+    borderRadius: 9,
+    backgroundColor: paper.dashboardCream,
+  },
+  fishCountsUnavailableText: {
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: paper.dashboardMuted,
+  },
+  fishCountsLimitation: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 15,
+    color: paper.dashboardMuted,
+  },
+  fishCountsSourceButton: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingVertical: 4,
+  },
+  fishCountsSourceText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1,
+    color: "#7E382C",
   },
   spotFinderCard: {
     overflow: "hidden",
@@ -4914,33 +5256,6 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 16,
     lineHeight: 23,
-    color: paper.dashboardInk,
-  },
-  primitiveLocation: {
-    marginTop: 13,
-    gap: 5,
-    paddingHorizontal: 12,
-    paddingVertical: 11,
-    borderWidth: 1,
-    borderColor: "rgba(15,99,176,0.18)",
-    borderRadius: 8,
-    backgroundColor: "#EEF6FB",
-  },
-  primitiveLocationHeading: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 7,
-  },
-  primitiveLocationLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.35,
-    color: paper.dashboardBlue,
-  },
-  primitiveLocationText: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 13,
-    lineHeight: 19,
     color: paper.dashboardInk,
   },
   primitiveContext: {

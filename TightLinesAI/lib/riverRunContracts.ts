@@ -242,6 +242,8 @@ export type RiverRunLiveSeasonalContext = {
     | "usgs_statistics"
     | "monitor_my_watershed_history"
     | "usgs_approved_exact_date_archive"
+    | "usgs_approved_calendar_window_archive"
+    | "state_agency_calendar_window_archive"
     | "usgs_approved_fixed_period_archive";
 };
 
@@ -255,7 +257,7 @@ export type RiverRunLiveConditionMetric = {
   approvalStatus?: string;
   qualifier?: string;
   sourceId: string;
-  provider: "USGS" | "MONITOR_MY_WATERSHED";
+  provider: "USGS" | "MONITOR_MY_WATERSHED" | "WA_ECOLOGY";
   stationName: string;
   siteId: string;
   representedReach: string;
@@ -283,6 +285,40 @@ export type RiverRunLiveConditions = {
   refreshSlot: string;
   metrics: RiverRunLiveConditionMetric[];
   limitation: string;
+  dataVersion: string;
+};
+
+export type RiverRunFishCounts = {
+  status: "available" | "stale" | "unavailable";
+  sourceId: string;
+  provider: "WDFW_ESCAPEMENT" | "TACOMA_POWER";
+  facilityName: string;
+  observationType:
+    | "hatchery_return"
+    | "ladder_passage"
+    | "weir_passage"
+    | "trap_recovery"
+    | "separator_recovery";
+  species: "chinook_salmon" | "coho_salmon" | "steelhead";
+  period: "weekly" | "season_to_date";
+  adultTotal: number | null;
+  jackTotal: number | null;
+  observedTotal: number | null;
+  observedThrough?: string;
+  reportDate?: string;
+  freshness: "fresh" | "stale" | "missing";
+  preliminary: boolean;
+  categoriesIncluded: string[];
+  operatingDays?: number;
+  sourceUrl: string;
+  attribution: string;
+  representedReach: string;
+  limitation: string;
+  unavailableReason?:
+    | "not_configured"
+    | "not_reported"
+    | "provider_failed"
+    | "parser_changed";
   dataVersion: string;
 };
 
@@ -384,6 +420,7 @@ export type RiverRunSnapshotResponse = {
   activity?: RiverRunActivity | null;
   fishInRiver: RiverRunFishInRiver;
   riverConditions?: RiverRunLiveConditions;
+  fishCounts?: RiverRunFishCounts;
   gauge?: RiverRunGauge | null;
   weather?: RiverRunWeather | null;
   waterTemperature?: RiverRunWaterTemperature | null;

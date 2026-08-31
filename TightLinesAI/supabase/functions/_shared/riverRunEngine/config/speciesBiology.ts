@@ -27,6 +27,63 @@ export const GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     "Michigan DNR Chinook profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon ; EPA Region 10 salmonid temperature issue paper https://www.epa.gov/sites/default/files/2018-01/documents/r10-water-quality-temperature-issue-paper5-2001.pdf . Profile values are Great Lakes fall-migration defaults; each river still requires its own timing, presence, hydraulics, sources, and replay audit.",
 };
 
+/** Pacific salmon profiles do not grant movement credit to the current public reads. */
+export const PACIFIC_FALL_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
+  biologyProfileId: "pacific_fall_chinook_v1",
+  species: "chinook_salmon",
+  commonName: "Chinook Salmon",
+  scientificName: "Oncorhynchus tshawytscha",
+  region: "pacific_northwest",
+  movementEngineId: "fall_cooling",
+  migrationPurpose: "spawning",
+  semelparous: true,
+  adultMigrationTemperature: {
+    supportiveMinF: 44,
+    preferredMinF: 48,
+    supportiveMaxF: 62,
+    tooWarmF: 68,
+    migrationBarrierF: 72,
+  },
+  environmentalResponse: {
+    risingFlow: "not_used_by_current_public_primitives",
+    precipitation: "precursor_only",
+    strongSignalRequiresMeasuredGaugeResponse: true,
+    peakFloodIsAutomaticallyPositive: false,
+  },
+  evidenceNotes:
+    "Pacific fall Chinook are semelparous spawning migrants. This profile supplies conservative adult thermal constraints only. Migration Stage and Seasonal Presence remain fixed river-specific calendars, while Activity is conditional responsiveness; no current public primitive awards movement, push, or timing credit for rising flow.",
+  sourceNotes:
+    "NOAA Pacific salmon life-history material, EPA Region 10 salmonid temperature review, and river-specific WDFW/tribal evidence. Dates, endpoints, opportunity strength, measurements, and Activity remain river-specific.",
+};
+
+export const PACIFIC_FALL_COHO_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
+  biologyProfileId: "pacific_fall_coho_v1",
+  species: "coho_salmon",
+  commonName: "Coho Salmon",
+  scientificName: "Oncorhynchus kisutch",
+  region: "pacific_northwest",
+  movementEngineId: "fall_cooling",
+  migrationPurpose: "spawning",
+  semelparous: true,
+  adultMigrationTemperature: {
+    supportiveMinF: 42,
+    preferredMinF: 45,
+    supportiveMaxF: 60,
+    tooWarmF: 64,
+    migrationBarrierF: 68,
+  },
+  environmentalResponse: {
+    risingFlow: "not_used_by_current_public_primitives",
+    precipitation: "precursor_only",
+    strongSignalRequiresMeasuredGaugeResponse: true,
+    peakFloodIsAutomaticallyPositive: false,
+  },
+  evidenceNotes:
+    "Pacific coho are semelparous spawning migrants. This profile supplies conservative adult thermal constraints only. The current public reads do not expose Push or Migration Timing and do not infer movement from rising flow.",
+  sourceNotes:
+    "NOAA Pacific coho life-history material, EPA Region 10 salmonid temperature review, and river-specific WDFW/tribal evidence. Dates, endpoints, opportunity strength, measurements, and Activity remain river-specific.",
+};
+
 /**
  * Big Manistee-specific Chinook thermal profile. The shared Great Lakes
  * profile remains the PM/default biology contract; the regulated Tippy

@@ -43,7 +43,7 @@ import {
   resolveWaterTemperatureRead,
 } from "./waterTemperature.ts";
 
-export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v4";
+export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v5";
 const USGS_ATTRIBUTION =
   "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.";
 
@@ -209,6 +209,8 @@ function buildHistoricalTemperatureMetric(input: {
   localDate: string;
 }): RiverLiveConditionMetric {
   const normal = input.source.normals[input.localDate.slice(5)];
+  const windowRadiusDays = input.source.windowRadiusDays ?? 0;
+  const monthDay = input.localDate.slice(5);
   return {
     metric: "water_temp_f",
     label: "Historical Water Temperature",
@@ -236,16 +238,26 @@ function buildHistoricalTemperatureMetric(input: {
         p90: normal.p90F,
         historicalYears: normal.historicalYears,
         sampleCount: normal.sampleCount,
-        availableWindowDays: 1,
-        windowRadiusDays: 0,
-        windowStartMonthDay: input.localDate.slice(5),
-        windowEndMonthDay: input.localDate.slice(5),
+        availableWindowDays: windowRadiusDays * 2 + 1,
+        windowRadiusDays,
+        windowStartMonthDay: shiftMonthDay(monthDay, -windowRadiusDays),
+        windowEndMonthDay: shiftMonthDay(monthDay, windowRadiusDays),
         recordKind: "recent",
         baselineVersion: input.source.baselineVersion,
-        source: "usgs_approved_exact_date_archive",
+        source: input.source.provider === "WA_ECOLOGY"
+          ? "state_agency_calendar_window_archive"
+          : windowRadiusDays === 0
+          ? "usgs_approved_exact_date_archive"
+          : "usgs_approved_calendar_window_archive",
       }
       : undefined,
   };
+}
+
+function shiftMonthDay(monthDay: string, days: number): string {
+  const date = new Date(`2000-${monthDay}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(5, 10);
 }
 
 function buildHydraulicMetric(input: {

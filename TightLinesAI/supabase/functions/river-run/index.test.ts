@@ -735,7 +735,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog is admin-only and includes the Wisconsin draft portfolio", async () => {
+Deno.test("owner-review catalog is admin-only and includes Wisconsin plus hidden Washington", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers"),
     { createAdminClient: () => new MockClient() },
@@ -754,6 +754,9 @@ Deno.test("owner-review catalog is admin-only and includes the Wisconsin draft p
   const wisconsin = body.states.find(
     (state: { state: string }) => state.state === "WI",
   );
+  const washington = body.states.find(
+    (state: { state: string }) => state.state === "WA",
+  );
 
   assertEquals(response.status, 200);
   assertEquals(
@@ -768,6 +771,68 @@ Deno.test("owner-review catalog is admin-only and includes the Wisconsin draft p
     ),
     true,
   );
+  assertEquals(
+    washington.rivers.map((river: { riverId: string }) => river.riverId)
+      .sort(),
+    ["cowlitz", "green", "puyallup"],
+  );
+  assertEquals(
+    washington.rivers.every(
+      (river: { runs: Array<{ species: string }> }) =>
+        river.runs.length === 2 &&
+        river.runs.some((run) => run.species === "chinook_salmon") &&
+        river.runs.some((run) => run.species === "coho_salmon"),
+    ),
+    true,
+  );
+});
+
+Deno.test("Cowlitz owner-review snapshot includes a facility-scoped count without using dispositions", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=cowlitz&runId=cowlitz_fall_chinook&presentationState=WA",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-08-30T18:00:00.000Z"),
+      gaugeObservations: [{
+        provider: "USGS",
+        siteId: "14243000",
+        observedAt: "2026-08-30T17:45:00.000Z",
+        flow_cfs: 2_550,
+        gage_height_ft: 33.12,
+        source: "usgs_continuous_values",
+      }],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      fetchFn: () =>
+        Promise.resolve(
+          new Response(`
+        <p><strong>Cowlitz Fish Report</strong></p><p>August 24, 2026</p>
+        <p>Last week, Tacoma Power employees recovered 17 Fall Chinook adults,
+        three Fall Chinook jacks over five days of operations at the Cowlitz Salmon Hatchery separator.</p>
+        <p>Tacoma Power employees released 15 Fall Chinook adults into the Tilton River
+        and recycled 1,821 Summer-run Steelhead.</p>
+      `),
+        ),
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.fishCounts.status, "available");
+  assertEquals(body.fishCounts.observationType, "separator_recovery");
+  assertEquals(body.fishCounts.observedTotal, 20);
+  assertEquals(body.fishCounts.adultTotal, 17);
+  assertEquals(body.fishCounts.jackTotal, 3);
+  assertEquals(body.fishCounts.reportDate, "2026-08-24");
+  assertMatch(body.fishCounts.limitation, /not total lower-river abundance/i);
 });
 
 Deno.test("owner-review snapshot uses current provider inputs without fixture substitution", async () => {
@@ -828,7 +893,7 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v4",
+    "river-live-conditions-v5",
   );
   assertEquals(body.activity.label, "Unavailable");
 });

@@ -29,6 +29,12 @@ const expectedRuns = new Set([
   "bois_brule_fall_coho",
   "bois_brule_fall_steelhead",
   "bois_brule_fall_brown_trout",
+  "green_fall_chinook",
+  "green_fall_coho",
+  "puyallup_fall_chinook",
+  "puyallup_fall_coho",
+  "cowlitz_fall_chinook",
+  "cowlitz_fall_coho",
 ]);
 
 assert.deepEqual(
@@ -218,12 +224,49 @@ for (
       conditions.scenarios.some((scenario) =>
         scenario.snapshot.riverConditions?.status === "partial"
       ),
-      `${runId} lacks its expected flow-only Gauge Read scenario`,
+      `${runId} lacks its expected flow/height-only Gauge Read scenario`,
     );
     assert(
       conditions.scenarios.every((scenario) =>
         scenario.snapshot.riverConditions?.metrics.every((metric) =>
           metric.metric !== "water_temperature_f"
+        )
+      ),
+      `${runId} must not imply a measured water temperature`,
+    );
+  } else if (
+    runId.startsWith("green_") || runId.startsWith("puyallup_")
+  ) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "partial" &&
+        scenario.snapshot.riverConditions.metrics.some((metric) =>
+          metric.metric === "water_temp_f" && metric.value === null &&
+          metric.seasonalContext?.windowRadiusDays === 3
+        )
+      ),
+      `${runId} lacks historical-only calendar-window temperature context beside its live hydraulics`,
+    );
+    assert(
+      conditions.scenarios.every((scenario) =>
+        scenario.snapshot.riverConditions?.metrics.every((metric) =>
+          metric.metric !== "water_temperature_f"
+        )
+      ),
+      `${runId} must not imply a measured water temperature`,
+    );
+  } else if (runId.startsWith("cowlitz_")) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "available"
+      ),
+      `${runId} lacks its expected flow/height-only Gauge Read scenario`,
+    );
+    assert(
+      conditions.scenarios.every((scenario) =>
+        scenario.snapshot.riverConditions?.metrics.every((metric) =>
+          metric.metric !== "water_temperature_f" &&
+          metric.metric !== "water_temp_f"
         )
       ),
       `${runId} must not imply a measured water temperature`,
@@ -262,6 +305,35 @@ for (
       scenario.snapshot.riverConditions?.status !== "available"
     ),
     `${runId} lacks a degraded Gauge Read scenario`,
+  );
+}
+
+for (
+  const runId of [
+    "green_fall_chinook",
+    "green_fall_coho",
+    "puyallup_fall_chinook",
+    "puyallup_fall_coho",
+    "cowlitz_fall_chinook",
+    "cowlitz_fall_coho",
+  ]
+) {
+  const scenarios = RIVER_RUN_ONBOARDING_REVIEW_GROUPS_BY_RUN_ID[runId]
+    .flatMap((group) => group.scenarios);
+  assert(
+    scenarios.every((scenario) =>
+      /no live (?:representative )?water[- ]temperature|neither station provides live water temperature/i
+        .test(scenario.snapshot.secondaryNote ?? "")
+    ),
+    `${runId} must disclose the missing live water-temperature sensor`,
+  );
+  assert(
+    scenarios.every((scenario) =>
+      /Spot Finder for audited public fishing access/i.test(
+        scenario.snapshot.runStage.whereToStart ?? "",
+      )
+    ),
+    `${runId} must keep access guidance in Spot Finder`,
   );
 }
 

@@ -64,7 +64,7 @@ assert.match(
 
 assert.match(
   guide,
-  /supported salmon and steelhead river migrations—especially migration stage, seasonal presence, activity, and current river conditions/,
+  /supported salmon and steelhead river migrations—especially migration stage, seasonal presence, activity, current river conditions, and official fish counts where available/,
   "River Migration guidance must describe the simplified public reads and conditions",
 );
 

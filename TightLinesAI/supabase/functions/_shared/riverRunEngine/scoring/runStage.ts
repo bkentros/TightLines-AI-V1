@@ -583,6 +583,12 @@ function onboardingCorridorRoute(input: {
   species: RiverRunProfile["species"];
 }): { whereToStart: string; limit: string; tip: string } {
   const { stage } = input;
+  if (
+    input.riverId === "green" || input.riverId === "puyallup" ||
+    input.riverId === "cowlitz"
+  ) {
+    return washingtonOnboardingCorridorRoute(input);
+  }
   if (input.riverId === "milwaukee") {
     const brown = input.species === "lake_run_brown_trout";
     const limit = brown
@@ -1178,6 +1184,27 @@ function onboardingCorridorRoute(input: {
     tip: input.fallEntry
       ? "Fall-entry tracking has ended; this is not a complete winter-presence model."
       : "Do not build a Grand River trip around isolated fish outside the modeled run.",
+  };
+}
+
+function washingtonOnboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+}): { whereToStart: string; limit: string; tip: string } {
+  const limit = input.riverId === "green"
+    ? "Green/Duwamish guidance ends below the closed Tacoma municipal watershed. It does not imply passage through Headworks or Howard Hanson, legal fishing access, or that the Auburn gauge represents the tidal Duwamish."
+    : input.riverId === "puyallup"
+    ? "Puyallup guidance ends at the Carbon River confluence and excludes the signed Clarks Creek closure. It makes no Electron passage claim and does not establish legal fishing access."
+    : "Cowlitz guidance ends outside the Barrier Dam exclusion. Separator recovery and upstream transport do not establish natural passage through Mayfield or Mossyrock, legal fishing access, or equal distribution.";
+  return {
+    whereToStart:
+      "Use the Seasonal Zone for corridor context and Spot Finder for audited public fishing access.",
+    limit,
+    tip:
+      "Seasonal Zone is calendar context, not a live fish-location or access recommendation.",
   };
 }
 

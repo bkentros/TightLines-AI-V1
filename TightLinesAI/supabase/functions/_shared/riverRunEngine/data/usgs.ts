@@ -15,6 +15,7 @@ export type RiverRunFetch = (
   ok: boolean;
   json(): Promise<unknown>;
   text?: () => Promise<string>;
+  arrayBuffer?: () => Promise<ArrayBuffer>;
 }>;
 
 export type NormalizedGaugeObservation = {

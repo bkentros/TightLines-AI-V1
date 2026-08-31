@@ -58,6 +58,21 @@ const REVIEW_VALUES: Record<
     gageHeight: 2.5,
     waterTemperatureAverage: null,
   },
+  green: {
+    flowAverage: 510,
+    gageHeight: 54.7,
+    waterTemperatureAverage: null,
+  },
+  puyallup: {
+    flowAverage: 1_050,
+    gageHeight: 8.1,
+    waterTemperatureAverage: null,
+  },
+  cowlitz: {
+    flowAverage: 3_200,
+    gageHeight: 33.5,
+    waterTemperatureAverage: null,
+  },
 };
 
 export function buildReviewLiveConditionsFixture(input: {
@@ -181,6 +196,8 @@ export function buildReviewLiveConditionsFixture(input: {
   } else if (input.river.historicalWaterTemperatureSource) {
     const source = input.river.historicalWaterTemperatureSource;
     const normal = source.normals[input.localDate.slice(5)];
+    const windowRadiusDays = source.windowRadiusDays ?? 0;
+    const monthDay = input.localDate.slice(5);
     metrics.push({
       metric: "water_temp_f",
       label: "Historical Water Temperature",
@@ -208,13 +225,17 @@ export function buildReviewLiveConditionsFixture(input: {
           p90: normal.p90F,
           historicalYears: normal.historicalYears,
           sampleCount: normal.sampleCount,
-          availableWindowDays: 1,
-          windowRadiusDays: 0,
-          windowStartMonthDay: input.localDate.slice(5),
-          windowEndMonthDay: input.localDate.slice(5),
+          availableWindowDays: windowRadiusDays * 2 + 1,
+          windowRadiusDays,
+          windowStartMonthDay: shiftMonthDay(monthDay, -windowRadiusDays),
+          windowEndMonthDay: shiftMonthDay(monthDay, windowRadiusDays),
           recordKind: "recent",
           baselineVersion: source.baselineVersion,
-          source: "usgs_approved_exact_date_archive",
+          source: source.provider === "WA_ECOLOGY"
+            ? "state_agency_calendar_window_archive"
+            : windowRadiusDays === 0
+            ? "usgs_approved_exact_date_archive"
+            : "usgs_approved_calendar_window_archive",
         }
         : undefined,
     });
@@ -235,6 +256,12 @@ export function buildReviewLiveConditionsFixture(input: {
     limitation: input.river.gaugeLimitationCopy,
     dataVersion: "river-live-conditions-v2-review-fixture",
   };
+}
+
+function shiftMonthDay(monthDay: string, days: number): string {
+  const date = new Date(`2000-${monthDay}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(5, 10);
 }
 
 function seasonalContext(input: {

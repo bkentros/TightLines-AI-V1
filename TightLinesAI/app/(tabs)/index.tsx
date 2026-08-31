@@ -1769,7 +1769,7 @@ export default function HomeScreen() {
               title="River Migration"
               tag="MIGRATION"
               badge="NEW"
-              desc="Migration stage, activity, seasonal presence & river conditions"
+              desc="Migration stage, activity, presence, river conditions & available fish counts"
               moduleId="river-run"
               iconBg={["#FBE4E1", "#F3C2BC"]}
               iconBorder="#C0392B"

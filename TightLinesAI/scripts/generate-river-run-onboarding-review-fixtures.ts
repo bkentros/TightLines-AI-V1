@@ -12,11 +12,19 @@ import {
   BOIS_BRULE_RIVER_PROFILE,
   buildConditionRefresh,
   buildDailySnapshot,
+  COWLITZ_CONFIGURATION_DOCUMENT,
+  COWLITZ_FALL_CHINOOK_RUN_PROFILE,
+  COWLITZ_FALL_COHO_RUN_PROFILE,
+  COWLITZ_RIVER_PROFILE,
   GRAND_CONFIGURATION_DOCUMENT,
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
   GRAND_RIVER_PROFILE,
+  GREEN_CONFIGURATION_DOCUMENT,
+  GREEN_FALL_CHINOOK_RUN_PROFILE,
+  GREEN_FALL_COHO_RUN_PROFILE,
+  GREEN_RIVER_PROFILE,
   MILWAUKEE_CONFIGURATION_DOCUMENT,
   MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
   MILWAUKEE_FALL_CHINOOK_RUN_PROFILE,
@@ -28,6 +36,10 @@ import {
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,
   PLATTE_RIVER_PROFILE,
+  PUYALLUP_CONFIGURATION_DOCUMENT,
+  PUYALLUP_FALL_CHINOOK_RUN_PROFILE,
+  PUYALLUP_FALL_COHO_RUN_PROFILE,
+  PUYALLUP_RIVER_PROFILE,
   resolveActiveRunWindow,
   resolveFlowBand,
   type RiverProfile,
@@ -160,6 +172,30 @@ const targets: DraftTarget[] = [
     river: BOIS_BRULE_RIVER_PROFILE,
     run,
     configVersion: BOIS_BRULE_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    GREEN_FALL_CHINOOK_RUN_PROFILE,
+    GREEN_FALL_COHO_RUN_PROFILE,
+  ].map((run) => ({
+    river: GREEN_RIVER_PROFILE,
+    run,
+    configVersion: GREEN_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    PUYALLUP_FALL_CHINOOK_RUN_PROFILE,
+    PUYALLUP_FALL_COHO_RUN_PROFILE,
+  ].map((run) => ({
+    river: PUYALLUP_RIVER_PROFILE,
+    run,
+    configVersion: PUYALLUP_CONFIGURATION_DOCUMENT.configVersion,
+  })),
+  ...[
+    COWLITZ_FALL_CHINOOK_RUN_PROFILE,
+    COWLITZ_FALL_COHO_RUN_PROFILE,
+  ].map((run) => ({
+    river: COWLITZ_RIVER_PROFILE,
+    run,
+    configVersion: COWLITZ_CONFIGURATION_DOCUMENT.configVersion,
   })),
 ];
 
@@ -386,7 +422,9 @@ function buildGroups(target: DraftTarget): RiverRunReviewGroup[] {
         scenario(
           target,
           "conditions_historical_temperature",
-          "Gauge Read · historical exact-date temperature",
+          target.river.historicalWaterTemperatureSource?.windowRadiusDays === 3
+            ? "Gauge Read · historical calendar-window temperature"
+            : "Gauge Read · historical exact-date temperature",
           "2026-09-15",
         ),
       ]

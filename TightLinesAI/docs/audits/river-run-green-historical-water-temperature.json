@@ -1,0 +1,2942 @@
+{
+  "siteId": "12113000",
+  "sourceName": "Green River near Auburn, WA",
+  "recordYearsUsed": "1981-1986 (water years 1982, 1983, 1984, and 1986; missing dates are not imputed)",
+  "method": "USGS annual water-data reports for station 12113000. Exact published daily means are parsed for July-December, then pooled inside the same calendar date ±3 days. No missing or malformed day is imputed, and each displayed normal requires observations from at least 2 qualifying calendar years. This is archival context only, never a current water temperature.",
+  "reportCoverage": [
+    {
+      "waterYear": 1982,
+      "sourceUrl": "https://pubs.usgs.gov/wdr/1982/wa-82-1/report.pdf",
+      "parsedFallDays": 141
+    },
+    {
+      "waterYear": 1983,
+      "sourceUrl": "https://pubs.usgs.gov/wdr/1983/wa-83-1/report.pdf",
+      "parsedFallDays": 177
+    },
+    {
+      "waterYear": 1984,
+      "sourceUrl": "https://pubs.usgs.gov/wdr/1984/wa-84-1/report.pdf",
+      "parsedFallDays": 165
+    },
+    {
+      "waterYear": 1986,
+      "sourceUrl": "https://pubs.usgs.gov/wdr/1986/wa-86-1/report.pdf",
+      "parsedFallDays": 96
+    }
+  ],
+  "qualifyingDailyMeans": 579,
+  "expectedFallDays": 736,
+  "dailyCoveragePercent": 78.67,
+  "calendarWindowNormals": 184,
+  "expectedCalendarDates": 184,
+  "calendarDateCoveragePercent": 100,
+  "normals": {
+    "07-01": {
+      "averageF": 58.7,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 58.1,
+      "p75F": 59.5,
+      "p90F": 59.9,
+      "historicalYears": 3,
+      "sampleCount": 11,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-02": {
+      "averageF": 58.9,
+      "p10F": 57.5,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 59.9,
+      "p90F": 60.5,
+      "historicalYears": 3,
+      "sampleCount": 14,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-03": {
+      "averageF": 59,
+      "p10F": 57.7,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 59.9,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-04": {
+      "averageF": 59,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 59.9,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-05": {
+      "averageF": 59.3,
+      "p10F": 58,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 60.1,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-06": {
+      "averageF": 59.3,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 60.1,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-07": {
+      "averageF": 59.3,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 60.4,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-08": {
+      "averageF": 59.2,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 60.6,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-09": {
+      "averageF": 59.1,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.8,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-10": {
+      "averageF": 59,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.1,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-11": {
+      "averageF": 59,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.4,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "07-12": {
+      "averageF": 59.1,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.6,
+      "p90F": 61.4,
+      "historicalYears": 2,
+      "sampleCount": 14,
+      "years": [
+        1983,
+        1984
+      ]
+    },
+    "07-13": {
+      "averageF": 59.2,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.8,
+      "p90F": 62.2,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-14": {
+      "averageF": 59.3,
+      "p10F": 56.8,
+      "p25F": 57.2,
+      "medianF": 58.6,
+      "p75F": 61,
+      "p90F": 63.1,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-15": {
+      "averageF": 59.5,
+      "p10F": 56.8,
+      "p25F": 57.2,
+      "medianF": 59,
+      "p75F": 60.8,
+      "p90F": 63.5,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-16": {
+      "averageF": 59.9,
+      "p10F": 56.9,
+      "p25F": 58.1,
+      "medianF": 59.5,
+      "p75F": 62.4,
+      "p90F": 63.5,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-17": {
+      "averageF": 60.2,
+      "p10F": 57,
+      "p25F": 58.1,
+      "medianF": 59.9,
+      "p75F": 62.6,
+      "p90F": 63.7,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-18": {
+      "averageF": 60.6,
+      "p10F": 57.2,
+      "p25F": 59,
+      "medianF": 59.9,
+      "p75F": 62.6,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-19": {
+      "averageF": 60.9,
+      "p10F": 58.1,
+      "p25F": 59,
+      "medianF": 61.3,
+      "p75F": 62.6,
+      "p90F": 64.3,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-20": {
+      "averageF": 61.3,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 64.2,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-21": {
+      "averageF": 61.6,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 62.8,
+      "p90F": 64.1,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-22": {
+      "averageF": 61.7,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-23": {
+      "averageF": 61.8,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 64.9,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-24": {
+      "averageF": 61.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-25": {
+      "averageF": 61.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 64.8,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-26": {
+      "averageF": 61.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 64.7,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-27": {
+      "averageF": 61.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.7,
+      "p90F": 64.7,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-28": {
+      "averageF": 61.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.7,
+      "p90F": 65,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-29": {
+      "averageF": 61.8,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-30": {
+      "averageF": 61.7,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "07-31": {
+      "averageF": 61.7,
+      "p10F": 59,
+      "p25F": 60.6,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 63.6,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-01": {
+      "averageF": 61.8,
+      "p10F": 59,
+      "p25F": 61.7,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 63.5,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-02": {
+      "averageF": 61.7,
+      "p10F": 59,
+      "p25F": 61,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 63.5,
+      "historicalYears": 4,
+      "sampleCount": 18,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-03": {
+      "averageF": 61.8,
+      "p10F": 60.1,
+      "p25F": 60.8,
+      "medianF": 61.7,
+      "p75F": 62.6,
+      "p90F": 63.5,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-04": {
+      "averageF": 62.1,
+      "p10F": 60.6,
+      "p25F": 61.5,
+      "medianF": 62.6,
+      "p75F": 62.8,
+      "p90F": 63.5,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-05": {
+      "averageF": 62.5,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 63.5,
+      "p90F": 64.5,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-06": {
+      "averageF": 62.9,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 63.5,
+      "p90F": 65.3,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-07": {
+      "averageF": 63.2,
+      "p10F": 61.5,
+      "p25F": 62.2,
+      "medianF": 62.6,
+      "p75F": 64,
+      "p90F": 65.5,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-08": {
+      "averageF": 63.1,
+      "p10F": 60.8,
+      "p25F": 61.9,
+      "medianF": 62.6,
+      "p75F": 64.2,
+      "p90F": 65.6,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-09": {
+      "averageF": 63.1,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 64.4,
+      "p90F": 65.7,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-10": {
+      "averageF": 63.1,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 64.6,
+      "p90F": 65.8,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-11": {
+      "averageF": 63,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 64.4,
+      "p90F": 65.8,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "08-12": {
+      "averageF": 62.7,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 63.5,
+      "p90F": 65.7,
+      "historicalYears": 2,
+      "sampleCount": 14,
+      "years": [
+        1983,
+        1984
+      ]
+    },
+    "08-13": {
+      "averageF": 62.7,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-14": {
+      "averageF": 62.8,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-15": {
+      "averageF": 63.1,
+      "p10F": 61.3,
+      "p25F": 62.6,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-16": {
+      "averageF": 63.3,
+      "p10F": 62.3,
+      "p25F": 62.8,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-17": {
+      "averageF": 63.3,
+      "p10F": 62.4,
+      "p25F": 62.6,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-18": {
+      "averageF": 63.5,
+      "p10F": 62.6,
+      "p25F": 62.6,
+      "medianF": 63.5,
+      "p75F": 63.5,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-19": {
+      "averageF": 63.5,
+      "p10F": 62.6,
+      "p25F": 62.6,
+      "medianF": 63.5,
+      "p75F": 64.2,
+      "p90F": 64.4,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-20": {
+      "averageF": 63.4,
+      "p10F": 61.7,
+      "p25F": 62.6,
+      "medianF": 63.5,
+      "p75F": 64.4,
+      "p90F": 65.1,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-21": {
+      "averageF": 63.2,
+      "p10F": 61.7,
+      "p25F": 62.4,
+      "medianF": 63.5,
+      "p75F": 64.4,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-22": {
+      "averageF": 63.1,
+      "p10F": 61.2,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 64.4,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-23": {
+      "averageF": 63.1,
+      "p10F": 61.3,
+      "p25F": 61.7,
+      "medianF": 63.1,
+      "p75F": 64.4,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-24": {
+      "averageF": 63.1,
+      "p10F": 60.8,
+      "p25F": 61.7,
+      "medianF": 62.6,
+      "p75F": 64.9,
+      "p90F": 65.7,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-25": {
+      "averageF": 62.7,
+      "p10F": 60.4,
+      "p25F": 61.7,
+      "medianF": 61.7,
+      "p75F": 64.9,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-26": {
+      "averageF": 62.4,
+      "p10F": 59.9,
+      "p25F": 60.8,
+      "medianF": 61.7,
+      "p75F": 63.7,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-27": {
+      "averageF": 62,
+      "p10F": 59.9,
+      "p25F": 60.6,
+      "medianF": 61.7,
+      "p75F": 63.5,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-28": {
+      "averageF": 61.9,
+      "p10F": 59.9,
+      "p25F": 60.6,
+      "medianF": 61.7,
+      "p75F": 62.8,
+      "p90F": 65.3,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-29": {
+      "averageF": 61.5,
+      "p10F": 59.9,
+      "p25F": 59.9,
+      "medianF": 60.8,
+      "p75F": 62.6,
+      "p90F": 64.9,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-30": {
+      "averageF": 61.2,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 60.8,
+      "p75F": 62.6,
+      "p90F": 63.5,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "08-31": {
+      "averageF": 60.9,
+      "p10F": 59,
+      "p25F": 59.9,
+      "medianF": 60.8,
+      "p75F": 61.9,
+      "p90F": 62.7,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-01": {
+      "averageF": 60.6,
+      "p10F": 59.7,
+      "p25F": 59.9,
+      "medianF": 59.9,
+      "p75F": 60.8,
+      "p90F": 62.6,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-02": {
+      "averageF": 60.5,
+      "p10F": 59.6,
+      "p25F": 59.9,
+      "medianF": 59.9,
+      "p75F": 60.8,
+      "p90F": 62,
+      "historicalYears": 4,
+      "sampleCount": 18,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-03": {
+      "averageF": 60.4,
+      "p10F": 58.6,
+      "p25F": 59.9,
+      "medianF": 59.9,
+      "p75F": 61.7,
+      "p90F": 62.6,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-04": {
+      "averageF": 60.3,
+      "p10F": 58.1,
+      "p25F": 59,
+      "medianF": 59.9,
+      "p75F": 61.7,
+      "p90F": 62.7,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-05": {
+      "averageF": 60.1,
+      "p10F": 58.1,
+      "p25F": 58.8,
+      "medianF": 59.9,
+      "p75F": 61.7,
+      "p90F": 63.5,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-06": {
+      "averageF": 59.9,
+      "p10F": 58,
+      "p25F": 58.1,
+      "medianF": 59.9,
+      "p75F": 60.4,
+      "p90F": 62.7,
+      "historicalYears": 3,
+      "sampleCount": 20,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-07": {
+      "averageF": 59.6,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59.9,
+      "p75F": 59.9,
+      "p90F": 62.8,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-08": {
+      "averageF": 59.3,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 58.6,
+      "p75F": 59.9,
+      "p90F": 62.9,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-09": {
+      "averageF": 59,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 58.1,
+      "p75F": 59.9,
+      "p90F": 63,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-10": {
+      "averageF": 58.8,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 58.1,
+      "p75F": 59.2,
+      "p90F": 61.7,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-11": {
+      "averageF": 58.6,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 58.1,
+      "p75F": 59.5,
+      "p90F": 59.9,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1982,
+        1983,
+        1984
+      ]
+    },
+    "09-12": {
+      "averageF": 58.4,
+      "p10F": 57.2,
+      "p25F": 57.2,
+      "medianF": 58.6,
+      "p75F": 59,
+      "p90F": 59.6,
+      "historicalYears": 2,
+      "sampleCount": 14,
+      "years": [
+        1983,
+        1984
+      ]
+    },
+    "09-13": {
+      "averageF": 58.5,
+      "p10F": 57.2,
+      "p25F": 57.7,
+      "medianF": 59,
+      "p75F": 59,
+      "p90F": 59.5,
+      "historicalYears": 3,
+      "sampleCount": 15,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-14": {
+      "averageF": 58.6,
+      "p10F": 57.2,
+      "p25F": 57.9,
+      "medianF": 58.6,
+      "p75F": 59,
+      "p90F": 60.4,
+      "historicalYears": 3,
+      "sampleCount": 16,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-15": {
+      "averageF": 58.7,
+      "p10F": 57.2,
+      "p25F": 58.1,
+      "medianF": 59,
+      "p75F": 59,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 17,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-16": {
+      "averageF": 58.5,
+      "p10F": 56.9,
+      "p25F": 57.4,
+      "medianF": 58.6,
+      "p75F": 59,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 18,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-17": {
+      "averageF": 58.2,
+      "p10F": 56.1,
+      "p25F": 57.2,
+      "medianF": 58.1,
+      "p75F": 59,
+      "p90F": 60.8,
+      "historicalYears": 3,
+      "sampleCount": 19,
+      "years": [
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-18": {
+      "averageF": 58,
+      "p10F": 56.3,
+      "p25F": 57.2,
+      "medianF": 58.1,
+      "p75F": 59,
+      "p90F": 60.8,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-19": {
+      "averageF": 57.7,
+      "p10F": 55.5,
+      "p25F": 56.5,
+      "medianF": 57.2,
+      "p75F": 58.8,
+      "p90F": 60.6,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-20": {
+      "averageF": 57.3,
+      "p10F": 55.4,
+      "p25F": 56.3,
+      "medianF": 57.2,
+      "p75F": 58.1,
+      "p90F": 59,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-21": {
+      "averageF": 56.9,
+      "p10F": 55.4,
+      "p25F": 55.4,
+      "medianF": 57.2,
+      "p75F": 57.4,
+      "p90F": 58.7,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-22": {
+      "averageF": 56.7,
+      "p10F": 54.9,
+      "p25F": 55.4,
+      "medianF": 57.2,
+      "p75F": 57.2,
+      "p90F": 58.1,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-23": {
+      "averageF": 56.6,
+      "p10F": 55,
+      "p25F": 55.4,
+      "medianF": 57.2,
+      "p75F": 57.2,
+      "p90F": 58.1,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-24": {
+      "averageF": 56.5,
+      "p10F": 54.5,
+      "p25F": 55.4,
+      "medianF": 56.3,
+      "p75F": 57.2,
+      "p90F": 58.1,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-25": {
+      "averageF": 56,
+      "p10F": 54.5,
+      "p25F": 55,
+      "medianF": 56.3,
+      "p75F": 57.2,
+      "p90F": 58.1,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-26": {
+      "averageF": 55.7,
+      "p10F": 54.2,
+      "p25F": 54.5,
+      "medianF": 55.4,
+      "p75F": 57.2,
+      "p90F": 58.1,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-27": {
+      "averageF": 55.3,
+      "p10F": 53.6,
+      "p25F": 54.5,
+      "medianF": 55.4,
+      "p75F": 56.3,
+      "p90F": 57.5,
+      "historicalYears": 4,
+      "sampleCount": 28,
+      "years": [
+        1982,
+        1983,
+        1984,
+        1986
+      ]
+    },
+    "09-28": {
+      "averageF": 54.6,
+      "p10F": 51.8,
+      "p25F": 54.5,
+      "medianF": 54.5,
+      "p75F": 56.3,
+      "p90F": 57.2,
+      "historicalYears": 6,
+      "sampleCount": 28,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "09-29": {
+      "averageF": 54.3,
+      "p10F": 51.8,
+      "p25F": 54.1,
+      "medianF": 54.5,
+      "p75F": 55.9,
+      "p90F": 56.3,
+      "historicalYears": 6,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "09-30": {
+      "averageF": 54,
+      "p10F": 51.8,
+      "p25F": 53.6,
+      "medianF": 54.5,
+      "p75F": 55.4,
+      "p90F": 56.3,
+      "historicalYears": 6,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "10-01": {
+      "averageF": 53.8,
+      "p10F": 51.8,
+      "p25F": 53.2,
+      "medianF": 54.5,
+      "p75F": 55.4,
+      "p90F": 55.4,
+      "historicalYears": 6,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "10-02": {
+      "averageF": 53.5,
+      "p10F": 51.8,
+      "p25F": 52.7,
+      "medianF": 54.5,
+      "p75F": 55.2,
+      "p90F": 55.4,
+      "historicalYears": 6,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "10-03": {
+      "averageF": 53.5,
+      "p10F": 51.8,
+      "p25F": 52.7,
+      "medianF": 54.5,
+      "p75F": 55.2,
+      "p90F": 55.4,
+      "historicalYears": 6,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986
+      ]
+    },
+    "10-04": {
+      "averageF": 53.3,
+      "p10F": 51.8,
+      "p25F": 52.7,
+      "medianF": 53.6,
+      "p75F": 54.5,
+      "p90F": 55.4,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-05": {
+      "averageF": 53.3,
+      "p10F": 51.8,
+      "p25F": 51.8,
+      "medianF": 53.6,
+      "p75F": 54.5,
+      "p90F": 55.4,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-06": {
+      "averageF": 53.2,
+      "p10F": 51.8,
+      "p25F": 51.8,
+      "medianF": 53.6,
+      "p75F": 54.5,
+      "p90F": 55.4,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-07": {
+      "averageF": 52.7,
+      "p10F": 50.4,
+      "p25F": 51.8,
+      "medianF": 52.7,
+      "p75F": 53.6,
+      "p90F": 54.5,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-08": {
+      "averageF": 52.4,
+      "p10F": 50,
+      "p25F": 51.8,
+      "medianF": 52.7,
+      "p75F": 53.6,
+      "p90F": 54.1,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-09": {
+      "averageF": 52.2,
+      "p10F": 49.5,
+      "p25F": 50.9,
+      "medianF": 52.7,
+      "p75F": 53.6,
+      "p90F": 54.1,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-10": {
+      "averageF": 51.7,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 51.8,
+      "p75F": 53.6,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-11": {
+      "averageF": 51.6,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 51.8,
+      "p75F": 53.4,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-12": {
+      "averageF": 51.5,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 51.8,
+      "p75F": 52.7,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-13": {
+      "averageF": 51.3,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 50.9,
+      "p75F": 52.7,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-14": {
+      "averageF": 51.2,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 51.4,
+      "p75F": 52.7,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-15": {
+      "averageF": 51,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 50,
+      "p75F": 52.3,
+      "p90F": 53.6,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-16": {
+      "averageF": 50.9,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 50.5,
+      "p75F": 51.8,
+      "p90F": 53.3,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-17": {
+      "averageF": 50.9,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 50.9,
+      "p75F": 51.8,
+      "p90F": 52.7,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-18": {
+      "averageF": 50.6,
+      "p10F": 49.1,
+      "p25F": 50,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-19": {
+      "averageF": 50.4,
+      "p10F": 48.3,
+      "p25F": 50,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-20": {
+      "averageF": 50.2,
+      "p10F": 47.3,
+      "p25F": 49.1,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-21": {
+      "averageF": 50,
+      "p10F": 47.3,
+      "p25F": 48.9,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-22": {
+      "averageF": 50,
+      "p10F": 47.3,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-23": {
+      "averageF": 50,
+      "p10F": 47.3,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-24": {
+      "averageF": 49.8,
+      "p10F": 47.3,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 51.8,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-25": {
+      "averageF": 49.8,
+      "p10F": 47.2,
+      "p25F": 48.2,
+      "medianF": 50.5,
+      "p75F": 51.1,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-26": {
+      "averageF": 49.5,
+      "p10F": 46.5,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 50.9,
+      "p90F": 51.8,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-27": {
+      "averageF": 49.3,
+      "p10F": 46.4,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 50.9,
+      "p90F": 51.5,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-28": {
+      "averageF": 49.2,
+      "p10F": 46.4,
+      "p25F": 48.2,
+      "medianF": 50,
+      "p75F": 50.9,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-29": {
+      "averageF": 48.8,
+      "p10F": 45.8,
+      "p25F": 48.2,
+      "medianF": 49.6,
+      "p75F": 50.9,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-30": {
+      "averageF": 48.6,
+      "p10F": 45.7,
+      "p25F": 47.3,
+      "medianF": 49.1,
+      "p75F": 50.9,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "10-31": {
+      "averageF": 48.5,
+      "p10F": 45.7,
+      "p25F": 47.3,
+      "medianF": 49.1,
+      "p75F": 50.5,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-01": {
+      "averageF": 48.3,
+      "p10F": 45.7,
+      "p25F": 47.3,
+      "medianF": 48.2,
+      "p75F": 50,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-02": {
+      "averageF": 48.2,
+      "p10F": 46.4,
+      "p25F": 47.3,
+      "medianF": 48.2,
+      "p75F": 49.8,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-03": {
+      "averageF": 47.9,
+      "p10F": 45.6,
+      "p25F": 46.6,
+      "medianF": 48.2,
+      "p75F": 49.1,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-04": {
+      "averageF": 47.7,
+      "p10F": 45.5,
+      "p25F": 46.4,
+      "medianF": 47.3,
+      "p75F": 49.1,
+      "p90F": 50.9,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-05": {
+      "averageF": 47.4,
+      "p10F": 45.5,
+      "p25F": 46.4,
+      "medianF": 47.3,
+      "p75F": 48.2,
+      "p90F": 50.5,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-06": {
+      "averageF": 47.1,
+      "p10F": 45,
+      "p25F": 46.4,
+      "medianF": 47.3,
+      "p75F": 48.2,
+      "p90F": 49.3,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-07": {
+      "averageF": 46.3,
+      "p10F": 44.1,
+      "p25F": 45.5,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 48.2,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-08": {
+      "averageF": 45.7,
+      "p10F": 42.3,
+      "p25F": 44.6,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-09": {
+      "averageF": 45.5,
+      "p10F": 41.9,
+      "p25F": 44.6,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-10": {
+      "averageF": 45.1,
+      "p10F": 41.4,
+      "p25F": 42.8,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.3,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-11": {
+      "averageF": 44.8,
+      "p10F": 40.6,
+      "p25F": 41.9,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.8,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-12": {
+      "averageF": 44.6,
+      "p10F": 40.5,
+      "p25F": 41.9,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-13": {
+      "averageF": 44.6,
+      "p10F": 40.5,
+      "p25F": 41.9,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-14": {
+      "averageF": 44.8,
+      "p10F": 40.4,
+      "p25F": 41.7,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.9,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-15": {
+      "averageF": 44.9,
+      "p10F": 41,
+      "p25F": 42.3,
+      "medianF": 46.4,
+      "p75F": 47.3,
+      "p90F": 47.3,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-16": {
+      "averageF": 44.5,
+      "p10F": 39.7,
+      "p25F": 42.6,
+      "medianF": 46.4,
+      "p75F": 46.4,
+      "p90F": 47.3,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-17": {
+      "averageF": 44.4,
+      "p10F": 39.7,
+      "p25F": 42.8,
+      "medianF": 46,
+      "p75F": 46.4,
+      "p90F": 47,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-18": {
+      "averageF": 44.1,
+      "p10F": 39.6,
+      "p25F": 42.8,
+      "medianF": 45.5,
+      "p75F": 46.4,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-19": {
+      "averageF": 43.9,
+      "p10F": 39.3,
+      "p25F": 42.8,
+      "medianF": 45.1,
+      "p75F": 46.4,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-20": {
+      "averageF": 43.5,
+      "p10F": 39.2,
+      "p25F": 41.9,
+      "medianF": 44.6,
+      "p75F": 46.4,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-21": {
+      "averageF": 42.9,
+      "p10F": 38.3,
+      "p25F": 39.9,
+      "medianF": 42.8,
+      "p75F": 46.4,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-22": {
+      "averageF": 42.3,
+      "p10F": 38.1,
+      "p25F": 39.2,
+      "medianF": 42.8,
+      "p75F": 45.5,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-23": {
+      "averageF": 41.8,
+      "p10F": 37.2,
+      "p25F": 38.8,
+      "medianF": 42.8,
+      "p75F": 44.6,
+      "p90F": 46.4,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-24": {
+      "averageF": 41.3,
+      "p10F": 36.5,
+      "p25F": 38.8,
+      "medianF": 41,
+      "p75F": 44.2,
+      "p90F": 45.7,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-25": {
+      "averageF": 41.1,
+      "p10F": 36.4,
+      "p25F": 39,
+      "medianF": 40.6,
+      "p75F": 43.9,
+      "p90F": 45.5,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-26": {
+      "averageF": 40.8,
+      "p10F": 35.7,
+      "p25F": 38.5,
+      "medianF": 41,
+      "p75F": 43.5,
+      "p90F": 45.4,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-27": {
+      "averageF": 40.6,
+      "p10F": 35.6,
+      "p25F": 38.1,
+      "medianF": 41,
+      "p75F": 42.8,
+      "p90F": 44.3,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-28": {
+      "averageF": 40.8,
+      "p10F": 35.6,
+      "p25F": 39.2,
+      "medianF": 41.5,
+      "p75F": 42.8,
+      "p90F": 44.2,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-29": {
+      "averageF": 41,
+      "p10F": 35.6,
+      "p25F": 39.7,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.6,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "11-30": {
+      "averageF": 41,
+      "p10F": 35.6,
+      "p25F": 40.1,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.6,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-01": {
+      "averageF": 41.1,
+      "p10F": 36.1,
+      "p25F": 40.1,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.1,
+      "historicalYears": 4,
+      "sampleCount": 27,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-02": {
+      "averageF": 41.3,
+      "p10F": 37,
+      "p25F": 41,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-03": {
+      "averageF": 41.5,
+      "p10F": 38.3,
+      "p25F": 41,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.2,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-04": {
+      "averageF": 41.6,
+      "p10F": 39.2,
+      "p25F": 40.1,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.2,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-05": {
+      "averageF": 41.4,
+      "p10F": 38.7,
+      "p25F": 40.1,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 44.2,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-06": {
+      "averageF": 41.3,
+      "p10F": 38.3,
+      "p25F": 39.2,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-07": {
+      "averageF": 41.2,
+      "p10F": 38.3,
+      "p25F": 39.2,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-08": {
+      "averageF": 41.1,
+      "p10F": 38.3,
+      "p25F": 39.2,
+      "medianF": 41.9,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-09": {
+      "averageF": 40.9,
+      "p10F": 38.3,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-10": {
+      "averageF": 40.6,
+      "p10F": 37.8,
+      "p25F": 38.3,
+      "medianF": 40.1,
+      "p75F": 42.8,
+      "p90F": 43.7,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-11": {
+      "averageF": 40.6,
+      "p10F": 37.4,
+      "p25F": 38.3,
+      "medianF": 41,
+      "p75F": 42.6,
+      "p90F": 43.3,
+      "historicalYears": 4,
+      "sampleCount": 26,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-12": {
+      "averageF": 40.7,
+      "p10F": 37.4,
+      "p25F": 38.3,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-13": {
+      "averageF": 40.8,
+      "p10F": 37.4,
+      "p25F": 40.1,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 25,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-14": {
+      "averageF": 40.8,
+      "p10F": 37.7,
+      "p25F": 40.1,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-15": {
+      "averageF": 40.9,
+      "p10F": 37.8,
+      "p25F": 40.1,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-16": {
+      "averageF": 40.9,
+      "p10F": 37.4,
+      "p25F": 39.9,
+      "medianF": 41,
+      "p75F": 42.1,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-17": {
+      "averageF": 40.7,
+      "p10F": 37.4,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-18": {
+      "averageF": 40.6,
+      "p10F": 37.4,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 23,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-19": {
+      "averageF": 40.6,
+      "p10F": 37.4,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-20": {
+      "averageF": 40.4,
+      "p10F": 37.4,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42.8,
+      "historicalYears": 4,
+      "sampleCount": 21,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-21": {
+      "averageF": 40.4,
+      "p10F": 37.4,
+      "p25F": 39,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 42,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-22": {
+      "averageF": 40.5,
+      "p10F": 37.4,
+      "p25F": 39.7,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-23": {
+      "averageF": 40.3,
+      "p10F": 37.2,
+      "p25F": 39.2,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-24": {
+      "averageF": 40.1,
+      "p10F": 36.5,
+      "p25F": 38.3,
+      "medianF": 41,
+      "p75F": 41.9,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 19,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-25": {
+      "averageF": 39.5,
+      "p10F": 36.4,
+      "p25F": 37.2,
+      "medianF": 40.6,
+      "p75F": 41.9,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-26": {
+      "averageF": 39,
+      "p10F": 36.5,
+      "p25F": 36.7,
+      "medianF": 39.2,
+      "p75F": 41,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-27": {
+      "averageF": 38.6,
+      "p10F": 36.5,
+      "p25F": 36.5,
+      "medianF": 37.8,
+      "p75F": 41,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 24,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-28": {
+      "averageF": 38.4,
+      "p10F": 36.5,
+      "p25F": 36.5,
+      "medianF": 37.4,
+      "p75F": 39.2,
+      "p90F": 41.9,
+      "historicalYears": 4,
+      "sampleCount": 22,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-29": {
+      "averageF": 38,
+      "p10F": 36.4,
+      "p25F": 36.5,
+      "medianF": 37.4,
+      "p75F": 39.2,
+      "p90F": 41.1,
+      "historicalYears": 4,
+      "sampleCount": 20,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-30": {
+      "averageF": 37.7,
+      "p10F": 36.1,
+      "p25F": 36.5,
+      "medianF": 37.4,
+      "p75F": 39.2,
+      "p90F": 39.2,
+      "historicalYears": 4,
+      "sampleCount": 16,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    },
+    "12-31": {
+      "averageF": 37.5,
+      "p10F": 35.7,
+      "p25F": 36.5,
+      "medianF": 37.4,
+      "p75F": 38.5,
+      "p90F": 39.2,
+      "historicalYears": 4,
+      "sampleCount": 12,
+      "years": [
+        1981,
+        1982,
+        1983,
+        1985
+      ]
+    }
+  }
+}

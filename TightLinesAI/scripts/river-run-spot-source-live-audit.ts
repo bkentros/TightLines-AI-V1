@@ -20,6 +20,14 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "dnr.wisconsin.gov",
   "www.village.thiensville.wi.us",
   "www.villageofgraftonwi.gov",
+  "www.auburnwa.gov",
+  "www.cityofpuyallup.org",
+  "www.puyallupwa.gov",
+  "www.co.cowlitz.wa.us",
+  "www.kentwa.gov",
+  "www.mylongview.com",
+  "www.mytpu.org",
+  "wdfw.wa.gov",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =

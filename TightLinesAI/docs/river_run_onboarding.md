@@ -1,7 +1,7 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.0\
+**Version:** 3.1\
 **Established:** 2026-08-30\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
 and each supported migratory run
@@ -19,11 +19,15 @@ strength, endpoint, gauge reach, or Activity tuning.
 
 ## 1. Current product contract
 
-The report has three public reads, in this order:
+The report has three interpretive public reads, in this order:
 
 1. Migration Stage
 2. Activity Outlook
 3. Seasonal Presence
+
+Fish Counts is an optional fourth, observational primitive when an audited
+facility feed exists for the selected river and species. It appears below Gauge
+Read and above Spot Finder/the interpretive reads. It is never scored.
 
 Gauge Read appears above the reads and is unscored. When a representative
 hydraulic source has accepted bands, Gauge Read contains compact **Fishing
@@ -31,15 +35,15 @@ Shape** context. Spot Finder appears between Gauge Read and the reads only when
 an audited fishing-access inventory matches the selected river, state, species,
 and migration corridor.
 
-| Surface           | Owns                                                                                               | Must not claim                                                                |
-| ----------------- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Gauge Read        | Accepted current measurements, age, trend, historical date context, station, and represented reach | Whole-river conditions, fish location, abundance, safety, or access           |
-| Fishing Shape     | Workability of the represented hydraulic reach if fish are present                                 | Abundance, responsiveness, access, safety, or the whole river                 |
-| Spot Finder       | Broad stage-appropriate run sections and source-listed public fishing access                       | A best spot, live fish location, parking legality, road status, or safe entry |
-| Migration Stage   | Fixed researched seasonal phase                                                                    | Live movement, abundance, responsiveness, or catch probability                |
-| Seasonal Zone     | Calendar-based orientation inside the accessible migration corridor                                | A live location report or individual access recommendation                    |
-| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present                                 | Abundance, migration progress, feeding proof, or catch probability            |
-| Seasonal Presence | Historical seasonal presence relative to this river/species ceiling                                | A fish count, today's movement, bite quality, or current conditions           |
+| Surface           | Owns                                                                                                                    | Must not claim                                                                                                        |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Gauge Read        | Accepted current measurements, age, trend, historical date context, station, and represented reach                      | Whole-river conditions, fish location, abundance, safety, or access                                                   |
+| Fish Counts       | Fresh official observations at a named rack, trap, ladder, weir, or separator, with count period and facility semantics | Total run size, fish outside the observed facility scope, live location, availability, catch rate, or a scoring input |
+| Fishing Shape     | Workability of the represented hydraulic reach if fish are present                                                      | Abundance, responsiveness, access, safety, or the whole river                                                         |
+| Spot Finder       | Engine-derived seasonal-zone sections and source-listed public fishing access                                           | A best spot, live fish location, parking legality, road status, or safe entry                                         |
+| Migration Stage   | Fixed researched seasonal phase                                                                                         | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
+| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present                                                      | Abundance, migration progress, feeding proof, or catch probability                                                    |
+| Seasonal Presence | Historical seasonal presence relative to this river/species ceiling                                                     | A fish count, today's movement, bite quality, or current conditions                                                   |
 
 Do not author or expose `WHERE TO START`, `WHY THIS READ`, `GUIDE'S READ`, a
 standalone Fishability tab, public Push, or public Migration Timing. Legacy API
@@ -50,14 +54,19 @@ Public copy is shared or derived. New onboarding normally authors only durable
 river/source limitations, official regulation reminders, reach labels, Spot
 Finder access facts, and evidence notes.
 
+Fish Counts is capability-gated per river/species. It never changes Migration
+Stage, Activity Outlook, Seasonal Presence, Seasonal Zone, or Fishing Shape.
+Seasonal Zone remains an engine-owned calendar result, but Spot Finder is its
+only public presentation surface. The Stage primitive presents timing only.
+
 ## 2. Authority, safety, and stop rules
 
 Use this evidence hierarchy:
 
 1. Current state fish-and-wildlife agency and tribal co-manager material and
    regulations.
-2. USGS, NOAA, USFWS, USACE, FERC, other tribal authorities, documented
-   facility operators, and public land managers.
+2. USGS, NOAA, USFWS, USACE, FERC, other tribal authorities, documented facility
+   operators, and public land managers.
 3. Peer-reviewed research and official technical reports.
 4. Established watershed or conservation organizations for facts they directly
    monitor or manage.
@@ -158,8 +167,8 @@ Record these fields once per canonical river:
 For multi-state rivers, one canonical hydrologic river may have state-specific
 presentation reaches and regulation reminders. Scoring and run identity remain
 attached to the canonical river. Region is a stable snake_case evidence scope,
-not a public availability gate; the river and every biology profile it uses
-must declare the same region.
+not a public availability gate; the river and every biology profile it uses must
+declare the same region.
 
 When foundation locations are configured, record official name/aliases,
 coordinate and coordinate source/status, reach, kind, passage state, public
@@ -265,6 +274,24 @@ Use this capability decision table:
 | Metrics exist but sources do not represent/pair in the run reach | Display each with exact reach limitations | Only if hydraulics alone represent the Fishing Shape reach | Weather-only or unavailable; never silently combine them |
 | Compatible hydraulics, measured temperature, and weather         | Accepted metrics                          | Possible after band replay                                 | Observed-river after tuning and replay                   |
 
+### 5.1 Fish Counts source capability
+
+Enable Fish Counts only for a recurring official or operator-authorized feed
+whose observation process and update semantics are documented. Record provider,
+facility, source URL/endpoint, observation type (`hatchery_return`,
+`ladder_passage`, `weir_passage`, `trap_recovery`, or `separator_recovery`),
+eligible species, operating season, cadence, freshness limit, preliminary/final
+status, adult/jack and hatchery/natural categories, bypass/capture limitations,
+transport/recycling/recapture handling, revision behavior, and attribution.
+
+The public record must show count interval, observed-through date, report/update
+time, facility, included categories, freshness, direct source, and a permanent
+facility limitation. Never sum disposition columns into passage, merge adults
+and jacks without labeling, or count recycled fish twice. Facility returns are
+not whole-river abundance. Missing, stale, structurally changed,
+unreconciled-revision, or inactive-operation data fails closed without a number.
+A source link may remain while the numerical read is unavailable.
+
 ## 6. Fishing Shape decision
 
 Fishing Shape is internal Fishability scoring displayed compactly inside Gauge
@@ -300,6 +327,11 @@ Each section requires:
 - optional eligible species only when endpoints genuinely differ;
 - at least one source-listed fishing access.
 
+A river may expose an ordered subset such as `middle` + `upper` when the lower
+reach lacks defensible fishing access. Never relabel the first verified access
+as `lower` merely to satisfy a three-section shape. The orientation note must
+name every omitted corridor portion and why it failed closed.
+
 Each access requires stable ID/name, access kinds, concise factual detail,
 material caution, official or accepted land-manager URL, source locator
 instructions, source label, and verification date. Include every eligible access
@@ -308,7 +340,8 @@ in a recommended section; never rank an individual access.
 Shared recommendation logic:
 
 - one eligible section: every active phase recommends it;
-- two: Beginning lower; Building/Peak both; Tapering/Ending upper;
+- two: Beginning first audited section; Building/Peak both; Tapering/Ending
+  second audited section;
 - three or more: Beginning first; Building first two; Peak all; Tapering/Ending
   last two;
 - pre-run, post-run, missing stage, state mismatch, species mismatch, or
@@ -532,10 +565,11 @@ Implementation order:
 1. River profile/foundation and sources.
 2. Biology profile only if no existing profile genuinely fits.
 3. Hidden run profiles and configuration document.
-4. Spot Finder inventory when accepted.
-5. Registry/review-catalog wiring.
-6. Replays, fixtures, and audits.
-7. Public promotion only after acceptance and authorization.
+4. Fish Counts provider capability and parser when accepted.
+5. Spot Finder inventory when accepted.
+6. Registry/review-catalog wiring.
+7. Replays, fixtures, and audits.
+8. Public promotion only after acceptance and authorization.
 
 Use stable snake_case IDs and version configuration, presence curve, Activity
 rules, Fishing Shape bands, source data, and audit decisions. Reuse helpers only
@@ -558,7 +592,8 @@ npm run qa:river-run:onboarding
 npm run qa:river-run:onboarding-weather-activity
 ```
 
-Then run the appropriate full Activity and Fishing Shape replays, fixture
+Then run the appropriate full Activity and Fishing Shape replays, Fish Counts
+freshness/revision/duplicate/parser fixtures when configured, fixture
 generation/check, engine tests, copy/UI QA, Spot Finder audit, type checks, and
 production-shaped smoke for the affected configuration. Prefer generic scripts
 with `--run-id`; add a reusable generic path rather than another river-specific
@@ -592,6 +627,8 @@ A river is accepted only when:
   controlled tests pass;
 - Gauge Read/Fishing Shape/Spot Finder capabilities and fail-closed behavior are
   honest;
+- Fish Counts provider semantics, freshness, revisions, categories, recapture
+  handling, and non-scoring isolation pass when configured;
 - dossier-to-code reconciliation, configuration validation, fixtures, engine,
   copy, UI, and visual review pass;
 - owner acceptance is recorded and unresolved combinations remain hidden.

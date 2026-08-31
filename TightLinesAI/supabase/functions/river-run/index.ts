@@ -7,6 +7,7 @@ import {
   compareLocalDates,
   type ConditionsSuggestEvidenceByDate,
   fetchMonitorMyWatershedTemperature,
+  fetchRiverRunFishCount,
   fetchRiverRunWeatherSnapshot,
   fetchUsgsInstantaneousValues,
   fetchUsgsWaterTemperature,
@@ -53,6 +54,7 @@ import {
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
   type RiverLiveConditions,
+  type RiverRunFishCountRead,
   type RiverLiveMetricId,
   type RiverLiveSeasonalContext,
   type RiverProfile,
@@ -524,7 +526,7 @@ export async function handleRiverRunRequest(
   }
   try {
     const providerFetch = deps.fetchFn ?? fetch;
-    const [result, riverConditions] = await Promise.all([
+    const [result, riverConditions, fishCounts] = await Promise.all([
       readOrBuildSnapshot({
         client,
         river,
@@ -549,6 +551,12 @@ export async function handleRiverRunRequest(
         waterTemperatureObservationsBySource:
           deps.waterTemperatureObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
+      }),
+      fetchRiverRunFishCount({
+        river,
+        species: run.species,
+        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+        now: deps.now ?? new Date(),
       }),
     ]);
     const pushHistory = await resolvePushHistoryContext({
@@ -580,6 +588,7 @@ export async function handleRiverRunRequest(
         pushHistory,
         presentation,
         riverConditions,
+        fishCounts,
       }),
       accessTier: tier === "free" ? "free_trial" : "angler",
     });
@@ -737,7 +746,7 @@ async function handleOwnerReviewSnapshot(
   const providerFetch = deps.fetchFn ?? fetch;
 
   try {
-    const [result, riverConditions] = await Promise.all([
+    const [result, riverConditions, fishCounts] = await Promise.all([
       readOrBuildSnapshot({
         client,
         river,
@@ -763,6 +772,12 @@ async function handleOwnerReviewSnapshot(
           deps.waterTemperatureObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
       }),
+      fetchRiverRunFishCount({
+        river,
+        species: run.species,
+        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+        now,
+      }),
     ]);
     const pushHistory = await resolvePushHistoryContext({
       client,
@@ -778,6 +793,7 @@ async function handleOwnerReviewSnapshot(
       pushHistory,
       presentation,
       riverConditions,
+      fishCounts,
     }));
   } catch (error) {
     console.error("[river-run] owner-review snapshot failed", {
@@ -1919,6 +1935,7 @@ function shapeSnapshotResponse(input: {
     refreshSlot: RefreshSlot;
   };
   riverConditions: RiverLiveConditions;
+  fishCounts?: RiverRunFishCountRead;
 }) {
   const next = resolveNextConditionRefresh({
     localDate: input.timing.localDate,
@@ -1955,6 +1972,7 @@ function shapeSnapshotResponse(input: {
     activity: input.condition.activity,
     fishInRiver: input.dailySnapshot.fishInRiver,
     riverConditions: input.riverConditions,
+    fishCounts: input.fishCounts,
     gauge: input.condition.sourceMetrics.gauge,
     weather: input.condition.sourceMetrics.weather,
     waterTemperature: input.condition.sourceMetrics.waterTemperature,

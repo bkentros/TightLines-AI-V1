@@ -328,6 +328,7 @@ export function validateRiverProfile(
 
   validateHydraulicSources(river, issues);
   validateTemperatureSources(river, issues);
+  validateFishCountSources(river, issues);
   validateWeatherPoints(river, issues);
   validateRiverFoundation(river, issues);
   validateConditionRefreshSchedule(river, issues);
@@ -340,6 +341,49 @@ export function validateRiverProfile(
     publicVisible: valid,
     issues,
   };
+}
+
+function validateFishCountSources(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  if (river.fishCountSources == null) return;
+  const sourceIds = new Set<string>();
+  river.fishCountSources.forEach((source, index) => {
+    const field = `fishCountSources[${index}]`;
+    const allowedSpecies = ["chinook_salmon", "coho_salmon", "steelhead"];
+    if (
+      !hasText(source.sourceId) || sourceIds.has(source.sourceId) ||
+      !["WDFW_ESCAPEMENT", "TACOMA_POWER"].includes(source.provider) ||
+      !hasText(source.facilityName) ||
+      ![
+        "hatchery_return",
+        "ladder_passage",
+        "weir_passage",
+        "trap_recovery",
+        "separator_recovery",
+      ].includes(source.observationType) ||
+      !Array.isArray(source.eligibleSpecies) ||
+      source.eligibleSpecies.length === 0 ||
+      new Set(source.eligibleSpecies).size !== source.eligibleSpecies.length ||
+      source.eligibleSpecies.some((species) =>
+        !allowedSpecies.includes(species)
+      ) ||
+      !/^https:\/\//.test(source.sourceUrl) ||
+      !["daily", "weekly"].includes(source.updateCadence) ||
+      !hasNumber(source.maximumAgeHours) || source.maximumAgeHours <= 0 ||
+      !hasText(source.operatingSeason) || !hasText(source.representedReach) ||
+      !hasText(source.limitation) || !hasText(source.recapturePolicy) ||
+      !hasText(source.attribution)
+    ) {
+      issues.push(issue(
+        field,
+        "Fish-count sources require unique IDs, an official provider/URL, explicit facility semantics, species, cadence/freshness, and limitation/recapture notes.",
+        "config_source_invalid",
+      ));
+    }
+    sourceIds.add(source.sourceId);
+  });
 }
 
 function validateRiverFoundation(
@@ -826,19 +870,24 @@ function validateTemperatureSources(
   const historical = river.historicalWaterTemperatureSource;
   if (historical) {
     if (
-      historical.provider !== "USGS" || !hasText(historical.sourceId) ||
+      (historical.provider !== "USGS" &&
+        historical.provider !== "WA_ECOLOGY") ||
+      !hasText(historical.sourceId) ||
       !hasText(historical.siteId) || !hasText(historical.name) ||
       !hasText(historical.baselineVersion) || !hasText(historical.reachNotes) ||
       !hasText(historical.attribution) ||
       !Number.isInteger(historical.historicalStartYear) ||
       !Number.isInteger(historical.historicalEndYear) ||
       historical.historicalEndYear < historical.historicalStartYear ||
+      (historical.windowRadiusDays != null &&
+        historical.windowRadiusDays !== 0 &&
+        historical.windowRadiusDays !== 3) ||
       !historical.normals || Object.keys(historical.normals).length === 0
     ) {
       issues.push(
         issue(
           "historicalWaterTemperatureSource",
-          "Historical-only water temperature requires an audited USGS identity, fixed years, provenance, baseline version, and exact-date normals.",
+          "Historical-only water temperature requires an audited agency identity, fixed years, provenance, baseline version, an allowed calendar window, and calendar-date normals.",
           "temperature_source_invalid",
         ),
       );
@@ -857,7 +906,7 @@ function validateTemperatureSources(
         issues.push(
           issue(
             `historicalWaterTemperatureSource.normals.${monthDay}`,
-            "Historical exact-date water-temperature normals require ordered numeric statistics and at least two qualifying years.",
+            "Historical calendar-date water-temperature normals require ordered numeric statistics and at least two qualifying years.",
             "temperature_source_invalid",
           ),
         );
@@ -2435,7 +2484,10 @@ export function validateSpeciesBiologyProfile(
   }
   const response = profile?.environmentalResponse;
   if (
-    response?.risingFlow !== "supportive_within_fishable_bounds" ||
+    ![
+      "supportive_within_fishable_bounds",
+      "not_used_by_current_public_primitives",
+    ].includes(response?.risingFlow ?? "") ||
     response?.precipitation !== "precursor_only" ||
     response?.strongSignalRequiresMeasuredGaugeResponse !== true ||
     response?.peakFloodIsAutomaticallyPositive !== false
@@ -2443,7 +2495,7 @@ export function validateSpeciesBiologyProfile(
     issues.push(
       issue(
         "biologyProfile.environmentalResponse",
-        "Fall biology must keep rising flow bounded, rain precursor-only, and strong signals tied to measured gauge response.",
+        "Fall biology must either keep the legacy rising-flow field bounded or explicitly exclude it from current public primitives; rain remains precursor-only and strong legacy movement signals require a measured gauge response.",
         "config_invalid_value",
       ),
     );

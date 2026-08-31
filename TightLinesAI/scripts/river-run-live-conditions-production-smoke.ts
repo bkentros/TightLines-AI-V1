@@ -5,7 +5,7 @@ const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
 const expectedEngineVersion = "river-run-v1.16.0";
-const expectedDataVersion = "river-live-conditions-v4";
+const expectedDataVersion = "river-live-conditions-v5";
 const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   betsie: [],
@@ -187,6 +187,9 @@ const currentLiveRows = verifiedLiveRows.filter((row) =>
 const cachedRivers = new Set(
   currentLiveRows.map((row) => requiredString(row, "river_id")),
 );
+const expectedCachedRivers = new Set(
+  [...cachedRivers].filter((riverId) => riverId in expectedMetricsByRiver),
+);
 for (const riverId of Object.keys(expectedMetricsByRiver)) {
   if (!cachedRivers.has(riverId)) {
     throw new Error(
@@ -194,11 +197,11 @@ for (const riverId of Object.keys(expectedMetricsByRiver)) {
     );
   }
 }
-if (cachedRivers.size !== Object.keys(expectedMetricsByRiver).length) {
+if (expectedCachedRivers.size !== Object.keys(expectedMetricsByRiver).length) {
   throw new Error(
     `Expected current-version cache coverage for ${
       Object.keys(expectedMetricsByRiver).length
-    } rivers, received ${cachedRivers.size}.`,
+    } public rivers, received ${expectedCachedRivers.size}.`,
   );
 }
 const seasonalPairs = new Set(

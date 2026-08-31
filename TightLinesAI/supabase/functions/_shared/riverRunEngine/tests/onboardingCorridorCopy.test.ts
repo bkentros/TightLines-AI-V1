@@ -112,6 +112,18 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
       assertMatch(display.whereToStart, /Box Car Hole/i, run.runId);
       assertMatch(display.whereToStart, /Mays Ledges/i, run.runId);
       assertMatch(display.whereToStart, /500-foot refuge/i, run.runId);
+    } else if (run.riverId === "green") {
+      assertMatch(display.detail, /municipal watershed/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River/i, run.runId);
+    } else if (run.riverId === "puyallup") {
+      assertMatch(display.detail, /Carbon River confluence/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River/i, run.runId);
+    } else if (run.riverId === "cowlitz") {
+      assertMatch(display.detail, /Barrier Dam exclusion/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River/i, run.runId);
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

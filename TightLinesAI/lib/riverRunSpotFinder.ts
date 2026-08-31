@@ -14,14 +14,10 @@ export type RiverAccessSpecies =
 
 export type RiverAccessSectionPosition = "lower" | "middle" | "upper";
 
-export type RiverAccessRecommendationStage =
-  | "pre_run"
-  | "beginning"
-  | "building"
-  | "peak"
-  | "tapering"
-  | "ending"
-  | "post_run";
+export type RiverAccessSeasonalZone = {
+  status: "not_started" | "active" | "complete";
+  foundationReachIds: readonly string[];
+};
 
 export type RiverAccessSpot = {
   id: string;
@@ -66,51 +62,33 @@ export type RiverSpotFinder = {
 };
 
 export type RiverSpotFinderRecommendedSections = {
-  /** Broad sections recommended from the fixed migration phase. */
+  /** Audited sections overlapping the engine-owned seasonal zone. */
   recommendedSections: RiverAccessSection[];
-  /** Eligible access sections outside the broad recommendation. */
+  /** Audited access sections outside the active seasonal zone. */
   otherSections: RiverAccessSection[];
-  /** False before the run, after completion, or without a known stage. */
+  /** False outside an active run or when no audited section overlaps. */
   hasRecommendation: boolean;
 };
 
-/**
- * Produces a broad, copy-free section recommendation from the migration phase.
- * Sections are ordered downstream to upstream by the audited inventory. The
- * resolver recommends every access in selected sections and never ranks an
- * individual location or infers live fish presence.
- */
+/** Maps the engine's single seasonal-zone result onto audited access sections. */
 export function resolveRiverSpotFinderRecommendedSections(
   finder: Pick<RiverSpotFinder, "sections">,
-  stage?: RiverAccessRecommendationStage,
+  seasonalZone?: RiverAccessSeasonalZone,
 ): RiverSpotFinderRecommendedSections {
-  if (!stage || stage === "pre_run" || stage === "post_run") {
+  if (
+    seasonalZone?.status !== "active" ||
+    seasonalZone.foundationReachIds.length === 0
+  ) {
     return {
       recommendedSections: [],
       otherSections: finder.sections,
       hasRecommendation: false,
     };
   }
-
-  const sectionCount = finder.sections.length;
-  let recommendedSections: RiverAccessSection[];
-  switch (stage) {
-    case "beginning":
-      recommendedSections = finder.sections.slice(0, 1);
-      break;
-    case "building":
-      recommendedSections = finder.sections.slice(0, Math.min(2, sectionCount));
-      break;
-    case "peak":
-      recommendedSections = finder.sections;
-      break;
-    case "tapering":
-    case "ending":
-      recommendedSections = sectionCount >= 3
-        ? finder.sections.slice(-2)
-        : finder.sections.slice(-1);
-      break;
-  }
+  const activeReachIds = new Set(seasonalZone.foundationReachIds);
+  const recommendedSections = finder.sections.filter((section) =>
+    section.foundationReachIds.some((reachId) => activeReachIds.has(reachId))
+  );
   if (recommendedSections.length === 0) {
     return {
       recommendedSections: [],
@@ -160,6 +138,8 @@ const WI_BRULE_ACCESS_REPORT =
 const WI_BRULE_PADDLING =
   "https://dnr.wisconsin.gov/topic/StateForests/bruleriver/recreation/paddle";
 const WI_FISHING_RULES = "https://dnr.wisconsin.gov/topic/Fishing/seasons";
+const WA_EMERGENCY_RULES =
+  "https://wdfw.wa.gov/fishing/regulations/emergency-rules";
 
 const DNR_FACILITY_SEARCH_NAMES: Record<string, string> = {
   betsie_river_road: "River Road",
@@ -1164,9 +1144,16 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Gravel public launch above Sixth Street; Recreation Passport required.",
             "Site may flood in spring.",
           ),
-          dnrSpot("grand_ada", "Ada Access", 42.95590346, -85.47664864, [
-            "boat_ramp",
-          ], "Gravel public launch above Sixth Street; Recreation Passport required."),
+          dnrSpot(
+            "grand_ada",
+            "Ada Access",
+            42.95590346,
+            -85.47664864,
+            [
+              "boat_ramp",
+            ],
+            "Gravel public launch above Sixth Street; Recreation Passport required.",
+          ),
           dnrSpot(
             "grand_saranac",
             "Saranac Access",
@@ -1788,6 +1775,203 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
     ],
   },
+  green: {
+    riverId: "green",
+    riverName: "Green/Duwamish River",
+    supportedStates: ["WA"],
+    orientationNote:
+      "Only audited public fishing access is listed. The tidal Duwamish has no accepted Spot Finder entry here, and the Highway 18–Auburn-Black Diamond Road closure is omitted. Upper-river access is withheld because its salmon season does not align with the full fall run window.",
+    safetyLink: {
+      label: "CHECK CURRENT WDFW EMERGENCY RULES →",
+      url: WA_EMERGENCY_RULES,
+    },
+    sections: [
+      {
+        id: "green_lower_audited",
+        foundationReachIds: ["green_middle_auburn"],
+        position: "lower",
+        rangeLabel:
+          "Tukwila International Boulevard to South 212th Street Bridge",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          namedSpot(
+            "green_three_friends",
+            "Three Friends Fishing Hole",
+            "19970 Russell Road, Kent, WA 98032",
+            ["shore_fishing", "walk_in"],
+            "City of Kent riverfront fishing park with Green River Trail access, parking, seasonal restrooms, and dawn-to-dusk hours.",
+            "City of Kent Parks",
+            "https://www.kentwa.gov/departments/kent-parks/parks-places/parks-trails/three-friends-fishing-hole",
+            "Current 2026 emergency rules close Green River Chinook retention through December 14. Check the selected species, current reach season, and posted park conditions before fishing.",
+          ),
+        ],
+      },
+      {
+        id: "green_middle_audited",
+        foundationReachIds: ["green_middle_auburn"],
+        position: "middle",
+        rangeLabel: "South 212th Street Bridge to Highway 18 Eastbound Bridge",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          namedSpot(
+            "green_fenster",
+            "Fenster Nature Park",
+            "2033 4th Street SE, Auburn, WA 98002",
+            ["shore_fishing", "walk_in"],
+            "City of Auburn public fishing access with a gravel trail and direct Green River access; park hours are dawn to dusk.",
+            "City of Auburn Parks",
+            "https://www.auburnwa.gov/cms/one.aspx?pageId=15353473&portalId=11470638",
+            "The river is closed from the Highway 18 Eastbound Bridge to Auburn-Black Diamond Road. Stay downstream of that boundary and obey posted bank restrictions.",
+          ),
+        ],
+      },
+    ],
+  },
+  puyallup: {
+    riverId: "puyallup",
+    riverName: "Puyallup River",
+    supportedStates: ["WA"],
+    orientationNote:
+      "No lower-river public sport-fishing access survived the source audit. The first listed section begins above the signed Clarks Creek exclusion; Tacoma shoreline material says the lower river has no general-public waterfront facilities.",
+    safetyLink: {
+      label: "CHECK CURRENT WDFW EMERGENCY RULES →",
+      url: WA_EMERGENCY_RULES,
+    },
+    sections: [
+      {
+        id: "puyallup_middle_audited",
+        foundationReachIds: ["puyallup_middle"],
+        position: "middle",
+        rangeLabel: "400 feet upstream of Clarks Creek to East Main Bridge",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourceMappedSpot(
+            "puyallup_riverwalk",
+            "Puyallup Riverwalk Fishing Access",
+            ["shore_fishing", "walk_in"],
+            "City riverfront trail with gated pedestrian access to the riverbank and multiple fishing-access locations.",
+            "City of Puyallup shoreline inventory",
+            "https://www.puyallupwa.gov/DocumentCenter/View/1552/Shoreline-Inventory-and-Characterization-PDF",
+            "On document page 50, find “Riverfront Trail”; the source describes riverbank gates and fishing access along the trail.",
+            "The river is closed from 400 feet below to 400 feet above Clarks Creek. Use only signed public gates outside that exclusion; do not cross levee fencing elsewhere.",
+          ),
+        ],
+      },
+      {
+        id: "puyallup_upper_audited",
+        foundationReachIds: ["puyallup_upper_salmon"],
+        position: "upper",
+        rangeLabel: "East Main Bridge to Carbon River",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "puyallup_weiss",
+            "Weiss",
+            47.15096147932,
+            -122.2212825344,
+            ["boat_ramp", "shore_fishing"],
+            "WDFW water-access area with parking and an unimproved boat ramp; vehicle access is limited to regulated sport-fishing seasons.",
+            "Washington Department of Fish and Wildlife",
+            "https://wdfw.wa.gov/places-to-go/water-access-sites/weiss-220",
+            "Verify the ramp and river approach on arrival. Glacial flow can be swift, cold, silty, and hazardous.",
+          ),
+        ],
+      },
+    ],
+  },
+  cowlitz: {
+    riverId: "cowlitz",
+    riverName: "Cowlitz River",
+    supportedStates: ["WA"],
+    orientationNote:
+      "Sections follow the supported mouth-to-Barrier corridor. Under the 2026-27 permanent fall rules, Chinook shown here are release-only context; verify current emergency rules before fishing. The upper section stops outside every posted Barrier Dam and hatchery exclusion, and public access does not authorize fishing inside a closed boundary.",
+    safetyLink: {
+      label: "CHECK CURRENT WDFW EMERGENCY RULES →",
+      url: WA_EMERGENCY_RULES,
+    },
+    sections: [
+      {
+        id: "cowlitz_lower_audited",
+        foundationReachIds: ["cowlitz_lower"],
+        position: "lower",
+        rangeLabel: "Mouth boundary markers to Lexington Bridge",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          namedSpot(
+            "cowlitz_gerhart_gardens",
+            "Gerhart Gardens Park",
+            "200 Freedom Way, Longview, WA 98632",
+            ["shore_fishing", "boat_ramp", "walk_in"],
+            "City of Longview park on the Cowlitz with fishing, a boat launch, parking-area access, and restrooms.",
+            "City of Longview Parks",
+            "https://www.mylongview.com/Facilities/Facility/Details/Gerhart-Gardens-Park-9",
+            "Confirm launch condition and posted park rules before using the river edge.",
+          ),
+        ],
+      },
+      {
+        id: "cowlitz_middle_audited",
+        foundationReachIds: ["cowlitz_middle"],
+        position: "middle",
+        rangeLabel: "Lexington Bridge to Mill Creek",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          namedSpot(
+            "cowlitz_cook_ferry",
+            "Cook Ferry Trail System",
+            "Cook Ferry Road off Westside Highway, Castle Rock, WA",
+            ["shore_fishing", "walk_in"],
+            "Cowlitz County trail system with 2.5 miles along the river, three trailheads, parking, a restroom, and officially described fishing opportunities.",
+            "Cowlitz County Parks",
+            "https://www.co.cowlitz.wa.us/2280/Cook-Ferry-Trail-System",
+            "Use designated trailheads and parking; the listing does not authorize entry onto adjoining property.",
+          ),
+        ],
+      },
+      {
+        id: "cowlitz_upper_audited",
+        foundationReachIds: ["cowlitz_barrier_reach"],
+        position: "upper",
+        rangeLabel: "Mill Creek to posted markers below Barrier Dam",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "cowlitz_wallace_bar",
+            "Wallace Bar",
+            46.4061169989,
+            -122.93182599982,
+            ["shore_fishing", "walk_in"],
+            "WDFW sport-fishing easement with parking and a signed 25-foot public strip extending along nearly two miles of riverbank.",
+            "Washington Department of Fish and Wildlife",
+            "https://wdfw.wa.gov/places-to-go/water-access-sites/wallace-bar-323",
+            "This is a narrow easement on private property. Remain inside the signed WDFW strip; the adjacent lake and neighboring land are not public.",
+          ),
+          sourcedCoordinateSpot(
+            "cowlitz_blue_creek",
+            "Blue Creek",
+            46.48387492385,
+            -122.73107350254,
+            ["fishing_platform", "walk_in"],
+            "WDFW-listed Cowlitz Trout Hatchery access with parking and three ADA fishing platforms, managed by Tacoma Power.",
+            "Washington Department of Fish and Wildlife",
+            "https://wdfw.wa.gov/places-to-go/water-access-sites/blue-creek-268",
+            "A 100-foot hatchery-outfall exclusion applies except within the posted disability-access exception. Obey every marker and current eligibility rule.",
+          ),
+          sourcedCoordinateSpot(
+            "cowlitz_barrier_dam",
+            "Barrier Dam",
+            46.51591932042,
+            -122.6373703957,
+            ["boat_ramp", "fishing_platform"],
+            "Tacoma Power access with parking, restrooms, a no-fee launch, and an ADA-accessible fishing ramp at the terminal lower-river facility.",
+            "Tacoma Public Utilities",
+            "https://www.mytpu.org/community-environment-parks/hydropower-natural-resources/cowlitz-river-project/cowlitz-fisheries-programs/cowlitz-salmon-hatchery/",
+            "Fishing is closed from 400 feet or posted markers below Barrier Dam through the upstream intake boundary. Use only the posted fishing area outside exclusions and observe seasonal access hours.",
+          ),
+        ],
+      },
+    ],
+  },
 };
 
 export function riverRunSpotFinderForRiver(
@@ -1798,7 +1982,9 @@ export function riverRunSpotFinderForRiver(
   if (!riverId) return undefined;
   const finder = RIVER_RUN_SPOT_FINDERS[riverId];
   if (!finder || finder.riverRunAligned === false) return undefined;
-  if (state && finder.supportedStates && !finder.supportedStates.includes(state)) {
+  if (
+    state && finder.supportedStates && !finder.supportedStates.includes(state)
+  ) {
     return undefined;
   }
   const sections = species

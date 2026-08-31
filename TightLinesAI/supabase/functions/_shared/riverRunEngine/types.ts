@@ -373,14 +373,71 @@ export type WaterTemperatureSourceConfig = {
   attribution: string;
 };
 
+export type FishCountObservationType =
+  | "hatchery_return"
+  | "ladder_passage"
+  | "weir_passage"
+  | "trap_recovery"
+  | "separator_recovery";
+
+export type FishCountSourceConfig = {
+  sourceId: string;
+  provider: "WDFW_ESCAPEMENT" | "TACOMA_POWER";
+  facilityName: string;
+  /** Exact label used in the provider document when it differs from public copy. */
+  reportFacilityName?: string;
+  observationType: FishCountObservationType;
+  eligibleSpecies: Array<"chinook_salmon" | "coho_salmon" | "steelhead">;
+  sourceUrl: string;
+  updateCadence: "daily" | "weekly";
+  maximumAgeHours: number;
+  preliminary: boolean;
+  operatingSeason: string;
+  representedReach: string;
+  limitation: string;
+  recapturePolicy: string;
+  attribution: string;
+};
+
+export type RiverRunFishCountRead = {
+  status: "available" | "stale" | "unavailable";
+  sourceId: string;
+  provider: FishCountSourceConfig["provider"];
+  facilityName: string;
+  observationType: FishCountObservationType;
+  species: "chinook_salmon" | "coho_salmon" | "steelhead";
+  period: "weekly" | "season_to_date";
+  adultTotal: number | null;
+  jackTotal: number | null;
+  observedTotal: number | null;
+  observedThrough?: string;
+  reportDate?: string;
+  freshness: "fresh" | "stale" | "missing";
+  preliminary: boolean;
+  categoriesIncluded: string[];
+  operatingDays?: number;
+  sourceUrl: string;
+  attribution: string;
+  representedReach: string;
+  limitation: string;
+  unavailableReason?:
+    | "not_configured"
+    | "not_reported"
+    | "provider_failed"
+    | "parser_changed";
+  dataVersion: string;
+};
+
 export type HistoricalWaterTemperatureSourceConfig = {
   sourceId: string;
-  provider: "USGS";
+  provider: "USGS" | "WA_ECOLOGY";
   siteId: string;
   name: string;
   historicalStartYear: number;
   historicalEndYear: number;
   baselineVersion: string;
+  /** Calendar-day radius used to pool archival observations; zero means exact date. */
+  windowRadiusDays?: 0 | 3;
   reachNotes: string;
   attribution: string;
   normals: Record<string, {
@@ -435,6 +492,8 @@ export type RiverLiveSeasonalContext = {
     | "usgs_statistics"
     | "monitor_my_watershed_history"
     | "usgs_approved_exact_date_archive"
+    | "usgs_approved_calendar_window_archive"
+    | "state_agency_calendar_window_archive"
     | "usgs_approved_fixed_period_archive";
 };
 
@@ -470,7 +529,7 @@ export type RiverLiveConditionMetric = {
   approvalStatus?: string;
   qualifier?: string;
   sourceId: string;
-  provider: "USGS" | "MONITOR_MY_WATERSHED";
+  provider: "USGS" | "MONITOR_MY_WATERSHED" | "WA_ECOLOGY";
   stationName: string;
   siteId: string;
   representedReach: string;
@@ -643,6 +702,8 @@ export type RiverProfile = {
   mouthLon: number;
   hydraulicSources: HydraulicSourceConfig[];
   waterTemperatureSources: WaterTemperatureSourceConfig[];
+  /** Optional official facility observations; never an input to scored primitives. */
+  fishCountSources?: FishCountSourceConfig[];
   /** Optional historical-only context; never a current measured reading. */
   historicalWaterTemperatureSource?: HistoricalWaterTemperatureSourceConfig;
   /** Optional fixed-era flow context used when the modern gauge regime is the accepted comparison. */
@@ -691,7 +752,9 @@ export type SpeciesBiologyProfile = {
     migrationBarrierF: number;
   };
   environmentalResponse: {
-    risingFlow: "supportive_within_fishable_bounds";
+    risingFlow:
+      | "supportive_within_fishable_bounds"
+      | "not_used_by_current_public_primitives";
     precipitation: "precursor_only";
     strongSignalRequiresMeasuredGaugeResponse: true;
     peakFloodIsAutomaticallyPositive: false;
