@@ -1,6 +1,7 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import {
   createRiverRunConfigurationDocument,
+  GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   listVisibleRiverRuns,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
@@ -10,6 +11,69 @@ import {
   validateRiverProfile,
   validateRunProfile,
 } from "../index.ts";
+
+Deno.test("Washington rivers and matching regional biology pass the national contract", () => {
+  const river = {
+    ...PERE_MARQUETTE_RIVER_PROFILE,
+    riverId: "washington_fixture",
+    displayName: "Washington Fixture River",
+    state: "WA" as const,
+    region: "pacific_northwest",
+    timezone: "America/Los_Angeles",
+    mouthLat: 47.5,
+    mouthLon: -122.3,
+    presentationContexts: [{
+      state: "WA" as const,
+      displayName: "Washington Fixture River",
+      regulationReminderCopy:
+        "Check current Washington regulations and emergency rules.",
+    }],
+    foundation: {
+      ...PERE_MARQUETTE_RIVER_PROFILE.foundation!,
+      locations: PERE_MARQUETTE_RIVER_PROFILE.foundation!.locations?.map(
+        (location) => ({ ...location, state: "WA" as const }),
+      ),
+      stateRegulations: PERE_MARQUETTE_RIVER_PROFILE.foundation!
+        .stateRegulations?.map((regulation) => ({
+          ...regulation,
+          state: "WA" as const,
+        })),
+    },
+  };
+  const biology = {
+    ...GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
+    biologyProfileId: "pacific_northwest_chinook_test_v1",
+    region: "pacific_northwest",
+  };
+  const run = {
+    ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    riverId: river.riverId,
+    runId: "washington_fixture_fall_chinook",
+    biologyProfileId: biology.biologyProfileId,
+  };
+  const document = createRiverRunConfigurationDocument({
+    configVersion: "washington-fixture-v1",
+    river,
+    biologyProfiles: [biology],
+    runs: [run],
+  });
+
+  assertEquals(validateRiverProfile(river).valid, true);
+  assertEquals(
+    validateConfigurationRevision({
+      configKey: river.riverId,
+      revision: 1,
+      status: "draft",
+      document,
+      evidenceNotes: "National contract regression fixture.",
+    }),
+    [],
+  );
+  assertEquals(
+    listVisibleRiverRuns([river], [run]).map((entry) => entry.state),
+    ["WA"],
+  );
+});
 
 Deno.test("one canonical river can appear in two state catalogs", () => {
   const river = {

@@ -1,4 +1,7 @@
-# One-click prompt — Wisconsin River Run onboarding
+# Historical one-click prompt — Wisconsin River Run onboarding
+
+> This completed-wave prompt is retained as history. Future agents must follow
+> only `docs/river_run_onboarding.md`.
 
 Copy everything inside the block below into a new Codex conversation opened at
 the repository root.
@@ -20,22 +23,13 @@ with the separate Brule River in the Wisconsin–Michigan boundary/Upper Green B
 system. Reverify this identity from authoritative sources and record the
 excluded same-name river in the foundation packet before doing species work.
 
-Before researching or editing, read these files completely in this order:
-
-1. docs/river_run_rapid_onboarding_playbook.md
-2. docs/river_run_copy_model.md
-3. docs/river_run_activity_onboarding_standard.md
-4. docs/river_run_live_conditions_onboarding_standard.md
-5. docs/templates/river_run_river_foundation_template.md
-6. docs/templates/river_run_live_conditions_template.md
-7. docs/templates/river_run_species_run_template.md
-8. docs/templates/river_run_acceptance_template.md
+Before researching or editing, read `docs/river_run_onboarding.md` completely.
 
 Then inspect the current engine types, validation, public/draft registries,
 provider adapters, replay scripts, generated-fixture tooling, endpoint tests,
 UI QA, production smoke script, and the completed Grand/Platte/White packets in
-docs/onboarding/river-run/. Treat the playbook as controlling when older handoff
-or rollout documents disagree.
+docs/onboarding/river-run/. Treat the current onboarding guide as controlling
+when older handoff, prompt, evidence, or rollout documents disagree.
 
 Mandatory execution and approval gates:
 

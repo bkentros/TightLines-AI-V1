@@ -2,7 +2,6 @@ import { getMovementEngineDefinition } from "./config/movementEngines.ts";
 import { isValidRefreshSlot } from "./snapshot/refreshSlots.ts";
 import type {
   ActivityRules,
-  GreatLakesState,
   MovementEngineId,
   RiverMetric,
   RiverProfile,
@@ -16,17 +15,62 @@ import type {
   Season,
   SpeciesBiologyProfile,
   SupportStatus,
+  USStateCode,
   VisibleRiverRunCatalog,
 } from "./types.ts";
 
-const STATES: readonly GreatLakesState[] = [
-  "MI",
-  "WI",
+const STATES: readonly USStateCode[] = [
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
   "IL",
   "IN",
-  "OH",
-  "PA",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
   "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
+  "DC",
 ];
 const SEASONS: readonly Season[] = ["spring", "summer", "fall", "winter"];
 const SPECIES: readonly RiverRunSpecies[] = [
@@ -73,6 +117,10 @@ function hasText(value: unknown): value is string {
 
 function hasNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
+}
+
+function isValidRegion(value: unknown): value is string {
+  return hasText(value) && /^[a-z][a-z0-9_]*$/.test(value);
 }
 
 function validCap(value: unknown, maximum: number): value is number {
@@ -135,7 +183,7 @@ export function validateRiverProfile(
     issues.push(issue("displayName", "River display name is required."));
   }
   if (river.presentationContexts != null) {
-    const presentationStates = new Set<GreatLakesState>();
+    const presentationStates = new Set<USStateCode>();
     if (river.presentationContexts.length === 0) {
       issues.push(issue(
         "presentationContexts",
@@ -189,11 +237,11 @@ export function validateRiverProfile(
       issue("state", "River state is not supported.", "config_invalid_value"),
     );
   }
-  if (river.region !== "great_lakes") {
+  if (!isValidRegion(river.region)) {
     issues.push(
       issue(
         "region",
-        "River region must be great_lakes.",
+        "River region must be a stable lowercase snake_case evidence region.",
         "config_invalid_value",
       ),
     );
@@ -534,7 +582,7 @@ function validateRiverFoundation(
   }
   const stateRegulations = foundation.stateRegulations;
   if (stateRegulations != null) {
-    const regulationStates = new Set<GreatLakesState>();
+    const regulationStates = new Set<USStateCode>();
     stateRegulations.forEach((stateRegulation, index) => {
       const field = `foundation.stateRegulations[${index}]`;
       if (
@@ -1043,8 +1091,11 @@ export function validateRunProfile(
     );
     if (
       run.seasonalZoneReachIds.length === 0 ||
-      new Set(run.seasonalZoneReachIds).size !== run.seasonalZoneReachIds.length ||
-      run.seasonalZoneReachIds.some((reachId) => !foundationReachIds.has(reachId))
+      new Set(run.seasonalZoneReachIds).size !==
+        run.seasonalZoneReachIds.length ||
+      run.seasonalZoneReachIds.some((reachId) =>
+        !foundationReachIds.has(reachId)
+      )
     ) {
       issues.push(issue(
         "seasonalZoneReachIds",
@@ -2317,7 +2368,7 @@ export function validateSpeciesBiologyProfile(
     !includes(SPECIES, profile?.species) ||
     !hasText(profile?.commonName) ||
     !hasText(profile?.scientificName) ||
-    profile?.region !== "great_lakes" ||
+    !isValidRegion(profile?.region) ||
     !includes(MOVEMENT_ENGINES, profile?.movementEngineId) ||
     !["spawning", "pre_spawn_overwintering"].includes(
       profile?.migrationPurpose,
@@ -2508,6 +2559,15 @@ export function validateConfigurationRevision(
         ),
       );
     }
+    if (biology.region !== revision.document.river.region) {
+      issues.push(
+        issue(
+          `runs.${run.runId}.biologyProfileId`,
+          "Run biology region must match the configured river region.",
+          "config_invalid_value",
+        ),
+      );
+    }
     const expectedPurpose = run.runType === "fall_entry"
       ? "pre_spawn_overwintering"
       : "spawning";
@@ -2554,7 +2614,7 @@ export function listVisibleRiverRuns(
   runs: readonly RiverRunProfile[],
 ): VisibleRiverRunCatalog[] {
   const riverById = new Map(rivers.map((river) => [river.riverId, river]));
-  const visibleRivers = new Map<GreatLakesState, VisibleRiverRunCatalog>();
+  const visibleRivers = new Map<USStateCode, VisibleRiverRunCatalog>();
   for (const river of rivers) {
     if (!validateRiverProfile(river).publicVisible) continue;
     const visibleRuns = runs

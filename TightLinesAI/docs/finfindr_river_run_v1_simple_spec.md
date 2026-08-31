@@ -2,10 +2,9 @@
 
 > **Historical engine specification — superseded for public product shape and
 > onboarding on 2026-08-24.** It is not the current single source of truth for
-> visible primitives, copy, or river onboarding. Use
-> `docs/river_run_rapid_onboarding_playbook.md` and its normative companion
-> standards. Timing/Push material below remains useful only for internal legacy
-> engine compatibility and regression history.
+> visible primitives, copy, or river onboarding. Use the single current guide,
+> `docs/river_run_onboarding.md`. Timing/Push material below remains useful only
+> for internal legacy engine compatibility and regression history.
 
 **Product:** FinFindr
 

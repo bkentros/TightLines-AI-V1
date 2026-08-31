@@ -1,8 +1,65 @@
 import type { RiverRunReasonCode } from "./copy/reasonCodes.ts";
 export type { RiverRunReasonCode } from "./copy/reasonCodes.ts";
 
-export type GreatLakesState = "MI" | "WI" | "IL" | "IN" | "OH" | "PA" | "NY";
-export type RiverRunRegion = "great_lakes";
+export type USStateCode =
+  | "AL"
+  | "AK"
+  | "AZ"
+  | "AR"
+  | "CA"
+  | "CO"
+  | "CT"
+  | "DE"
+  | "FL"
+  | "GA"
+  | "HI"
+  | "ID"
+  | "IL"
+  | "IN"
+  | "IA"
+  | "KS"
+  | "KY"
+  | "LA"
+  | "ME"
+  | "MD"
+  | "MA"
+  | "MI"
+  | "MN"
+  | "MS"
+  | "MO"
+  | "MT"
+  | "NE"
+  | "NV"
+  | "NH"
+  | "NJ"
+  | "NM"
+  | "NY"
+  | "NC"
+  | "ND"
+  | "OH"
+  | "OK"
+  | "OR"
+  | "PA"
+  | "RI"
+  | "SC"
+  | "SD"
+  | "TN"
+  | "TX"
+  | "UT"
+  | "VT"
+  | "VA"
+  | "WA"
+  | "WV"
+  | "WI"
+  | "WY"
+  | "DC";
+
+/**
+ * Stable snake_case evidence region shared by a river and its biology profile.
+ * Regions are deliberately open-ended so onboarding a new U.S. region does not
+ * require weakening validation or changing the configuration schema.
+ */
+export type RiverRunRegion = string;
 export type Season = "spring" | "summer" | "fall" | "winter";
 
 export type RiverRunSpecies =
@@ -476,7 +533,7 @@ export type RiverFoundationLocation = {
   locationId: string;
   officialName: string;
   aliases?: string[];
-  state: GreatLakesState;
+  state: USStateCode;
   latitude: number;
   longitude: number;
   coordinateSource: string;
@@ -502,7 +559,7 @@ export type RiverFoundationLocation = {
 };
 
 export type RiverFoundationStateRegulation = {
-  state: GreatLakesState;
+  state: USStateCode;
   version: string;
   jurisdiction: string;
   reminderCopy: string;
@@ -572,13 +629,13 @@ export type RiverProfile = {
    * these entries only select state-scoped access and regulation context.
    */
   presentationContexts?: Array<{
-    state: GreatLakesState;
+    state: USStateCode;
     displayName?: string;
     defaultReachId?: string;
     foundationReachIds?: string[];
     regulationReminderCopy: string;
   }>;
-  state: GreatLakesState;
+  state: USStateCode;
   region: RiverRunRegion;
   timezone: string;
 
@@ -879,7 +936,7 @@ export type RiverRunCatalogEntry = {
 };
 
 export type VisibleRiverRunCatalog = {
-  state: GreatLakesState;
+  state: USStateCode;
   rivers: Array<{
     riverId: string;
     displayName: string;

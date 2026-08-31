@@ -167,6 +167,7 @@ assert.deepEqual(
     ["MI", "Michigan"],
     ["WI", "Wisconsin"],
     ["IN", "Indiana"],
+    ["WA", "Washington"],
     ["NY", "New York"],
     ["OH", "Ohio"],
   ],

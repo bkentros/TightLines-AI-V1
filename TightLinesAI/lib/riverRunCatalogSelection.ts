@@ -25,6 +25,7 @@ const STATE_PRESENTATION: RiverRunChoice[] = [
   { id: "MI", label: "Michigan" },
   { id: "WI", label: "Wisconsin" },
   { id: "IN", label: "Indiana" },
+  { id: "WA", label: "Washington" },
   { id: "NY", label: "New York" },
   { id: "OH", label: "Ohio" },
 ];

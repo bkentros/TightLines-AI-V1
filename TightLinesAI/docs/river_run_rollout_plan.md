@@ -1,9 +1,9 @@
 # River Run V1.1 Rollout Plan
 
 > **Historical rollout plan.** Its public primitive model and implementation
-> sequence are superseded by
-> `docs/river_run_rapid_onboarding_playbook.md`. Retain this file as a record of
-> the original engine rollout, not as instructions for a future river.
+> sequence are superseded by `docs/river_run_onboarding.md`. Retain this file as
+> a record of the original engine rollout, not as instructions for a future
+> river.
 
 **Product:** FinFindr
 
@@ -35,7 +35,7 @@ Supporting references:
 - PM audit: `TightLinesAI/docs/river_run_pm_fall_chinook_launch_audit.md`
 - Integrated primitive audit:
   `TightLinesAI/docs/river_run_pm_integrated_audit.md`
-- New-river template: `TightLinesAI/docs/river_run_onboarding_template.md`
+- Current new-river guide: `TightLinesAI/docs/river_run_onboarding.md`
 - Engine: `TightLinesAI/supabase/functions/_shared/riverRunEngine`
 - Edge Function: `TightLinesAI/supabase/functions/river-run`
 - Mobile screen: `TightLinesAI/app/river-run.tsx`

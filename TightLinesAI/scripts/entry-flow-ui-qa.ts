@@ -27,7 +27,7 @@ assert.doesNotMatch(
 
 for (const phrase of [
   "Today's score, bite windows, limiting factors, and the reason behind the read.",
-  'Migration stage, river conditions, fishability, and estimated fish presence.',
+  'Migration stage, activity, seasonal presence, and live river conditions.',
   'Lures, flies, and presentations tuned to your species and current conditions.',
   'Structure, cover, and likely holding zones across supported lakes.',
 ]) {

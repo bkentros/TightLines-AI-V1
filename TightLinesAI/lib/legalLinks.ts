@@ -10,6 +10,7 @@ function envUrl(name: string, fallback: string): string {
 export const LEGAL_URLS = {
   privacy: envUrl('EXPO_PUBLIC_PRIVACY_POLICY_URL', `${DEFAULT_LEGAL_BASE_URL}/privacy`),
   terms: envUrl('EXPO_PUBLIC_TERMS_URL', `${DEFAULT_LEGAL_BASE_URL}/terms`),
+  safety: envUrl('EXPO_PUBLIC_SAFETY_NOTICE_URL', `${DEFAULT_LEGAL_BASE_URL}/safety`),
   support: envUrl('EXPO_PUBLIC_SUPPORT_URL', `${DEFAULT_LEGAL_BASE_URL}/support`),
 };
 

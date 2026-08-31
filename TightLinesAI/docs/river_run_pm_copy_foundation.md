@@ -2,17 +2,15 @@
 
 > **Accepted river research record.** Geography, sources, barriers, species
 > evidence, and owner decisions remain useful. Its six-primitive implementation
-> sections are historical; future onboarding follows
-> `docs/river_run_rapid_onboarding_playbook.md` and the four-visible-primitive
-> copy model.
+> sections are historical; future onboarding follows only
+> `docs/river_run_onboarding.md`.
 
 **Status:** Copy complete and owner accepted; public release not performed
 **Version:** `pere-marquette-copy-v3`
 **Researched:** 2026-08-09
 **Final verification and owner acceptance:** 2026-08-10
 **Applies to:** Pere Marquette Fall Chinook, Fall Coho, and Fall Steelhead
-**Controlling standard:**
-[`river_run_copy_model.md`](./river_run_copy_model.md)
+**Controlling standard:** [`river_run_onboarding.md`](./river_run_onboarding.md)
 
 ## 1. Purpose
 

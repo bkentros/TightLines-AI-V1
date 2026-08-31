@@ -1,3 +1,9 @@
+import {
+  listVisibleRiverRuns,
+  RIVER_RUN_RIVER_PROFILES,
+  RIVER_RUN_RUN_PROFILES,
+} from "../supabase/functions/_shared/riverRunEngine/index.ts";
+
 type JsonObject = Record<string, unknown>;
 
 const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
@@ -37,35 +43,14 @@ const catalog = await requestJson(`${functionUrl}/rivers`, {
 assertOk(catalog, "catalog");
 const firstTarget = readFirstTarget(catalog.body);
 const catalogTargets = readCatalogTargets(catalog.body);
-const expectedPublicTargets = [
-  "IN:st_joseph:st_joseph_fall_chinook",
-  "IN:st_joseph:st_joseph_fall_coho",
-  "IN:st_joseph:st_joseph_fall_steelhead",
-  "MI:betsie:betsie_fall_chinook",
-  "MI:betsie:betsie_fall_coho",
-  "MI:betsie:betsie_fall_steelhead",
-  "MI:big_manistee:big_manistee_fall_chinook",
-  "MI:big_manistee:big_manistee_fall_coho",
-  "MI:big_manistee:big_manistee_fall_steelhead",
-  "MI:muskegon:muskegon_fall_chinook",
-  "MI:muskegon:muskegon_fall_coho",
-  "MI:muskegon:muskegon_fall_steelhead",
-  "MI:pere_marquette:pere_marquette_fall_chinook",
-  "MI:pere_marquette:pere_marquette_fall_coho",
-  "MI:pere_marquette:pere_marquette_fall_steelhead",
-  "MI:st_joseph:st_joseph_fall_chinook",
-  "MI:st_joseph:st_joseph_fall_coho",
-  "MI:st_joseph:st_joseph_fall_steelhead",
-  "MI:grand:grand_fall_chinook",
-  "MI:grand:grand_fall_coho",
-  "MI:grand:grand_fall_steelhead",
-  "MI:platte:platte_fall_chinook",
-  "MI:platte:platte_fall_coho",
-  "MI:platte:platte_fall_steelhead",
-  "MI:white:white_fall_chinook",
-  "MI:white:white_fall_coho",
-  "MI:white:white_fall_steelhead",
-];
+const expectedPublicTargets = listVisibleRiverRuns(
+  RIVER_RUN_RIVER_PROFILES,
+  RIVER_RUN_RUN_PROFILES,
+).flatMap((state) =>
+  state.rivers.flatMap((river) =>
+    river.runs.map((run) => `${state.state}:${river.riverId}:${run.runId}`)
+  )
+).sort();
 if (expectPublic && !firstTarget) {
   throw new Error("River Run was expected to be public, but catalog is empty.");
 }

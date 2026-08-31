@@ -2,9 +2,8 @@
 
 > **Accepted river research record.** Geography, sources, barriers, species
 > evidence, and owner decisions remain useful. Its six-primitive implementation
-> sections are historical; future onboarding follows
-> `docs/river_run_rapid_onboarding_playbook.md` and the four-visible-primitive
-> copy model.
+> sections are historical; future onboarding follows only
+> `docs/river_run_onboarding.md`.
 
 **Status:** Research-led geography and terminology owner-approved; bundled copy renovation implemented; owner copy review pending
 **Version:** `st-joseph-copy-foundation-v1`

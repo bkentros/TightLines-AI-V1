@@ -18,7 +18,7 @@ export interface LegalDocument {
   sections: LegalDocumentSection[];
 }
 
-const updated = 'August 5, 2026';
+const updated = 'August 30, 2026';
 
 export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
   privacy: {
@@ -44,15 +44,16 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
           'Account information such as email address (including business or custom domains you can verify), username, authentication provider, profile settings, home region, subscription tier, and onboarding preferences.',
           'Fishing and app data you choose to create, including catches, sessions, locations, species preferences, photos or water images, voice logs if enabled, support messages, and feedback.',
           'Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, river-migration, and fishing-condition context.',
+          'River Migration selections and interactions, such as the selected river, species, season, presentation state, report requests, and feature usage. Spot Finder access names and river sections are configured public-location content and do not, by themselves, reveal that you visited or were physically present at a listed place.',
           'Purchase and entitlement status from the app store used for purchase, including the App Store, Google Play where supported, and RevenueCat. FinFindr does not receive full payment card numbers from Apple or Google.',
-          'Product analytics and interaction data, such as app opens, screen views, feature usage, paywall events, purchase and restore events, subscription tier, region settings, onboarding status, and similar product-quality signals.',
+          'Product analytics and interaction data, such as app opens, screen views, feature usage, River Migration request performance, paywall events, purchase and restore events, subscription tier, region settings, onboarding status, and similar product-quality signals. Analytics may be associated with an account or user identifier when you are signed in.',
           'Operational data such as device platform, app version, rate-limit records, cache identifiers, error context, and diagnostics needed to run, secure, and improve the service.',
         ],
       },
       {
         title: 'How We Use Information',
         body: [
-          'To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, river-migration reads, fishing logs, and subscription-gated features.',
+          'To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, River Migration reads, Spot Finder content, fishing logs, and subscription-gated features.',
           'To respond to support requests, troubleshoot bugs, prevent abuse, enforce rate limits, improve app quality, maintain production systems, and protect users and FinFindr.',
           'To measure product usage and subscription flows, understand which app areas need improvement, and confirm that subscription and restore systems are working correctly.',
           'To send transactional emails such as account verification, password reset, support messages, and important account or service notices.',
@@ -63,6 +64,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'FinFindr uses service providers and public data sources for app infrastructure and core functionality, including Supabase, RevenueCat, PostHog, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, the U.S. Geological Survey (USGS), Monitor My Watershed, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.',
           'Weather, water, sun, moon, map, and geocoding providers may receive coordinates, search terms, or request context needed to return app data. They are not given your full FinFindr account profile unless needed for the service.',
+          'Spot Finder can open official agency, land-manager, municipal, mapping, or other source pages in your browser or another app. Once opened, those third parties process information under their own privacy policies and practices.',
           'PostHog is used for product analytics, not advertising. Session replay is disabled in the app configuration, and FinFindr does not use PostHog to sell data or track you across other companies\' apps or websites.',
           'Store providers and RevenueCat process purchase and entitlement records under their own policies. App Store billing, cancellation, renewal, and refund decisions are handled by Apple for App Store purchases.',
           'We require service providers that process personal information on our behalf to protect it consistently with our agreements and applicable law. Their services may also be governed by their own privacy policies.',
@@ -162,10 +164,26 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Fishing Content',
         body: [
-          'Forecasts, tackle recommendations, water reads, River Migration reads, maps, scores, timing windows, migration-stage labels, fish-presence estimates, likely river-section guidance, species suggestions, and related content are informational planning tools. They are not professional, legal, navigational, emergency, medical, environmental, boating, or safety advice.',
-          'River Migration outputs are estimates and inferences based on configured seasonal patterns and available environmental data. They are not direct observations, fish counts, guarantees that fish are present, or guarantees that fish will be present in a stated river section or at a stated time.',
+          'Forecasts, tackle recommendations, water reads, River Migration reads, maps, scores, timing windows, species suggestions, and related content are informational planning tools. They are not professional, legal, navigational, emergency, medical, environmental, boating, or safety advice.',
           'Maps, structure reads, river-section guidance, and location-related features are not depth charts, property boundary tools, marine charts, emergency routes, official access maps, or substitutes for official maps and local sources.',
           'You are responsible for checking local laws, licensing, access rules, harvest limits, weather, water conditions, hazards, closures, and safety risks before fishing.',
+        ],
+      },
+      {
+        title: 'River Migration And Spot Finder',
+        body: [
+          'River Migration outputs are estimates and inferences based on configured seasonal patterns, researched fishery context, and available environmental data. They are not direct observations, biological surveys, sonar readings, fish counts, catch probabilities, or guarantees that fish are present, active, moving, or catchable in a stated section or at a stated time.',
+          'Migration Stage estimates seasonal progression. Activity Outlook estimates conditional fish movement or responsiveness. Seasonal Presence provides seasonal and historical context. Fishing Shape describes presentation workability. Gauge Read summarizes available monitoring data. Each answers a limited question and none determines safety, legal access, or whether fish occupy every part of a river.',
+          'Spot Finder identifies configured public-access names and broad, stage-based starting sections inside the supported migration corridor. A recommendation is planning context, not live fish tracking, a precise fish location, an access inspection, route guidance, or a statement that every listed site is productive, open, reachable, or safe.',
+          'Labels such as Lower, Middle, and Upper describe relative portions of FinFindr\'s supported migration corridor, not necessarily the entire named river. They do not establish property boundaries, public-entry rights, navigability, fishing legality, or uniform fish distribution. Dams, weirs, fish ladders, refuges, closures, and species passage limits can restrict the corridor and nearby activity.',
+        ],
+      },
+      {
+        title: 'Access, Regulations And External Sources',
+        body: [
+          'A listed access name does not guarantee legal parking, shore fishing, launch suitability, open roads, operating hours, fee status, safe wading or boating, or permission to enter or cross neighboring land. Posted signs, current property boundaries, closures, and instructions from the responsible agency, land manager, or property owner control.',
+          'Fishing regulations, emergency orders, refuge boundaries, dam-safety zones, access conditions, and third-party pages can change without notice. FinFindr reminders and source links may be incomplete, delayed, moved, corrected, or unavailable and are not a complete statement of current law or site conditions.',
+          'Links and source attributions are provided for research and convenience. FinFindr does not control third-party content, and a link or attribution does not mean that the third party endorses FinFindr or has independently approved FinFindr\'s interpretation.',
         ],
       },
       {
@@ -180,7 +198,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Service Availability',
         body: [
           'FinFindr depends on network services, public data sources, device permissions, store systems, and third-party providers. Features may be unavailable, delayed, incomplete, or inaccurate.',
-          'River conditions may be measured at configured gauges or monitoring stations and may differ from the conditions at another river reach, access point, or time. Data may also be delayed, provisional, corrected, or unavailable.',
+          'River conditions may be measured at configured gauges or monitoring stations and may differ from the conditions at another river reach, access point, or time. Gauge, weather, and forecast data may also be delayed, provisional, modeled, corrected, incomplete, or unavailable.',
           'Coverage for water bodies and data sources varies by region. Unsupported or limited waters may show limited guidance rather than a full read.',
           'We may change, suspend, limit, or discontinue features at any time, including where needed for safety, reliability, legal compliance, abuse prevention, or product changes.',
         ],
@@ -231,11 +249,12 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
     subtitle:
       'Fishing recommendations are planning context, not a substitute for field judgment or official safety sources.',
     updated,
+    externalUrl: LEGAL_URLS.safety,
     sections: [
       {
         title: 'Use Field Judgment',
         body: [
-          'FinFindr is operated by FinFindr LLC and provides informational fishing guidance, including River Migration estimates, based on available weather, water, season, species, location, and public environmental data. Conditions can change quickly.',
+          'FinFindr is operated by FinFindr LLC and provides informational fishing guidance, including River Migration and Spot Finder planning context, based on configured seasonal patterns and available weather, water, species, location, and public-source information. Conditions can change quickly.',
           'Always verify current weather, water levels, closures, hazards, access rules, and local fishing regulations before you go.',
           'Do not rely on FinFindr to decide whether a trip, route, launch, crossing, wade, ice condition, or waterbody is safe.',
           'You are responsible for your own field decisions and for stopping, changing plans, or leaving when conditions are unsafe.',
@@ -253,7 +272,17 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Licenses And Access',
         body: [
           'You are responsible for fishing licenses, seasons, harvest limits, method restrictions, boating rules, access permission, private property boundaries, closures, and local rules.',
+          'A Spot Finder listing or recommended river section does not confirm legal parking, public shore access, launch suitability, open roads, operating hours, fee status, safe wading or boating, or permission to cross neighboring property. Verify the linked source, current property and access information, and every posted sign before traveling or entering.',
+          'Lower, Middle, and Upper labels orient you within FinFindr\'s supported migration corridor; they are not property, navigation, regulation, or safety boundaries and do not mean fish are distributed throughout the labeled section.',
           'When in doubt, check the relevant fish and wildlife agency, land manager, marina, property owner, or local authority before fishing.',
+        ],
+      },
+      {
+        title: 'Dams, Refuges And Changing Conditions',
+        body: [
+          'Dams, weirs, fish ladders, spillways, refuges, construction areas, and fish-passage facilities can have dangerous water, restricted zones, permanent or temporary closures, and species-specific rules. Never enter a closed or posted area or treat a migration endpoint as permission to approach or fish it.',
+          'Roads, launches, parking, water levels, currents, weather, ice, closures, and emergency orders can change after FinFindr or a linked source was last reviewed. Current official notices and conditions at the site control.',
+          'If an official source, posted sign, alert, or field condition conflicts with FinFindr, follow the official source or posted restriction and use the more cautious course.',
         ],
       },
       {
@@ -261,6 +290,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'Fishing can involve boating, wading, ice, cold water, storms, lightning, heat, current, remote areas, wildlife, private property, limited cell service, and other risks.',
           'A Fishing Shape description addresses expected presentation workability only. It does not determine whether travel, access, boating, floating, crossing, or wading is safe.',
+          'Migration Stage, Activity Outlook, Seasonal Presence, Gauge Read, and a Spot Finder recommendation do not determine whether a trip, access point, route, crossing, launch, wade, or waterbody is safe.',
           'Wear appropriate safety gear, follow boating and access laws, tell someone your plan, and leave when conditions are unsafe.',
           'No app can remove the risks of fishing or guarantee that a waterbody, access point, forecast, or recommendation is safe.',
         ],

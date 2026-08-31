@@ -163,71 +163,110 @@ for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
   );
 }
 
-const requiredDocuments: Record<string, RegExp[]> = {
-  "docs/river_run_rapid_onboarding_playbook.md": [
-    /Normative source of truth/,
-    /Migration Stage[\s\S]*Activity[\s\S]*Seasonal Presence/,
-    /Fishing Shape context, not as a separate tab/,
-    /Live Conditions[\s\S]*unscored/,
-    /Multi-agent operating protocol/,
-    /Mandatory candidate capability audit/,
-    /Mandatory configuration-field inventory/,
-    /stage-by-four-hour-block score distributions/,
-    /Calendar evidence protocol/,
-    /Strength and distribution protocol/,
-    /Same-reach source decision/,
-    /Fast execution protocol/,
-    /Post-review correction and continuous-learning protocol/,
-    /Every hidden run approved for owner review must also be selectable/,
-    /Review Seasonal Zone cadence separately from score cadence/,
-    /Stage selector must expose every date on which Stage or\s+Seasonal Zone output can change/,
-    /Owner review has two separate modes/,
-    /fixture\s+measurements are never substituted/,
-    /cross December into January/,
-    /automatically resume normal[\s\S]*fresh display and scoring/,
-    /An `unsupported` decision requires affirmative exclusion evidence/,
-    /Acceptance, deployment, and public enablement/,
-  ],
-  "docs/river_run_copy_model.md": [
-    /\*\*Version:\*\* 2\.2/,
-    /three public reads/,
-    /Gauge Read remains essential/,
-    /Seasonal Zone is structured geography, not free copy/,
-    /Public section names are always derived as `Lower Run Section`, `Middle Run\s+Section`, or `Upper Run Section`/,
-    /Beginning recommends the first section;\s+Building the first two; Peak every section; Tapering and Ending the last two/,
-    /Do not create stage-specific access copy, featured-access fields, or\s+species-by-access recommendations/,
-    /must not expose[\s\S]*`WHERE TO START`[\s\S]*`WHY THIS READ`[\s\S]*`GUIDE'S READ`/,
-  ],
-  "docs/river_run_activity_onboarding_standard.md": [
-    /Today\/tomorrow schedule contract/,
-    /Historical replay protocol/,
-    /Stage-by-block acceptance table/,
-    /Calibration iteration ledger/,
-    /Weather-only mode/,
-    /no numeric score, no blocks, and no strongest-window language/,
-    /local-date and year-aware/,
-  ],
-  "docs/river_run_live_conditions_onboarding_standard.md": [
-    /target calendar date ±3 days/,
-    /Twenty-four-hour trend/,
-    /Current-value precision/,
-    /automatically restore the metric/,
-  ],
-};
-for (const [path, patterns] of Object.entries(requiredDocuments)) {
-  const content = await Deno.readTextFile(path);
-  for (const pattern of patterns) {
-    assert(
-      pattern.test(content),
-      `${path} is missing required contract ${pattern}.`,
+const onboardingGuidePath = "docs/river_run_onboarding.md";
+const onboardingGuide = await Deno.readTextFile(onboardingGuidePath);
+for (
+  const [label, contract] of [
+    ["single authority", /Single normative source of truth/],
+    ["national scope", /release a U\.S\. River Run river/],
+    [
+      "three reads",
+      /Migration Stage[\s\S]*Activity Outlook[\s\S]*Seasonal Presence/,
+    ],
+    [
+      "unscored Gauge Read",
+      /Gauge Read appears above the reads and is unscored/,
+    ],
+    [
+      "Fishing Shape placement",
+      /Fishing Shape is internal Fishability scoring displayed compactly inside Gauge/,
+    ],
+    [
+      "retired copy",
+      /`WHERE TO START`[\s\S]*`WHY THIS READ`[\s\S]*`GUIDE'S READ`/,
+    ],
+    ["evidence hierarchy", /Use this evidence hierarchy/],
+    [
+      "passage chains",
+      /complete mouth-to-endpoint passage chain for each species/,
+    ],
+    ["calendar protocol", /Full calendar protocol/],
+    ["strength protocol", /Strength and distribution/],
+    ["Spot Finder fail closed", /Spot Finder is optional and fail-closed/],
+    ["Activity tuning", /Activity tuning — mandatory per river\/species/],
+    ["observed Activity", /Observed-river mode/],
+    ["weather-only Activity", /Weather-only mode/],
+    ["fixed replay", /Fixed historical replay/],
+    ["stage/block review", /stage-by-block table/],
+    ["calibration ledger", /calibration ledger/],
+    ["cross-year math", /Cross-year seasons/],
+    ["provider recovery", /automatically restores the\s+metric/],
+    [
+      "unsupported burden",
+      /An `unsupported` conclusion requires affirmative exclusion evidence/,
+    ],
+    [
+      "single dossier",
+      /Future onboarding uses one per-river `river-onboarding\.md` dossier/,
+    ],
+    [
+      "release separation",
+      /Research acceptance, rendered product acceptance, deployment authorization,[\s\S]*separate decisions/,
+    ],
+    ["migration reconciliation", /Reconcile local and[\s\S]*linked migrations/],
+    ["clean handoff", /ahead\/behind is `0 0`[\s\S]*worktree is clean/],
+  ] as const
+) {
+  assert(
+    contract.test(onboardingGuide),
+    `${onboardingGuidePath} is missing ${label}.`,
+  );
+}
+
+for (
+  const retiredPath of [
+    "docs/river_run_rapid_onboarding_playbook.md",
+    "docs/river_run_copy_model.md",
+    "docs/river_run_activity_onboarding_standard.md",
+    "docs/river_run_live_conditions_onboarding_standard.md",
+    "docs/templates/river_run_river_foundation_template.md",
+    "docs/templates/river_run_live_conditions_template.md",
+    "docs/templates/river_run_species_run_template.md",
+    "docs/templates/river_run_acceptance_template.md",
+  ]
+) {
+  try {
+    await Deno.lstat(retiredPath);
+    throw new Error(
+      `${retiredPath} must remain retired; onboarding has one active guide.`,
     );
+  } catch (error) {
+    if (!(error instanceof Deno.errors.NotFound)) throw error;
   }
 }
+
+const onboardingWorkbench = await Deno.readTextFile(
+  "scripts/river-run-onboarding.ts",
+);
+assert(
+  onboardingWorkbench.includes('const relative = "river-onboarding.md"') &&
+    onboardingWorkbench.includes('"WA"') &&
+    onboardingWorkbench.includes("valid two-letter U.S. --state code") &&
+    onboardingWorkbench.includes("function dossierTemplate()") &&
+    onboardingWorkbench.includes(
+      "Deno.writeTextFile(`${root}/river-onboarding.md`, dossier)",
+    ),
+  "The onboarding workbench must scaffold and validate one river dossier.",
+);
+assert(
+  !/docs\/templates\/river_run_|runs\/fall-(?:chinook|coho|steelhead)\.md/.test(
+    onboardingWorkbench,
+  ),
+  "The onboarding workbench must not depend on retired templates or hard-coded species packet files.",
+);
 for (
   const path of [
     "docs/finfindr_river_run_v1_simple_spec.md",
-    "docs/river_run_onboarding_template.md",
-    "docs/river_run_agent_handoff.md",
     "docs/river_run_rollout_plan.md",
   ]
 ) {
@@ -236,122 +275,6 @@ for (
     /Historical|superseded/i.test(opening),
     `${path} must visibly identify its historical/superseded status.`,
   );
-}
-const speciesTemplate = await Deno.readTextFile(
-  "docs/templates/river_run_species_run_template.md",
-);
-for (
-  const [label, contract] of [
-    [
-      "complete configuration inventory",
-      /Complete configuration-field inventory/,
-    ],
-    [
-      "code-to-packet reconciliation",
-      /Code-to-packet reconciliation reviewer\/date/,
-    ],
-    ["species endpoint decision", /Species-specific endpoint decision/],
-    ["portfolio strength comparison", /Portfolio strength comparison/],
-    ["calendar evidence-kind audit", /Evidence kind: entry\/passage\/harvest/],
-    ["Activity source pairing", /Source pairing decision/],
-    ["missing-weather truth", /Missing hourly weather/],
-    ["review learning record", /Post-review correction record/],
-    [
-      "stage-by-block table",
-      /^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m,
-    ],
-    [
-      "calibration iteration ledger",
-      /^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m,
-    ],
-  ] as const
-) {
-  assert(
-    contract.test(speciesTemplate),
-    `Species run template is missing ${label}.`,
-  );
-}
-const foundationTemplate = await Deno.readTextFile(
-  "docs/templates/river_run_river_foundation_template.md",
-);
-for (
-  const [label, contract] of [
-    ["runtime region gate", /Runtime region\/schema fit/],
-    ["species passage chain", /Species endpoint and passage-chain decision/],
-    [
-      "shared species matrix",
-      /Supported species decision and shared comparison matrix/,
-    ],
-    ["provider recovery", /automatically without a code\/configuration change/],
-  ] as const
-) {
-  assert(
-    contract.test(foundationTemplate),
-    `River foundation template is missing ${label}.`,
-  );
-}
-const liveConditionsTemplate = await Deno.readTextFile(
-  "docs/templates/river_run_live_conditions_template.md",
-);
-assert(
-  /Provider malfunction fails closed/.test(liveConditionsTemplate) &&
-    /Recovered valid numeric reading automatically restores/.test(
-      liveConditionsTemplate,
-    ),
-  "Live Conditions template is missing provider fault/recovery cases.",
-);
-const acceptanceTemplate = await Deno.readTextFile(
-  "docs/templates/river_run_acceptance_template.md",
-);
-for (
-  const [label, contract] of [
-    [
-      "calendar reconciliation gate",
-      /calendar evidence-kind\/bias reconciliation/,
-    ],
-    [
-      "strength comparison gate",
-      /Strength\/distribution portfolio comparisons/,
-    ],
-    ["source-pairing gate", /same-reach source-pairing decision/],
-    ["cross-year replay gate", /Cross-year replay math/],
-    ["missing-weather gate", /Missing-weather unavailable\/no-leader behavior/],
-    [
-      "provider recovery gate",
-      /Provider-fault recovery to valid numeric display/,
-    ],
-    ["hidden-review catalog parity gate", /Hidden-review catalog parity/],
-    ["daily Seasonal Zone progression gate", /Daily Seasonal Zone progression and endpoint replay/],
-    [
-      "stage fixture boundary gate",
-      /Stage fixture selector exposes every stage\/zone-transition boundary/,
-    ],
-    ["live review Gauge Read gate", /Gauge Read uses live providers/],
-    [
-      "fixture isolation gate",
-      /isolates provider inputs from scenario fixtures/,
-    ],
-    [
-      "generalized learning ledger",
-      /Post-review correction and generalized-learning ledger/,
-    ],
-  ] as const
-) {
-  assert(
-    contract.test(acceptanceTemplate),
-    `Acceptance template is missing ${label}.`,
-  );
-}
-for (
-  const path of [
-    "docs/templates/river_run_river_foundation_template.md",
-    "docs/templates/river_run_live_conditions_template.md",
-    "docs/templates/river_run_species_run_template.md",
-    "docs/templates/river_run_acceptance_template.md",
-  ]
-) {
-  const content = await Deno.readTextFile(path);
-  assert(content.includes("{{RIVER_ID}}"), `${path} is not scaffold-ready.`);
 }
 const riverRunScreen = await Deno.readTextFile("app/river-run.tsx");
 const primitiveTabs = riverRunScreen.match(
@@ -365,7 +288,7 @@ assert(
   "Onboarding primitive order must match the actual River Run UI registry.",
 );
 console.log(
-  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs, ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} pending rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} pending runs, three public reads, Gauge Read/Fishing Shape capability checks, canonical standards, and scaffold templates.`,
+  `River Run onboarding QA passed: ${report.riverCount} public rivers/${report.runCount} public runs, ${RIVER_RUN_DRAFT_RIVER_PROFILES.length} pending rivers/${RIVER_RUN_DRAFT_RUN_PROFILES.length} pending runs, three public reads, Gauge Read/Fishing Shape capability checks, one canonical onboarding guide, and one-dossier scaffolding.`,
 );
 
 function assert(condition: unknown, message: string): asserts condition {

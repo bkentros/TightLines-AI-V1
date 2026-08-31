@@ -35,9 +35,9 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   bois_brule: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
-    "full"
-  ? "full"
-  : "legacy";
+    "legacy"
+  ? "legacy"
+  : "full";
 const legacyRiverIds = new Set([
   "pere_marquette",
   "betsie",

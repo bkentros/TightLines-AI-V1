@@ -5,6 +5,59 @@ import {
 
 const command = Deno.args[0] ?? "status";
 const json = Deno.args.includes("--json");
+const US_STATE_CODES = new Set([
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
+  "DC",
+]);
 
 if (command === "status" || command === "validate" || command === "audit") {
   const report = auditCurrentRiverRunPortfolio();
@@ -30,14 +83,8 @@ async function validatePacket(): Promise<void> {
   const outputRoot = valueFor("--output-root") ??
     "docs/onboarding/river-run";
   const root = `${outputRoot.replace(/\/$/, "")}/${riverId}`;
-  const files = [
-    "river-foundation.md",
-    "live-conditions.md",
-    "runs/fall-chinook.md",
-    "runs/fall-coho.md",
-    "runs/fall-steelhead.md",
-    "acceptance.md",
-  ];
+  const relative = "river-onboarding.md";
+  const path = `${root}/${relative}`;
   const blockingPatterns = [
     /`research_incomplete`/gi,
     /\|\s*unresolved\s*\|/gi,
@@ -46,96 +93,58 @@ async function validatePacket(): Promise<void> {
     /\{\{[^}]+\}\}/g,
   ];
   let errors = 0;
-  for (const relative of files) {
-    const path = `${root}/${relative}`;
-    let content: string;
-    try {
-      content = await Deno.readTextFile(path);
-    } catch (error) {
-      if (error instanceof Deno.errors.NotFound) {
-        console.error(`ERROR missing onboarding packet file: ${path}`);
-        errors++;
-        continue;
-      }
-      throw error;
+  let content: string;
+  try {
+    content = await Deno.readTextFile(path);
+  } catch (error) {
+    if (error instanceof Deno.errors.NotFound) {
+      console.error(`ERROR missing onboarding dossier: ${path}`);
+      Deno.exit(1);
     }
-    for (const pattern of blockingPatterns) {
-      const matches = content.match(pattern) ?? [];
-      if (matches.length) {
-        console.error(
-          `ERROR ${relative}: ${matches.length} unresolved template marker(s) matching ${pattern.source}`,
-        );
-        errors += matches.length;
-      }
-    }
-    if (!/https?:\/\/|`[^`/]+\/[^`]+`/.test(content)) {
+    throw error;
+  }
+  for (const pattern of blockingPatterns) {
+    const matches = content.match(pattern) ?? [];
+    if (matches.length) {
       console.error(
-        `ERROR ${relative}: no evidence URL or repository-path citation found.`,
+        `ERROR ${relative}: ${matches.length} unresolved marker(s) matching ${pattern.source}`,
       );
-      errors++;
+      errors += matches.length;
     }
-    if (
-      relative.startsWith("runs/") &&
-      (!content.includes("## 0. Candidate capability audit") ||
-        !content.includes("Complete configuration-field inventory") ||
-        !content.includes("Species-specific endpoint decision") ||
-        !content.includes("Portfolio strength comparison") ||
-        !content.includes(
-          "Evidence kind: entry/passage/harvest/spawn/egg-take/operation",
-        ) ||
-        !content.includes("Source pairing decision") ||
-        !content.includes("Missing hourly weather") ||
-        !content.includes("Post-review correction record") ||
-        !content.includes("**Code-to-packet reconciliation reviewer/date:**") ||
-        !/^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m
-          .test(content) ||
-        !/^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m.test(content) ||
-        !/\*\*Capability decision:\*\*/.test(content) ||
-        !/\*\*Contradiction search\s+completed\s+by\/date:\*\*/.test(content) ||
-        !/\*\*Independent falsification review\s+by\/date:\*\*/.test(content))
-    ) {
+  }
+  if (!/https?:\/\/|`[^`/]+\/[^`]+`/.test(content)) {
+    console.error(`ERROR ${relative}: no evidence URL or repository citation.`);
+    errors++;
+  }
+  for (
+    const [label, contract] of [
+      ["identity and corridor", /## 2\. Identity and corridor/],
+      ["barrier inventory", /## 4\. Barrier and passage inventory/],
+      ["species passage chains", /## 5\. Species endpoints and passage chains/],
+      ["regulations", /## 6\. Regulations/],
+      ["source capability", /## 7\. Source and capability audit/],
+      ["Spot Finder", /## 8\. Spot Finder/],
+      ["candidate species matrix", /## 9\. Candidate species matrix/],
+      ["run records", /## 10\. Species\/run records/],
+      ["Activity tuning", /### Activity tuning and fixed replay/],
+      ["configuration reconciliation", /## 11\. Configuration reconciliation/],
+      ["acceptance and release", /## 12\. Acceptance and release record/],
+      ["correction ledger", /## 13\. Correction and learning ledger/],
+      ["contradiction review", /Contradiction search completed by\/date/],
+      ["independent review", /Independent falsification review by\/date/],
+      [
+        "stage-by-block table",
+        /^\|\s*Stage\s*\|\s*Block\s*\|\s*Usable days\s*\|\s*Samples\s*\|/m,
+      ],
+      [
+        "calibration ledger",
+        /^\|\s*Iteration\s*\|\s*Fields changed\s*\|/m,
+      ],
+    ] as const
+  ) {
+    if (!contract.test(content)) {
       console.error(
-        `ERROR ${relative}: missing mandatory capability, endpoint, calendar-bias, strength-comparison, complete-config, Activity source/missing/replay, learning-ledger, or contradiction audit.`,
-      );
-      errors++;
-    }
-    if (
-      relative === "river-foundation.md" &&
-      (!content.includes("Species endpoint and passage-chain decision") ||
-        !content.includes(
-          "Supported species decision and shared comparison matrix",
-        ) ||
-        !content.includes("automatically without a code/configuration change"))
-    ) {
-      console.error(
-        `ERROR ${relative}: missing species passage-chain, shared comparison, or provider-recovery contract.`,
-      );
-      errors++;
-    }
-    if (
-      relative === "live-conditions.md" &&
-      (!content.includes("Provider malfunction fails closed") ||
-        !content.includes(
-          "Recovered valid numeric reading automatically restores",
-        ))
-    ) {
-      console.error(
-        `ERROR ${relative}: missing provider-fault and automatic-recovery acceptance cases.`,
-      );
-      errors++;
-    }
-    if (
-      relative === "acceptance.md" &&
-      (!content.includes("Code-to-packet configuration-field reconciliation") ||
-        !content.includes(
-          "Activity stage-by-block distributions and iteration ledger",
-        ) ||
-        !content.includes(
-          "Post-review correction and generalized-learning ledger",
-        ))
-    ) {
-      console.error(
-        `ERROR ${relative}: missing complete-config or Activity replay acceptance gate.`,
+        `ERROR ${relative}: missing ${label}.`,
       );
       errors++;
     }
@@ -194,8 +203,8 @@ async function scaffold(): Promise<void> {
     usage("init requires --river-id using lowercase snake_case.");
   }
   if (!displayName) usage("init requires --display-name.");
-  if (!state || !["MI", "WI", "IL", "IN", "OH", "PA", "NY"].includes(state)) {
-    usage("init requires a supported Great Lakes --state.");
+  if (!state || !US_STATE_CODES.has(state)) {
+    usage("init requires a valid two-letter U.S. --state code.");
   }
   const outputRoot = valueFor("--output-root") ??
     "docs/onboarding/river-run";
@@ -209,51 +218,223 @@ async function scaffold(): Promise<void> {
   } catch (error) {
     if (!(error instanceof Deno.errors.NotFound)) throw error;
   }
-  await Deno.mkdir(`${root}/runs`, { recursive: true });
+  await Deno.mkdir(root, { recursive: true });
   const replacements: Record<string, string> = {
     "{{RIVER_ID}}": riverId,
     "{{RIVER_NAME}}": displayName,
     "{{STATE}}": state,
     "{{CREATED_ON}}": new Date().toISOString().slice(0, 10),
   };
-  await renderTemplate(
-    "docs/templates/river_run_river_foundation_template.md",
-    `${root}/river-foundation.md`,
-    replacements,
-  );
-  await renderTemplate(
-    "docs/templates/river_run_live_conditions_template.md",
-    `${root}/live-conditions.md`,
-    replacements,
-  );
-  for (const species of ["chinook", "coho", "steelhead"]) {
-    await renderTemplate(
-      "docs/templates/river_run_species_run_template.md",
-      `${root}/runs/fall-${species}.md`,
-      { ...replacements, "{{SPECIES}}": species },
-    );
+  let dossier = dossierTemplate();
+  for (const [token, value] of Object.entries(replacements)) {
+    dossier = dossier.replaceAll(token, value);
   }
-  await renderTemplate(
-    "docs/templates/river_run_acceptance_template.md",
-    `${root}/acceptance.md`,
-    replacements,
-  );
+  await Deno.writeTextFile(`${root}/river-onboarding.md`, dossier);
   console.log(`Created River Run onboarding workspace: ${root}`);
   console.log(
-    "Next gate: build the shared source/species matrix, then complete and approve river-foundation.md before run implementation.",
+    "Next gate: complete and approve the shared foundation/source/species sections in river-onboarding.md before run implementation.",
   );
 }
 
-async function renderTemplate(
-  source: string,
-  destination: string,
-  replacements: Record<string, string>,
-): Promise<void> {
-  let content = await Deno.readTextFile(source);
-  for (const [token, value] of Object.entries(replacements)) {
-    content = content.replaceAll(token, value);
-  }
-  await Deno.writeTextFile(destination, content);
+function dossierTemplate(): string {
+  return `# {{RIVER_NAME}} River Run Onboarding Dossier
+
+**River ID:** \`{{RIVER_ID}}\`
+
+**State:** \`{{STATE}}\`
+
+**Created:** {{CREATED_ON}}
+
+**Status:** \`research_incomplete\`
+
+**Guide:** \`docs/river_run_onboarding.md\`
+
+## 1. Decisions and evidence ledger
+
+**Foundation approval/version/date:**
+
+**Run-truth approval/version/date:**
+
+**Rendered owner acceptance/date:**
+
+**Deployment authorization/date:**
+
+**Public enablement authorization/date:**
+
+**Contradiction search completed by/date:**
+
+**Independent falsification review by/date:**
+
+| ID | Authority/title | URL/path | Published/updated | Event/data years | Page/table | Accessed | Facts supported | Geographic scope | Limitations |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| E-001 |  |  |  |  |  |  |  |  |  |
+
+## 2. Identity and corridor
+
+| Field | Decision | Evidence IDs | Status |
+| --- | --- | --- | --- |
+| Official identity/aliases/exclusions |  |  | unresolved |
+| Runtime region/schema fit |  |  | unresolved |
+| Jurisdictions/presentation contexts |  |  | unresolved |
+| Mouth/receiving water/timezone |  |  | unresolved |
+| Downstream/upstream product termini and length |  |  | unresolved |
+| Weather point and representation |  |  | unresolved |
+
+## 3. Canonical reaches
+
+| Reach ID | Public name | Downstream boundary | Upstream boundary | Order/role | Species access | Gauge represented | Evidence IDs |
+| --- | --- | --- | --- | ---: | --- | --- | --- |
+|  |  |  |  |  |  |  |  |
+
+## 4. Barrier and passage inventory
+
+| Barrier ID/name | Type/status/location | Operating/passage limits | Species passage | Product limit/closure | Verified | Evidence IDs | Decision |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  | unresolved |
+
+## 5. Species endpoints and passage chains
+
+| Species | Mouth-to-endpoint chain | Conservative endpoint | Physical endpoint vs opportunity distribution | Evidence IDs | Status |
+| --- | --- | --- | --- | --- | --- |
+| Chinook |  |  |  |  | unresolved |
+| Coho |  |  |  |  | unresolved |
+| Steelhead |  |  |  |  | unresolved |
+| Lake-run brown trout |  |  |  |  | unresolved |
+
+## 6. Regulations
+
+| Authority/version | Reach/effective dates | Public reminder | Access/safety note | Recheck date | Evidence IDs | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  | unresolved |
+
+## 7. Source and capability audit
+
+| Source/metric | IDs/location/reach | Live sample/unit/time/cadence | History/gaps/datum | Freshness/fault/recovery | Role | Evidence IDs | Decision |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  | unresolved |
+
+| Capability | Decision and exact represented reach | Required calibration/artifact | Status |
+| --- | --- | --- | --- |
+| Gauge Read |  | freshness/trend/date-context/fault QA | unresolved |
+| Fishing Shape |  | bands and replay, or explicit unavailability | unresolved |
+| Activity source pairing |  | observed compatibility or weather-only limitation | unresolved |
+
+## 8. Spot Finder
+
+**Decision:** \`unresolved\`
+
+| Section ID/position | Foundation reaches | Boundary range | Eligible species | Fishing access IDs | Evidence IDs |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |
+
+| Access ID/name | Fishing access kinds | Detail/caution | Source URL/locator/label | Verified |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
+
+## 9. Candidate species matrix
+
+| Species | Occurs | Recurring run | Dependable opportunity | Endpoint supported | Calibration quality | Contradictions | Decision/evidence IDs |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Chinook |  |  |  |  |  |  | unresolved |
+| Coho |  |  |  |  |  |  | unresolved |
+| Steelhead |  |  |  |  |  |  | unresolved |
+| Lake-run brown trout |  |  |  |  |  |  | unresolved |
+
+## 10. Species/run records
+
+Duplicate this subsection once for every supported species. Delete unused
+candidate rows only after the contradiction/falsification audit is recorded.
+
+### Run: SPECIES
+
+**Capability decision:** \`unresolved\`
+
+**Run/config/presence/Activity/Fishing Shape versions:**
+
+**Code-to-packet reconciliation reviewer/date:**
+
+| Configuration field | Value | Evidence/comparators | Calibration owner | Replay/test artifact | Status |
+| --- | --- | --- | --- | --- | --- |
+| Identity/biology/run type/engine/lifecycle |  |  |  |  | unresolved |
+| Primitive capabilities and legacy unavailable fields |  |  |  |  | unresolved |
+| Species endpoint/Seasonal Zone reaches |  |  |  |  | unresolved |
+| Presence maximum/distribution/curve/anchors |  |  |  |  | unresolved |
+| Activity complete rule set |  |  |  |  | unresolved |
+| Fishing Shape/baseline/temperature policy |  |  |  |  | unresolved |
+| Research/source/audit fields |  |  |  |  | unresolved |
+
+| Boundary | Date | Meaning | Evidence kind: entry/passage/harvest/spawn/egg-take/operation/calibration | Evidence IDs | Bias/owner calibration |
+| --- | --- | --- | --- | --- | --- |
+| preRunStart |  |  |  |  |  |
+| stagingStart |  |  |  |  |  |
+| start |  |  |  |  |  |
+| beginningEnd |  |  |  |  |  |
+| buildingEstablishedStart |  |  |  |  |  |
+| buildingBroadStart (optional) |  |  |  |  |  |
+| peakStart |  |  |  |  |  |
+| peak |  |  |  |  |  |
+| peakEnd |  |  |  |  |  |
+| taperingEnd |  |  |  |  |  |
+| end |  |  |  |  |  |
+| lateEnd |  |  |  |  |  |
+| postRunLateCopyEnd |  |  |  |  |  |
+
+| Presence anchor offset/date | Fraction of maximum | Biological/observational reason | Evidence IDs |
+| --- | ---: | --- | --- |
+|  |  |  |  |
+
+### Activity tuning and fixed replay
+
+**Mode/source pairing/represented reach:**
+
+**Fixed interval and coverage:**
+
+**Missing hourly weather:** Unavailable with no score, blocks, or leader.
+
+**Lifecycle/cap invariant result:**
+
+| Stage | Block | Usable days | Samples | Min | p10 | Mean | Median | p90 | Max | Label shares | Cap/confidence notes |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Beginning | all blocks |  |  |  |  |  |  |  |  |  |  |
+| Building | all blocks |  |  |  |  |  |  |  |  |  |  |
+| Peak | all blocks |  |  |  |  |  |  |  |  |  |  |
+| Tapering | all blocks |  |  |  |  |  |  |  |  |  |  |
+| Ending | all blocks |  |  |  |  |  |  |  |  |  |  |
+
+Add the four named block rows under every stage plus residual/holding rows when
+configured.
+
+| Iteration | Fields changed | Evidence/product reason | Predicted effect | Full replay artifact | Actual delta/invariants | Decision |
+| --- | --- | --- | --- | --- | --- | --- |
+| Baseline |  |  |  |  |  | unresolved |
+
+## 11. Configuration reconciliation
+
+| Config object/file | Dossier fields reconciled | Validator/replay/fixture result | Reviewer/date | Status |
+| --- | --- | --- | --- | --- |
+|  |  |  |  | pending |
+
+## 12. Acceptance and release record
+
+| Gate | Artifact/command | Result | Reviewer/date | Notes |
+| --- | --- | --- | --- | --- |
+| Foundation/source/species truth | this dossier | pending |  |  |
+| Activity full replay and controlled tests |  | pending |  |  |
+| Fishing Shape replay/unavailability |  | pending |  |  |
+| Seasonal Zone/Spot Finder alignment |  | pending |  |  |
+| Configuration and packet validation |  | pending |  |  |
+| Fixtures/copy/UI/visual/type QA |  | pending |  |  |
+| Rendered owner acceptance |  | pending |  |  |
+| Public registry/config source/migrations |  | pending |  |  |
+| Deployment/full production smoke |  | pending |  |  |
+| Atomic commit/remote parity/clean worktree |  | pending |  |  |
+
+## 13. Correction and learning ledger
+
+| Finding | Root cause | Structured truth/config corrected | Full reruns | General safeguard | Reviewer/date |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |
+`;
 }
 
 function valueFor(flag: string): string | undefined {
