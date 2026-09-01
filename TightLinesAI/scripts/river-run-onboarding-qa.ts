@@ -187,6 +187,10 @@ for (
     ],
     ["evidence hierarchy", /Use this evidence hierarchy/],
     [
+      "named onboarding statuses",
+      /`research_incomplete`[\s\S]*`owner_review_ready`[\s\S]*`released`/,
+    ],
+    [
       "passage chains",
       /complete mouth-to-endpoint passage chain for each species/,
     ],
@@ -210,6 +214,10 @@ for (
       /historical average with its year count[\s\S]*not a live sensor/,
     ],
     [
+      "gauge role separation",
+      /`primary_scored`[\s\S]*`context_only`[\s\S]*`rejected`/,
+    ],
+    [
       "tidal source isolation",
       /tidal or reversing-flow stations[\s\S]*specific normalization/,
     ],
@@ -222,6 +230,14 @@ for (
       /app fetch\/check cadence[\s\S]*source publication cadence[\s\S]*observation-through date/,
     ],
     [
+      "Fish Counts publication classes",
+      /Live\/near-real-time counter[\s\S]*Retrospective annual research total/,
+    ],
+    [
+      "Spot Finder source reconciliation",
+      /Spot Finder completeness is an inventory reconciliation/,
+    ],
+    [
       "distinct seasonal runs",
       /spring and fall Chinook[\s\S]*summer\s+and winter Steelhead/,
     ],
@@ -230,6 +246,7 @@ for (
     ["weather-only Activity", /Weather-only mode/],
     ["fixed replay", /Fixed historical replay/],
     ["stage/block review", /stage-by-block table/],
+    ["owner-review digest", /standardized owner-review digest/],
     ["calibration ledger", /calibration ledger/],
     ["cross-year math", /Cross-year seasons/],
     ["provider recovery", /automatically restores the\s+metric/],
@@ -296,6 +313,10 @@ for (
     "Fish Counts",
     "Candidate species/run matrix",
     "distinct seasonal or life-history runs",
+    "Authoritative access source",
+    "Negative-search completion",
+    "Owner-review digest",
+    'stage === "release"',
   ]
 ) {
   assert(

@@ -6,7 +6,7 @@
 
 **Research date:** 2026-08-31
 
-**Status:** hidden implementation complete; ready for rendered owner review; public audit, release, and deployment withheld
+**Status:** `owner_review_ready`
 
 **Guide:** `docs/river_run_onboarding.md`
 

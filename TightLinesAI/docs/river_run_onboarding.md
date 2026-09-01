@@ -1,7 +1,7 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.2\
+**Version:** 3.3\
 **Established:** 2026-08-30\
 **Revised:** 2026-08-31\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
@@ -17,6 +17,24 @@ geographic, source, legal, or product accuracy. Speed comes from researching
 river facts once, evaluating species together, deriving public presentation, and
 automating verification. It never comes from copying another river's calendar,
 strength, endpoint, gauge reach, or Activity tuning.
+
+### Definition of done and status vocabulary
+
+Use exactly one dossier status and advance it only when its stated gate passes:
+
+| Status | Meaning |
+| --- | --- |
+| `research_incomplete` | Material foundation, source, or run questions remain open |
+| `research_ready` | Identity, corridor, barriers, regulations, sources, candidates, and independent run truth are accepted |
+| `hidden_implementation_ready` | Hidden configuration, replays, reconciliation, fixtures, and automated QA pass |
+| `owner_review_ready` | The rendered hidden experience and standardized owner-review digest are ready; owner acceptance may still be pending |
+| `owner_accepted_not_released` | Owner accepted the rendered result, but public enablement/deployment is not authorized |
+| `release_authorized` | Owner separately authorized the exact public/deployment action recorded in the dossier |
+| `released` | Authorized promotion/deployment, production smoke, repository handoff, and re-audit triggers are complete |
+
+An agent handing work to the owner must state the exact status, what remains,
+and whether any code or configuration is public. `Ready`, `accepted`, and
+`complete` without the named gate are insufficient.
 
 ## 1. Current product contract
 
@@ -105,8 +123,7 @@ public enablement are separate decisions. Do not infer one from another.
 
 Run onboarding in four passes. A river becomes **research-ready** only after
 Passes 1 and 2. It becomes **implementation-ready** only after Pass 3 is
-accepted. The ten-rivers-per-day target applies to implementation-ready rivers,
-not ten unresolved research projects.
+accepted. Batch throughput is a planning measure, never an acceptance target.
 
 ### Pass 1 — preflight and shared evidence bundle
 
@@ -255,6 +272,20 @@ Use exactly one primary hydraulic source when hydraulics are accepted. Other
 gauges are context unless independently normalized and audited. Temperature
 sources use priority order and are never averaged.
 
+Assign every probed gauge exactly one role:
+
+- `primary_scored`: represents the modeled reach and may support Fishing Shape
+  or Activity after calibration and replay;
+- `context_only`: provides useful nearby or upstream information but contributes
+  zero to Activity and Fishing Shape; and
+- `rejected`: is too remote, disconnected, ambiguous, stale, or misleading even
+  for public context.
+
+A context-only source must disclose its station reach, distance or relationship
+to the product corridor, intervening dams/falls/reservoirs/major tributaries,
+the reach it does represent, the reach it excludes, and the exact public label.
+Displaying a context source is not substituting it for target-reach conditions.
+
 Treat tidal or reversing-flow stations as a separate hydraulic case. Raw signed
 discharge is not ordinary downstream river flow and cannot drive trend, Fishing
 Shape, or Activity without a specific normalization, reach contract, historical
@@ -285,6 +316,14 @@ state that it is not a live sensor or today's temperature. It has no freshness
 or trend claim and contributes zero to Activity, Fishing Shape, Stage, and
 Seasonal Presence.
 
+Use this historical-temperature search order: current parameter inventory and
+live endpoint; same-reach official daily-value archive; documented predecessor
+station or method-continuous archive; then explicit unavailability. Verify the
+actual temperature parameter and usable daily coverage—station existence or a
+flow record does not prove a temperature record. Do not estimate water
+temperature from air temperature, discharge, another basin, a broad monthly
+normal, or an undocumented model.
+
 Test fresh, delayed, partial, older-than-24-hours, unreadable, missing,
 fallback, and recovered states. A provider fault suppresses bad numeric values,
 retains the last-readable timestamp when known, and automatically restores the
@@ -308,6 +347,21 @@ facility, source URL/endpoint, observation type (`hatchery_return`,
 eligible species, operating season, cadence, freshness limit, preliminary/final
 status, adult/jack and hatchery/natural categories, bypass/capture limitations,
 transport/recycling/recapture handling, revision behavior, and attribution.
+
+Classify the publication before implementation:
+
+| Class | Meaning | Current Fish Counts eligibility |
+| --- | --- | --- |
+| Live/near-real-time counter | Automated or staffed observations published continuously or daily | Eligible after full audit |
+| Recurring in-season report | Weekly or similarly recurring preliminary facility observations | Eligible with explicit cadence/freshness |
+| Finalized seasonal report | A completed-season facility passage/return report | Eligible only as clearly finalized seasonal data when the product contract supports it |
+| Retrospective annual research total | A later annual report summarizing an earlier run | Historical evidence only; not a current Fish Count |
+
+A physical ladder, trap, hatchery collection point, or egg-take operation does
+not establish a public count feed. Stocking totals, egg totals, broodstock sample
+sizes, creel estimates, angler reports, and isolated press/social updates are not
+facility passage or return counts. Verify the authoritative publication index
+and its newest report—not only an older PDF—and record report lag in days.
 
 Keep four times distinct: app fetch/check cadence, source publication cadence,
 source report date, and observation-through date. Checking daily does not mean
@@ -392,6 +446,16 @@ material caution, official or accepted land-manager URL, source locator
 instructions, source label, and verification date. Include every eligible access
 in a recommended section; never rank an individual access.
 
+Spot Finder completeness is an inventory reconciliation, not a sample of popular
+locations. Declare the authoritative source universe and record, for each
+source, named entries found, entries included, entries excluded, and exclusion
+reasons. “Complete” means every eligible fishing access in that declared source
+universe is represented. It does not mean every location mentioned anywhere on
+the internet. Unnamed signed PFR/easement segments may be represented as one
+documented network; tributary-only locations cannot become mainstem spots.
+Every displayed access must be findable by its official name or recorded source
+locator. Never invent a navigation coordinate.
+
 Recommendation ownership:
 
 - the engine resolves one Seasonal Zone from the fixed calendar, ordered
@@ -416,6 +480,12 @@ local names. Search agency assessments, current/historic stocking, creel and
 harvest records, weir/ladder/trap/egg-take reports, passage material, field
 observations, technical archives, and regulations as context.
 
+Owner-requested species are the minimum search set, not the complete candidate
+set. Also inspect current management and stocking plans for other recurring
+migratory species, seasonal strains, and recently discontinued strains that
+could otherwise be merged or silently omitted. Use dynamic candidate rows in
+the dossier; national onboarding is not limited to Great Lakes salmonids.
+
 Enumerate distinct seasonal/life-history candidates before deciding support. One
 species may require multiple profiles—such as spring and fall Chinook or summer
 and winter Steelhead—with different calendars, endpoints, hatchery or natural
@@ -436,6 +506,12 @@ direct stocking, omission from one guide, or evidence from another season is not
 enough. When occurrence is established but precision is weak, use a conservative
 supported profile or keep it `research_unresolved`; do not erase a real sparse
 run.
+
+Bound the negative search by recording which applicable official classes were
+checked: current fishery/management page, regulations and emergency actions,
+stocking records, creel/harvest or population assessments, facility/passage
+reports, barrier records, and recent technical reports. This makes a negative
+decision reproducible without treating the open internet as an endless search.
 
 ## 9. Species/run configuration
 
@@ -654,10 +730,30 @@ Run the generic structural gate first:
 ```bash
 npm run river-run:onboarding:validate
 npm run river-run:onboarding:audit
-npm run river-run:onboarding:validate-packet -- --river-id example_river
+npm run river-run:onboarding:validate-packet -- --river-id example_river --stage owner-review
 npm run qa:river-run:onboarding
 npm run qa:river-run:onboarding-weather-activity
 ```
+
+Use the generic run-addressable paths instead of adding a river-named algorithm:
+
+```bash
+# Choose exactly one Activity mode per run.
+npm run replay:river-run:observed-activity -- --run-id example_fall_chinook
+npm run replay:river-run:weather-activity -- --run-id example_fall_chinook
+
+npm run generate:river-run:onboarding-review-fixtures
+npm run check:river-run:onboarding-review-fixtures
+npm run audit:river-run:spot-sources
+npm run qa:river-run:review-mode
+npm run qa:river-run:ui
+npm run qa:river-run:visuals
+npm run qa:water-reader-typecheck
+```
+
+Run packet validation with `--stage implementation`, `--stage owner-review`,
+or `--stage release`. Pending owner acceptance and release authorization are
+valid at the owner-review gate; they are blockers only at the release gate.
 
 Then run the appropriate full Activity and Fishing Shape replays, Fish Counts
 freshness/revision/duplicate/parser fixtures when configured, fixture
@@ -684,6 +780,16 @@ Scenario fixtures may control primitives but never replace visible Gauge Read
 with synthetic current measurements. Review the complete page on narrow iOS and
 Android widths with long names, expanded Gauge Read, Spot Finder, every read,
 and terminal states.
+
+Before requesting owner review, add a compact digest generated from the final
+configuration and replay artifacts. For every candidate/run it must show the
+support decision, exact Stage date ranges, 1–10 strength and distribution scope,
+calibration confidence/comparators, mean Activity for each Stage and time block,
+replay interval/coverage, and terminal semantics. A second table must show Gauge
+Read metrics and station reaches, Fishing Shape, Fish Counts, historical-only
+temperature, Spot Finder source/access reconciliation, important exclusions,
+and hidden/public state. Do not make the owner reconstruct these values from raw
+research or code.
 
 ## 13. Acceptance and release gate
 
@@ -737,6 +843,9 @@ the scaffold command. It contains these compact records:
 - one repeated run field/calendar/presence/Activity/Fishing Shape section per
   supported run;
 - Activity stage-by-block replay link and calibration ledger;
+- standardized owner-review run/capability digest;
+- Spot Finder authoritative-source reconciliation and candidate negative-search
+  completion record;
 - code reconciliation, QA, owner acceptance, release, migration, deployment, and
   repository handoff record;
 - post-review correction and generalized safeguard ledger.

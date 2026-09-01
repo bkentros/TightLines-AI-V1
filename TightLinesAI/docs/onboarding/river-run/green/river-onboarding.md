@@ -3,7 +3,7 @@
 **River ID:** `green`
 **State/region:** `WA` / `pacific_northwest`
 **Research date:** 2026-08-31
-**Status:** hidden owner-review candidate; public audit and release authorization withheld
+**Status:** `owner_review_ready`
 **Guide:** `docs/river_run_onboarding.md`
 
 ## 1. Decision and evidence record

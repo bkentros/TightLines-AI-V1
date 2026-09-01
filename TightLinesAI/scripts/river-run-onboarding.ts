@@ -82,16 +82,29 @@ async function validatePacket(): Promise<void> {
   }
   const outputRoot = valueFor("--output-root") ??
     "docs/onboarding/river-run";
+  const stage = valueFor("--stage") ?? "implementation";
+  if (!["implementation", "owner-review", "release"].includes(stage)) {
+    usage(
+      "validate-packet --stage must be implementation, owner-review, or release.",
+    );
+  }
   const root = `${outputRoot.replace(/\/$/, "")}/${riverId}`;
   const relative = "river-onboarding.md";
   const path = `${root}/${relative}`;
   const blockingPatterns = [
     /`research_incomplete`/gi,
     /\|\s*unresolved\s*\|/gi,
-    /\|\s*pending\s*\|/gi,
     /(?:decision|status):\s*`blocked`/gi,
     /\{\{[^}]+\}\}/g,
   ];
+  if (stage === "release") {
+    blockingPatterns.push(
+      /\|\s*pending\s*\|/gi,
+      /\bwithheld\b/gi,
+      /\bnot authorized\b/gi,
+      /\bnot performed\b/gi,
+    );
+  }
   let errors = 0;
   let content: string;
   try {
@@ -102,6 +115,31 @@ async function validatePacket(): Promise<void> {
       Deno.exit(1);
     }
     throw error;
+  }
+  const acceptedStatuses = stage === "release"
+    ? ["release_authorized", "released"]
+    : stage === "owner-review"
+    ? [
+      "owner_review_ready",
+      "owner_accepted_not_released",
+      "release_authorized",
+      "released",
+    ]
+    : [
+      "hidden_implementation_ready",
+      "owner_review_ready",
+      "owner_accepted_not_released",
+      "release_authorized",
+      "released",
+    ];
+  const statusMatch = content.match(/^\*\*Status:\*\*\s*`([^`]+)`/m);
+  if (!statusMatch || !acceptedStatuses.includes(statusMatch[1])) {
+    console.error(
+      `ERROR ${relative}: status must be one of ${
+        acceptedStatuses.join(", ")
+      } for the ${stage} gate.`,
+    );
+    errors++;
   }
   for (const pattern of blockingPatterns) {
     const matches = content.match(pattern) ?? [];
@@ -152,13 +190,21 @@ async function validatePacket(): Promise<void> {
       errors++;
     }
   }
+  if (
+    (stage === "owner-review" || stage === "release") &&
+    /\*\*Target gate:\*\*/.test(content) &&
+    !/### Owner-review digest/.test(content)
+  ) {
+    console.error(`${relative}: missing standardized owner-review digest.`);
+    errors++;
+  }
   if (errors > 0) {
     console.error(
       `River Run onboarding packet BLOCKED: ${errors} issue(s) across ${root}.`,
     );
     Deno.exit(1);
   }
-  console.log(`River Run onboarding packet READY: ${root}`);
+  console.log(`River Run onboarding packet READY (${stage}): ${root}`);
 }
 
 function printStatus(report: PortfolioOnboardingAudit): void {
@@ -250,6 +296,8 @@ function dossierTemplate(): string {
 
 **Status:** \`research_incomplete\`
 
+**Target gate:** \`owner_review_ready\`
+
 **Guide:** \`docs/river_run_onboarding.md\`
 
 ## 1. Decisions and evidence ledger
@@ -267,6 +315,8 @@ function dossierTemplate(): string {
 **Contradiction search completed by/date:**
 
 **Independent falsification review by/date:**
+
+**Research cutoff and time-sensitive recheck triggers:**
 
 | ID | Authority/title | URL/path | Published/updated | Event/data years | Page/table | Accessed | Facts supported | Geographic scope | Limitations |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -312,7 +362,7 @@ function dossierTemplate(): string {
 
 ## 7. Source and capability audit
 
-| Source/metric | IDs/location/reach | Live sample/unit/time/cadence | History/gaps/datum | Freshness/fault/recovery | Role | Evidence IDs | Decision |
+| Source/metric | IDs/location/reach | Live sample/unit/time/cadence | History/gaps/datum | Freshness/fault/recovery | Role: primary_scored/context_only/rejected | Evidence IDs | Decision |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |  | unresolved |
 
@@ -320,7 +370,7 @@ function dossierTemplate(): string {
 | --- | --- | --- | --- |
 | Gauge Read |  | freshness/trend/date-context/fault QA | unresolved |
 | Historical-only water temperature |  | archive extraction, date-window/year-count QA, non-scoring proof, or explicit unavailability | unresolved |
-| Fish Counts |  | source/fetch/publication/observation cadence, parser/revision/duplicate QA, or explicit unavailability | unresolved |
+| Fish Counts |  | live/in-season/final-season/retrospective class; source/fetch/publication/observation cadence; parser/revision/duplicate QA; or explicit unavailability | unresolved |
 | Fishing Shape |  | bands and replay, or explicit unavailability | unresolved |
 | Activity source pairing |  | observed compatibility or weather-only limitation | unresolved |
 
@@ -336,6 +386,10 @@ function dossierTemplate(): string {
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
+| Authoritative access source | Named entries found | Included | Excluded | Exclusion reasons/reconciliation |
+| --- | ---: | ---: | ---: | --- |
+|  |  |  |  |  |
+
 ## 9. Candidate species/run matrix
 
 Duplicate rows when one species has distinct seasonal or life-history runs. Do
@@ -344,10 +398,12 @@ different runs merely because the species is the same.
 
 | Candidate run | Occurs | Recurring run | Dependable opportunity | Endpoint supported | Calibration quality | Contradictions | Decision/evidence IDs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook — season/run type |  |  |  |  |  |  | unresolved |
-| Coho — season/run type |  |  |  |  |  |  | unresolved |
-| Steelhead — season/run type |  |  |  |  |  |  | unresolved |
-| Lake-run brown trout — season/run type |  |  |  |  |  |  | unresolved |
+| Owner-requested candidate — season/run type |  |  |  |  |  |  | unresolved |
+| Management/stocking-plan candidate — season/run type |  |  |  |  |  |  | unresolved |
+
+**Negative-search completion:** Record the applicable official fishery,
+regulation, stocking, creel/assessment, facility, barrier, and recent technical
+report classes checked for every unsupported or research-unresolved candidate.
 
 ## 10. Species/run records
 
@@ -425,6 +481,22 @@ configured.
 
 ## 12. Acceptance and release record
 
+### Owner-review digest
+
+**Hidden/public state:**
+
+| Candidate/run | Decision | Exact Stage date ranges | Strength/distribution/confidence and comparators | Mean Activity by Stage/block | Replay interval/coverage | Terminal semantics |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |
+
+| Capability | Available metrics/source and represented reach | Scoring role | Completeness/QA | Important limitation or exclusion |
+| --- | --- | --- | --- | --- |
+| Gauge Read |  |  |  |  |
+| Historical-only water temperature |  | none |  |  |
+| Fish Counts |  | none |  |  |
+| Fishing Shape |  |  |  |  |
+| Spot Finder |  | none |  |  |
+
 | Gate | Artifact/command | Result | Reviewer/date | Notes |
 | --- | --- | --- | --- | --- |
 | Foundation/source/species truth | this dossier | pending |  |  |
@@ -461,7 +533,8 @@ function usage(message?: string): never {
       "  deno run --allow-read scripts/river-run-onboarding.ts validate [--json]\n" +
       "  deno run --allow-read scripts/river-run-onboarding.ts audit\n" +
       "  deno run --allow-read scripts/river-run-onboarding.ts validate-packet " +
-      "--river-id <snake_case> [--output-root <directory>]\n" +
+      "--river-id <snake_case> [--stage implementation|owner-review|release] " +
+      "[--output-root <directory>]\n" +
       "  deno run --allow-read --allow-write scripts/river-run-onboarding.ts init " +
       "--river-id <snake_case> --display-name <name> --state <code> " +
       "[--output-root <directory>]",
