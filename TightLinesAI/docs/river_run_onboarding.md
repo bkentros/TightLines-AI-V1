@@ -710,9 +710,12 @@ Implementation order:
 3. Hidden run profiles and configuration document.
 4. Fish Counts provider capability and parser when accepted.
 5. Spot Finder inventory when accepted.
-6. Registry/review-catalog wiring.
-7. Replays, fixtures, and audits.
-8. Public promotion only after acceptance and authorization.
+6. River-picker size classification and existing small/medium/large artwork
+   mapping. Use the stable river ID; do not leave a supported or owner-review
+   river on the generic fallback icon.
+7. Registry/review-catalog wiring.
+8. Replays, fixtures, and audits.
+9. Public promotion only after acceptance and authorization.
 
 Use stable snake_case IDs and version configuration, presence curve, Activity
 rules, Fishing Shape bands, source data, and audit decisions. Reuse helpers only
@@ -761,6 +764,11 @@ generation/check, engine tests, copy/UI QA, Spot Finder audit, type checks, and
 production-shaped smoke for the affected configuration. Prefer generic scripts
 with `--run-id`; add a reusable generic path rather than another river-specific
 algorithm.
+
+UI QA must prove that every public and hidden owner-review river ID resolves to
+the intentional small, medium, or large river-picker artwork. Classify the
+product corridor shown in River Run—not the full namesake watershed—and record
+the choice during configuration reconciliation.
 
 Fixtures must declare intended states. Cover every Stage boundary, Seasonal Zone
 transition, Presence band/direction/terminal state, Activity label/block/
@@ -848,6 +856,7 @@ the scaffold command. It contains these compact records:
   completion record;
 - code reconciliation, QA, owner acceptance, release, migration, deployment, and
   repository handoff record;
+- river-picker size classification and artwork coverage;
 - post-review correction and generalized safeguard ledger.
 
 Large generated replay tables and fixtures may remain machine artifacts linked

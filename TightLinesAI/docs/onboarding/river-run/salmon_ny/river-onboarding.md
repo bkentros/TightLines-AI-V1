@@ -196,6 +196,7 @@ no runtime profile.
 | Steelhead/Brown fixed replays                                          | 100% coverage; all coded invariants and strict Peak-highest mean gate passed |
 | Fishing Shape/historical temperature/Fish Counts                       | explicitly unavailable and fail closed; no Pineville temperature norm invented |
 | Seasonal Zone/Spot Finder alignment                                    | 19 mainstem accesses across three audited sections; every active run day mapped |
+| River-picker artwork                                                   | medium corridor illustration mapped to `salmon_ny`; UI coverage gate passed |
 | Automated implementation gate                                         | 403 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized and not performed                                             |
@@ -211,3 +212,4 @@ no runtime profile.
 | 2026-08-31 | Cold late-season weather could exceed the intended repeat-spawner crest         | Small versioned stage responses and true 69 maximum; full replay plus daily-zone regression |
 | 2026-08-31 | Initial Spot Finder sampled three locations and included tributary-only Trout Brook | Expanded to all 19 named mainstem accesses; excluded both tributary-only locations from mainstem recommendations |
 | 2026-08-31 | A historical Pineville water-temperature average was requested                  | USGS parameter inventory and archive probe found no continuous 00010 series; retained explicit unavailability instead of manufacturing a norm |
+| 2026-08-31 | River selector lacked intentional size artwork                              | Added the medium corridor illustration and a permanent UI coverage assertion |

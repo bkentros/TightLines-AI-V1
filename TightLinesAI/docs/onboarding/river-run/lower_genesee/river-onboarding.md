@@ -187,6 +187,7 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | Coho/Atlantic truth gates                                              | failed closed for dependable current recurrence; no runs configured          |
 | Shape/count capabilities                                               | Fishing Shape and counts remain explicit fail-closed; upstream temperature context is labeled |
 | Seasonal Zone/Spot Finder                                              | three source-backed accesses across lower and upper sections; all active days checked |
+| River-picker artwork                                                   | large lower-corridor illustration mapped to `lower_genesee`; UI coverage gate passed |
 | Automated implementation gate                                         | 403 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
@@ -200,3 +201,4 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | 2026-08-31 | Initial harbor omission was too broad                                     | Added only current official fishing/launch records at Ontario Beach and Port of Rochester; other general-access sites still fail closed |
 | 2026-08-31 | Sparse Brown Trout occurrence could be erased or overstated               | Implemented independently at 2/10 concentrated; no Oak/Salmon strength borrowed |
 | 2026-08-31 | Atlantic occurrence in the lake could be mistaken for a Lower Genesee run | Preserved as research-unresolved with no runtime profile                        |
+| 2026-08-31 | River selector lacked intentional size artwork                         | Added the large lower-corridor illustration and a permanent UI coverage assertion |

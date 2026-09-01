@@ -507,6 +507,7 @@ configured.
 | Seasonal Zone/Spot Finder alignment |  | pending |  |  |
 | Configuration and packet validation |  | pending |  |  |
 | Fixtures/copy/UI/visual/type QA |  | pending |  |  |
+| River-picker size/artwork coverage |  | pending |  |  |
 | Rendered owner acceptance |  | pending |  |  |
 | Public registry/config source/migrations |  | pending |  |  |
 | Deployment/full production smoke |  | pending |  |  |

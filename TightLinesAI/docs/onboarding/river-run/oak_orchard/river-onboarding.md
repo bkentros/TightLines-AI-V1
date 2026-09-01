@@ -190,6 +190,7 @@ false; Atlantic Salmon has no runtime profile.
 | Steelhead/Brown replays                                                | 100% coverage; all coded invariants and strict Peak-highest mean gate passed |
 | Shape/count capabilities                                               | Fishing Shape, counts, and a temperature norm remain unavailable; live Shelby temperature is labeled upstream |
 | Spot Finder alignment                                                  | six access records across three sections; unnamed PFR markers fully represented as one official-map network |
+| River-picker artwork                                                   | small corridor illustration mapped to `oak_orchard`; UI coverage gate passed |
 | Automated implementation gate                                         | 403 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
@@ -205,3 +206,4 @@ false; Atlantic Salmon has no runtime profile.
 | 2026-08-31 | Cold late-season weather could exceed the intended repeat-spawner crest | Small versioned stage responses plus true 69 maximum; full replay and daily-zone regression              |
 | 2026-08-31 | Initial Spot Finder collapsed distinct lower facilities and omitted the searchable Park Avenue trail | Split County/State parks, added river piers and Park Avenue access, retained full unnamed PFR network without invented names |
 | 2026-08-31 | Seasonal paid Archers Club parking could be recommended outside its gate | Omitted until Spot Finder can enforce date-limited access; bank access remains reachable from permanent permitted entries |
+| 2026-08-31 | River selector lacked intentional size artwork                         | Added the small corridor illustration and a permanent UI coverage assertion                                  |

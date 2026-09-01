@@ -189,6 +189,9 @@ for (
     ["green", "medium"],
     ["puyallup", "large"],
     ["cowlitz", "large"],
+    ["salmon_ny", "medium"],
+    ["oak_orchard", "small"],
+    ["lower_genesee", "large"],
   ]
 ) {
   assert.match(

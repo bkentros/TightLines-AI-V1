@@ -26,6 +26,9 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   green: "medium",
   puyallup: "large",
   cowlitz: "large",
+  salmon_ny: "medium",
+  oak_orchard: "small",
+  lower_genesee: "large",
 };
 
 export function getRiverRunRiverSize(
