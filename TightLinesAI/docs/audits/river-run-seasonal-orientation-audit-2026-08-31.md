@@ -116,8 +116,8 @@ Final verification completed on 2026-09-01:
   changed as part of this correction.
 
 The implementation is ready for owner review. Washington and New York remain
-hidden in owner-review state, and no function deployment or public release has
-been performed.
+hidden in owner-review state; deploying the shared function does not promote or
+publicly release those runs.
 
 ### 2026-09-01 correction
 
@@ -129,3 +129,19 @@ harbor, estuary, or mouth a broad area to consider while continuing to separate
 it from a verified access point and live fish-location report. Oak Orchard has
 an explicit four-species replay proving Point Breeze/harbor/mouth direction on
 September 1 before the Steelhead and Brown Trout staging dates.
+
+Deployment verification completed on 2026-09-01:
+
+- the permanent Spot Finder QA replay passed 20,075 daily
+  river/species/state cases across the complete 2026 calendar;
+- the linked local and remote migration ledgers still matched through
+  `20260831120000`, with no migration required for this response/UI change;
+- Supabase `river-run` function version 33 deployed successfully;
+- authenticated production owner-review smokes returned all 58 configured runs
+  across 61 state/run presentations with zero failures and v2 configuration;
+- all 31 currently pre-run production responses contained early-season
+  direction, and all 18 currently Beginning responses retained the appropriate
+  early approach alongside their active in-river zone;
+- the authenticated Oak Orchard Chinook response returned HTTP 200 for
+  2026-09-01 with Point Breeze/Lake Ontario/harbor/creek-mouth direction and
+  `before_migration` phase.

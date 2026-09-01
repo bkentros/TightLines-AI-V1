@@ -22,6 +22,10 @@ const ALL_CONFIGURATION_DOCUMENTS = [
   ...RIVER_RUN_CONFIGURATION_DOCUMENTS,
   ...RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS,
 ];
+const FULL_YEAR_REPLAY_DATES = Array.from({ length: 365 }, (_, offset) => {
+  const date = new Date(Date.UTC(2026, 0, 1 + offset));
+  return date.toISOString().slice(0, 10);
+});
 
 const root = resolve(import.meta.dirname, "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
@@ -896,11 +900,6 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
         `${run.runId}/${phase} needs at least one audited phase reach`,
       );
     }
-    const checkpointDates = new Set(
-      Object.values(run.runWindow)
-        .filter((monthDay): monthDay is string => typeof monthDay === "string")
-        .map((monthDay) => `2026-${monthDay}`),
-    );
     for (const presentation of presentations) {
       const finder = riverRunSpotFinderForRiver(
         document.river.riverId,
@@ -908,7 +907,7 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
         presentation.state,
       );
       if (!finder) continue;
-      for (const localDate of checkpointDates) {
+      for (const localDate of FULL_YEAR_REPLAY_DATES) {
         const stage = resolveRunStage(run, localDate);
         const seasonalZone = resolveSeasonalZone({
           river: document.river,
@@ -922,6 +921,20 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
           seasonalZone,
         );
         recommendationMatrixCases += 1;
+        if (stage.stage === "pre_run") {
+          assert.equal(
+            seasonalZone.earlyApproach?.phase,
+            "before_migration",
+            `${run.runId}/${presentation.state}/${localDate} must show early direction throughout Before Migration`,
+          );
+        }
+        if (stage.stage === "beginning") {
+          assert.equal(
+            seasonalZone.earlyApproach?.phase,
+            "beginning",
+            `${run.runId}/${presentation.state}/${localDate} must retain early direction during Beginning`,
+          );
+        }
         const expected = finder.sections.filter((section) =>
           section.foundationReachIds.some((reachId) =>
             seasonalZone.foundationReachIds.includes(reachId)
@@ -956,8 +969,8 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
   }
 }
 assert(
-  recommendationMatrixCases > 250,
-  "Spot Finder recommendation QA must exercise the full river/species/state/stage checkpoint matrix",
+  recommendationMatrixCases > 20_000,
+  "Spot Finder recommendation QA must exercise the full river/species/state/daily matrix",
 );
 
 assert.doesNotMatch(
@@ -1157,5 +1170,5 @@ assert.equal(
 );
 
 console.log(
-  "River Run UI QA passed: public flow is retained, admin review uses protected live endpoints, entitlement checks remain, and internal fixture controls/copy are absent.",
+  `River Run UI QA passed: ${recommendationMatrixCases} daily river/species/state Spot Finder cases, public flow retained, protected admin review, entitlement checks intact, and no internal fixture controls/copy.`,
 );
