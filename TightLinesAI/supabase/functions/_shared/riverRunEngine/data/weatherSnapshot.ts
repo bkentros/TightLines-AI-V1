@@ -62,11 +62,8 @@ export async function fetchRiverRunWeatherSnapshot(input: {
     forecast_days: "3",
     timeformat: "iso8601",
   });
-  const response = await input.fetchFn(
-    `https://api.open-meteo.com/v1/forecast?${params.toString()}`,
-  );
-  if (!response.ok) return null;
-  const payload = await response.json() as {
+  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+  type Payload = {
     hourly?: {
       time?: string[];
       precipitation?: Array<number | null>;
@@ -80,6 +77,25 @@ export async function fetchRiverRunWeatherSnapshot(input: {
     };
     timezone?: string;
   };
+  let payload: Payload | null = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await input.fetchFn(url);
+      if (!response.ok) continue;
+      const candidate = await response.json() as Payload;
+      if (
+        !Array.isArray(candidate.hourly?.time) ||
+        candidate.hourly.time.length === 0
+      ) continue;
+      payload = candidate;
+      break;
+    } catch {
+      // A second bounded attempt protects a new refresh slot from a single
+      // transient provider or network failure. The caller still fails closed
+      // if both attempts fail.
+    }
+  }
+  if (!payload) return null;
   const hourlyTimes = Array.isArray(payload.hourly?.time)
     ? payload.hourly.time
     : [];

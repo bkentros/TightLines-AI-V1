@@ -57,6 +57,11 @@ const MICHIGAN_RIVER_PRESENTATION: RiverRunChoice[] = [
   { id: "au_sable", label: "Au Sable River" },
 ];
 
+const INDIANA_RIVER_PRESENTATION: RiverRunChoice[] = [
+  { id: "st_joseph", label: "St. Joseph River" },
+  { id: "trail_creek", label: "Trail Creek" },
+];
+
 const MICHIGAN_FUTURE_RIVER_IDS_BY_SPECIES: Record<string, string[]> = {
   chinook_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
   coho_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
@@ -185,12 +190,7 @@ export function riverRunRiverChoices(
       subtitle: "Audited river migration",
     }));
   if (stateCode === "IN" && season === "fall") {
-    return mergeWithPresentation(
-      supportedChoices.filter((choice) => choice.id === "st_joseph"),
-      [
-        { id: "st_joseph", label: "St. Joseph River" },
-      ],
-    );
+    return mergeWithPresentation(supportedChoices, INDIANA_RIVER_PRESENTATION);
   }
   if (stateCode !== "MI" || season !== "fall") return supportedChoices;
   const futureRiverIds = MICHIGAN_FUTURE_RIVER_IDS_BY_SPECIES[species] ?? [];

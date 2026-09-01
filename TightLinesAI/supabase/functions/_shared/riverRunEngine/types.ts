@@ -393,6 +393,7 @@ export type FishCountSourceConfig = {
     | "TACOMA_POWER"
     | "INDIANA_DNR_TABLEAU"
     | "WISCONSIN_DNR_ROOT"
+    | "WISCONSIN_DNR_BESADNY"
     | "WISCONSIN_DNR_BRULE";
   facilityName: string;
   /** Exact label used in the provider document when it differs from public copy. */

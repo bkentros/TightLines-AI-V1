@@ -4,7 +4,7 @@ const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
 const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
-const expectedEngineVersion = "river-run-v1.16.0";
+const expectedEngineVersion = "river-run-v1.17.0";
 const expectedDataVersion = "river-live-conditions-v5";
 const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -19,6 +19,9 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
   sheboygan: ["flow_cfs", "gage_height_ft"],
   root: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   bois_brule: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  salmon_ny: ["flow_cfs", "gage_height_ft"],
+  oak_orchard: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  lower_genesee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
@@ -33,6 +36,9 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   sheboygan: ["flow_cfs"],
   root: ["flow_cfs"],
   bois_brule: ["flow_cfs"],
+  salmon_ny: ["flow_cfs"],
+  oak_orchard: ["flow_cfs"],
+  lower_genesee: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
     "legacy"

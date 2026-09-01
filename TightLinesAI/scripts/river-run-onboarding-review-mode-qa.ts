@@ -35,6 +35,11 @@ const expectedRuns = new Set([
   "puyallup_fall_coho",
   "cowlitz_fall_chinook",
   "cowlitz_fall_coho",
+  "trail_creek_fall_chinook",
+  "trail_creek_fall_coho",
+  "kewaunee_river_fall_chinook",
+  "kewaunee_river_fall_coho",
+  "kewaunee_river_fall_brown_trout",
 ]);
 
 assert.deepEqual(
@@ -95,6 +100,7 @@ for (
   if (
     runId.startsWith("grand_") || runId.startsWith("milwaukee_") ||
     runId.startsWith("white_") ||
+    runId.startsWith("trail_creek_") ||
     runId === "big_manistee_fall_brown_trout"
   ) {
     assert(
@@ -117,6 +123,14 @@ for (
           )
         ),
       );
+    } else if (runId.startsWith("trail_creek_")) {
+      assert(
+        activity.scenarios.every((scenario) =>
+          /measured Springland discharge/i.test(
+            scenario.snapshot.activity?.detail ?? "",
+          )
+        ),
+      );
     } else {
       assert(
         activity.scenarios.every((scenario) =>
@@ -130,18 +144,36 @@ for (
         ),
       );
     }
-    for (
-      const id of [
-        "activity_missing_temperature",
-        "activity_missing_hydraulics",
-      ]
-    ) {
-      const partial = activity.scenarios.find((scenario) => scenario.id === id);
-      assert.equal(partial?.snapshot.activity?.confidence, "Moderate");
-      assert(
-        typeof partial?.snapshot.activity?.score === "number" &&
-          partial.snapshot.activity.score <= 69,
+    if (runId.startsWith("trail_creek_")) {
+      const missingTemperature = activity.scenarios.find((scenario) =>
+        scenario.id === "activity_missing_temperature"
       );
+      assert.equal(missingTemperature?.snapshot.activity?.confidence, "Full");
+      assert.equal(
+        typeof missingTemperature?.snapshot.activity?.score,
+        "number",
+      );
+      const missingHydraulics = activity.scenarios.find((scenario) =>
+        scenario.id === "activity_missing_hydraulics"
+      );
+      assert.equal(missingHydraulics?.snapshot.activity?.label, "Unavailable");
+      assert.equal(missingHydraulics?.snapshot.activity?.score, null);
+    } else {
+      for (
+        const id of [
+          "activity_missing_temperature",
+          "activity_missing_hydraulics",
+        ]
+      ) {
+        const partial = activity.scenarios.find((scenario) =>
+          scenario.id === id
+        );
+        assert.equal(partial?.snapshot.activity?.confidence, "Moderate");
+        assert(
+          typeof partial?.snapshot.activity?.score === "number" &&
+            partial.snapshot.activity.score <= 69,
+        );
+      }
     }
     const noRiverInputs = activity.scenarios.find((scenario) =>
       scenario.id === "activity_missing_both_river_inputs"

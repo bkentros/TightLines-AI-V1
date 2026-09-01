@@ -125,6 +125,8 @@ async function fetchCountFromSource(
     ? await fetchIndianaDnrCount(source, species, fetchFn)
     : source.provider === "WISCONSIN_DNR_ROOT"
     ? await fetchWisconsinRootCount(source, species, fetchFn)
+    : source.provider === "WISCONSIN_DNR_BESADNY"
+    ? await fetchWisconsinBesadnyCount(source, species, fetchFn)
     : await fetchWisconsinBruleCount(source, species, fetchFn);
 }
 
@@ -591,6 +593,66 @@ export function parseWisconsinRootCount(input: {
     freshness: "fresh",
     categoriesIncluded: [
       "total fish captured at the operated Steelhead Facility",
+    ],
+    sourceUrl: input.source.sourceUrl,
+  });
+}
+
+async function fetchWisconsinBesadnyCount(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountRead["species"],
+  fetchFn: RiverRunFetch,
+): Promise<RiverRunFishCountRead> {
+  const response = await fetchFn(source.sourceUrl, PROVIDER_REQUEST_INIT);
+  const html = response.ok && response.text ? await response.text() : "";
+  return parseWisconsinBesadnyCount({ source, species, html });
+}
+
+/** Parses only the official Total Captured row; all disposition rows are excluded. */
+export function parseWisconsinBesadnyCount(input: {
+  source: FishCountSourceConfig;
+  species: RiverRunFishCountRead["species"];
+  html: string;
+}): RiverRunFishCountRead {
+  const heading = input.html.match(
+    /Besadny Anadromous Fisheries Facility Report for\s+([^<]+)/i,
+  );
+  const reportDate = heading?.[1] ? longDate(htmlText(heading[1])) : null;
+  const table = heading?.index == null
+    ? null
+    : input.html.slice(heading.index).match(/<table[^>]*>[\s\S]*?<\/table>/i)?.[0];
+  if (!table || !reportDate) {
+    return unavailable(input.source, input.species, "parser_changed");
+  }
+  const rows = [...table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((row) =>
+    [...row[1].matchAll(/<(?:th|td)[^>]*>([\s\S]*?)<\/(?:th|td)>/gi)]
+      .map((cell) => htmlText(cell[1]))
+  );
+  const headers = rows.find((row) => row.includes("Chinook Salmon"));
+  const totals = rows.find((row) => row[0] === "Total Captured");
+  const label = input.species === "coho_salmon"
+    ? "Coho Salmon"
+    : input.species === "chinook_salmon"
+    ? "Chinook Salmon"
+    : input.species === "steelhead"
+    ? "Rainbow Trout"
+    : "Brown Trout";
+  const column = headers?.indexOf(label) ?? -1;
+  const total = column >= 0 ? countToken(totals?.[column]) : null;
+  if (total == null) {
+    return unavailable(input.source, input.species, "not_reported");
+  }
+  return baseRead(input.source, input.species, {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: null,
+    jackTotal: null,
+    observedTotal: total,
+    observedThrough: reportDate,
+    reportDate,
+    freshness: "fresh",
+    categoriesIncluded: [
+      "total fish captured at the operated Besadny facility",
     ],
     sourceUrl: input.source.sourceUrl,
   });

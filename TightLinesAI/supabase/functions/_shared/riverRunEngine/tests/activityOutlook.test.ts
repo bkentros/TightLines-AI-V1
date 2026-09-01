@@ -198,6 +198,41 @@ Deno.test("strict observed Activity fails closed without weather or all measured
   assert(temperatureOnly.score !== null);
 });
 
+Deno.test("observed flow-only Activity treats its complete configured contract as Full data", () => {
+  const rules = {
+    ...weatherOnlyRules,
+    version: "observed-flow-only-test-v1",
+    dataMode: "observed_river" as const,
+    minimumInputContract: "weather_and_one_measured_river_input" as const,
+    weights: {
+      light: .35,
+      waterTemperature: 0,
+      riverBehavior: .55,
+      weather: .10,
+    },
+  };
+  const result = scoreActivity({
+    rules,
+    requestDate: "2026-09-20",
+    targetDate: "2026-09-20",
+    runStage: "building",
+    staging: false,
+    waterTempF: null,
+    temperatureTrend: "neutral_missing",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "fresh",
+    flowBand: "ideal",
+    currentHydraulicValue: 48,
+    flowSignal: "stable",
+    hourlyWeather: weather("2026-09-20"),
+  });
+  assert(result.score !== null);
+  assertEquals(result.confidence, "Full");
+  assertEquals(result.blocks.length, 4);
+  assertEquals(result.reasonCodes.includes("activity_weather_only"), false);
+  assert(result.blocks.every((block) => block.score > 60));
+});
+
 Deno.test("weather-only Activity rewards sustained light rain but not heavy precipitation", () => {
   const date = "2026-09-10";
   const scoreWith = (amounts: number[]) =>

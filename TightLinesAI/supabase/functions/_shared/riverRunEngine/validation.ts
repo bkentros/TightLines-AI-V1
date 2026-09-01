@@ -364,6 +364,7 @@ function validateFishCountSources(
         "TACOMA_POWER",
         "INDIANA_DNR_TABLEAU",
         "WISCONSIN_DNR_ROOT",
+        "WISCONSIN_DNR_BESADNY",
         "WISCONSIN_DNR_BRULE",
       ].includes(source.provider) ||
       !hasText(source.facilityName) ||
@@ -1221,15 +1222,18 @@ export function validateRunProfile(
       );
     }
     if (
-      activityAvailable &&
-      (run.activity?.dataMode ?? "observed_river") === "observed_river" &&
-      (river.conditionDataCapabilities.hydraulics.status !== "available" ||
-        river.conditionDataCapabilities.waterTemperature.status !== "available")
+      observedActivityAvailable && (
+        (run.activity!.weights.riverBehavior > 0 &&
+          river.conditionDataCapabilities.hydraulics.status !== "available") ||
+        (run.activity!.weights.waterTemperature > 0 &&
+          river.conditionDataCapabilities.waterTemperature.status !==
+            "available")
+      )
     ) {
       issues.push(
         issue(
           "primitiveCapabilities.activity",
-          "Observed-river Activity requires accepted reach-representative hydraulics and measured water temperature.",
+          "Observed-river Activity requires every measured capability assigned positive scoring weight.",
           "config_source_reference_missing",
         ),
       );
@@ -1240,7 +1244,10 @@ export function validateRunProfile(
   } else {
     validateUnsupportedField(run.push, "push", issues);
   }
-  if (pushAvailable || timingAvailable || observedActivityAvailable) {
+  if (
+    pushAvailable || timingAvailable ||
+    (observedActivityAvailable && run.activity!.weights.waterTemperature > 0)
+  ) {
     validateRunTemperaturePolicy(run, river, issues);
   } else {validateUnsupportedField(
       run.waterTemperature,
@@ -1490,15 +1497,21 @@ function validateActivityRules(
     } else if (
       rules.inputReach && (
         rules.inputReach.reachIds.length === 0 ||
-        rules.inputReach.hydraulicSourceIds.length === 0 ||
-        rules.inputReach.waterTemperatureSourceIds.length === 0 ||
         rules.inputReach.weatherPointIds.length === 0 ||
+        (rules.weights.riverBehavior > 0 &&
+          rules.inputReach.hydraulicSourceIds.length === 0) ||
+        (rules.weights.waterTemperature > 0 &&
+          rules.inputReach.waterTemperatureSourceIds.length === 0) ||
+        (rules.weights.riverBehavior === 0 &&
+          rules.inputReach.hydraulicSourceIds.length > 0) ||
+        (rules.weights.waterTemperature === 0 &&
+          rules.inputReach.waterTemperatureSourceIds.length > 0) ||
         !hasText(rules.inputReach.notes)
       )
     ) {
       issues.push(issue(
         "activity.inputReach",
-        "Observed Activity must name its represented reach and every scoring source.",
+        "Observed Activity must name its represented reach, weather point, and exactly the measured sources assigned positive scoring weight.",
         "config_invalid_value",
       ));
     } else if (rules.inputReach && river) {

@@ -148,6 +148,14 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
         /Lighthouse Hill|Waterport/i,
         run.runId,
       );
+    } else if (run.riverId === "trail_creek") {
+      assertMatch(display.detail, /Springland barrier closure/i, run.runId);
+      assertMatch(display.whereToStart, /Barrier Corridor|Upper Access/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River|Besadny/i, run.runId);
+    } else if (run.riverId === "kewaunee_river") {
+      assertMatch(display.detail, /Besadny/i, run.runId);
+      assertMatch(display.whereToStart, /Besadny Reach/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River|Springland/i, run.runId);
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

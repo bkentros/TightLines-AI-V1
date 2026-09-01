@@ -1,0 +1,1924 @@
+{
+  "runId": "trail_creek_fall_coho",
+  "rulesVersion": "trail-creek-coho-measured-flow-activity-v2",
+  "replayYears": "2019-2025",
+  "method": "Historical mechanical coho replay using Trail Creek at Michigan City — Springland Avenue USGS 04095300 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 707,
+  "usableDays": 707,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 0,
+    "p10": 42,
+    "median": 69,
+    "p90": 88,
+    "max": 97,
+    "mean": 65.84
+  },
+  "blockScore": {
+    "min": 0,
+    "p10": 39,
+    "median": 67,
+    "p90": 87,
+    "max": 98,
+    "mean": 64.24
+  },
+  "uniqueDayScores": 78,
+  "uniqueBlockScores": 86,
+  "dayLabels": {
+    "Active": 267,
+    "Highly active": 193,
+    "Inactive": 23,
+    "Moderate": 193,
+    "Reserved": 31
+  },
+  "blockLabels": {
+    "Active": 1026,
+    "Highly active": 714,
+    "Inactive": 93,
+    "Moderate": 790,
+    "Reserved": 205
+  },
+  "daysAtLeast90": 52,
+  "blocksAtLeast90": 202,
+  "byStage": {
+    "beginning": {
+      "days": 77,
+      "scores": {
+        "min": 40,
+        "p10": 46,
+        "median": 72,
+        "p90": 89,
+        "max": 92,
+        "mean": 68.32
+      },
+      "labels": {
+        "Active": 29,
+        "Highly active": 24,
+        "Moderate": 24
+      }
+    },
+    "building": {
+      "days": 203,
+      "scores": {
+        "min": 18,
+        "p10": 49,
+        "median": 75,
+        "p90": 90,
+        "max": 95,
+        "mean": 70.74
+      },
+      "labels": {
+        "Active": 75,
+        "Highly active": 76,
+        "Inactive": 6,
+        "Moderate": 46
+      }
+    },
+    "ending": {
+      "days": 70,
+      "scores": {
+        "min": 0,
+        "p10": 46,
+        "median": 59,
+        "p90": 70,
+        "max": 78,
+        "mean": 55.87
+      },
+      "labels": {
+        "Active": 30,
+        "Inactive": 2,
+        "Moderate": 34,
+        "Reserved": 4
+      }
+    },
+    "peak": {
+      "days": 84,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 79,
+        "p90": 92,
+        "max": 97,
+        "mean": 71.64
+      },
+      "labels": {
+        "Active": 28,
+        "Highly active": 41,
+        "Inactive": 10,
+        "Moderate": 5
+      }
+    },
+    "post_run": {
+      "days": 70,
+      "scores": {
+        "min": 2,
+        "p10": 32,
+        "median": 41,
+        "p90": 50,
+        "max": 57,
+        "mean": 40.59
+      },
+      "labels": {
+        "Inactive": 1,
+        "Moderate": 42,
+        "Reserved": 27
+      }
+    },
+    "pre_run": {
+      "days": 63,
+      "scores": {
+        "min": 42,
+        "p10": 48,
+        "median": 68,
+        "p90": 91,
+        "max": 96,
+        "mean": 67
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 18,
+        "Moderate": 29
+      }
+    },
+    "tapering": {
+      "days": 140,
+      "scores": {
+        "min": 11,
+        "p10": 56,
+        "median": 73,
+        "p90": 84,
+        "max": 91,
+        "mean": 70.95
+      },
+      "labels": {
+        "Active": 89,
+        "Highly active": 34,
+        "Inactive": 4,
+        "Moderate": 13
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 77,
+      "samples": 77,
+      "scores": {
+        "min": 43,
+        "p10": 49,
+        "median": 72,
+        "p90": 87,
+        "max": 93,
+        "mean": 70.1
+      },
+      "labelShares": {
+        "Active": 29.87,
+        "Highly active": 38.96,
+        "Moderate": 31.17
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 77,
+      "samples": 77,
+      "scores": {
+        "min": 34,
+        "p10": 38,
+        "median": 65,
+        "p90": 86,
+        "max": 95,
+        "mean": 64.22
+      },
+      "labelShares": {
+        "Active": 25.97,
+        "Highly active": 27.27,
+        "Moderate": 35.06,
+        "Reserved": 11.69
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 77,
+      "samples": 77,
+      "scores": {
+        "min": 32,
+        "p10": 38,
+        "median": 66,
+        "p90": 87,
+        "max": 92,
+        "mean": 62.68
+      },
+      "labelShares": {
+        "Active": 38.96,
+        "Highly active": 18.18,
+        "Moderate": 27.27,
+        "Reserved": 15.58
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 77,
+      "samples": 77,
+      "scores": {
+        "min": 42,
+        "p10": 48,
+        "median": 70,
+        "p90": 86,
+        "max": 91,
+        "mean": 68.4
+      },
+      "labelShares": {
+        "Active": 33.77,
+        "Highly active": 33.77,
+        "Moderate": 32.47
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 77,
+      "samples": 308,
+      "scores": {
+        "min": 32,
+        "p10": 43,
+        "median": 69,
+        "p90": 87,
+        "max": 95,
+        "mean": 66.35
+      },
+      "labelShares": {
+        "Active": 32.14,
+        "Highly active": 29.55,
+        "Moderate": 31.49,
+        "Reserved": 6.82
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 203,
+      "samples": 203,
+      "scores": {
+        "min": 17,
+        "p10": 51,
+        "median": 76,
+        "p90": 91,
+        "max": 95,
+        "mean": 71.28
+      },
+      "labelShares": {
+        "Active": 33,
+        "Highly active": 44.33,
+        "Inactive": 2.96,
+        "Moderate": 19.7
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 203,
+      "samples": 203,
+      "scores": {
+        "min": 17,
+        "p10": 42,
+        "median": 71,
+        "p90": 89,
+        "max": 95,
+        "mean": 66.68
+      },
+      "labelShares": {
+        "Active": 43.84,
+        "Highly active": 23.15,
+        "Inactive": 2.96,
+        "Moderate": 27.09,
+        "Reserved": 2.96
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 203,
+      "samples": 203,
+      "scores": {
+        "min": 17,
+        "p10": 42,
+        "median": 70,
+        "p90": 88,
+        "max": 96,
+        "mean": 66.6
+      },
+      "labelShares": {
+        "Active": 43.35,
+        "Highly active": 24.63,
+        "Inactive": 2.96,
+        "Moderate": 24.63,
+        "Reserved": 4.43
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 203,
+      "samples": 203,
+      "scores": {
+        "min": 17,
+        "p10": 52,
+        "median": 75,
+        "p90": 90,
+        "max": 97,
+        "mean": 71.14
+      },
+      "labelShares": {
+        "Active": 35.96,
+        "Highly active": 39.41,
+        "Inactive": 2.96,
+        "Moderate": 21.67
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 203,
+      "samples": 812,
+      "scores": {
+        "min": 17,
+        "p10": 48,
+        "median": 72,
+        "p90": 89,
+        "max": 97,
+        "mean": 68.92
+      },
+      "labelShares": {
+        "Active": 39.04,
+        "Highly active": 32.88,
+        "Inactive": 2.96,
+        "Moderate": 23.28,
+        "Reserved": 1.85
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 0,
+        "p10": 46,
+        "median": 58,
+        "p90": 70,
+        "max": 76,
+        "mean": 56.16
+      },
+      "labelShares": {
+        "Active": 42.86,
+        "Inactive": 2.86,
+        "Moderate": 51.43,
+        "Reserved": 2.86
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 0,
+        "p10": 42,
+        "median": 55,
+        "p90": 68,
+        "max": 76,
+        "mean": 53.99
+      },
+      "labelShares": {
+        "Active": 37.14,
+        "Inactive": 2.86,
+        "Moderate": 52.86,
+        "Reserved": 7.14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 0,
+        "p10": 38,
+        "median": 56,
+        "p90": 68,
+        "max": 79,
+        "mean": 53.16
+      },
+      "labelShares": {
+        "Active": 30,
+        "Inactive": 2.86,
+        "Moderate": 58.57,
+        "Reserved": 8.57
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 0,
+        "p10": 44,
+        "median": 59,
+        "p90": 70,
+        "max": 78,
+        "mean": 55.61
+      },
+      "labelShares": {
+        "Active": 42.86,
+        "Inactive": 2.86,
+        "Moderate": 47.14,
+        "Reserved": 7.14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 70,
+      "samples": 280,
+      "scores": {
+        "min": 0,
+        "p10": 41,
+        "median": 57,
+        "p90": 69,
+        "max": 79,
+        "mean": 54.73
+      },
+      "labelShares": {
+        "Active": 38.21,
+        "Inactive": 2.86,
+        "Moderate": 52.5,
+        "Reserved": 6.43
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 81,
+        "p90": 92,
+        "max": 97,
+        "mean": 71.79
+      },
+      "labelShares": {
+        "Active": 32.14,
+        "Highly active": 51.19,
+        "Inactive": 11.9,
+        "Moderate": 4.76
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 74,
+        "p90": 92,
+        "max": 96,
+        "mean": 69.23
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Highly active": 39.29,
+        "Inactive": 11.9,
+        "Moderate": 15.48
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 17,
+        "p10": 18,
+        "median": 73,
+        "p90": 91,
+        "max": 97,
+        "mean": 68.54
+      },
+      "labelShares": {
+        "Active": 32.14,
+        "Highly active": 39.29,
+        "Inactive": 11.9,
+        "Moderate": 16.67
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 81,
+        "p90": 91,
+        "max": 97,
+        "mean": 71.37
+      },
+      "labelShares": {
+        "Active": 30.95,
+        "Highly active": 52.38,
+        "Inactive": 11.9,
+        "Moderate": 4.76
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 84,
+      "samples": 336,
+      "scores": {
+        "min": 17,
+        "p10": 19,
+        "median": 76,
+        "p90": 91,
+        "max": 97,
+        "mean": 70.23
+      },
+      "labelShares": {
+        "Active": 32.14,
+        "Highly active": 45.54,
+        "Inactive": 11.9,
+        "Moderate": 10.42
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 2,
+        "p10": 31,
+        "median": 41,
+        "p90": 51,
+        "max": 57,
+        "mean": 40.66
+      },
+      "labelShares": {
+        "Inactive": 1.43,
+        "Moderate": 57.14,
+        "Reserved": 41.43
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 2,
+        "p10": 30,
+        "median": 39,
+        "p90": 50,
+        "max": 56,
+        "mean": 39.3
+      },
+      "labelShares": {
+        "Inactive": 1.43,
+        "Moderate": 47.14,
+        "Reserved": 51.43
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 2,
+        "p10": 30,
+        "median": 39,
+        "p90": 50,
+        "max": 56,
+        "mean": 38.96
+      },
+      "labelShares": {
+        "Inactive": 2.86,
+        "Moderate": 47.14,
+        "Reserved": 50
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 70,
+      "samples": 70,
+      "scores": {
+        "min": 2,
+        "p10": 32,
+        "median": 40,
+        "p90": 50,
+        "max": 58,
+        "mean": 40.34
+      },
+      "labelShares": {
+        "Inactive": 1.43,
+        "Moderate": 52.86,
+        "Reserved": 45.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 70,
+      "samples": 280,
+      "scores": {
+        "min": 2,
+        "p10": 30,
+        "median": 40,
+        "p90": 51,
+        "max": 58,
+        "mean": 39.81
+      },
+      "labelShares": {
+        "Inactive": 1.79,
+        "Moderate": 51.07,
+        "Reserved": 47.14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 63,
+      "samples": 63,
+      "scores": {
+        "min": 45,
+        "p10": 47,
+        "median": 70,
+        "p90": 93,
+        "max": 97,
+        "mean": 68.29
+      },
+      "labelShares": {
+        "Active": 19.05,
+        "Highly active": 36.51,
+        "Moderate": 44.44
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 63,
+      "samples": 63,
+      "scores": {
+        "min": 36,
+        "p10": 38,
+        "median": 62,
+        "p90": 92,
+        "max": 98,
+        "mean": 62.6
+      },
+      "labelShares": {
+        "Active": 30.16,
+        "Highly active": 22.22,
+        "Moderate": 34.92,
+        "Reserved": 12.7
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 63,
+      "samples": 63,
+      "scores": {
+        "min": 33,
+        "p10": 39,
+        "median": 61,
+        "p90": 87,
+        "max": 95,
+        "mean": 61.59
+      },
+      "labelShares": {
+        "Active": 36.51,
+        "Highly active": 19.05,
+        "Moderate": 33.33,
+        "Reserved": 11.11
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 63,
+      "samples": 63,
+      "scores": {
+        "min": 44,
+        "p10": 49,
+        "median": 64,
+        "p90": 89,
+        "max": 95,
+        "mean": 67.51
+      },
+      "labelShares": {
+        "Active": 28.57,
+        "Highly active": 30.16,
+        "Moderate": 41.27
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 63,
+      "samples": 252,
+      "scores": {
+        "min": 33,
+        "p10": 42,
+        "median": 63,
+        "p90": 92,
+        "max": 98,
+        "mean": 65
+      },
+      "labelShares": {
+        "Active": 28.57,
+        "Highly active": 26.98,
+        "Moderate": 38.49,
+        "Reserved": 5.95
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 11,
+        "p10": 59,
+        "median": 74,
+        "p90": 84,
+        "max": 92,
+        "mean": 71.42
+      },
+      "labelShares": {
+        "Active": 62.14,
+        "Highly active": 26.43,
+        "Inactive": 2.86,
+        "Moderate": 8.57
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 11,
+        "p10": 53,
+        "median": 70,
+        "p90": 84,
+        "max": 91,
+        "mean": 68.16
+      },
+      "labelShares": {
+        "Active": 52.86,
+        "Highly active": 24.29,
+        "Inactive": 2.86,
+        "Moderate": 19.29,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 11,
+        "p10": 49,
+        "median": 68,
+        "p90": 83,
+        "max": 93,
+        "mean": 66.79
+      },
+      "labelShares": {
+        "Active": 55,
+        "Highly active": 19.29,
+        "Inactive": 2.86,
+        "Moderate": 20.71,
+        "Reserved": 2.14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 11,
+        "p10": 56,
+        "median": 74,
+        "p90": 83,
+        "max": 91,
+        "mean": 71.01
+      },
+      "labelShares": {
+        "Active": 60.71,
+        "Highly active": 26.43,
+        "Inactive": 2.86,
+        "Moderate": 10
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 140,
+      "samples": 560,
+      "scores": {
+        "min": 11,
+        "p10": 54,
+        "median": 72,
+        "p90": 84,
+        "max": 93,
+        "mean": 69.34
+      },
+      "labelShares": {
+        "Active": 57.68,
+        "Highly active": 24.11,
+        "Inactive": 2.86,
+        "Moderate": 14.64,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather and measured Trail Creek at Michigan City — Springland Avenue hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-28..10-31",
+      "days": 28,
+      "scores": {
+        "min": 18,
+        "p10": 19,
+        "median": 75,
+        "p90": 92,
+        "max": 93,
+        "mean": 67.61
+      },
+      "labels": {
+        "Active": 10,
+        "Highly active": 12,
+        "Inactive": 5,
+        "Moderate": 1
+      },
+      "maximumBlock": 96
+    },
+    "taperingEarly": {
+      "window": "11-01..11-04",
+      "days": 28,
+      "scores": {
+        "min": 16,
+        "p10": 56,
+        "median": 76,
+        "p90": 89,
+        "max": 91,
+        "mean": 69.86
+      },
+      "labels": {
+        "Active": 17,
+        "Highly active": 7,
+        "Inactive": 2,
+        "Moderate": 2
+      },
+      "maximumBlock": 93
+    },
+    "taperingLate": {
+      "window": "11-17..11-20",
+      "days": 28,
+      "scores": {
+        "min": 52,
+        "p10": 65,
+        "median": 72,
+        "p90": 78,
+        "max": 83,
+        "mean": 71.11
+      },
+      "labels": {
+        "Active": 24,
+        "Highly active": 2,
+        "Moderate": 2
+      },
+      "maximumBlock": 84
+    },
+    "endingEarly": {
+      "window": "11-21..11-24",
+      "days": 28,
+      "scores": {
+        "min": 0,
+        "p10": 48,
+        "median": 61,
+        "p90": 72,
+        "max": 78,
+        "mean": 58.54
+      },
+      "labels": {
+        "Active": 15,
+        "Inactive": 1,
+        "Moderate": 11,
+        "Reserved": 1
+      },
+      "maximumBlock": 79
+    },
+    "endingLate": {
+      "window": "12-07..12-10",
+      "days": 28,
+      "scores": {
+        "min": 25,
+        "p10": 32,
+        "median": 38,
+        "p90": 42,
+        "max": 45,
+        "mean": 37.29
+      },
+      "labels": {
+        "Moderate": 11,
+        "Reserved": 17
+      },
+      "maximumBlock": 46
+    },
+    "residualTail": {
+      "window": "12-11..12-10",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 5.3,
+        "percent": 9.9
+      },
+      "meaningfulRise24h": {
+        "absolute": 20,
+        "percent": 35.8
+      },
+      "sharpRise24h": {
+        "absolute": 67.9,
+        "percent": 101.4
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 0.1,
+      "p10": 0.3,
+      "median": 4.4,
+      "p90": 37.3,
+      "max": 363.9,
+      "mean": 16.16
+    },
+    "positivePercentChange": {
+      "min": 0.19,
+      "p10": 0.75,
+      "median": 9.52,
+      "p90": 68.99,
+      "max": 519.12,
+      "mean": 29.56
+    },
+    "signals": {
+      "falling": 128,
+      "meaningful_rise": 28,
+      "rising": 67,
+      "sharp_rise": 12,
+      "stable": 472
+    }
+  },
+  "bestBlocks": {
+    "05-09": 377,
+    "09-13": 89,
+    "13-17": 93,
+    "17-21": 148
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 9,
+    "p90": 16,
+    "max": 21,
+    "mean": 8.59
+  },
+  "daysWithSpreadAtLeast10": 348,
+  "daysWithSpreadAtLeast20": 8,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2023-09-28",
+      "stage": "building",
+      "staging": false,
+      "score": 66,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 33.6,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0.6,
+      "flowPercentChange24h": 1.82,
+      "temperatureSignal": "neutral_missing",
+      "spread": 21,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-10-06",
+      "stage": "building",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 72,
+      "flowBand": "high_fishable",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -31,
+      "flowPercentChange24h": -30.1,
+      "temperatureSignal": "neutral_missing",
+      "spread": 21,
+      "bestBlock": "13-17",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 1–5 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 1–5 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-11-07",
+      "stage": "tapering",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": null,
+      "flowCfs": 51.9,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 18.5,
+      "flowPercentChange24h": 55.39,
+      "temperatureSignal": "neutral_missing",
+      "spread": 21,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.13,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2020-10-11",
+      "stage": "building",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": null,
+      "flowCfs": 46.1,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0.8,
+      "flowPercentChange24h": 1.77,
+      "temperatureSignal": "neutral_missing",
+      "spread": 20,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 28,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-11-21",
+      "stage": "ending",
+      "staging": false,
+      "score": 70,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 40.9,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.7,
+      "flowPercentChange24h": -3.99,
+      "temperatureSignal": "neutral_missing",
+      "spread": 20,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 19,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 9 AM–1 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting."
+    },
+    {
+      "date": "2022-10-19",
+      "stage": "building",
+      "staging": false,
+      "score": 85,
+      "label": "Highly active",
+      "waterTempF": null,
+      "flowCfs": 42.7,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 4.6,
+      "flowPercentChange24h": 12.07,
+      "temperatureSignal": "neutral_missing",
+      "spread": 20,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 82,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "peak",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 37.1,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.9,
+      "flowPercentChange24h": -4.87,
+      "temperatureSignal": "neutral_missing",
+      "spread": 20,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-11-19",
+      "stage": "tapering",
+      "staging": false,
+      "score": 52,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 85.3,
+      "flowBand": "very_high",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 24.2,
+      "flowPercentChange24h": 39.61,
+      "temperatureSignal": "neutral_missing",
+      "spread": 20,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 77,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2019-10-06",
+      "stage": "building",
+      "staging": false,
+      "score": 75,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 70.8,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 2.2,
+      "flowPercentChange24h": 3.21,
+      "temperatureSignal": "neutral_missing",
+      "spread": 19,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 48,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2020-10-28",
+      "stage": "peak",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": null,
+      "flowCfs": 53.5,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0.5,
+      "flowPercentChange24h": 0.94,
+      "temperatureSignal": "neutral_missing",
+      "spread": 19,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 80,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 64,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-09-15",
+      "stage": "beginning",
+      "staging": false,
+      "score": 43,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 21.9,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -0.3,
+      "flowPercentChange24h": -1.35,
+      "temperatureSignal": "neutral_missing",
+      "spread": 19,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-09-01",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 52,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 27.8,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.5,
+      "flowPercentChange24h": -5.12,
+      "temperatureSignal": "neutral_missing",
+      "spread": 19,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This read combines measured Springland discharge with modeled light and precipitation for the barrier corridor. It does not directly represent the harbor, mouth, upper forks, clarity, fish passage, abundance, or catch probability; measured water temperature remains contextual and is not yet an Activity input. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

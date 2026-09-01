@@ -9,6 +9,11 @@ import {
   WASHINGTON_DRAFT_RUNS,
 } from "./washington.ts";
 import {
+  MIDWEST_DRAFT_CONFIGURATION_DOCUMENTS,
+  MIDWEST_DRAFT_RIVERS,
+  MIDWEST_DRAFT_RUNS,
+} from "./midwest.ts";
+import {
   withSeasonalZonePlan,
   withSeasonalZonePlans,
 } from "../seasonalZonePlans.ts";
@@ -16,15 +21,18 @@ import {
 /** No owner-approved candidate remains in the unreleased registry. */
 export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [
   ...WASHINGTON_DRAFT_RIVERS,
+  ...MIDWEST_DRAFT_RIVERS,
 ];
 
 export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [
   ...WASHINGTON_DRAFT_RUNS,
+  ...MIDWEST_DRAFT_RUNS,
 ].map(withSeasonalZonePlan);
 
 export const RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS:
   RiverRunConfigurationDocument[] = [
     ...WASHINGTON_DRAFT_CONFIGURATION_DOCUMENTS,
+    ...MIDWEST_DRAFT_CONFIGURATION_DOCUMENTS,
   ].map((document) => ({
     ...document,
     runs: withSeasonalZonePlans(document.runs),
@@ -40,3 +48,4 @@ export * from "./boisBrule.ts";
 export * from "./bigManisteeBrown.ts";
 export * from "./washington.ts";
 export * from "./newYork.ts";
+export * from "./midwest.ts";

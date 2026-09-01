@@ -73,6 +73,16 @@ const REVIEW_VALUES: Record<
     gageHeight: 33.5,
     waterTemperatureAverage: null,
   },
+  trail_creek: {
+    flowAverage: 47.4,
+    gageHeight: 2.1,
+    waterTemperatureAverage: null,
+  },
+  kewaunee_river: {
+    flowAverage: 31.6,
+    gageHeight: 8.8,
+    waterTemperatureAverage: null,
+  },
 };
 
 export function buildReviewLiveConditionsFixture(input: {

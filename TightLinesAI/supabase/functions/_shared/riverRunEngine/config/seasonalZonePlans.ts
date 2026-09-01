@@ -623,6 +623,39 @@ for (
   );
 }
 
+// Trail Creek and Kewaunee owner-review candidates.
+assign(
+  ["trail_creek_fall_chinook", "trail_creek_fall_coho"],
+  {
+    approach: "Lake Michigan off Michigan City, Michigan City harbor, and the Trail Creek mouth",
+    source: "docs/onboarding/river-run/trail_creek/river-onboarding.md",
+    phases: THREE_REACH_SPAWNER(
+      "trail_creek_lower_city",
+      "trail_creek_barrier_corridor",
+      "trail_creek_upper_access",
+    ),
+  },
+  (runId) => auditedRationale(runId, "The plan moves away from lower entry water during Building and retains only the documented Trail Creek public corridor above the operated barrier."),
+);
+assign(
+  ["kewaunee_river_fall_chinook", "kewaunee_river_fall_coho"],
+  {
+    approach: "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
+    source: "docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
+    phases: TWO_REACH_SPAWNER("kewaunee_lower_river", "kewaunee_besadny_reach"),
+  },
+  (runId) => auditedRationale(runId, "Chinook and Coho orientation stops below the operated Besadny structure and never implies routine upstream passage."),
+);
+assign(
+  ["kewaunee_river_fall_brown_trout"],
+  {
+    approach: "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
+    source: "docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
+    phases: THREE_REACH_SPAWNER("kewaunee_lower_river", "kewaunee_besadny_reach", "kewaunee_upper_access"),
+  },
+  (runId) => auditedRationale(runId, "DNR documents Brown Trout passed above the facility; repeat-spawner semantics prohibit a salmon mortality or universal-departure claim."),
+);
+
 export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {
   const input = plans[runId];
   if (!input) {

@@ -25,7 +25,7 @@ type Row = {
   staging: boolean;
   score: number;
   label: string;
-  waterTempF: number;
+  waterTempF: number | null;
   flowCfs: number;
   flowBand: string;
   flowSignal: string;
@@ -64,7 +64,7 @@ const repeatSpawner = speciesSlug === "brown-trout";
 if (
   run.primitiveCapabilities.activity.status !== "available" ||
   !run.activity || run.activity.dataMode === "weather_only" ||
-  !run.fishabilityBands || !run.waterTemperature
+  !run.fishabilityBands
 ) {
   throw new Error(
     `${selectedRiver.displayName} ${speciesSlug} does not have an observed-river Activity replay contract.`,
@@ -77,14 +77,20 @@ const activityRules = Deno.args.includes("--without-stage-adjustment")
     stageResponseAdjustment: undefined,
   }
   : run.activity;
+const usesTemperature = activityRules.weights.waterTemperature > 0;
+if (usesTemperature && !run.waterTemperature) {
+  throw new Error(
+    `${selectedRiver.displayName} assigns temperature weight without a run temperature contract.`,
+  );
+}
 const gauge = getPrimaryHydraulicSource(selectedRiver);
-const temperatureSource = run.waterTemperature.sourcePriority.flatMap(
+const temperatureSource = run.waterTemperature?.sourcePriority.flatMap(
   (sourceId) =>
     selectedRiver.waterTemperatureSources.filter((source) =>
       source.sourceId === sourceId
     ),
 )[0];
-if (!temperatureSource) {
+if (usesTemperature && !temperatureSource) {
   throw new Error(
     `${selectedRiver.displayName} does not have an accepted water-temperature source for this replay.`,
   );
@@ -112,7 +118,9 @@ const [flowByDate, temperatureByDate, weatherByDate] = await Promise.all([
   }).then((items) =>
     new Map(items.map((item) => [item.localDate, item.value]))
   ),
-  fetchDailyTemperature(addDays(firstDate, -4), lastDate),
+  usesTemperature
+    ? fetchDailyTemperature(addDays(firstDate, -4), lastDate)
+    : Promise.resolve(new Map<string, number>()),
   fetchHourlyWeather(),
 ]);
 
@@ -138,12 +146,16 @@ for (let year = startYear; year <= endYear; year++) {
     const weather = weatherByDate.get(date) ?? [];
     if (flow == null) missing.flow++;
     if (priorFlow == null) missing.priorFlow++;
-    if (temp == null) missing.temperature++;
-    if (temp24 == null || temp72 == null) missing.temperatureHistory++;
+    if (usesTemperature && temp == null) missing.temperature++;
+    if (usesTemperature && (temp24 == null || temp72 == null)) {
+      missing.temperatureHistory++;
+    }
     if (weather.length < 16) missing.weather++;
     if (
-      flow == null || priorFlow == null || temp == null || temp24 == null ||
-      temp72 == null || weather.length < 16
+      flow == null || priorFlow == null ||
+      (usesTemperature &&
+        (temp == null || temp24 == null || temp72 == null)) ||
+      weather.length < 16
     ) continue;
 
     const hydraulic = activityRules.hydraulicTrend ?? run.push?.hydraulic;
@@ -157,12 +169,15 @@ for (let year = startYear; year <= endYear; year++) {
       sharpRise24hAbsolute: hydraulic?.sharpRise24h.absolute,
       sharpRise24hPercent: hydraulic?.sharpRise24h.percent,
     });
-    const temperatureTrend = resolveTemperatureTrendSignal({
-      sourceType: temperatureSource.sourceType,
-      delta24hF: temp - temp24,
-      delta72hF: temp - temp72,
-      hasEnoughValues: true,
-    });
+    const temperatureTrend = usesTemperature && temperatureSource &&
+        temp != null && temp24 != null && temp72 != null
+      ? resolveTemperatureTrendSignal({
+        sourceType: temperatureSource.sourceType,
+        delta24hF: temp - temp24,
+        delta72hF: temp - temp72,
+        hasEnoughValues: true,
+      })
+      : { rawSignal: "neutral_missing" as const };
     const flowBand = resolveAdminOverrideBand(flow, run.fishabilityBands);
     const stage = resolveRunStage(run, date);
     const result = scoreActivity({
@@ -171,7 +186,7 @@ for (let year = startYear; year <= endYear; year++) {
       targetDate: date,
       runStage: stage.stage,
       staging: stage.stagingContext,
-      waterTempF: temp,
+      waterTempF: usesTemperature ? temp ?? null : null,
       temperatureTrend: temperatureTrend.rawSignal,
       gaugeFreshness: "fresh",
       weatherFreshness: "fresh",
@@ -189,7 +204,7 @@ for (let year = startYear; year <= endYear; year++) {
       staging: stage.stagingContext,
       score: result.score!,
       label: result.label,
-      waterTempF: round2(temp),
+      waterTempF: usesTemperature && temp != null ? round2(temp) : null,
       flowCfs: round2(flow),
       flowBand: flowBand ?? "unknown",
       flowSignal: flowTrend.rawSignal,
@@ -234,15 +249,19 @@ const invariants = {
     const values = row.blocks.map((block) => block.score);
     return row.score < Math.min(...values) || row.score > Math.max(...values);
   }).length,
-  warmCapBroken:
-    rows.filter((row) =>
+  warmCapBroken: !usesTemperature
+    ? 0
+    : rows.filter((row) =>
+      row.waterTempF != null &&
       row.waterTempF >= activityRules.temperature.warmF &&
       row.blocks.some((block) =>
         block.score > (activityRules.caps.warmWaterMaximum ?? 39)
       )
     ).length,
-  barrierCapBroken:
-    rows.filter((row) =>
+  barrierCapBroken: !usesTemperature
+    ? 0
+    : rows.filter((row) =>
+      row.waterTempF != null &&
       row.waterTempF >= activityRules.temperature.barrierF &&
       row.blocks.some((block) => block.score >= 30)
     ).length,
@@ -397,9 +416,13 @@ function lifecycleMaximum(date: string, stage: string): number {
   );
 }
 const reviewRows = stratifiedReview(rows);
-const temperatureMethod = temperatureSource.provider === "USGS"
+const temperatureMethod = !usesTemperature
+  ? "no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay"
+  : temperatureSource?.provider === "USGS"
   ? `${temperatureSource.name} USGS ${temperatureSource.siteId} daily mean measured water temperature`
-  : `${temperatureSource.name} Monitor My Watershed series ${temperatureSource.seriesId} daily median measured water temperature`;
+  : `${temperatureSource!.name} Monitor My Watershed series ${
+    temperatureSource!.seriesId
+  } daily median measured water temperature`;
 const report = {
   runId: run.runId,
   rulesVersion: activityRules.version,
@@ -436,7 +459,9 @@ const report = {
   ),
   stageByBlock: stageByBlockReport(),
   backHalf: backHalfSummary(rows),
-  byTemperature: temperatureBands(rows),
+  byTemperature: usesTemperature
+    ? temperatureBands(rows)
+    : { status: "not_scored", reason: "insufficient_multi_season_record" },
   hydraulicAudit: {
     thresholds: activityRules.hydraulicTrend ?? run.push?.hydraulic ?? null,
     positiveAbsoluteChangeCfs: summary(
@@ -500,6 +525,7 @@ async function fetchDailyTemperature(
   startDate: string,
   endDate: string,
 ): Promise<Map<string, number>> {
+  if (!temperatureSource) return new Map();
   if (temperatureSource.provider === "MONITOR_MY_WATERSHED") {
     const values = new Map<string, number[]>();
     const firstYear = Number(startDate.slice(0, 4));
@@ -663,8 +689,9 @@ function stageBlockEntry(
     samples: samples.length,
     scores: summary(samples.map((sample) => sample.score)),
     labelShares: shares(samples.map((sample) => sample.activityLabel)),
-    capConfidenceNotes:
-      "Full confidence requires weather, measured Estabrook hydraulics, and measured Estabrook water temperature; missing inputs retain the configured fail-closed caps.",
+    capConfidenceNotes: usesTemperature
+      ? `Full confidence requires hourly weather, measured ${gauge.name} hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps.`
+      : `Full confidence requires hourly weather and measured ${gauge.name} hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record.`,
   };
 }
 
@@ -691,6 +718,7 @@ function temperatureBands(input: Row[]) {
       [`atLeast${barrier}F`, (v: number) => v >= barrier],
     ].map(([name, predicate]) => {
       const selected = input.filter((row) =>
+        row.waterTempF != null &&
         (predicate as (v: number) => boolean)(row.waterTempF)
       );
       return [name, {

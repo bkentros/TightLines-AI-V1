@@ -131,6 +131,15 @@ const WI_SHEBOYGAN_ACCESS_MAP =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_SheboyganRiverAccess.pdf";
 const WI_ROOT_ACCESS_MAP =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverAccess.pdf";
+const WI_KEWAUNEE_ACCESS_MAP =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_KewauneeRiverAccess.pdf";
+const KEWAUNEE_CITY_MARINA = "https://cityofkewauneewi.gov/departments/marina/";
+const KEWAUNEE_CITY_RECREATION_PLAN =
+  "https://cityofkewauneewi.gov/wp-content/uploads/2025/08/2025.08.11-City-Council-Agenda-Packet-1.pdf";
+const KEWAUNEE_BRUEMMER_TRAIL =
+  "https://www.visitkewauneecounty.com/explore/parks-and-trails/bruemmer-park-trail/";
+const IN_TRAIL_CREEK_ACCESS =
+  "https://www.in.gov/dnr/fish-and-wildlife/fishing/lake-michigan-fishing/";
 const WI_FALL_FISHING_GUIDE =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_closetohome_letter.pdf";
 const WI_BRULE_ACCESS_REPORT =
@@ -264,6 +273,7 @@ const sourceMappedSpot = (
   sourceUrl: string,
   sourceLocator: string,
   caution?: string,
+  verifiedOn = "2026-08-30",
 ): RiverAccessSpot => ({
   id,
   name,
@@ -273,7 +283,7 @@ const sourceMappedSpot = (
   sourceLabel,
   sourceUrl,
   sourceLocator,
-  verifiedOn: "2026-08-30",
+  verifiedOn,
 });
 
 const nySalmonAccess = (
@@ -1566,6 +1576,282 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       },
     ],
   },
+  trail_creek: {
+    riverId: "trail_creek",
+    riverName: "Trail Creek",
+    orientationNote:
+      "Sections organize all ten Indiana DNR-named Trail Creek public fishing sites. Most tributary frontage is private; use only signed public access and obey the Springland barrier closure.",
+    safetyLink: {
+      label: "CHECK CURRENT INDIANA RULES →",
+      url: IN_TRAIL_CREEK_ACCESS,
+    },
+    sections: [
+      {
+        id: "trail_creek_lower_city",
+        foundationReachIds: ["trail_creek_lower_city"],
+        position: "lower",
+        rangeLabel: "Trail Creek mouth to U.S. 12",
+        spots: [
+          sourceMappedSpot(
+            "trail_creek_dnr_building",
+            "Site next to DNR building",
+            ["shore_fishing", "fishing_platform"],
+            "DNR-named public fishing site; the agency identifies it as accessible.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Site next to DNR building.”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_hansen_park",
+            "Hansen Park (E Street)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named lower-city public fishing site.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Hansen Park (E Street).”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_winding_creek_cove",
+            "Winding Creek Cove (8th/Dickson Streets)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named lower-city public fishing site.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Winding Creek Cove (8th/Dickson Streets).”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_fire_station_2",
+            "Fire Station #2 (2005 E. U.S. Hwy 12)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named public fishing site at the upper end of the lower-city section.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Fire Station #2 (2005 E. U.S. Hwy 12).”",
+          ),
+        ],
+      },
+      {
+        id: "trail_creek_barrier_corridor",
+        foundationReachIds: ["trail_creek_barrier_corridor"],
+        position: "middle",
+        rangeLabel: "U.S. 12 to Trail Creek Forks",
+        spots: [
+          sourceMappedSpot(
+            "trail_creek_robert_peo",
+            "Robert Peo Public Access (Liberty Trail)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named public fishing site in the middle corridor.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Robert Peo Public Access (Liberty Trail).”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_karwick",
+            "Karwick Nature Park (Karwick Road)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named park access in the middle corridor.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Karwick Nature Park (Karwick Road).”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_us35",
+            "U.S. 35 (Chapala Parkway)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named public fishing site in the Springland/barrier corridor.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “U.S. 35 (Chapala Parkway).”",
+            "Fishing is prohibited in the current signed/statutory barrier reach; verify the legal boundary before leaving the access point.",
+          ),
+          sourceMappedSpot(
+            "trail_creek_forks",
+            "Trail Creek Forks (U.S. 20)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named public fishing site at the transition to the upper access corridor.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Trail Creek Forks (U.S. 20).”",
+          ),
+        ],
+      },
+      {
+        id: "trail_creek_upper_access",
+        foundationReachIds: ["trail_creek_upper_access"],
+        position: "upper",
+        rangeLabel: "Trail Creek Forks to Creek Ridge Park",
+        spots: [
+          sourceMappedSpot(
+            "trail_creek_johnson_road",
+            "Johnson Road (Johnson/Wozniak Roads)",
+            ["shore_fishing", "walk_in"],
+            "DNR-named upper-corridor public fishing site.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Johnson Road (Johnson/Wozniak Roads).”",
+          ),
+          sourceMappedSpot(
+            "trail_creek_creek_ridge",
+            "Creek Ridge Park (7943 W. 400 North)",
+            ["shore_fishing", "fishing_platform", "walk_in"],
+            "DNR-named upper-corridor public fishing site; the agency identifies it as accessible.",
+            "Indiana DNR Trail Creek public fishing sites",
+            IN_TRAIL_CREEK_ACCESS,
+            "On the linked page, open Public Access Sites and find “Creek Ridge Park (7943 W. 400 North).”",
+          ),
+        ],
+      },
+    ],
+  },
+  kewaunee_river: {
+    riverId: "kewaunee_river",
+    riverName: "Kewaunee River",
+    orientationNote:
+      "Sections organize every named marker on the Wisconsin DNR Kewaunee River Access Sites map plus current city- and county-documented harbor, launch, and Bruemmer Park access. Markers do not make intervening private frontage public; obey posted facility and refuge boundaries.",
+    safetyLink: {
+      label: "CHECK CURRENT WISCONSIN RULES →",
+      url: WI_FISHING_RULES,
+    },
+    sections: [
+      {
+        id: "kewaunee_lower_river",
+        foundationReachIds: ["kewaunee_lower_river"],
+        position: "lower",
+        rangeLabel: "Kewaunee harbor to first Highway C bridge crossing",
+        spots: [
+          sourceMappedSpot(
+            "kewaunee_harbor_park",
+            "Harbor Park",
+            ["shore_fishing", "walk_in"],
+            "City-owned public park documented for fishing, with a boardwalk along Kewaunee Harbor and the lower Kewaunee River.",
+            "City of Kewaunee Comprehensive Outdoor Recreation Plan 2025–2029",
+            KEWAUNEE_CITY_RECREATION_PLAN,
+            "In the linked City Council packet, find “Harbor Park / Tug Ludington” in the city-owned facilities section and its fishing and harbor-boardwalk description.",
+            "Harbor conditions and posted city rules apply; the boardwalk is not evidence that every adjacent seawall is open to fishing.",
+            "2026-09-01",
+          ),
+          sourceMappedSpot(
+            "kewaunee_harbor_point",
+            "Harbor Point Park",
+            ["shore_fishing", "fishing_platform", "walk_in"],
+            "City-owned public park at 100 Hathaway Drive with a boardwalk and four documented fishing piers.",
+            "City of Kewaunee Comprehensive Outdoor Recreation Plan 2025–2029",
+            KEWAUNEE_CITY_RECREATION_PLAN,
+            "In the linked City Council packet, find “Harbor Point Park” in the city-owned facilities section and its four fishing piers.",
+            "This is harbor/river-mouth access; Lake Michigan conditions and posted city rules apply.",
+            "2026-09-01",
+          ),
+          sourceMappedSpot(
+            "kewaunee_landing",
+            "Kewaunee Landing",
+            ["boat_ramp", "carry_in"],
+            "City-operated public launch on the north side of the Kewaunee River with daily and annual launch passes.",
+            "City of Kewaunee Marina",
+            KEWAUNEE_CITY_MARINA,
+            "On the linked city page, find the Daily Launch Pass and Annual Launch Pass information for the city boat launch.",
+            "A launch pass may be required. This is boating access, not blanket shore-fishing permission around marina slips or campground frontage.",
+            "2026-09-01",
+          ),
+          sourceMappedSpot(
+            "kewaunee_first_highway_c",
+            "1st Highway C Bridge crossing",
+            ["shore_fishing", "walk_in"],
+            "First downstream Highway C crossing named on the DNR access map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “1st Highway C Bridge crossing.”",
+            "The DNR map is not an authoritative property-boundary survey; use only signed public access or lawful right-of-way and do not cross private frontage.",
+          ),
+        ],
+      },
+      {
+        id: "kewaunee_besadny_reach",
+        foundationReachIds: ["kewaunee_besadny_reach"],
+        position: "middle",
+        rangeLabel: "First Highway C crossing to C.D. Besadny facility",
+        spots: [
+          sourceMappedSpot(
+            "kewaunee_highway_c_launch",
+            "Highway C Boat Launch",
+            ["boat_ramp", "shore_fishing"],
+            "Public boat launch named on the DNR access map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “Highway C Boat Launch.”",
+          ),
+          sourceMappedSpot(
+            "kewaunee_bruemmer_river_trail",
+            "Bruemmer Park River Trail",
+            ["shore_fishing", "walk_in"],
+            "County-documented river trail used for public fishing access on the south side of the County F bridge.",
+            "Kewaunee County Tourism — Bruemmer Park Trail",
+            KEWAUNEE_BRUEMMER_TRAIL,
+            "On the linked county page, open “River Trail” and find the south-side fishing-access description.",
+            "Fishing is prohibited in the fish-refuge trail area north of the County F bridge; remain on the documented south-side access and obey posted boundaries.",
+            "2026-09-01",
+          ),
+          sourceMappedSpot(
+            "kewaunee_besadny_facility",
+            "C.D. Besadny Anadromous Fish Facility",
+            ["shore_fishing", "walk_in"],
+            "DNR-mapped facility and wildlife-area access at the upstream end of the salmon corridor.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “C.D. Besadny Anadromous Fish Facility.”",
+            "Facility operations and posted weir/refuge restrictions control fishing; do not cross a posted boundary or infer passage.",
+          ),
+        ],
+      },
+      {
+        id: "kewaunee_upper_access",
+        foundationReachIds: ["kewaunee_upper_access"],
+        position: "upper",
+        rangeLabel: "Besadny facility to third Highway C bridge crossing",
+        eligibleSpecies: ["lake_run_brown_trout"],
+        spots: [
+          sourceMappedSpot(
+            "kewaunee_second_highway_c",
+            "2nd Highway C Bridge crossing",
+            ["shore_fishing", "walk_in"],
+            "Second Highway C crossing named on the DNR access map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “2nd Highway C Bridge crossing.”",
+            "The DNR map is not an authoritative property-boundary survey; use only signed public access or lawful right-of-way and do not cross private frontage.",
+          ),
+          sourceMappedSpot(
+            "kewaunee_highway_e_launch",
+            "Highway E Boat Launch",
+            ["boat_ramp", "shore_fishing"],
+            "Public boat launch named on the DNR access map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “Highway E Boat Launch.”",
+          ),
+          sourceMappedSpot(
+            "kewaunee_clyde_hill",
+            "Clyde Hill Bridge",
+            ["shore_fishing", "walk_in"],
+            "Bridge access marker named on the DNR map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “Clyde Hill Bridge.”",
+            "The DNR map is not an authoritative property-boundary survey; use only signed public access or lawful right-of-way and do not cross private frontage.",
+          ),
+          sourceMappedSpot(
+            "kewaunee_third_highway_c",
+            "3rd Highway C Bridge crossing",
+            ["shore_fishing", "walk_in"],
+            "Upstream endpoint marker named on the DNR access map.",
+            "Wisconsin DNR Kewaunee River Access Sites",
+            WI_KEWAUNEE_ACCESS_MAP,
+            "On the linked one-page map, find “3rd Highway C Bridge crossing.”",
+            "The DNR map is not an authoritative property-boundary survey; use only signed public access or lawful right-of-way and do not cross private frontage.",
+          ),
+        ],
+      },
+    ],
+  },
   bois_brule: {
     riverId: "bois_brule",
     riverName: "Bois Brule River",
@@ -1803,7 +2089,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       "Sections stop at the Lighthouse Hill tailrace and use only NYSDEC-listed fishing access. Fly-only areas, hatchery-property boundaries, night rules, and private land remain controlled by current regulations and posted signs.",
     safetyLink: {
       label: "CHECK CURRENT NYSDEC TRIBUTARY RULES →",
-      url: "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
+      url:
+        "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
     },
     sections: [
       {
@@ -1992,7 +2279,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       "The inventory follows NYSDEC Public Fishing Rights from Point Breeze to Waterport Dam. PFR is a fishing easement, not general permission beyond marked banks and footpaths.",
     safetyLink: {
       label: "CHECK CURRENT NYSDEC TRIBUTARY RULES →",
-      url: "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
+      url:
+        "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
     },
     sections: [
       {
@@ -2089,7 +2377,8 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       "The inventory includes current official harbor fishing/launch access plus the source-listed Seth Green–Lower Falls fishing area. General river trails and overlooks are omitted unless an authoritative source expressly establishes fishing access.",
     safetyLink: {
       label: "CHECK CURRENT NYSDEC TRIBUTARY RULES →",
-      url: "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
+      url:
+        "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries",
     },
     sections: [
       {
@@ -2127,15 +2416,18 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         position: "upper",
         rangeLabel: "Route 104 to Lower Falls",
         spots: [{
-        id: "lower_genesee_seth_green",
-        name: "Seth Green–Lower Falls Public Fishing Area",
-        accessKinds: ["shore_fishing", "walk_in"],
-        detail: "NYSDEC identifies parking from Seth Green Drive and a public fishing area below the natural Lower Falls endpoint.",
-        caution: "The gorge is steep and flow can be powerful; seasonal hours apply and the PFR map is not survey quality.",
-        sourceLabel: "NYSDEC Lower Genesee River Public Fishing Rights",
-        sourceUrl: "https://dec.ny.gov/sites/default/files/pfrgeneseriv.pdf",
-        sourceLocator: "On page 1, find Directions to the Seth Green–Lower Falls Public Fishing Area.",
-        verifiedOn: "2026-08-31",
+          id: "lower_genesee_seth_green",
+          name: "Seth Green–Lower Falls Public Fishing Area",
+          accessKinds: ["shore_fishing", "walk_in"],
+          detail:
+            "NYSDEC identifies parking from Seth Green Drive and a public fishing area below the natural Lower Falls endpoint.",
+          caution:
+            "The gorge is steep and flow can be powerful; seasonal hours apply and the PFR map is not survey quality.",
+          sourceLabel: "NYSDEC Lower Genesee River Public Fishing Rights",
+          sourceUrl: "https://dec.ny.gov/sites/default/files/pfrgeneseriv.pdf",
+          sourceLocator:
+            "On page 1, find Directions to the Seth Green–Lower Falls Public Fishing Area.",
+          verifiedOn: "2026-08-31",
         }],
       },
     ],

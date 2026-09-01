@@ -3,6 +3,7 @@ import {
   assembleConditionInputs,
   computeGaugeFreshness,
   computeWeatherFreshness,
+  fetchRiverRunWeatherSnapshot,
   fetchUsgsInstantaneousValues,
   type NormalizedGaugeObservation,
   normalizeGaugeRead,
@@ -14,6 +15,39 @@ import {
   resolveFlowBand,
   resolveRainSignal,
 } from "../index.ts";
+
+Deno.test("Open-Meteo forecast retries one transient empty response", async () => {
+  let calls = 0;
+  const snapshot = await fetchRiverRunWeatherSnapshot({
+    lat: 41.7166821,
+    lon: -86.8597129,
+    fetchedAtUtc: "2026-09-01T19:11:26.605Z",
+    fetchFn: async () => {
+      calls++;
+      return {
+        ok: true,
+        json: async () =>
+          calls === 1 ? { hourly: { time: [] } } : {
+            timezone: "America/Chicago",
+            hourly: {
+              time: ["2026-09-01T14:00"],
+              precipitation: [0],
+              cloud_cover: [50],
+              shortwave_radiation: [400],
+              shortwave_radiation_clear_sky: [600],
+            },
+            daily: {
+              time: ["2026-09-01"],
+              precipitation_probability_max: [20],
+            },
+          },
+      };
+    },
+  });
+  assertEquals(calls, 2);
+  assertEquals(snapshot?.hourly_activity_weather?.length, 1);
+  assertEquals(snapshot?.weather_available, true);
+});
 
 Deno.test("USGS continuous fetch follows pagination before selecting latest high-cadence values", async () => {
   const requested: string[] = [];

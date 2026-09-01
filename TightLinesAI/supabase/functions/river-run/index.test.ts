@@ -749,7 +749,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog is admin-only and includes public New York plus hidden Washington", async () => {
+Deno.test("owner-review catalog is admin-only and includes hidden Midwest rivers", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers"),
     { createAdminClient: () => new MockClient() },
@@ -774,19 +774,32 @@ Deno.test("owner-review catalog is admin-only and includes public New York plus 
   const newYork = body.states.find(
     (state: { state: string }) => state.state === "NY",
   );
+  const indiana = body.states.find(
+    (state: { state: string }) => state.state === "IN",
+  );
 
   assertEquals(response.status, 200);
   assertEquals(
     wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["bois_brule", "milwaukee", "root", "sheboygan"],
+    ["bois_brule", "kewaunee_river", "milwaukee", "root", "sheboygan"],
   );
   assertEquals(
     wisconsin.rivers.every(
       (river: { runs: Array<{ species: string }> }) =>
-        river.runs.length === 4 &&
-        river.runs.some((run) => run.species === "lake_run_brown_trout"),
+        river.runs.length >= 3 &&
+        river.runs.some((run) => run.species === "chinook_salmon"),
     ),
     true,
+  );
+  assertEquals(
+    indiana.rivers.map((river: { riverId: string }) => river.riverId).sort(),
+    ["st_joseph", "trail_creek"],
+  );
+  assertEquals(
+    indiana.rivers.find((river: { riverId: string }) =>
+      river.riverId === "trail_creek"
+    ).runs.map((run: { species: string }) => run.species).sort(),
+    ["chinook_salmon", "coho_salmon"],
   );
   assertEquals(
     washington.rivers.map((river: { riverId: string }) => river.riverId)
@@ -1510,7 +1523,7 @@ Deno.test("Betsie snapshot fetches only weather for its seasonal Activity", asyn
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 1);
+  assertEquals(providerCalls, 2);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 100);
   assertEquals(body.conditionsSuggest.label, "Unavailable");
@@ -1552,7 +1565,7 @@ Deno.test("Betsie Coho snapshot uses weather-only Activity and honors its limite
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 1);
+  assertEquals(providerCalls, 2);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 30);
   assertEquals(body.fishInRiver.riverCeiling, 30);
@@ -1590,7 +1603,7 @@ Deno.test("Betsie Steelhead snapshot uses weather-only Activity and honors its 7
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 1);
+  assertEquals(providerCalls, 2);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 70);
   assertEquals(body.fishInRiver.riverCeiling, 70);

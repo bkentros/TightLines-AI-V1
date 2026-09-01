@@ -31,6 +31,9 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "dec.ny.gov",
   "www.monroecounty.gov",
   "www.orleanscountytourism.com",
+  "www.in.gov",
+  "cityofkewauneewi.gov",
+  "www.visitkewauneecounty.com",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =

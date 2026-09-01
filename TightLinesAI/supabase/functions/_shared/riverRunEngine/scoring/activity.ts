@@ -155,8 +155,12 @@ export function scoreActivity(input: {
   const species = activitySpecies(input.rules.profile);
   const weatherOnly = input.rules.dataMode === "weather_only";
   const tomorrow = input.targetDate !== input.requestDate;
-  const hasTemperature = !weatherOnly && typeof input.waterTempF === "number";
-  const hasRiver = !weatherOnly && input.gaugeFreshness === "fresh" &&
+  const expectsTemperature = !weatherOnly &&
+    input.rules.weights.waterTemperature > 0;
+  const expectsRiver = !weatherOnly && input.rules.weights.riverBehavior > 0;
+  const hasTemperature = expectsTemperature &&
+    typeof input.waterTempF === "number";
+  const hasRiver = expectsRiver && input.gaugeFreshness === "fresh" &&
     Boolean(input.flowBand);
   const targetWeather = input.hourlyWeather.filter((hour) =>
     hour.time_local.startsWith(input.targetDate)
@@ -201,7 +205,9 @@ export function scoreActivity(input: {
     const scope = input.rules.scopeCopy ? ` ${input.rules.scopeCopy}` : "";
     const missing = !hasWeather
       ? "Required hourly weather is unavailable, so no four-hour block can be scored or ranked."
-      : "Both measured river inputs are unavailable, so the model cannot produce an observed-river score.";
+      : expectsTemperature && expectsRiver
+      ? "Both measured river inputs are unavailable, so the model cannot produce an observed-river score."
+      : "The required measured river input is unavailable, so the model cannot produce an observed-river score.";
     return {
       score: null,
       maximum: 100,
@@ -225,12 +231,18 @@ export function scoreActivity(input: {
       copyVersion: RIVER_RUN_COPY_VERSION,
     };
   }
-  const confidence: ActivityConfidence =
-    hasWeather && hasTemperature && hasRiver && !tomorrow
-      ? "Full"
-      : hasWeather && (hasTemperature || hasRiver)
-      ? "Moderate"
-      : "Limited";
+  const measuredInputsComplete = (!expectsTemperature || hasTemperature) &&
+    (!expectsRiver || hasRiver);
+  const hasAnyConfiguredMeasuredInput = hasTemperature || hasRiver;
+  const confidence: ActivityConfidence = weatherOnly
+    ? "Limited"
+    : hasWeather && measuredInputsComplete && !tomorrow
+    ? "Full"
+    : hasWeather && measuredInputsComplete
+    ? "Moderate"
+    : hasWeather && hasAnyConfiguredMeasuredInput
+    ? "Moderate"
+    : "Limited";
 
   const refreshMinutes = parseRefreshMinutes(input.refreshSlot ?? "04:00");
   const blocks = BLOCKS.map((block) => {
@@ -284,8 +296,12 @@ export function scoreActivity(input: {
       );
     } else {
       const dataCeilings = [
-        ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
-        ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
+        ...(expectsTemperature && !hasTemperature
+          ? [input.rules.caps.noWaterTemperature]
+          : []),
+        ...(expectsRiver && !hasRiver
+          ? [input.rules.caps.noMeasuredRiverData]
+          : []),
         ...(confidence === "Limited" ? [69] : []),
       ];
       if (dataCeilings.length) {
@@ -316,7 +332,7 @@ export function scoreActivity(input: {
     );
     const floorInputsComplete = weatherOnly
       ? hasWeather
-      : hasWeather && hasTemperature && hasRiver;
+      : hasWeather && measuredInputsComplete;
     if (
       floorStrength > 0 && floorInputsComplete &&
       input.rules.profile === "chinook_fall_reaction" && score < 30
@@ -345,8 +361,12 @@ export function scoreActivity(input: {
       input.rules.stageResponseAdjustment?.[input.runStage] ?? 0;
     if (appliedStageResponseAdjustment > 0) {
       const finalDataCeilings = [
-        ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
-        ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
+        ...(expectsTemperature && !hasTemperature
+          ? [input.rules.caps.noWaterTemperature]
+          : []),
+        ...(expectsRiver && !hasRiver
+          ? [input.rules.caps.noMeasuredRiverData]
+          : []),
         ...(confidence === "Limited" ? [69] : []),
       ];
       if (finalDataCeilings.length) {
@@ -433,14 +453,14 @@ export function scoreActivity(input: {
           ? "Heavier precipitation can unsettle presentation."
           : "Rain adds little extra cover.",
       },
-      ...(!hasTemperature && !weatherOnly
+      ...(expectsTemperature && !hasTemperature
         ? [{
           value: -2,
           available: true,
           text: "Measured water temperature is unavailable.",
         }]
         : []),
-      ...(!hasRiver && !weatherOnly
+      ...(expectsRiver && !hasRiver
         ? [{
           value: -1,
           available: true,
@@ -530,6 +550,8 @@ export function scoreActivity(input: {
     muskegon: input.copyStrategy === "muskegon_croton_tailwater",
     stJoseph: input.copyStrategy === "st_joseph_corridor",
     hasWeather,
+    expectsTemperature,
+    expectsRiver,
     blocksSeparated: hasWeather &&
       copyLeaders[0].score - (copyLeaders[1]?.score ?? copyLeaders[0].score) >=
         3,
@@ -621,6 +643,8 @@ function activityCopy(input: {
   muskegon: boolean;
   stJoseph: boolean;
   hasWeather: boolean;
+  expectsTemperature: boolean;
+  expectsRiver: boolean;
   blocksSeparated: boolean;
 }) {
   if (input.pereMarquette) return pereMarquetteActivityCopy(input);
@@ -633,7 +657,11 @@ function activityCopy(input: {
   const confidence = input.weatherOnly
     ? "This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited."
     : input.confidence === "Full"
-    ? "This read uses a current river level, measured water temperature, and the hourly weather outlook."
+    ? input.expectsTemperature && input.expectsRiver
+      ? "This read uses a current river level, measured water temperature, and the hourly weather outlook."
+      : input.expectsRiver
+      ? "This read uses a current river level and the hourly weather outlook."
+      : "This read uses current measured water temperature and the hourly weather outlook."
     : input.confidence === "Moderate"
     ? "One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative."
     : "Several important readings are unavailable, so treat this as a limited outlook.";

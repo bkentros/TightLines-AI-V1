@@ -1135,6 +1135,40 @@ function onboardingCorridorRoute(input: {
     };
   }
 
+  if (input.riverId === "trail_creek") {
+    const limit =
+      "Trail Creek guidance stays inside the ten-site public corridor. Obey the Springland barrier closure and posted fishway operations; a gauge reading never proves passage, and most adjoining tributary frontage is private.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? { whereToStart: "Michigan City harbor and the Trail Creek mouth; use Lower City water only with direct fish evidence.", limit, tip: "Keep the harbor and mouth as staging context until dependable creek entry begins." }
+        : { whereToStart: "Lake Michigan off Michigan City and the harbor—not inland Trail Creek yet.", limit, tip: "Wait for the staging window before using the creek corridor as a migration plan." };
+    }
+    if (stage === "beginning") return { whereToStart: "Lower City access from the mouth toward U.S. 12.", limit, tip: "Keep the first search below U.S. 12 and do not infer upstream distribution from the calendar." };
+    if (stage === "building" && !input.establishedBuildingContext) return { whereToStart: "Barrier Corridor public sites, outside the Springland closure.", limit, tip: "Move away from entry water only through signed public access and verify the barrier boundary." };
+    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Barrier Corridor first, outside the Springland closure.", limit, tip: "Treat the upper corridor as conditional until the broad-building phase." };
+    if (stage === "building") return { whereToStart: "Barrier Corridor first, then Upper Access from the Forks toward Creek Ridge Park.", limit, tip: "Compare signed middle and upper sites without treating private frontage as access." };
+    if (stage === "peak") return { whereToStart: "Barrier Corridor and Upper Access, with Lower City water checked for newer arrivals.", limit, tip: "Compare established inland water with lower entry water; do not assume equal distribution or passage." };
+    if (stage === "tapering" || stage === "ending") return { whereToStart: "Established Barrier Corridor and Upper Access holding water.", limit, tip: "Narrow the search, obey the barrier closure, and avoid visible spawners and redds." };
+    return { whereToStart: "No dependable Trail Creek starting reach for this model.", limit, tip: "Do not build a trip around isolated fish outside the modeled run." };
+  }
+
+  if (input.riverId === "kewaunee_river") {
+    const upper = input.repeatSpawner ? " and the Brown-only Upper Access corridor" : "";
+    const limit = input.repeatSpawner
+      ? "Kewaunee Brown Trout guidance may extend above the operated Besadny facility only because DNR documents Brown passage. Obey posted weir/refuge boundaries and use only signed public access."
+      : "Kewaunee salmon guidance stops below the operated Besadny facility. Obey posted weir/refuge boundaries; facility counts and County F readings never prove fish location or passage.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? { whereToStart: "Kewaunee harbor and the river mouth; use Lower River water only with direct fish evidence.", limit, tip: "Keep the harbor and mouth as staging context until dependable river entry begins." }
+        : { whereToStart: "Lake Michigan off Kewaunee and the harbor—not inland river sections yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
+    }
+    if (stage === "beginning") return { whereToStart: "Lower River from the harbor toward the first Highway C crossing.", limit, tip: "Keep the first search lakeward and do not infer facility arrival from the calendar." };
+    if (stage === "building") return { whereToStart: `Besadny Reach below the operated facility${input.repeatSpawner && input.broadBuildingContext ? upper : ""}.`, limit, tip: "Use mapped access only and keep facility operations separate from whole-river abundance." };
+    if (stage === "peak") return { whereToStart: `Besadny Reach and Lower River${upper}.`, limit, tip: input.repeatSpawner ? "Compare all audited Brown Trout reaches without assuming every fish is lake-run; avoid redds." : "Compare the facility approach with fresh lower-river entry water without implying passage." };
+    if (stage === "tapering" || stage === "ending") return { whereToStart: `Established Besadny Reach water${upper}.`, limit, tip: input.repeatSpawner ? "Surviving Browns may hold or move again; no universal departure is asserted." : "Narrow the search below the facility and avoid visible spawners and redds." };
+    return { whereToStart: "No dependable Kewaunee River starting reach for this model.", limit, tip: input.repeatSpawner ? "The modeled migration is complete; living Browns may hold or return lakeward." : "Do not build a trip around isolated fish outside the modeled run." };
+  }
+
   const limit =
     "Grand River guidance starts in the Lower river. Middle-corridor use requires a current, species-supported passage route, and no guidance extends beyond the configured species endpoint.";
   if (stage === "pre_run") {

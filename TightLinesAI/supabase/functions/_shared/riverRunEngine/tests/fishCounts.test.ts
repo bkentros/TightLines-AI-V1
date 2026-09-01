@@ -13,7 +13,9 @@ import {
   parseTacomaPowerCount,
   parseWdfwFacilityCount,
   parseWisconsinBruleCount,
+  parseWisconsinBesadnyCount,
   parseWisconsinRootCount,
+  KEWAUNEE_RIVER_PROFILE,
   PUYALLUP_RIVER_PROFILE,
   resolveFishCountFreshness,
   ROOT_RIVER_PROFILE,
@@ -235,6 +237,35 @@ Deno.test("Wisconsin DNR Root parser uses Total Captured without double-counting
   assertEquals(coho.observedTotal, 620);
   assertEquals(brown.observedTotal, 88);
   assertEquals(coho.reportDate, "2026-10-20");
+});
+
+Deno.test("Wisconsin DNR Besadny parser uses Total Captured and excludes dispositions", () => {
+  const source = KEWAUNEE_RIVER_PROFILE.fishCountSources![0];
+  const html = `
+    <h2>Besadny Anadromous Fisheries Facility Report for October 20, 2026</h2>
+    <table><thead>
+      <tr><th></th><th>Chinook Salmon</th><th>Coho Salmon</th><th>Rainbow Trout</th><th>Brown Trout</th></tr>
+    </thead><tbody>
+      <tr><td>Total Captured</td><td>624</td><td>788</td><td>279</td><td>456</td></tr>
+      <tr><td>Passed Upstream</td><td>0</td><td>0</td><td>276</td><td>396</td></tr>
+      <tr><td>Females Spawned</td><td>200</td><td>300</td><td>0</td><td>100</td></tr>
+    </tbody></table>`;
+  const chinook = parseWisconsinBesadnyCount({ source, species: "chinook_salmon", html });
+  const coho = parseWisconsinBesadnyCount({ source, species: "coho_salmon", html });
+  assertEquals(chinook.observedTotal, 624);
+  assertEquals(coho.observedTotal, 788);
+  assertEquals(coho.reportDate, "2026-10-20");
+});
+
+Deno.test("Wisconsin DNR Besadny parser fails closed when a species is blank out of season", () => {
+  const source = KEWAUNEE_RIVER_PROFILE.fishCountSources![0];
+  const html = `
+    <h2>Besadny Anadromous Fisheries Facility Report for April 28, 2026</h2>
+    <table><thead><tr><th></th><th>Chinook Salmon</th><th>Coho Salmon</th><th>Rainbow Trout</th><th>Brown Trout</th></tr></thead>
+    <tbody><tr><td>Total Captured</td><td>&nbsp;</td><td>&nbsp;</td><td>5,410</td><td>&nbsp;</td></tr></tbody></table>`;
+  const read = parseWisconsinBesadnyCount({ source, species: "chinook_salmon", html });
+  assertEquals(read.status, "unavailable");
+  assertEquals(read.unavailableReason, "not_reported");
 });
 
 Deno.test("Wisconsin DNR Brule parser selects the newest final fall report and fixed summary row", () => {

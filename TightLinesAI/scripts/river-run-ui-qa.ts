@@ -118,6 +118,60 @@ const manisteeBrownChoices = riverRunRiverChoices(
   "lake_run_brown_trout",
 );
 assert.equal(manisteeBrownChoices.length, 9);
+
+const midwestReviewCatalog = {
+  states: [
+    {
+      state: "IN",
+      displayName: "Indiana",
+      rivers: [
+        { riverId: "st_joseph", displayName: "St. Joseph River", runs: [] },
+        {
+          riverId: "trail_creek",
+          displayName: "Trail Creek",
+          runs: [{
+            runId: "trail_creek_fall_chinook",
+            displayName: "Fall Chinook",
+            species: "chinook_salmon",
+            season: "fall",
+            supportStatus: "beta",
+          }],
+        },
+      ],
+    },
+    {
+      state: "WI",
+      displayName: "Wisconsin",
+      rivers: [{
+        riverId: "kewaunee_river",
+        displayName: "Kewaunee River",
+        runs: [{
+          runId: "kewaunee_river_fall_brown_trout",
+          displayName: "Fall Lake-run Brown Trout",
+          species: "lake_run_brown_trout",
+          season: "fall",
+          supportStatus: "beta",
+        }],
+      }],
+    },
+  ],
+} as RiverRunCatalogResponse;
+assert.deepEqual(
+  riverRunRiverChoices(midwestReviewCatalog, "IN", "fall", "chinook_salmon")
+    .filter((choice) => !choice.disabled).map((choice) => choice.id),
+  ["trail_creek"],
+  "Admin review catalog must expose Trail Creek in the Indiana picker",
+);
+assert.deepEqual(
+  riverRunRiverChoices(
+    midwestReviewCatalog,
+    "WI",
+    "fall",
+    "lake_run_brown_trout",
+  ).map((choice) => choice.id),
+  ["kewaunee_river"],
+  "Admin review catalog must expose Kewaunee in the Wisconsin picker",
+);
 assert.equal(
   manisteeBrownChoices.find((choice) => choice.id === "big_manistee")
     ?.disabled,
