@@ -536,7 +536,7 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 export const BOIS_BRULE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument =
   {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-31-bois-brule-fish-counts.7+seasonal-zone-v2",
+    configVersion: "2026-08-31-bois-brule-fish-counts.7+seasonal-zone-v3",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

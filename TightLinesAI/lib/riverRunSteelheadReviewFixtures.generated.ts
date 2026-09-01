@@ -469,7 +469,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.9.0-review",
-  "configVersion": "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v2-review"
+  "configVersion": "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v3-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [

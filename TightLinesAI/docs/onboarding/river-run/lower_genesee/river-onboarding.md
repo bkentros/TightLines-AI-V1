@@ -114,9 +114,9 @@ unambiguous open-access source.
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `lower_genesee_fall_chinook-seasonal-zone-v2-2026-09-01` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | gorge + falls | gorge + falls | concentrated spawning corridor below natural Lower Falls |
-| Steelhead | `lower_genesee_fall_steelhead-seasonal-zone-v2-2026-09-01` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | all three | all three | living fall-entry fish retain all accepted lower-river contexts |
-| Brown Trout | `lower_genesee_fall_brown_trout-seasonal-zone-v2-2026-09-01` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | gorge + falls | gorge + falls | limited repeat-spawner profile stays below natural Lower Falls |
+| Chinook | `lower_genesee_fall_chinook-seasonal-zone-v3-2026-09-01` | harbor/lower | gorge | gorge | gorge + falls | all three | gorge + falls | gorge + falls | concentrated spawning corridor below natural Lower Falls; Building removes harbor/port geography |
+| Steelhead | `lower_genesee_fall_steelhead-seasonal-zone-v3-2026-09-01` | harbor/lower | gorge | gorge | gorge + falls | all three | all three | all three | living fall-entry fish may reuse all accepted contexts after Peak, never during Building |
+| Brown Trout | `lower_genesee_fall_brown_trout-seasonal-zone-v3-2026-09-01` | harbor/lower | gorge | gorge | gorge + falls | all three | gorge + falls | gorge + falls | limited repeat-spawner profile stays below natural Lower Falls; Building removes harbor/port geography |
 
 ## 9. Candidate species/run matrix
 
@@ -216,3 +216,4 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | 2026-08-31 | River selector lacked intentional size artwork                         | Added the large lower-corridor illustration and a permanent UI coverage assertion |
 | 2026-08-31 | Spot Finder needed pre-entry direction without turning harbor context into a fabricated spot | Added a non-access Lake Ontario/Charlotte/Port of Rochester orientation plus independent Chinook, Steelhead, and Brown Trout phase-reach plans; all plans remain below natural Lower Falls and unsupported coho stays absent |
 | 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
+| 2026-09-01 | Building could retain Charlotte/Port/harbor geography | V3 universally removes every Beginning reach from all Building phases and shifts Lower Genesee recommendations into gorge/falls river water |

@@ -1,7 +1,7 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.5\
+**Version:** 3.6\
 **Established:** 2026-08-30\
 **Revised:** 2026-09-01\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
@@ -466,6 +466,15 @@ regulations remain separate; the label never implies that the named water is a
 verified access point, safe, or governed by the river regulation shown
 elsewhere. If no defensible approach relationship exists, record that failure
 and keep the run out of release rather than silently omitting early direction.
+
+The transition into Building is universal: remove the `earlyApproach` box and
+shift the recommendation away from every reach used by Beginning. No lake,
+harbor, port, estuary, confluence, or mouth/entry pick may survive into early,
+established, or broad Building—even when that water is an audited fishing
+section. Building starts with the next supported in-river reach and may broaden
+upstream as evidence allows. Peak may expand to the complete audited river
+corridor when the run-specific record supports it. Validation and full-calendar
+replay must reject any Building phase that reuses a Beginning reach.
 
 A river may expose an ordered subset such as `middle` + `upper` when the lower
 reach lacks defensible fishing access. Never relabel the first verified access

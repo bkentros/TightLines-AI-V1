@@ -530,7 +530,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const SHEBOYGAN_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-29-sheboygan-four-species-release.5+seasonal-zone-v2",
+  configVersion: "2026-08-29-sheboygan-four-species-release.5+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

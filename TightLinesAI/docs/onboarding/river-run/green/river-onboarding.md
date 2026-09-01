@@ -105,8 +105,8 @@ The tidal Duwamish has no accepted fishing-oriented access listing in this pass.
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `green_fall_chinook-seasonal-zone-v2-2026-09-01` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent Chinook calendar/corridor; no lower audited access overlap |
-| Coho | `green_fall_coho-seasonal-zone-v2-2026-09-01` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent later coho calendar/corridor; no lower audited access overlap |
+| Chinook | `green_fall_chinook-seasonal-zone-v3-2026-09-01` | lower Duwamish | Auburn | Auburn | Auburn + upper | all three | Auburn + upper | Auburn + upper | independent Chinook calendar/corridor; Building leaves the estuary/lower approach and no lower audited access overlap is forced |
+| Coho | `green_fall_coho-seasonal-zone-v3-2026-09-01` | lower Duwamish | Auburn | Auburn | Auburn + upper | all three | Auburn + upper | Auburn + upper | independent later coho calendar/corridor; Building leaves the estuary/lower approach and no lower audited access overlap is forced |
 
 ## 9. Candidate species matrix
 
@@ -178,5 +178,6 @@ Full named-block results are retained in `docs/audits/river-run-green-chinook-we
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Green corridor/endpoint copy and a cross-river leakage assertion |
 | 2026-08-31 | Generic stage-to-section progression under-described early water and late species behavior | Added sourced Puget Sound/Duwamish early orientation plus independent Chinook/coho phase-reach plans; Beginning lower-river phases fail closed because no audited lower public fishing access overlaps |
 | 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
+| 2026-09-01 | Building could retain the lower estuary/approach reach | V3 universally removes every Beginning reach from all Building phases and shifts Green/Duwamish recommendations to Auburn/upstream river water |
 
 Any new barrier status, emergency rule, station/datum change, Soos operation change, or material five-year return shift reopens the affected decision.

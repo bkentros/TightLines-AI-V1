@@ -65,6 +65,24 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
       ) {
         assert(reachIds.length > 0, `${run.runId}/${phase}`);
       }
+      const beginningReachIds = new Set(
+        run.seasonalZonePlan.phases.beginning,
+      );
+      for (
+        const phase of [
+          "buildingEarly",
+          "buildingEstablished",
+          "buildingBroad",
+        ] as const
+      ) {
+        assertEquals(
+          run.seasonalZonePlan.phases[phase].some((reachId) =>
+            beginningReachIds.has(reachId)
+          ),
+          false,
+          `${run.runId}/${phase} retained its Beginning approach reach`,
+        );
+      }
 
       for (
         const beforeMigrationDate of [

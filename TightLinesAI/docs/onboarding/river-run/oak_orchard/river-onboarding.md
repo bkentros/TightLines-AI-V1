@@ -115,10 +115,10 @@ beyond marked footpaths is excluded.
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `oak_orchard_fall_chinook-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent spawning calendar below Waterport Dam |
-| Coho | `oak_orchard_fall_coho-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar/distribution below Waterport |
-| Steelhead | `oak_orchard_fall_steelhead-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain all accepted corridor contexts |
-| Brown Trout | `oak_orchard_fall_brown_trout-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without salmon terminal biology |
+| Chinook | `oak_orchard_fall_chinook-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | independent spawning calendar below Waterport Dam; Building leaves Point Breeze/lower approach |
+| Coho | `oak_orchard_fall_coho-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | separate coho calendar/distribution; Building leaves Point Breeze/lower approach |
+| Steelhead | `oak_orchard_fall_steelhead-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | all three | all three | living fall-entry fish retain all accepted corridor contexts after Peak |
+| Brown Trout | `oak_orchard_fall_brown_trout-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | repeat-spawner geography without salmon terminal biology; Building leaves Point Breeze/lower approach |
 
 ## 9. Candidate species/run matrix
 
@@ -222,3 +222,4 @@ false; Atlantic Salmon has no runtime profile.
 | 2026-08-31 | River selector lacked intentional size artwork                         | Added the small corridor illustration and a permanent UI coverage assertion                                  |
 | 2026-08-31 | Spot Finder provided no early Point Breeze direction and generic late geography treated all life histories alike | Added a non-access Lake Ontario/Point Breeze harbor/mouth orientation plus separate Chinook, coho, Steelhead, and Brown Trout phase-reach plans; plans stop below Waterport Dam and preserve PFR access limits |
 | 2026-09-01 | V1 hid Point Breeze direction for pre-staging Steelhead and Brown Trout | V2 shows Point Breeze/Lake Ontario/harbor/mouth throughout Before Migration and Beginning for all four runs, without fabricating a verified access point |
+| 2026-09-01 | Building could retain the Point Breeze/lower approach reach | V3 universally removes every Beginning reach from all Building phases and shifts Oak Orchard recommendations to middle/upstream creek water |

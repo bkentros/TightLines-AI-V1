@@ -935,6 +935,20 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
             `${run.runId}/${presentation.state}/${localDate} must retain early direction during Beginning`,
           );
         }
+        if (stage.stage === "building") {
+          assert.equal(
+            seasonalZone.earlyApproach,
+            undefined,
+            `${run.runId}/${presentation.state}/${localDate} must remove lake/harbor/mouth direction during Building`,
+          );
+          assert.equal(
+            seasonalZone.foundationReachIds.some((reachId) =>
+              run.seasonalZonePlan!.phases.beginning.includes(reachId)
+            ),
+            false,
+            `${run.runId}/${presentation.state}/${localDate} must shift away from its Beginning approach reach during Building`,
+          );
+        }
         const expected = finder.sections.filter((section) =>
           section.foundationReachIds.some((reachId) =>
             seasonalZone.foundationReachIds.includes(reachId)

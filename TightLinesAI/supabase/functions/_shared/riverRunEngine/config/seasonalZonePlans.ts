@@ -18,9 +18,9 @@ const THREE_REACH_SPAWNER = (
   upper: string,
 ): SeasonalZonePhasePlan => ({
   beginning: [lower],
-  buildingEarly: [lower],
-  buildingEstablished: [lower, middle],
-  buildingBroad: [lower, middle, upper],
+  buildingEarly: [middle],
+  buildingEstablished: [middle],
+  buildingBroad: [middle, upper],
   peak: [lower, middle, upper],
   tapering: [middle, upper],
   ending: [middle, upper],
@@ -41,9 +41,9 @@ const TWO_REACH_SPAWNER = (
   upper: string,
 ): SeasonalZonePhasePlan => ({
   beginning: [lower],
-  buildingEarly: [lower],
-  buildingEstablished: [lower, upper],
-  buildingBroad: [lower, upper],
+  buildingEarly: [upper],
+  buildingEstablished: [upper],
+  buildingBroad: [upper],
   peak: [lower, upper],
   tapering: [upper],
   ending: [upper],
@@ -231,14 +231,13 @@ assign(
 // plans deliberately retain both states while Beginning stays lakeward.
 const stJoeSpawner: SeasonalZonePhasePlan = {
   beginning: ["st_joseph_lower_michigan"],
-  buildingEarly: ["st_joseph_lower_michigan", "st_joseph_middle_michigan"],
+  buildingEarly: ["st_joseph_middle_michigan"],
   buildingEstablished: [
     "st_joseph_middle_michigan",
     "st_joseph_niles",
     "st_joseph_indiana",
   ],
   buildingBroad: [
-    "st_joseph_lower_michigan",
     "st_joseph_middle_michigan",
     "st_joseph_niles",
     "st_joseph_indiana",
@@ -400,9 +399,8 @@ assign(
     ),
 );
 
-// Wisconsin Lake Michigan tributaries. Their audited harbor reaches are part
-// of the supported fishing corridor, so they may be active phase reaches—not
-// merely external staging context.
+// Wisconsin Lake Michigan tributaries. Their audited harbor reaches may be the
+// Beginning pick, but the universal Building transition moves into river water.
 function urbanWisconsinSpawner(
   harbor: string,
   middle: string,
@@ -410,9 +408,9 @@ function urbanWisconsinSpawner(
 ): SeasonalZonePhasePlan {
   return {
     beginning: [harbor],
-    buildingEarly: [harbor, middle],
+    buildingEarly: [middle],
     buildingEstablished: [middle, terminal],
-    buildingBroad: [harbor, middle, terminal],
+    buildingBroad: [middle, terminal],
     peak: [harbor, middle, terminal],
     tapering: [middle, terminal],
     ending: [middle, terminal],
@@ -631,7 +629,7 @@ export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {
     throw new Error(`Missing audited Seasonal Zone plan for ${runId}`);
   }
   return {
-    version: `${runId}-seasonal-zone-v2-2026-09-01`,
+    version: `${runId}-seasonal-zone-v3-2026-09-01`,
     earlyApproach: {
       label: input.approach,
       sourceNotes: input.source,

@@ -116,10 +116,10 @@ published road locator.
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `salmon_ny_fall_chinook-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independently researched spawning progression below Lighthouse Hill |
-| Coho | `salmon_ny_fall_coho-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar and sectional distribution |
-| Steelhead | `salmon_ny_fall_steelhead-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain fresh-entry and established holding contexts |
-| Brown Trout | `salmon_ny_fall_brown_trout-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without mortality/departure claim |
+| Chinook | `salmon_ny_fall_chinook-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | independently researched spawning progression below Lighthouse Hill; Building leaves the mouth/lower approach |
+| Coho | `salmon_ny_fall_coho-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | separate coho calendar/distribution; Building leaves the mouth/lower approach |
+| Steelhead | `salmon_ny_fall_steelhead-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | all three | all three | living fall-entry fish retain fresh-entry and established holding contexts after Peak |
+| Brown Trout | `salmon_ny_fall_brown_trout-seasonal-zone-v3-2026-09-01` | lower | middle | middle | middle + upper | all three | middle + upper | middle + upper | repeat-spawner geography without mortality/departure claim; Building leaves the mouth/lower approach |
 
 ## 9. Candidate species/run matrix
 
@@ -228,3 +228,4 @@ no runtime profile.
 | 2026-08-31 | River selector lacked intentional size artwork                              | Added the medium corridor illustration and a permanent UI coverage assertion |
 | 2026-08-31 | Spot Finder lacked useful nearby-water orientation before dependable entry and used a shared progression shape | Added a non-access Port Ontario/Lake Ontario/estuary orientation plus separately reconciled Chinook, coho, Steelhead, and Brown Trout phase-reach plans; late living Steelhead retain all reaches while spawning runs emphasize established middle/upper water |
 | 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
+| 2026-09-01 | Building could retain the lower mouth/approach reach | V3 universally removes every Beginning reach from all Building phases and shifts recommendations to middle/upstream river water |

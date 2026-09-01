@@ -19,6 +19,8 @@ The replacement is configuration-led:
   Ending;
 - all Before Migration reports and Beginning show one sourced, non-expandable
   early-season direction label;
+- Building universally removes that direction and every Beginning approach
+  reach, including audited urban harbor sections;
 - the approach label is never an access record or section recommendation;
 - recommended sections still require exact overlap with the audited Spot Finder
   inventory, selected state, species endpoint, and active phase reaches;
@@ -41,9 +43,9 @@ rationales are executable in
 | Grand | Chinook, coho, fall-entry Steelhead | Lake Michigan/Grand Haven mouth | Chinook remains on its two-reach Webber-limited endpoint; coho and Steelhead use separately accepted three-reach plans |
 | Platte | Chinook, coho, fall-entry Steelhead | Platte Bay/Platte River Point/lower entrance | Concentrated two-reach plans ending at the signed weir closure; Spot Finder remains unavailable because practical fishing access is unresolved |
 | White | Chinook, coho, fall-entry Steelhead | White Lake/lake-to-river transition | Lower entry; forest/upper broadening below Hesperia; late salmon upper two; Steelhead full corridor |
-| Milwaukee | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Milwaukee Harbor/mouth | Audited harbor is a real supported section; salmon later favor river reaches; living runs retain full corridor |
-| Sheboygan | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Sheboygan Harbor/lower-city mouth | Audited harbor entry; urban/Kohler broadening; salmon late urban+terminal; living runs full corridor |
-| Root | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Racine Harbor/mouth | Audited harbor entry; city/Lincoln Park broadening; salmon late river sections; living runs full corridor |
+| Milwaukee | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Milwaukee Harbor/mouth | Audited harbor is the Beginning section; every Building phase shifts to the Urban Greenway/North Shore; supported full-corridor Peak may include harbor again |
+| Sheboygan | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Sheboygan Harbor/lower-city mouth | Audited harbor is the Beginning section; every Building phase shifts to the urban/Kohler river; supported full-corridor Peak may include harbor again |
+| Root | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Michigan/Racine Harbor/mouth | Audited harbor is the Beginning section; every Building phase shifts to city/Lincoln Park river water; supported full-corridor Peak may include harbor again |
 | Bois Brule | Chinook, coho, fall-entry Steelhead, lake-run Brown Trout | Lake Superior/mouth/lower entrance | Lower entry; rapids/upper-lower broadening below Highway 2; late salmon upper two; living runs full corridor |
 | Green/Duwamish | Chinook, coho | Puget Sound/Duwamish estuary/lower approach | Lower entry has no forced access match; Auburn overlap begins during Building; plan stops below Tacoma watershed boundary |
 | Puyallup | Chinook, coho | Commencement Bay/11th Street mouth | Lower entry deliberately has no public-access recommendation; middle/upper recommendations begin only on audited overlap; stops at Carbon confluence |
@@ -130,18 +132,27 @@ it from a verified access point and live fish-location report. Oak Orchard has
 an explicit four-species replay proving Point Breeze/harbor/mouth direction on
 September 1 before the Steelhead and Brown Trout staging dates.
 
+V3 establishes one universal transition for all 58 runs: every Building phase
+must exclude every reach used by Beginning. This removes lake/harbor/port/
+estuary/mouth picks throughout Building, including the former Wisconsin urban
+harbor exception. Peak and later phases remain independently configured and may
+use the full audited river corridor when supported.
+
 Deployment verification completed on 2026-09-01:
 
 - the permanent Spot Finder QA replay passed 20,075 daily
   river/species/state cases across the complete 2026 calendar;
 - the linked local and remote migration ledgers still matched through
   `20260831120000`, with no migration required for this response/UI change;
-- Supabase `river-run` function version 33 deployed successfully;
+- Supabase `river-run` function version 34 deployed successfully;
 - authenticated production owner-review smokes returned all 58 configured runs
-  across 61 state/run presentations with zero failures and v2 configuration;
+  across 61 state/run presentations with zero failures and v3 configuration;
 - all 31 currently pre-run production responses contained early-season
   direction, and all 18 currently Beginning responses retained the appropriate
   early approach alongside their active in-river zone;
+- all 10 currently Building production responses omitted the early-approach
+  card, while the full local calendar replay proved that every Building phase
+  excludes every Beginning reach for all 58 runs;
 - the authenticated Oak Orchard Chinook response returned HTTP 200 for
   2026-09-01 with Point Breeze/Lake Ontario/harbor/creek-mouth direction and
   `before_migration` phase.

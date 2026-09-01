@@ -1337,6 +1337,22 @@ function validateSeasonalZonePlan(
       ));
     }
   }
+  const beginningReachIds = new Set(plan.phases.beginning);
+  for (
+    const phase of [
+      "buildingEarly",
+      "buildingEstablished",
+      "buildingBroad",
+    ] as const
+  ) {
+    if (plan.phases[phase].some((reachId) => beginningReachIds.has(reachId))) {
+      issues.push(issue(
+        `seasonalZonePlan.phases.${phase}`,
+        "Building must shift away from every Before Migration/Beginning approach reach.",
+        "config_invalid_value",
+      ));
+    }
+  }
 }
 
 function validateActivityRules(

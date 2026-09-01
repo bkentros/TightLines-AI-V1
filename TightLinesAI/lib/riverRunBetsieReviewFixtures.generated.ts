@@ -171,7 +171,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -407,7 +407,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -642,7 +642,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -877,7 +877,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -1112,7 +1112,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -1347,7 +1347,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -1582,7 +1582,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -1818,7 +1818,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -2054,7 +2054,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -2296,7 +2296,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -2461,7 +2461,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]
@@ -2702,7 +2702,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]
@@ -2943,7 +2943,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]
@@ -3184,7 +3184,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]
@@ -3426,7 +3426,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -3661,7 +3661,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -3896,7 +3896,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -4131,7 +4131,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -4366,7 +4366,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -4601,7 +4601,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -4837,7 +4837,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -5073,7 +5073,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -5309,7 +5309,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -5551,7 +5551,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]
@@ -5793,7 +5793,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -6028,7 +6028,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -6263,7 +6263,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -6498,7 +6498,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -6733,7 +6733,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -6968,7 +6968,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -7204,7 +7204,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -7440,7 +7440,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       },
       {
@@ -7676,7 +7676,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v2"
+          "configVersion": "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3"
         }
       }
     ]

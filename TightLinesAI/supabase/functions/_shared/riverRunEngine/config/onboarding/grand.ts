@@ -611,7 +611,7 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
   configVersion:
-    "2026-08-27-grand-fishability-reconciliation.2+seasonal-zone-v2",
+    "2026-08-27-grand-fishability-reconciliation.2+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
