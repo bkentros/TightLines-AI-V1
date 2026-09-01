@@ -38,6 +38,15 @@ assert.equal(
   }),
   false,
 );
+assert.equal(
+  canAttemptRiverRunReport("free", spent, {
+    riverId: "salmon_ny",
+    runId: "salmon_ny_fall_chinook",
+    presentationState: "NY",
+  }),
+  false,
+  "a lifetime claim on one river must paywall a different river and state",
+);
 assert.equal(canAttemptRiverRunReport("angler", spent, null), true);
 assert.equal(canAttemptRiverRunReport("free", null, target), false);
 

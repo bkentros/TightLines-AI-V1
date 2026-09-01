@@ -35,7 +35,8 @@
     "production": {
       "autoIncrement": false,
       "env": {
-        "npm_config_legacy_peer_deps": "true"
+        "npm_config_legacy_peer_deps": "true",
+        "GRADLE_OPTS": "-Dorg.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1536m -Dfile.encoding=UTF-8"
       }
     }
   },
