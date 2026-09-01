@@ -62,6 +62,11 @@ receives an access dropdown, navigation pin, or `Recommended` access badge.
 Actual in-river section recommendations still require an active engine zone
 intersecting audited fishing access.
 
+Visually treat this box as the current broad-area pick using the same emphasized
+teal/green family as a recommended section. Label it `RECOMMENDED EARLY AREA`
+and distinguish `BEFORE MIGRATION PICK` from `BEGINNING-RUN PICK`; do not let
+the access disclaimer make the direction look like a passive warning.
+
 | Surface           | Owns                                                                                                                    | Must not claim                                                                                                        |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Gauge Read        | Accepted current measurements, age, trend, historical date context, station, and represented reach                      | Whole-river conditions, fish location, abundance, safety, or access                                                   |

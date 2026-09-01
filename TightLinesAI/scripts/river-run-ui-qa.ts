@@ -412,8 +412,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /EARLY-SEASON DIRECTION[\s\S]*?seasonalZone\.earlyApproach\.label[\s\S]*?broad area to consider before dependable in-river migration[\s\S]*?not a verified access point or live fish-location report/,
-  "Spot Finder must show audited approach context as broad non-access fishing direction",
+  /RECOMMENDED EARLY AREA[\s\S]*?BEFORE MIGRATION PICK[\s\S]*?seasonalZone\.earlyApproach\.label[\s\S]*?broad area to consider before dependable in-river migration[\s\S]*?not a verified access point or live fish-location report/,
+  "Spot Finder must style audited Before Migration direction as a recommended broad-area pick",
 );
 assert.match(
   riverRunScreen,

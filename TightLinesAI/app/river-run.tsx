@@ -2124,13 +2124,20 @@ function SpotFinderCard({
               ? (
                 <View style={styles.spotFinderEarlyApproach}>
                   <View style={styles.spotFinderEarlyApproachHeading}>
-                    <Ionicons
-                      name="compass-outline"
-                      size={16}
-                      color="#0F63B0"
-                    />
-                    <Text style={styles.spotFinderEarlyApproachLabel}>
-                      EARLY-SEASON DIRECTION
+                    <View style={styles.spotFinderEarlyApproachBadge}>
+                      <Ionicons
+                        name="leaf-outline"
+                        size={10}
+                        color="#FFFFFF"
+                      />
+                      <Text style={styles.spotFinderEarlyApproachLabel}>
+                        RECOMMENDED EARLY AREA
+                      </Text>
+                    </View>
+                    <Text style={styles.spotFinderEarlyApproachPhase}>
+                      {seasonalZone.earlyApproach.phase === "before_migration"
+                        ? "BEFORE MIGRATION PICK"
+                        : "BEGINNING-RUN PICK"}
                     </Text>
                   </View>
                   <Text style={styles.spotFinderEarlyApproachTitle}>
@@ -4317,21 +4324,42 @@ const styles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 13,
     paddingVertical: 12,
-    borderWidth: 1,
-    borderColor: "rgba(15,99,176,0.22)",
-    borderRadius: 9,
-    backgroundColor: "#EEF6FB",
+    borderWidth: 1.5,
+    borderLeftWidth: 5,
+    borderColor: "rgba(22,123,120,0.52)",
+    borderLeftColor: "#2E9B97",
+    borderRadius: 10,
+    backgroundColor: "#EDF8F5",
   },
   spotFinderEarlyApproachHeading: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 6,
+  },
+  spotFinderEarlyApproachBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 4,
+    borderRadius: 8,
+    backgroundColor: "#167B78",
   },
   spotFinderEarlyApproachLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.25,
-    color: paper.dashboardBlue,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: .7,
+    color: "#FFFFFF",
+  },
+  spotFinderEarlyApproachPhase: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 10,
+    letterSpacing: .75,
+    color: "#167B78",
   },
   spotFinderEarlyApproachTitle: {
     fontFamily: paperFonts.bodyBold,
