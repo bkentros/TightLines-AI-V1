@@ -97,13 +97,36 @@ const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
 ];
 const PROVIDER_TIMEOUT_MS = 8_000;
 const INTERNAL_KEY_HEADER = "x-river-run-internal-key";
+const CLIENT_CAPABILITIES_HEADER = "x-finfindr-river-run-capabilities";
+const MIDWEST_OWNER_REVIEW_CAPABILITY = "midwest-owner-review-v1";
+const MIDWEST_OWNER_REVIEW_RIVER_IDS = new Set([
+  "trail_creek",
+  "kewaunee_river",
+]);
+
+function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
+  const capabilities = new Set(
+    (req.headers.get(CLIENT_CAPABILITIES_HEADER) ?? "")
+      .split(",")
+      .map((capability) => capability.trim())
+      .filter(Boolean),
+  );
+  const supportsMidwest = capabilities.has(MIDWEST_OWNER_REVIEW_CAPABILITY);
+  return new Set(
+    RIVER_RUN_DRAFT_RIVER_PROFILES
+      .filter((river) =>
+        supportsMidwest || !MIDWEST_OWNER_REVIEW_RIVER_IDS.has(river.riverId)
+      )
+      .map((river) => river.riverId),
+  );
+}
 
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers":
-      `Content-Type, Authorization, apikey, x-user-token, ${INTERNAL_KEY_HEADER}`,
+      `Content-Type, Authorization, apikey, x-user-token, ${INTERNAL_KEY_HEADER}, ${CLIENT_CAPABILITIES_HEADER}`,
   };
 }
 
@@ -623,13 +646,20 @@ async function handleOwnerReviewCatalog(
     );
   }
 
+  const compatibleDraftRiverIds = ownerReviewDraftRiverIdsForClient(req);
+  const compatibleDraftRivers = RIVER_RUN_DRAFT_RIVER_PROFILES.filter((river) =>
+    compatibleDraftRiverIds.has(river.riverId)
+  );
+  const compatibleDraftRuns = RIVER_RUN_DRAFT_RUN_PROFILES.filter((run) =>
+    compatibleDraftRiverIds.has(run.riverId)
+  );
   const riversById = new Map(
-    [...RIVER_RUN_RIVER_PROFILES, ...RIVER_RUN_DRAFT_RIVER_PROFILES].map(
+    [...RIVER_RUN_RIVER_PROFILES, ...compatibleDraftRivers].map(
       (river) => [river.riverId, river],
     ),
   );
   const runsById = new Map(
-    [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES].map(
+    [...RIVER_RUN_RUN_PROFILES, ...compatibleDraftRuns].map(
       (run) => [run.runId, run],
     ),
   );
@@ -688,13 +718,18 @@ async function handleOwnerReviewSnapshot(
   const runId = url.searchParams.get("runId") ?? "";
   const requestedPresentationState =
     url.searchParams.get("presentationState")?.trim().toUpperCase() ?? "";
+  const compatibleDraftRiverIds = ownerReviewDraftRiverIdsForClient(req);
   const reviewRivers = [
     ...RIVER_RUN_RIVER_PROFILES,
-    ...RIVER_RUN_DRAFT_RIVER_PROFILES,
+    ...RIVER_RUN_DRAFT_RIVER_PROFILES.filter((river) =>
+      compatibleDraftRiverIds.has(river.riverId)
+    ),
   ];
   const reviewRuns = [
     ...RIVER_RUN_RUN_PROFILES,
-    ...RIVER_RUN_DRAFT_RUN_PROFILES,
+    ...RIVER_RUN_DRAFT_RUN_PROFILES.filter((run) =>
+      compatibleDraftRiverIds.has(run.riverId)
+    ),
   ];
   const river = reviewRivers.find((item) => item.riverId === riverId);
   const run = reviewRuns.find((item) =>

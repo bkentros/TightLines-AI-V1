@@ -420,6 +420,7 @@ function request(
     authorization?: string;
     method?: "GET" | "POST";
     internalKey?: string;
+    clientCapabilities?: string;
   } = {},
 ): Request {
   const headers = new Headers();
@@ -435,6 +436,12 @@ function request(
   }
   if (options.internalKey) {
     headers.set("x-river-run-internal-key", options.internalKey);
+  }
+  if (options.clientCapabilities) {
+    headers.set(
+      "x-finfindr-river-run-capabilities",
+      options.clientCapabilities,
+    );
   }
   return new Request(`https://example.com/functions/v1/river-run${path}`, {
     method: options.method ?? "GET",
@@ -749,16 +756,62 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog is admin-only and includes hidden Midwest rivers", async () => {
-  const forbidden = await handleRiverRunRequestBase(
+Deno.test("owner-review catalog hides Midwest drafts from incompatible clients", async () => {
+  const response = await handleRiverRunRequestBase(
     request("/review/rivers"),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+  const body = await json(response);
+  const wisconsin = body.states.find(
+    (state: { state: string }) => state.state === "WI",
+  );
+  const indiana = body.states.find(
+    (state: { state: string }) => state.state === "IN",
+  );
+
+  assertEquals(response.status, 200);
+  assertEquals(
+    wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
+    ["bois_brule", "milwaukee", "root", "sheboygan"],
+  );
+  assertEquals(
+    indiana.rivers.map((river: { riverId: string }) => river.riverId).sort(),
+    ["st_joseph"],
+  );
+});
+
+Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=trail_creek&runId=trail_creek_fall_chinook&presentationState=IN",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+
+  assertEquals(response.status, 404);
+  assertEquals((await json(response)).error, "river_run_review_not_found");
+});
+
+Deno.test("owner-review catalog is admin-only and includes compatible hidden Midwest rivers", async () => {
+  const forbidden = await handleRiverRunRequestBase(
+    request("/review/rivers", {
+      clientCapabilities: "midwest-owner-review-v1",
+    }),
     { createAdminClient: () => new MockClient() },
   );
   assertEquals(forbidden.status, 403);
   assertEquals((await json(forbidden)).error, "river_run_review_forbidden");
 
   const response = await handleRiverRunRequestBase(
-    request("/review/rivers"),
+    request("/review/rivers", {
+      clientCapabilities: "midwest-owner-review-v1",
+    }),
     {
       createAdminClient: () =>
         new MockClient({ email: "brandonkentros@icloud.com" }),

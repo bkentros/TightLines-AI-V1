@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 18.0.0",
-    "appVersionSource": "local",
+    "appVersionSource": "remote",
     "requireCommit": true,
     "promptToConfigurePushNotifications": false
   },
@@ -33,7 +33,7 @@
       }
     },
     "production": {
-      "autoIncrement": false,
+      "autoIncrement": true,
       "env": {
         "npm_config_legacy_peer_deps": "true",
         "GRADLE_OPTS": "-Dorg.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1536m -Dfile.encoding=UTF-8"
