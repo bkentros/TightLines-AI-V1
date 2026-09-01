@@ -2169,10 +2169,14 @@ function SpotFinderCard({
               : (
                 <View style={styles.spotFinderNoRecommendation}>
                   <Text style={styles.spotFinderNoRecommendationLabel}>
-                    NO RUN-BASED RECOMMENDATION
+                    {seasonalZone?.earlyApproach
+                      ? "NO IN-RIVER SECTION RECOMMENDATION"
+                      : "NO RUN-BASED RECOMMENDATION"}
                   </Text>
                   <Text style={styles.spotFinderNoRecommendationText}>
-                    {seasonalZone?.status === "active"
+                    {seasonalZone?.earlyApproach?.phase === "before_migration"
+                      ? "Use the early-season direction above. Dependable in-river migration is not active, so the accesses below are not highlighted as run-based starting sections."
+                      : seasonalZone?.status === "active"
                       ? "No audited public-access section overlaps this phase's river reach. Browse supported-corridor access below without treating it as a run-based recommendation."
                       : "The migration is not in an active river stage. Browse supported-corridor access below."}
                   </Text>

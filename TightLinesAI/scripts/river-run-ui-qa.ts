@@ -407,8 +407,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /NO RUN-BASED RECOMMENDATION[\s\S]*?migration is not in an active river stage/,
-  "Spot Finder must explain why pre-run and completed reports have no in-river recommendation",
+  /NO IN-RIVER SECTION RECOMMENDATION[\s\S]*?Use the early-season direction above[\s\S]*?Dependable in-river migration is not active/,
+  "Spot Finder must distinguish pre-run approach direction from an active in-river recommendation",
 );
 assert.match(
   riverRunScreen,
