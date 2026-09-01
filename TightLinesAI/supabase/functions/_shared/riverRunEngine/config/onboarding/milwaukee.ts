@@ -640,7 +640,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const MILWAUKEE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-29-milwaukee-four-species-release.8",
+  configVersion: "2026-08-29-milwaukee-four-species-release.8+seasonal-zone-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

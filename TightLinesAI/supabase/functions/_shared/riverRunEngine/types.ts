@@ -757,6 +757,30 @@ export type HistoricalPresenceConfig = {
   }>;
 };
 
+export type SeasonalZonePhasePlan = {
+  beginning: string[];
+  buildingEarly: string[];
+  buildingEstablished: string[];
+  buildingBroad: string[];
+  peak: string[];
+  tapering: string[];
+  ending: string[];
+};
+
+export type SeasonalZonePlan = {
+  version: string;
+  /**
+   * Nearby receiving-water, harbor, estuary, or mouth context shown only
+   * during staging and Beginning. It is orientation, never an access record.
+   */
+  earlyApproach?: {
+    label: string;
+    sourceNotes: string;
+  };
+  phases: SeasonalZonePhasePlan;
+  evidenceNotes: string;
+};
+
 export type SpeciesBiologyProfile = {
   biologyProfileId: string;
   species: RiverRunSpecies;
@@ -850,6 +874,8 @@ export type RiverRunProfile = {
   runStageCopyStrategy?: RunStageCopyStrategy;
   /** Optional species endpoint override; defaults to the river's migratory reaches. */
   seasonalZoneReachIds?: string[];
+  /** Audited river/run-specific phase geography used by Spot Finder. */
+  seasonalZonePlan?: SeasonalZonePlan;
 
   runWindow: {
     preRunStart: string;

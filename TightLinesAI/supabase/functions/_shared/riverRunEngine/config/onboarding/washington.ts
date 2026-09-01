@@ -7,6 +7,7 @@ import type {
   RiverRunConfigurationDocument,
 } from "../../types.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
+import { withSeasonalZonePlan } from "../seasonalZonePlans.ts";
 import {
   PACIFIC_FALL_CHINOOK_BIOLOGY_PROFILE,
   PACIFIC_FALL_COHO_BIOLOGY_PROFILE,
@@ -1055,7 +1056,7 @@ export const WASHINGTON_DRAFT_RUNS = [
   PUYALLUP_FALL_COHO_RUN_PROFILE,
   COWLITZ_FALL_CHINOOK_RUN_PROFILE,
   COWLITZ_FALL_COHO_RUN_PROFILE,
-];
+].map(withSeasonalZonePlan);
 
 function washingtonConfigurationDocument(
   river: RiverProfile,
@@ -1063,8 +1064,8 @@ function washingtonConfigurationDocument(
   return {
     schemaVersion: "river-run-config-v1",
     configVersion: river.riverId === "green"
-      ? "2026-08-31-green-washington-owner-review.2"
-      : `2026-08-31-${river.riverId}-washington-owner-review.2`,
+      ? "2026-08-31-green-washington-owner-review.2+seasonal-zone-v1"
+      : `2026-08-31-${river.riverId}-washington-owner-review.2+seasonal-zone-v1`,
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river,
     biologyProfiles: [

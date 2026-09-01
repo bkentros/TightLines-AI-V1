@@ -93,6 +93,17 @@ Accepted for hidden owner review as a sparse two-section inventory. The data mod
 
 The 11th Street Bridge-to-Clarks lower section remains absent. Official Tacoma material states there are no general-public waterfront facilities in that lower shoreline, and no stronger fishing-oriented access source displaced that finding. Riverside Park's permit-only hand launch and general levee/trail pages were rejected because they did not independently establish public fishing access.
 
+### Early approach and per-run phase plan
+
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| --- | --- | --- | --- | --- |
+| Commencement Bay and the Puyallup mouth at the 11th Street Bridge boundary | receiving marine water to official mainstem mouth | P-01, P-02, foundation corridor | orientation only; marine rules/access are separate | accepted |
+
+| Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chinook | `puyallup_fall_chinook-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent Chinook calendar; no lower fishing-access record, so Beginning fails closed |
+| Coho | `puyallup_fall_coho-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent coho calendar; no lower fishing-access record, so Beginning fails closed |
+
 ## 9. Candidate species matrix
 
 | Species | Recurrence/opportunity | Endpoint | Calendar core | Presence | Decision |
@@ -161,5 +172,6 @@ Full named-block results are retained in `docs/audits/river-run-puyallup-chinook
 | 2026-08-30 | Initial Washington onboarding | Reopen for a legal-endpoint, Electron, Voights-reporting, USGS, or material return-pattern change |
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Puyallup corridor/endpoint copy and a cross-river leakage assertion |
 | 2026-08-31 | Green-only condition treatment found during review | Added lower-reach Fishing Shape and limited Ecology historical temperature; retained explicit no-live-sensor and no-turbidity claims |
+| 2026-08-31 | Generic stage-to-section progression could redirect an early run to the first available upstream access | Added sourced Commencement Bay/mouth orientation and independent Chinook/coho phase-reach plans; Beginning remains lower-river geography with no access recommendation until an audited middle reach overlaps |
 
 Reopen for any emergency rule, Carbon/upstream sport-season change, Voights reporting change, USGS datum/sensor change, or authoritative Electron update that changes a claimed boundary.

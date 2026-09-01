@@ -2120,6 +2120,32 @@ function SpotFinderCard({
       {open
         ? (
           <View style={styles.spotFinderContent}>
+            {seasonalZone?.earlyApproach
+              ? (
+                <View style={styles.spotFinderEarlyApproach}>
+                  <View style={styles.spotFinderEarlyApproachHeading}>
+                    <Ionicons
+                      name="compass-outline"
+                      size={16}
+                      color="#0F63B0"
+                    />
+                    <Text style={styles.spotFinderEarlyApproachLabel}>
+                      EARLY-SEASON ORIENTATION
+                    </Text>
+                  </View>
+                  <Text style={styles.spotFinderEarlyApproachTitle}>
+                    {seasonalZone.earlyApproach.label}
+                  </Text>
+                  <Text style={styles.spotFinderEarlyApproachText}>
+                    {seasonalZone.earlyApproach.phase === "staging"
+                      ? "Nearby-water context before dependable in-river migration—not a live fish-location or verified-access recommendation. Separate lake, harbor, marine, or boundary-water rules may apply."
+                      : recommendation.hasRecommendation
+                      ? "Use this broad approach context with the highlighted audited in-river section below. It is calendar-based orientation, not a live fish-location report."
+                      : "This is broad calendar-based approach context. No verified public fishing access overlaps the active starting reach, so no access is being recommended here."}
+                  </Text>
+                </View>
+              )
+              : null}
             {recommendation.hasRecommendation
               ? (
                 <View style={styles.spotFinderRecommendationIntro}>
@@ -2146,8 +2172,9 @@ function SpotFinderCard({
                     NO RUN-BASED RECOMMENDATION
                   </Text>
                   <Text style={styles.spotFinderNoRecommendationText}>
-                    The migration is not in an active stage. Browse
-                    supported-corridor access below.
+                    {seasonalZone?.status === "active"
+                      ? "No audited public-access section overlaps this phase's river reach. Browse supported-corridor access below without treating it as a run-based recommendation."
+                      : "The migration is not in an active river stage. Browse supported-corridor access below."}
                   </Text>
                 </View>
               )}
@@ -3157,19 +3184,19 @@ function migrationStageSummary(
 ): string {
   switch (primitive.stage) {
     case "pre_run":
-      return "The dependable seasonal river migration has not started yet.";
+      return "The river is ahead of its dependable migration window; occasional early arrivals can occur before the run is established.";
     case "beginning":
-      return "The seasonal river migration is beginning.";
+      return "The dependable migration window is opening, but the run is not yet broadly established.";
     case "building":
-      return "The migration is building toward its seasonal peak.";
+      return "The run is progressing toward its strongest seasonal window.";
     case "peak":
-      return "This is the core seasonal migration period.";
+      return "This is historically the strongest portion of the migration window.";
     case "tapering":
-      return "The migration is tapering after its seasonal peak.";
+      return "The strongest window has passed, but the seasonal migration period continues.";
     case "ending":
-      return "The tracked migration is nearing its seasonal endpoint.";
+      return "The dependable migration window is approaching its end.";
     case "post_run":
-      return "This seasonal migration model is complete.";
+      return "The tracked seasonal migration window has ended.";
     default:
       return primitive.label === "Before migration"
         ? "The dependable seasonal river migration has not started yet."
@@ -3252,6 +3279,20 @@ function PrimitiveSection({
 
         {headerMeta
           ? <Text style={styles.primitiveHeaderMeta}>{headerMeta}</Text>
+          : null}
+
+        {visualKind === "activity"
+          ? (
+            <View style={styles.activityConditionalNotice}>
+              <Text style={styles.activityConditionalNoticeLabel}>
+                ONLY IF FISH ARE PRESENT
+              </Text>
+              <Text style={styles.activityConditionalNoticeText}>
+                This estimates likely responsiveness—not whether fish are in the
+                river, how many are present, or your chance of catching one.
+              </Text>
+            </View>
+          )
           : null}
 
         <RiverRunVisual kind={visualKind} primitive={primitive} />
@@ -4268,6 +4309,38 @@ const styles = StyleSheet.create({
     borderTopColor: paper.dashboardLine,
     backgroundColor: "#F5F8F7",
   },
+  spotFinderEarlyApproach: {
+    gap: 6,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: "rgba(15,99,176,0.22)",
+    borderRadius: 9,
+    backgroundColor: "#EEF6FB",
+  },
+  spotFinderEarlyApproachHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  spotFinderEarlyApproachLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.25,
+    color: paper.dashboardBlue,
+  },
+  spotFinderEarlyApproachTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 14,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+  },
+  spotFinderEarlyApproachText: {
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
   spotFinderRecommendationIntro: {
     gap: 4,
     paddingHorizontal: 13,
@@ -5262,6 +5335,30 @@ const styles = StyleSheet.create({
     lineHeight: 13,
     letterSpacing: 0.8,
     color: paper.dashboardMuted,
+  },
+  activityConditionalNotice: {
+    gap: 4,
+    marginTop: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.3)",
+    borderLeftWidth: 5,
+    borderLeftColor: "#167B78",
+    borderRadius: 8,
+    backgroundColor: "#EDF8F6",
+  },
+  activityConditionalNoticeLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.2,
+    color: "#11635F",
+  },
+  activityConditionalNoticeText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
   },
   unavailable: { color: paper.dashboardMuted },
   primitiveResult: {

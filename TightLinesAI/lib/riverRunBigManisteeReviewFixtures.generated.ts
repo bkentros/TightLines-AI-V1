@@ -106,7 +106,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -482,7 +482,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -583,7 +583,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -966,7 +966,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -1068,7 +1068,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -1519,7 +1519,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -1654,7 +1654,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2106,7 +2106,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -2241,7 +2241,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -2693,7 +2693,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -2848,7 +2848,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3300,7 +3300,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -3455,7 +3455,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -3901,7 +3901,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -4075,7 +4075,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4521,7 +4521,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -4695,7 +4695,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5147,7 +5147,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -5337,7 +5337,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -5789,7 +5789,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -5979,7 +5979,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -6426,7 +6426,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -6616,7 +6616,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7063,7 +7063,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -7253,7 +7253,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -7700,7 +7700,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -7890,7 +7890,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8337,7 +8337,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -8513,7 +8513,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -8966,7 +8966,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -9073,7 +9073,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -9456,7 +9456,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -9558,7 +9558,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10009,7 +10009,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -10163,7 +10163,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -10615,7 +10615,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -10769,7 +10769,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11221,7 +11221,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -11375,7 +11375,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -11827,7 +11827,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -11977,7 +11977,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -12429,7 +12429,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -12690,7 +12690,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13142,7 +13142,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -13322,7 +13322,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -13774,7 +13774,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -13949,7 +13949,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 90,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; falling flow should sharpen established seams. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -14402,7 +14402,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -14575,7 +14575,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 88,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; a modest rise is shifting lanes toward softer edges. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15021,7 +15021,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -15194,7 +15194,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; a clear rise is moving controllable water toward current breaks. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -15640,7 +15640,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -15813,7 +15813,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges; a fast rise is replacing settled lanes with heavier current. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -16268,7 +16268,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -16442,7 +16442,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -16888,7 +16888,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -17063,7 +17063,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "Upper-river flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; recent Wellston history cannot establish the flow direction. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -17518,7 +17518,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -17694,7 +17694,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges; the Upper river may have changed since the last Wellston reading. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -18144,7 +18144,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -18320,7 +18320,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 0,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control; a fast rise is replacing settled lanes with heavier current. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -18775,7 +18775,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -19342,7 +19342,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -19503,7 +19503,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -19912,7 +19912,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -20047,7 +20047,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -20499,7 +20499,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -20634,7 +20634,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; a clear rise is moving controllable water toward current breaks. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21087,7 +21087,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -21224,7 +21224,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 80,
             "label": "Good",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; a clear rise is moving controllable water toward current breaks. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -21677,7 +21677,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -21851,7 +21851,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "Very low Upper-river flow leaves limited depth and cover.",
-            "detail": "Unusually low flow concentrates useful depth into fewer places. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Unusually low flow concentrates useful depth into fewer places; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -22304,7 +22304,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -22484,7 +22484,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 60,
             "label": "Fishable",
             "headline": "Low Upper-river flow remains workable with less depth and cover.",
-            "detail": "Low flow reduces depth and cover across the Upper river. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Low flow reduces depth and cover across the Upper river; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Use the deepest connected water and keep disturbance low.",
             "reasonCodes": [
               "gauge_fresh",
@@ -22936,7 +22936,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -23111,7 +23111,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -23565,7 +23565,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -23738,7 +23738,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 88,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. A modest rise is shifting lanes toward softer edges. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; a modest rise is shifting lanes toward softer edges. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -24190,7 +24190,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -24363,7 +24363,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 40,
             "label": "Tough",
             "headline": "A fast Upper-river rise is shifting usable water toward protected edges.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. A fast rise is replacing settled lanes with heavier current. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges; a fast rise is replacing settled lanes with heavier current. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -24818,7 +24818,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -24993,7 +24993,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 69,
             "label": "Fishable",
             "headline": "Upper-river flow is workable, but its direction is unknown.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Recent Wellston history cannot establish the flow direction. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; recent Wellston history cannot establish the flow direction. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_fresh",
@@ -25448,7 +25448,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -25623,7 +25623,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; the Upper river may have changed since the last Wellston reading. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -26078,7 +26078,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -26645,7 +26645,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -26819,7 +26819,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27271,7 +27271,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -27445,7 +27445,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 73,
             "label": "Good",
             "headline": "High Upper-river flow remains fishable in slower water.",
-            "detail": "Higher flow pushes useful presentation water toward softer edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Higher flow pushes useful presentation water toward softer edges; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Prioritize inside seams, protected edges, and current breaks.",
             "reasonCodes": [
               "gauge_fresh",
@@ -27897,7 +27897,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -28071,7 +28071,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Very high flow compresses controllable water into protected edges; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -28523,7 +28523,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -28631,7 +28631,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29083,7 +29083,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -29218,7 +29218,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -29670,7 +29670,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -29825,7 +29825,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30271,7 +30271,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -30445,7 +30445,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -30897,7 +30897,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -31052,7 +31052,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 45,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Very high flow compresses controllable water into protected edges; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -31498,7 +31498,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -31633,7 +31633,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -32086,7 +32086,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -32222,7 +32222,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -32675,7 +32675,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -32850,7 +32850,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 20,
             "label": "Poor",
             "headline": "The Upper river is blown out for a dependable presentation plan.",
-            "detail": "Excessive flow overwhelms normal lanes and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Excessive flow overwhelms normal lanes and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Choose another day and verify current conditions through authoritative local sources.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33304,7 +33304,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -33494,7 +33494,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -33941,7 +33941,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -34131,7 +34131,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -34578,7 +34578,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -34754,7 +34754,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35207,7 +35207,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -35368,7 +35368,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -35777,7 +35777,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -36344,7 +36344,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -36451,7 +36451,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -36834,7 +36834,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -36969,7 +36969,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -37421,7 +37421,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -37556,7 +37556,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38008,7 +38008,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -38163,7 +38163,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -38609,7 +38609,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -38764,7 +38764,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39210,7 +39210,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -39384,7 +39384,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -39830,7 +39830,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -40004,7 +40004,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -40450,7 +40450,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -40624,7 +40624,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41076,7 +41076,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -41250,7 +41250,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -41702,7 +41702,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -41892,7 +41892,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42339,7 +42339,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -42529,7 +42529,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -42976,7 +42976,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -43166,7 +43166,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -43613,7 +43613,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -43803,7 +43803,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44250,7 +44250,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -44426,7 +44426,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -44880,7 +44880,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -45056,7 +45056,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45509,7 +45509,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -45610,7 +45610,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -45986,7 +45986,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -46165,7 +46165,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 32,
             "label": "Tough",
             "headline": "Very high Upper-river flow leaves little controllable presentation water.",
-            "detail": "Very high flow compresses controllable water into protected edges. A clear rise is moving controllable water toward current breaks. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "Very high flow compresses controllable water into protected edges; a clear rise is moving controllable water toward current breaks. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Favor protected margins and short controlled presentations. Choose another day if control is not dependable.",
             "reasonCodes": [
               "gauge_fresh",
@@ -46617,7 +46617,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -46792,7 +46792,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 90,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Falling flow should sharpen established seams. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; falling flow should sharpen established seams. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -47245,7 +47245,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -47406,7 +47406,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -47815,7 +47815,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -47950,7 +47950,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -48402,7 +48402,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]
@@ -48582,7 +48582,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -49034,7 +49034,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -49209,7 +49209,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 55,
             "label": "Fishable",
             "headline": "The aging Wellston reading limits Upper-river Fishability confidence.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. The Upper river may have changed since the last Wellston reading. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; the Upper river may have changed since the last Wellston reading. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Verify the Upper river directly before choosing presentation water.",
             "reasonCodes": [
               "gauge_stale",
@@ -49664,7 +49664,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -50231,7 +50231,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       },
       {
@@ -50392,7 +50392,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": 93,
             "label": "Excellent",
             "headline": "Upper-river flow is in its best presentation range.",
-            "detail": "The flow band offers the broadest mix of depth and presentation control. Steady flow should keep presentation lanes consistent. This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.",
+            "detail": "The flow band offers the broadest mix of depth and presentation control; steady flow should keep presentation lanes consistent. This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.",
             "tip": "Cover readable seams and holding water with a controlled presentation.",
             "reasonCodes": [
               "gauge_fresh",
@@ -50801,7 +50801,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-27-big-manistee-fishability.2"
+          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1"
         }
       }
     ]

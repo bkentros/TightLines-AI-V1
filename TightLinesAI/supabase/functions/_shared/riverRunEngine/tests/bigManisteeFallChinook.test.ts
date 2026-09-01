@@ -488,7 +488,7 @@ Deno.test("Big Manistee flow boundaries remain deterministic at every configured
   );
   assertMatch(
     ideal.detail,
-    /Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands\./,
+    /Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands\./,
   );
 
   const upperWater = scoreFishability({

@@ -10,6 +10,11 @@ export type RiverRunSeasonalZone = {
   status: "not_started" | "active" | "complete";
   label: string;
   foundationReachIds: string[];
+  earlyApproach?: {
+    label: string;
+    phase: "staging" | "beginning";
+    accessRecommendation: false;
+  };
   basis: "seasonal_calendar";
   orientationOnly: true;
 };
@@ -22,7 +27,7 @@ export function resolveSeasonalZone(input: {
   river: Pick<RiverProfile, "foundation">;
   run: Pick<
     RiverRunProfile,
-    "historicalPresence" | "seasonalZoneReachIds"
+    "historicalPresence" | "seasonalZoneReachIds" | "seasonalZonePlan"
   >;
   stage: Pick<
     RunStageResult,
@@ -33,9 +38,8 @@ export function resolveSeasonalZone(input: {
 }): RiverRunSeasonalZone {
   const runIds = new Set(input.run.seasonalZoneReachIds ?? []);
   const presentationIds = new Set(input.presentationReachIds ?? []);
-  const migratoryReaches = orderedMigratoryReaches(
-    input.river.foundation?.reaches ?? [],
-  ).filter((reach) =>
+  const foundationReaches = input.river.foundation?.reaches ?? [];
+  const allowedReaches = foundationReaches.filter((reach) =>
     (runIds.size === 0 || runIds.has(reach.reachId)) &&
     (presentationIds.size === 0 || presentationIds.has(reach.reachId))
   );
@@ -43,19 +47,50 @@ export function resolveSeasonalZone(input: {
     return zone("complete", "No active seasonal zone", []);
   }
   if (input.stage.stage === "pre_run") {
-    return input.stage.stagingContext
-      ? zone("not_started", "Mouth and staging-water context", [])
+    return input.stage.stagingContext &&
+        input.run.seasonalZonePlan?.earlyApproach
+      ? zone(
+        "not_started",
+        "Nearby-water staging context",
+        [],
+        {
+          label: input.run.seasonalZonePlan.earlyApproach.label,
+          phase: "staging",
+          accessRecommendation: false,
+        },
+      )
       : zone("not_started", "No dependable in-river zone yet", []);
   }
-  if (migratoryReaches.length === 0) {
+  if (!input.run.seasonalZonePlan) {
     return zone("active", "Accessible migration corridor", []);
   }
+  const plannedReachIds = plannedPhaseReachIds(input);
+  const plannedReaches = plannedReachIds
+    .map((reachId) => allowedReaches.find((reach) => reach.reachId === reachId))
+    .filter((reach): reach is RiverFoundationReach => !!reach);
+  const approach = input.stage.stage === "beginning" &&
+      input.run.seasonalZonePlan.earlyApproach
+    ? {
+      label: input.run.seasonalZonePlan.earlyApproach.label,
+      phase: "beginning" as const,
+      accessRecommendation: false as const,
+    }
+    : undefined;
+  if (plannedReaches.length === 0) {
+    return zone("active", "No audited phase reach in this view", [], approach);
+  }
+  return reachZone(plannedReaches, approach);
+}
 
-  const first = migratoryReaches.slice(0, 1);
-  const firstTwo = migratoryReaches.slice(0, 2);
+function plannedPhaseReachIds(input: {
+  run: Pick<RiverRunProfile, "seasonalZonePlan">;
+  stage: Pick<RunStageResult, "stage" | "window">;
+  localDate: string;
+}): string[] {
+  const phases = input.run.seasonalZonePlan!.phases;
   switch (input.stage.stage) {
     case "beginning":
-      return reachZone(first);
+      return phases.beginning;
     case "building": {
       const established = compareLocalDates(
         input.localDate,
@@ -66,58 +101,25 @@ export function resolveSeasonalZone(input: {
             input.localDate,
             input.stage.window.buildingBroadStartDate,
           ) >= 0;
-      if (!established) return reachZone(first);
-      if (broad && input.run.historicalPresence.distributionScope === "broad") {
-        return reachZone(migratoryReaches);
-      }
-      return reachZone(firstTwo);
+      if (!established) return phases.buildingEarly;
+      if (broad) return phases.buildingBroad;
+      return phases.buildingEstablished;
     }
     case "peak":
-      return input.run.historicalPresence.distributionScope === "concentrated"
-        ? zone(
-          "active",
-          "Core accessible migration corridor",
-          migratoryReaches.map((reach) => reach.reachId),
-        )
-        : reachZone(migratoryReaches);
+      return phases.peak;
     case "tapering":
+      return phases.tapering;
     case "ending":
-      return zone(
-        "active",
-        "Established accessible sections",
-        migratoryReaches.map((reach) => reach.reachId),
-      );
+      return phases.ending;
+    default:
+      return [];
   }
 }
 
-function orderedMigratoryReaches(
+function reachZone(
   reaches: RiverFoundationReach[],
-): RiverFoundationReach[] {
-  return reaches
-    .filter((reach) => reach.role !== "mouth_context" && reach.role !== "harbor")
-    .toSorted((a, b) =>
-      migrationOrder(a.role) - migrationOrder(b.role) || a.order - b.order
-    );
-}
-
-function migrationOrder(role: RiverFoundationReach["role"]): number {
-  switch (role) {
-    case "lower":
-    case "downstream":
-      return 1;
-    case "middle":
-      return 2;
-    case "upper":
-    case "terminal":
-    case "tailwater":
-      return 3;
-    case "harbor":
-    case "mouth_context":
-      return 0;
-  }
-}
-
-function reachZone(reaches: RiverFoundationReach[]): RiverRunSeasonalZone {
+  earlyApproach?: RiverRunSeasonalZone["earlyApproach"],
+): RiverRunSeasonalZone {
   if (reaches.length === 0) {
     return zone("active", "Accessible migration corridor", []);
   }
@@ -125,7 +127,12 @@ function reachZone(reaches: RiverFoundationReach[]): RiverRunSeasonalZone {
   const label = labels.length === 1
     ? labels[0]
     : `${labels[0]} → ${labels.at(-1)}`;
-  return zone("active", label, reaches.map((reach) => reach.reachId));
+  return zone(
+    "active",
+    label,
+    reaches.map((reach) => reach.reachId),
+    earlyApproach,
+  );
 }
 
 function reachLabel(reach: RiverFoundationReach): string {
@@ -139,11 +146,13 @@ function zone(
   status: RiverRunSeasonalZone["status"],
   label: string,
   foundationReachIds: string[],
+  earlyApproach?: RiverRunSeasonalZone["earlyApproach"],
 ): RiverRunSeasonalZone {
   return {
     status,
     label,
     foundationReachIds,
+    ...(earlyApproach ? { earlyApproach } : {}),
     basis: "seasonal_calendar",
     orientationOnly: true,
   };

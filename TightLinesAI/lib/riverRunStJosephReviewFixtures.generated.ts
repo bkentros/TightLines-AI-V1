@@ -489,7 +489,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -973,7 +973,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -1526,7 +1526,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -2116,7 +2116,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -2717,7 +2717,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -3331,7 +3331,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -3954,7 +3954,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -4572,7 +4572,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -5190,7 +5190,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -5801,7 +5801,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -6342,7 +6342,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -6832,7 +6832,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -7316,7 +7316,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -7869,7 +7869,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -8422,7 +8422,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -8975,7 +8975,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -9528,7 +9528,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -10198,7 +10198,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -10818,7 +10818,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -11433,7 +11433,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -12040,7 +12040,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -12647,7 +12647,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -13254,7 +13254,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -13862,7 +13862,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -14480,7 +14480,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -15093,7 +15093,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -15712,7 +15712,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -16267,7 +16267,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -16825,7 +16825,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -17372,7 +17372,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -17925,7 +17925,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -18479,7 +18479,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -19094,7 +19094,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -19714,7 +19714,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -20331,7 +20331,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -20944,7 +20944,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -21560,7 +21560,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -22178,7 +22178,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -22796,7 +22796,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -23351,7 +23351,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -23965,7 +23965,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -24579,7 +24579,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -25193,7 +25193,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -25752,7 +25752,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -26342,7 +26342,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -26943,7 +26943,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -27557,7 +27557,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -28158,7 +28158,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -28750,7 +28750,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -29342,7 +29342,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -29959,7 +29959,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -30577,7 +30577,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -31195,7 +31195,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -31806,7 +31806,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -32364,7 +32364,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -32919,7 +32919,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -33409,7 +33409,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -33999,7 +33999,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -34589,7 +34589,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -35186,7 +35186,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -35787,7 +35787,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -36388,7 +36388,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -36996,7 +36996,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -37610,7 +37610,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -38224,7 +38224,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -38842,7 +38842,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -39460,7 +39460,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -40078,7 +40078,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -40696,7 +40696,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -41320,7 +41320,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -41930,7 +41930,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -42407,7 +42407,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -43026,7 +43026,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -43641,7 +43641,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -44192,7 +44192,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -44745,7 +44745,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]
@@ -45365,7 +45365,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -45983,7 +45983,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -46538,7 +46538,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       },
       {
@@ -47096,7 +47096,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4"
+          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1"
         }
       }
     ]

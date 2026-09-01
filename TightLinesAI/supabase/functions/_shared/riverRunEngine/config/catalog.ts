@@ -1,4 +1,5 @@
 import { getMovementEngineDefinition } from "./movementEngines.ts";
+import { withSeasonalZonePlans } from "./seasonalZonePlans.ts";
 import { BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE } from "./onboarding/bigManisteeBrown.ts";
 import {
   BOIS_BRULE_CONFIGURATION_DOCUMENT,
@@ -53,7 +54,8 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-27-pm-fishability-reconciliation.17",
+    configVersion:
+      "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -69,7 +71,8 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
 
 export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-betsie-fishability-source-audit.2",
+  configVersion:
+    "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -91,7 +94,7 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-29-big-manistee-brown-release.3",
+    configVersion: "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -115,7 +118,8 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-27-muskegon-fishability-reconciliation.2",
+  configVersion:
+    "2026-08-27-muskegon-fishability-reconciliation.2+seasonal-zone-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -135,7 +139,7 @@ export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 
 export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-31-st-joseph-fish-counts.4",
+  configVersion: "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -167,7 +171,10 @@ export const RIVER_RUN_CONFIGURATION_DOCUMENTS:
     SHEBOYGAN_CONFIGURATION_DOCUMENT,
     ROOT_CONFIGURATION_DOCUMENT,
     BOIS_BRULE_CONFIGURATION_DOCUMENT,
-  ];
+  ].map((document) => ({
+    ...document,
+    runs: withSeasonalZonePlans(document.runs),
+  }));
 
 export function staticConfigurationVersionForRun(runId: string): string {
   return RIVER_RUN_CONFIGURATION_DOCUMENTS.find((document) =>

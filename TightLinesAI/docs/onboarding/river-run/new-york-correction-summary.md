@@ -53,7 +53,7 @@ or sources outside the approved authority list.
 ## Review and release status
 
 Final correction-gate results: all 11 fixed 2007-2025 Activity replays have
-100% coverage and zero coded invariants; 403 engine tests and 58 endpoint tests
+100% coverage and zero coded invariants; 405 engine tests and 58 endpoint tests
 pass; 1,425 owner-review fixtures are current; all three onboarding packets
 validate; UI, visual, TypeScript, and 161-entry live source audits pass.
 

@@ -1145,6 +1145,7 @@ export function validateRunProfile(
   validateRunDates(run, issues);
   validateHistoricalPresence(run, issues);
   validatePrimitiveCapabilities(run, issues);
+  validateSeasonalZonePlan(run, river, issues);
   if (run.seasonalZoneReachIds) {
     const foundationReachIds = new Set(
       river?.foundation?.reaches.map((reach) => reach.reachId) ?? [],
@@ -1277,6 +1278,65 @@ export function validateRunProfile(
     publicVisible,
     issues: [...issues, ...visibilityIssues],
   };
+}
+
+function validateSeasonalZonePlan(
+  run: RiverRunProfile,
+  river: RiverProfile | undefined,
+  issues: RiverRunValidationIssue[],
+) {
+  const plan = run.seasonalZonePlan;
+  if (!plan) return;
+  if (!hasText(plan.version) || !hasText(plan.evidenceNotes)) {
+    issues.push(issue(
+      "seasonalZonePlan",
+      "Seasonal Zone plan requires a version and evidence notes.",
+      "config_required_field_missing",
+    ));
+  }
+  if (
+    plan.earlyApproach &&
+    (!hasText(plan.earlyApproach.label) ||
+      !hasText(plan.earlyApproach.sourceNotes))
+  ) {
+    issues.push(issue(
+      "seasonalZonePlan.earlyApproach",
+      "Early approach context requires a label and source notes.",
+      "config_source_invalid",
+    ));
+  }
+  const foundation = new Map(
+    (river?.foundation?.reaches ?? []).map((reach) => [reach.reachId, reach]),
+  );
+  const runLimit = run.seasonalZoneReachIds
+    ? new Set(run.seasonalZoneReachIds)
+    : null;
+  for (const [phase, reachIds] of Object.entries(plan.phases)) {
+    if (
+      reachIds.length === 0 ||
+      new Set(reachIds).size !== reachIds.length ||
+      reachIds.some((reachId) =>
+        !foundation.has(reachId) || (runLimit && !runLimit.has(reachId))
+      )
+    ) {
+      issues.push(issue(
+        `seasonalZonePlan.phases.${phase}`,
+        "Every phase requires unique reach IDs inside the river and species corridor.",
+        "config_source_reference_missing",
+      ));
+    }
+    if (
+      reachIds.some((reachId) =>
+        foundation.get(reachId)?.role === "mouth_context"
+      )
+    ) {
+      issues.push(issue(
+        `seasonalZonePlan.phases.${phase}`,
+        "Nearby-water mouth context cannot be used as an active in-river phase reach.",
+        "config_invalid_value",
+      ));
+    }
+  }
 }
 
 function validateActivityRules(

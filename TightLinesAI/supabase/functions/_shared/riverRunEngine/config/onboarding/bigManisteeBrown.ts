@@ -224,7 +224,7 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
 export const BIG_MANISTEE_BROWN_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-29-big-manistee-brown-release.5",
+    configVersion: "2026-08-29-big-manistee-brown-release.5+seasonal-zone-v1",
     movementEngineVersion: getMovementEngineDefinition(
       "fall_repeat_spawner_cooling",
     ).version,

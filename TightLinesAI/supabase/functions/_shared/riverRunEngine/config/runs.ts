@@ -42,6 +42,7 @@ import {
   WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/white.ts";
+import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
 
 export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
   AuditedObservedRiverRunProfile = {
@@ -2407,4 +2408,4 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BOIS_BRULE_FALL_COHO_RUN_PROFILE,
   BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
   BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
-];
+].map(withSeasonalZonePlan);

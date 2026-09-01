@@ -95,6 +95,17 @@ Accepted for hidden owner review with all three canonical sections.
 
 Rejected candidates include generic parks, Tower Bridge on the Toutle system, and launch pages lacking fishing compatibility. The terminal section never crosses the posted 400-foot-or-marker Barrier deadline.
 
+### Early approach and per-run phase plan
+
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| --- | --- | --- | --- | --- |
+| Columbia confluence and lower Cowlitz mouth approach | receiving river/confluence to official lower Cowlitz boundary | C-01, C-02, foundation corridor | orientation only; Columbia rules/access are separate | accepted |
+
+| Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chinook | `cowlitz_fall_chinook-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + Barrier | middle + Barrier | fall Chinook calendar and release-only corridor; never crosses Barrier exclusion |
+| Coho | `cowlitz_fall_coho-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + Barrier | middle + Barrier | independent coho calendar; transported upstream destinations remain excluded |
+
 ## 9. Candidate species matrix
 
 | Species | Recurrence/opportunity | Endpoint | Calendar core | Presence | Decision |
@@ -162,5 +173,6 @@ Full named-block results are retained in `docs/audits/river-run-cowlitz-chinook-
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Cowlitz corridor/endpoint copy and a cross-river leakage assertion |
 | 2026-08-31 | Final legal-copy audit | Made the current fall Chinook release-only rule explicit in both the dossier and Spot Finder orientation |
 | 2026-08-31 | Green-only condition treatment found during review | Added Castle Rock-reach Fishing Shape; rejected below-Mayfield and Kelso temperature substitution as reach-mismatched |
+| 2026-08-31 | Generic downstream-to-upstream progression lacked an audited per-run record | Added sourced Columbia/lower-mouth orientation and separate Chinook/coho phase-reach plans through, but never beyond, the Barrier Dam exclusion |
 
 Reopen for Barrier/separator changes, transport/recycling definition changes, rule changes, station/datum changes, or evidence that a calendar combines spring Chinook or distinct steelhead runs.

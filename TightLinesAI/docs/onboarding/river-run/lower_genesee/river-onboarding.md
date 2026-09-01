@@ -106,6 +106,18 @@ overlooks, and hand launches are omitted without direct fishing proof. The east
 harbor construction area and Summerville Pier remain withheld pending a current
 unambiguous open-access source.
 
+### Early approach and per-run phase plan
+
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| --- | --- | --- | --- | --- |
+| Lake Ontario off Charlotte, Port of Rochester, and Genesee mouth | receiving lake/harbor to lower mainstem | G-01, G-02, foundation corridor | orientation only; lake/harbor rules and access are separate | accepted |
+
+| Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chinook | `lower_genesee_fall_chinook-seasonal-zone-v1-2026-08-31` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | gorge + falls | gorge + falls | concentrated spawning corridor below natural Lower Falls |
+| Steelhead | `lower_genesee_fall_steelhead-seasonal-zone-v1-2026-08-31` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | all three | all three | living fall-entry fish retain all accepted lower-river contexts |
+| Brown Trout | `lower_genesee_fall_brown_trout-seasonal-zone-v1-2026-08-31` | harbor/lower | harbor/lower | harbor + gorge | all three | all three | gorge + falls | gorge + falls | limited repeat-spawner profile stays below natural Lower Falls |
+
 ## 9. Candidate species/run matrix
 
 | Candidate run                      | Recurrence/opportunity                                                                              | Contradiction                                                                                        | Decision                                                           |
@@ -188,7 +200,7 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | Shape/count capabilities                                               | Fishing Shape and counts remain explicit fail-closed; upstream temperature context is labeled |
 | Seasonal Zone/Spot Finder                                              | three source-backed accesses across lower and upper sections; all active days checked |
 | River-picker artwork                                                   | large lower-corridor illustration mapped to `lower_genesee`; UI coverage gate passed |
-| Automated implementation gate                                         | 403 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
+| Automated implementation gate                                         | 405 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
 
@@ -202,3 +214,4 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | 2026-08-31 | Sparse Brown Trout occurrence could be erased or overstated               | Implemented independently at 2/10 concentrated; no Oak/Salmon strength borrowed |
 | 2026-08-31 | Atlantic occurrence in the lake could be mistaken for a Lower Genesee run | Preserved as research-unresolved with no runtime profile                        |
 | 2026-08-31 | River selector lacked intentional size artwork                         | Added the large lower-corridor illustration and a permanent UI coverage assertion |
+| 2026-08-31 | Spot Finder needed pre-entry direction without turning harbor context into a fabricated spot | Added a non-access Lake Ontario/Charlotte/Port of Rochester orientation plus independent Chinook, Steelhead, and Brown Trout phase-reach plans; all plans remain below natural Lower Falls and unsupported coho stays absent |

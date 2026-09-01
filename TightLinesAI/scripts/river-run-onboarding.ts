@@ -162,6 +162,11 @@ async function validatePacket(): Promise<void> {
       ["regulations", /## 6\. Regulations/],
       ["source capability", /## 7\. Source and capability audit/],
       ["Spot Finder", /## 8\. Spot Finder/],
+      ["early approach decision", /\| Early approach label \|/],
+      [
+        "per-run phase geography",
+        /\| Run \| Plan version \| Beginning \| Building early \| Building established \| Building broad \| Peak \| Tapering \| Ending \|/,
+      ],
       [
         "candidate species/run matrix",
         /## 9\. Candidate species(?:\/run)? matrix/,
@@ -378,6 +383,17 @@ function dossierTemplate(): string {
 
 **Decision:** \`unresolved\`
 
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| --- | --- | --- | --- | --- |
+|  |  |  |  | unresolved |
+
+Duplicate the next row for every supported run. Use exact foundation reach IDs;
+do not infer a generic downstream-to-upstream progression.
+
+| Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  |  |  |
+
 | Section ID/position | Foundation reaches | Boundary range | Eligible species | Fishing access IDs | Evidence IDs |
 | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |
@@ -422,7 +438,7 @@ candidate rows only after the contradiction/falsification audit is recorded.
 | --- | --- | --- | --- | --- | --- |
 | Identity/biology/run type/engine/lifecycle |  |  |  |  | unresolved |
 | Primitive capabilities and legacy unavailable fields |  |  |  |  | unresolved |
-| Species endpoint/Seasonal Zone reaches |  |  |  |  | unresolved |
+| Species endpoint/Seasonal Zone reaches/seasonalZonePlan/earlyApproach |  |  |  |  | unresolved |
 | Presence maximum/distribution/curve/anchors |  |  |  |  | unresolved |
 | Activity complete rule set |  |  |  |  | unresolved |
 | Fishing Shape/baseline/temperature policy |  |  |  |  | unresolved |

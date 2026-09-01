@@ -1,7 +1,7 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.3\
+**Version:** 3.4\
 **Established:** 2026-08-30\
 **Revised:** 2026-08-31\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
@@ -54,14 +54,21 @@ Shape** context. Spot Finder appears between Gauge Read and the reads only when
 an audited fishing-access inventory matches the selected river, state, species,
 and migration corridor.
 
+During researched staging and Beginning windows, Spot Finder may also show one
+non-expandable **Early-season orientation** box naming the receiving-water,
+harbor, estuary, or river-mouth approach. This is configuration-derived context,
+not an access point. It never receives an access dropdown, navigation pin, or
+`Recommended` badge. Actual section recommendations still require an active
+engine zone intersecting audited fishing access.
+
 | Surface           | Owns                                                                                                                    | Must not claim                                                                                                        |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Gauge Read        | Accepted current measurements, age, trend, historical date context, station, and represented reach                      | Whole-river conditions, fish location, abundance, safety, or access                                                   |
 | Fish Counts       | Fresh official observations at a named rack, trap, ladder, weir, or separator, with count period and facility semantics | Total run size, fish outside the observed facility scope, live location, availability, catch rate, or a scoring input |
 | Fishing Shape     | Workability of the represented hydraulic reach if fish are present                                                      | Abundance, responsiveness, access, safety, or the whole river                                                         |
-| Spot Finder       | Engine-derived seasonal-zone sections and source-listed public fishing access                                           | A best spot, live fish location, parking legality, road status, or safe entry                                         |
-| Migration Stage   | Fixed researched seasonal phase                                                                                         | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
-| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present                                                      | Abundance, migration progress, feeding proof, or catch probability                                                    |
+| Spot Finder       | Audited per-run phase reaches, optional early-approach context, and source-listed public fishing access                 | A best spot, live fish location, unverified approach-water access, parking legality, road status, or safe entry        |
+| Migration Stage   | Fixed researched seasonal phase and one shared concise phase-interpretation sentence                                   | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
+| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present, with a prominent permanent conditional notice      | Abundance, migration progress, feeding proof, fish presence, or catch probability                                     |
 | Seasonal Presence | Historical seasonal presence relative to this river/run ceiling                                                         | A fish count, today's movement, bite quality, or current conditions                                                   |
 
 Do not author or expose `WHERE TO START`, `WHY THIS READ`, `GUIDE'S READ`, a
@@ -70,8 +77,12 @@ or configuration fields may remain for compatibility but are not new public
 research or copy requirements.
 
 Public copy is shared or derived. New onboarding normally authors only durable
-river/source limitations, official regulation reminders, reach labels, Spot
-Finder access facts, and evidence notes.
+river/source limitations, official regulation reminders, reach labels, the
+factual early-approach label, Spot Finder access facts, and evidence notes.
+Migration Stage uses global concise phase interpretation. Activity must display
+`ONLY IF FISH ARE PRESENT` prominently beside the read—not solely in a meter
+note or footer—and state that it does not establish presence, abundance, or
+catch probability.
 
 Fish Counts is capability-gated per river/species. It never changes Migration
 Stage, Activity Outlook, Seasonal Presence, Seasonal Zone, or Fishing Shape.
@@ -206,7 +217,12 @@ notes, and source provenance.
 
 Rules:
 
-- Harbor and mouth context are not an in-river Seasonal Zone.
+- External harbor, lake, bay, estuary, and mouth context is not automatically
+  an in-river Seasonal Zone or verified fishing access. It may appear only in
+  the non-expandable early-orientation box. A harbor reach may participate in
+  active phase geography only when the foundation and fishing-access evidence
+  expressly include it in the supported, legally aligned migration corridor;
+  record this exception rather than inferring it from the `harbor` name.
 - `lower`, `middle`, and `upper` are relative to the supported migration
   corridor, not necessarily the whole river.
 - Do not invent a middle reach for a natural two-section corridor.
@@ -429,6 +445,20 @@ Each section requires:
 - optional eligible species only when endpoints genuinely differ;
 - at least one source-listed fishing access.
 
+Every supported run also requires one versioned `seasonalZonePlan` reconciled
+against that run's calendar, endpoint, distribution, passage chain, regulation
+window, foundation reaches, and Spot Finder inventory. It must explicitly list
+canonical reach IDs for Beginning, early Building, established Building, broad
+Building, Peak, Tapering, and Ending. Empty or unproven phases fail closed; do
+not substitute the first available access section.
+
+An optional `earlyApproach` requires a concise recognizable label, direct source
+notes, and a documented receiving-water relationship. It may be shown only
+during researched staging and Beginning. Marine, lake, harbor, estuary,
+boundary-water, and mainstem regulations remain separate; the label never
+implies that the named water is open, publicly accessible, safe, or governed by
+the river regulation shown elsewhere.
+
 A river may expose an ordered subset such as `middle` + `upper` when the lower
 reach lacks defensible fishing access. Never relabel the first verified access
 as `lower` merely to satisfy a three-section shape. The orientation note must
@@ -458,13 +488,15 @@ locator. Never invent a navigation coordinate.
 
 Recommendation ownership:
 
-- the engine resolves one Seasonal Zone from the fixed calendar, ordered
-  foundation reaches, presentation-state limits, species endpoint, and
-  distribution scope;
+- the engine resolves one Seasonal Zone from the fixed calendar, the run's
+  audited `seasonalZonePlan`, presentation-state limits, and species endpoint;
 - Spot Finder recommends only audited sections whose `foundationReachIds`
   intersect the engine's active `seasonalZone.foundationReachIds`;
-- do not recreate a generic Stage-to-section progression in the client, Spot
-  Finder data, or per-river copy;
+- do not recreate a generic downstream-to-upstream Stage progression in the
+  client, Spot Finder data, or prose. Rivers with two reaches, urban harbor
+  reaches, passage-limited endpoints, terminal tailwaters, sparse access, or
+  living fall-entry fish require their own plan. Two species may share a phase
+  shape only after independent reconciliation supports the same result;
 - an inactive/complete zone, empty reach list, state/species mismatch, corridor
   mismatch, or zero audited overlap produces no recommendation;
 - non-overlapping audited sections may remain available as other access, but are
@@ -523,6 +555,8 @@ For every supported run record and reconcile:
   Fishing Shape, and required legacy fields;
 - species endpoint and optional `seasonalZoneReachIds` only when narrower than
   the foundation/presentation corridor;
+- versioned `seasonalZonePlan`, optional sourced `earlyApproach`, every phase's
+  exact foundation reach IDs, and river/run-specific evidence rationale;
 - all run-window fields: `preRunStart`, `stagingStart`, `start`, `beginningEnd`,
   `buildingEstablishedStart`, optional `buildingBroadStart`, `peakStart`,
   `peak`, `peakEnd`, `taperingEnd`, `end`, `lateEnd`, and `postRunLateCopyEnd`;
@@ -583,11 +617,13 @@ headline, explanation, or guide paragraph.
 
 ### 9.4 Migration Stage and Seasonal Zone
 
-Stage uses global phase sentences. Seasonal Zone is derived from ordered
-foundation reaches, presentation-state limits, the optional species endpoint,
-distribution scope, and the fixed calendar. Phase-specific reach selection is
-engine-owned and must be replayed rather than duplicated in UI logic. It never
-crosses a barrier or claims current fish location.
+Stage uses global concise phase-interpretation sentences. They explain calendar
+position without claiming live arrivals, abundance, location, responsiveness,
+or catch probability. Seasonal Zone is derived from the fixed calendar and the
+versioned river/run-specific phase plan, then clipped by presentation-state and
+species-endpoint limits. Phase-specific reach selection is engine-owned and
+must be replayed rather than duplicated in UI logic. It never crosses a barrier
+or claims current fish location.
 
 Do not author `Where to Start` or present Seasonal Zone inside the Stage
 primitive. Spot Finder is the only public presentation surface for the engine's
@@ -699,7 +735,11 @@ provider recovery restores scoring.
 
 Activity public output uses shared labels, four blocks, target date,
 confidence/limitation, derived best-window drivers/limits, and the permanent
-scope note. Do not author per-band headlines, Why copy, or Guide's Read.
+scope note. Directly under the Activity heading, a persistent high-contrast
+notice must say `ONLY IF FISH ARE PRESENT` and explain that Activity does not
+establish whether fish are present, how many are present, or catch probability.
+Do not rely on small meter annotation for this distinction. Do not author
+per-band headlines, Why copy, or Guide's Read.
 
 ## 11. Implementation rules
 
@@ -777,7 +817,11 @@ unavailable state, Gauge Read freshness/failure/recovery state, and valid
 cross-surface tensions.
 
 Replay Seasonal Zone every active calendar day and ensure canonical ordering,
-presentation/species endpoint limits, and barrier compliance. Owner-review
+the exact audited phase-plan selection, presentation/species endpoint limits,
+and barrier compliance. Replay staging and Beginning to prove that early
+approach context appears only in those states, remains non-expandable, carries
+no access recommendation, and never converts unverified approach water into a
+section. Owner-review
 selectors must expose both sides of every Stage or Zone transition. Prove Spot
 Finder consumes those exact reach IDs, fails closed without audited overlap, and
 does not contain a parallel stage-progression algorithm. Recheck section-level
@@ -847,6 +891,8 @@ the scaffold command. It contains these compact records:
 - historical-only temperature and Fish Counts capability records or explicit
   unavailable decisions;
 - Spot Finder section/access table or explicit fail-closed decision;
+- early-approach label/source decision and per-run phase-to-reach reconciliation
+  table, including every no-overlap/fail-closed phase;
 - candidate species/run matrix with distinct seasonal life histories;
 - one repeated run field/calendar/presence/Activity/Fishing Shape section per
   supported run;

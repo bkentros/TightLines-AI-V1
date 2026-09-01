@@ -5,6 +5,7 @@ import type {
   RiverRunConfigurationDocument,
 } from "../../types.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
+import { withSeasonalZonePlan } from "../seasonalZonePlans.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
@@ -632,14 +633,12 @@ function baseRun(input: {
     runStageCopyStrategy: "onboarding_corridor",
     primitiveCapabilities: {
       ...capabilities,
-      fishability: input.riverId === "salmon_ny"
-        ? capabilities.fishability
-        : {
-          status: "unavailable",
-          reason: "no_accepted_hydraulic_source",
-          notes:
-            "The displayed hydraulic source is context-only outside the migratory corridor, so no corridor Fishing Shape calibration is permitted.",
-        },
+      fishability: input.riverId === "salmon_ny" ? capabilities.fishability : {
+        status: "unavailable",
+        reason: "no_accepted_hydraulic_source",
+        notes:
+          "The displayed hydraulic source is context-only outside the migratory corridor, so no corridor Fishing Shape calibration is permitted.",
+      },
     },
     runWindow: input.runWindow,
     historicalPresence: input.historicalPresence,
@@ -1191,7 +1190,7 @@ export const NEW_YORK_DRAFT_RUNS = [
   LOWER_GENESEE_FALL_CHINOOK_RUN_PROFILE,
   LOWER_GENESEE_FALL_STEELHEAD_RUN_PROFILE,
   LOWER_GENESEE_FALL_BROWN_TROUT_RUN_PROFILE,
-];
+].map(withSeasonalZonePlan);
 
 function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   const runs = NEW_YORK_DRAFT_RUNS.filter((run) =>
@@ -1200,7 +1199,8 @@ function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   const biologyIds = new Set(runs.map((run) => run.biologyProfileId));
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion: `2026-08-31-${river.riverId}-new-york-owner-review.2`,
+    configVersion:
+      `2026-08-31-${river.riverId}-new-york-owner-review.2+seasonal-zone-v1`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

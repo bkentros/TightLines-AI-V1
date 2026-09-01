@@ -6,11 +6,13 @@ import { resolveRunStage } from "../scoring/runStage.ts";
 Deno.test("Seasonal Zone resolves every public run without authored copy", () => {
   for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
     for (const run of document.runs) {
-      for (const monthDay of [
-        run.runWindow.start,
-        run.runWindow.peak,
-        run.runWindow.end,
-      ]) {
+      for (
+        const monthDay of [
+          run.runWindow.start,
+          run.runWindow.peak,
+          run.runWindow.end,
+        ]
+      ) {
         const localDate = `2026-${monthDay}`;
         const stage = resolveRunStage(run, localDate);
         const result = resolveSeasonalZone({
@@ -45,6 +47,72 @@ Deno.test("Seasonal Zone resolves every public run without authored copy", () =>
       }
     }
   }
+});
+
+Deno.test("every catalog run carries audited approach and phase geography", () => {
+  for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
+    for (const run of document.runs) {
+      assert(run.seasonalZonePlan, `${run.runId} needs a Seasonal Zone plan`);
+      assert(
+        run.seasonalZonePlan.earlyApproach?.label.length,
+        `${run.runId} needs early approach context`,
+      );
+      for (
+        const [phase, reachIds] of Object.entries(
+          run.seasonalZonePlan.phases,
+        )
+      ) {
+        assert(reachIds.length > 0, `${run.runId}/${phase}`);
+      }
+
+      const stagingDate = `2026-${run.runWindow.stagingStart}`;
+      const staging = resolveSeasonalZone({
+        river: document.river,
+        run,
+        stage: resolveRunStage(run, stagingDate),
+        localDate: stagingDate,
+      });
+      assertEquals(staging.status, "not_started");
+      assertEquals(staging.earlyApproach?.phase, "staging");
+      assertEquals(staging.earlyApproach?.accessRecommendation, false);
+      assertEquals(staging.foundationReachIds, []);
+    }
+  }
+});
+
+Deno.test("river-specific plans replace generic late and harbor behavior", () => {
+  const pm = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((document) =>
+    document.river.riverId === "pere_marquette"
+  )!;
+  const pmChinook = pm.runs.find((run) =>
+    run.runId === "pere_marquette_fall_chinook"
+  )!;
+  const pmTaperDate = "2026-10-01";
+  assertEquals(
+    resolveSeasonalZone({
+      river: pm.river,
+      run: pmChinook,
+      stage: resolveRunStage(pmChinook, pmTaperDate),
+      localDate: pmTaperDate,
+    }).foundationReachIds,
+    ["pm_middle_mainstem", "pm_upper_mainstem"],
+  );
+
+  const milwaukee = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((document) =>
+    document.river.riverId === "milwaukee"
+  )!;
+  const chinook = milwaukee.runs.find((run) =>
+    run.runId === "milwaukee_fall_chinook"
+  )!;
+  const beginningDate = `2026-${chinook.runWindow.start}`;
+  const beginning = resolveSeasonalZone({
+    river: milwaukee.river,
+    run: chinook,
+    stage: resolveRunStage(chinook, beginningDate),
+    localDate: beginningDate,
+  });
+  assertEquals(beginning.foundationReachIds, ["milwaukee_harbor_downtown"]);
+  assertEquals(beginning.earlyApproach?.phase, "beginning");
 });
 
 Deno.test("Seasonal Zone honors species and state corridor boundaries", () => {
@@ -90,7 +158,9 @@ Deno.test("Seasonal Zone orders migration downstream to upstream even when found
   const manistee = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((document) =>
     document.river.riverId === "big_manistee"
   )!;
-  const chinook = manistee.runs.find((run) => run.species === "chinook_salmon")!;
+  const chinook = manistee.runs.find((run) =>
+    run.species === "chinook_salmon"
+  )!;
   const localDate = `2026-${chinook.runWindow.peak}`;
   const result = resolveSeasonalZone({
     river: manistee.river,

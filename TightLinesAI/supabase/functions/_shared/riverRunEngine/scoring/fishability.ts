@@ -167,6 +167,9 @@ function fishabilityCopy(input: {
       input.flowBand,
       input.gaugeFreshness,
     );
+    const combinedConditionPoint = `${bandPoint.replace(/\.$/, "")}; ${
+      trendPoint.charAt(0).toLowerCase() + trendPoint.slice(1)
+    }`;
     return {
       headline: bigManisteeFishabilityHeadline(
         input.flowBand,
@@ -174,7 +177,7 @@ function fishabilityCopy(input: {
         input.gaugeFreshness,
       ),
       detail:
-        `${bandPoint} ${trendPoint} This read covers only the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with this date's history; Fishability compares it with this reach's presentation bands.`,
+        `${combinedConditionPoint} This read covers the Upper river (High Bridge–Tippy Dam). Gauge Read compares flow with date history; Fishability uses reach-specific presentation bands.`,
       tip: bigManisteeFishabilityTip(
         input.flowBand,
         input.flowSignal,

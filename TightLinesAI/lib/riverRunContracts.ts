@@ -110,6 +110,11 @@ export type RiverRunSeasonalZone = {
   status: "not_started" | "active" | "complete";
   label: string;
   foundationReachIds: string[];
+  earlyApproach?: {
+    label: string;
+    phase: "staging" | "beginning";
+    accessRecommendation: false;
+  };
   basis: "seasonal_calendar";
   orientationOnly: true;
 };

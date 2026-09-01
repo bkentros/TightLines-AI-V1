@@ -67,7 +67,7 @@ for (
 }
 assert.match(
   server,
-  /const \[result, riverConditions\] = await Promise\.all\([\s\S]*?readOrBuildSnapshot[\s\S]*?readOrBuildRiverLiveConditions[\s\S]*?claimFreeRiverRunTrial/,
+  /const \[result, riverConditions(?:, fishCounts)?\] = await Promise\.all\([\s\S]*?readOrBuildSnapshot[\s\S]*?readOrBuildRiverLiveConditions[\s\S]*?claimFreeRiverRunTrial/,
   "the free trial must be claimed only after both the snapshot and live conditions are available",
 );
 assert.match(server, /freeTrialUnused[\s\S]*?claimFreeRiverRunTrial/);

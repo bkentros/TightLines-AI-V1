@@ -403,8 +403,23 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /NO RUN-BASED RECOMMENDATION[\s\S]*?migration is not in an active stage/,
-  "Spot Finder must explain why pre-run and completed reports have no recommendation",
+  /NO RUN-BASED RECOMMENDATION[\s\S]*?migration is not in an active river stage/,
+  "Spot Finder must explain why pre-run and completed reports have no in-river recommendation",
+);
+assert.match(
+  riverRunScreen,
+  /EARLY-SEASON ORIENTATION[\s\S]*?seasonalZone\.earlyApproach\.label[\s\S]*?not a live fish-location or verified-access recommendation/,
+  "Spot Finder must show audited approach context as a non-access orientation box",
+);
+assert.match(
+  riverRunScreen,
+  /ONLY IF FISH ARE PRESENT[\s\S]*?not whether fish are in[\s\S]*?how many are present[\s\S]*?chance of catching one/,
+  "Activity must prominently state that it is conditional on fish already being present",
+);
+assert.match(
+  riverRunScreen,
+  /dependable migration window is opening[\s\S]*?strongest portion of the migration window[\s\S]*?migration window is approaching its end/,
+  "Stage must retain concise phase interpretation beyond the phase label",
 );
 assert.match(
   riverRunScreen,
@@ -870,6 +885,17 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
     foundationReachIds: undefined,
   }];
   for (const run of document.runs) {
+    assert(run.seasonalZonePlan, `${run.runId} needs an audited Seasonal Zone plan`);
+    assert(
+      run.seasonalZonePlan.earlyApproach?.label,
+      `${run.runId} needs river-specific early approach context`,
+    );
+    for (const [phase, reachIds] of Object.entries(run.seasonalZonePlan.phases)) {
+      assert(
+        reachIds.length > 0,
+        `${run.runId}/${phase} needs at least one audited phase reach`,
+      );
+    }
     const checkpointDates = new Set(
       Object.values(run.runWindow)
         .filter((monthDay): monthDay is string => typeof monthDay === "string")

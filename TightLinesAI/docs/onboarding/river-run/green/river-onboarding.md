@@ -97,6 +97,17 @@ Accepted for hidden owner review with two audited sections, not a fabricated who
 
 The tidal Duwamish has no accepted fishing-oriented access listing in this pass. Flaming Geyser and Green River Natural Area prove upper public angling, but the permanent upper salmon season begins November 1 and a 2026 emergency closure applies September 16-October 31. They are documented research exclusions, not static recommendations. This is intentional section-level fail-closed behavior.
 
+### Early approach and per-run phase plan
+
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| --- | --- | --- | --- | --- |
+| Puget Sound, Duwamish estuary, and lower Green/Duwamish approach | receiving marine/estuary path to the configured lower river | G-01, G-06, foundation corridor | orientation only; marine/estuary rules and access are not imported | accepted |
+
+| Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chinook | `green_fall_chinook-seasonal-zone-v1-2026-08-31` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent Chinook calendar/corridor; no lower audited access overlap |
+| Coho | `green_fall_coho-seasonal-zone-v1-2026-08-31` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent later coho calendar/corridor; no lower audited access overlap |
+
 ## 9. Candidate species matrix
 
 | Species | Recurrence/opportunity | Endpoint | Calendar core | Presence | Decision |
@@ -165,5 +176,6 @@ Full named-block results are retained in `docs/audits/river-run-green-chinook-we
 | --- | --- | --- |
 | 2026-08-30 | Initial Washington onboarding | Reopen any affected decision for a barrier, emergency-rule, station/datum, Soos-operation, or material return-pattern change |
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Green corridor/endpoint copy and a cross-river leakage assertion |
+| 2026-08-31 | Generic stage-to-section progression under-described early water and late species behavior | Added sourced Puget Sound/Duwamish early orientation plus independent Chinook/coho phase-reach plans; Beginning lower-river phases fail closed because no audited lower public fishing access overlaps |
 
 Any new barrier status, emergency rule, station/datum change, Soos operation change, or material five-year return shift reopens the affected decision.

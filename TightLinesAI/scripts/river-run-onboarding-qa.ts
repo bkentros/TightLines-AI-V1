@@ -120,6 +120,17 @@ for (const river of report.rivers) {
       run.activityMode !== "unavailable",
       `${run.runId} Activity is unavailable.`,
     );
+    const profile = RIVER_RUN_RUN_PROFILES.find((item) =>
+      item.runId === run.runId
+    );
+    assert(
+      profile?.seasonalZonePlan,
+      `${run.runId} is missing its phase plan.`,
+    );
+    assert(
+      profile.seasonalZonePlan.earlyApproach?.label,
+      `${run.runId} is missing early-approach orientation.`,
+    );
   }
   if (river.riverId === "betsie") {
     assert(
@@ -157,6 +168,11 @@ for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
   const result = validateRunProfile(run, river);
   assert(result.valid, `${run.runId} draft is invalid.`);
   assert(!result.publicVisible, `${run.runId} must remain hidden.`);
+  assert(run.seasonalZonePlan, `${run.runId} draft phase plan is missing.`);
+  assert(
+    run.seasonalZonePlan.earlyApproach?.label,
+    `${run.runId} draft early approach is missing.`,
+  );
   assert(
     !RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
     `${run.runId} leaked into the public run registry.`,
@@ -201,6 +217,9 @@ for (
     ["calendar protocol", /Full calendar protocol/],
     ["strength protocol", /Strength and distribution/],
     ["Spot Finder fail closed", /Spot Finder is optional and fail-closed/],
+    ["per-run seasonal geography", /versioned `seasonalZonePlan`/],
+    ["early approach contract", /optional `earlyApproach`/],
+    ["prominent Activity condition", /`ONLY IF FISH ARE PRESENT` prominently/],
     [
       "Seasonal Zone recommendation ownership",
       /Spot Finder recommends only audited sections whose `foundationReachIds`[\s\S]*seasonalZone\.foundationReachIds/,
@@ -315,6 +334,9 @@ for (
     "distinct seasonal or life-history runs",
     "Authoritative access source",
     "Negative-search completion",
+    "Early approach label",
+    "Building established",
+    "seasonalZonePlan/earlyApproach",
     "Owner-review digest",
     'stage === "release"',
   ]
