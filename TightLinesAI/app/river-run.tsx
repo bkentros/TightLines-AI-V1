@@ -3004,7 +3004,7 @@ function ActivityBreakdown(
             <View style={styles.activityWeatherOnlyIcon}>
               <Ionicons
                 name="cloud-outline"
-                size={18}
+                size={15}
                 color="#A85220"
               />
             </View>
@@ -5615,7 +5615,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: paper.dashboardInk,
   },
-  activityBreakdown: { gap: 10, paddingTop: 4 },
+  activityBreakdown: { gap: 9, paddingTop: 8 },
   activityForecastNotice: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -5643,21 +5643,21 @@ const styles = StyleSheet.create({
   activityWeatherOnlyNotice: {
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    gap: 7,
+    paddingHorizontal: 9,
+    paddingVertical: 6,
     borderWidth: 1,
     borderColor: "rgba(197,103,43,0.42)",
     borderRadius: 10,
     backgroundColor: "#FFF3E8",
   },
   activityWeatherOnlyIcon: {
-    width: 26,
-    height: 26,
+    width: 22,
+    height: 22,
     flexShrink: 0,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 13,
+    borderRadius: 11,
     backgroundColor: "rgba(216,120,53,0.14)",
   },
   activityWeatherOnlyCopy: {
@@ -5667,20 +5667,20 @@ const styles = StyleSheet.create({
   },
   activityWeatherOnlyEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: 1,
+    fontSize: 6.5,
+    letterSpacing: 0.85,
     color: "#A85220",
   },
   activityWeatherOnlyTitle: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: 11.5,
+    lineHeight: 15,
     color: paper.dashboardInk,
   },
   activityWeatherOnlyBody: {
     fontFamily: paperFonts.bodySemiBold,
-    fontSize: 10.5,
-    lineHeight: 14,
+    fontSize: 9.25,
+    lineHeight: 12.5,
     color: "#6F5548",
   },
   activityMetaRow: {
