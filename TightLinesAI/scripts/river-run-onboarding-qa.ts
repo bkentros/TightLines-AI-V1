@@ -5,7 +5,10 @@ import {
 import {
   RIVER_RUN_DRAFT_RIVER_PROFILES,
   RIVER_RUN_DRAFT_RUN_PROFILES,
+  RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
+  resolveRunStage,
+  resolveSeasonalZone,
   validateRiverProfile,
   validateRunProfile,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
@@ -179,6 +182,32 @@ for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
   );
 }
 
+for (
+  const run of [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES]
+) {
+  const river = [
+    ...RIVER_RUN_RIVER_PROFILES,
+    ...RIVER_RUN_DRAFT_RIVER_PROFILES,
+  ].find((item) => item.riverId === run.riverId);
+  assert(river, `${run.runId} has no river for early-direction replay.`);
+  const localDate = `2026-${run.runWindow.preRunStart}`;
+  const stage = resolveRunStage(run, localDate);
+  const zone = resolveSeasonalZone({ river, run, stage, localDate });
+  assert(stage.stage === "pre_run", `${run.runId} pre-run replay drifted.`);
+  assert(
+    zone.earlyApproach?.phase === "before_migration",
+    `${run.runId} omits early direction before staging.`,
+  );
+  assert(
+    zone.earlyApproach.accessRecommendation === false,
+    `${run.runId} incorrectly converts early direction into access.`,
+  );
+  assert(
+    zone.foundationReachIds.length === 0,
+    `${run.runId} recommends an in-river reach before migration.`,
+  );
+}
+
 const onboardingGuidePath = "docs/river_run_onboarding.md";
 const onboardingGuide = await Deno.readTextFile(onboardingGuidePath);
 for (
@@ -218,7 +247,7 @@ for (
     ["strength protocol", /Strength and distribution/],
     ["Spot Finder fail closed", /Spot Finder is optional and fail-closed/],
     ["per-run seasonal geography", /versioned `seasonalZonePlan`/],
-    ["early approach contract", /optional `earlyApproach`/],
+    ["early approach contract", /required sourced `earlyApproach`/],
     ["prominent Activity condition", /`ONLY IF FISH ARE PRESENT` prominently/],
     [
       "Seasonal Zone recommendation ownership",

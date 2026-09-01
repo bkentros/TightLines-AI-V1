@@ -2130,18 +2130,18 @@ function SpotFinderCard({
                       color="#0F63B0"
                     />
                     <Text style={styles.spotFinderEarlyApproachLabel}>
-                      EARLY-SEASON ORIENTATION
+                      EARLY-SEASON DIRECTION
                     </Text>
                   </View>
                   <Text style={styles.spotFinderEarlyApproachTitle}>
                     {seasonalZone.earlyApproach.label}
                   </Text>
                   <Text style={styles.spotFinderEarlyApproachText}>
-                    {seasonalZone.earlyApproach.phase === "staging"
-                      ? "Nearby-water context before dependable in-river migration—not a live fish-location or verified-access recommendation. Separate lake, harbor, marine, or boundary-water rules may apply."
+                    {seasonalZone.earlyApproach.phase === "before_migration"
+                      ? "A broad area to consider before dependable in-river migration—not a verified access point or live fish-location report. Check separate lake, harbor, marine, or boundary-water rules before fishing."
                       : recommendation.hasRecommendation
-                      ? "Use this broad approach context with the highlighted audited in-river section below. It is calendar-based orientation, not a live fish-location report."
-                      : "This is broad calendar-based approach context. No verified public fishing access overlaps the active starting reach, so no access is being recommended here."}
+                      ? "Consider this broad approach area with the highlighted audited in-river section below. It is calendar-based direction, not a live fish-location report."
+                      : "Consider this broad approach area during the opening phase. No verified public fishing access overlaps the active starting reach, so no specific access is being recommended here."}
                   </Text>
                 </View>
               )

@@ -1064,8 +1064,8 @@ function washingtonConfigurationDocument(
   return {
     schemaVersion: "river-run-config-v1",
     configVersion: river.riverId === "green"
-      ? "2026-08-31-green-washington-owner-review.2+seasonal-zone-v1"
-      : `2026-08-31-${river.riverId}-washington-owner-review.2+seasonal-zone-v1`,
+      ? "2026-08-31-green-washington-owner-review.2+seasonal-zone-v2"
+      : `2026-08-31-${river.riverId}-washington-owner-review.2+seasonal-zone-v2`,
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river,
     biologyProfiles: [

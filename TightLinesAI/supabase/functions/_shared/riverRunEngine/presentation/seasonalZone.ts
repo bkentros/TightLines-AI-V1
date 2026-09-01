@@ -12,7 +12,7 @@ export type RiverRunSeasonalZone = {
   foundationReachIds: string[];
   earlyApproach?: {
     label: string;
-    phase: "staging" | "beginning";
+    phase: "before_migration" | "beginning";
     accessRecommendation: false;
   };
   basis: "seasonal_calendar";
@@ -47,15 +47,14 @@ export function resolveSeasonalZone(input: {
     return zone("complete", "No active seasonal zone", []);
   }
   if (input.stage.stage === "pre_run") {
-    return input.stage.stagingContext &&
-        input.run.seasonalZonePlan?.earlyApproach
+    return input.run.seasonalZonePlan?.earlyApproach
       ? zone(
         "not_started",
-        "Nearby-water staging context",
+        "Early-season approach area",
         [],
         {
           label: input.run.seasonalZonePlan.earlyApproach.label,
-          phase: "staging",
+          phase: "before_migration",
           accessRecommendation: false,
         },
       )

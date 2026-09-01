@@ -112,7 +112,7 @@ export type RiverRunSeasonalZone = {
   foundationReachIds: string[];
   earlyApproach?: {
     label: string;
-    phase: "staging" | "beginning";
+    phase: "before_migration" | "beginning";
     accessRecommendation: false;
   };
   basis: "seasonal_calendar";

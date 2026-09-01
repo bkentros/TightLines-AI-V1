@@ -383,7 +383,7 @@ function dossierTemplate(): string {
 
 **Decision:** \`unresolved\`
 
-| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Before Migration + Beginning decision |
 | --- | --- | --- | --- | --- |
 |  |  |  |  | unresolved |
 

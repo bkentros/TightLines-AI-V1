@@ -565,7 +565,7 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
   configVersion:
-    "2026-08-27-white-fishability-reconciliation.4+seasonal-zone-v1",
+    "2026-08-27-white-fishability-reconciliation.4+seasonal-zone-v2",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -17,8 +17,8 @@ The replacement is configuration-led:
 - every run carries a versioned `seasonalZonePlan` with exact foundation reach
   IDs for Beginning, early/established/broad Building, Peak, Tapering, and
   Ending;
-- staging and Beginning may show one sourced, non-expandable early-approach
-  label;
+- all Before Migration reports and Beginning show one sourced, non-expandable
+  early-season direction label;
 - the approach label is never an access record or section recommendation;
 - recommended sections still require exact overlap with the audited Spot Finder
   inventory, selected state, species endpoint, and active phase reaches;
@@ -65,8 +65,8 @@ or inferred roadside access was added.
 
 Important fail-closed outcomes:
 
-- nearby water is direction only; it has no dropdown, pin, access badge, or
-  implied legal status;
+- nearby water is broad fishing direction only; it has no dropdown, pin,
+  verified-access badge, or implied legal status;
 - Green and Puyallup do not redirect Beginning users to the first available
   upstream access when the active lower reach lacks audited access;
 - Platte remains without Spot Finder;
@@ -98,7 +98,7 @@ river without independent reconciliation.
 
 Final verification completed on 2026-09-01:
 
-- the engine and endpoint suite passed 463 tests with zero failures;
+- the engine and endpoint suite passed 464 tests with zero failures;
 - the generated owner-review suite is current at 1,425 scenarios across 32
   supported review runs, while the full runtime/catalog validation covers all
   58 configured and owner-review runs;
@@ -118,3 +118,14 @@ Final verification completed on 2026-09-01:
 The implementation is ready for owner review. Washington and New York remain
 hidden in owner-review state, and no function deployment or public release has
 been performed.
+
+### 2026-09-01 correction
+
+Owner review found that v1 exposed early approach direction only during the
+narrow staging subset of Before Migration and described it too passively. V2
+now exposes the sourced approach throughout Before Migration—including dates
+before staging—and during Beginning. The box calls the named receiving-water,
+harbor, estuary, or mouth a broad area to consider while continuing to separate
+it from a verified access point and live fish-location report. Oak Orchard has
+an explicit four-species replay proving Point Breeze/harbor/mouth direction on
+September 1 before the Steelhead and Brown Trout staging dates.

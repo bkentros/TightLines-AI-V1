@@ -110,16 +110,16 @@ published road locator.
 
 ### Early approach and per-run phase plan
 
-| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Before Migration + Beginning decision |
 | --- | --- | --- | --- | --- |
-| Lake Ontario off Port Ontario, the estuary, and Salmon River mouth | receiving lake/estuary to lower mainstem | S-01, S-02, foundation corridor | orientation only; lake/estuary rules and access are separate | accepted |
+| Lake Ontario off Port Ontario, the estuary, and Salmon River mouth | receiving lake/estuary to lower mainstem | S-01, S-02, foundation corridor | broad direction only; lake/estuary rules and access are separate | accepted throughout Before Migration and Beginning |
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `salmon_ny_fall_chinook-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independently researched spawning progression below Lighthouse Hill |
-| Coho | `salmon_ny_fall_coho-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar and sectional distribution |
-| Steelhead | `salmon_ny_fall_steelhead-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain fresh-entry and established holding contexts |
-| Brown Trout | `salmon_ny_fall_brown_trout-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without mortality/departure claim |
+| Chinook | `salmon_ny_fall_chinook-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independently researched spawning progression below Lighthouse Hill |
+| Coho | `salmon_ny_fall_coho-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar and sectional distribution |
+| Steelhead | `salmon_ny_fall_steelhead-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain fresh-entry and established holding contexts |
+| Brown Trout | `salmon_ny_fall_brown_trout-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without mortality/departure claim |
 
 ## 9. Candidate species/run matrix
 
@@ -210,7 +210,7 @@ no runtime profile.
 | Fishing Shape/historical temperature/Fish Counts                       | explicitly unavailable and fail closed; no Pineville temperature norm invented |
 | Seasonal Zone/Spot Finder alignment                                    | 19 mainstem accesses across three audited sections; every active run day mapped |
 | River-picker artwork                                                   | medium corridor illustration mapped to `salmon_ny`; UI coverage gate passed |
-| Automated implementation gate                                         | 405 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
+| Automated implementation gate                                         | 406 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized and not performed                                             |
 
@@ -227,3 +227,4 @@ no runtime profile.
 | 2026-08-31 | A historical Pineville water-temperature average was requested                  | USGS parameter inventory and archive probe found no continuous 00010 series; retained explicit unavailability instead of manufacturing a norm |
 | 2026-08-31 | River selector lacked intentional size artwork                              | Added the medium corridor illustration and a permanent UI coverage assertion |
 | 2026-08-31 | Spot Finder lacked useful nearby-water orientation before dependable entry and used a shared progression shape | Added a non-access Port Ontario/Lake Ontario/estuary orientation plus separately reconciled Chinook, coho, Steelhead, and Brown Trout phase-reach plans; late living Steelhead retain all reaches while spawning runs emphasize established middle/upper water |
+| 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |

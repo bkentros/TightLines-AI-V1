@@ -109,16 +109,16 @@ beyond marked footpaths is excluded.
 
 ### Early approach and per-run phase plan
 
-| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Before Migration + Beginning decision |
 | --- | --- | --- | --- | --- |
-| Lake Ontario off Point Breeze, Oak Orchard harbor, and creek mouth | receiving lake/harbor to lower creek | O-01, O-02, foundation corridor | orientation only; lake/harbor rules and access are separate | accepted |
+| Lake Ontario off Point Breeze, Oak Orchard harbor, and creek mouth | receiving lake/harbor to lower creek | O-01, O-02, foundation corridor | broad direction only; lake/harbor rules and access are separate | accepted throughout Before Migration and Beginning |
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `oak_orchard_fall_chinook-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent spawning calendar below Waterport Dam |
-| Coho | `oak_orchard_fall_coho-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar/distribution below Waterport |
-| Steelhead | `oak_orchard_fall_steelhead-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain all accepted corridor contexts |
-| Brown Trout | `oak_orchard_fall_brown_trout-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without salmon terminal biology |
+| Chinook | `oak_orchard_fall_chinook-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent spawning calendar below Waterport Dam |
+| Coho | `oak_orchard_fall_coho-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | separate coho calendar/distribution below Waterport |
+| Steelhead | `oak_orchard_fall_steelhead-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | all three | all three | living fall-entry fish retain all accepted corridor contexts |
+| Brown Trout | `oak_orchard_fall_brown_trout-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | repeat-spawner geography without salmon terminal biology |
 
 ## 9. Candidate species/run matrix
 
@@ -204,7 +204,7 @@ false; Atlantic Salmon has no runtime profile.
 | Shape/count capabilities                                               | Fishing Shape, counts, and a temperature norm remain unavailable; live Shelby temperature is labeled upstream |
 | Spot Finder alignment                                                  | six access records across three sections; unnamed PFR markers fully represented as one official-map network |
 | River-picker artwork                                                   | small corridor illustration mapped to `oak_orchard`; UI coverage gate passed |
-| Automated implementation gate                                         | 405 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
+| Automated implementation gate                                         | 406 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
 | Rendered owner acceptance                                              | withheld                                                                     |
 | Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
 
@@ -221,3 +221,4 @@ false; Atlantic Salmon has no runtime profile.
 | 2026-08-31 | Seasonal paid Archers Club parking could be recommended outside its gate | Omitted until Spot Finder can enforce date-limited access; bank access remains reachable from permanent permitted entries |
 | 2026-08-31 | River selector lacked intentional size artwork                         | Added the small corridor illustration and a permanent UI coverage assertion                                  |
 | 2026-08-31 | Spot Finder provided no early Point Breeze direction and generic late geography treated all life histories alike | Added a non-access Lake Ontario/Point Breeze harbor/mouth orientation plus separate Chinook, coho, Steelhead, and Brown Trout phase-reach plans; plans stop below Waterport Dam and preserve PFR access limits |
+| 2026-09-01 | V1 hid Point Breeze direction for pre-staging Steelhead and Brown Trout | V2 shows Point Breeze/Lake Ontario/harbor/mouth throughout Before Migration and Beginning for all four runs, without fabricating a verified access point |

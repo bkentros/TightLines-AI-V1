@@ -95,14 +95,14 @@ The 11th Street Bridge-to-Clarks lower section remains absent. Official Tacoma m
 
 ### Early approach and per-run phase plan
 
-| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Before Migration + Beginning decision |
 | --- | --- | --- | --- | --- |
-| Commencement Bay and the Puyallup mouth at the 11th Street Bridge boundary | receiving marine water to official mainstem mouth | P-01, P-02, foundation corridor | orientation only; marine rules/access are separate | accepted |
+| Commencement Bay and the Puyallup mouth at the 11th Street Bridge boundary | receiving marine water to official mainstem mouth | P-01, P-02, foundation corridor | broad direction only; marine rules/access are separate | accepted throughout Before Migration and Beginning |
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `puyallup_fall_chinook-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent Chinook calendar; no lower fishing-access record, so Beginning fails closed |
-| Coho | `puyallup_fall_coho-seasonal-zone-v1-2026-08-31` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent coho calendar; no lower fishing-access record, so Beginning fails closed |
+| Chinook | `puyallup_fall_chinook-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent Chinook calendar; no lower fishing-access record, so Beginning fails closed |
+| Coho | `puyallup_fall_coho-seasonal-zone-v2-2026-09-01` | lower | lower | lower + middle | all three | all three | middle + upper | middle + upper | independent coho calendar; no lower fishing-access record, so Beginning fails closed |
 
 ## 9. Candidate species matrix
 
@@ -173,5 +173,6 @@ Full named-block results are retained in `docs/audits/river-run-puyallup-chinook
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Puyallup corridor/endpoint copy and a cross-river leakage assertion |
 | 2026-08-31 | Green-only condition treatment found during review | Added lower-reach Fishing Shape and limited Ecology historical temperature; retained explicit no-live-sensor and no-turbidity claims |
 | 2026-08-31 | Generic stage-to-section progression could redirect an early run to the first available upstream access | Added sourced Commencement Bay/mouth orientation and independent Chinook/coho phase-reach plans; Beginning remains lower-river geography with no access recommendation until an audited middle reach overlaps |
+| 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
 
 Reopen for any emergency rule, Carbon/upstream sport-season change, Voights reporting change, USGS datum/sensor change, or authoritative Electron update that changes a claimed boundary.

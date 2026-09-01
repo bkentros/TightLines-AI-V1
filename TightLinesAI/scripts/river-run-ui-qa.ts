@@ -408,8 +408,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /EARLY-SEASON ORIENTATION[\s\S]*?seasonalZone\.earlyApproach\.label[\s\S]*?not a live fish-location or verified-access recommendation/,
-  "Spot Finder must show audited approach context as a non-access orientation box",
+  /EARLY-SEASON DIRECTION[\s\S]*?seasonalZone\.earlyApproach\.label[\s\S]*?broad area to consider before dependable in-river migration[\s\S]*?not a verified access point or live fish-location report/,
+  "Spot Finder must show audited approach context as broad non-access fishing direction",
 );
 assert.match(
   riverRunScreen,

@@ -770,8 +770,8 @@ export type SeasonalZonePhasePlan = {
 export type SeasonalZonePlan = {
   version: string;
   /**
-   * Nearby receiving-water, harbor, estuary, or mouth context shown only
-   * during staging and Beginning. It is orientation, never an access record.
+   * Nearby receiving-water, harbor, estuary, or mouth direction shown during
+   * Before Migration and Beginning. It is never an access record.
    */
   earlyApproach?: {
     label: string;

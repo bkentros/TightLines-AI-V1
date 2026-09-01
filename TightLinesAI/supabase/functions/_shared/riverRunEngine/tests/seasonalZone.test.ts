@@ -1,5 +1,6 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { RIVER_RUN_CONFIGURATION_DOCUMENTS } from "../config/catalog.ts";
+import { RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS } from "../config/onboarding/index.ts";
 import { resolveSeasonalZone } from "../presentation/seasonalZone.ts";
 import { resolveRunStage } from "../scoring/runStage.ts";
 
@@ -65,18 +66,55 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
         assert(reachIds.length > 0, `${run.runId}/${phase}`);
       }
 
-      const stagingDate = `2026-${run.runWindow.stagingStart}`;
-      const staging = resolveSeasonalZone({
-        river: document.river,
-        run,
-        stage: resolveRunStage(run, stagingDate),
-        localDate: stagingDate,
-      });
-      assertEquals(staging.status, "not_started");
-      assertEquals(staging.earlyApproach?.phase, "staging");
-      assertEquals(staging.earlyApproach?.accessRecommendation, false);
-      assertEquals(staging.foundationReachIds, []);
+      for (
+        const beforeMigrationDate of [
+          run.runWindow.preRunStart,
+          run.runWindow.stagingStart,
+        ]
+      ) {
+        const localDate = `2026-${beforeMigrationDate}`;
+        const beforeMigration = resolveSeasonalZone({
+          river: document.river,
+          run,
+          stage: resolveRunStage(run, localDate),
+          localDate,
+        });
+        assertEquals(beforeMigration.status, "not_started", run.runId);
+        assertEquals(
+          beforeMigration.earlyApproach?.phase,
+          "before_migration",
+          `${run.runId}/${localDate}`,
+        );
+        assertEquals(
+          beforeMigration.earlyApproach?.accessRecommendation,
+          false,
+        );
+        assertEquals(beforeMigration.foundationReachIds, []);
+      }
     }
+  }
+});
+
+Deno.test("Oak Orchard exposes Point Breeze direction before each run's staging window", () => {
+  const oak = RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.find((document) =>
+    document.river.riverId === "oak_orchard"
+  )!;
+  for (const run of oak.runs) {
+    const localDate = "2026-09-01";
+    const result = resolveSeasonalZone({
+      river: oak.river,
+      run,
+      stage: resolveRunStage(run, localDate),
+      localDate,
+    });
+    assertEquals(result.status, "not_started", run.runId);
+    assertEquals(result.earlyApproach?.phase, "before_migration", run.runId);
+    assertEquals(
+      result.earlyApproach?.label,
+      "Lake Ontario off Point Breeze, Oak Orchard harbor, and the creek mouth",
+      run.runId,
+    );
+    assertEquals(result.foundationReachIds, [], run.runId);
   }
 });
 

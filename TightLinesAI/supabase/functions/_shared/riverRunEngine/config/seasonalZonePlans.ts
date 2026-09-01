@@ -631,7 +631,7 @@ export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {
     throw new Error(`Missing audited Seasonal Zone plan for ${runId}`);
   }
   return {
-    version: `${runId}-seasonal-zone-v1-2026-08-31`,
+    version: `${runId}-seasonal-zone-v2-2026-09-01`,
     earlyApproach: {
       label: input.approach,
       sourceNotes: input.source,

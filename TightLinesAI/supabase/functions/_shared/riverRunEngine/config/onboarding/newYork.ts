@@ -1200,7 +1200,7 @@ function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   return {
     schemaVersion: "river-run-config-v1",
     configVersion:
-      `2026-08-31-${river.riverId}-new-york-owner-review.2+seasonal-zone-v1`,
+      `2026-08-31-${river.riverId}-new-york-owner-review.2+seasonal-zone-v2`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

@@ -99,14 +99,14 @@ The tidal Duwamish has no accepted fishing-oriented access listing in this pass.
 
 ### Early approach and per-run phase plan
 
-| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Decision |
+| Early approach label | Receiving-water relationship | Source/evidence IDs | Separate-rule limitation | Before Migration + Beginning decision |
 | --- | --- | --- | --- | --- |
-| Puget Sound, Duwamish estuary, and lower Green/Duwamish approach | receiving marine/estuary path to the configured lower river | G-01, G-06, foundation corridor | orientation only; marine/estuary rules and access are not imported | accepted |
+| Puget Sound, Duwamish estuary, and lower Green/Duwamish approach | receiving marine/estuary path to the configured lower river | G-01, G-06, foundation corridor | broad direction only; marine/estuary rules and access are not imported | accepted throughout Before Migration and Beginning |
 
 | Run | Plan version | Beginning | Building early | Building established | Building broad | Peak | Tapering | Ending | Evidence rationale |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chinook | `green_fall_chinook-seasonal-zone-v1-2026-08-31` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent Chinook calendar/corridor; no lower audited access overlap |
-| Coho | `green_fall_coho-seasonal-zone-v1-2026-08-31` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent later coho calendar/corridor; no lower audited access overlap |
+| Chinook | `green_fall_chinook-seasonal-zone-v2-2026-09-01` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent Chinook calendar/corridor; no lower audited access overlap |
+| Coho | `green_fall_coho-seasonal-zone-v2-2026-09-01` | lower Duwamish | lower Duwamish | lower + Auburn | all three | all three | Auburn + upper | Auburn + upper | independent later coho calendar/corridor; no lower audited access overlap |
 
 ## 9. Candidate species matrix
 
@@ -177,5 +177,6 @@ Full named-block results are retained in `docs/audits/river-run-green-chinook-we
 | 2026-08-30 | Initial Washington onboarding | Reopen any affected decision for a barrier, emergency-rule, station/datum, Soos-operation, or material return-pattern change |
 | 2026-08-30 | Full regression exposed generic Grand River fallback copy | Added explicit Green corridor/endpoint copy and a cross-river leakage assertion |
 | 2026-08-31 | Generic stage-to-section progression under-described early water and late species behavior | Added sourced Puget Sound/Duwamish early orientation plus independent Chinook/coho phase-reach plans; Beginning lower-river phases fail closed because no audited lower public fishing access overlaps |
+| 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
 
 Any new barrier status, emergency rule, station/datum change, Soos operation change, or material five-year return shift reopens the affected decision.
