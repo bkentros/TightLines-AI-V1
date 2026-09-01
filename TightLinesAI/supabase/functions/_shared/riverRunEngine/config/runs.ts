@@ -20,6 +20,7 @@ import {
   MILWAUKEE_FALL_COHO_RUN_PROFILE,
   MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/milwaukee.ts";
+import { NEW_YORK_RUNS } from "./onboarding/newYork.ts";
 import {
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
@@ -2408,4 +2409,5 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BOIS_BRULE_FALL_COHO_RUN_PROFILE,
   BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
   BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
+  ...NEW_YORK_RUNS,
 ].map(withSeasonalZonePlan);

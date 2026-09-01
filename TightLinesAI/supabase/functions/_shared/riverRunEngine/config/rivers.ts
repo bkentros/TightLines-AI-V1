@@ -2,6 +2,11 @@ import type { RiverProfile } from "../types.ts";
 import { BOIS_BRULE_RIVER_PROFILE } from "./onboarding/boisBrule.ts";
 import { GRAND_RIVER_PROFILE } from "./onboarding/grand.ts";
 import { MILWAUKEE_RIVER_PROFILE } from "./onboarding/milwaukee.ts";
+import {
+  LOWER_GENESEE_RIVER_PROFILE,
+  OAK_ORCHARD_RIVER_PROFILE,
+  SALMON_NY_RIVER_PROFILE,
+} from "./onboarding/newYork.ts";
 import { PLATTE_RIVER_PROFILE } from "./onboarding/platte.ts";
 import { ROOT_RIVER_PROFILE } from "./onboarding/root.ts";
 import { SHEBOYGAN_RIVER_PROFILE } from "./onboarding/sheboygan.ts";
@@ -1213,4 +1218,7 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   SHEBOYGAN_RIVER_PROFILE,
   ROOT_RIVER_PROFILE,
   BOIS_BRULE_RIVER_PROFILE,
+  SALMON_NY_RIVER_PROFILE,
+  OAK_ORCHARD_RIVER_PROFILE,
+  LOWER_GENESEE_RIVER_PROFILE,
 ];

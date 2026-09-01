@@ -1,6 +1,6 @@
 {
   "runId": "lower_genesee_fall_brown_trout",
-  "rulesVersion": "lower_genesee_fall_brown_trout-weather-activity-v3-stage-shape-owner-review",
+  "rulesVersion": "lower_genesee_fall_brown_trout-weather-activity-v3-stage-shape-release",
   "replayYears": "2007-2025",
   "method": "Historical mechanical Lower Genesee River brown-trout weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at lower_genesee_rochester_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
   "expectedDays": 1957,

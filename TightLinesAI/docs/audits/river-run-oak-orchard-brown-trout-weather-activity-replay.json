@@ -1,6 +1,6 @@
 {
   "runId": "oak_orchard_fall_brown_trout",
-  "rulesVersion": "oak_orchard_fall_brown_trout-weather-activity-v3-stage-shape-owner-review",
+  "rulesVersion": "oak_orchard_fall_brown_trout-weather-activity-v3-stage-shape-release",
   "replayYears": "2007-2025",
   "method": "Historical mechanical Oak Orchard Creek brown-trout weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at oak_orchard_waterport_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
   "expectedDays": 2052,

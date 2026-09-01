@@ -3,12 +3,12 @@ import {
   PUBLIC_RIVER_RUN_PRIMITIVES,
 } from "./lib/river-run-onboarding.ts";
 import {
+  resolveRunStage,
+  resolveSeasonalZone,
   RIVER_RUN_DRAFT_RIVER_PROFILES,
   RIVER_RUN_DRAFT_RUN_PROFILES,
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
-  resolveRunStage,
-  resolveSeasonalZone,
   validateRiverProfile,
   validateRunProfile,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
@@ -30,6 +30,9 @@ const expectedRivers = new Set([
   "sheboygan",
   "root",
   "bois_brule",
+  "salmon_ny",
+  "oak_orchard",
+  "lower_genesee",
 ]);
 const fourSpeciesRivers = new Set([
   "big_manistee",
@@ -37,6 +40,8 @@ const fourSpeciesRivers = new Set([
   "sheboygan",
   "root",
   "bois_brule",
+  "salmon_ny",
+  "oak_orchard",
 ]);
 const expectedRunIds = new Set([
   "pere_marquette_fall_chinook",
@@ -80,6 +85,17 @@ const expectedRunIds = new Set([
   "bois_brule_fall_coho",
   "bois_brule_fall_steelhead",
   "bois_brule_fall_brown_trout",
+  "salmon_ny_fall_chinook",
+  "salmon_ny_fall_coho",
+  "salmon_ny_fall_steelhead",
+  "salmon_ny_fall_brown_trout",
+  "oak_orchard_fall_chinook",
+  "oak_orchard_fall_coho",
+  "oak_orchard_fall_steelhead",
+  "oak_orchard_fall_brown_trout",
+  "lower_genesee_fall_chinook",
+  "lower_genesee_fall_steelhead",
+  "lower_genesee_fall_brown_trout",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -92,12 +108,12 @@ assert(
   "Existing portfolio must have no noisy onboarding warnings.",
 );
 assert(
-  report.riverCount === 12,
-  `Expected 12 rivers, received ${report.riverCount}.`,
+  report.riverCount === 15,
+  `Expected 15 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 41,
-  `Expected 41 runs, received ${report.runCount}.`,
+  report.runCount === 52,
+  `Expected 52 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(

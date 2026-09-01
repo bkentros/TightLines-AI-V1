@@ -6,15 +6,15 @@
 
 **Research date:** 2026-08-31
 
-**Status:** `owner_review_ready`
+**Status:** `released`
 
 **Guide:** `docs/river_run_onboarding.md`
 
 ## 1. Decisions and evidence ledger
 
-- Foundation accepted for hidden configuration v2 from Lake Ontario to natural
+- Foundation accepted for public release configuration v3 from Lake Ontario to natural
   Lower Falls.
-- Hidden profiles: fall Chinook, fall-entry Steelhead, and fall lake-run Brown
+- Released profiles: fall Chinook, fall-entry Steelhead, and fall lake-run Brown
   Trout.
 - Coho was fully researched but excluded from configuration: historical
   occurrence/stocking is documented, while the current 2022-26 strategy
@@ -26,7 +26,10 @@
 - Atlantic Salmon was searched independently. Current management identifies
   Salmon River and select tributaries, not a dependable Lower Genesee run; this
   remains `research_unresolved` and unconfigured.
-- Public promotion/deployment and rendered owner acceptance: withheld.
+- Owner accepted all configured New York runs and explicitly authorized public
+  promotion, deployment, and store builds on 2026-09-01. NYSDEC's 2026 guide,
+  current Great Lakes tributary regulations, and Fish and Wildlife emergency-
+  regulation page were rechecked the same day with no conflict found.
 
 Contradiction search completed by/date: Codex / 2026-08-31
 
@@ -47,6 +50,7 @@ Independent falsification review by/date: separate primary-source and code-contr
 | G-11 | NYSDEC Atlantic Salmon Fisheries Management Plan 2023-2026          | https://extapps.dec.ny.gov/docs/fish_marine_pdf/loatlanticsalmonplan.pdf                                                             | 2023-26                         | Select-tributary strategy and low overall abundance; consistent tributary fisheries named elsewhere do not establish Lower Genesee recurrence                    | Negative/contradiction search, not proof of absence                                                  |
 | G-12 | NYSDEC Monroe County boat launches                                  | https://dec.ny.gov/things-to-do/boating/launch-sites/monroe-county                                                                   | current; checked 2026-08-31     | Port of Rochester Marina municipal hard-surface launch and coordinates                                                                                             | Boat access only; no bank/wading or navigability promise                                             |
 | G-13 | Monroe County Ontario Beach Park                                    | https://www.monroecounty.gov/parks-ontariobeach                                                                                      | current; checked 2026-08-31     | Fishing is an allowed activity at the park/pier; current park hours                                                                                                 | Posted pier, weather, construction, and closure conditions control access                            |
+| G-14 | NYSDEC 2026 regulations and Fish/Wildlife regulatory revisions      | https://dec.ny.gov/sites/default/files/2026-03/fishguide26.pdf ; https://dec.ny.gov/regulatory/regulations/proposed-emergency-recently-adopted-regulations/fish-wildlife-revisions | current; checked 2026-09-01 | Route 104-to-Lower Falls seasonal reach, hours/tackle rules; no active Fish and Wildlife emergency regulation listed | Same-day release check; users must still verify current rules and posted boundaries |
 
 ## 2. Identity and corridor
 
@@ -103,7 +107,7 @@ Accepted for the currently sourced Ontario Beach Park/Charlotte Pier and Port
 of Rochester public launch (`lower`) plus Seth Green–Lower Falls Public Fishing
 Area (`upper`, spanning the gorge and terminal reach). General trails,
 overlooks, and hand launches are omitted without direct fishing proof. The east
-harbor construction area and Summerville Pier remain withheld pending a current
+harbor construction area and Summerville Pier remain excluded pending a current
 unambiguous open-access source.
 
 ### Early approach and per-run phase plan
@@ -133,9 +137,9 @@ unambiguous open-access source.
 
 | Run ID                           | Window (pre-run → tail) | Presence                                | Activity version                                                              |
 | -------------------------------- | ----------------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
-| `lower_genesee_fall_chinook`     | Aug 15 → Nov 22         | 7/10 concentrated; independent curve    | `lower_genesee_fall_chinook-weather-activity-v1-owner-review`                 |
-| `lower_genesee_fall_steelhead`   | Sep 20 → Dec 31         | 7/10 concentrated fall entry            | `lower_genesee_fall_steelhead-weather-activity-v4-stage-shape-owner-review`   |
-| `lower_genesee_fall_brown_trout` | Sep 5 → Dec 31          | 2/10 concentrated; repeat-spawner curve | `lower_genesee_fall_brown_trout-weather-activity-v3-stage-shape-owner-review` |
+| `lower_genesee_fall_chinook`     | Aug 15 → Nov 22         | 7/10 concentrated; independent curve    | `lower_genesee_fall_chinook-weather-activity-v1-release`                 |
+| `lower_genesee_fall_steelhead`   | Sep 20 → Dec 31         | 7/10 concentrated fall entry            | `lower_genesee_fall_steelhead-weather-activity-v4-stage-shape-release`   |
+| `lower_genesee_fall_brown_trout` | Sep 5 → Dec 31          | 2/10 concentrated; repeat-spawner curve | `lower_genesee_fall_brown_trout-weather-activity-v3-stage-shape-release` |
 
 All three expose Stage, Activity, and Seasonal Presence in hidden review.
 Fishing Shape, Push, and Migration Timing are unavailable. Steelhead and Brown
@@ -186,7 +190,8 @@ each contains stage-by-block distributions and all invariant records.
 species truth, source rejection, every calendar boundary, strength,
 distribution, Presence, Activity, and hidden audit state. Spot Finder consumes
 the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
-`targetSpecies` and code by design. Public audit gates are false.
+`targetSpecies` and code by design. Public audit gates are enabled for all three
+released runs.
 
 ## 12. Acceptance and release record
 
@@ -201,8 +206,8 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | Seasonal Zone/Spot Finder                                              | three source-backed accesses across lower and upper sections; all active days checked |
 | River-picker artwork                                                   | large lower-corridor illustration mapped to `lower_genesee`; UI coverage gate passed |
 | Automated implementation gate                                         | 406 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
-| Rendered owner acceptance                                              | withheld                                                                     |
-| Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
+| Rendered owner acceptance                                              | accepted 2026-09-01                                                          |
+| Public registry, migrations, deployment, production smoke, commit/push | promoted; migrations matched through `20260831120000`; function v36 ACTIVE; all 11 NY public snapshots passed; final commit/push follows |
 
 ## 13. Correction and learning ledger
 
@@ -217,3 +222,4 @@ the exact gorge/falls reach IDs. Coho and Atlantic Salmon are absent from
 | 2026-08-31 | Spot Finder needed pre-entry direction without turning harbor context into a fabricated spot | Added a non-access Lake Ontario/Charlotte/Port of Rochester orientation plus independent Chinook, Steelhead, and Brown Trout phase-reach plans; all plans remain below natural Lower Falls and unsupported coho stays absent |
 | 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
 | 2026-09-01 | Building could retain Charlotte/Port/harbor geography | V3 universally removes every Beginning reach from all Building phases and shifts Lower Genesee recommendations into gorge/falls river water |
+| 2026-09-01 | Owner accepted New York and authorized public/store release | Rechecked current 2026 NYSDEC regulations, promoted exact public registries and runtime allowlist, deployed function v36, and verified all 11 NY snapshots while Washington remained hidden |

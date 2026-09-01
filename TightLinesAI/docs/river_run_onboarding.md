@@ -1,7 +1,7 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.6\
+**Version:** 3.7\
 **Established:** 2026-08-30\
 **Revised:** 2026-09-01\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
@@ -135,6 +135,10 @@ fishing access.
 
 Research acceptance, rendered product acceptance, deployment authorization, and
 public enablement are separate decisions. Do not infer one from another.
+Record the owner's exact approval language, date, river IDs, run IDs, and
+authorized actions. Approval of a named river set plus an explicit request to
+make that set live is sufficient only for that set; it never releases other
+owner-review rivers sharing the same registry or deployment.
 
 ## 3. Rapid workflow
 
@@ -880,19 +884,36 @@ A river is accepted only when:
 
 After separate deployment/public authorization:
 
-1. Enable accepted `publicAudit`, promote public registries, remove draft
-   entries, and update exact catalog counts/IDs.
-2. Confirm whether production uses static or database configuration. Do not
+1. Recheck current regulations and emergency/in-season actions on the release
+   date. Record the exact official pages checked and retain every current reach,
+   hours, tackle, closure, access, and safety limitation.
+2. Enable accepted `publicAudit`, replace owner-review version/audit identifiers
+   with release identifiers, promote public registries, remove only the
+   authorized rivers from draft registries, and update exact catalog counts/IDs.
+3. Confirm whether production uses static or database configuration. Do not
    create a migration for a static-catalog-only release. Reconcile local and
    linked migrations when schema/data/cron changed.
-3. Bump cache-relevant engine/config/copy/data versions.
-4. Run the complete release gate, deploy the River Run function, verify its
+4. Bump cache-relevant engine/config/copy/data versions and regenerate every
+   derived review fixture affected by the public/draft registry move.
+5. Run the complete release gate, deploy the River Run function, verify its
    version/update time, smoke the full production catalog and protected refresh,
-   and distinguish provider outages from code health.
-5. Commit atomically, fetch, push the owner-specified branch, and prove local
+   and distinguish provider outages from code health. The smoke must prove the
+   newly authorized river/run IDs appear publicly and unrelated owner-review
+   rivers remain hidden.
+6. Mark dossiers `released` only after promotion, deployment, and production
+   smoke pass; acceptance alone remains `owner_accepted_not_released`.
+7. Commit atomically, fetch, push the owner-specified branch, and prove local
    HEAD equals remote, ahead/behind is `0 0`, and the worktree is clean.
-6. Record what is server-live versus what requires a new mobile build, plus all
+8. Record what is server-live versus what requires a new mobile build, plus all
    limitations and re-audit triggers.
+
+When a mobile store build is authorized, inspect the latest completed store
+builds first, increment both platform build identifiers, and bump the public app
+version when the release train requires it. Never reuse an App Store build
+number or Android version code. Build only from the committed, pushed, clean
+release commit. For an Android store handoff require an `.aab`; for iOS return
+the exact build-specific submission command so an older archive cannot be
+submitted accidentally.
 
 ## 14. Single-dossier record
 

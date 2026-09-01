@@ -560,10 +560,10 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 13);
-  assertEquals(runIds.length, 44);
-  assertEquals(new Set(riverIds).size, 12);
-  assertEquals(new Set(runIds).size, 41);
+  assertEquals(riverIds.length, 16);
+  assertEquals(runIds.length, 55);
+  assertEquals(new Set(riverIds).size, 15);
+  assertEquals(new Set(runIds).size, 52);
   for (
     const riverId of [
       "grand",
@@ -573,6 +573,9 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "sheboygan",
       "root",
       "bois_brule",
+      "salmon_ny",
+      "oak_orchard",
+      "lower_genesee",
     ]
   ) {
     assertEquals(riverIds.includes(riverId), true);
@@ -605,6 +608,17 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "bois_brule_fall_coho",
       "bois_brule_fall_steelhead",
       "bois_brule_fall_brown_trout",
+      "salmon_ny_fall_chinook",
+      "salmon_ny_fall_coho",
+      "salmon_ny_fall_steelhead",
+      "salmon_ny_fall_brown_trout",
+      "oak_orchard_fall_chinook",
+      "oak_orchard_fall_coho",
+      "oak_orchard_fall_steelhead",
+      "oak_orchard_fall_brown_trout",
+      "lower_genesee_fall_chinook",
+      "lower_genesee_fall_steelhead",
+      "lower_genesee_fall_brown_trout",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);
@@ -735,7 +749,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog is admin-only and includes Wisconsin, Washington, and hidden New York", async () => {
+Deno.test("owner-review catalog is admin-only and includes public New York plus hidden Washington", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers"),
     { createAdminClient: () => new MockClient() },

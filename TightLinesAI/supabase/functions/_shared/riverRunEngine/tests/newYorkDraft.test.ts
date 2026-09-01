@@ -4,9 +4,9 @@ import {
   riverRunSpotFinderForRiver,
 } from "../../../../../lib/riverRunSpotFinder.ts";
 import {
-  NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS,
-  NEW_YORK_DRAFT_RIVERS,
-  NEW_YORK_DRAFT_RUNS,
+  NEW_YORK_CONFIGURATION_DOCUMENTS,
+  NEW_YORK_RIVERS,
+  NEW_YORK_RUNS,
   resolveRunStage,
   resolveSeasonalZone,
   RIVER_RUN_RUN_PROFILES,
@@ -29,11 +29,11 @@ const expectedRuns = [
   ["lower_genesee_fall_brown_trout", "lake_run_brown_trout", 2, "concentrated"],
 ] as const;
 
-Deno.test("New York owner-review documents validate and remain hidden", () => {
-  assertEquals(NEW_YORK_DRAFT_RIVERS.length, 3);
-  assertEquals(NEW_YORK_DRAFT_RUNS.length, 11);
+Deno.test("New York release documents validate and are public", () => {
+  assertEquals(NEW_YORK_RIVERS.length, 3);
+  assertEquals(NEW_YORK_RUNS.length, 11);
   assertEquals(
-    NEW_YORK_DRAFT_RUNS.map((run) => [
+    NEW_YORK_RUNS.map((run) => [
       run.runId,
       run.species,
       run.historicalPresence.maximum,
@@ -42,7 +42,7 @@ Deno.test("New York owner-review documents validate and remain hidden", () => {
     expectedRuns.map((row) => [...row]),
   );
 
-  for (const document of NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS) {
+  for (const document of NEW_YORK_CONFIGURATION_DOCUMENTS) {
     const riverResult = validateRiverProfile(document.river);
     assertEquals(
       riverResult.valid,
@@ -58,8 +58,8 @@ Deno.test("New York owner-review documents validate and remain hidden", () => {
           result.issues.map((issue) => issue.message).join("\n")
         }`,
       );
-      assertEquals(result.publicVisible, false, run.runId);
-      assertEquals(run.publicAudit.isEnabled, false, run.runId);
+      assertEquals(result.publicVisible, true, run.runId);
+      assertEquals(run.publicAudit.isEnabled, true, run.runId);
       assertEquals(
         run.primitiveCapabilities.fishability.status,
         "unavailable",
@@ -78,17 +78,17 @@ Deno.test("New York owner-review documents validate and remain hidden", () => {
         RIVER_RUN_RUN_PROFILES.some((publicRun) =>
           publicRun.runId === run.runId
         ),
-        false,
-        `${run.runId} leaked into the public run registry`,
+        true,
+        `${run.runId} is missing from the public run registry`,
       );
     }
     const issues = validateConfigurationRevision({
       configKey: document.river.riverId,
-      revision: 2,
-      status: "draft",
+      revision: 3,
+      status: "published",
       document,
       evidenceNotes:
-        "New York configuration remains hidden pending rendered owner acceptance and separate release authorization.",
+        "New York configuration was owner accepted and explicitly authorized for public release on 2026-09-01.",
     });
     assert(
       issues.every((issue) => issue.severity !== "error"),
@@ -98,7 +98,7 @@ Deno.test("New York owner-review documents validate and remain hidden", () => {
 });
 
 Deno.test("New York weather-only runs fail closed around missing river temperature", () => {
-  for (const run of NEW_YORK_DRAFT_RUNS) {
+  for (const run of NEW_YORK_RUNS) {
     assertEquals(run.activity?.dataMode, "weather_only", run.runId);
     assertEquals(run.activity?.weights.waterTemperature, 0, run.runId);
     assertEquals(run.activity?.weights.riverBehavior, 0, run.runId);
@@ -118,7 +118,7 @@ Deno.test("New York weather-only runs fail closed around missing river temperatu
     }
   }
 
-  const salmon = NEW_YORK_DRAFT_RIVERS.find((river) =>
+  const salmon = NEW_YORK_RIVERS.find((river) =>
     river.riverId === "salmon_ny"
   )!;
   assertEquals(salmon.hydraulicSources.map((source) => source.siteId), [
@@ -129,9 +129,7 @@ Deno.test("New York weather-only runs fail closed around missing river temperatu
     salmon.conditionDataCapabilities.waterTemperature.status,
     "unavailable",
   );
-  const oak = NEW_YORK_DRAFT_RIVERS.find((river) =>
-    river.riverId === "oak_orchard"
-  )!;
+  const oak = NEW_YORK_RIVERS.find((river) => river.riverId === "oak_orchard")!;
   assertEquals(oak.hydraulicSources.map((source) => source.siteId), [
     "04220045",
   ]);
@@ -145,7 +143,7 @@ Deno.test("New York weather-only runs fail closed around missing river temperatu
     "available",
   );
 
-  const genesee = NEW_YORK_DRAFT_RIVERS.find((river) =>
+  const genesee = NEW_YORK_RIVERS.find((river) =>
     river.riverId === "lower_genesee"
   )!;
   assertEquals(genesee.hydraulicSources.map((source) => source.siteId), [
@@ -164,7 +162,7 @@ Deno.test("New York weather-only runs fail closed around missing river temperatu
 });
 
 Deno.test("New York Seasonal Zone replays every active day inside ordered barrier-limited corridors", () => {
-  for (const document of NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS) {
+  for (const document of NEW_YORK_CONFIGURATION_DOCUMENTS) {
     const orderedReachIds = [...(document.river.foundation?.reaches ?? [])]
       .sort((a, b) => a.order - b.order)
       .map((reach) => reach.reachId);

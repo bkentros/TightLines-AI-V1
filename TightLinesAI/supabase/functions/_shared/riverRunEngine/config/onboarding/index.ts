@@ -9,11 +9,6 @@ import {
   WASHINGTON_DRAFT_RUNS,
 } from "./washington.ts";
 import {
-  NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS,
-  NEW_YORK_DRAFT_RIVERS,
-  NEW_YORK_DRAFT_RUNS,
-} from "./newYork.ts";
-import {
   withSeasonalZonePlan,
   withSeasonalZonePlans,
 } from "../seasonalZonePlans.ts";
@@ -21,18 +16,15 @@ import {
 /** No owner-approved candidate remains in the unreleased registry. */
 export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [
   ...WASHINGTON_DRAFT_RIVERS,
-  ...NEW_YORK_DRAFT_RIVERS,
 ];
 
 export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [
   ...WASHINGTON_DRAFT_RUNS,
-  ...NEW_YORK_DRAFT_RUNS,
 ].map(withSeasonalZonePlan);
 
 export const RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS:
   RiverRunConfigurationDocument[] = [
     ...WASHINGTON_DRAFT_CONFIGURATION_DOCUMENTS,
-    ...NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS,
   ].map((document) => ({
     ...document,
     runs: withSeasonalZonePlans(document.runs),

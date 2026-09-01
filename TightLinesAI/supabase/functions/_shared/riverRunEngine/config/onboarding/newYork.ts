@@ -63,7 +63,7 @@ export const SALMON_NY_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "salmon-ny-foundation-v1-owner-review",
+    version: "salmon-ny-foundation-v1-release",
     corridorLengthMiles: 17,
     downstreamTerminus: "Lake Ontario mouth at Port Ontario",
     upstreamTerminus: "Lighthouse Hill Reservoir tailrace above Altmar",
@@ -216,7 +216,7 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "oak-orchard-foundation-v1-owner-review",
+    version: "oak-orchard-foundation-v1-release",
     corridorLengthMiles: 5.9,
     downstreamTerminus: "Lake Ontario mouth at Point Breeze",
     upstreamTerminus: "Waterport Dam tailrace",
@@ -368,7 +368,7 @@ export const LOWER_GENESEE_RIVER_PROFILE: RiverProfile = {
     role: "primary",
   }],
   foundation: {
-    version: "lower-genesee-foundation-v1-owner-review",
+    version: "lower-genesee-foundation-v1-release",
     corridorLengthMiles: 6.5,
     downstreamTerminus: "Lake Ontario mouth at Charlotte",
     upstreamTerminus: "natural Lower Falls above Driving Park Avenue",
@@ -494,11 +494,11 @@ const capabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   },
 };
 
-const hiddenAudit = {
-  isEnabled: false,
-  auditVersion: "new-york-owner-review-v1",
+const releasedAudit = {
+  isEnabled: true,
+  auditVersion: "new-york-release-audit-v1",
   notes:
-    "Hidden owner-review configuration only. Public enablement and deployment require rendered acceptance, current regulation recheck, and explicit owner authorization.",
+    "Owner accepted and explicitly authorized the New York public release on 2026-09-01. Current NYSDEC 2026 Great Lakes tributary and Salmon River regulations were rechecked immediately before promotion; NYSDEC listed no active Fish and Wildlife emergency regulations.",
 };
 
 function presence(
@@ -542,7 +542,7 @@ function weatherActivity(
   const activity = buildWeatherOnlyActivity({
     version: `${input.runId}-weather-activity-${
       steelhead ? "v4-stage-shape" : brownTrout ? "v3-stage-shape" : "v1"
-    }-owner-review`,
+    }-release`,
     profile: input.profile,
     reachIds: input.reachIds,
     weatherPointId: input.weatherPointId,
@@ -567,7 +567,7 @@ function weatherActivity(
       }
       : {}),
     evidenceNotes:
-      "River/run-specific owner-review calibration. Only hourly light and same-block precipitation are inputs; excluded gauges, air temperature, counts, Stage, and Presence provide no environmental credit. The repeat-spawning Brown Trout profile uses a five-point Peak response plus modest one- and two-point post-peak stage reductions so the historical weather-only replay preserves the evidence-supported November crest without adding a salmon mortality curve or assuming post-spawn death.",
+      "River/run-specific release calibration. Only hourly light and same-block precipitation are inputs; excluded gauges, air temperature, counts, Stage, and Presence provide no environmental credit. The repeat-spawning Brown Trout profile uses a five-point Peak response plus modest one- and two-point post-peak stage reductions so the historical weather-only replay preserves the evidence-supported November crest without adding a salmon mortality curve or assuming post-spawn death.",
   });
   if (input.profile === "coho_fall_reaction") {
     activity.caps.ending = 49;
@@ -658,7 +658,7 @@ function baseRun(input: {
       ? "This profile covers the independently evidenced fall lake-run Brown Trout spawning migration. Brown Trout are repeat spawners; the terminal state does not claim mortality, universal departure, or winter absence."
       : "Fall spawning run researched independently for this river; dates, strength, and endpoint are not inherited from another river or species.",
     sourceNotes: input.dossier,
-    publicAudit: hiddenAudit,
+    publicAudit: releasedAudit,
   };
 }
 
@@ -705,7 +705,7 @@ export const SALMON_NY_FALL_CHINOOK_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     10,
     "broad",
-    "salmon-ny-chinook-presence-v1-owner-review",
+    "salmon-ny-chinook-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 12, fractionOfMaximum: .25 },
@@ -750,7 +750,7 @@ export const SALMON_NY_FALL_COHO_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     8,
     "sectional",
-    "salmon-ny-coho-presence-v1-owner-review",
+    "salmon-ny-coho-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 11, fractionOfMaximum: .25 },
@@ -795,7 +795,7 @@ export const SALMON_NY_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     9,
     "broad",
-    "salmon-ny-fall-steelhead-presence-v1-owner-review",
+    "salmon-ny-fall-steelhead-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 12, fractionOfMaximum: .25 },
@@ -840,7 +840,7 @@ export const SALMON_NY_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     5,
     "sectional",
-    "salmon-ny-brown-trout-presence-v1-owner-review",
+    "salmon-ny-brown-trout-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 16, fractionOfMaximum: .25 },
@@ -885,7 +885,7 @@ export const OAK_ORCHARD_FALL_CHINOOK_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     8,
     "sectional",
-    "oak-orchard-chinook-presence-v1-owner-review",
+    "oak-orchard-chinook-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 16, fractionOfMaximum: .25 },
@@ -930,7 +930,7 @@ export const OAK_ORCHARD_FALL_COHO_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     6,
     "sectional",
-    "oak-orchard-coho-presence-v1-owner-review",
+    "oak-orchard-coho-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 16, fractionOfMaximum: .22 },
@@ -975,7 +975,7 @@ export const OAK_ORCHARD_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     8,
     "sectional",
-    "oak-orchard-fall-steelhead-presence-v1-owner-review",
+    "oak-orchard-fall-steelhead-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 17, fractionOfMaximum: .3 },
@@ -1020,7 +1020,7 @@ export const OAK_ORCHARD_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     6,
     "sectional",
-    "oak-orchard-brown-trout-presence-v1-owner-review",
+    "oak-orchard-brown-trout-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 15, fractionOfMaximum: .25 },
@@ -1065,7 +1065,7 @@ export const LOWER_GENESEE_FALL_CHINOOK_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     7,
     "concentrated",
-    "lower-genesee-chinook-presence-v1-owner-review",
+    "lower-genesee-chinook-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 16, fractionOfMaximum: .25 },
@@ -1110,7 +1110,7 @@ export const LOWER_GENESEE_FALL_STEELHEAD_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     7,
     "concentrated",
-    "lower-genesee-fall-steelhead-presence-v1-owner-review",
+    "lower-genesee-fall-steelhead-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 17, fractionOfMaximum: .3 },
@@ -1155,7 +1155,7 @@ export const LOWER_GENESEE_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
   historicalPresence: presence(
     2,
     "concentrated",
-    "lower-genesee-brown-trout-presence-v1-owner-review",
+    "lower-genesee-brown-trout-presence-v1-release",
     [
       { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
       { dayOffsetFromStart: 16, fractionOfMaximum: .22 },
@@ -1173,12 +1173,12 @@ export const LOWER_GENESEE_FALL_BROWN_TROUT_RUN_PROFILE = baseRun({
   dossier: "docs/onboarding/river-run/lower_genesee/river-onboarding.md",
 });
 
-export const NEW_YORK_DRAFT_RIVERS = [
+export const NEW_YORK_RIVERS = [
   SALMON_NY_RIVER_PROFILE,
   OAK_ORCHARD_RIVER_PROFILE,
   LOWER_GENESEE_RIVER_PROFILE,
 ];
-export const NEW_YORK_DRAFT_RUNS = [
+export const NEW_YORK_RUNS = [
   SALMON_NY_FALL_CHINOOK_RUN_PROFILE,
   SALMON_NY_FALL_COHO_RUN_PROFILE,
   SALMON_NY_FALL_STEELHEAD_RUN_PROFILE,
@@ -1193,14 +1193,12 @@ export const NEW_YORK_DRAFT_RUNS = [
 ].map(withSeasonalZonePlan);
 
 function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
-  const runs = NEW_YORK_DRAFT_RUNS.filter((run) =>
-    run.riverId === river.riverId
-  );
+  const runs = NEW_YORK_RUNS.filter((run) => run.riverId === river.riverId);
   const biologyIds = new Set(runs.map((run) => run.biologyProfileId));
   return {
     schemaVersion: "river-run-config-v1",
     configVersion:
-      `2026-08-31-${river.riverId}-new-york-owner-review.2+seasonal-zone-v3`,
+      `2026-09-01-${river.riverId}-new-york-release.3+seasonal-zone-v3`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -1226,7 +1224,7 @@ export const OAK_ORCHARD_CONFIGURATION_DOCUMENT = documentFor(
 export const LOWER_GENESEE_CONFIGURATION_DOCUMENT = documentFor(
   LOWER_GENESEE_RIVER_PROFILE,
 );
-export const NEW_YORK_DRAFT_CONFIGURATION_DOCUMENTS = [
+export const NEW_YORK_CONFIGURATION_DOCUMENTS = [
   SALMON_NY_CONFIGURATION_DOCUMENT,
   OAK_ORCHARD_CONFIGURATION_DOCUMENT,
   LOWER_GENESEE_CONFIGURATION_DOCUMENT,

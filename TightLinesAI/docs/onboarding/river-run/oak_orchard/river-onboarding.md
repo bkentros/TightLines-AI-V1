@@ -6,22 +6,25 @@
 
 **Research date:** 2026-08-31
 
-**Status:** `owner_review_ready`
+**Status:** `released`
 
 **Guide:** `docs/river_run_onboarding.md`
 
 ## 1. Decisions and evidence ledger
 
-- Foundation accepted for hidden configuration v2 from Point Breeze to Waterport
+- Foundation accepted for public release configuration v3 from Point Breeze to Waterport
   Dam.
-- Hidden profiles: fall Chinook, fall coho, fall-entry Steelhead, and fall
+- Released profiles: fall Chinook, fall coho, fall-entry Steelhead, and fall
   lake-run Brown Trout.
 - Spring-entry/spawn Steelhead remains a distinct engine-gated future candidate;
   it is not merged with fall entry.
 - Atlantic Salmon is independently documented as a small recurring fall/winter
   candidate but remains engine-gated; it is not merged with Pacific salmon or
   Brown Trout.
-- Public promotion/deployment and rendered owner acceptance: withheld.
+- Owner accepted all configured New York runs and explicitly authorized public
+  promotion, deployment, and store builds on 2026-09-01. NYSDEC's 2026 guide,
+  current Great Lakes tributary regulations, and Fish and Wildlife emergency-
+  regulation page were rechecked the same day with no conflict found.
 
 Contradiction search completed by/date: Codex / 2026-08-31
 
@@ -42,6 +45,7 @@ Independent falsification review by/date: separate primary-source and code-contr
 | O-11 | NYSDEC Atlantic Salmon Fisheries Management Plan 2023-2026          | https://extapps.dec.ny.gov/docs/fish_marine_pdf/loatlanticsalmonplan.pdf                                                             | 2023-26                         | Oak is one of the few tributaries with a consistent Atlantic fishery; returns remain small                       | Current engine lacks an Atlantic run contract and precise full-calendar implementation |
 | O-12 | Orleans County Oak Orchard River Stream Fishing Access              | https://www.orleanscountytourism.com/destinations/oak-orchard-river-stream-fishing-access                                             | current; checked 2026-08-31     | Park Avenue Extension locator; 15.8-acre fishing/boating access area; designated-trail entry                                    | County/operator record; posted rules and designated entry control access                |
 | O-13 | Orleans County Marine Park and Oak Orchard State Marine Park         | https://www.orleanscountytourism.com/destinations/orleans-county-marine-park-1                                                        | current; checked 2026-08-31     | Distinct east/west lower-river facilities, fishing dock, ramps, addresses, seasonal operator details                           | Facility status/hours/fees can change; recheck before travel                            |
+| O-14 | NYSDEC 2026 regulations and Fish/Wildlife regulatory revisions      | https://dec.ny.gov/sites/default/files/2026-03/fishguide26.pdf ; https://dec.ny.gov/regulatory/regulations/proposed-emergency-recently-adopted-regulations/fish-wildlife-revisions | current; checked 2026-09-01 | Oak Orchard power-lines-to-Waterport seasonal reach, hours/tackle rules; no active Fish and Wildlife emergency regulation listed | Same-day release check; users must still verify current rules and posted boundaries |
 
 ## 2. Identity and corridor
 
@@ -63,7 +67,7 @@ below Waterport Dam. Region is `great_lakes`; timezone `America/New_York`.
 | Barrier/control                      | Passage finding                                                                    | Species decision                  | Product treatment                        |
 | ------------------------------------ | ---------------------------------------------------------------------------------- | --------------------------------- | ---------------------------------------- |
 | Waterport Dam/Lake Alice             | First impassable terminal structure for this Lake Ontario fishery; reservoir above | All configured runs end below dam | Exact upstream limit                     |
-| Waterport overflow/tailrace channels | Fish can enter overflow during high water and strand as levels fall                | Does not establish passage        | Fishing Shape withheld; caution retained |
+| Waterport overflow/tailrace channels | Fish can enter overflow during high water and strand as levels fall                | Does not establish passage        | Fishing Shape unavailable; caution retained |
 
 Complete chain for all configured species: Lake Ontario → Point Breeze/lower
 creek → PFR middle/upper corridor → Waterport tailrace. No upstream station or
@@ -135,10 +139,10 @@ beyond marked footpaths is excluded.
 
 | Run ID                         | Window (pre-run → tail) | Presence                             | Activity version                                                            |
 | ------------------------------ | ----------------------- | ------------------------------------ | --------------------------------------------------------------------------- |
-| `oak_orchard_fall_chinook`     | Aug 15 → Nov 22         | 8/10 sectional; independent curve    | `oak_orchard_fall_chinook-weather-activity-v1-owner-review`                 |
-| `oak_orchard_fall_coho`        | Aug 25 → Nov 30         | 6/10 sectional; independent curve    | `oak_orchard_fall_coho-weather-activity-v1-owner-review`                    |
-| `oak_orchard_fall_steelhead`   | Sep 20 → Dec 31         | 8/10 sectional fall entry            | `oak_orchard_fall_steelhead-weather-activity-v4-stage-shape-owner-review`   |
-| `oak_orchard_fall_brown_trout` | Sep 1 → Dec 31          | 6/10 sectional; repeat-spawner curve | `oak_orchard_fall_brown_trout-weather-activity-v3-stage-shape-owner-review` |
+| `oak_orchard_fall_chinook`     | Aug 15 → Nov 22         | 8/10 sectional; independent curve    | `oak_orchard_fall_chinook-weather-activity-v1-release`                 |
+| `oak_orchard_fall_coho`        | Aug 25 → Nov 30         | 6/10 sectional; independent curve    | `oak_orchard_fall_coho-weather-activity-v1-release`                    |
+| `oak_orchard_fall_steelhead`   | Sep 20 → Dec 31         | 8/10 sectional fall entry            | `oak_orchard_fall_steelhead-weather-activity-v4-stage-shape-release`   |
+| `oak_orchard_fall_brown_trout` | Sep 1 → Dec 31          | 6/10 sectional; repeat-spawner curve | `oak_orchard_fall_brown_trout-weather-activity-v3-stage-shape-release` |
 
 All expose Stage, Activity, and Seasonal Presence in hidden review. Fishing
 Shape, Push, and Migration Timing are unavailable. Coho Ending is 49. Steelhead
@@ -190,8 +194,8 @@ each includes stage-by-block distributions and all invariant records.
 `OAK_ORCHARD_RIVER_PROFILE` and its four runs in `config/onboarding/newYork.ts`
 match the dossier's corridor, barrier, source rejection, every calendar
 boundary, strength, distribution, Activity, and capability decisions. Spot
-Finder uses the exact three foundation reach IDs. Every public audit gate is
-false; Atlantic Salmon has no runtime profile.
+Finder uses the exact three foundation reach IDs. Every released run has its
+public audit gate enabled; Atlantic Salmon has no runtime profile.
 
 ## 12. Acceptance and release record
 
@@ -205,8 +209,8 @@ false; Atlantic Salmon has no runtime profile.
 | Spot Finder alignment                                                  | six access records across three sections; unnamed PFR markers fully represented as one official-map network |
 | River-picker artwork                                                   | small corridor illustration mapped to `oak_orchard`; UI coverage gate passed |
 | Automated implementation gate                                         | 406 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
-| Rendered owner acceptance                                              | withheld                                                                     |
-| Public registry, migrations, deployment, production smoke, commit/push | not authorized/not performed                                                 |
+| Rendered owner acceptance                                              | accepted 2026-09-01                                                          |
+| Public registry, migrations, deployment, production smoke, commit/push | promoted; migrations matched through `20260831120000`; function v36 ACTIVE; all 11 NY public snapshots passed; final commit/push follows |
 
 ## 13. Correction and learning ledger
 
@@ -223,3 +227,4 @@ false; Atlantic Salmon has no runtime profile.
 | 2026-08-31 | Spot Finder provided no early Point Breeze direction and generic late geography treated all life histories alike | Added a non-access Lake Ontario/Point Breeze harbor/mouth orientation plus separate Chinook, coho, Steelhead, and Brown Trout phase-reach plans; plans stop below Waterport Dam and preserve PFR access limits |
 | 2026-09-01 | V1 hid Point Breeze direction for pre-staging Steelhead and Brown Trout | V2 shows Point Breeze/Lake Ontario/harbor/mouth throughout Before Migration and Beginning for all four runs, without fabricating a verified access point |
 | 2026-09-01 | Building could retain the Point Breeze/lower approach reach | V3 universally removes every Beginning reach from all Building phases and shifts Oak Orchard recommendations to middle/upstream creek water |
+| 2026-09-01 | Owner accepted New York and authorized public/store release | Rechecked current 2026 NYSDEC regulations, promoted exact public registries and runtime allowlist, deployed function v36, and verified all 11 NY snapshots while Washington remained hidden |

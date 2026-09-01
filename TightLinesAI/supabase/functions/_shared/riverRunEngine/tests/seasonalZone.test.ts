@@ -1,6 +1,5 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { RIVER_RUN_CONFIGURATION_DOCUMENTS } from "../config/catalog.ts";
-import { RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS } from "../config/onboarding/index.ts";
 import { resolveSeasonalZone } from "../presentation/seasonalZone.ts";
 import { resolveRunStage } from "../scoring/runStage.ts";
 
@@ -114,7 +113,7 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
 });
 
 Deno.test("Oak Orchard exposes Point Breeze direction before each run's staging window", () => {
-  const oak = RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.find((document) =>
+  const oak = RIVER_RUN_CONFIGURATION_DOCUMENTS.find((document) =>
     document.river.riverId === "oak_orchard"
   )!;
   for (const run of oak.runs) {

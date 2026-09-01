@@ -6,14 +6,14 @@
 
 **Research date:** 2026-08-31
 
-**Status:** `owner_review_ready`
+**Status:** `released`
 
 **Guide:** `docs/river_run_onboarding.md`
 
 ## 1. Decisions and evidence ledger
 
-- Foundation accepted for hidden configuration v2.
-- Hidden run profiles: fall Chinook, fall coho, fall-entry Washington-strain
+- Foundation accepted for public release configuration v3.
+- Released run profiles: fall Chinook, fall coho, fall-entry Washington-strain
   Steelhead, and fall lake-run Brown Trout.
 - Separate Steelhead decisions: Skamania summer-run is excluded after NYSDEC
   documented discontinuation after the 2021 stocking; the March-April
@@ -24,8 +24,11 @@
   remains engine-gated because River Run has no Atlantic
   migration-target/biology/Activity contract; it is not represented as Pacific
   salmon or Brown Trout.
-- Public promotion/deployment: not authorized. Rendered owner acceptance:
-  withheld.
+- Owner accepted all configured New York runs and explicitly authorized public
+  promotion, deployment, and store builds on 2026-09-01.
+- NYSDEC's 2026 guide, current Great Lakes/Salmon River regulations, and Fish
+  and Wildlife emergency-regulation page were rechecked on 2026-09-01; no
+  conflicting emergency regulation was listed.
 
 Contradiction search completed by/date: Codex / 2026-08-31
 
@@ -44,6 +47,7 @@ Independent falsification review by/date: separate primary-source and code-contr
 | S-09 | NYSDEC hatchery system                                              | https://dec.ny.gov/things-to-do/freshwater-fishing/hatcheries                                                                        | current                                 | Hatchery collects Chinook, coho, Steelhead broodstock                                                                                                      | No audited recurring count feed/freshness contract                                                     |
 | S-10 | NYSDEC 2023 Lake Ontario annual report, tributary survey tables 3-7 | https://dec.ny.gov/sites/default/files/2025-02/lakeontarioannualreport.pdf                                                           | 2022-23 survey; report 2024             | Brown Trout: 1,671 estimated catch vs. 6,284 long-term mean; Atlantic Salmon: 329, all in Sep.-Oct.; Steelhead: 48,887                                     | Survey estimates are not live abundance; one season is combined with long-term and management evidence |
 | S-11 | NYSDEC Atlantic Salmon Fisheries Management Plan 2023-2026          | https://extapps.dec.ny.gov/docs/fish_marine_pdf/loatlanticsalmonplan.pdf                                                             | 2023-26                                 | Salmon River is a selected tributary; summer fishery objective and stocked, low-abundance recurring returns                                                | Does not supply an implemented River Run lifecycle or precise full calendar                            |
+| S-12 | NYSDEC 2026 regulations and Fish/Wildlife regulatory revisions     | https://dec.ny.gov/sites/default/files/2026-03/fishguide26.pdf ; https://dec.ny.gov/regulatory/regulations/proposed-emergency-recently-adopted-regulations/fish-wildlife-revisions | current; checked 2026-09-01 | Salmon River reach, seasonal tackle/hours, fly-section rules; no active Fish and Wildlife emergency regulation listed | Same-day release check; users must still verify current rules and posted boundaries |
 
 ## 2. Identity and corridor
 
@@ -137,10 +141,10 @@ published road locator.
 
 | Run ID                       | Window (pre-run → tail) | Presence                                                 | Activity version                                                          |
 | ---------------------------- | ----------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `salmon_ny_fall_chinook`     | Aug 1 → Nov 10          | 10/10 broad; independent 8-anchor curve                  | `salmon_ny_fall_chinook-weather-activity-v1-owner-review`                 |
-| `salmon_ny_fall_coho`        | Aug 15 → Nov 20         | 8/10 sectional; independent curve                        | `salmon_ny_fall_coho-weather-activity-v1-owner-review`                    |
-| `salmon_ny_fall_steelhead`   | Sep 20 → Dec 31         | 9/10 broad fall-entry; retained fish not declared absent | `salmon_ny_fall_steelhead-weather-activity-v4-stage-shape-owner-review`   |
-| `salmon_ny_fall_brown_trout` | Aug 25 → Dec 20         | 5/10 sectional; repeat-spawner curve                     | `salmon_ny_fall_brown_trout-weather-activity-v3-stage-shape-owner-review` |
+| `salmon_ny_fall_chinook`     | Aug 1 → Nov 10          | 10/10 broad; independent 8-anchor curve                  | `salmon_ny_fall_chinook-weather-activity-v1-release`                 |
+| `salmon_ny_fall_coho`        | Aug 15 → Nov 20         | 8/10 sectional; independent curve                        | `salmon_ny_fall_coho-weather-activity-v1-release`                    |
+| `salmon_ny_fall_steelhead`   | Sep 20 → Dec 31         | 9/10 broad fall-entry; retained fish not declared absent | `salmon_ny_fall_steelhead-weather-activity-v4-stage-shape-release`   |
+| `salmon_ny_fall_brown_trout` | Aug 25 → Dec 20         | 5/10 sectional; repeat-spawner curve                     | `salmon_ny_fall_brown_trout-weather-activity-v3-stage-shape-release` |
 
 Stage, Activity, and Seasonal Presence are available in hidden review. Fishing
 Shape, Push, and Migration Timing are explicitly unavailable. Coho Ending uses a
@@ -196,8 +200,8 @@ invariant records.
 `config/onboarding/newYork.ts` reconcile identity, reaches, endpoint, source
 exclusion, every calendar boundary, strength, distribution, anchors, weights,
 caps, evidence, and hidden audit state. Spot Finder consumes the same three
-reach IDs. `publicAudit.isEnabled` is false for every run; Atlantic Salmon has
-no runtime profile.
+reach IDs. `publicAudit.isEnabled` is true for every released run; Atlantic
+Salmon has no runtime profile.
 
 ## 12. Acceptance and release record
 
@@ -211,8 +215,8 @@ no runtime profile.
 | Seasonal Zone/Spot Finder alignment                                    | 19 mainstem accesses across three audited sections; every active run day mapped |
 | River-picker artwork                                                   | medium corridor illustration mapped to `salmon_ny`; UI coverage gate passed |
 | Automated implementation gate                                         | 406 engine + 58 endpoint tests; 1,425 fixtures; UI, visual, type, packet, and 161-entry live Spot-source audits passed |
-| Rendered owner acceptance                                              | withheld                                                                     |
-| Public registry, migrations, deployment, production smoke, commit/push | not authorized and not performed                                             |
+| Rendered owner acceptance                                              | accepted 2026-09-01                                                          |
+| Public registry, migrations, deployment, production smoke, commit/push | promoted; migrations matched through `20260831120000`; function v36 ACTIVE; all 11 NY public snapshots passed; final commit/push follows |
 
 ## 13. Correction and learning ledger
 
@@ -229,3 +233,4 @@ no runtime profile.
 | 2026-08-31 | Spot Finder lacked useful nearby-water orientation before dependable entry and used a shared progression shape | Added a non-access Port Ontario/Lake Ontario/estuary orientation plus separately reconciled Chinook, coho, Steelhead, and Brown Trout phase-reach plans; late living Steelhead retain all reaches while spawning runs emphasize established middle/upper water |
 | 2026-09-01 | V1 hid early direction before the narrower staging date | V2 shows the sourced approach throughout Before Migration and Beginning as broad fishing direction, never as verified access |
 | 2026-09-01 | Building could retain the lower mouth/approach reach | V3 universally removes every Beginning reach from all Building phases and shifts recommendations to middle/upstream river water |
+| 2026-09-01 | Owner accepted New York and authorized public/store release | Rechecked current 2026 NYSDEC regulations, promoted exact public registries and runtime allowlist, deployed function v36, and verified all 11 NY snapshots while Washington remained hidden |

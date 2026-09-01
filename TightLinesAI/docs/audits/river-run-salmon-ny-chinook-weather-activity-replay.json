@@ -1,6 +1,6 @@
 {
   "runId": "salmon_ny_fall_chinook",
-  "rulesVersion": "salmon_ny_fall_chinook-weather-activity-v1-owner-review",
+  "rulesVersion": "salmon_ny_fall_chinook-weather-activity-v1-release",
   "replayYears": "2007-2025",
   "method": "Historical mechanical Salmon River chinook weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at salmon_ny_pineville_weather. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
   "expectedDays": 1672,
