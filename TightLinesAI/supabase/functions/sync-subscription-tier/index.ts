@@ -16,6 +16,26 @@ type RevenueCatSubscriberResponse = {
   };
 };
 
+type ProfileSyncClient = {
+  from(table: "profiles"): {
+    update(values: Record<string, unknown>): {
+      eq(column: "id", value: string): {
+        select(): {
+          maybeSingle(): Promise<{
+            data: Record<string, unknown> | null;
+            error: { message: string } | null;
+          }>;
+        };
+      };
+    };
+  };
+};
+
+export type ProfileTierSyncResult = {
+  profile: Record<string, unknown> | null;
+  state: "updated" | "pending_onboarding";
+};
+
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
@@ -32,7 +52,9 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
-function entitlementIsActive(entitlement: RevenueCatEntitlement | undefined): boolean {
+function entitlementIsActive(
+  entitlement: RevenueCatEntitlement | undefined,
+): boolean {
   if (!entitlement) return false;
   const expiresDate = entitlement.expires_date;
   if (expiresDate == null || expiresDate === "") return true;
@@ -40,9 +62,10 @@ function entitlementIsActive(entitlement: RevenueCatEntitlement | undefined): bo
   return Number.isFinite(expiresAt) && expiresAt > Date.now();
 }
 
-async function fetchRevenueCatTier(appUserId: string): Promise<SubscriptionTier> {
-  const apiKey =
-    Deno.env.get("REVENUECAT_SECRET_API_KEY")?.trim() ||
+async function fetchRevenueCatTier(
+  appUserId: string,
+): Promise<SubscriptionTier> {
+  const apiKey = Deno.env.get("REVENUECAT_SECRET_API_KEY")?.trim() ||
     Deno.env.get("REVENUECAT_API_KEY")?.trim();
 
   if (!apiKey) {
@@ -50,7 +73,9 @@ async function fetchRevenueCatTier(appUserId: string): Promise<SubscriptionTier>
   }
 
   const res = await fetch(
-    `https://api.revenuecat.com/v1/subscribers/${encodeURIComponent(appUserId)}`,
+    `https://api.revenuecat.com/v1/subscribers/${
+      encodeURIComponent(appUserId)
+    }`,
     {
       method: "GET",
       headers: {
@@ -63,7 +88,9 @@ async function fetchRevenueCatTier(appUserId: string): Promise<SubscriptionTier>
   const text = await res.text();
   if (!res.ok) {
     throw new Error(
-      `RevenueCat entitlement lookup failed (${res.status}): ${text.slice(0, 300)}`,
+      `RevenueCat entitlement lookup failed (${res.status}): ${
+        text.slice(0, 300)
+      }`,
     );
   }
 
@@ -72,7 +99,34 @@ async function fetchRevenueCatTier(appUserId: string): Promise<SubscriptionTier>
   return entitlementIsActive(angler) ? "angler" : "free";
 }
 
-Deno.serve(async (req) => {
+export async function syncExistingProfileTier(
+  supabase: ProfileSyncClient,
+  userId: string,
+  nextTier: SubscriptionTier,
+  updatedAt = new Date().toISOString(),
+): Promise<ProfileTierSyncResult> {
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .update({
+      subscription_tier: nextTier,
+      updated_at: updatedAt,
+    })
+    .eq("id", userId)
+    .select()
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+  return profile
+    ? {
+      profile: profile as Record<string, unknown>,
+      state: "updated",
+    }
+    : { profile: null, state: "pending_onboarding" };
+}
+
+export async function handleSyncSubscriptionTier(
+  req: Request,
+): Promise<Response> {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders() });
   }
@@ -100,27 +154,23 @@ Deno.serve(async (req) => {
       ? "angler"
       : await fetchRevenueCatTier(user.id);
 
-    const { data: profile, error: updateError } = await supabase
-      .from("profiles")
-      .update({
-        subscription_tier: nextTier,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", user.id)
-      .select()
-      .single();
+    const profileSync = await syncExistingProfileTier(
+      supabase as unknown as ProfileSyncClient,
+      user.id,
+      nextTier,
+    );
 
-    if (updateError) {
-      return json({
-        error: "profile_sync_failed",
-        message: updateError.message,
-      }, 500);
+    if (profileSync.state === "pending_onboarding") {
+      console.info(
+        "[sync-subscription-tier] entitlement verified before profile creation",
+      );
     }
 
     return json({
       subscription_tier: nextTier,
       has_angler: nextTier === "angler" || nextTier === "master_angler",
-      profile,
+      profile: profileSync.profile,
+      profile_sync: profileSync.state,
       source: hasFullAccessEmail(user.email) ? "complimentary" : "revenuecat",
     });
   } catch (err) {
@@ -129,4 +179,8 @@ Deno.serve(async (req) => {
       : "Could not verify subscription status.";
     return json({ error: "subscription_sync_failed", message }, 502);
   }
-});
+}
+
+if (import.meta.main) {
+  Deno.serve(handleSyncSubscriptionTier);
+}

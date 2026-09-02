@@ -23,6 +23,7 @@ export {
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
+const FORECAST_REQUEST_TIMEOUT_MS = 15_000;
 
 /** v10 drops degraded fallback snapshots after enabling customer Open-Meteo. */
 const CACHE_KEY_PREFIX = "forecast_scores_v10";
@@ -309,6 +310,11 @@ export async function getForecastScores(
   // Fetch from edge function
   let lastFetchError: unknown = null;
   for (let attempt = 0; attempt < 2; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(
+      () => controller.abort(),
+      FORECAST_REQUEST_TIMEOUT_MS,
+    );
     try {
       const accessToken = await getValidAccessToken();
       const res = await fetch(`${SUPABASE_URL}/functions/v1/forecast-scores`, {
@@ -325,6 +331,7 @@ export async function getForecastScores(
           max_day_offset: normalizedOptions.maxDayOffset,
           include_snapshot_env: normalizedOptions.includeSnapshotEnv,
         }),
+        signal: controller.signal,
       });
 
       if (!res.ok) {
@@ -397,6 +404,8 @@ export async function getForecastScores(
         continue;
       }
       break;
+    } finally {
+      clearTimeout(timer);
     }
   }
   if (__DEV__ && !isSignedOutError(lastFetchError)) {

@@ -23,6 +23,17 @@ GoogleOneTapSignIn.configure(GOOGLE_SIGN_IN_CONFIG);
 let pendingGoogleRawNonce: string | null = null;
 let pendingGoogleHashedNonce: string | null = null;
 
+export async function getGoogleSignInTokens(): Promise<{
+  idToken: string;
+  accessToken: string;
+}> {
+  const tokens = await GoogleOneTapSignIn.getTokens();
+  if (!tokens.idToken || !tokens.accessToken) {
+    throw new Error("Google Sign-In did not return the required tokens.");
+  }
+  return tokens;
+}
+
 /**
  * Configure the native Google request with a nonce whose original value is
  * retained for Supabase. The native library otherwise generates its own

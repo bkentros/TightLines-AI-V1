@@ -1,5 +1,6 @@
 import { Component, type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { captureAnalytics } from '../lib/analytics';
 import { paper, paperFonts, paperSpacing } from '../lib/theme';
 
 interface AppErrorBoundaryProps {
@@ -25,6 +26,11 @@ export class AppErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: { componentStack?: string | null }) {
+    captureAnalytics('app_render_error', {
+      error_name: error.name || 'Error',
+      error_message: error.message?.slice(0, 300) || 'Unknown render error',
+      has_component_stack: Boolean(info.componentStack),
+    });
     if (__DEV__) {
       console.error('[AppErrorBoundary]', error, info.componentStack);
     }

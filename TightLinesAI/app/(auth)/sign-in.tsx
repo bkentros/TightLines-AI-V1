@@ -38,6 +38,7 @@ import {
 } from '../../lib/auth';
 import {
   consumeGoogleSignInNonce,
+  getGoogleSignInTokens,
   getGoogleSignInFailureNotice,
 } from '../../lib/googleAuth';
 import { useAuthStore } from '../../store/authStore';
@@ -151,7 +152,15 @@ export default function SignInScreen() {
 
   const handleGoogleSignInSuccess = useCallback(async (result: OneTapSuccessData) => {
     setNotice(null);
-    const nonce = await consumeGoogleSignInNonce(result.idToken);
+    let googleTokens: { idToken: string; accessToken: string };
+    try {
+      googleTokens = await getGoogleSignInTokens();
+    } catch (error) {
+      const googleNotice = getGoogleSignInFailureNotice(error);
+      setNotice({ ...googleNotice, tone: 'error' });
+      return;
+    }
+    const nonce = await consumeGoogleSignInNonce(googleTokens.idToken);
     if (!nonce) {
       setNotice({
         title: 'Google Sign-In failed',
@@ -160,7 +169,11 @@ export default function SignInScreen() {
       });
       return;
     }
-    const { data, error } = await signInWithGoogle(result.idToken, nonce);
+    const { data, error } = await signInWithGoogle(
+      googleTokens.idToken,
+      nonce,
+      googleTokens.accessToken,
+    );
     if (error) {
       const googleNotice = getGoogleSignInFailureNotice(error);
       setNotice({ ...googleNotice, tone: 'error' });

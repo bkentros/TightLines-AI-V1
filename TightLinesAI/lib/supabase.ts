@@ -6,6 +6,7 @@ import { captureAnalytics } from './analytics';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
+const DEFAULT_EDGE_FUNCTION_TIMEOUT_MS = 30_000;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
@@ -31,27 +32,46 @@ export async function invokeEdgeFunction<TResponse>(
     accessToken: string;
     body: unknown;
     headers?: Record<string, string>;
+    timeoutMs?: number;
   }
 ): Promise<TResponse> {
   const startedAt = Date.now();
-  const shouldTrack = TRACKED_EDGE_FUNCTIONS.has(functionName);
-  if (shouldTrack) {
-    captureAnalytics('edge_function_started', {
-      function_name: functionName,
-    });
-  }
-
-  const response = await fetch(`${supabaseUrl}/functions/v1/${functionName}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: supabaseAnonKey,
-      Authorization: `Bearer ${supabaseAnonKey}`,
-      'x-user-token': options.accessToken,
-      ...options.headers,
-    },
-    body: JSON.stringify(options.body),
+  captureAnalytics('edge_function_started', {
+    function_name: functionName,
   });
+
+  const timeoutMs = options.timeoutMs ?? DEFAULT_EDGE_FUNCTION_TIMEOUT_MS;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let response: Response;
+  try {
+    response = await fetch(`${supabaseUrl}/functions/v1/${functionName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
+        'x-user-token': options.accessToken,
+        ...options.headers,
+      },
+      body: JSON.stringify(options.body),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    const timedOut = controller.signal.aborted;
+    captureAnalytics('edge_function_failed', {
+      function_name: functionName,
+      status: 0,
+      duration_ms: Date.now() - startedAt,
+      reason: timedOut ? 'timeout' : 'network',
+    });
+    if (timedOut) {
+      throw new Error('The request timed out. Please try again.');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 
   const text = await response.text();
   let parsed: unknown = null;
@@ -62,19 +82,15 @@ export async function invokeEdgeFunction<TResponse>(
   }
 
   if (!response.ok) {
-    if (shouldTrack) {
-      captureAnalytics('edge_function_failed', {
-        function_name: functionName,
-        status: response.status,
-        duration_ms: Date.now() - startedAt,
-      });
-    }
+    captureAnalytics('edge_function_failed', {
+      function_name: functionName,
+      status: response.status,
+      duration_ms: Date.now() - startedAt,
+    });
     if (__DEV__) {
       console.log(`[invokeEdgeFunction] ${functionName} FAILED`, {
         status: response.status,
         responseBody: text?.slice(0, 500),
-        tokenPrefix: options.accessToken?.slice(0, 20),
-        tokenLength: options.accessToken?.length,
         url: `${supabaseUrl}/functions/v1/${functionName}`,
       });
     }
@@ -94,23 +110,14 @@ export async function invokeEdgeFunction<TResponse>(
     throw new Error(message);
   }
 
-  if (shouldTrack) {
-    captureAnalytics('edge_function_succeeded', {
-      function_name: functionName,
-      status: response.status,
-      duration_ms: Date.now() - startedAt,
-    });
-  }
+  captureAnalytics('edge_function_succeeded', {
+    function_name: functionName,
+    status: response.status,
+    duration_ms: Date.now() - startedAt,
+  });
 
   return parsed as TResponse;
 }
-
-const TRACKED_EDGE_FUNCTIONS = new Set([
-  'how-fishing',
-  'recommender',
-  'water-reader-read',
-  'sync-subscription-tier',
-]);
 
 /**
  * Returns a guaranteed-valid access token, refreshing the session if the
@@ -132,7 +139,6 @@ export async function getValidAccessToken(): Promise<string> {
     console.log('[getValidAccessToken] Zustand session:', {
       hasSession: !!storeSession,
       hasToken: !!storeSession?.access_token,
-      tokenPrefix: storeSession?.access_token?.slice(0, 20),
       expiresAt: storeSession?.expires_at,
       nowSec,
       ttl: storeSession?.expires_at ? storeSession.expires_at - nowSec : 'N/A',
@@ -176,7 +182,6 @@ export async function getValidAccessToken(): Promise<string> {
     console.log('[getValidAccessToken] supabase.auth.getSession() result:', {
       hasSession: !!session,
       hasToken: !!session?.access_token,
-      tokenPrefix: session?.access_token?.slice(0, 20),
       expiresAt: session?.expires_at,
       ttl: session?.expires_at ? session.expires_at - nowSec : 'N/A',
     });

@@ -221,11 +221,13 @@ export async function signInWithApple(
 export async function signInWithGoogle(
   identityToken: string,
   nonce: string,
+  accessToken: string,
 ) {
   const { data, error } = await withAuthTimeout(supabase.auth.signInWithIdToken({
     provider: 'google',
     token: identityToken,
     nonce,
+    access_token: accessToken,
   })).catch((err) => authFailure({ user: null, session: null }, err));
   if (__DEV__) {
     if (error) {

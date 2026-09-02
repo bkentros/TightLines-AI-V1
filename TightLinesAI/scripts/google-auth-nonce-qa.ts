@@ -43,15 +43,22 @@ if (!googleAuth.includes('pendingGoogleRawNonce = rawNonce')) {
 if (!googleAuth.includes('tokenNonce === doubleHashedNonce')) {
   failures.push('Google nonce handoff does not account for the iOS SDK hash');
 }
-if (!auth.includes("provider: 'google'") || !auth.includes('nonce,')) {
-  failures.push('Supabase Google token exchange does not receive the nonce');
+if (
+  !auth.includes("provider: 'google'") ||
+  !auth.includes('nonce,') ||
+  !auth.includes('access_token: accessToken')
+) {
+  failures.push('Supabase Google token exchange does not receive nonce and access token');
 }
 
 for (const { file, source } of screens) {
   if (!source.includes('<GoogleAuthButton')) {
     failures.push(`${file} does not use the shared Google sign-in control`);
   }
-  if (!source.includes('consumeGoogleSignInNonce(result.idToken)')) {
+  if (!source.includes('getGoogleSignInTokens()')) {
+    failures.push(`${file} does not fetch the matching Google access token`);
+  }
+  if (!source.includes('consumeGoogleSignInNonce(googleTokens.idToken)')) {
     failures.push(`${file} does not consume the matching nonce`);
   }
 }

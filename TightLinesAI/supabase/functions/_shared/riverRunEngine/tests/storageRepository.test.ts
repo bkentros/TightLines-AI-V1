@@ -499,7 +499,7 @@ Deno.test("supportive Push history survives engine and configuration changes whe
     [
       { column: "river_id", value: "pere_marquette" },
       { column: "run_id", value: "pere_marquette_fall_chinook" },
-      { column: "push->rulesVersion", value: "pm-fall-chinook-push-v5" },
+      { column: "push->>rulesVersion", value: "pm-fall-chinook-push-v5" },
       { column: "local_date", value: "2026-08-15" },
       { column: "local_date", value: "2026-09-20" },
       { column: "push->score", value: 50 },
@@ -604,7 +604,7 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
     [
       { column: "river_id", value: "pere_marquette" },
       { column: "run_id", value: "pere_marquette_fall_chinook" },
-      { column: "push->rulesVersion", value: "pm-fall-chinook-push-v5" },
+      { column: "push->>rulesVersion", value: "pm-fall-chinook-push-v5" },
       { column: "local_date", value: "2026-08-15" },
       { column: "local_date", value: "2026-09-19" },
     ],
@@ -688,6 +688,19 @@ Deno.test("today's Push reads retain each four-hour window and fold the Activity
       label: "Strong",
     },
   ]);
+  assertEquals(
+    client.filters.map(({ column, value }) => ({ column, value })),
+    [
+      { column: "river_id", value: "pere_marquette" },
+      { column: "run_id", value: "pere_marquette_fall_chinook" },
+      { column: "push->>rulesVersion", value: "pm-fall-chinook-push-v5" },
+      { column: "local_date", value: "2026-09-20" },
+      {
+        column: "condition_refresh_at",
+        value: "2026-09-21T01:10:00Z",
+      },
+    ],
+  );
 });
 
 Deno.test("serialized/deserialized JSON preserves snapshot and refresh displays", () => {

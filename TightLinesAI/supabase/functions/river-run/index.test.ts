@@ -229,10 +229,13 @@ class MockQuery {
     row: Record<string, unknown>,
     column: string,
   ): unknown {
-    return column.split("->").reduce<unknown>((value, part) => {
-      if (!value || typeof value !== "object") return undefined;
-      return (value as Record<string, unknown>)[part];
-    }, row);
+    return column.replaceAll("->>", "->").split("->").reduce<unknown>(
+      (value, part) => {
+        if (!value || typeof value !== "object") return undefined;
+        return (value as Record<string, unknown>)[part];
+      },
+      row,
+    );
   }
 }
 

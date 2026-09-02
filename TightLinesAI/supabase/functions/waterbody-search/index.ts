@@ -1489,10 +1489,8 @@ Deno.serve(async (req: Request) => {
       console.info(
         "[waterbody-search] curated cross-state alias hit",
         JSON.stringify({
-          query,
           state,
           resultCount: aliasRows.length,
-          topResult: aliasRows[0]?.name ?? null,
         }),
       );
       const sameNameCounts = sameNameStateCounts(aliasRows);
@@ -1544,7 +1542,7 @@ Deno.serve(async (req: Request) => {
     if (shouldTryCrossStateAliasRetry([], query, state)) {
       console.info(
         "[waterbody-search] local rpc failed; trying cross-state alias retry",
-        JSON.stringify({ query, state, message: error.message }),
+        JSON.stringify({ state }),
       );
       data = [];
       error = null;
@@ -1621,10 +1619,8 @@ Deno.serve(async (req: Request) => {
     console.info(
       "[waterbody-search] search telemetry",
       JSON.stringify({
-        query,
         state,
         resultCount: rows.length,
-        topResults,
         weakResult,
         fallbackAttempted,
         fallbackIndexedCount,
