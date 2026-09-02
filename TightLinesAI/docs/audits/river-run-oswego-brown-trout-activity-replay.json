@@ -1,0 +1,1818 @@
+{
+  "runId": "oswego_fall_brown_trout",
+  "rulesVersion": "oswego-brown-hydraulic-activity-v2",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical brown-trout replay using Oswego River at Lock 7, Oswego, NY USGS 04249000 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1498,
+  "usableDays": 1498,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 4,
+    "p10": 32,
+    "median": 56,
+    "p90": 63,
+    "max": 66,
+    "mean": 50.57
+  },
+  "blockScore": {
+    "min": 3,
+    "p10": 31,
+    "median": 55,
+    "p90": 63,
+    "max": 66,
+    "mean": 49.78
+  },
+  "uniqueDayScores": 48,
+  "uniqueBlockScores": 55,
+  "dayLabels": {
+    "Active": 444,
+    "Inactive": 108,
+    "Moderate": 821,
+    "Reserved": 125
+  },
+  "blockLabels": {
+    "Active": 1597,
+    "Inactive": 443,
+    "Moderate": 3372,
+    "Reserved": 580
+  },
+  "daysAtLeast90": 0,
+  "blocksAtLeast90": 0,
+  "byStage": {
+    "beginning": {
+      "days": 238,
+      "scores": {
+        "min": 4,
+        "p10": 31,
+        "median": 55,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.94
+      },
+      "labels": {
+        "Active": 63,
+        "Inactive": 11,
+        "Moderate": 129,
+        "Reserved": 35
+      }
+    },
+    "building": {
+      "days": 336,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 58,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.57
+      },
+      "labels": {
+        "Active": 111,
+        "Inactive": 38,
+        "Moderate": 177,
+        "Reserved": 10
+      }
+    },
+    "ending": {
+      "days": 154,
+      "scores": {
+        "min": 5,
+        "p10": 6,
+        "median": 54,
+        "p90": 63,
+        "max": 65,
+        "mean": 48.57
+      },
+      "labels": {
+        "Active": 36,
+        "Inactive": 19,
+        "Moderate": 94,
+        "Reserved": 5
+      }
+    },
+    "peak": {
+      "days": 224,
+      "scores": {
+        "min": 4,
+        "p10": 41,
+        "median": 59,
+        "p90": 63,
+        "max": 66,
+        "mean": 53.5
+      },
+      "labels": {
+        "Active": 98,
+        "Inactive": 14,
+        "Moderate": 108,
+        "Reserved": 4
+      }
+    },
+    "post_run": {
+      "days": 210,
+      "scores": {
+        "min": 4,
+        "p10": 35,
+        "median": 54,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.03
+      },
+      "labels": {
+        "Active": 41,
+        "Inactive": 16,
+        "Moderate": 125,
+        "Reserved": 28
+      }
+    },
+    "pre_run": {
+      "days": 196,
+      "scores": {
+        "min": 22,
+        "p10": 31,
+        "median": 55,
+        "p90": 62,
+        "max": 65,
+        "mean": 50.3
+      },
+      "labels": {
+        "Active": 44,
+        "Moderate": 117,
+        "Reserved": 35
+      }
+    },
+    "tapering": {
+      "days": 140,
+      "scores": {
+        "min": 5,
+        "p10": 37,
+        "median": 58,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.9
+      },
+      "labels": {
+        "Active": 51,
+        "Inactive": 10,
+        "Moderate": 71,
+        "Reserved": 8
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 238,
+      "samples": 238,
+      "scores": {
+        "min": 4,
+        "p10": 31,
+        "median": 56,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.97
+      },
+      "labelShares": {
+        "Active": 25.63,
+        "Inactive": 4.62,
+        "Moderate": 55.04,
+        "Reserved": 14.71
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 238,
+      "samples": 238,
+      "scores": {
+        "min": 3,
+        "p10": 30,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.27
+      },
+      "labelShares": {
+        "Active": 21.43,
+        "Inactive": 5.46,
+        "Moderate": 57.14,
+        "Reserved": 15.97
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 238,
+      "samples": 238,
+      "scores": {
+        "min": 3,
+        "p10": 30,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.06
+      },
+      "labelShares": {
+        "Active": 21.43,
+        "Inactive": 5.04,
+        "Moderate": 57.56,
+        "Reserved": 15.97
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 238,
+      "samples": 238,
+      "scores": {
+        "min": 4,
+        "p10": 32,
+        "median": 55,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.92
+      },
+      "labelShares": {
+        "Active": 26.47,
+        "Inactive": 4.62,
+        "Moderate": 53.78,
+        "Reserved": 15.13
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 238,
+      "samples": 952,
+      "scores": {
+        "min": 3,
+        "p10": 30,
+        "median": 54,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.05
+      },
+      "labelShares": {
+        "Active": 23.74,
+        "Inactive": 4.94,
+        "Moderate": 55.88,
+        "Reserved": 15.44
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 336,
+      "samples": 336,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 58,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.78
+      },
+      "labelShares": {
+        "Active": 33.04,
+        "Inactive": 11.31,
+        "Moderate": 52.08,
+        "Reserved": 3.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 336,
+      "samples": 336,
+      "scores": {
+        "min": 3,
+        "p10": 6,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 48.87
+      },
+      "labelShares": {
+        "Active": 24.7,
+        "Inactive": 11.31,
+        "Moderate": 59.23,
+        "Reserved": 4.76
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 336,
+      "samples": 336,
+      "scores": {
+        "min": 3,
+        "p10": 6,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 48.84
+      },
+      "labelShares": {
+        "Active": 24.7,
+        "Inactive": 11.31,
+        "Moderate": 58.33,
+        "Reserved": 5.65
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 336,
+      "samples": 336,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.39
+      },
+      "labelShares": {
+        "Active": 29.76,
+        "Inactive": 11.31,
+        "Moderate": 55.36,
+        "Reserved": 3.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 336,
+      "samples": 1344,
+      "scores": {
+        "min": 3,
+        "p10": 6,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.72
+      },
+      "labelShares": {
+        "Active": 28.05,
+        "Inactive": 11.31,
+        "Moderate": 56.25,
+        "Reserved": 4.39
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 5,
+        "p10": 6,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 48.45
+      },
+      "labelShares": {
+        "Active": 23.38,
+        "Inactive": 12.34,
+        "Moderate": 61.04,
+        "Reserved": 3.25
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 53,
+        "p90": 63,
+        "max": 65,
+        "mean": 47.5
+      },
+      "labelShares": {
+        "Active": 20.13,
+        "Inactive": 12.34,
+        "Moderate": 62.99,
+        "Reserved": 4.55
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 47.5
+      },
+      "labelShares": {
+        "Active": 20.78,
+        "Inactive": 12.34,
+        "Moderate": 61.69,
+        "Reserved": 5.19
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 5,
+        "p10": 6,
+        "median": 53,
+        "p90": 62,
+        "max": 65,
+        "mean": 48.15
+      },
+      "labelShares": {
+        "Active": 24.68,
+        "Inactive": 12.34,
+        "Moderate": 59.09,
+        "Reserved": 3.9
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 4,
+        "p10": 6,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 47.9
+      },
+      "labelShares": {
+        "Active": 22.24,
+        "Inactive": 12.34,
+        "Moderate": 61.2,
+        "Reserved": 4.22
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 224,
+      "samples": 224,
+      "scores": {
+        "min": 4,
+        "p10": 41,
+        "median": 59,
+        "p90": 63,
+        "max": 66,
+        "mean": 53.59
+      },
+      "labelShares": {
+        "Active": 43.75,
+        "Inactive": 6.25,
+        "Moderate": 47.32,
+        "Reserved": 2.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 224,
+      "samples": 224,
+      "scores": {
+        "min": 3,
+        "p10": 41,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.3
+      },
+      "labelShares": {
+        "Active": 37.05,
+        "Inactive": 6.25,
+        "Moderate": 53.57,
+        "Reserved": 3.13
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 224,
+      "samples": 224,
+      "scores": {
+        "min": 3,
+        "p10": 40,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.21
+      },
+      "labelShares": {
+        "Active": 35.27,
+        "Inactive": 6.25,
+        "Moderate": 54.91,
+        "Reserved": 3.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 224,
+      "samples": 224,
+      "scores": {
+        "min": 4,
+        "p10": 41,
+        "median": 59,
+        "p90": 63,
+        "max": 66,
+        "mean": 53.31
+      },
+      "labelShares": {
+        "Active": 42.41,
+        "Inactive": 6.25,
+        "Moderate": 48.66,
+        "Reserved": 2.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 224,
+      "samples": 896,
+      "scores": {
+        "min": 3,
+        "p10": 41,
+        "median": 58,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.85
+      },
+      "labelShares": {
+        "Active": 39.62,
+        "Inactive": 6.25,
+        "Moderate": 51.12,
+        "Reserved": 3.01
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 5,
+        "p10": 35,
+        "median": 53,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.83
+      },
+      "labelShares": {
+        "Active": 19.52,
+        "Inactive": 7.62,
+        "Moderate": 60.48,
+        "Reserved": 12.38
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 3,
+        "p10": 34,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.2
+      },
+      "labelShares": {
+        "Active": 17.62,
+        "Inactive": 7.62,
+        "Moderate": 61.9,
+        "Reserved": 12.86
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 3,
+        "p10": 32,
+        "median": 52,
+        "p90": 62,
+        "max": 65,
+        "mean": 47.97
+      },
+      "labelShares": {
+        "Active": 16.19,
+        "Inactive": 7.62,
+        "Moderate": 60.95,
+        "Reserved": 15.24
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 4,
+        "p10": 35,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.56
+      },
+      "labelShares": {
+        "Active": 19.05,
+        "Inactive": 7.62,
+        "Moderate": 59.05,
+        "Reserved": 14.29
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 210,
+      "samples": 840,
+      "scores": {
+        "min": 3,
+        "p10": 34,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.39
+      },
+      "labelShares": {
+        "Active": 18.1,
+        "Inactive": 7.62,
+        "Moderate": 60.6,
+        "Reserved": 13.69
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 23,
+        "p10": 30,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.81
+      },
+      "labelShares": {
+        "Active": 25,
+        "Moderate": 57.14,
+        "Reserved": 17.86
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 19,
+        "p10": 28,
+        "median": 52,
+        "p90": 62,
+        "max": 65,
+        "mean": 48.36
+      },
+      "labelShares": {
+        "Active": 19.9,
+        "Inactive": 1.53,
+        "Moderate": 55.61,
+        "Reserved": 22.96
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 13,
+        "p10": 27,
+        "median": 51,
+        "p90": 61,
+        "max": 66,
+        "mean": 47.47
+      },
+      "labelShares": {
+        "Active": 17.35,
+        "Inactive": 2.55,
+        "Moderate": 54.59,
+        "Reserved": 25.51
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 21,
+        "p10": 32,
+        "median": 55,
+        "p90": 61,
+        "max": 65,
+        "mean": 50.12
+      },
+      "labelShares": {
+        "Active": 19.39,
+        "Moderate": 62.76,
+        "Reserved": 17.86
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 196,
+      "samples": 784,
+      "scores": {
+        "min": 13,
+        "p10": 29,
+        "median": 53,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.19
+      },
+      "labelShares": {
+        "Active": 20.41,
+        "Inactive": 1.02,
+        "Moderate": 57.53,
+        "Reserved": 21.05
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 5,
+        "p10": 37,
+        "median": 58,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.88
+      },
+      "labelShares": {
+        "Active": 37.14,
+        "Inactive": 7.14,
+        "Moderate": 50.71,
+        "Reserved": 5
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 5,
+        "p10": 34,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.71
+      },
+      "labelShares": {
+        "Active": 30.71,
+        "Inactive": 7.14,
+        "Moderate": 53.57,
+        "Reserved": 8.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 4,
+        "p10": 35,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.56
+      },
+      "labelShares": {
+        "Active": 32.14,
+        "Inactive": 7.14,
+        "Moderate": 52.14,
+        "Reserved": 8.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 5,
+        "p10": 37,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.71
+      },
+      "labelShares": {
+        "Active": 35.71,
+        "Inactive": 7.14,
+        "Moderate": 50,
+        "Reserved": 7.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 140,
+      "samples": 560,
+      "scores": {
+        "min": 4,
+        "p10": 36,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.21
+      },
+      "labelShares": {
+        "Active": 33.93,
+        "Inactive": 7.14,
+        "Moderate": 51.61,
+        "Reserved": 7.32
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 470,
+        "percent": 10.8
+      },
+      "meaningfulRise24h": {
+        "absolute": 1160,
+        "percent": 30.5
+      },
+      "sharpRise24h": {
+        "absolute": 2130,
+        "percent": 68.6
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 2,
+      "p10": 100,
+      "median": 600,
+      "p90": 2330,
+      "max": 8200,
+      "mean": 967.57
+    },
+    "positivePercentChange": {
+      "min": 0.11,
+      "p10": 1.4,
+      "median": 9.24,
+      "p90": 56.65,
+      "max": 277.2,
+      "mean": 21.94
+    },
+    "signals": {
+      "falling": 275,
+      "meaningful_rise": 73,
+      "rising": 159,
+      "sharp_rise": 30,
+      "stable": 961
+    }
+  },
+  "bestBlocks": {
+    "05-09": 804,
+    "09-13": 215,
+    "13-17": 217,
+    "17-21": 262
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 4,
+    "p90": 9,
+    "max": 14,
+    "mean": 4.29
+  },
+  "daysWithSpreadAtLeast10": 102,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-12-14",
+      "stage": "tapering",
+      "staging": false,
+      "score": 40,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 13100,
+      "flowBand": "high_fishable",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -1700,
+      "flowPercentChange24h": -11.49,
+      "temperatureSignal": "neutral_missing",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 33,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2022-10-10",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 43,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1480,
+      "flowBand": "low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -190,
+      "flowPercentChange24h": -11.38,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 66,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early lake-run Brown Trout that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2023-10-28",
+      "stage": "beginning",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 2630,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -1160,
+      "flowPercentChange24h": -30.61,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 65,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 9 AM–1 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-run Brown Trout can remain reactive as they enter the lower river; this score applies only to a fish already present. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 9 AM–1 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2012-10-05",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 31,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 888,
+      "flowBand": "very_low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -582,
+      "flowPercentChange24h": -39.59,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 28,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 23,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Light rain adds some cover.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 30,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 65,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early lake-run Brown Trout that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2012-10-13",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 2230,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -790,
+      "flowPercentChange24h": -26.16,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 28,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early lake-run Brown Trout that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2014-10-24",
+      "stage": "beginning",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 5620,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -1740,
+      "flowPercentChange24h": -23.64,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 68,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-run Brown Trout can remain reactive as they enter the lower river; this score applies only to a fish already present. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2016-10-18",
+      "stage": "beginning",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1930,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 580,
+      "flowPercentChange24h": 42.96,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 50,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 88,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-run Brown Trout can remain reactive as they enter the lower river; this score applies only to a fish already present. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2016-11-19",
+      "stage": "building",
+      "staging": false,
+      "score": 58,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 2610,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 1020,
+      "flowPercentChange24h": 64.15,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 12,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 78,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.11,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2017-01-02",
+      "stage": "post_run",
+      "staging": false,
+      "score": 50,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 12100,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 600,
+      "flowPercentChange24h": 5.22,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 40,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2017-01-08",
+      "stage": "post_run",
+      "staging": false,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 10500,
+      "flowBand": "high_fishable",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -2100,
+      "flowPercentChange24h": -16.67,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 35,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2020-11-23",
+      "stage": "building",
+      "staging": false,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 2970,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 110,
+      "flowPercentChange24h": 3.85,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 59,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 40,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 68,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2021-12-13",
+      "stage": "tapering",
+      "staging": false,
+      "score": 37,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 13700,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 200,
+      "flowPercentChange24h": 1.48,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 30,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 36,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    }
+  ]
+}

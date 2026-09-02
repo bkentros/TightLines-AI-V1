@@ -1,0 +1,1907 @@
+{
+  "runId": "manitowoc_fall_coho",
+  "rulesVersion": "manitowoc-coho-hydraulic-activity-v2",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical coho replay using Manitowoc River at Michigan Avenue, WI USGS 04085427 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1386,
+  "usableDays": 1377,
+  "missing": {
+    "flow": 9,
+    "priorFlow": 8,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 0,
+    "p10": 25,
+    "median": 46,
+    "p90": 61,
+    "max": 67,
+    "mean": 43.93
+  },
+  "blockScore": {
+    "min": 0,
+    "p10": 24,
+    "median": 45,
+    "p90": 61,
+    "max": 68,
+    "mean": 43.01
+  },
+  "uniqueDayScores": 60,
+  "uniqueBlockScores": 65,
+  "dayLabels": {
+    "Active": 197,
+    "Inactive": 95,
+    "Moderate": 646,
+    "Reserved": 439
+  },
+  "blockLabels": {
+    "Active": 698,
+    "Inactive": 402,
+    "Moderate": 2570,
+    "Reserved": 1838
+  },
+  "daysAtLeast90": 0,
+  "blocksAtLeast90": 0,
+  "byStage": {
+    "beginning": {
+      "days": 196,
+      "scores": {
+        "min": 17,
+        "p10": 31,
+        "median": 52,
+        "p90": 61,
+        "max": 65,
+        "mean": 47.62
+      },
+      "labels": {
+        "Active": 36,
+        "Inactive": 8,
+        "Moderate": 101,
+        "Reserved": 51
+      }
+    },
+    "building": {
+      "days": 364,
+      "scores": {
+        "min": 17,
+        "p10": 29,
+        "median": 52,
+        "p90": 62,
+        "max": 67,
+        "mean": 47.32
+      },
+      "labels": {
+        "Active": 66,
+        "Inactive": 28,
+        "Moderate": 203,
+        "Reserved": 67
+      }
+    },
+    "ending": {
+      "days": 154,
+      "scores": {
+        "min": 0,
+        "p10": 24,
+        "median": 36,
+        "p90": 44,
+        "max": 48,
+        "mean": 33.91
+      },
+      "labels": {
+        "Inactive": 12,
+        "Moderate": 45,
+        "Reserved": 97
+      }
+    },
+    "peak": {
+      "days": 168,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 57,
+        "p90": 64,
+        "max": 66,
+        "mean": 51.67
+      },
+      "labels": {
+        "Active": 55,
+        "Inactive": 10,
+        "Moderate": 83,
+        "Reserved": 20
+      }
+    },
+    "post_run": {
+      "days": 145,
+      "scores": {
+        "min": 1,
+        "p10": 16,
+        "median": 27,
+        "p90": 33,
+        "max": 38,
+        "mean": 25.43
+      },
+      "labels": {
+        "Inactive": 21,
+        "Reserved": 124
+      }
+    },
+    "pre_run": {
+      "days": 140,
+      "scores": {
+        "min": 17,
+        "p10": 17,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 46.57
+      },
+      "labels": {
+        "Active": 29,
+        "Inactive": 15,
+        "Moderate": 65,
+        "Reserved": 31
+      }
+    },
+    "tapering": {
+      "days": 210,
+      "scores": {
+        "min": 18,
+        "p10": 34,
+        "median": 49,
+        "p90": 57,
+        "max": 65,
+        "mean": 46.8
+      },
+      "labels": {
+        "Active": 11,
+        "Inactive": 1,
+        "Moderate": 149,
+        "Reserved": 49
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 17,
+        "p10": 31,
+        "median": 52,
+        "p90": 61,
+        "max": 65,
+        "mean": 47.79
+      },
+      "labelShares": {
+        "Active": 17.35,
+        "Inactive": 4.08,
+        "Moderate": 52.04,
+        "Reserved": 26.53
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 16,
+        "p10": 28,
+        "median": 50,
+        "p90": 61,
+        "max": 66,
+        "mean": 45.39
+      },
+      "labelShares": {
+        "Active": 13.78,
+        "Inactive": 4.08,
+        "Moderate": 54.08,
+        "Reserved": 28.06
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 16,
+        "p10": 26,
+        "median": 48,
+        "p90": 61,
+        "max": 64,
+        "mean": 45.18
+      },
+      "labelShares": {
+        "Active": 14.29,
+        "Inactive": 4.08,
+        "Moderate": 52.04,
+        "Reserved": 29.59
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 196,
+      "samples": 196,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 52,
+        "p90": 61,
+        "max": 66,
+        "mean": 47.54
+      },
+      "labelShares": {
+        "Active": 13.78,
+        "Inactive": 4.08,
+        "Moderate": 57.14,
+        "Reserved": 25
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 196,
+      "samples": 784,
+      "scores": {
+        "min": 16,
+        "p10": 29,
+        "median": 50,
+        "p90": 61,
+        "max": 66,
+        "mean": 46.47
+      },
+      "labelShares": {
+        "Active": 14.8,
+        "Inactive": 4.08,
+        "Moderate": 53.83,
+        "Reserved": 27.3
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 364,
+      "samples": 364,
+      "scores": {
+        "min": 17,
+        "p10": 28,
+        "median": 51,
+        "p90": 61,
+        "max": 66,
+        "mean": 47.18
+      },
+      "labelShares": {
+        "Active": 15.66,
+        "Inactive": 7.69,
+        "Moderate": 57.69,
+        "Reserved": 18.96
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 364,
+      "samples": 364,
+      "scores": {
+        "min": 16,
+        "p10": 25,
+        "median": 50,
+        "p90": 61,
+        "max": 68,
+        "mean": 45.21
+      },
+      "labelShares": {
+        "Active": 14.01,
+        "Inactive": 7.69,
+        "Moderate": 53.85,
+        "Reserved": 24.45
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 364,
+      "samples": 364,
+      "scores": {
+        "min": 16,
+        "p10": 26,
+        "median": 50,
+        "p90": 61,
+        "max": 68,
+        "mean": 45.7
+      },
+      "labelShares": {
+        "Active": 15.93,
+        "Inactive": 7.69,
+        "Moderate": 53.3,
+        "Reserved": 23.08
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 364,
+      "samples": 364,
+      "scores": {
+        "min": 17,
+        "p10": 28,
+        "median": 51,
+        "p90": 62,
+        "max": 67,
+        "mean": 47.21
+      },
+      "labelShares": {
+        "Active": 17.31,
+        "Inactive": 7.69,
+        "Moderate": 56.59,
+        "Reserved": 18.41
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 364,
+      "samples": 1456,
+      "scores": {
+        "min": 16,
+        "p10": 26,
+        "median": 50,
+        "p90": 61,
+        "max": 68,
+        "mean": 46.32
+      },
+      "labelShares": {
+        "Active": 15.73,
+        "Inactive": 7.69,
+        "Moderate": 55.36,
+        "Reserved": 21.22
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 0,
+        "p10": 23,
+        "median": 36,
+        "p90": 43,
+        "max": 48,
+        "mean": 33.76
+      },
+      "labelShares": {
+        "Inactive": 7.79,
+        "Moderate": 30.52,
+        "Reserved": 61.69
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 0,
+        "p10": 21,
+        "median": 34,
+        "p90": 44,
+        "max": 47,
+        "mean": 32.3
+      },
+      "labelShares": {
+        "Inactive": 8.44,
+        "Moderate": 22.73,
+        "Reserved": 68.83
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 0,
+        "p10": 21,
+        "median": 34,
+        "p90": 43,
+        "max": 48,
+        "mean": 32.48
+      },
+      "labelShares": {
+        "Inactive": 8.44,
+        "Moderate": 25.32,
+        "Reserved": 66.23
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 0,
+        "p10": 23,
+        "median": 36,
+        "p90": 43,
+        "max": 46,
+        "mean": 33.8
+      },
+      "labelShares": {
+        "Inactive": 7.14,
+        "Moderate": 30.52,
+        "Reserved": 62.34
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 0,
+        "p10": 21,
+        "median": 35,
+        "p90": 43,
+        "max": 48,
+        "mean": 33.08
+      },
+      "labelShares": {
+        "Inactive": 7.95,
+        "Moderate": 27.27,
+        "Reserved": 64.77
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 168,
+      "samples": 168,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 56,
+        "p90": 63,
+        "max": 68,
+        "mean": 51.64
+      },
+      "labelShares": {
+        "Active": 31.55,
+        "Inactive": 5.95,
+        "Moderate": 51.19,
+        "Reserved": 11.31
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 168,
+      "samples": 168,
+      "scores": {
+        "min": 16,
+        "p10": 28,
+        "median": 54,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.88
+      },
+      "labelShares": {
+        "Active": 27.38,
+        "Inactive": 5.95,
+        "Moderate": 49.4,
+        "Reserved": 17.26
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 168,
+      "samples": 168,
+      "scores": {
+        "min": 16,
+        "p10": 28,
+        "median": 54,
+        "p90": 63,
+        "max": 67,
+        "mean": 50.03
+      },
+      "labelShares": {
+        "Active": 31.55,
+        "Inactive": 5.95,
+        "Moderate": 45.24,
+        "Reserved": 17.26
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 168,
+      "samples": 168,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 57,
+        "p90": 63,
+        "max": 67,
+        "mean": 51.58
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Inactive": 5.95,
+        "Moderate": 48.81,
+        "Reserved": 11.9
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 168,
+      "samples": 672,
+      "scores": {
+        "min": 16,
+        "p10": 30,
+        "median": 55,
+        "p90": 63,
+        "max": 68,
+        "mean": 50.78
+      },
+      "labelShares": {
+        "Active": 30.95,
+        "Inactive": 5.95,
+        "Moderate": 48.66,
+        "Reserved": 14.43
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 145,
+      "samples": 145,
+      "scores": {
+        "min": 1,
+        "p10": 17,
+        "median": 26,
+        "p90": 33,
+        "max": 37,
+        "mean": 25.52
+      },
+      "labelShares": {
+        "Inactive": 13.1,
+        "Reserved": 86.9
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 145,
+      "samples": 145,
+      "scores": {
+        "min": 1,
+        "p10": 15,
+        "median": 26,
+        "p90": 32,
+        "max": 37,
+        "mean": 24.41
+      },
+      "labelShares": {
+        "Inactive": 20,
+        "Reserved": 80
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 145,
+      "samples": 145,
+      "scores": {
+        "min": 1,
+        "p10": 13,
+        "median": 26,
+        "p90": 33,
+        "max": 38,
+        "mean": 24.39
+      },
+      "labelShares": {
+        "Inactive": 20.69,
+        "Reserved": 79.31
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 145,
+      "samples": 145,
+      "scores": {
+        "min": 1,
+        "p10": 14,
+        "median": 27,
+        "p90": 34,
+        "max": 38,
+        "mean": 25.58
+      },
+      "labelShares": {
+        "Inactive": 14.48,
+        "Reserved": 85.52
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 145,
+      "samples": 580,
+      "scores": {
+        "min": 1,
+        "p10": 14,
+        "median": 26,
+        "p90": 33,
+        "max": 38,
+        "mean": 24.97
+      },
+      "labelShares": {
+        "Inactive": 17.07,
+        "Reserved": 82.93
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 17,
+        "p10": 17,
+        "median": 54,
+        "p90": 63,
+        "max": 66,
+        "mean": 47.03
+      },
+      "labelShares": {
+        "Active": 22.14,
+        "Inactive": 10.71,
+        "Moderate": 46.43,
+        "Reserved": 20.71
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 16,
+        "p10": 17,
+        "median": 49,
+        "p90": 63,
+        "max": 66,
+        "mean": 44.44
+      },
+      "labelShares": {
+        "Active": 16.43,
+        "Inactive": 10.71,
+        "Moderate": 44.29,
+        "Reserved": 28.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 16,
+        "p10": 17,
+        "median": 50,
+        "p90": 62,
+        "max": 66,
+        "mean": 44.51
+      },
+      "labelShares": {
+        "Active": 16.43,
+        "Inactive": 10.71,
+        "Moderate": 45,
+        "Reserved": 27.86
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 17,
+        "p10": 17,
+        "median": 52,
+        "p90": 63,
+        "max": 66,
+        "mean": 46.3
+      },
+      "labelShares": {
+        "Active": 20.71,
+        "Inactive": 10.71,
+        "Moderate": 46.43,
+        "Reserved": 22.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 140,
+      "samples": 560,
+      "scores": {
+        "min": 16,
+        "p10": 17,
+        "median": 50,
+        "p90": 63,
+        "max": 66,
+        "mean": 45.57
+      },
+      "labelShares": {
+        "Active": 18.93,
+        "Inactive": 10.71,
+        "Moderate": 45.54,
+        "Reserved": 24.82
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 19,
+        "p10": 34,
+        "median": 49,
+        "p90": 58,
+        "max": 65,
+        "mean": 46.85
+      },
+      "labelShares": {
+        "Active": 6.67,
+        "Inactive": 1.43,
+        "Moderate": 71.9,
+        "Reserved": 20
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 16,
+        "p10": 30,
+        "median": 47,
+        "p90": 56,
+        "max": 65,
+        "mean": 44.77
+      },
+      "labelShares": {
+        "Active": 3.81,
+        "Inactive": 1.43,
+        "Moderate": 68.1,
+        "Reserved": 26.67
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 13,
+        "p10": 29,
+        "median": 47,
+        "p90": 57,
+        "max": 65,
+        "mean": 45.06
+      },
+      "labelShares": {
+        "Active": 4.76,
+        "Inactive": 1.43,
+        "Moderate": 67.62,
+        "Reserved": 26.19
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 18,
+        "p10": 34,
+        "median": 49,
+        "p90": 57,
+        "max": 65,
+        "mean": 46.58
+      },
+      "labelShares": {
+        "Active": 3.33,
+        "Inactive": 0.48,
+        "Moderate": 74.29,
+        "Reserved": 21.9
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 210,
+      "samples": 840,
+      "scores": {
+        "min": 13,
+        "p10": 32,
+        "median": 48,
+        "p90": 57,
+        "max": 65,
+        "mean": 45.81
+      },
+      "labelShares": {
+        "Active": 4.64,
+        "Inactive": 1.19,
+        "Moderate": 70.48,
+        "Reserved": 23.69
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "11-02..11-05",
+      "days": 56,
+      "scores": {
+        "min": 29,
+        "p10": 35,
+        "median": 59,
+        "p90": 64,
+        "max": 66,
+        "mean": 54.66
+      },
+      "labels": {
+        "Active": 23,
+        "Moderate": 25,
+        "Reserved": 8
+      },
+      "maximumBlock": 68
+    },
+    "taperingEarly": {
+      "window": "11-06..11-09",
+      "days": 56,
+      "scores": {
+        "min": 32,
+        "p10": 39,
+        "median": 53,
+        "p90": 61,
+        "max": 65,
+        "mean": 51.68
+      },
+      "labels": {
+        "Active": 11,
+        "Moderate": 37,
+        "Reserved": 8
+      },
+      "maximumBlock": 65
+    },
+    "taperingLate": {
+      "window": "11-17..11-20",
+      "days": 56,
+      "scores": {
+        "min": 18,
+        "p10": 30,
+        "median": 44,
+        "p90": 52,
+        "max": 53,
+        "mean": 41.95
+      },
+      "labels": {
+        "Inactive": 1,
+        "Moderate": 38,
+        "Reserved": 17
+      },
+      "maximumBlock": 54
+    },
+    "endingEarly": {
+      "window": "11-21..11-24",
+      "days": 56,
+      "scores": {
+        "min": 0,
+        "p10": 24,
+        "median": 39,
+        "p90": 46,
+        "max": 48,
+        "mean": 36.41
+      },
+      "labels": {
+        "Inactive": 3,
+        "Moderate": 25,
+        "Reserved": 28
+      },
+      "maximumBlock": 48
+    },
+    "endingLate": {
+      "window": "12-09..12-12",
+      "days": 52,
+      "scores": {
+        "min": 3,
+        "p10": 13,
+        "median": 25,
+        "p90": 28,
+        "max": 29,
+        "mean": 22.79
+      },
+      "labels": {
+        "Inactive": 13,
+        "Reserved": 39
+      },
+      "maximumBlock": 30
+    },
+    "residualTail": {
+      "window": "12-13..12-12",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 11,
+        "percent": 8.9
+      },
+      "meaningfulRise24h": {
+        "absolute": 37,
+        "percent": 21.3
+      },
+      "sharpRise24h": {
+        "absolute": 99,
+        "percent": 48.2
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 0.1,
+      "p10": 1.3,
+      "median": 11,
+      "p90": 93,
+      "max": 1030,
+      "mean": 37.65
+    },
+    "positivePercentChange": {
+      "min": 0.13,
+      "p10": 1.34,
+      "median": 8.79,
+      "p90": 43.65,
+      "max": 601.99,
+      "mean": 19.37
+    },
+    "signals": {
+      "falling": 196,
+      "meaningful_rise": 50,
+      "rising": 109,
+      "sharp_rise": 21,
+      "stable": 1001
+    }
+  },
+  "bestBlocks": {
+    "05-09": 734,
+    "09-13": 183,
+    "13-17": 226,
+    "17-21": 234
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 9,
+    "max": 13,
+    "mean": 4.86
+  },
+  "daysWithSpreadAtLeast10": 105,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2013-11-22",
+      "stage": "ending",
+      "staging": false,
+      "score": 38,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 366,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 8,
+      "flowPercentChange24h": 2.23,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 38,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 29,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Coho that is still capable of reacting."
+    },
+    {
+      "date": "2019-11-11",
+      "stage": "tapering",
+      "staging": false,
+      "score": 39,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 707,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -38,
+      "flowPercentChange24h": -5.1,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 29,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Light rain adds some cover.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2020-11-14",
+      "stage": "tapering",
+      "staging": false,
+      "score": 27,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 916,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.11,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 25,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 20,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 22,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 33,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-09-20",
+      "stage": "beginning",
+      "staging": false,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 100,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -10,
+      "flowPercentChange24h": -9.09,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 85,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-11-11",
+      "stage": "tapering",
+      "staging": false,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 286,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -11,
+      "flowPercentChange24h": -3.7,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2023-11-06",
+      "stage": "tapering",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 78.8,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.4,
+      "flowPercentChange24h": -1.75,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.1,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2014-09-25",
+      "stage": "beginning",
+      "staging": false,
+      "score": 58,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 111,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -6,
+      "flowPercentChange24h": -5.13,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 73,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2014-09-26",
+      "stage": "beginning",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 104,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -7,
+      "flowPercentChange24h": -6.31,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 44,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-09-28",
+      "stage": "beginning",
+      "staging": false,
+      "score": 49,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 558,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -13,
+      "flowPercentChange24h": -2.28,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-18",
+      "stage": "building",
+      "staging": false,
+      "score": 59,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 178,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -5,
+      "flowPercentChange24h": -2.73,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 31,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; this score describes reaction conditions rather than movement or abundance and does not measure water temperature. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-11-04",
+      "stage": "peak",
+      "staging": false,
+      "score": 51,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 394,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -28,
+      "flowPercentChange24h": -6.64,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 55,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-11-07",
+      "stage": "tapering",
+      "staging": false,
+      "score": 52,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 302,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -31,
+      "flowPercentChange24h": -9.31,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    }
+  ]
+}

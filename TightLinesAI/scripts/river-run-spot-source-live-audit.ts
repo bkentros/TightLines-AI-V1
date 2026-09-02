@@ -34,6 +34,9 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "www.in.gov",
   "cityofkewauneewi.gov",
   "www.visitkewauneecounty.com",
+  "myodfw.com",
+  "www.manitowoc.org",
+  "manitowoccountywi.gov",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =

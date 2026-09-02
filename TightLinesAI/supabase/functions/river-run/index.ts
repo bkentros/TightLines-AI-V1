@@ -103,6 +103,12 @@ const MIDWEST_OWNER_REVIEW_RIVER_IDS = new Set([
   "trail_creek",
   "kewaunee_river",
 ]);
+const FALL_2026_OWNER_REVIEW_CAPABILITY = "fall-2026-owner-review-v1";
+const FALL_2026_OWNER_REVIEW_RIVER_IDS = new Set([
+  "clackamas",
+  "manitowoc",
+  "oswego",
+]);
 
 function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
   const capabilities = new Set(
@@ -112,10 +118,14 @@ function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
       .filter(Boolean),
   );
   const supportsMidwest = capabilities.has(MIDWEST_OWNER_REVIEW_CAPABILITY);
+  const supportsFall2026 = capabilities.has(FALL_2026_OWNER_REVIEW_CAPABILITY);
   return new Set(
     RIVER_RUN_DRAFT_RIVER_PROFILES
       .filter((river) =>
-        supportsMidwest || !MIDWEST_OWNER_REVIEW_RIVER_IDS.has(river.riverId)
+        (supportsMidwest ||
+          !MIDWEST_OWNER_REVIEW_RIVER_IDS.has(river.riverId)) &&
+        (supportsFall2026 ||
+          !FALL_2026_OWNER_REVIEW_RIVER_IDS.has(river.riverId))
       )
       .map((river) => river.riverId),
   );

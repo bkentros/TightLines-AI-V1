@@ -209,6 +209,8 @@ export type ActivityRules = {
    * from being presented as a scored outlook.
    */
   minimumInputContract?: "adaptive" | "weather_and_one_measured_river_input";
+  /** Audited evidence ceiling used when a scored model intentionally omits a major measured driver. */
+  confidenceCeiling?: "Limited";
   /** Explicit reach/source eligibility; required when river-level sources exist but a run uses weather-only Activity. */
   inputReach?: {
     reachIds: string[];

@@ -323,6 +323,30 @@ function dossierTemplate(): string {
 
 **Research cutoff and time-sensitive recheck triggers:**
 
+### Delivery contract
+
+**Exact hidden-review river/run IDs:**
+
+**Activity contracts by run:**
+
+**Stopping gate:** \`owner_review_ready\`
+
+| Delivery class | Changes required | Authorization/status |
+| --- | --- | --- |
+| Server-only configuration |  | unresolved |
+| Mobile-binary presentation |  | unresolved |
+| Database/migration/cron |  | unresolved |
+| Function deployment |  | unresolved |
+
+| Client compatibility | Decision |
+| --- | --- |
+| Capability ID | unresolved |
+| Protected river/run IDs | unresolved |
+| Bundled dependencies | unresolved |
+| First compatible app version / iOS build / Android versionCode | unresolved |
+| No-capability behavior | omit incompatible members and counts |
+| Admin/ordinary user, capability/no-capability verification | pending |
+
 | ID | Authority/title | URL/path | Published/updated | Event/data years | Page/table | Accessed | Facts supported | Geographic scope | Limitations |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | E-001 |  |  |  |  |  |  |  |  |  |
@@ -377,7 +401,7 @@ function dossierTemplate(): string {
 | Historical-only water temperature |  | archive extraction, date-window/year-count QA, non-scoring proof, or explicit unavailability | unresolved |
 | Fish Counts |  | live/in-season/final-season/retrospective class; source/fetch/publication/observation cadence; parser/revision/duplicate QA; or explicit unavailability | unresolved |
 | Fishing Shape |  | bands and replay, or explicit unavailability | unresolved |
-| Activity source pairing |  | observed compatibility or weather-only limitation | unresolved |
+| Activity source pairing |  | observed-river full/hydraulic-only contract, weather-only limitation, or explicit unavailability | unresolved |
 
 ## 8. Spot Finder
 
@@ -466,7 +490,7 @@ candidate rows only after the contradiction/falsification audit is recorded.
 
 ### Activity tuning and fixed replay
 
-**Mode/source pairing/represented reach:**
+**Mode/input contract/source pairing/represented reach:**
 
 **Fixed interval and coverage:**
 
@@ -494,6 +518,13 @@ configured.
 | Config object/file | Dossier fields reconciled | Validator/replay/fixture result | Reviewer/date | Status |
 | --- | --- | --- | --- | --- |
 |  |  |  |  | pending |
+
+| Client/catalog compatibility case | Expected catalog/snapshot | Verified result | Status |
+| --- | --- | --- | --- |
+| Compatible admin client | complete hidden river, picker, artwork, and snapshot |  | pending |
+| No-capability/incompatible admin client | no incompatible river, inflated count, or snapshot |  | pending |
+| Ordinary user | authorized public catalog only |  | pending |
+| Incompatible direct snapshot request | fail closed |  | pending |
 
 ## 12. Acceptance and release record
 
@@ -524,6 +555,7 @@ configured.
 | Configuration and packet validation |  | pending |  |  |
 | Fixtures/copy/UI/visual/type QA |  | pending |  |  |
 | River-picker size/artwork coverage |  | pending |  |  |
+| Client capability/catalog compatibility |  | pending |  |  |
 | Rendered owner acceptance |  | pending |  |  |
 | Public registry/config source/migrations |  | pending |  |  |
 | Deployment/full production smoke |  | pending |  |  |

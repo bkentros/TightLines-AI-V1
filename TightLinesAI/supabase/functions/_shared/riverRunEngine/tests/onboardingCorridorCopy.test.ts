@@ -156,6 +156,21 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
       assertMatch(display.detail, /Besadny/i, run.runId);
       assertMatch(display.whereToStart, /Besadny Reach/i, run.runId);
       assertNotMatch(JSON.stringify(display), /Grand River|Springland/i, run.runId);
+    } else if (run.riverId === "clackamas") {
+      assertMatch(display.detail, /River Mill|North Fork/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder:/i, run.runId);
+      assertMatch(display.whereToStart, /Lower|Middle|Estacada/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River|Clarks Mills|Varick/i, run.runId);
+    } else if (run.riverId === "manitowoc") {
+      assertMatch(display.detail, /Clarks Mills/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder:/i, run.runId);
+      assertMatch(display.whereToStart, /Lower|Middle|Lower Cato/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River|River Mill|Varick/i, run.runId);
+    } else if (run.riverId === "oswego") {
+      assertMatch(display.detail, /Varick Dam/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder:/i, run.runId);
+      assertMatch(display.whereToStart, /Linear Park|Terminal Tailwater/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand River|River Mill|Clarks Mills/i, run.runId);
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

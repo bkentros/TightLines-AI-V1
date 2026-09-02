@@ -322,6 +322,10 @@ for (
     ],
     ["Activity tuning", /Activity tuning — mandatory per river\/run/],
     ["observed Activity", /Observed-river mode/],
+    [
+      "hydraulic-only observed Activity",
+      /`hydraulic-only`[\s\S]*current measured river behavior must be[\s\S]*required by the minimum\s+input contract/,
+    ],
     ["weather-only Activity", /Weather-only mode/],
     ["fixed replay", /Fixed historical replay/],
     ["stage/block review", /stage-by-block table/],
@@ -343,6 +347,18 @@ for (
     ],
     ["migration reconciliation", /Reconcile local and[\s\S]*linked migrations/],
     ["clean handoff", /ahead\/behind is `0 0`[\s\S]*worktree is clean/],
+    [
+      "client capability default deny",
+      /client capability ID[\s\S]*Default\/no-header behavior is deny/,
+    ],
+    [
+      "mixed server and mobile delivery",
+      /River Run is a mixed delivery system[\s\S]*server deployment can change what an[\s\S]*already-installed app sees/,
+    ],
+    [
+      "store version preflight",
+      /remote version authority[\s\S]*A completed EAS build is not proof[\s\S]*store submission[\s\S]*strictly newer/,
+    ],
   ] as const
 ) {
   assert(
@@ -398,6 +414,11 @@ for (
     "Building established",
     "seasonalZonePlan/earlyApproach",
     "Owner-review digest",
+    "Delivery contract",
+    "Capability ID",
+    "No-capability behavior",
+    "Mode/input contract/source pairing/represented reach",
+    "Client capability/catalog compatibility",
     'stage === "release"',
   ]
 ) {

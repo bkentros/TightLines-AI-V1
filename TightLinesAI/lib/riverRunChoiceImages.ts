@@ -31,6 +31,9 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   lower_genesee: "large",
   trail_creek: "small",
   kewaunee_river: "medium",
+  clackamas: "large",
+  manitowoc: "medium",
+  oswego: "large",
 };
 
 export function getRiverRunRiverSize(

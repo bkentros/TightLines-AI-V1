@@ -234,6 +234,7 @@ assert.deepEqual(
     ["IN", "Indiana"],
     ["WA", "Washington"],
     ["NY", "New York"],
+    ["OR", "Oregon"],
     ["OH", "Ohio"],
   ],
   "State picker must use full customer-facing names even when the API returns codes as display names",

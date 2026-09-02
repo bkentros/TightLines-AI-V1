@@ -8,7 +8,8 @@ import type {
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
 const CLIENT_TIMEOUT_MS = 15_000;
-const RIVER_RUN_CLIENT_CAPABILITIES = "midwest-owner-review-v1";
+const RIVER_RUN_CLIENT_CAPABILITIES =
+  "midwest-owner-review-v1,fall-2026-owner-review-v1";
 
 type RiverRunSnapshotParams = {
   riverId: string;

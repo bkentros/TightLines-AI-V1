@@ -234,7 +234,8 @@ export function scoreActivity(input: {
   const measuredInputsComplete = (!expectsTemperature || hasTemperature) &&
     (!expectsRiver || hasRiver);
   const hasAnyConfiguredMeasuredInput = hasTemperature || hasRiver;
-  const confidence: ActivityConfidence = weatherOnly
+  const confidence: ActivityConfidence = weatherOnly ||
+      input.rules.confidenceCeiling === "Limited"
     ? "Limited"
     : hasWeather && measuredInputsComplete && !tomorrow
     ? "Full"
@@ -656,6 +657,9 @@ function activityCopy(input: {
   const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
   const confidence = input.weatherOnly
     ? "This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited."
+    : input.confidence === "Limited" && input.expectsRiver &&
+        !input.expectsTemperature
+    ? "This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited."
     : input.confidence === "Full"
     ? input.expectsTemperature && input.expectsRiver
       ? "This read uses a current river level, measured water temperature, and the hourly weather outlook."
@@ -669,6 +673,7 @@ function activityCopy(input: {
     input.profile,
     input.stage,
     input.conditionalPresence,
+    input.expectsTemperature,
   );
   const scope = input.scopeCopy ? ` ${input.scopeCopy}` : "";
   const nilesScoped = input.scopeCopy?.includes("mainstem at Niles") ?? false;
@@ -700,7 +705,7 @@ function activityCopy(input: {
   const baseTip = input.weatherOnly
     ? weatherOnlyTip(input.profile, input.stage, input.bestBlock.label)
     : input.profile === "steelhead_feeding"
-    ? steelheadTip(input.stage, input.bestBlock.label)
+    ? steelheadTip(input.stage, input.bestBlock.label, input.expectsTemperature)
     : input.profile === "brown_trout_fall_reaction"
     ? brownTroutTip(input.stage, input.bestBlock.label)
     : input.stage === "tapering"
@@ -1453,6 +1458,7 @@ function lifecycleCopy(
   profile: ActivityRules["profile"],
   stage: RunStage,
   conditionalPresence: boolean,
+  expectsTemperature: boolean,
 ): string {
   const species = activitySpecies(profile);
   if (conditionalPresence) {
@@ -1460,10 +1466,14 @@ function lifecycleCopy(
   }
   if (profile === "coho_fall_reaction") {
     if (stage === "beginning") {
-      return "Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river.";
+      return expectsTemperature
+        ? "Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river."
+        : "Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature.";
     }
     if (stage === "building") {
-      return "More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance.";
+      return expectsTemperature
+        ? "More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance."
+        : "More Coho are entering and settling into the river; this score describes reaction conditions rather than movement or abundance and does not measure water temperature.";
     }
     if (stage === "peak") {
       return "Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance.";
@@ -1487,10 +1497,14 @@ function lifecycleCopy(
       return "Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present.";
     }
     if (stage === "tapering") {
-      return "As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions.";
+      return expectsTemperature
+        ? "As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions."
+        : "As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; this read measures river behavior but not water temperature.";
     }
     if (stage === "ending") {
-      return "These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline.";
+      return expectsTemperature
+        ? "These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline."
+        : "These Steelhead remain alive in the river as they transition into winter holding. This read uses current conditions without measuring water temperature and does not impose a terminal biological decline.";
     }
     if (stage === "post_run") {
       return "Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness.";
@@ -1527,11 +1541,19 @@ function lifecycleCopy(
   return `The score describes conditions for a ${species} already present, not the number of fish in the river.`;
 }
 
-function steelheadTip(stage: RunStage, bestBlockLabel: string): string {
+function steelheadTip(
+  stage: RunStage,
+  bestBlockLabel: string,
+  expectsTemperature: boolean,
+): string {
   if (stage === "tapering" || stage === "ending" || stage === "post_run") {
-    return `Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.`;
+    return expectsTemperature
+      ? `Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.`
+      : `Compare the four time windows as hydraulic and weather context only; water temperature is not measured, and the fall read remains separate from winter holding.`;
   }
-  return `Start with ${bestBlockLabel}. If conditions change, favor the window that best combines workable light with measured water temperature.`;
+  return expectsTemperature
+    ? `Start with ${bestBlockLabel}. If conditions change, favor the window that best combines workable light with measured water temperature.`
+    : `Start with ${bestBlockLabel}. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown.`;
 }
 
 function brownTroutTip(stage: RunStage, bestBlockLabel: string): string {

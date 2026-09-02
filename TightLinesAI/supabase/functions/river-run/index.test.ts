@@ -801,6 +801,68 @@ Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients"
   assertEquals((await json(response)).error, "river_run_review_not_found");
 });
 
+Deno.test("owner-review catalog hides fall 2026 drafts without the client capability", async () => {
+  const response = await handleRiverRunRequestBase(
+    request("/review/rivers", {
+      clientCapabilities: "midwest-owner-review-v1",
+    }),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+  const body = await json(response);
+  const riverIds = body.states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+
+  assertEquals(response.status, 200);
+  assert(!riverIds.includes("clackamas"));
+  assert(!riverIds.includes("manitowoc"));
+  assert(!riverIds.includes("oswego"));
+});
+
+Deno.test("fall 2026 capability exposes only compatible drafts to an admin", async () => {
+  const response = await handleRiverRunRequestBase(
+    request("/review/rivers", {
+      clientCapabilities: "fall-2026-owner-review-v1",
+    }),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+  const body = await json(response);
+  const riverIds = body.states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+
+  assertEquals(response.status, 200);
+  for (const riverId of ["clackamas", "manitowoc", "oswego"]) {
+    assert(riverIds.includes(riverId));
+  }
+  assert(!riverIds.includes("trail_creek"));
+  assert(!riverIds.includes("kewaunee_river"));
+});
+
+Deno.test("owner-review snapshot hides fall 2026 drafts without the capability", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=oswego&runId=oswego_fall_chinook&presentationState=NY",
+      { clientCapabilities: "midwest-owner-review-v1" },
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+
+  assertEquals(response.status, 404);
+  assertEquals((await json(response)).error, "river_run_review_not_found");
+});
+
 Deno.test("owner-review catalog is admin-only and includes compatible hidden Midwest rivers", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers", {

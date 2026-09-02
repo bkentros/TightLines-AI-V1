@@ -1,0 +1,1890 @@
+{
+  "runId": "oswego_fall_coho",
+  "rulesVersion": "oswego-coho-hydraulic-activity-v2",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical coho replay using Oswego River at Lock 7, Oswego, NY USGS 04249000 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1092,
+  "usableDays": 1092,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 0,
+    "p10": 25,
+    "median": 44,
+    "p90": 60,
+    "max": 67,
+    "mean": 43.37
+  },
+  "blockScore": {
+    "min": 0,
+    "p10": 24,
+    "median": 43,
+    "p90": 60,
+    "max": 68,
+    "mean": 42.4
+  },
+  "uniqueDayScores": 62,
+  "uniqueBlockScores": 67,
+  "dayLabels": {
+    "Active": 138,
+    "Inactive": 63,
+    "Moderate": 551,
+    "Reserved": 340
+  },
+  "blockLabels": {
+    "Active": 480,
+    "Inactive": 264,
+    "Moderate": 2112,
+    "Reserved": 1512
+  },
+  "daysAtLeast90": 0,
+  "blocksAtLeast90": 0,
+  "byStage": {
+    "beginning": {
+      "days": 154,
+      "scores": {
+        "min": 22,
+        "p10": 35,
+        "median": 51,
+        "p90": 63,
+        "max": 67,
+        "mean": 49.24
+      },
+      "labels": {
+        "Active": 28,
+        "Moderate": 91,
+        "Reserved": 35
+      }
+    },
+    "building": {
+      "days": 266,
+      "scores": {
+        "min": 22,
+        "p10": 31,
+        "median": 47,
+        "p90": 61,
+        "max": 66,
+        "mean": 47.38
+      },
+      "labels": {
+        "Active": 45,
+        "Moderate": 159,
+        "Reserved": 62
+      }
+    },
+    "ending": {
+      "days": 98,
+      "scores": {
+        "min": 0,
+        "p10": 14,
+        "median": 37,
+        "p90": 45,
+        "max": 49,
+        "mean": 32.92
+      },
+      "labels": {
+        "Inactive": 16,
+        "Moderate": 36,
+        "Reserved": 46
+      }
+    },
+    "peak": {
+      "days": 154,
+      "scores": {
+        "min": 24,
+        "p10": 31,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.16
+      },
+      "labels": {
+        "Active": 39,
+        "Moderate": 88,
+        "Reserved": 27
+      }
+    },
+    "post_run": {
+      "days": 126,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 27,
+        "p90": 34,
+        "max": 38,
+        "mean": 23.12
+      },
+      "labels": {
+        "Inactive": 30,
+        "Reserved": 96
+      }
+    },
+    "pre_run": {
+      "days": 154,
+      "scores": {
+        "min": 17,
+        "p10": 31,
+        "median": 51,
+        "p90": 60,
+        "max": 65,
+        "mean": 47.39
+      },
+      "labels": {
+        "Active": 21,
+        "Inactive": 6,
+        "Moderate": 91,
+        "Reserved": 36
+      }
+    },
+    "tapering": {
+      "days": 140,
+      "scores": {
+        "min": 1,
+        "p10": 23,
+        "median": 45,
+        "p90": 56,
+        "max": 64,
+        "mean": 41.87
+      },
+      "labels": {
+        "Active": 5,
+        "Inactive": 11,
+        "Moderate": 86,
+        "Reserved": 38
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 23,
+        "p10": 36,
+        "median": 51,
+        "p90": 63,
+        "max": 67,
+        "mean": 49.95
+      },
+      "labelShares": {
+        "Active": 18.18,
+        "Moderate": 62.34,
+        "Reserved": 19.48
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 20,
+        "p10": 32,
+        "median": 49,
+        "p90": 62,
+        "max": 68,
+        "mean": 46.86
+      },
+      "labelShares": {
+        "Active": 14.94,
+        "Moderate": 52.6,
+        "Reserved": 32.47
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 20,
+        "p10": 31,
+        "median": 48,
+        "p90": 61,
+        "max": 65,
+        "mean": 46.51
+      },
+      "labelShares": {
+        "Active": 13.64,
+        "Moderate": 55.19,
+        "Reserved": 31.17
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 23,
+        "p10": 34,
+        "median": 52,
+        "p90": 61,
+        "max": 66,
+        "mean": 49.1
+      },
+      "labelShares": {
+        "Active": 16.88,
+        "Moderate": 61.04,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 20,
+        "p10": 33,
+        "median": 50,
+        "p90": 62,
+        "max": 68,
+        "mean": 48.11
+      },
+      "labelShares": {
+        "Active": 15.91,
+        "Moderate": 57.79,
+        "Reserved": 26.3
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 23,
+        "p10": 32,
+        "median": 47,
+        "p90": 62,
+        "max": 67,
+        "mean": 47.88
+      },
+      "labelShares": {
+        "Active": 18.42,
+        "Moderate": 58.27,
+        "Reserved": 23.31
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 20,
+        "p10": 28,
+        "median": 46,
+        "p90": 60,
+        "max": 66,
+        "mean": 45.03
+      },
+      "labelShares": {
+        "Active": 11.65,
+        "Moderate": 52.26,
+        "Reserved": 36.09
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 20,
+        "p10": 28,
+        "median": 46,
+        "p90": 61,
+        "max": 66,
+        "mean": 44.75
+      },
+      "labelShares": {
+        "Active": 13.91,
+        "Moderate": 48.87,
+        "Reserved": 37.22
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 23,
+        "p10": 32,
+        "median": 47,
+        "p90": 61,
+        "max": 66,
+        "mean": 47.56
+      },
+      "labelShares": {
+        "Active": 13.53,
+        "Moderate": 63.16,
+        "Reserved": 23.31
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 266,
+      "samples": 1064,
+      "scores": {
+        "min": 20,
+        "p10": 30,
+        "median": 46,
+        "p90": 61,
+        "max": 67,
+        "mean": 46.3
+      },
+      "labelShares": {
+        "Active": 14.38,
+        "Moderate": 55.64,
+        "Reserved": 29.98
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 98,
+      "samples": 98,
+      "scores": {
+        "min": 0,
+        "p10": 15,
+        "median": 38,
+        "p90": 44,
+        "max": 49,
+        "mean": 32.84
+      },
+      "labelShares": {
+        "Inactive": 16.33,
+        "Moderate": 35.71,
+        "Reserved": 47.96
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 98,
+      "samples": 98,
+      "scores": {
+        "min": 0,
+        "p10": 7,
+        "median": 36,
+        "p90": 44,
+        "max": 49,
+        "mean": 31.66
+      },
+      "labelShares": {
+        "Inactive": 16.33,
+        "Moderate": 29.59,
+        "Reserved": 54.08
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 98,
+      "samples": 98,
+      "scores": {
+        "min": 0,
+        "p10": 6,
+        "median": 35,
+        "p90": 45,
+        "max": 49,
+        "mean": 31.48
+      },
+      "labelShares": {
+        "Inactive": 17.35,
+        "Moderate": 29.59,
+        "Reserved": 53.06
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 98,
+      "samples": 98,
+      "scores": {
+        "min": 0,
+        "p10": 11,
+        "median": 37,
+        "p90": 45,
+        "max": 48,
+        "mean": 32.83
+      },
+      "labelShares": {
+        "Inactive": 14.29,
+        "Moderate": 33.67,
+        "Reserved": 52.04
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 98,
+      "samples": 392,
+      "scores": {
+        "min": 0,
+        "p10": 1,
+        "median": 37,
+        "p90": 45,
+        "max": 49,
+        "mean": 32.2
+      },
+      "labelShares": {
+        "Inactive": 16.07,
+        "Moderate": 32.14,
+        "Reserved": 51.79
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 24,
+        "p10": 30,
+        "median": 56,
+        "p90": 63,
+        "max": 67,
+        "mean": 51.66
+      },
+      "labelShares": {
+        "Active": 27.92,
+        "Moderate": 55.19,
+        "Reserved": 16.88
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 23,
+        "p10": 28,
+        "median": 52,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.23
+      },
+      "labelShares": {
+        "Active": 20.78,
+        "Moderate": 57.79,
+        "Reserved": 21.43
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 23,
+        "p10": 28,
+        "median": 51,
+        "p90": 62,
+        "max": 66,
+        "mean": 48.31
+      },
+      "labelShares": {
+        "Active": 17.53,
+        "Moderate": 57.14,
+        "Reserved": 25.32
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 23,
+        "p10": 32,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.01
+      },
+      "labelShares": {
+        "Active": 24.03,
+        "Moderate": 58.44,
+        "Reserved": 17.53
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 23,
+        "p10": 30,
+        "median": 54,
+        "p90": 63,
+        "max": 67,
+        "mean": 50.06
+      },
+      "labelShares": {
+        "Active": 22.56,
+        "Moderate": 57.14,
+        "Reserved": 20.29
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 126,
+      "samples": 126,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 27,
+        "p90": 34,
+        "max": 38,
+        "mean": 23.28
+      },
+      "labelShares": {
+        "Inactive": 24.6,
+        "Reserved": 75.4
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 126,
+      "samples": 126,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 26,
+        "p90": 33,
+        "max": 38,
+        "mean": 22.21
+      },
+      "labelShares": {
+        "Inactive": 24.6,
+        "Reserved": 75.4
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 126,
+      "samples": 126,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 26,
+        "p90": 33,
+        "max": 39,
+        "mean": 22.22
+      },
+      "labelShares": {
+        "Inactive": 27.78,
+        "Reserved": 72.22
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 126,
+      "samples": 126,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 27,
+        "p90": 34,
+        "max": 37,
+        "mean": 22.97
+      },
+      "labelShares": {
+        "Inactive": 25.4,
+        "Reserved": 74.6
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 126,
+      "samples": 504,
+      "scores": {
+        "min": 1,
+        "p10": 2,
+        "median": 26,
+        "p90": 33,
+        "max": 39,
+        "mean": 22.67
+      },
+      "labelShares": {
+        "Inactive": 25.6,
+        "Reserved": 74.4
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 52,
+        "p90": 61,
+        "max": 65,
+        "mean": 48.16
+      },
+      "labelShares": {
+        "Active": 18.18,
+        "Inactive": 3.9,
+        "Moderate": 56.49,
+        "Reserved": 21.43
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 17,
+        "p10": 28,
+        "median": 48,
+        "p90": 59,
+        "max": 66,
+        "mean": 44.97
+      },
+      "labelShares": {
+        "Active": 9.74,
+        "Inactive": 3.9,
+        "Moderate": 55.84,
+        "Reserved": 30.52
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 16,
+        "p10": 26,
+        "median": 48,
+        "p90": 59,
+        "max": 64,
+        "mean": 44.19
+      },
+      "labelShares": {
+        "Active": 7.14,
+        "Inactive": 3.9,
+        "Moderate": 58.44,
+        "Reserved": 30.52
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 17,
+        "p10": 32,
+        "median": 52,
+        "p90": 60,
+        "max": 65,
+        "mean": 47.58
+      },
+      "labelShares": {
+        "Active": 10.39,
+        "Inactive": 3.9,
+        "Moderate": 63.64,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 16,
+        "p10": 28,
+        "median": 49,
+        "p90": 60,
+        "max": 66,
+        "mean": 46.23
+      },
+      "labelShares": {
+        "Active": 11.36,
+        "Inactive": 3.9,
+        "Moderate": 58.6,
+        "Reserved": 26.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 1,
+        "p10": 22,
+        "median": 45,
+        "p90": 56,
+        "max": 66,
+        "mean": 41.91
+      },
+      "labelShares": {
+        "Active": 3.57,
+        "Inactive": 8.57,
+        "Moderate": 60.71,
+        "Reserved": 27.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 1,
+        "p10": 21,
+        "median": 43,
+        "p90": 55,
+        "max": 64,
+        "mean": 40.02
+      },
+      "labelShares": {
+        "Active": 3.57,
+        "Inactive": 10,
+        "Moderate": 55.71,
+        "Reserved": 30.71
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 1,
+        "p10": 22,
+        "median": 43,
+        "p90": 56,
+        "max": 64,
+        "mean": 39.95
+      },
+      "labelShares": {
+        "Active": 2.86,
+        "Inactive": 8.57,
+        "Moderate": 54.29,
+        "Reserved": 34.29
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 2,
+        "p10": 23,
+        "median": 44,
+        "p90": 57,
+        "max": 65,
+        "mean": 41.92
+      },
+      "labelShares": {
+        "Active": 4.29,
+        "Inactive": 7.14,
+        "Moderate": 61.43,
+        "Reserved": 27.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 140,
+      "samples": 560,
+      "scores": {
+        "min": 1,
+        "p10": 22,
+        "median": 44,
+        "p90": 56,
+        "max": 66,
+        "mean": 40.95
+      },
+      "labelShares": {
+        "Active": 3.57,
+        "Inactive": 8.57,
+        "Moderate": 58.04,
+        "Reserved": 29.82
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Oswego River at Lock 7, Oswego, NY hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-12..10-15",
+      "days": 56,
+      "scores": {
+        "min": 25,
+        "p10": 39,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.04
+      },
+      "labels": {
+        "Active": 13,
+        "Moderate": 36,
+        "Reserved": 7
+      },
+      "maximumBlock": 67
+    },
+    "taperingEarly": {
+      "window": "10-16..10-19",
+      "days": 56,
+      "scores": {
+        "min": 7,
+        "p10": 30,
+        "median": 51,
+        "p90": 59,
+        "max": 64,
+        "mean": 47.3
+      },
+      "labels": {
+        "Active": 5,
+        "Inactive": 1,
+        "Moderate": 37,
+        "Reserved": 13
+      },
+      "maximumBlock": 66
+    },
+    "taperingLate": {
+      "window": "10-22..10-25",
+      "days": 56,
+      "scores": {
+        "min": 1,
+        "p10": 18,
+        "median": 41,
+        "p90": 50,
+        "max": 55,
+        "mean": 36.88
+      },
+      "labels": {
+        "Inactive": 9,
+        "Moderate": 32,
+        "Reserved": 15
+      },
+      "maximumBlock": 56
+    },
+    "endingEarly": {
+      "window": "10-26..10-29",
+      "days": 56,
+      "scores": {
+        "min": 0,
+        "p10": 21,
+        "median": 39,
+        "p90": 47,
+        "max": 49,
+        "mean": 35.2
+      },
+      "labels": {
+        "Inactive": 6,
+        "Moderate": 27,
+        "Reserved": 23
+      },
+      "maximumBlock": 49
+    },
+    "endingLate": {
+      "window": "11-07..11-10",
+      "days": 56,
+      "scores": {
+        "min": 2,
+        "p10": 2,
+        "median": 25,
+        "p90": 30,
+        "max": 31,
+        "mean": 22.04
+      },
+      "labels": {
+        "Inactive": 13,
+        "Reserved": 43
+      },
+      "maximumBlock": 32
+    },
+    "residualTail": {
+      "window": "11-11..11-10",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 470,
+        "percent": 10.8
+      },
+      "meaningfulRise24h": {
+        "absolute": 1160,
+        "percent": 30.5
+      },
+      "sharpRise24h": {
+        "absolute": 2130,
+        "percent": 68.6
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 2,
+      "p10": 43,
+      "median": 390,
+      "p90": 2130,
+      "max": 8200,
+      "mean": 817.39
+    },
+    "positivePercentChange": {
+      "min": 0.14,
+      "p10": 2.59,
+      "median": 17.31,
+      "p90": 82.9,
+      "max": 290.17,
+      "mean": 33.66
+    },
+    "signals": {
+      "falling": 327,
+      "meaningful_rise": 71,
+      "rising": 101,
+      "sharp_rise": 31,
+      "stable": 562
+    }
+  },
+  "bestBlocks": {
+    "05-09": 649,
+    "09-13": 127,
+    "13-17": 106,
+    "17-21": 210
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 9,
+    "max": 13,
+    "mean": 5.1
+  },
+  "daysWithSpreadAtLeast10": 88,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2019-08-30",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 53,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 2230,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -600,
+      "flowPercentChange24h": -21.2,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-10",
+      "stage": "peak",
+      "staging": false,
+      "score": 43,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1480,
+      "flowBand": "low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -190,
+      "flowPercentChange24h": -11.38,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 66,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-08-29",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 41,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1100,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 70,
+      "flowPercentChange24h": 6.8,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 65,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 33,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 21,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 35,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2012-10-13",
+      "stage": "peak",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 2230,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -790,
+      "flowPercentChange24h": -26.16,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 28,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2014-09-16",
+      "stage": "building",
+      "staging": false,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 3050,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 1200,
+      "flowPercentChange24h": 64.86,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0.08,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 33,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; this score describes reaction conditions rather than movement or abundance and does not measure water temperature. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2014-10-24",
+      "stage": "tapering",
+      "staging": false,
+      "score": 43,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 5620,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -1740,
+      "flowPercentChange24h": -23.64,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 68,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2016-10-18",
+      "stage": "tapering",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1930,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 580,
+      "flowPercentChange24h": 42.96,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 50,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 88,
+          "precipitationIn": 0.05,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2017-08-31",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 49,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1620,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -80,
+      "flowPercentChange24h": -4.71,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 82,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2017-09-12",
+      "stage": "beginning",
+      "staging": false,
+      "score": 40,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1360,
+      "flowBand": "low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -230,
+      "flowPercentChange24h": -14.47,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 33,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2019-09-04",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 7270,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 1630,
+      "flowPercentChange24h": 28.9,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.17,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0.08,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2019-09-06",
+      "stage": "beginning",
+      "staging": false,
+      "score": 56,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 5050,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -1660,
+      "flowPercentChange24h": -24.74,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 49,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 89,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-09-08",
+      "stage": "beginning",
+      "staging": false,
+      "score": 41,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 1410,
+      "flowBand": "low",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -230,
+      "flowPercentChange24h": -14.02,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 47,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Light rain adds some cover.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive; this score applies only to fish already in the river and does not measure water temperature. Hydraulic-only read for the short lower corridor. Temperature has zero influence. Canal exclusion, power operations, and Lake Ontario backwater sharply limit interpretation. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

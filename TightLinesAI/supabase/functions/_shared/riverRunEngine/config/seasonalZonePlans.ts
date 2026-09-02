@@ -627,7 +627,8 @@ for (
 assign(
   ["trail_creek_fall_chinook", "trail_creek_fall_coho"],
   {
-    approach: "Lake Michigan off Michigan City, Michigan City harbor, and the Trail Creek mouth",
+    approach:
+      "Lake Michigan off Michigan City, Michigan City harbor, and the Trail Creek mouth",
     source: "docs/onboarding/river-run/trail_creek/river-onboarding.md",
     phases: THREE_REACH_SPAWNER(
       "trail_creek_lower_city",
@@ -635,25 +636,130 @@ assign(
       "trail_creek_upper_access",
     ),
   },
-  (runId) => auditedRationale(runId, "The plan moves away from lower entry water during Building and retains only the documented Trail Creek public corridor above the operated barrier."),
+  (runId) =>
+    auditedRationale(
+      runId,
+      "The plan moves away from lower entry water during Building and retains only the documented Trail Creek public corridor above the operated barrier.",
+    ),
 );
 assign(
   ["kewaunee_river_fall_chinook", "kewaunee_river_fall_coho"],
   {
-    approach: "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
+    approach:
+      "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
     source: "docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
     phases: TWO_REACH_SPAWNER("kewaunee_lower_river", "kewaunee_besadny_reach"),
   },
-  (runId) => auditedRationale(runId, "Chinook and Coho orientation stops below the operated Besadny structure and never implies routine upstream passage."),
+  (runId) =>
+    auditedRationale(
+      runId,
+      "Chinook and Coho orientation stops below the operated Besadny structure and never implies routine upstream passage.",
+    ),
 );
 assign(
   ["kewaunee_river_fall_brown_trout"],
   {
-    approach: "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
+    approach:
+      "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
     source: "docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
-    phases: THREE_REACH_SPAWNER("kewaunee_lower_river", "kewaunee_besadny_reach", "kewaunee_upper_access"),
+    phases: THREE_REACH_SPAWNER(
+      "kewaunee_lower_river",
+      "kewaunee_besadny_reach",
+      "kewaunee_upper_access",
+    ),
   },
-  (runId) => auditedRationale(runId, "DNR documents Brown Trout passed above the facility; repeat-spawner semantics prohibit a salmon mortality or universal-departure claim."),
+  (runId) =>
+    auditedRationale(
+      runId,
+      "DNR documents Brown Trout passed above the facility; repeat-spawner semantics prohibit a salmon mortality or universal-departure claim.",
+    ),
+);
+
+assign(
+  ["clackamas_fall_chinook"],
+  {
+    approach: "Lower Willamette confluence and the Clackamas river mouth",
+    source: "docs/onboarding/river-run/clackamas/river-onboarding.md",
+    phases: TWO_REACH_SPAWNER(
+      "clackamas_lower_river",
+      "clackamas_middle_river",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "Fall Chinook stop below River Mill Dam; the coho-only corridor is never recommended.",
+    ),
+);
+assign(
+  ["clackamas_fall_coho"],
+  {
+    approach: "Lower Willamette confluence and the Clackamas river mouth",
+    source: "docs/onboarding/river-run/clackamas/river-onboarding.md",
+    phases: THREE_REACH_SPAWNER(
+      "clackamas_lower_river",
+      "clackamas_middle_river",
+      "clackamas_coho_corridor",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "Only the documented early coho component progresses toward the North Fork corridor.",
+    ),
+);
+assign(
+  [
+    "manitowoc_fall_chinook",
+    "manitowoc_fall_coho",
+    "manitowoc_fall_brown_trout",
+  ],
+  {
+    approach: "Lake Michigan, Manitowoc harbor, and the river mouth",
+    source: "docs/onboarding/river-run/manitowoc/river-onboarding.md",
+    phases: THREE_REACH_SPAWNER(
+      "manitowoc_lower_river",
+      "manitowoc_middle_river",
+      "manitowoc_upper_corridor",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "The corridor ends at the documented Clarks Mills first barrier; upper orientation does not imply audited public access.",
+    ),
+);
+assign(
+  ["oswego_fall_chinook", "oswego_fall_coho", "oswego_fall_brown_trout"],
+  {
+    approach: "Lake Ontario, Oswego Harbor, and the river mouth",
+    source: "docs/onboarding/river-run/oswego/river-onboarding.md",
+    phases: TWO_REACH_SPAWNER(
+      "oswego_lower_harbor",
+      "oswego_terminal_tailwater",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "The short migratory corridor ends at impassable Varick Dam.",
+    ),
+);
+assign(
+  ["oswego_fall_steelhead"],
+  {
+    approach: "Lake Ontario, Oswego Harbor, and the river mouth",
+    source: "docs/onboarding/river-run/oswego/river-onboarding.md",
+    phases: TWO_REACH_LIVING(
+      "oswego_lower_harbor",
+      "oswego_terminal_tailwater",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "Living fall-entry steelhead retain both reaches late and are not given a salmon death curve.",
+    ),
 );
 
 export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {

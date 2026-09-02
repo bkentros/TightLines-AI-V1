@@ -1474,6 +1474,16 @@ function validateActivityRules(
   }
   if ((rules.dataMode ?? "observed_river") === "observed_river") {
     if (
+      rules.confidenceCeiling !== undefined &&
+      rules.confidenceCeiling !== "Limited"
+    ) {
+      issues.push(issue(
+        "activity.confidenceCeiling",
+        "Observed Activity confidence ceiling must be Limited when configured.",
+        "config_invalid_value",
+      ));
+    }
+    if (
       rules.minimumInputContract !== undefined &&
       !["adaptive", "weather_and_one_measured_river_input"].includes(
         rules.minimumInputContract,

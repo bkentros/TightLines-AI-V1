@@ -1,0 +1,1989 @@
+{
+  "runId": "clackamas_fall_chinook",
+  "rulesVersion": "clackamas-chinook-observed-activity-v1",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical chinook replay using Clackamas River near Oregon City, OR USGS 14211010 daily mean discharge, Clackamas River near Oregon City — measured water temperature USGS 14211010 daily mean measured water temperature, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1092,
+  "usableDays": 1089,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 1,
+    "temperatureHistory": 2,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 1,
+    "p10": 44,
+    "median": 75,
+    "p90": 89,
+    "max": 97,
+    "mean": 70.69
+  },
+  "blockScore": {
+    "min": 1,
+    "p10": 44,
+    "median": 73,
+    "p90": 89,
+    "max": 97,
+    "mean": 69.51
+  },
+  "uniqueDayScores": 77,
+  "uniqueBlockScores": 82,
+  "dayLabels": {
+    "Active": 437,
+    "Highly active": 425,
+    "Inactive": 6,
+    "Moderate": 147,
+    "Reserved": 74
+  },
+  "blockLabels": {
+    "Active": 1929,
+    "Highly active": 1406,
+    "Inactive": 24,
+    "Moderate": 682,
+    "Reserved": 315
+  },
+  "daysAtLeast90": 100,
+  "blocksAtLeast90": 354,
+  "byStage": {
+    "beginning": {
+      "days": 154,
+      "scores": {
+        "min": 27,
+        "p10": 63,
+        "median": 76,
+        "p90": 86,
+        "max": 93,
+        "mean": 74.33
+      },
+      "labels": {
+        "Active": 94,
+        "Highly active": 55,
+        "Moderate": 4,
+        "Reserved": 1
+      }
+    },
+    "building": {
+      "days": 266,
+      "scores": {
+        "min": 24,
+        "p10": 71,
+        "median": 83,
+        "p90": 91,
+        "max": 96,
+        "mean": 81.96
+      },
+      "labels": {
+        "Active": 85,
+        "Highly active": 178,
+        "Moderate": 2,
+        "Reserved": 1
+      }
+    },
+    "ending": {
+      "days": 112,
+      "scores": {
+        "min": 1,
+        "p10": 53,
+        "median": 62,
+        "p90": 71,
+        "max": 78,
+        "mean": 61.53
+      },
+      "labels": {
+        "Active": 72,
+        "Inactive": 1,
+        "Moderate": 39
+      }
+    },
+    "peak": {
+      "days": 151,
+      "scores": {
+        "min": 24,
+        "p10": 73,
+        "median": 83,
+        "p90": 92,
+        "max": 97,
+        "mean": 83.09
+      },
+      "labels": {
+        "Active": 38,
+        "Highly active": 112,
+        "Reserved": 1
+      }
+    },
+    "post_run": {
+      "days": 112,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 43,
+        "p90": 53,
+        "max": 58,
+        "mean": 43.66
+      },
+      "labels": {
+        "Inactive": 1,
+        "Moderate": 75,
+        "Reserved": 36
+      }
+    },
+    "pre_run": {
+      "days": 154,
+      "scores": {
+        "min": 25,
+        "p10": 26,
+        "median": 63,
+        "p90": 80,
+        "max": 87,
+        "mean": 58.15
+      },
+      "labels": {
+        "Active": 79,
+        "Highly active": 17,
+        "Moderate": 24,
+        "Reserved": 34
+      }
+    },
+    "tapering": {
+      "days": 140,
+      "scores": {
+        "min": 3,
+        "p10": 63,
+        "median": 78,
+        "p90": 86,
+        "max": 90,
+        "mean": 74.61
+      },
+      "labels": {
+        "Active": 69,
+        "Highly active": 63,
+        "Inactive": 4,
+        "Moderate": 3,
+        "Reserved": 1
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 27,
+        "p10": 65,
+        "median": 77,
+        "p90": 86,
+        "max": 94,
+        "mean": 75.55
+      },
+      "labelShares": {
+        "Active": 56.49,
+        "Highly active": 41.56,
+        "Moderate": 1.3,
+        "Reserved": 0.65
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 27,
+        "p10": 59,
+        "median": 73,
+        "p90": 84,
+        "max": 93,
+        "mean": 71.55
+      },
+      "labelShares": {
+        "Active": 69.48,
+        "Highly active": 18.83,
+        "Moderate": 11.04,
+        "Reserved": 0.65
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 27,
+        "p10": 58,
+        "median": 71,
+        "p90": 84,
+        "max": 92,
+        "mean": 70.05
+      },
+      "labelShares": {
+        "Active": 66.88,
+        "Highly active": 16.23,
+        "Moderate": 16.23,
+        "Reserved": 0.65
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 27,
+        "p10": 62,
+        "median": 75,
+        "p90": 84,
+        "max": 94,
+        "mean": 74.58
+      },
+      "labelShares": {
+        "Active": 59.09,
+        "Highly active": 37.66,
+        "Moderate": 2.6,
+        "Reserved": 0.65
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 27,
+        "p10": 61,
+        "median": 74,
+        "p90": 84,
+        "max": 94,
+        "mean": 72.93
+      },
+      "labelShares": {
+        "Active": 62.99,
+        "Highly active": 28.57,
+        "Moderate": 7.79,
+        "Reserved": 0.65
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 24,
+        "p10": 73,
+        "median": 84,
+        "p90": 93,
+        "max": 97,
+        "mean": 83.24
+      },
+      "labelShares": {
+        "Active": 30.83,
+        "Highly active": 68.8,
+        "Reserved": 0.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 24,
+        "p10": 66,
+        "median": 79,
+        "p90": 91,
+        "max": 97,
+        "mean": 79.68
+      },
+      "labelShares": {
+        "Active": 50,
+        "Highly active": 48.5,
+        "Moderate": 1.13,
+        "Reserved": 0.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 24,
+        "p10": 65,
+        "median": 78,
+        "p90": 90,
+        "max": 96,
+        "mean": 78.03
+      },
+      "labelShares": {
+        "Active": 53.76,
+        "Highly active": 43.98,
+        "Moderate": 1.88,
+        "Reserved": 0.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 266,
+      "samples": 266,
+      "scores": {
+        "min": 24,
+        "p10": 71,
+        "median": 83,
+        "p90": 91,
+        "max": 96,
+        "mean": 81.66
+      },
+      "labelShares": {
+        "Active": 34.96,
+        "Highly active": 64.66,
+        "Reserved": 0.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 266,
+      "samples": 1064,
+      "scores": {
+        "min": 24,
+        "p10": 68,
+        "median": 83,
+        "p90": 91,
+        "max": 97,
+        "mean": 80.65
+      },
+      "labelShares": {
+        "Active": 42.39,
+        "Highly active": 56.48,
+        "Moderate": 0.75,
+        "Reserved": 0.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 1,
+        "p10": 53,
+        "median": 62,
+        "p90": 71,
+        "max": 78,
+        "mean": 62.12
+      },
+      "labelShares": {
+        "Active": 69.64,
+        "Inactive": 0.89,
+        "Moderate": 29.46
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 1,
+        "p10": 51,
+        "median": 61,
+        "p90": 71,
+        "max": 77,
+        "mean": 60.1
+      },
+      "labelShares": {
+        "Active": 55.36,
+        "Inactive": 0.89,
+        "Moderate": 43.75
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 1,
+        "p10": 50,
+        "median": 59,
+        "p90": 70,
+        "max": 79,
+        "mean": 59.13
+      },
+      "labelShares": {
+        "Active": 44.64,
+        "Inactive": 0.89,
+        "Moderate": 54.46
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 1,
+        "p10": 53,
+        "median": 61,
+        "p90": 71,
+        "max": 78,
+        "mean": 60.94
+      },
+      "labelShares": {
+        "Active": 59.82,
+        "Inactive": 0.89,
+        "Moderate": 39.29
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 112,
+      "samples": 448,
+      "scores": {
+        "min": 1,
+        "p10": 52,
+        "median": 61,
+        "p90": 71,
+        "max": 79,
+        "mean": 60.57
+      },
+      "labelShares": {
+        "Active": 57.37,
+        "Inactive": 0.89,
+        "Moderate": 41.74
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 151,
+      "samples": 151,
+      "scores": {
+        "min": 24,
+        "p10": 75,
+        "median": 85,
+        "p90": 93,
+        "max": 96,
+        "mean": 84.25
+      },
+      "labelShares": {
+        "Active": 20.53,
+        "Highly active": 78.81,
+        "Reserved": 0.66
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 151,
+      "samples": 151,
+      "scores": {
+        "min": 24,
+        "p10": 70,
+        "median": 81,
+        "p90": 92,
+        "max": 97,
+        "mean": 80.79
+      },
+      "labelShares": {
+        "Active": 44.37,
+        "Highly active": 54.97,
+        "Reserved": 0.66
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 151,
+      "samples": 151,
+      "scores": {
+        "min": 24,
+        "p10": 68,
+        "median": 78,
+        "p90": 91,
+        "max": 96,
+        "mean": 79.33
+      },
+      "labelShares": {
+        "Active": 52.98,
+        "Highly active": 46.36,
+        "Reserved": 0.66
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 151,
+      "samples": 151,
+      "scores": {
+        "min": 24,
+        "p10": 74,
+        "median": 83,
+        "p90": 92,
+        "max": 97,
+        "mean": 82.84
+      },
+      "labelShares": {
+        "Active": 27.81,
+        "Highly active": 71.52,
+        "Reserved": 0.66
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 151,
+      "samples": 604,
+      "scores": {
+        "min": 24,
+        "p10": 70,
+        "median": 83,
+        "p90": 92,
+        "max": 97,
+        "mean": 81.8
+      },
+      "labelShares": {
+        "Active": 36.42,
+        "Highly active": 62.91,
+        "Reserved": 0.66
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 44,
+        "p90": 53,
+        "max": 58,
+        "mean": 43.79
+      },
+      "labelShares": {
+        "Inactive": 0.89,
+        "Moderate": 66.96,
+        "Reserved": 32.14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 42,
+        "p90": 53,
+        "max": 57,
+        "mean": 42.99
+      },
+      "labelShares": {
+        "Inactive": 0.89,
+        "Moderate": 65.18,
+        "Reserved": 33.93
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 3,
+        "p10": 35,
+        "median": 41,
+        "p90": 53,
+        "max": 58,
+        "mean": 42.34
+      },
+      "labelShares": {
+        "Inactive": 0.89,
+        "Moderate": 55.36,
+        "Reserved": 43.75
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 43,
+        "p90": 53,
+        "max": 58,
+        "mean": 43.35
+      },
+      "labelShares": {
+        "Inactive": 0.89,
+        "Moderate": 63.39,
+        "Reserved": 35.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 112,
+      "samples": 448,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 42,
+        "p90": 53,
+        "max": 58,
+        "mean": 43.12
+      },
+      "labelShares": {
+        "Inactive": 0.89,
+        "Moderate": 62.72,
+        "Reserved": 36.38
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 25,
+        "p10": 26,
+        "median": 65,
+        "p90": 79,
+        "max": 87,
+        "mean": 59.04
+      },
+      "labelShares": {
+        "Active": 54.55,
+        "Highly active": 9.74,
+        "Moderate": 13.64,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 24,
+        "p10": 25,
+        "median": 61,
+        "p90": 77,
+        "max": 87,
+        "mean": 55.97
+      },
+      "labelShares": {
+        "Active": 46.75,
+        "Highly active": 5.19,
+        "Moderate": 25.97,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 24,
+        "p10": 26,
+        "median": 58,
+        "p90": 75,
+        "max": 85,
+        "mean": 54.63
+      },
+      "labelShares": {
+        "Active": 43.51,
+        "Highly active": 3.25,
+        "Moderate": 31.17,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 154,
+      "samples": 154,
+      "scores": {
+        "min": 25,
+        "p10": 26,
+        "median": 64,
+        "p90": 79,
+        "max": 85,
+        "mean": 58.12
+      },
+      "labelShares": {
+        "Active": 55.19,
+        "Highly active": 7.79,
+        "Moderate": 14.94,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 154,
+      "samples": 616,
+      "scores": {
+        "min": 24,
+        "p10": 26,
+        "median": 61,
+        "p90": 77,
+        "max": 87,
+        "mean": 56.94
+      },
+      "labelShares": {
+        "Active": 50,
+        "Highly active": 6.49,
+        "Moderate": 21.43,
+        "Reserved": 22.08
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 3,
+        "p10": 65,
+        "median": 79,
+        "p90": 87,
+        "max": 91,
+        "mean": 75.26
+      },
+      "labelShares": {
+        "Active": 47.86,
+        "Highly active": 47.14,
+        "Inactive": 2.86,
+        "Moderate": 1.43,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 3,
+        "p10": 60,
+        "median": 77,
+        "p90": 85,
+        "max": 90,
+        "mean": 72.66
+      },
+      "labelShares": {
+        "Active": 57.14,
+        "Highly active": 32.86,
+        "Inactive": 2.86,
+        "Moderate": 6.43,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 3,
+        "p10": 59,
+        "median": 75,
+        "p90": 85,
+        "max": 92,
+        "mean": 71.76
+      },
+      "labelShares": {
+        "Active": 57.14,
+        "Highly active": 32.14,
+        "Inactive": 2.86,
+        "Moderate": 7.14,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 140,
+      "samples": 140,
+      "scores": {
+        "min": 3,
+        "p10": 62,
+        "median": 77,
+        "p90": 86,
+        "max": 91,
+        "mean": 74.01
+      },
+      "labelShares": {
+        "Active": 55.71,
+        "Highly active": 37.14,
+        "Inactive": 2.86,
+        "Moderate": 3.57,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 140,
+      "samples": 560,
+      "scores": {
+        "min": 3,
+        "p10": 61,
+        "median": 77,
+        "p90": 86,
+        "max": 92,
+        "mean": 73.42
+      },
+      "labelShares": {
+        "Active": 54.46,
+        "Highly active": 37.32,
+        "Inactive": 2.86,
+        "Moderate": 4.64,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured Clackamas River near Oregon City, OR hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-12..10-15",
+      "days": 55,
+      "scores": {
+        "min": 24,
+        "p10": 70,
+        "median": 86,
+        "p90": 92,
+        "max": 95,
+        "mean": 82.56
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 38,
+        "Reserved": 1
+      },
+      "maximumBlock": 96
+    },
+    "taperingEarly": {
+      "window": "10-16..10-19",
+      "days": 56,
+      "scores": {
+        "min": 17,
+        "p10": 66,
+        "median": 83,
+        "p90": 89,
+        "max": 90,
+        "mean": 77.54
+      },
+      "labels": {
+        "Active": 19,
+        "Highly active": 34,
+        "Inactive": 2,
+        "Reserved": 1
+      },
+      "maximumBlock": 92
+    },
+    "taperingLate": {
+      "window": "10-22..10-25",
+      "days": 56,
+      "scores": {
+        "min": 3,
+        "p10": 61,
+        "median": 75,
+        "p90": 81,
+        "max": 85,
+        "mean": 70.86
+      },
+      "labels": {
+        "Active": 35,
+        "Highly active": 16,
+        "Inactive": 2,
+        "Moderate": 3
+      },
+      "maximumBlock": 85
+    },
+    "endingEarly": {
+      "window": "10-26..10-29",
+      "days": 56,
+      "scores": {
+        "min": 1,
+        "p10": 60,
+        "median": 67,
+        "p90": 74,
+        "max": 78,
+        "mean": 65.23
+      },
+      "labels": {
+        "Active": 50,
+        "Inactive": 1,
+        "Moderate": 5
+      },
+      "maximumBlock": 79
+    },
+    "endingLate": {
+      "window": "11-07..11-10",
+      "days": 56,
+      "scores": {
+        "min": 31,
+        "p10": 36,
+        "median": 38,
+        "p90": 43,
+        "max": 45,
+        "mean": 38.66
+      },
+      "labels": {
+        "Moderate": 21,
+        "Reserved": 35
+      },
+      "maximumBlock": 45
+    },
+    "residualTail": {
+      "window": "11-11..11-10",
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {},
+      "maximumBlock": null
+    }
+  },
+  "byTemperature": {
+    "below48F": {
+      "days": 69,
+      "scores": {
+        "min": 31,
+        "p10": 36,
+        "median": 43,
+        "p90": 59,
+        "max": 67,
+        "mean": 45.32
+      },
+      "labels": {
+        "Active": 5,
+        "Moderate": 37,
+        "Reserved": 27
+      }
+    },
+    "from48To62F": {
+      "days": 724,
+      "scores": {
+        "min": 1,
+        "p10": 55,
+        "median": 80,
+        "p90": 90,
+        "max": 97,
+        "mean": 75.36
+      },
+      "labels": {
+        "Active": 258,
+        "Highly active": 368,
+        "Inactive": 6,
+        "Moderate": 80,
+        "Reserved": 12
+      }
+    },
+    "from62To68F": {
+      "days": 261,
+      "scores": {
+        "min": 49,
+        "p10": 59,
+        "median": 70,
+        "p90": 82,
+        "max": 91,
+        "mean": 70.36
+      },
+      "labels": {
+        "Active": 174,
+        "Highly active": 57,
+        "Moderate": 30
+      }
+    },
+    "from68To72F": {
+      "days": 35,
+      "scores": {
+        "min": 25,
+        "p10": 25,
+        "median": 26,
+        "p90": 28,
+        "max": 28,
+        "mean": 26.46
+      },
+      "labels": {
+        "Reserved": 35
+      }
+    },
+    "atLeast72F": {
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {}
+    }
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 82,
+        "percent": 6.5
+      },
+      "meaningfulRise24h": {
+        "absolute": 550,
+        "percent": 23.1
+      },
+      "sharpRise24h": {
+        "absolute": 1850,
+        "percent": 65.1
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 1,
+      "p10": 5,
+      "median": 43,
+      "p90": 790,
+      "max": 16390,
+      "mean": 326.41
+    },
+    "positivePercentChange": {
+      "min": 0.1,
+      "p10": 0.54,
+      "median": 4.42,
+      "p90": 41.38,
+      "max": 331.46,
+      "mean": 16.78
+    },
+    "signals": {
+      "falling": 134,
+      "meaningful_rise": 45,
+      "rising": 108,
+      "sharp_rise": 11,
+      "stable": 791
+    }
+  },
+  "bestBlocks": {
+    "05-09": 696,
+    "09-13": 146,
+    "13-17": 95,
+    "17-21": 152
+  },
+  "spread": {
+    "min": 0,
+    "p10": 2,
+    "median": 6,
+    "p90": 12,
+    "max": 17,
+    "mean": 6.33
+  },
+  "daysWithSpreadAtLeast10": 205,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-09-27",
+      "stage": "building",
+      "staging": false,
+      "score": 90,
+      "label": "Highly active",
+      "waterTempF": 61.16,
+      "flowCfs": 898,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -69,
+      "flowPercentChange24h": -7.14,
+      "temperatureSignal": "neutral",
+      "spread": 17,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-08-27",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 62,
+      "label": "Active",
+      "waterTempF": 65.84,
+      "flowCfs": 795,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -11,
+      "flowPercentChange24h": -1.36,
+      "temperatureSignal": "warming",
+      "spread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2020-10-02",
+      "stage": "building",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "waterTempF": 59.9,
+      "flowCfs": 859,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -19,
+      "flowPercentChange24h": -2.16,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 54,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2020-10-03",
+      "stage": "building",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "waterTempF": 60.26,
+      "flowCfs": 859,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 63,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-08-28",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": 64.94,
+      "flowCfs": 721,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -8,
+      "flowPercentChange24h": -1.1,
+      "temperatureSignal": "cooling",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-09-16",
+      "stage": "building",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 60.98,
+      "flowCfs": 743,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -10,
+      "flowPercentChange24h": -1.33,
+      "temperatureSignal": "strong_cooling",
+      "spread": 15,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The measured water temperature is favorable for Chinook. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-10-01",
+      "stage": "building",
+      "staging": false,
+      "score": 88,
+      "label": "Highly active",
+      "waterTempF": 57.38,
+      "flowCfs": 1190,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -120,
+      "flowPercentChange24h": -9.16,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 52,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-09-04",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 63,
+      "label": "Active",
+      "waterTempF": 65.12,
+      "flowCfs": 790,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -12,
+      "flowPercentChange24h": -1.5,
+      "temperatureSignal": "neutral",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2012-08-30",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 62.78,
+      "flowCfs": 954,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -12,
+      "flowPercentChange24h": -1.24,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 32,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2013-08-29",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 67.1,
+      "flowCfs": 886,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 22,
+      "flowPercentChange24h": 2.55,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 65,
+          "precipitationIn": 0.09,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Heavier precipitation can unsettle presentation.",
+          "cloudCoverPct": 57,
+          "precipitationIn": 0.32,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 86,
+          "precipitationIn": 0.15,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2015-09-22",
+      "stage": "building",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 59.54,
+      "flowCfs": 770,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 20,
+      "flowPercentChange24h": 2.67,
+      "temperatureSignal": "cooling",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: The river level or its recent change is less favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-10",
+      "stage": "peak",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 53.96,
+      "flowCfs": 3550,
+      "flowBand": "high_fishable",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 1120,
+      "flowPercentChange24h": 46.09,
+      "temperatureSignal": "neutral",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 68,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. Measured Oregon City flow and temperature support the lower reach only; River Mill is the species endpoint. This is conditional responsiveness, not movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

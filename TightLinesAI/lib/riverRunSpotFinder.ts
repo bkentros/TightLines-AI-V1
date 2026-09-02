@@ -133,6 +133,18 @@ const WI_ROOT_ACCESS_MAP =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverAccess.pdf";
 const WI_KEWAUNEE_ACCESS_MAP =
   "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_KewauneeRiverAccess.pdf";
+const OR_CLACKAMAS_ACCESS =
+  "https://myodfw.com/sites/default/files/2026-04/50_in_60_flyer.pdf";
+const WI_MANITOWOC_ACCESS_MAP =
+  "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_ManitowocBranchAccess.pdf";
+const MANITOWOC_CITY_PARKS = "https://www.manitowoc.org/Facilities";
+const MANITOWOC_COUNTY_ACCESS =
+  "https://manitowoccountywi.gov/departments/parks/lake-access/manitowoc-river-access/";
+const MANITOWOC_LOWER_CATO =
+  "https://manitowoccountywi.gov/departments/parks/county-parks/lower-cato-falls/";
+const NY_OSWEGO_RIVER = "https://dec.ny.gov/places/oswego-river";
+const NY_OSWEGO_LAUNCHES =
+  "https://dec.ny.gov/things-to-do/boating/launch-sites/oswego-county";
 const KEWAUNEE_CITY_MARINA = "https://cityofkewauneewi.gov/departments/marina/";
 const KEWAUNEE_CITY_RECREATION_PLAN =
   "https://cityofkewauneewi.gov/wp-content/uploads/2025/08/2025.08.11-City-Council-Agenda-Packet-1.pdf";
@@ -1850,6 +1862,60 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
           ),
         ],
       },
+    ],
+  },
+  clackamas: {
+    riverId: "clackamas",
+    riverName: "Clackamas River",
+    orientationNote: "Only government-documented parks in the modeled corridor are shown. Park access does not make adjoining frontage public, and PGE facility boundaries remain controlling.",
+    safetyLink: { label: "CHECK CURRENT OREGON RULES →", url: "https://myodfw.com/fishing/regulation-updates" },
+    sections: [
+      { id: "clackamas_lower_river", foundationReachIds: ["clackamas_lower_river"], position: "lower", rangeLabel: "Willamette confluence to Carver", spots: [
+        sourceMappedSpot("clackamas_clackamette", "Clackamette Park", ["shore_fishing", "boat_ramp"], "ODFW-documented confluence access with extensive bank angling and a boat ramp.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Clackamette Park” in the linked ODFW guide.", "Confluence and boating conditions can differ sharply from the Oregon City gauge.", "2026-09-02"),
+        sourceMappedSpot("clackamas_cross_memorial", "Cross Memorial Park", ["shore_fishing", "walk_in"], "ODFW-documented bank-fishing access in the lower corridor.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Cross Memorial Park” in the linked ODFW guide.", undefined, "2026-09-02"),
+        sourceMappedSpot("clackamas_carver", "Carver Park", ["shore_fishing", "boat_ramp"], "ODFW-documented bank and boat-ramp access at the lower/middle boundary.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Carver Park” in the linked ODFW guide.", "County parking or launch fees may apply.", "2026-09-02"),
+      ] },
+      { id: "clackamas_middle_river", foundationReachIds: ["clackamas_middle_river"], position: "middle", rangeLabel: "Carver to River Mill Dam", spots: [
+        sourceMappedSpot("clackamas_barton", "Barton Park", ["shore_fishing", "boat_ramp"], "ODFW-documented bank and boat-ramp access in the middle corridor.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Barton Park” in the linked ODFW guide.", "County parking or launch fees may apply.", "2026-09-02"),
+        sourceMappedSpot("clackamas_bonnie_lure", "Bonnie Lure Park", ["shore_fishing", "walk_in"], "ODFW-named bank-angling access on the Clackamas River below River Mill.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Bonnie Lure Park” in the Cross Memorial Park entry of the linked ODFW guide.", "Use only signed park access; adjoining frontage is not universally public.", "2026-09-02"),
+        sourceMappedSpot("clackamas_milo_mciver", "Milo McIver State Park", ["shore_fishing", "boat_ramp", "walk_in"], "ODFW-documented bank and boat-ramp access near the upper end of the supported corridor.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Milo McIver State Park” in the linked ODFW guide.", "State-park fees and posted PGE boundaries apply; verify the exact legal reach before fishing.", "2026-09-02"),
+      ] },
+      { id: "clackamas_coho_corridor", foundationReachIds: ["clackamas_coho_corridor"], position: "upper", rangeLabel: "River Mill to North Fork", eligibleSpecies: ["coho_salmon"], spots: [
+        sourceMappedSpot("clackamas_estacada_lake", "Estacada Lake", ["shore_fishing", "fishing_platform", "boat_ramp"], "ODFW-documented city-park bank, dock, platform, and boat-ramp access on the reservoir behind River Mill Dam.", "Oregon DFW 50 places to fish within 60 minutes", OR_CLACKAMAS_ACCESS, "Find “Estacada Lake” in the linked ODFW guide.", "This spot is eligible only for the modeled early coho corridor. Fall Chinook River Run ends below River Mill Dam; posted PGE boundaries and reservoir boating conditions apply.", "2026-09-02"),
+      ] },
+    ],
+  },
+  manitowoc: {
+    riverId: "manitowoc",
+    riverName: "Manitowoc River",
+    orientationNote: "Only individually verified city or county mainstem access is shown. Branch River markers and map-only sites that did not pass a second-source audit are excluded.",
+    safetyLink: { label: "CHECK CURRENT WISCONSIN RULES →", url: WI_FISHING_RULES },
+    sections: [
+      { id: "manitowoc_lower_river", foundationReachIds: ["manitowoc_lower_river"], position: "lower", rangeLabel: "Lake Michigan mouth to Michigan Avenue", spots: [
+        sourceMappedSpot("manitowoc_schuette", "Henry Schuette Park", ["shore_fishing", "boat_ramp", "walk_in"], "City-documented fishing areas, launch, parking, and river trails at 3700 Broadway.", "City of Manitowoc facilities", MANITOWOC_CITY_PARKS, "Open Henry Schuette Park and confirm the fishing-area and launch amenities.", undefined, "2026-09-02"),
+        sourceMappedSpot("manitowoc_manitou", "Manitou Park & Conservancy", ["fishing_platform", "boat_ramp", "carry_in", "walk_in"], "City-documented accessible fishing and boat/kayak launch at 2901 Michigan Avenue.", "City of Manitowoc facilities", MANITOWOC_CITY_PARKS, "Open Manitou Park & Conservancy and confirm accessible fishing and launch amenities.", undefined, "2026-09-02"),
+      ] },
+      { id: "manitowoc_middle_river", foundationReachIds: ["manitowoc_middle_river"], position: "middle", rangeLabel: "Michigan Avenue to Manitowoc Rapids", spots: [
+        sourceMappedSpot("manitowoc_rapids_access", "Manitowoc River Access", ["shore_fishing", "walk_in"], "County-owned 2.5-acre public bank-fishing access west of the County R bridge.", "Manitowoc County Parks", MANITOWOC_COUNTY_ACCESS, "Confirm the public bank-fishing description on the linked county page.", undefined, "2026-09-02"),
+      ] },
+      { id: "manitowoc_upper_corridor", foundationReachIds: ["manitowoc_upper_corridor"], position: "upper", rangeLabel: "Manitowoc Rapids to Clarks Mills", spots: [
+        sourceMappedSpot("manitowoc_lower_cato_falls", "Lower Cato Falls County Park", ["shore_fishing", "walk_in"], "County-owned park with 2,040 feet of Manitowoc River frontage and stairway access to the river corridor.", "Manitowoc County Parks", MANITOWOC_LOWER_CATO, "Confirm the river-frontage, stairway-access, and park-season details on the linked county page.", "Open only April 1 through October 31, dawn to dusk. Do not use this recommendation after the seasonal closure; steep banks, gorge terrain, and posted boundaries apply.", "2026-09-02"),
+      ] },
+    ],
+  },
+  oswego: {
+    riverId: "oswego",
+    riverName: "Oswego River",
+    orientationNote: "The product covers only the Lake Ontario mouth-to-Varick Dam corridor. Hydropower barriers, mandatory-PFD areas, and posted closures override every recommendation.",
+    safetyLink: { label: "CHECK CURRENT NEW YORK RULES →", url: "https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries" },
+    sections: [
+      { id: "oswego_lower_harbor", foundationReachIds: ["oswego_lower_harbor"], position: "lower", rangeLabel: "Lake Ontario mouth to Utica Street", spots: [
+        sourceMappedSpot("oswego_wrights_landing", "Wright's Landing", ["boat_ramp"], "DEC-documented municipal hard-surface public launch at the Lake Ontario/Oswego River mouth.", "New York DEC Oswego River and boat-launch pages", NY_OSWEGO_LAUNCHES, "Find Wright's Landing in the Oswego County launch list.", "Launch fees and Lake Ontario conditions apply; a launch is not blanket marina shore-fishing access.", "2026-09-02"),
+      ] },
+      { id: "oswego_terminal_tailwater", foundationReachIds: ["oswego_terminal_tailwater"], position: "upper", rangeLabel: "Utica Street to Varick Dam", spots: [
+        sourceMappedSpot("oswego_linear_park", "Linear Park", ["shore_fishing", "fishing_platform", "walk_in"], "DEC-documented west-side shore-fishing access with wheelchair access below the dam.", "New York DEC Oswego River", NY_OSWEGO_RIVER, "Find Linear Park under Public Access on the linked DEC page.", "Mandatory PFD and posted hydropower boundaries apply; Leto Island does not provide dam access.", "2026-09-02"),
+        sourceMappedSpot("oswego_lock_8_launch", "Oswego River Municipal Launch near Lock O8", ["boat_ramp"], "Municipal hard-surface public launch listed in DEC's county launch inventory within the supported Oswego corridor.", "New York DEC Oswego County boat launches", NY_OSWEGO_LAUNCHES, "Find the Oswego River municipal launch at 43.457103, -76.508731.", "Confirm current lock, navigation, current, and parking conditions before launching.", "2026-09-02"),
+      ] },
     ],
   },
   bois_brule: {

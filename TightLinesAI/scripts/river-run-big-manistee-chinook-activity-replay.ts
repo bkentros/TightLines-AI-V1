@@ -689,7 +689,9 @@ function stageBlockEntry(
     samples: samples.length,
     scores: summary(samples.map((sample) => sample.score)),
     labelShares: shares(samples.map((sample) => sample.activityLabel)),
-    capConfidenceNotes: usesTemperature
+    capConfidenceNotes: run.activity?.confidenceCeiling === "Limited"
+      ? `Confidence remains Limited even with hourly weather and measured ${gauge.name} hydraulics because this audited hydraulic-only model omits measured water temperature from scoring.`
+      : usesTemperature
       ? `Full confidence requires hourly weather, measured ${gauge.name} hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps.`
       : `Full confidence requires hourly weather and measured ${gauge.name} hydraulics. Water temperature is explicitly unscored because it lacks an accepted multi-season replay record.`,
   };

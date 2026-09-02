@@ -587,6 +587,16 @@ function onboardingCorridorRoute(input: {
 }): { whereToStart: string; limit: string; tip: string } {
   const { stage } = input;
   if (
+    input.riverId === "clackamas" || input.riverId === "manitowoc" ||
+    input.riverId === "oswego"
+  ) {
+    const route = fall2026OnboardingCorridorRoute(input);
+    return {
+      ...route,
+      whereToStart: `Spot Finder: ${route.whereToStart}`,
+    };
+  }
+  if (
     input.riverId === "green" || input.riverId === "puyallup" ||
     input.riverId === "cowlitz"
   ) {
@@ -1232,6 +1242,64 @@ function onboardingCorridorRoute(input: {
       ? "Fall-entry tracking has ended; this is not a complete winter-presence model."
       : "Do not build a Grand River trip around isolated fish outside the modeled run.",
   };
+}
+
+function fall2026OnboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  fallEntry: boolean;
+  repeatSpawner: boolean;
+  species: RiverRunProfile["species"];
+}): { whereToStart: string; limit: string; tip: string } {
+  const { stage } = input;
+  if (input.riverId === "clackamas") {
+    const coho = input.species === "coho_salmon";
+    const limit = coho
+      ? "Early-coho guidance ends at the North Fork sorting-facility corridor. Estacada Lake is a coho-only recommendation; posted River Mill/North Fork facility boundaries control, and the Oregon City gauge does not represent this upper corridor."
+      : "Fall-Chinook guidance ends below River Mill Dam and never extends into Estacada Lake or the North Fork corridor. Posted PGE boundaries control, and the Oregon City gauge represents only the lower river.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? { whereToStart: "Clackamette Park and the Clackamas mouth; use Lower River water only with direct fish evidence.", limit, tip: "Keep the Willamette confluence and mouth as approach context until dependable river entry begins." }
+        : { whereToStart: "the Willamette confluence and Clackamas mouth—not inland river sections yet.", limit, tip: "Wait for the staging window before using the Clackamas corridor as a migration plan." };
+    }
+    if (stage === "beginning") return { whereToStart: "Lower River access from Clackamette through Carver.", limit, tip: "Keep the first search below Carver and do not infer upstream distribution from the calendar." };
+    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Lower River first, then audited Middle River access from Barton toward Milo McIver.", limit, tip: "Compare lower entry water with the middle corridor without assuming equal distribution." };
+    if (stage === "building") return { whereToStart: coho ? "Middle River first, then coho-only Estacada Lake where posted access is open." : "Middle River from Barton toward Milo McIver, remaining below River Mill Dam.", limit, tip: coho ? "Use Estacada Lake only for the early-coho product and stay outside posted PGE boundaries." : "Stop below River Mill and check lower water for newer arrivals." };
+    if (stage === "peak") return { whereToStart: coho ? "Lower and Middle River access, plus coho-only Estacada Lake where legal." : "Lower and Middle River access below River Mill Dam.", limit, tip: "Compare established holding water with lower entry water; do not treat facility passage as whole-river abundance." };
+    if (stage === "tapering" || stage === "ending") return { whereToStart: coho ? "established Middle River and coho-only Estacada Lake holding water." : "established Middle River holding water below River Mill.", limit, tip: "Narrow the search and leave visible spawners and redds undisturbed." };
+    return { whereToStart: "no dependable Clackamas starting reach for this seasonal model.", limit, tip: "Do not build a trip around isolated fish outside the modeled early-fall run." };
+  }
+
+  if (input.riverId === "manitowoc") {
+    const limit =
+      "Manitowoc guidance stays on the mainstem and ends at the Clarks Mills first-barrier corridor. Lower Cato Falls is open only April 1-October 31, dawn to dusk; map markers do not make adjoining private frontage public.";
+    if (stage === "pre_run") return input.stagingContext
+      ? { whereToStart: "the Manitowoc harbor, mouth, and Lower River parks as monitoring context only.", limit, tip: "Require direct fish activity before treating inland mainstem sections as established." }
+      : { whereToStart: "Lake Michigan and the Manitowoc harbor—not inland mainstem sections yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
+    if (stage === "beginning") return { whereToStart: "Lower River access at Henry Schuette and Manitou parks.", limit, tip: "Keep the first search below Michigan Avenue and do not infer upper-river distribution from the calendar." };
+    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Lower River first, then the County Manitowoc River Access in the Middle River.", limit, tip: "Compare lower entry water with the gauge reach before moving farther inland." };
+    if (stage === "building") return { whereToStart: "Middle River access first; add Lower Cato Falls only while the county park is seasonally open.", limit, tip: "Never use Lower Cato after October 31, and do not substitute Branch River or private frontage." };
+    if (stage === "peak") return input.repeatSpawner
+      ? { whereToStart: "Lower and Middle River access; Lower Cato Falls is closed during the November-December Brown Trout core.", limit, tip: "Compare open lower/middle access without assuming that the Michigan Avenue gauge represents the harbor or upper corridor." }
+      : { whereToStart: "Lower and Middle River access; use Lower Cato Falls only through October 31.", limit, tip: "Compare accessible sections without assuming that the Michigan Avenue gauge represents the harbor or upper corridor." };
+    if (stage === "tapering" || stage === "ending") return { whereToStart: "established Lower and Middle River holding water; Lower Cato is closed after October 31.", limit, tip: input.repeatSpawner ? "Avoid visible Brown Trout spawners and redds; surviving fish do not follow one departure schedule." : "Narrow the search and avoid visible salmon spawners and redds." };
+    return { whereToStart: "no dependable Manitowoc starting reach for this seasonal model.", limit, tip: input.fallEntry || input.repeatSpawner ? "The modeled fall migration is complete; living fish may still remain." : "Do not build a trip around isolated fish outside the modeled run." };
+  }
+
+  const limit =
+    "Oswego guidance covers only the Lake Ontario mouth to the downstream face of Varick Dam. Mandatory-PFD and hydropower closures control; Leto Island is not dam access, and a municipal boat ramp is not shore-fishing permission.";
+  if (stage === "pre_run") return input.stagingContext
+    ? { whereToStart: "Oswego Harbor and the river mouth; use the Lower Harbor only with direct fish evidence.", limit, tip: "Keep staging checks lakeward until dependable river entry begins." }
+    : { whereToStart: "Lake Ontario and Oswego Harbor—not the terminal tailwater yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
+  if (stage === "beginning") return { whereToStart: "Lower Harbor access from Wright's Landing toward Utica Street.", limit, tip: "Use Wright's Landing as boat access only and do not infer marina shore-fishing permission." };
+  if (stage === "building") return { whereToStart: "Linear Park in the Terminal Tailwater, with the Lower Harbor checked for newer arrivals.", limit, tip: "Stay inside signed public access and outside every posted hydropower boundary." };
+  if (stage === "peak") return { whereToStart: "Linear Park and legal Terminal Tailwater access below Varick, then the Lower Harbor.", limit, tip: "Wear the required PFD in the posted zone and never infer safe wading or fish abundance from Lock 7 flow." };
+  if (stage === "tapering" || stage === "ending") return { whereToStart: "established legal holding water at Linear Park and the Terminal Tailwater.", limit, tip: input.fallEntry ? "Some Steelhead may overwinter; narrowing fall entry does not mean the river is empty." : input.repeatSpawner ? "Avoid visible Brown Trout spawners and redds; surviving fish may remain or move on individual schedules." : "Narrow the search and avoid visible salmon spawners and redds." };
+  return { whereToStart: "no dependable Oswego starting reach for this seasonal model.", limit, tip: input.fallEntry || input.repeatSpawner ? "The fall model is complete; living fish may still remain in the corridor." : "Do not build a trip around isolated fish outside the modeled salmon run." };
 }
 
 function newYorkOnboardingCorridorRoute(input: {

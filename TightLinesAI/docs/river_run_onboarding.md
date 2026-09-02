@@ -1,9 +1,9 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.7\
+**Version:** 3.8\
 **Established:** 2026-08-30\
-**Revised:** 2026-09-01\
+**Revised:** 2026-09-02\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
 and each supported migratory run
 
@@ -189,6 +189,20 @@ Implement hidden configuration first. Reconcile every configured field against
 the dossier, run the complete gate, obtain rendered owner acceptance, and only
 then perform separately authorized promotion and deployment.
 
+Before Pass 4, write a one-screen delivery contract in each dossier containing:
+
+- exact river IDs and run IDs entering hidden review;
+- Activity contract (`observed_river/full`, `observed_river/hydraulic-only`,
+  `weather_only`, or unavailable);
+- client capability ID and first compatible app version when the river adds or
+  changes bundled presentation behavior;
+- server-only, mobile-binary, database/migration, and deployment changes;
+- explicit stopping gate: hidden review, accepted-not-released, or separately
+  authorized public release.
+
+This compact contract is the routing card for future agents. It does not replace
+the evidence ledger or detailed reconciliation.
+
 ## 4. River foundation research
 
 Record these fields once per canonical river:
@@ -360,7 +374,7 @@ Use this capability decision table:
 | Accepted source situation                                        | Gauge Read                                | Fishing Shape                                              | Activity                                                 |
 | ---------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------- |
 | No representative live source                                    | Honest no-gauge state                     | Unavailable                                                | Independently tuned weather-only or unavailable          |
-| Representative hydraulics, no compatible measured temperature    | Hydraulic metrics                         | Possible after band replay                                 | Independently tuned weather-only or unavailable          |
+| Representative hydraulics, no compatible measured temperature    | Hydraulic metrics                         | Possible after band replay                                 | Observed-river hydraulic-only after tuning/replay, independently tuned weather-only, or unavailable |
 | Metrics exist but sources do not represent/pair in the run reach | Display each with exact reach limitations | Only if hydraulics alone represent the Fishing Shape reach | Weather-only or unavailable; never silently combine them |
 | Compatible hydraulics, measured temperature, and weather         | Accepted metrics                          | Possible after band replay                                 | Observed-river after tuning and replay                   |
 
@@ -664,18 +678,38 @@ fishability, safety, or catch probability.
 
 ### 10.1 Choose the data mode
 
-**Observed-river mode** requires compatible, reach-representative hydraulics,
-measured water temperature, and hourly weather. Sources divided by a dam, lake,
-major tributary, tailwater transition, or materially different corridor cannot
-be paired because they share a river name. If a proxy pair is proposed, record
-distance/intervening controls, simultaneous sample count, signed bias,
-mean/median/p90/p99 absolute error, maximum error, dates, and the narrowest
-defensible reach.
+**Observed-river mode** requires hourly weather and at least one compatible,
+reach-representative measured river input. Record one of these explicit input
+contracts while retaining the runtime `observed_river` data mode:
 
-Define Full/Moderate/Unavailable inputs explicitly. Missing weather or all
-measured river inputs returns Unavailable. One missing measured input may be
-capped only under the versioned, replayed minimum-input contract. Provider
-failure never silently switches the model to weather-only.
+- `full`: representative hydraulics and measured water temperature both score;
+  or
+- `hydraulic-only`: representative hydraulics score, water temperature has zero
+  weight, and the dossier explains why the temperature record cannot yet support
+  the fixed replay.
+
+Hydraulic-only is not weather-only: current measured river behavior must be
+fresh, must materially distinguish days, and must be required by the minimum
+input contract. It may not use air temperature, modeled water temperature, an
+unrepresentative gauge, or temperature-shaped scoring/caps to replace the
+omitted measurement. Temperature may remain contextual in Gauge Read but must
+contribute zero to Activity until a representative multi-season record passes
+replay. If water temperature has positive weight or affects a cap, measured
+temperature is required.
+
+Sources divided by a dam, lake, major tributary, tailwater transition, or
+materially different corridor cannot be paired because they share a river name.
+If a proxy pair is proposed, record distance/intervening controls, simultaneous
+sample count, signed bias, mean/median/p90/p99 absolute error, maximum error,
+dates, and the narrowest defensible reach.
+
+Define Full/Moderate/Unavailable inputs explicitly. Missing weather or every
+required measured river input returns Unavailable. Under a `full` contract, one
+missing measured input may be capped only under the versioned, replayed
+minimum-input contract. Under a `hydraulic-only` contract, missing hydraulics is
+always Unavailable; the intentionally zero-weight temperature is not a missing
+required input. Provider failure never silently switches the model to
+weather-only.
 
 **Weather-only mode** is a deliberate limited model when compatible river
 measurements are unavailable. Water-temperature and river-behavior weights must
@@ -688,9 +722,12 @@ hourly weather returns Unavailable with no score, blocks, or leader.
 
 Record:
 
-- profile/version, data mode, represented reaches and exact source IDs;
+- profile/version, data mode, observed-river input contract when applicable,
+  represented reaches and exact source IDs;
 - four component weights totaling one;
-- cold, preferred-minimum, preferred-maximum, warm, and barrier temperatures;
+- cold, preferred-minimum, preferred-maximum, warm, and barrier temperatures
+  only when measured temperature scores or constrains output; otherwise record
+  them as inactive biology context rather than operative tuning;
 - hydraulic-change thresholds when used;
 - missing-river, missing-temperature, warm, late-run, ending, weather-only,
   stage-response, and extreme-condition caps;
@@ -786,6 +823,64 @@ specific. Do not relax validation to make incomplete research pass.
 The configuration-field reconciliation must prove every code value appears in
 the dossier and every accepted dossier value appears in code. `Inherited`,
 `default`, or `same as River X` is not provenance.
+
+### 11.1 Server catalog and mobile-client compatibility
+
+River Run is a mixed delivery system. The server can change catalog membership,
+calendars, scores, source reads, and copy without installing a new app, while
+river-picker artwork, client filters, presentation mappings, and some Spot
+Finder data are bundled into the mobile binary. Admin status authorizes hidden
+review; it does not prove that the installed client can render a draft.
+
+For every new river or client-visible schema/presentation change, add a stable
+client capability ID and record this compatibility row in the dossier:
+
+| Field | Required value |
+| --- | --- |
+| Capability ID | Stable versioned identifier, such as `region-owner-review-v1` |
+| River/run IDs | Exact catalog members protected by the capability |
+| Bundled dependencies | Artwork, picker/filter mapping, access inventory, contract fields, or copy behavior |
+| First compatible client | Public app version plus iOS build and Android versionCode |
+| Server behavior without capability | Omit the incompatible river/run; never return a partially renderable catalog |
+| Verification | Admin and ordinary-user results with and without the capability on iOS and Android |
+
+The mobile client must advertise only capabilities it actually bundles. The
+review and public catalog endpoints must filter incompatible additions before
+calculating state/river counts. Default/no-header behavior is deny for the new
+addition. Do not infer support from authentication, admin email, app version
+strings supplied by the client, or the fact that a snapshot endpoint can return
+data.
+
+Before deploying a protected review catalog, prove all four cases:
+
+1. current compatible admin client receives the complete hidden river, picker,
+   artwork, and snapshot;
+2. current incompatible/no-capability admin client receives neither the river
+   nor an inflated state count;
+3. ordinary users receive only the authorized public catalog; and
+4. a direct incompatible snapshot request fails closed.
+
+Repeat the same compatibility proof at public promotion. Installed older store
+binaries remain in use after a release, so public enablement must not expose a
+new river to no-capability clients merely because the newest binary is approved.
+Keep capability filtering until the product explicitly retires that
+compatibility boundary.
+
+Use this delivery classification before deciding whether a mobile build is
+needed:
+
+| Change | Server deployment | New mobile build |
+| --- | --- | --- |
+| Calendar, strength, Activity tuning, Presence, source/fish-count parser | Usually yes | Only if the response/UI contract changes |
+| Hidden or public catalog visibility | Yes | Required when any bundled dependency is new or changed |
+| River artwork, picker ordering/filtering, static Spot Finder inventory | No by itself | Yes |
+| Edge response field or presentation semantics | Yes | Yes unless every supported binary already handles it |
+| Database schema/data/cron | Migration/reconciliation plus deployment as applicable | Only if the client contract changes |
+
+When uncertain, classify the change as requiring both and prove otherwise with
+the compatibility tests. A development build demonstrating a river does not
+make a store binary compatible, and a server deployment can change what an
+already-installed app sees without an OTA system.
 
 ## 12. Verification and owner review
 
@@ -899,7 +994,9 @@ After separate deployment/public authorization:
    version/update time, smoke the full production catalog and protected refresh,
    and distinguish provider outages from code health. The smoke must prove the
    newly authorized river/run IDs appear publicly and unrelated owner-review
-   rivers remain hidden.
+   rivers remain hidden. Run the catalog smoke both with the new capability and
+   without it; counts and picker membership must be internally consistent in
+   both responses.
 6. Mark dossiers `released` only after promotion, deployment, and production
    smoke pass; acceptance alone remains `owner_accepted_not_released`.
 7. Commit atomically, fetch, push the owner-specified branch, and prove local
@@ -914,6 +1011,47 @@ number or Android version code. Build only from the committed, pushed, clean
 release commit. For an Android store handoff require an `.aab`; for iOS return
 the exact build-specific submission command so an older archive cannot be
 submitted accidentally.
+
+The required mobile release order is:
+
+1. Confirm `eas.json` uses remote version authority and production
+   auto-increment (`cli.appVersionSource=remote` and
+   `build.production.autoIncrement=true`), or stop and repair versioning.
+2. Query the EAS remote baseline and the latest completed/submitted store builds.
+   Record the current iOS build number, Android versionCode, app version, build
+   IDs, commit hashes, and submission status. A completed EAS build is not proof
+   of store submission.
+3. Confirm the proposed identifiers are strictly newer. Treat a previously
+   uploaded identifier as consumed even if that upload was rejected or never
+   released.
+4. Commit and push the compatible client and capability contract; prove local
+   HEAD equals remote and the worktree is clean.
+5. Build both platforms from that exact commit. Verify the resulting artifact
+   metadata—not only local `app.json`—and confirm iOS and Android contain the
+   same intended app version and capability set.
+6. Submit by exact build ID/path, then inspect the submission record. Report
+   `FINISHED`, `ERRORED`, or not submitted separately for each platform; never
+   translate “scheduled,” “build finished,” or “artifact downloaded” into
+   “uploaded to the store.”
+7. Only after compatible binaries are available under the intended rollout may
+   the separately authorized public catalog be enabled. Retain no-capability
+   filtering for older installed binaries.
+
+At minimum, run these read-only checks and retain their output in the release
+record before building:
+
+```bash
+eas build:version:get --platform all --profile production --json --non-interactive
+eas build:list --platform all --limit 10 --json --non-interactive
+git status --short --branch
+git rev-parse HEAD
+git rev-parse @{upstream}
+```
+
+Prefer a repository-owned preflight command that performs these comparisons and
+fails nonzero on a reused identifier, dirty/diverged worktree, mismatched commit,
+missing capability gate, or wrong artifact type. Prose review alone is not an
+acceptable long-term substitute for that guard.
 
 ## 14. Single-dossier record
 

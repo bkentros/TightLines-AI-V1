@@ -1,0 +1,1821 @@
+{
+  "runId": "manitowoc_fall_brown_trout",
+  "rulesVersion": "manitowoc-brown-hydraulic-activity-v2",
+  "replayYears": "2012-2025",
+  "method": "Historical mechanical brown-trout replay using Manitowoc River at Michigan Avenue, WI USGS 04085427 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1582,
+  "usableDays": 1539,
+  "missing": {
+    "flow": 43,
+    "priorFlow": 42,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 4,
+    "p10": 31,
+    "median": 55,
+    "p90": 63,
+    "max": 66,
+    "mean": 50.3
+  },
+  "blockScore": {
+    "min": 3,
+    "p10": 30,
+    "median": 54,
+    "p90": 63,
+    "max": 66,
+    "mean": 49.35
+  },
+  "uniqueDayScores": 50,
+  "uniqueBlockScores": 54,
+  "dayLabels": {
+    "Active": 455,
+    "Inactive": 79,
+    "Moderate": 823,
+    "Reserved": 182
+  },
+  "blockLabels": {
+    "Active": 1618,
+    "Inactive": 342,
+    "Moderate": 3354,
+    "Reserved": 842
+  },
+  "daysAtLeast90": 0,
+  "blocksAtLeast90": 0,
+  "byStage": {
+    "beginning": {
+      "days": 210,
+      "scores": {
+        "min": 4,
+        "p10": 27,
+        "median": 51,
+        "p90": 62,
+        "max": 65,
+        "mean": 44.94
+      },
+      "labels": {
+        "Active": 35,
+        "Inactive": 18,
+        "Moderate": 108,
+        "Reserved": 49
+      }
+    },
+    "building": {
+      "days": 490,
+      "scores": {
+        "min": 4,
+        "p10": 36,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.5
+      },
+      "labels": {
+        "Active": 153,
+        "Inactive": 20,
+        "Moderate": 274,
+        "Reserved": 43
+      }
+    },
+    "ending": {
+      "days": 143,
+      "scores": {
+        "min": 4,
+        "p10": 23,
+        "median": 57,
+        "p90": 63,
+        "max": 65,
+        "mean": 50.67
+      },
+      "labels": {
+        "Active": 56,
+        "Inactive": 10,
+        "Moderate": 63,
+        "Reserved": 14
+      }
+    },
+    "peak": {
+      "days": 222,
+      "scores": {
+        "min": 4,
+        "p10": 40,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.51
+      },
+      "labels": {
+        "Active": 72,
+        "Inactive": 11,
+        "Moderate": 129,
+        "Reserved": 10
+      }
+    },
+    "post_run": {
+      "days": 195,
+      "scores": {
+        "min": 4,
+        "p10": 33,
+        "median": 56,
+        "p90": 63,
+        "max": 65,
+        "mean": 51.29
+      },
+      "labels": {
+        "Active": 59,
+        "Inactive": 6,
+        "Moderate": 104,
+        "Reserved": 26
+      }
+    },
+    "pre_run": {
+      "days": 84,
+      "scores": {
+        "min": 4,
+        "p10": 29,
+        "median": 52,
+        "p90": 61,
+        "max": 62,
+        "mean": 46.64
+      },
+      "labels": {
+        "Active": 14,
+        "Inactive": 3,
+        "Moderate": 46,
+        "Reserved": 21
+      }
+    },
+    "tapering": {
+      "days": 195,
+      "scores": {
+        "min": 4,
+        "p10": 30,
+        "median": 57,
+        "p90": 63,
+        "max": 65,
+        "mean": 50.86
+      },
+      "labels": {
+        "Active": 66,
+        "Inactive": 11,
+        "Moderate": 99,
+        "Reserved": 19
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 4,
+        "p10": 26,
+        "median": 50,
+        "p90": 61,
+        "max": 65,
+        "mean": 44.76
+      },
+      "labelShares": {
+        "Active": 14.29,
+        "Inactive": 8.57,
+        "Moderate": 53.33,
+        "Reserved": 23.81
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 3,
+        "p10": 23,
+        "median": 48,
+        "p90": 61,
+        "max": 66,
+        "mean": 42.87
+      },
+      "labelShares": {
+        "Active": 12.86,
+        "Inactive": 8.57,
+        "Moderate": 51.9,
+        "Reserved": 26.67
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 3,
+        "p10": 25,
+        "median": 49,
+        "p90": 61,
+        "max": 66,
+        "mean": 43.37
+      },
+      "labelShares": {
+        "Active": 15.71,
+        "Inactive": 8.57,
+        "Moderate": 48.1,
+        "Reserved": 27.62
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 210,
+      "samples": 210,
+      "scores": {
+        "min": 4,
+        "p10": 28,
+        "median": 50,
+        "p90": 61,
+        "max": 65,
+        "mean": 44.8
+      },
+      "labelShares": {
+        "Active": 15.71,
+        "Inactive": 8.57,
+        "Moderate": 52.38,
+        "Reserved": 23.33
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 210,
+      "samples": 840,
+      "scores": {
+        "min": 3,
+        "p10": 25,
+        "median": 49,
+        "p90": 61,
+        "max": 66,
+        "mean": 43.95
+      },
+      "labelShares": {
+        "Active": 14.64,
+        "Inactive": 8.57,
+        "Moderate": 51.43,
+        "Reserved": 25.36
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 490,
+      "samples": 490,
+      "scores": {
+        "min": 4,
+        "p10": 37,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.49
+      },
+      "labelShares": {
+        "Active": 28.57,
+        "Inactive": 4.08,
+        "Moderate": 57.76,
+        "Reserved": 9.59
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 490,
+      "samples": 490,
+      "scores": {
+        "min": 3,
+        "p10": 33,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.47
+      },
+      "labelShares": {
+        "Active": 25.51,
+        "Inactive": 4.08,
+        "Moderate": 54.49,
+        "Reserved": 15.92
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 490,
+      "samples": 490,
+      "scores": {
+        "min": 3,
+        "p10": 34,
+        "median": 52,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.77
+      },
+      "labelShares": {
+        "Active": 28.16,
+        "Inactive": 4.29,
+        "Moderate": 52.86,
+        "Reserved": 14.69
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 490,
+      "samples": 490,
+      "scores": {
+        "min": 4,
+        "p10": 36,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.36
+      },
+      "labelShares": {
+        "Active": 28.78,
+        "Inactive": 4.08,
+        "Moderate": 58.57,
+        "Reserved": 8.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 490,
+      "samples": 1960,
+      "scores": {
+        "min": 3,
+        "p10": 35,
+        "median": 54,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.52
+      },
+      "labelShares": {
+        "Active": 27.76,
+        "Inactive": 4.13,
+        "Moderate": 55.92,
+        "Reserved": 12.19
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 143,
+      "samples": 143,
+      "scores": {
+        "min": 5,
+        "p10": 23,
+        "median": 57,
+        "p90": 63,
+        "max": 65,
+        "mean": 50.7
+      },
+      "labelShares": {
+        "Active": 39.86,
+        "Inactive": 6.99,
+        "Moderate": 44.06,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 143,
+      "samples": 143,
+      "scores": {
+        "min": 4,
+        "p10": 21,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.3
+      },
+      "labelShares": {
+        "Active": 37.76,
+        "Inactive": 9.79,
+        "Moderate": 43.36,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 143,
+      "samples": 143,
+      "scores": {
+        "min": 4,
+        "p10": 19,
+        "median": 54,
+        "p90": 63,
+        "max": 64,
+        "mean": 49.19
+      },
+      "labelShares": {
+        "Active": 34.27,
+        "Inactive": 10.49,
+        "Moderate": 48.25,
+        "Reserved": 6.99
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 143,
+      "samples": 143,
+      "scores": {
+        "min": 4,
+        "p10": 21,
+        "median": 57,
+        "p90": 63,
+        "max": 65,
+        "mean": 50.48
+      },
+      "labelShares": {
+        "Active": 34.27,
+        "Inactive": 6.99,
+        "Moderate": 49.65,
+        "Reserved": 9.09
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 143,
+      "samples": 572,
+      "scores": {
+        "min": 4,
+        "p10": 22,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 49.92
+      },
+      "labelShares": {
+        "Active": 36.54,
+        "Inactive": 8.57,
+        "Moderate": 46.33,
+        "Reserved": 8.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 222,
+      "samples": 222,
+      "scores": {
+        "min": 4,
+        "p10": 41,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.38
+      },
+      "labelShares": {
+        "Active": 27.48,
+        "Inactive": 4.95,
+        "Moderate": 63.06,
+        "Reserved": 4.5
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 222,
+      "samples": 222,
+      "scores": {
+        "min": 4,
+        "p10": 37,
+        "median": 52,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.42
+      },
+      "labelShares": {
+        "Active": 24.32,
+        "Inactive": 4.95,
+        "Moderate": 63.06,
+        "Reserved": 7.66
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 222,
+      "samples": 222,
+      "scores": {
+        "min": 4,
+        "p10": 38,
+        "median": 53,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.82
+      },
+      "labelShares": {
+        "Active": 26.13,
+        "Inactive": 4.95,
+        "Moderate": 60.36,
+        "Reserved": 8.56
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 222,
+      "samples": 222,
+      "scores": {
+        "min": 4,
+        "p10": 41,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 52.59
+      },
+      "labelShares": {
+        "Active": 30.63,
+        "Inactive": 4.95,
+        "Moderate": 59.91,
+        "Reserved": 4.5
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 222,
+      "samples": 888,
+      "scores": {
+        "min": 4,
+        "p10": 39,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.55
+      },
+      "labelShares": {
+        "Active": 27.14,
+        "Inactive": 4.95,
+        "Moderate": 61.6,
+        "Reserved": 6.31
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 4,
+        "p10": 32,
+        "median": 57,
+        "p90": 62,
+        "max": 66,
+        "mean": 51.48
+      },
+      "labelShares": {
+        "Active": 29.23,
+        "Inactive": 3.08,
+        "Moderate": 54.36,
+        "Reserved": 13.33
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 3,
+        "p10": 28,
+        "median": 52,
+        "p90": 62,
+        "max": 65,
+        "mean": 49.26
+      },
+      "labelShares": {
+        "Active": 28.72,
+        "Inactive": 6.67,
+        "Moderate": 53.33,
+        "Reserved": 11.28
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 3,
+        "p10": 28,
+        "median": 52,
+        "p90": 62,
+        "max": 66,
+        "mean": 49.11
+      },
+      "labelShares": {
+        "Active": 25.13,
+        "Inactive": 6.67,
+        "Moderate": 54.87,
+        "Reserved": 13.33
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 4,
+        "p10": 31,
+        "median": 57,
+        "p90": 63,
+        "max": 65,
+        "mean": 51.52
+      },
+      "labelShares": {
+        "Active": 30.26,
+        "Inactive": 3.08,
+        "Moderate": 53.33,
+        "Reserved": 13.33
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 195,
+      "samples": 780,
+      "scores": {
+        "min": 3,
+        "p10": 30,
+        "median": 55,
+        "p90": 62,
+        "max": 66,
+        "mean": 50.34
+      },
+      "labelShares": {
+        "Active": 28.33,
+        "Inactive": 4.87,
+        "Moderate": 53.97,
+        "Reserved": 12.82
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 4,
+        "p10": 30,
+        "median": 52,
+        "p90": 61,
+        "max": 62,
+        "mean": 46.79
+      },
+      "labelShares": {
+        "Active": 13.1,
+        "Inactive": 3.57,
+        "Moderate": 58.33,
+        "Reserved": 25
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 3,
+        "p10": 25,
+        "median": 50,
+        "p90": 61,
+        "max": 63,
+        "mean": 44.29
+      },
+      "labelShares": {
+        "Active": 11.9,
+        "Inactive": 3.57,
+        "Moderate": 53.57,
+        "Reserved": 30.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 3,
+        "p10": 24,
+        "median": 50,
+        "p90": 61,
+        "max": 63,
+        "mean": 44.29
+      },
+      "labelShares": {
+        "Active": 16.67,
+        "Inactive": 3.57,
+        "Moderate": 50,
+        "Reserved": 29.76
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 84,
+      "samples": 84,
+      "scores": {
+        "min": 5,
+        "p10": 28,
+        "median": 52,
+        "p90": 61,
+        "max": 63,
+        "mean": 46.56
+      },
+      "labelShares": {
+        "Active": 13.1,
+        "Inactive": 3.57,
+        "Moderate": 58.33,
+        "Reserved": 25
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 84,
+      "samples": 336,
+      "scores": {
+        "min": 3,
+        "p10": 26,
+        "median": 50,
+        "p90": 61,
+        "max": 63,
+        "mean": 45.48
+      },
+      "labelShares": {
+        "Active": 13.69,
+        "Inactive": 3.57,
+        "Moderate": 55.06,
+        "Reserved": 27.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 4,
+        "p10": 31,
+        "median": 57,
+        "p90": 63,
+        "max": 66,
+        "mean": 51.05
+      },
+      "labelShares": {
+        "Active": 33.85,
+        "Inactive": 5.64,
+        "Moderate": 51.79,
+        "Reserved": 8.72
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 3,
+        "p10": 28,
+        "median": 53,
+        "p90": 63,
+        "max": 65,
+        "mean": 49.2
+      },
+      "labelShares": {
+        "Active": 27.18,
+        "Inactive": 5.64,
+        "Moderate": 53.33,
+        "Reserved": 13.85
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 3,
+        "p10": 28,
+        "median": 52,
+        "p90": 63,
+        "max": 65,
+        "mean": 49.01
+      },
+      "labelShares": {
+        "Active": 28.21,
+        "Inactive": 6.67,
+        "Moderate": 50.77,
+        "Reserved": 14.36
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 195,
+      "samples": 195,
+      "scores": {
+        "min": 4,
+        "p10": 29,
+        "median": 56,
+        "p90": 63,
+        "max": 66,
+        "mean": 50.74
+      },
+      "labelShares": {
+        "Active": 30.77,
+        "Inactive": 5.64,
+        "Moderate": 53.33,
+        "Reserved": 10.26
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 195,
+      "samples": 780,
+      "scores": {
+        "min": 3,
+        "p10": 28,
+        "median": 55,
+        "p90": 63,
+        "max": 66,
+        "mean": 50
+      },
+      "labelShares": {
+        "Active": 30,
+        "Inactive": 5.9,
+        "Moderate": 52.31,
+        "Reserved": 11.79
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Manitowoc River at Michigan Avenue, WI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 11,
+        "percent": 8.9
+      },
+      "meaningfulRise24h": {
+        "absolute": 37,
+        "percent": 21.3
+      },
+      "sharpRise24h": {
+        "absolute": 99,
+        "percent": 48.2
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 0.1,
+      "p10": 1.5,
+      "median": 12,
+      "p90": 90,
+      "max": 1158,
+      "mean": 39.9
+    },
+    "positivePercentChange": {
+      "min": 0.13,
+      "p10": 1.42,
+      "median": 8.33,
+      "p90": 40.91,
+      "max": 601.99,
+      "mean": 19.32
+    },
+    "signals": {
+      "falling": 214,
+      "meaningful_rise": 59,
+      "rising": 120,
+      "sharp_rise": 24,
+      "stable": 1122
+    }
+  },
+  "bestBlocks": {
+    "05-09": 777,
+    "09-13": 210,
+    "13-17": 259,
+    "17-21": 293
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 10,
+    "max": 14,
+    "mean": 5.01
+  },
+  "daysWithSpreadAtLeast10": 159,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2013-11-22",
+      "stage": "peak",
+      "staging": false,
+      "score": 55,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 366,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 8,
+      "flowPercentChange24h": 2.23,
+      "temperatureSignal": "neutral_missing",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2017-01-12",
+      "stage": "post_run",
+      "staging": false,
+      "score": 61,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 138,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -3,
+      "flowPercentChange24h": -2.13,
+      "temperatureSignal": "neutral_missing",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2013-12-12",
+      "stage": "tapering",
+      "staging": false,
+      "score": 43,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 45.4,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 4.5,
+      "flowPercentChange24h": 11,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 52,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 43,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 61,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2013-12-16",
+      "stage": "tapering",
+      "staging": false,
+      "score": 45,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 42,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -3.4,
+      "flowPercentChange24h": -7.49,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 19,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 23,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Late migrants, spawning fish, and post-spawn lake-run Brown Trout can overlap. This score describes responsiveness for a fish already present without determining its migration outcome. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2016-12-26",
+      "stage": "ending",
+      "staging": false,
+      "score": 59,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 217,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 72,
+      "flowPercentChange24h": 49.66,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 50,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 47,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Unlike Pacific salmon, lake-run Brown Trout are repeat spawners and can survive spawning. A surviving fish may hold in the river or return lakeward, and this score does not determine which path it follows. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as response conditions only. Surviving Brown Trout may hold in the river or return lakeward on individual schedules."
+    },
+    {
+      "date": "2019-11-11",
+      "stage": "building",
+      "staging": false,
+      "score": 45,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 707,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -38,
+      "flowPercentChange24h": -5.1,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Light rain adds some cover.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2020-11-14",
+      "stage": "building",
+      "staging": false,
+      "score": 36,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 916,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -0.11,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 29,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 31,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 45,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2022-11-11",
+      "stage": "building",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 286,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -11,
+      "flowPercentChange24h": -3.7,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2023-11-06",
+      "stage": "building",
+      "staging": false,
+      "score": 57,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 78.8,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.4,
+      "flowPercentChange24h": -1.75,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.1,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2012-12-04",
+      "stage": "peak",
+      "staging": false,
+      "score": 58,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 109,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -2,
+      "flowPercentChange24h": -1.8,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 66,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. This score describes feeding or aggressive responsiveness for lake-run Brown Trout already present, not migration or abundance. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2013-09-26",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 30,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 28.6,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1.6,
+      "flowPercentChange24h": -5.3,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 35,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 24,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 23,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 28,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early lake-run Brown Trout that may already have entered. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    },
+    {
+      "date": "2014-09-25",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 58,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 111,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -6,
+      "flowPercentChange24h": -5.13,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 73,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s lake-run Brown Trout activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early lake-run Brown Trout that may already have entered. Hydraulic-only read for the lower/middle mainstem. Temperature is unavailable and has zero influence; the gauge does not represent the harbor or upper corridor. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. Keep this responsiveness outlook separate from abundance and migration stage."
+    }
+  ]
+}
