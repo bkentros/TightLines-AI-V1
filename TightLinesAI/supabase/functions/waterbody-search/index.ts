@@ -1520,7 +1520,6 @@ Deno.serve(async (req: Request) => {
   let data: unknown[] | null = null;
   let error: { message: string } | null = null;
   let primaryRpcFailed = false;
-  let crossStateRetryFailed = false;
   const genericType = genericWaterbodyTypeOnly(query);
   if (genericType) {
     const response = await supabase.rpc("browse_waterbodies_by_state", {
@@ -1586,36 +1585,10 @@ Deno.serve(async (req: Request) => {
       rawRows = Array.isArray(retry.data) ? retry.data as SearchRow[] : [];
     }
   }
-  if (shouldTryCrossStateAliasRetry(rawRows, query, state)) {
-    const retry = await supabase.rpc("search_waterbodies", {
-      query_text: query,
-      state_filter: null,
-      result_limit: limit,
-    });
-    if (retry.error) {
-      crossStateRetryFailed = true;
-      console.error(
-        "[waterbody-search] cross-state alias retry failed",
-        retry.error,
-      );
-    } else {
-      rawRows = Array.isArray(retry.data) ? retry.data as SearchRow[] : [];
-    }
-    if (rawRows.length === 0) {
-      rawRows = await fetchCuratedCrossStateAliasRows({
-        supabase,
-        query,
-        state,
-        limit,
-      });
-    }
-  }
-
   const rows = sortedRowsForDisplay(rawRows, query);
   if (
     shouldSurfaceSearchUnavailable({
       primaryRpcFailed,
-      crossStateRetryFailed,
       resultCount: rows.length,
     })
   ) {
@@ -1649,7 +1622,6 @@ Deno.serve(async (req: Request) => {
         fallbackAttempted,
         fallbackIndexedCount,
         primaryRpcFailed,
-        crossStateRetryFailed,
       }),
     );
     const { error: missError } = await supabase
@@ -1669,7 +1641,6 @@ Deno.serve(async (req: Request) => {
           weakResult,
           topResults,
           primaryRpcFailed,
-          crossStateRetryFailed,
         },
       });
     if (missError) {

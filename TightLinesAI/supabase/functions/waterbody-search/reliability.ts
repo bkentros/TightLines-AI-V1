@@ -1,18 +1,15 @@
 export interface SearchRecoveryState {
   primaryRpcFailed: boolean;
-  crossStateRetryFailed: boolean;
   resultCount: number;
 }
 
 /**
- * Do not turn two database failures into a successful empty-search response.
- * A recovered result remains a success, and a successful alternate query with
- * zero matches remains a legitimate empty result.
+ * Do not turn a database failure into a successful empty-search response.
+ * A recovered result remains a success, while an ordinary empty query remains
+ * a legitimate empty result.
  */
 export function shouldSurfaceSearchUnavailable(
   state: SearchRecoveryState,
 ): boolean {
-  return state.primaryRpcFailed &&
-    state.crossStateRetryFailed &&
-    state.resultCount === 0;
+  return state.primaryRpcFailed && state.resultCount === 0;
 }
