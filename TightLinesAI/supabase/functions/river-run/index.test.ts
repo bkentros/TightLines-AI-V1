@@ -847,6 +847,57 @@ Deno.test("fall 2026 capability exposes only compatible drafts to an admin", asy
   assert(!riverIds.includes("kewaunee_river"));
 });
 
+Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or temperature", async () => {
+  const client = new MockClient({ email: "brandonkentros@icloud.com" });
+  const gaugeObservations: NormalizedGaugeObservation[] = Array.from(
+    { length: 29 },
+    (_, index) => {
+      const observedAt = new Date(
+        Date.parse("2026-09-19T08:00:00.000Z") + index * 60 * 60 * 1000,
+      ).toISOString();
+      const rising = observedAt >= "2026-09-20T08:00:00.000Z";
+      return {
+        provider: "USGS",
+        siteId: "04249000",
+        observedAt,
+        flow_cfs: rising ? 6_000 : 3_000,
+        gage_height_ft: rising ? 5.1 : 4.2,
+        source: "usgs_continuous_values",
+      } as const;
+    },
+  );
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=oswego&runId=oswego_fall_chinook&presentationState=NY",
+      { clientCapabilities: "fall-2026-owner-review-v1" },
+    ),
+    {
+      createAdminClient: () => client,
+      now: new Date("2026-09-20T12:10:00.000Z"),
+      gaugeObservations,
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: envData,
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.conditionsSuggest.label, "Unavailable");
+  assertEquals(body.push.label, "Strong");
+  assertEquals(
+    body.push.rulesVersion,
+    "oswego-fall-chinook-direct-push-pilot-v3",
+  );
+  assertEquals(body.waterTemperature.sourceType, "unavailable");
+  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(
+    body.pushHistory.recentWindowReads.filter(
+      (read: { status?: string }) => read.status === "missing",
+    ).length,
+    11,
+  );
+});
+
 Deno.test("owner-review snapshot hides fall 2026 drafts without the capability", async () => {
   const response = await handleRiverRunRequestBase(
     request(
@@ -1004,6 +1055,9 @@ Deno.test("Salmon River owner-review snapshot keeps Pineville Gauge Read separat
   assertEquals(body.waterTemperature, undefined);
   assertEquals(body.activity.confidence, "Limited");
   assertEquals(body.fishability.label, "Unavailable");
+  assertEquals(body.push.label, "Neutral");
+  assertMatch(body.push.detail, /No elevated direct water signal/i);
+  assertEquals(body.dataQuality.label, "Limited");
   assertMatch(body.activity.detail, /weather-only/i);
 });
 
@@ -2019,43 +2073,22 @@ Deno.test("Push history reports supportive conditions active now", async () => {
   );
   const body = await json(response);
 
-  assertEquals(body.pushHistory, {
-    status: "active_now",
-    minimumSupportiveScore: 50,
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-10-27",
-    throughDate: "2026-09-20",
-    recentDailyReadsStatus: "available",
-    recentDailyReads: missingPushHistoryReads("2026-09-19"),
-    todayReadsStatus: "available",
-    todayReads: [{
-      localDate: "2026-09-20",
-      refreshSlot: "16:00",
-      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
-      startTime: "16:00",
-      endTime: "20:00",
-      score: 74,
-      label: "Strong",
-      isCurrent: true,
-    }],
-    currentWindow: {
-      localDate: "2026-09-20",
-      refreshSlot: "16:00",
-      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
-      startTime: "16:00",
-      endTime: "20:00",
-      score: 74,
-      label: "Strong",
-      isCurrent: true,
-    },
-    lastSupportiveConditions: {
-      localDate: "2026-09-20",
-      refreshSlot: "16:00",
-      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
-      score: 74,
-      label: "Strong",
-    },
-  });
+  assertEquals(body.pushHistory.status, "active_now");
+  assertEquals(body.pushHistory.minimumSupportiveScore, 64);
+  assertEquals(body.pushHistory.trackingStartDate, "2026-08-15");
+  assertEquals(body.pushHistory.trackingEndDate, "2026-10-18");
+  assertEquals(body.pushHistory.throughDate, "2026-09-20");
+  assertEquals(
+    body.pushHistory.recentDailyReads,
+    missingPushHistoryReads("2026-09-19"),
+  );
+  assertEquals(body.pushHistory.todayReads.length, 1);
+  assertEquals(body.pushHistory.currentWindow.label, "Strong");
+  assertEquals(body.pushHistory.currentWindow.isCurrent, true);
+  assertEquals(body.pushHistory.lastSupportiveConditions.score, 74);
+  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(body.pushHistory.recentWindowReads.at(-1).isCurrent, true);
+  assertEquals(body.pushHistory.recentWindowReads.at(-1).label, "Strong");
 });
 
 Deno.test("Push history survives engine and copy configuration changes when Push rules remain compatible", async () => {
@@ -2064,7 +2097,7 @@ Deno.test("Push history survives engine and copy configuration changes when Push
   const validPrior = conditionRow("2026-09-16");
   validPrior.push = {
     ...validPrior.push,
-    score: 63,
+    score: 64,
     label: "Possible",
   };
   const wrongConfig = conditionRow("2026-09-19");
@@ -2123,7 +2156,7 @@ Deno.test("Push history survives engine and copy configuration changes when Push
     status: "supportive_window",
     refreshSlot: "16:00",
     conditionRefreshAt: "2026-09-16T20:10:00.000Z",
-    score: 63,
+    score: 64,
     label: "Possible",
   });
 });
@@ -2233,14 +2266,14 @@ Deno.test("Push history starts empty on the first tracking date and adds that da
     status: "no_supportive_window",
     refreshSlot: "16:00",
     conditionRefreshAt: "2026-08-15T20:10:00.000Z",
-    score: 36,
-    label: "No clear push",
+    score: 50,
+    label: "Neutral",
   }]);
 });
 
 Deno.test("Push and supportive history stop after the configured run end", async () => {
   const client = new MockClient();
-  const prior = conditionRow("2026-10-25");
+  const prior = conditionRow("2026-10-17");
   prior.push = { ...prior.push, score: 75, label: "Strong" };
   client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-10-28")];
   client.rows.river_run_condition_refreshes = [
@@ -2267,16 +2300,16 @@ Deno.test("Push and supportive history stop after the configured run end", async
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
   assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
   assertEquals(body.pushHistory.recentDailyReads[0], {
-    localDate: "2026-10-27",
+    localDate: "2026-10-18",
     status: "missing",
     score: null,
     label: "No recorded read",
   });
-  assertEquals(body.pushHistory.recentDailyReads[2], {
-    localDate: "2026-10-25",
+  assertEquals(body.pushHistory.recentDailyReads[1], {
+    localDate: "2026-10-17",
     status: "supportive_window",
     refreshSlot: "16:00",
-    conditionRefreshAt: "2026-10-25T20:10:00.000Z",
+    conditionRefreshAt: "2026-10-17T20:10:00.000Z",
     score: 75,
     label: "Strong",
   });
@@ -2774,7 +2807,7 @@ Deno.test("missing 24-hour trend caps but does not erase audited Fishability", a
   assertEquals(body.dataQuality.label, "Limited");
 });
 
-Deno.test("Push uses raw hydraulics and remains conservative when the trend is unresolved", async () => {
+Deno.test("direct Push stays Neutral when robust hydraulic windows are unresolved", async () => {
   const source = PERE_MARQUETTE_RIVER_PROFILE.waterTemperatureSources[0];
   const response = await handleRiverRunRequest(
     request(
@@ -2802,10 +2835,9 @@ Deno.test("Push uses raw hydraulics and remains conservative when the trend is u
   );
   const body = await json(response);
 
-  assertEquals(body.push.score, 25);
-  assertEquals(body.push.components.hydraulicState, "normal");
-  assert(body.push.reasonCodes.includes("push_unknown_trend_cap"));
-  assertEquals(body.push.reasonCodes.includes("normal_flow_band"), false);
+  assertEquals(body.push.score, 50);
+  assertEquals(body.push.label, "Neutral");
+  assertEquals(body.push.directSignals.hydraulic.phase, "neutral");
 });
 
 Deno.test("live weather fallback success normalizes precipitation and lows", async () => {

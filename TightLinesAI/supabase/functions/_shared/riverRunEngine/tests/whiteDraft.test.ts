@@ -215,6 +215,7 @@ Deno.test("White condition refresh produces a full observed-river Activity read"
     movementEngineId: run.movementEngineId,
     primitiveCapabilities: run.primitiveCapabilities,
     fishabilityBands: run.fishabilityBands,
+    pushRules: run.push,
     activityRules: run.activity,
     activityTargetDate: "2026-10-08",
     activityTargetStage: daily.runStage.stage,

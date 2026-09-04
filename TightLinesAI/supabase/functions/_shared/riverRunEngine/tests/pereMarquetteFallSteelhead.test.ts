@@ -195,31 +195,11 @@ Deno.test("PM Fall Steelhead reaches 80 and retains 70 through December 22", () 
   assertEquals(complete.winterHoldingContext, false);
 });
 
-Deno.test("fall-entry Push distinguishes core, cold-active, and cold-holding steelhead water", () => {
-  const scoreAt = (waterTempF: number) =>
-    scorePush({
-      movementEngineId: run.movementEngineId,
-      rules: run.push,
-      gaugeFreshness: "fresh",
-      flowSignal: "meaningful_rise",
-      currentHydraulicValue: 700,
-      hydraulicAbsoluteChange24h: 70,
-      hydraulicPercentChange24h: 10,
-      rainSignal: "light_rain",
-      temperatureSignal: "neutral",
-      temperatureSourceType: "same_gauge",
-      waterTempF,
-      trackingState: "active",
-      trackingStartDate: "2026-09-20",
-      trackingEndDate: "2026-12-22",
-    });
-  assertEquals(scoreAt(52).components?.temperatureState, "supportive");
-  assertEquals(scoreAt(45).components?.temperatureState, "cold_active");
-  const coldHolding = scoreAt(39);
-  assertEquals(coldHolding.components?.temperatureState, "cold_holding");
-  assertEquals(coldHolding.score, 49);
-  assert(coldHolding.reasonCodes.includes("push_cold_holding_cap"));
-  assertMatch(coldHolding.detail, /remain in the river/i);
+Deno.test("fall-entry Push uses Scottville flow without cross-reach temperature", () => {
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.hydraulic, "trigger");
+  assertEquals(run.push.directEvent?.temperature, "disabled");
+  assertMatch(run.push.evidenceNotes, /temperature stations.*excluded/i);
 });
 
 Deno.test("December 23 completes PM fall primitives without referencing winter", () => {

@@ -10,6 +10,8 @@ export type DataQualityInput = {
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
   temperatureSourceType: TemperatureSourceType;
+  /** Whether an enabled current primitive is configured to consume temperature. */
+  temperatureExpected?: boolean;
   temperatureIsUpstreamFallback?: boolean;
   conditionsSuggestDaysUsable: number;
   conditionsSuggestExpectedDays?: number;
@@ -24,15 +26,24 @@ export function resolveDataQuality(input: DataQualityInput): DataQuality {
   reasonCodes.add(weatherReasonCode(input.weatherFreshness));
 
   let nonCriticalLimitations = 0;
-  if (input.temperatureSourceType === "unavailable") {
+  const temperatureUnavailable = input.temperatureSourceType === "unavailable";
+  const temperatureExpected = input.temperatureExpected ?? true;
+  if (temperatureUnavailable && temperatureExpected) {
     nonCriticalLimitations++;
     reasonCodes.add("temperature_unavailable");
   }
-  if (input.temperatureIsUpstreamFallback) {
+  if (input.temperatureIsUpstreamFallback && temperatureExpected) {
     nonCriticalLimitations++;
     reasonCodes.add("temperature_upstream_fallback");
   }
-  if ((input.missingNonGaugeInputCount ?? 0) === 1) nonCriticalLimitations++;
+  // The assembled count includes missing temperature. Remove that already
+  // represented dimension before counting other missing inputs such as rain.
+  const otherMissingNonGaugeInputs = Math.max(
+    0,
+    (input.missingNonGaugeInputCount ?? 0) -
+      (temperatureUnavailable ? 1 : 0),
+  );
+  nonCriticalLimitations += Math.min(2, otherMissingNonGaugeInputs);
   const expectedConditionsDays = input.conditionsSuggestExpectedDays ?? 0;
   const conditionsCoverage = expectedConditionsDays > 0
     ? input.conditionsSuggestDaysUsable / expectedConditionsDays

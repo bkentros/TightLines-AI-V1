@@ -161,33 +161,38 @@ const BASE_SNAPSHOT = {
     "previousTimingLabel": "Typical"
   },
   "push": {
-    "score": 35,
-    "label": "No clear push",
-    "headline": "PM water does not show a clear fresh-movement signal.",
-    "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Recent watershed rainfall is too light to affect the read.",
-    "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
+    "score": 50,
+    "label": "Neutral",
+    "headline": "Water signals are neutral for a fresh movement event.",
+    "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+    "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
     "reasonCodes": [
       "gauge_fresh",
-      "push_normal_flow_context",
-      "push_temperature_supportive",
-      "light_rain_48h",
-      "push_no_gauge_response_cap"
+      "push_normal_flow_context"
     ],
     "components": {
-      "hydraulicBase": 35,
+      "hydraulicBase": 0,
       "hydraulicAdjustment": 0,
       "temperatureModifier": 0,
       "rainModifier": 0,
       "hydraulicState": "normal",
       "temperatureState": "supportive",
-      "rainRole": "neutral",
+      "rainRole": "missing",
       "appliedCaps": []
     },
-    "rulesVersion": "pm-fall-coho-push-v1",
+    "model": "direct_event_state",
+    "evidenceConfidence": "Standard",
+    "directSignals": {
+      "hydraulic": {
+        "level": 0,
+        "phase": "neutral"
+      }
+    },
+    "rulesVersion": "pm-fall-coho-direct-push-v1",
     "copyVersion": "river-run-copy-v38"
   },
   "pushHistory": {
-    "status": "none_recorded",
+    "status": "active_now",
     "minimumSupportiveScore": 50,
     "trackingStartDate": "2026-09-01",
     "trackingEndDate": "2026-11-30",
@@ -242,7 +247,14 @@ const BASE_SNAPSHOT = {
         "score": null,
         "label": "No supportive window"
       }
-    ]
+    ],
+    "lastSupportiveConditions": {
+      "localDate": "2026-10-01",
+      "refreshSlot": "16:00",
+      "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
+      "score": 50,
+      "label": "Neutral"
+    }
   },
   "fishability": {
     "score": 93,
@@ -454,7 +466,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.9.0-review",
-  "configVersion": "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v3-review"
+  "configVersion": "2026-09-03-pm-direct-push-v1+seasonal-zone-v3-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [
@@ -534,13 +546,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Offseason",
             "headline": "PM Push is outside its fall movement window.",
-            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "detail": "Measured river flow is outside this species' active Push window and does not provide an in-season fresh-movement read.",
             "tip": "Check back in late August when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -844,13 +858,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -1106,13 +1122,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -1389,13 +1407,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -1706,7 +1731,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Delayed"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -1761,7 +1786,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-21",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-21T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 19,
@@ -2109,7 +2141,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -2164,7 +2196,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-10",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-10T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 44,
@@ -2328,13 +2367,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -2545,7 +2577,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -2600,7 +2632,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-06",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-06T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 53,
@@ -2974,7 +3013,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -3029,7 +3068,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-21",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-21T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 35,
@@ -3406,13 +3452,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -3722,13 +3770,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -3984,13 +4034,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -4267,13 +4319,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -4542,13 +4601,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -4816,13 +4882,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -5091,13 +5164,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -5408,7 +5488,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Typical"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -5463,7 +5543,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-21",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-21T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 19,
@@ -5837,7 +5924,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -5892,7 +5979,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-26",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-26T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 58,
@@ -6056,13 +6150,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -6276,13 +6363,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -6717,7 +6806,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Insufficient evidence"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -6772,7 +6861,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-26",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-26T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 58,
@@ -6936,13 +7032,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -7036,13 +7125,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -7311,13 +7407,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -7586,13 +7689,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -7861,13 +7971,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -8136,13 +8253,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -8411,13 +8535,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -8686,13 +8817,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -8958,13 +9096,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -9150,30 +9295,35 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "PM water shows little support for fresh movement.",
-            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
-            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 500
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           }
         }
@@ -9182,7 +9332,40 @@ const GROUP_SEEDS = [
         "id": "push_no_clear",
         "label": "No clear push · steady",
         "note": "Canonical production copy",
-        "snapshotOverride": {}
+        "snapshotOverride": {
+          "push": {
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context"
+            ],
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38"
+          }
+        }
       },
       {
         "id": "push_possible",
@@ -9190,28 +9373,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 61,
+            "score": 64,
             "label": "Possible",
-            "headline": "PM water offers some support for fresh movement.",
-            "detail": "Scottville flow has started to rise. Measured water temperature is favorable for this migration and cooling. Rain adds limited support while Scottville begins to rise.",
-            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
+            "headline": "Possible environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_partial_precursor"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 52,
+              "hydraulicBase": 1,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 3,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "partial_precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 1,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 575,
+                "current": 600,
+                "peakChange": 25,
+                "retainedChange": 25,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9275,7 +9472,7 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 61,
+              "score": 64,
               "label": "Possible"
             }
           }
@@ -9287,28 +9484,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 76,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 2,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9372,8 +9583,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 76,
-              "label": "Strong"
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -9384,28 +9595,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 90,
-            "label": "Very strong",
-            "headline": "PM water offers its strongest support for fresh movement.",
-            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. Scottville already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "score": 92,
+            "label": "Strong",
+            "headline": "Strong environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 3,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 10,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 3,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 670,
+                "current": 800,
+                "peakChange": 130,
+                "retainedChange": 130,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9469,8 +9694,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 90,
-              "label": "Very strong"
+              "score": 92,
+              "label": "Strong"
             }
           }
         }
@@ -9481,95 +9706,36 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 51,
-            "label": "Possible",
-            "headline": "PM water offers some support for fresh movement.",
-            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration and cooling. Rain is only a precursor because Scottville has not shown enough response.",
-            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 10,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
-          },
-          "pushHistory": {
-            "status": "active_now",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-01",
-            "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-10-01",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-30",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-29",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-28",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-27",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-26",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-25",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-24",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
               }
-            ],
-            "lastSupportiveConditions": {
-              "localDate": "2026-10-01",
-              "refreshSlot": "16:00",
-              "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 51,
-              "label": "Possible"
-            }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38"
           }
         }
       },
@@ -9579,28 +9745,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 70,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration. Scottville already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 2,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9664,8 +9844,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 70,
-              "label": "Strong"
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -9676,29 +9856,108 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 47,
-            "label": "No clear push",
-            "headline": "PM water does not show a clear fresh-movement signal.",
-            "detail": "Scottville flow has started to rise, while overall flow is high. Measured water temperature is favorable for this migration. Additional rain adds no support while Scottville flow is already high.",
-            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
+            "score": 64,
+            "label": "Possible",
+            "headline": "Possible environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_high_flow_context",
-              "push_temperature_supportive",
-              "push_rain_suppressed_high_flow"
+              "push_high_flow_context"
             ],
             "components": {
-              "hydraulicBase": 52,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 1,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "supportive",
-              "rainRole": "suppressed_high_flow",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 1,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 870,
+                "current": 900,
+                "peakChange": 30,
+                "retainedChange": 30,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
+          },
+          "pushHistory": {
+            "status": "active_now",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-01",
+            "trackingEndDate": "2026-11-30",
+            "throughDate": "2026-10-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-09-30",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-29",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-28",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-27",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-26",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-09-25",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-24",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
+              "score": 64,
+              "label": "Possible"
+            }
           }
         }
       },
@@ -9708,20 +9967,17 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 35,
-            "label": "No clear push",
-            "headline": "PM water does not show a clear fresh-movement signal.",
-            "detail": "Scottville flow is steady without a meaningful rise. Measured water temperature is favorable for this migration. Watershed rainfall data is unavailable and adds no confidence.",
-            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "rain_missing",
-              "push_no_gauge_response_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
@@ -9730,7 +9986,16 @@ const GROUP_SEEDS = [
               "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           }
         }
@@ -9741,28 +10006,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 75,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is warmer than preferred and cooling. Recent watershed rainfall is too light to affect the read.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_transitional",
-              "light_rain_48h"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 2,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 5,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "neutral",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9826,8 +10105,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 75,
-              "label": "Strong"
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -9838,29 +10117,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 62,
+            "score": 64,
             "label": "Possible",
-            "headline": "PM water offers some support for fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is too warm for strong movement support and cooling. Recent watershed rainfall is too light to affect the read.",
-            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
+            "headline": "Possible environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "light_rain_48h",
-              "temperature_too_warm_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 2,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "neutral",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -9924,7 +10216,7 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 62,
+              "score": 64,
               "label": "Possible"
             }
           }
@@ -9936,63 +10228,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 49,
-            "label": "No clear push",
-            "headline": "Warm PM water prevents a dependable fresh-movement signal.",
-            "detail": "Scottville flow is rising quickly. Measured water temperature is warm enough to block a dependable movement call and cooling quickly. Recent watershed rainfall is too light to affect the read.",
-            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_migration_barrier",
-              "light_rain_48h",
-              "push_temperature_barrier_cap"
-            ],
-            "components": {
-              "hydraulicBase": 80,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": -20,
-              "rainModifier": 0,
-              "hydraulicState": "normal",
-              "temperatureState": "migration_barrier",
-              "rainRole": "neutral",
-              "appliedCaps": [
-                49
-              ]
-            },
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
-          }
-        }
-      },
-      {
-        "id": "push_temperature_plateau",
-        "label": "Temperature · cool plateau",
-        "note": "Canonical production copy",
-        "snapshotOverride": {
-          "push": {
-            "score": 70,
+            "score": 92,
             "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is already cool enough that more cooling adds no credit and cooling quickly. Recent watershed rainfall is too light to affect the read.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "headline": "Strong environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_cool_plateau",
-              "light_rain_48h"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 3,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
-              "temperatureState": "cool_plateau",
-              "rainRole": "neutral",
+              "temperatureState": "migration_barrier",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 3,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 670,
+                "current": 800,
+                "peakChange": 130,
+                "retainedChange": 130,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -10056,8 +10327,119 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 70,
+              "score": 92,
               "label": "Strong"
+            }
+          }
+        }
+      },
+      {
+        "id": "push_temperature_plateau",
+        "label": "Temperature · cool plateau",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "push": {
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context"
+            ],
+            "components": {
+              "hydraulicBase": 2,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "cool_plateau",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38"
+          },
+          "pushHistory": {
+            "status": "active_now",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-01",
+            "trackingEndDate": "2026-11-30",
+            "throughDate": "2026-10-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-09-30",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-29",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-28",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-27",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-26",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-09-25",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-24",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -10068,28 +10450,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 70,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling quickly. The temperature source is upstream, so its cooling cannot add positive lower-river credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "light_rain_48h"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 2,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "neutral",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 2,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 630,
+                "current": 700,
+                "peakChange": 70,
+                "retainedChange": 70,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -10153,8 +10549,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 70,
-              "label": "Strong"
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -10163,35 +10559,7 @@ const GROUP_SEEDS = [
         "id": "push_unknown_trend",
         "label": "Gauge trend · unresolved",
         "note": "Canonical production copy",
-        "snapshotOverride": {
-          "push": {
-            "score": 46,
-            "label": "No clear push",
-            "headline": "PM water does not show a clear fresh-movement signal.",
-            "detail": "Scottville flow does not have a dependable recent trend. Measured water temperature is favorable for this migration and cooling. Without a dependable Scottville trend, the model cannot call a clear Push.",
-            "tip": "Keep the section named by Migration Stage. Do not shift lower for a fresh wave this water does not support.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap",
-              "push_unknown_trend_cap"
-            ],
-            "components": {
-              "hydraulicBase": 30,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 10,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "precursor",
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
-          }
-        }
+        "snapshotOverride": {}
       },
       {
         "id": "push_stale_cap",
@@ -10199,31 +10567,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 55,
-            "label": "Possible",
-            "headline": "An aging Scottville reading limits confidence in PM fresh movement.",
-            "detail": "Scottville flow is rising quickly. Measured water temperature is favorable for this migration and cooling quickly. The latest Scottville reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary. Add one Lower river travel-water check before returning to established holding water.",
+            "score": 78,
+            "label": "Elevated",
+            "headline": "Elevated environmental support for possible fresh movement.",
+            "detail": "Measured river flow is showing a recent rise. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Use this as a reason to check fresh-entry and travel water, then verify conditions directly.",
             "reasonCodes": [
               "gauge_stale",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge",
-              "push_stale_gauge_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 3,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 10,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": [
-                55
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 3,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 670,
+                "current": 800,
+                "peakChange": 130,
+                "retainedChange": 130,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
@@ -10287,8 +10666,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-01",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 55,
-              "label": "Possible"
+              "score": 78,
+              "label": "Elevated"
             }
           }
         }
@@ -10299,31 +10678,42 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": 49,
-            "label": "No clear push",
-            "headline": "Extreme Scottville flow prevents a dependable fresh-movement signal.",
-            "detail": "Scottville flow is rising quickly, while overall flow is extreme. Measured water temperature is favorable for this migration and cooling quickly. Additional rain adds no support while Scottville flow is already high.",
-            "tip": "Do not chase a movement event. Let Fishability determine whether the Scottville reach offers any practical presentation water.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "Measured river flow is showing a recent rise, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_severe_high_flow_context",
-              "push_temperature_supportive",
-              "push_rain_suppressed_high_flow",
-              "push_severe_high_flow_cap"
+              "push_severe_high_flow_context"
             ],
             "components": {
-              "hydraulicBase": 80,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": 10,
+              "hydraulicBase": 3,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "supportive",
-              "rainRole": "suppressed_high_flow",
-              "appliedCaps": [
-                49
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 3,
+                "phase": "holding",
+                "onsetAt": "2026-10-01T00:00:00.000Z",
+                "ageHours": 20,
+                "baseline": 1000,
+                "current": 1200,
+                "peakChange": 200,
+                "retainedChange": 200,
+                "retentionFraction": 1,
+                "triggerWindowHours": 12
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           }
         }
@@ -10336,14 +10726,74 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "A current Scottville flow reading is unavailable.",
-            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
-            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
+            "headline": "A current measured river-flow reading is unavailable.",
+            "detail": "A direct flow event cannot be estimated until the river sensor returns a current reading.",
+            "tip": "Keep Migration Stage primary and check again after the next four-hour update. Do not infer a fresh movement event from weather alone.",
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-01",
+            "trackingEndDate": "2026-11-30",
+            "throughDate": "2026-10-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-09-30",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-29",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-28",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-27",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-26",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-09-25",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-24",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
           }
         }
       },
@@ -10353,16 +10803,35 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "A current measured PM water temperature is unavailable.",
-            "detail": "Without measured water temperature, Scottville flow cannot produce a dependable fresh-movement read.",
-            "tip": "Keep the section named by Migration Stage. Do not chase a fresh wave until measured temperature returns.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           }
         }
@@ -10373,15 +10842,35 @@ const GROUP_SEEDS = [
         "note": "Canonical production copy",
         "snapshotOverride": {
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "This PM run does not have a supported Push model.",
-            "detail": "Another species or season’s water response would produce a misleading fresh-movement read.",
-            "tip": "Use Migration Stage for seasonal position. Do not borrow another run’s Push pattern.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_fresh"
+              "gauge_fresh",
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           }
         }
@@ -10459,13 +10948,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -10720,13 +11211,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Offseason",
             "headline": "PM Push is outside its fall movement window.",
-            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "detail": "Measured river flow is outside this species' active Push window and does not provide an in-season fresh-movement read.",
             "tip": "Check back in late August when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -11051,14 +11544,53 @@ const GROUP_SEEDS = [
             ],
             "copyVersion": "river-run-copy-v38"
           },
+          "push": {
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context"
+            ],
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral",
+                "current": 550
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38"
+          },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -11442,13 +11974,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -12121,13 +12655,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -12474,13 +13010,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 25,
@@ -13051,7 +13594,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -13106,7 +13649,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 79,
@@ -13339,13 +13889,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -13601,7 +14144,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -13656,7 +14199,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 19,
@@ -13890,13 +14440,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -14075,7 +14618,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -14130,7 +14673,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 16,
@@ -14365,13 +14915,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -14582,7 +15125,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -14637,7 +15180,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-06",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-06T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 78,
@@ -15081,7 +15631,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -15136,7 +15686,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-21",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-21T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "activity": {
             "score": 61,
@@ -15583,13 +16140,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -16352,13 +16911,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable PM river entry has not started.",
-            "detail": "Rain, Scottville flow, and water temperature are not scored as an in-season movement signal yet.",
+            "detail": "Measured river flow is not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles an in-season Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "not_started",
@@ -16635,13 +17196,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 6,
@@ -16909,7 +17477,7 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -16964,7 +17532,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-16",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-16T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 13,
@@ -17275,7 +17850,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Delayed"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -17330,7 +17905,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-26",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-26T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 24,
@@ -17541,7 +18123,7 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -17596,7 +18178,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-05",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-05T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 36,
@@ -17938,7 +18527,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -17993,7 +18582,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-13",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-13T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 49,
@@ -18157,13 +18753,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -18342,7 +18931,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -18397,7 +18986,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-17",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-17T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 55,
@@ -18561,13 +19157,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -18746,7 +19335,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -18801,7 +19390,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -18965,13 +19561,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -19150,7 +19739,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -19205,7 +19794,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-21",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-21T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -19369,13 +19965,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -19586,7 +20175,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -19641,7 +20230,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-06",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-06T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 53,
@@ -20015,7 +20611,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -20070,7 +20666,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-11",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-11T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 47,
@@ -20444,7 +21047,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -20499,7 +21102,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 36,
@@ -20873,7 +21483,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -20928,7 +21538,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-30",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-30T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 24,
@@ -21305,13 +21922,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -21754,13 +22373,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow is no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -22064,13 +22685,15 @@ const GROUP_SEEDS = [
             "score": null,
             "label": "Offseason",
             "headline": "PM Push is outside its fall movement window.",
-            "detail": "Current rain, Scottville flow, and water temperature do not provide an in-season fresh-movement signal for this run.",
+            "detail": "Measured river flow is outside this species' active Push window and does not provide an in-season fresh-movement read.",
             "tip": "Check back in late August when fall movement monitoring resumes.",
             "reasonCodes": [
               "push_tracking_offseason"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "pushHistory": {
             "status": "complete",
@@ -22477,7 +23100,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -22532,7 +23155,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -22696,13 +23326,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       }
@@ -22917,7 +23540,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -22972,7 +23595,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -23136,13 +23766,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -23354,7 +23977,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -23409,7 +24032,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-10",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-10T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 48,
@@ -23784,7 +24414,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -23839,7 +24469,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-24",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-24T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 31,
@@ -24051,7 +24688,7 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -24106,7 +24743,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-09",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-09T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 43,
@@ -24449,7 +25093,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -24504,7 +25148,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -24668,13 +25319,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -24886,7 +25530,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -24941,7 +25585,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-07",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-07T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 52,
@@ -25313,7 +25964,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -25368,7 +26019,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 30,
@@ -25532,13 +26190,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Some fish may already be established in the river's most dependable holding water even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -25750,7 +26401,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -25805,7 +26456,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-10",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-10T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 24,
@@ -26180,7 +26838,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -26235,7 +26893,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-24",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-24T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 16,
@@ -26447,7 +27112,7 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -26502,7 +27167,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-09",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-09T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 21,
@@ -26845,7 +27517,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -26900,7 +27572,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 30,
@@ -27064,13 +27743,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Some fish may already be established in the river's most dependable holding water even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -27282,7 +27954,7 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -27337,7 +28009,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-11-07",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-11-07T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 26,
@@ -27515,96 +28194,6 @@ const GROUP_SEEDS = [
         "label": "Strong Push + Tough fishing",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "push": {
-            "score": 76,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
-            ],
-            "components": {
-              "hydraulicBase": 70,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 0,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
-          },
-          "pushHistory": {
-            "status": "active_now",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-09-01",
-            "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-10-01",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-30",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-29",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-28",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-27",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-26",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-25",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-24",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ],
-            "lastSupportiveConditions": {
-              "localDate": "2026-10-01",
-              "refreshSlot": "16:00",
-              "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
-              "score": 76,
-              "label": "Strong"
-            }
-          },
           "fishability": {
             "score": 45,
             "label": "Tough",
@@ -27622,13 +28211,6 @@ const GROUP_SEEDS = [
             },
             "rulesVersion": "pm-scottville-fishability-v2",
             "copyVersion": "river-run-copy-v38"
-          },
-          "interpretationNote": {
-            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
-            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
-            "reasonCodes": [
-              "strong_push_low_fishability"
-            ]
           }
         }
       },
@@ -27807,34 +28389,38 @@ const GROUP_SEEDS = [
             "previousTimingLabel": "Ahead"
           },
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "PM water shows little support for fresh movement.",
-            "detail": "Scottville flow is falling. Measured water temperature is too warm for strong movement support but warming quickly. Recent watershed weather shows little rain.",
-            "tip": "Keep the section named by Migration Stage. Leave fresh-entry travel water secondary until measured temperature improves.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_normal_flow_context"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "pm-fall-coho-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
@@ -27889,7 +28475,14 @@ const GROUP_SEEDS = [
                 "score": null,
                 "label": "No supportive window"
               }
-            ]
+            ],
+            "lastSupportiveConditions": {
+              "localDate": "2026-10-20",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishInRiver": {
             "score": 60,
@@ -28053,13 +28646,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Fish may already be established in the river's dependable sections even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -28157,13 +28743,20 @@ const GROUP_SEEDS = [
             "copyVersion": "river-run-copy-v38"
           },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "active_now",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
             "throughDate": "2026-09-01",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": []
+            "recentDailyReads": [],
+            "lastSupportiveConditions": {
+              "localDate": "2026-09-01",
+              "refreshSlot": "16:00",
+              "conditionRefreshAt": "2026-09-01T20:00:00.000Z",
+              "score": 50,
+              "label": "Neutral"
+            }
           },
           "fishability": {
             "score": 75,
@@ -28529,31 +29122,6 @@ const GROUP_SEEDS = [
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Delayed"
           },
-          "push": {
-            "score": 76,
-            "label": "Strong",
-            "headline": "PM water strongly supports possible fresh movement.",
-            "detail": "Scottville flow has made a clear rise. Measured water temperature is favorable for this migration and cooling. Scottville already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Lower river travel water as the fresh-movement check, then return to the section named by Migration Stage.",
-            "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
-            ],
-            "components": {
-              "hydraulicBase": 70,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 0,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": []
-            },
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
-          },
           "pushHistory": {
             "status": "active_now",
             "minimumSupportiveScore": 50,
@@ -28615,8 +29183,8 @@ const GROUP_SEEDS = [
               "localDate": "2026-10-10",
               "refreshSlot": "16:00",
               "conditionRefreshAt": "2026-10-10T20:00:00.000Z",
-              "score": 76,
-              "label": "Strong"
+              "score": 50,
+              "label": "Neutral"
             }
           },
           "fishInRiver": {
@@ -28783,11 +29351,10 @@ const GROUP_SEEDS = [
             "attribution": "Measured water temperature"
           },
           "interpretationNote": {
-            "headline": "Today's reads are pointing to different parts of the picture.",
-            "detail": "The usual calendar supports broader fish distribution, while slower river rises and cooling argue against assuming the normal middle- and upper-river water has filled in. Start one accessible section lower than the normal peak plan, work established holding water, and expand upstream only after direct fish activity supports it.\n\nA delayed migration can still receive a strong movement event. Start on lower-river travel lanes and the first deep resting holes above them; do not jump to upper water as though the whole season has caught up.",
+            "headline": "The calendar is in its peak stage, but this season still appears delayed.",
+            "detail": "The usual calendar supports broader fish distribution, while slower river rises and cooling argue against assuming the normal middle- and upper-river water has filled in. Start one accessible section lower than the normal peak plan, work established holding water, and expand upstream only after direct fish activity supports it.",
             "reasonCodes": [
-              "peak_delayed_conditions",
-              "delayed_conditions_strong_push"
+              "peak_delayed_conditions"
             ]
           }
         }
@@ -28812,14 +29379,74 @@ const GROUP_SEEDS = [
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "A current Scottville flow reading is unavailable.",
-            "detail": "Without Scottville flow and direction, rain cannot produce a dependable PM fresh-movement read.",
-            "tip": "Keep the section named by Migration Stage. Do not treat recent rain as proof of movement.",
+            "headline": "A current measured river-flow reading is unavailable.",
+            "detail": "A direct flow event cannot be estimated until the river sensor returns a current reading.",
+            "tip": "Keep Migration Stage primary and check again after the next four-hour update. Do not infer a fresh movement event from weather alone.",
             "reasonCodes": [
               "gauge_missing"
             ],
-            "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "pm-fall-coho-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-01",
+            "trackingEndDate": "2026-11-30",
+            "throughDate": "2026-10-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-09-30",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-29",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-28",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-27",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-26",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-09-25",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-24",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
           },
           "fishability": {
             "score": null,

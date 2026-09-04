@@ -111,7 +111,18 @@ export const BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE:
         "Observed-river Activity for a living migratory Brown Trout already present near Wellston. Measured water temperature leads, effective light and tailwater presentation are secondary, and precipitation remains restrained cover context. Brown Trout are repeat spawners, so no salmon mortality ramp, taper penalty, ending ceiling, or automatic post-spawn departure is applied. The model is intentionally scoped to the Tippy tailwater and does not infer lower-river conditions.",
     },
     push: {
-      version: "big-manistee-fall-brown-push-v1",
+      version: "big-manistee-fall-brown-direct-push-v1",
+      model: "direct_event_state",
+      directEvent: {
+        hydraulic: "trigger",
+        temperature: "trigger_and_constraint",
+        buildingCoolingF: .75,
+        coolingF: 1.5,
+        strongCoolingF: 3,
+        persistenceHours: 48,
+        fullRetentionFraction: .65,
+        minimumRetentionFraction: .35,
+      },
       hydraulic: {
         metric: "flow_cfs",
         sourceLabel: "Wellston tailwater",

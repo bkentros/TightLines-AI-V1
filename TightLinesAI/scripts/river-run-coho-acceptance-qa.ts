@@ -28,11 +28,10 @@ const expectedLabels: Record<string, Set<string>> = {
   ]),
   push: new Set([
     "Offseason",
-    "Weak",
-    "No clear push",
+    "Neutral",
     "Possible",
+    "Elevated",
     "Strong",
-    "Very strong",
     "Unavailable",
     "Waiting for migration",
     "Migration complete",

@@ -351,66 +351,14 @@ Deno.test("Big Manistee bands and Push use the larger regulated-tailwater scale"
     "very_high",
   );
 
-  const push = scorePush({
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh",
-    flowSignal: "meaningful_rise",
-    currentHydraulicValue: 1650,
-    hydraulicAbsoluteChange24h: 100,
-    hydraulicPercentChange24h: 7,
-    rainSignal: "meaningful_rain",
-    temperatureSignal: "cooling",
-    temperatureSourceType: "same_gauge",
-    waterTempF: 61,
-    trackingState: "active",
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-11-10",
-    localDate: "2026-09-30",
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.temperature, "trigger_and_constraint");
+  assertEquals(run.push.directEvent?.persistenceHours, 48);
+  assertEquals(run.push.hydraulic.meaningfulRise24h, {
+    absolute: 100,
+    percent: 7,
   });
-  assert(push.score !== null);
-  assertEquals(push.components?.hydraulicState, "normal");
-  assertEquals(push.components?.temperatureState, "supportive");
-  assertEquals(push.components?.rainRole, "absorbed_by_gauge");
-
-  const warmEntry = scorePush({
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh",
-    flowSignal: "stable",
-    currentHydraulicValue: 1500,
-    hydraulicAbsoluteChange24h: 0,
-    hydraulicPercentChange24h: 0,
-    rainSignal: "dry",
-    temperatureSignal: "neutral",
-    temperatureSourceType: "same_gauge",
-    waterTempF: 67,
-    trackingState: "active",
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-11-10",
-    localDate: "2026-08-15",
-  });
-  assertEquals(warmEntry.components?.temperatureState, "transitional_warm");
-
-  const barrier = scorePush({
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh",
-    flowSignal: "meaningful_rise",
-    currentHydraulicValue: 1650,
-    hydraulicAbsoluteChange24h: 100,
-    hydraulicPercentChange24h: 7,
-    rainSignal: "meaningful_rain",
-    temperatureSignal: "cooling",
-    temperatureSourceType: "same_gauge",
-    waterTempF: 73,
-    trackingState: "active",
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-11-10",
-    localDate: "2026-08-15",
-  });
-  assertEquals(barrier.components?.temperatureState, "migration_barrier");
-  assert(barrier.components?.appliedCaps.includes(49));
+  assertEquals(run.push.temperature.migrationBarrierF, 72);
 });
 
 Deno.test("Big Manistee Chinook lifecycle replay has complete river-specific copy", () => {

@@ -3,6 +3,7 @@ import type {
   AuditedRiverRunProfile,
   FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
@@ -419,9 +420,7 @@ const capabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
     notes: "No independent observed Migration Timing model passed this audit.",
   },
   push: {
-    status: "unavailable",
-    reason: "no_accepted_historical_baseline",
-    notes: "Hydraulic context is not presented as confirmed fish movement.",
+    status: "available",
   },
 };
 const fishability = (
@@ -611,6 +610,104 @@ function observed(
     }`,
   };
 }
+
+function directPush(input: {
+  version: string;
+  fishability: FishabilityBands;
+  hydraulic: [number, number, number, number, number, number];
+  temperature: PushRules["temperature"];
+  temperatureMode: NonNullable<PushRules["directEvent"]>["temperature"];
+  sourceNotes: string;
+}): PushRules {
+  const [a1, p1, a2, p2, a3, p3] = input.hydraulic;
+  return {
+    version: input.version,
+    model: "direct_event_state",
+    directEvent: {
+      hydraulic: "trigger",
+      temperature: input.temperatureMode,
+      buildingCoolingF: 0.75,
+      coolingF: 1.5,
+      strongCoolingF: 3,
+      persistenceHours: 48,
+      fullRetentionFraction: 0.65,
+      minimumRetentionFraction: 0.35,
+    },
+    hydraulic: {
+      metric: input.fishability.metric,
+      sourceLabel: input.fishability.sourceLabel,
+      lowValue: input.fishability.tooLow.max,
+      highValue: input.fishability.highFishable.max,
+      severeHighValue: input.fishability.blownOut.min,
+      rising24h: { absolute: a1, percent: p1 },
+      meaningfulRise24h: { absolute: a2, percent: p2 },
+      sharpRise24h: { absolute: a3, percent: p3 },
+    },
+    // Deliberately inert: direct-event Push never scores precipitation.
+    rain: { meaningful48hIn: 997, strong48hIn: 998, heavy48hIn: 999 },
+    temperature: input.temperature,
+    caps: {
+      staleGauge: 55,
+      unknownTrend: 49,
+      noGaugeResponse: 50,
+      tooWarm: 64,
+      migrationBarrier: 49,
+      severeHighFlow: 49,
+      outsideExtendedWindow: 50,
+      coldHolding: 49,
+    },
+    evidenceNotes:
+      "Positive-only direct event model. Uses measured hydraulic response and, only where accepted, measured temperature; precipitation and wind are unscored.",
+    sourceNotes: input.sourceNotes,
+  };
+}
+
+const chinookTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "fall Chinook movement range",
+  supportiveMinF: 48,
+  supportiveMaxF: 62,
+  tooWarmF: 68,
+  migrationBarrierF: 72,
+};
+const cohoTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "fall coho movement range",
+  supportiveMinF: 45,
+  supportiveMaxF: 60,
+  tooWarmF: 64,
+  migrationBarrierF: 68,
+};
+const livingFishTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "cool-water movement range",
+  coldHoldingF: 36,
+  preferredMinF: 42,
+  supportiveMinF: 42,
+  supportiveMaxF: 58,
+  tooWarmF: 64,
+  migrationBarrierF: 68,
+};
+const greatLakesChinookTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "fall Chinook movement range",
+  supportiveMinF: 51,
+  supportiveMaxF: 63,
+  tooWarmF: 68,
+  migrationBarrierF: 70,
+};
+const greatLakesCohoTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "fall coho movement range",
+  supportiveMinF: 50,
+  supportiveMaxF: 62,
+  tooWarmF: 68,
+  migrationBarrierF: 70,
+};
+const greatLakesBrownTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "cool-water movement range",
+  coldHoldingF: 38,
+  preferredMinF: 44,
+  supportiveMinF: 40,
+  supportiveMaxF: 58,
+  tooWarmF: 64,
+  migrationBarrierF: 70,
+};
 const shared = (
   riverId: string,
   fishabilityBands: FishabilityBands,
@@ -707,6 +804,14 @@ export const CLACKAMAS_FALL_CHINOOK: AuditedRiverRunProfile = {
     notes:
       "Only the co-located lower-river sensor is eligible; no upstream fallback is inferred.",
   },
+  push: directPush({
+    version: "clackamas-fall-chinook-direct-push-pilot-v3",
+    fishability: clackFish,
+    hydraulic: [82, 6.5, 550, 23.1, 1850, 65.1],
+    temperature: chinookTemperature,
+    temperatureMode: "trigger_and_constraint",
+    sourceNotes: "USGS 14211010 lower-river flow and water temperature.",
+  }),
   researchNotes:
     "Wild fall Chinook documented below River Mill; North Fork counts are not used because the run endpoint is downstream.",
   sourceNotes: "docs/onboarding/river-run/clackamas/river-onboarding.md",
@@ -765,6 +870,14 @@ export const CLACKAMAS_FALL_COHO: AuditedRiverRunProfile = {
     notes:
       "Only the co-located lower-river sensor is eligible; no upstream fallback is inferred.",
   },
+  push: directPush({
+    version: "clackamas-early-coho-direct-push-pilot-v3",
+    fishability: clackFish,
+    hydraulic: [82, 6.5, 550, 23.1, 1850, 65.1],
+    temperature: cohoTemperature,
+    temperatureMode: "trigger_and_constraint",
+    sourceNotes: "USGS 14211010 lower-river flow and water temperature.",
+  }),
   researchNotes:
     "Only PGE's early coho component is modeled. The distinct November-January late run is explicitly excluded.",
   sourceNotes: "docs/onboarding/river-run/clackamas/river-onboarding.md",
@@ -821,6 +934,14 @@ export const MANITOWOC_FALL_CHINOOK: AuditedRiverRunProfile = {
     "chinook_fall_reaction",
     { peakEnd: "10-20", taperingEnd: "11-01", endingEnd: "11-18" },
   ),
+  push: directPush({
+    version: "manitowoc-fall-chinook-direct-push-v1",
+    fishability: manFish,
+    hydraulic: [11, 8.9, 37, 21.3, 99, 48.2],
+    temperature: greatLakesChinookTemperature,
+    temperatureMode: "disabled",
+    sourceNotes: "USGS 04085427 flow; no accepted live temperature source.",
+  }),
   researchNotes:
     "Direct recurring stocking and tributary biology support the run; no facility count is configured.",
   sourceNotes: "docs/onboarding/river-run/manitowoc/river-onboarding.md",
@@ -860,6 +981,14 @@ export const MANITOWOC_FALL_COHO: AuditedRiverRunProfile = {
     "coho_fall_reaction",
     { peakEnd: "11-05", taperingEnd: "11-20", endingEnd: "12-12" },
   ),
+  push: directPush({
+    version: "manitowoc-fall-coho-direct-push-v1",
+    fishability: manFish,
+    hydraulic: [11, 8.9, 37, 21.3, 99, 48.2],
+    temperature: greatLakesCohoTemperature,
+    temperatureMode: "disabled",
+    sourceNotes: "USGS 04085427 flow; no accepted live temperature source.",
+  }),
   researchNotes:
     "Independently timed coho product; stocking is evidence of recurring presence, not adult abundance.",
   sourceNotes: "docs/onboarding/river-run/manitowoc/river-onboarding.md",
@@ -898,6 +1027,14 @@ export const MANITOWOC_FALL_BROWN: AuditedRiverRunProfile = {
     "manitowoc-brown-hydraulic-activity-v2",
     "brown_trout_fall_reaction",
   ),
+  push: directPush({
+    version: "manitowoc-fall-brown-direct-push-v1",
+    fishability: manFish,
+    hydraulic: [11, 8.9, 37, 21.3, 99, 48.2],
+    temperature: greatLakesBrownTemperature,
+    temperatureMode: "disabled",
+    sourceNotes: "USGS 04085427 flow; no accepted live temperature source.",
+  }),
   researchNotes:
     "Repeat-spawner semantics are retained. Lower Cato Falls is shown only with its explicit October 31 seasonal closure warning.",
   sourceNotes: "docs/onboarding/river-run/manitowoc/river-onboarding.md",
@@ -954,6 +1091,15 @@ export const OSWEGO_FALL_CHINOOK: AuditedRiverRunProfile = {
     "chinook_fall_reaction",
     { peakEnd: "10-15", taperingEnd: "10-25", endingEnd: "11-10" },
   ),
+  push: directPush({
+    version: "oswego-fall-chinook-direct-push-pilot-v3",
+    fishability: oswegoFish,
+    hydraulic: [470, 10.8, 1160, 30.5, 2130, 68.6],
+    temperature: chinookTemperature,
+    temperatureMode: "disabled",
+    sourceNotes:
+      "USGS 04249000 Lock 7 flow. CDIP/NDBC 45215 temperature remains gated pending archive and quality replay.",
+  }),
   researchNotes:
     "DEC timing for hydropower rivers supports an earlier peak than nearby natural tributaries.",
   sourceNotes: "docs/onboarding/river-run/oswego/river-onboarding.md",
@@ -993,6 +1139,15 @@ export const OSWEGO_FALL_COHO: AuditedRiverRunProfile = {
     "coho_fall_reaction",
     { peakEnd: "10-15", taperingEnd: "10-25", endingEnd: "11-10" },
   ),
+  push: directPush({
+    version: "oswego-fall-coho-direct-push-pilot-v3",
+    fishability: oswegoFish,
+    hydraulic: [470, 10.8, 1160, 30.5, 2130, 68.6],
+    temperature: cohoTemperature,
+    temperatureMode: "disabled",
+    sourceNotes:
+      "USGS 04249000 Lock 7 flow. CDIP/NDBC 45215 temperature remains gated pending archive and quality replay.",
+  }),
   researchNotes:
     "DEC groups coho and Chinook in Oswego's hydropower-controlled mid-September through mid-October peak; coho remains a separate product rather than an invented later calendar.",
   sourceNotes: "docs/onboarding/river-run/oswego/river-onboarding.md",
@@ -1031,6 +1186,15 @@ export const OSWEGO_FALL_STEELHEAD: AuditedRiverRunProfile = {
     "oswego-steelhead-hydraulic-activity-v2",
     "steelhead_feeding",
   ),
+  push: directPush({
+    version: "oswego-fall-steelhead-direct-push-pilot-v3",
+    fishability: oswegoFish,
+    hydraulic: [470, 10.8, 1160, 30.5, 2130, 68.6],
+    temperature: livingFishTemperature,
+    temperatureMode: "disabled",
+    sourceNotes:
+      "USGS 04249000 Lock 7 flow. CDIP/NDBC 45215 temperature remains gated pending archive and quality replay.",
+  }),
   researchNotes:
     "Living fall-entry semantics retain overwintering fish and do not imply a salmon-style terminal death curve or spring-run coverage.",
   sourceNotes: "docs/onboarding/river-run/oswego/river-onboarding.md",
@@ -1069,6 +1233,15 @@ export const OSWEGO_FALL_BROWN: AuditedRiverRunProfile = {
     "oswego-brown-hydraulic-activity-v2",
     "brown_trout_fall_reaction",
   ),
+  push: directPush({
+    version: "oswego-fall-brown-direct-push-pilot-v3",
+    fishability: oswegoFish,
+    hydraulic: [470, 10.8, 1160, 30.5, 2130, 68.6],
+    temperature: livingFishTemperature,
+    temperatureMode: "disabled",
+    sourceNotes:
+      "USGS 04249000 Lock 7 flow. CDIP/NDBC 45215 temperature remains gated pending archive and quality replay.",
+  }),
   researchNotes:
     "Repeat-spawner semantics are retained and no universal departure is asserted.",
   sourceNotes: "docs/onboarding/river-run/oswego/river-onboarding.md",
@@ -1106,7 +1279,7 @@ export const FALL_2026_DRAFT_CONFIGURATION_DOCUMENTS:
     },
     {
       schemaVersion: "river-run-config-v1",
-      configVersion: "2026-09-02-manitowoc-owner-review.2",
+      configVersion: "2026-09-03-manitowoc-direct-push-v1",
       movementEngineVersion: [
         getMovementEngineDefinition("fall_cooling").version,
         getMovementEngineDefinition("fall_repeat_spawner_cooling").version,

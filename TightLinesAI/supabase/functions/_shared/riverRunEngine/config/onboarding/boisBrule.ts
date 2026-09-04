@@ -1,9 +1,13 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
+  FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
@@ -188,6 +192,57 @@ export const BOIS_BRULE_RIVER_PROFILE: RiverProfile = {
     "The lower river closes after Nov. 15 and has a night-fishing restriction. Box Car, Mays Ledges, and the permanent 500-foot fishway refuge have separate closures. Verify current Wisconsin rules and posted refuge signs before fishing.",
 };
 
+const BOIS_BRULE_UPSTREAM_PROXY_BOUNDS: FishabilityBands = {
+  version: "bois-brule-upstream-proxy-bounds-2019-2025-v2",
+  metric: "flow_cfs",
+  sourceLabel: "Brule upstream proxy",
+  tooLow: { max: 117 },
+  lowFishable: { min: 117, max: 123 },
+  ideal: { min: 123, max: 162 },
+  highFishable: { min: 162, max: 194 },
+  blownOut: { min: 225.5 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "Hydraulic bounds exist only to keep the upstream-proxy Push model within the observed Brule-station discharge regime. They do not enable Fishing Shape or describe the lower fall corridor.",
+  sourceNotes:
+    "USGS 04025500 approved daily discharge, exact July 1-Nov. 10 Push coverage in 2019-2025: p10 117, p25 123, p75 162, p90 194, and p95 225.5 CFS.",
+};
+
+const BOIS_BRULE_UPSTREAM_PROXY_TREND = {
+  rising24h: { absolute: 4, percent: 2.7 },
+  meaningfulRise24h: { absolute: 11, percent: 7.2 },
+  sharpRise24h: { absolute: 33, percent: 19.7 },
+};
+
+function boisBruleProxyPush(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  temperature: Omit<PushRules["temperature"], "suitabilityLabel">;
+}): PushRules {
+  return buildDirectEventPushRules({
+    version: input.version,
+    fishability: BOIS_BRULE_UPSTREAM_PROXY_BOUNDS,
+    hydraulicTrend: BOIS_BRULE_UPSTREAM_PROXY_TREND,
+    activityProfile: input.profile,
+    movementTemperature: input.temperature,
+    temperatureMode: "disabled",
+    evidenceConfidence: "lower",
+    maximumLevel: 2,
+    limitationCopy:
+      "The active gauge is upstream of Highway 2 and outside the supported lower fall corridor, so downstream timing and magnitude may differ; treat this as directional context only.",
+    evidenceNotes:
+      "Lower-confidence Fresh Push Watch uses only the measured Brule-station hydraulic response. Across the exact July 1-Nov. 10 Push coverage in 2019-2025, 237 consecutive-day positive rises were approximately 4/2.7% at p50, 11/7.2% at p75, and 33.4/19.7% at p90. Paired thresholds require both absolute and percentage change. Missing calendar days are never bridged into a false 24-hour rise. The proxy is capped at Elevated; discontinued lower-river temperature, precipitation, wind, and fishway counts are unscored.",
+    sourceNotes:
+      "USGS 04025500 approved daily discharge. The active station is upstream of Highway 2 and outside the mouth-to-Highway-2 fall product corridor. It is an upstream hydraulic proxy, not a lower-river, mouth, rapids, or fishway measurement.",
+  });
+}
+
 const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   migrationStage: { status: "available" },
   activity: { status: "available" },
@@ -205,10 +260,7 @@ const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
       "Historical exact-date temperature context is not a live run-progress model, and no paired lower-corridor baseline supports early, typical, or delayed claims.",
   },
   push: {
-    status: "unavailable",
-    reason: "no_accepted_hydraulic_or_water_temperature_source",
-    notes:
-      "No current same-reach lower-corridor hydraulic and measured-temperature pair can confirm movement.",
+    status: "available",
   },
 };
 
@@ -316,6 +368,16 @@ export const BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Chinook response candidate for a fish already present. It scores effective light and restrained same-block precipitation only, preserves the small sectional run in Stage/Fish In River rather than Activity, and cannot infer temperature, river response, passage, movement, abundance, catch probability, access, or safety.",
   }),
+  push: boisBruleProxyPush({
+    version: "bois-brule-fall-chinook-upstream-proxy-direct-push-v3",
+    profile: "chinook_fall_reaction",
+    temperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4A sectional Chinook candidate. Seasonal and refuge restrictions precede every section plan; terminal copy remains semelparous and species-correct.",
   sourceNotes: "docs/onboarding/river-run/bois_brule/runs/fall-chinook.md",
@@ -394,6 +456,16 @@ export const BOIS_BRULE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Coho response candidate for a fish already present. It scores effective light and restrained same-block precipitation only with conservative weather-only ceilings and continuous terminal lifecycle decline; it cannot infer fresh entry, abundance, passage, catch probability, access, or safety.",
   }),
+  push: boisBruleProxyPush({
+    version: "bois-brule-fall-coho-upstream-proxy-direct-push-v3",
+    profile: "coho_fall_reaction",
+    temperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4A broad Coho candidate. The curve preserves a current late-September anchor and mid-October shoulder while the lower-river season closes Nov. 15.",
   sourceNotes: "docs/onboarding/river-run/bois_brule/runs/fall-coho.md",
@@ -456,6 +528,18 @@ export const BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "This Limited weather-only read uses modeled weather near Highway 2 as broad context for legal lower-river sections; it does not measure river level, clarity, water temperature, or fall-entry response.",
     evidenceNotes:
       "Hidden fall-Steelhead response candidate for a fish already present. It scores effective light and restrained same-block precipitation only, applies no salmon lifecycle decline or departure assumption, and cannot infer movement, overwintering, abundance, passage, catch probability, access, or safety.",
+  }),
+  push: boisBruleProxyPush({
+    version: "bois-brule-fall-steelhead-upstream-proxy-direct-push-v3",
+    profile: "steelhead_feeding",
+    temperature: {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
   }),
   researchNotes:
     "Hidden Gate 4A fall-entry candidate. The lower fishing season closes Nov. 15 even though entry continues later; surviving Steelhead may overwinter and appear in the separate spring run.",
@@ -528,6 +612,18 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden lake-run Brown Trout response candidate for a fish already present. It scores effective light and restrained same-block precipitation only, applies the 0.80 Limited-evidence scale, and uses a bounded six-point Peak response correction capped at 80 to prevent seasonal light from making later non-peak stages look biologically stronger. It applies no salmon mortality or forced-departure logic and cannot infer movement, abundance, passage, catch probability, access, or safety.",
   }),
+  push: boisBruleProxyPush({
+    version: "bois-brule-fall-brown-upstream-proxy-direct-push-v3",
+    profile: "brown_trout_fall_reaction",
+    temperature: {
+      coldHoldingF: 38,
+      preferredMinF: 44,
+      supportiveMinF: 40,
+      supportiveMaxF: 58,
+      tooWarmF: 64,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4A Lake Superior repeat-spawner candidate. It uses the early Brule calendar, not the late Lake Michigan Seeforellen calendar, and never assumes salmon mortality or universal winter holding.",
   sourceNotes: "docs/onboarding/river-run/bois_brule/runs/fall-brown-trout.md",
@@ -536,7 +632,8 @@ export const BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 export const BOIS_BRULE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument =
   {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-31-bois-brule-fish-counts.7+seasonal-zone-v3",
+    configVersion:
+      "2026-09-03-bois-brule-upstream-proxy-direct-push-v3+seasonal-zone-v3",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

@@ -59,7 +59,10 @@ Deno.test("Washington foundations validate and remain owner-review only", () => 
     assertEquals(run.activity?.weights.waterTemperature, 0);
     assertEquals(run.activity?.inputReach?.hydraulicSourceIds, []);
     assertEquals(run.activity?.inputReach?.waterTemperatureSourceIds, []);
-    assertEquals(run.primitiveCapabilities.push.status, "unavailable");
+    assertEquals(run.primitiveCapabilities.push.status, "available");
+    assertEquals(run.push?.model, "direct_event_state");
+    assertEquals(run.push?.directEvent?.hydraulic, "trigger");
+    assertEquals(run.push?.directEvent?.temperature, "disabled");
     assertEquals(
       run.primitiveCapabilities.migrationTiming.status,
       "unavailable",

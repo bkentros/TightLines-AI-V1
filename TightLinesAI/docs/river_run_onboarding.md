@@ -1,9 +1,9 @@
 # FinFindr River Run Onboarding
 
 **Status:** Single normative source of truth\
-**Version:** 3.8\
+**Version:** 4.0\
 **Established:** 2026-08-30\
-**Revised:** 2026-09-02\
+**Revised:** 2026-09-03\
 **Scope:** Research, configure, tune, review, and release a U.S. River Run river
 and each supported migratory run
 
@@ -22,15 +22,15 @@ strength, endpoint, gauge reach, or Activity tuning.
 
 Use exactly one dossier status and advance it only when its stated gate passes:
 
-| Status | Meaning |
-| --- | --- |
-| `research_incomplete` | Material foundation, source, or run questions remain open |
-| `research_ready` | Identity, corridor, barriers, regulations, sources, candidates, and independent run truth are accepted |
-| `hidden_implementation_ready` | Hidden configuration, replays, reconciliation, fixtures, and automated QA pass |
-| `owner_review_ready` | The rendered hidden experience and standardized owner-review digest are ready; owner acceptance may still be pending |
-| `owner_accepted_not_released` | Owner accepted the rendered result, but public enablement/deployment is not authorized |
-| `release_authorized` | Owner separately authorized the exact public/deployment action recorded in the dossier |
-| `released` | Authorized promotion/deployment, production smoke, repository handoff, and re-audit triggers are complete |
+| Status                        | Meaning                                                                                                              |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `research_incomplete`         | Material foundation, source, or run questions remain open                                                            |
+| `research_ready`              | Identity, corridor, barriers, regulations, sources, candidates, and independent run truth are accepted               |
+| `hidden_implementation_ready` | Hidden configuration, replays, reconciliation, fixtures, and automated QA pass                                       |
+| `owner_review_ready`          | The rendered hidden experience and standardized owner-review digest are ready; owner acceptance may still be pending |
+| `owner_accepted_not_released` | Owner accepted the rendered result, but public enablement/deployment is not authorized                               |
+| `release_authorized`          | Owner separately authorized the exact public/deployment action recorded in the dossier                               |
+| `released`                    | Authorized promotion/deployment, production smoke, repository handoff, and re-audit triggers are complete            |
 
 An agent handing work to the owner must state the exact status, what remains,
 and whether any code or configuration is public. `Ready`, `accepted`, and
@@ -38,11 +38,12 @@ and whether any code or configuration is public. `Ready`, `accepted`, and
 
 ## 1. Current product contract
 
-The report has three interpretive public reads, in this order:
+The report has four interpretive public reads, in this order:
 
 1. Migration Stage
 2. Activity Outlook
 3. Seasonal Presence
+4. Push Watch
 
 Fish Counts is an optional fourth, observational primitive when an audited
 facility feed exists for the selected river and species. It appears below Gauge
@@ -72,14 +73,15 @@ the access disclaimer make the direction look like a passive warning.
 | Gauge Read        | Accepted current measurements, age, trend, historical date context, station, and represented reach                      | Whole-river conditions, fish location, abundance, safety, or access                                                   |
 | Fish Counts       | Fresh official observations at a named rack, trap, ladder, weir, or separator, with count period and facility semantics | Total run size, fish outside the observed facility scope, live location, availability, catch rate, or a scoring input |
 | Fishing Shape     | Workability of the represented hydraulic reach if fish are present                                                      | Abundance, responsiveness, access, safety, or the whole river                                                         |
-| Spot Finder       | Audited per-run phase reaches, sourced early-season direction, and source-listed public fishing access                 | A best spot, live fish location, unverified approach-water access, parking legality, road status, or safe entry        |
-| Migration Stage   | Fixed researched seasonal phase and one shared concise phase-interpretation sentence                                   | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
-| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present, with a prominent permanent conditional notice      | Abundance, migration progress, feeding proof, fish presence, or catch probability                                     |
+| Spot Finder       | Audited per-run phase reaches, sourced early-season direction, and source-listed public fishing access                  | A best spot, live fish location, unverified approach-water access, parking legality, road status, or safe entry       |
+| Migration Stage   | Fixed researched seasonal phase and one shared concise phase-interpretation sentence                                    | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
+| Activity Outlook  | Conditional responsiveness by four time blocks if fish are present, with a prominent permanent conditional notice       | Abundance, migration progress, feeding proof, fish presence, or catch probability                                     |
 | Seasonal Presence | Historical seasonal presence relative to this river/run ceiling                                                         | A fish count, today's movement, bite quality, or current conditions                                                   |
+| Push Watch        | Positive-only recent direct water event from accepted temperature and/or hydraulics, with twelve four-hour reads        | Confirmed fish entry, abundance, catch probability, or evidence that fish did not move during Neutral conditions      |
 
 Do not author or expose `WHERE TO START`, `WHY THIS READ`, `GUIDE'S READ`, a
-standalone Fishability tab, public Push, or public Migration Timing. Legacy API
-or configuration fields may remain for compatibility but are not new public
+standalone Fishability tab, or public Migration Timing. Legacy API or
+configuration fields may remain for compatibility but are not new public
 research or copy requirements.
 
 Public copy is shared or derived. New onboarding normally authors only durable
@@ -94,6 +96,42 @@ Fish Counts is capability-gated per river/species. It never changes Migration
 Stage, Activity Outlook, Seasonal Presence, Seasonal Zone, or Fishing Shape.
 Seasonal Zone remains an engine-owned calendar result, but Spot Finder is its
 only public presentation surface. The Stage primitive presents timing only.
+
+### 1.1 Push Watch contract
+
+Push Watch is optional per river and species. Activate it only from Beginning
+through the end of Tapering. It refreshes at the normal four-hour slots and
+shows the most recent twelve recorded slots (up to 48 hours).
+
+- `Neutral` is the floor and means only that no elevated direct signal was
+  detected. Never render a negative/red Push state.
+- Score measured flow or stage, never both from the same gauge. Score
+  precipitation and wind at zero; they may explain an event but cannot create
+  one.
+- Reduce every accepted source to trailing four-hour medians with at least two
+  observations per window. Compare hydraulics at 12 and 24 hours; require both
+  the river-specific absolute and percentage rise thresholds. Compare
+  temperature only to the matched 24-hour window so normal day/night cycling
+  cannot create a false cooling event.
+- A temperature source may trigger and constrain, constrain only, or be
+  disabled. Cooling below 0.75 F remains Neutral; 1.5 F and 3 F are the initial
+  Elevated and Strong event thresholds, subject to species/run
+  absolute-temperature constraints and dedicated replay before release.
+- A constrain-only temperature source may reduce or suppress a measured
+  hydraulic event, but it cannot create a positive Push or keep Push available
+  when every trigger-capable source is missing.
+- Freeze the baseline at the first qualifying read. Retain the event for no more
+  than 48 hours from that onset; retain its level while at least 65% of the peak
+  change remains, downgrade it when 35-65% remains, and clear it below 35% or
+  whenever the remaining change no longer meets Possible.
+- One direct signal may elevate the read. Independent temperature and hydraulic
+  events corroborate but do not add scores, preventing double counting of the
+  same weather event. Severe-high water and biologically unsuitable absolute
+  temperature cap or suppress the read.
+- Preserve source observation time and fail closed. If neither accepted direct
+  source is usable, Push Watch is unavailable—not Neutral.
+- Describe the output as environmental support for possible fresh movement,
+  never a probability or guarantee of fish entry.
 
 ## 2. Authority, safety, and stop rules
 
@@ -134,11 +172,11 @@ corridor, neutral values for failed providers, or paddling access for verified
 fishing access.
 
 Research acceptance, rendered product acceptance, deployment authorization, and
-public enablement are separate decisions. Do not infer one from another.
-Record the owner's exact approval language, date, river IDs, run IDs, and
-authorized actions. Approval of a named river set plus an explicit request to
-make that set live is sufficient only for that set; it never releases other
-owner-review rivers sharing the same registry or deployment.
+public enablement are separate decisions. Do not infer one from another. Record
+the owner's exact approval language, date, river IDs, run IDs, and authorized
+actions. Approval of a named river set plus an explicit request to make that set
+live is sufficient only for that set; it never releases other owner-review
+rivers sharing the same registry or deployment.
 
 ## 3. Rapid workflow
 
@@ -241,12 +279,12 @@ notes, and source provenance.
 
 Rules:
 
-- External harbor, lake, bay, estuary, and mouth context is not automatically
-  an in-river Seasonal Zone or verified fishing access. It may appear only in
-  the non-expandable early-orientation box. A harbor reach may participate in
-  active phase geography only when the foundation and fishing-access evidence
-  expressly include it in the supported, legally aligned migration corridor;
-  record this exception rather than inferring it from the `harbor` name.
+- External harbor, lake, bay, estuary, and mouth context is not automatically an
+  in-river Seasonal Zone or verified fishing access. It may appear only in the
+  non-expandable early-orientation box. A harbor reach may participate in active
+  phase geography only when the foundation and fishing-access evidence expressly
+  include it in the supported, legally aligned migration corridor; record this
+  exception rather than inferring it from the `harbor` name.
 - `lower`, `middle`, and `upper` are relative to the supported migration
   corridor, not necessarily the whole river.
 - Do not invent a middle reach for a natural two-section corridor.
@@ -371,12 +409,12 @@ metric after valid observations return without a code/configuration change.
 
 Use this capability decision table:
 
-| Accepted source situation                                        | Gauge Read                                | Fishing Shape                                              | Activity                                                 |
-| ---------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------- |
-| No representative live source                                    | Honest no-gauge state                     | Unavailable                                                | Independently tuned weather-only or unavailable          |
+| Accepted source situation                                        | Gauge Read                                | Fishing Shape                                              | Activity                                                                                            |
+| ---------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| No representative live source                                    | Honest no-gauge state                     | Unavailable                                                | Independently tuned weather-only or unavailable                                                     |
 | Representative hydraulics, no compatible measured temperature    | Hydraulic metrics                         | Possible after band replay                                 | Observed-river hydraulic-only after tuning/replay, independently tuned weather-only, or unavailable |
-| Metrics exist but sources do not represent/pair in the run reach | Display each with exact reach limitations | Only if hydraulics alone represent the Fishing Shape reach | Weather-only or unavailable; never silently combine them |
-| Compatible hydraulics, measured temperature, and weather         | Accepted metrics                          | Possible after band replay                                 | Observed-river after tuning and replay                   |
+| Metrics exist but sources do not represent/pair in the run reach | Display each with exact reach limitations | Only if hydraulics alone represent the Fishing Shape reach | Weather-only or unavailable; never silently combine them                                            |
+| Compatible hydraulics, measured temperature, and weather         | Accepted metrics                          | Possible after band replay                                 | Observed-river after tuning and replay                                                              |
 
 ### 5.1 Fish Counts source capability
 
@@ -390,18 +428,18 @@ transport/recycling/recapture handling, revision behavior, and attribution.
 
 Classify the publication before implementation:
 
-| Class | Meaning | Current Fish Counts eligibility |
-| --- | --- | --- |
-| Live/near-real-time counter | Automated or staffed observations published continuously or daily | Eligible after full audit |
-| Recurring in-season report | Weekly or similarly recurring preliminary facility observations | Eligible with explicit cadence/freshness |
-| Finalized seasonal report | A completed-season facility passage/return report | Eligible only as clearly finalized seasonal data when the product contract supports it |
-| Retrospective annual research total | A later annual report summarizing an earlier run | Historical evidence only; not a current Fish Count |
+| Class                               | Meaning                                                           | Current Fish Counts eligibility                                                        |
+| ----------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Live/near-real-time counter         | Automated or staffed observations published continuously or daily | Eligible after full audit                                                              |
+| Recurring in-season report          | Weekly or similarly recurring preliminary facility observations   | Eligible with explicit cadence/freshness                                               |
+| Finalized seasonal report           | A completed-season facility passage/return report                 | Eligible only as clearly finalized seasonal data when the product contract supports it |
+| Retrospective annual research total | A later annual report summarizing an earlier run                  | Historical evidence only; not a current Fish Count                                     |
 
 A physical ladder, trap, hatchery collection point, or egg-take operation does
-not establish a public count feed. Stocking totals, egg totals, broodstock sample
-sizes, creel estimates, angler reports, and isolated press/social updates are not
-facility passage or return counts. Verify the authoritative publication index
-and its newest report—not only an older PDF—and record report lag in days.
+not establish a public count feed. Stocking totals, egg totals, broodstock
+sample sizes, creel estimates, angler reports, and isolated press/social updates
+are not facility passage or return counts. Verify the authoritative publication
+index and its newest report—not only an older PDF—and record report lag in days.
 
 Keep four times distinct: app fetch/check cadence, source publication cadence,
 source report date, and observation-through date. Checking daily does not mean
@@ -517,8 +555,8 @@ source, named entries found, entries included, entries excluded, and exclusion
 reasons. “Complete” means every eligible fishing access in that declared source
 universe is represented. It does not mean every location mentioned anywhere on
 the internet. Unnamed signed PFR/easement segments may be represented as one
-documented network; tributary-only locations cannot become mainstem spots.
-Every displayed access must be findable by its official name or recorded source
+documented network; tributary-only locations cannot become mainstem spots. Every
+displayed access must be findable by its official name or recorded source
 locator. Never invent a navigation coordinate.
 
 Recommendation ownership:
@@ -550,8 +588,8 @@ observations, technical archives, and regulations as context.
 Owner-requested species are the minimum search set, not the complete candidate
 set. Also inspect current management and stocking plans for other recurring
 migratory species, seasonal strains, and recently discontinued strains that
-could otherwise be merged or silently omitted. Use dynamic candidate rows in
-the dossier; national onboarding is not limited to Great Lakes salmonids.
+could otherwise be merged or silently omitted. Use dynamic candidate rows in the
+dossier; national onboarding is not limited to Great Lakes salmonids.
 
 Enumerate distinct seasonal/life-history candidates before deciding support. One
 species may require multiple profiles—such as spring and fall Chinook or summer
@@ -602,10 +640,38 @@ For every supported run record and reconcile:
 - temperature priorities when observed inputs are used;
 - research/source notes, all version IDs, and public-audit gate.
 
-For new runs, public Push and Migration Timing should normally be explicitly
-unavailable and their calibration objects omitted. Do not create new
-`userCopyHints`, per-river stage prose, or stage-copy strategies unless current
-validation requires a compatibility value; shared presentation owns the copy.
+For new runs, Push Watch is available only when its direct-source audit and
+event replay pass. An upstream hydraulic source outside the product corridor may
+be used only as an explicit lower-confidence proxy: document the reach mismatch,
+use river-specific thresholds, disable unaccepted temperature, publish a plain-
+language limitation, and cap the public event at `Elevated`. Never invent a
+travel-time offset without a replayable downstream comparison. If neither a
+representative source nor a defensible capped proxy exists, mark Push explicitly
+unavailable and omit its rules. Migration Timing should normally remain
+explicitly unavailable. Do not create new `userCopyHints`, per-river stage
+prose, or stage-copy strategies unless current validation requires a
+compatibility value; shared presentation owns the copy.
+
+Calibrate a hydraulic Push model from the exact union of `runWindow.start`
+through `runWindow.taperingEnd` for every species sharing that river source.
+Predeclare a recent fixed interval, normally the latest seven complete seasons,
+and use approved daily discharge to calibrate the live 12/24-hour event rules.
+Only compare consecutive calendar dates: never bridge a missing day and call it
+a 24-hour rise. Record total usable dates, per-year coverage, and the number of
+qualifying positive rises. Set the three paired absolute/percentage event
+thresholds from the positive-rise p50, p75, and p90, using transparent,
+source-appropriate rounding. Both sides of a pair must pass. Separately record
+the seasonal flow distribution used for low, high, and severe-high safeguards.
+
+The four-hour engine must median-smooth each trailing four-hour window and
+compare like windows 12 and 24 hours apart. A detected event may persist for up
+to 48 hours only while the rise retains the configured fraction of its onset
+magnitude. Stable flow remains Neutral; missing or older-than-24-hour trigger
+data is Unavailable; stale trigger data loses one public level; and severe-high
+flow cannot produce a favorable event. A flow-only model must not be penalized
+for intentionally unavailable temperature. A direct, reach-representative
+single-input model may expose the full event scale; a spatial proxy must state
+its mismatch and remain capped at `Elevated`.
 
 ### 9.1 Full calendar protocol
 
@@ -653,12 +719,12 @@ headline, explanation, or guide paragraph.
 ### 9.4 Migration Stage and Seasonal Zone
 
 Stage uses global concise phase-interpretation sentences. They explain calendar
-position without claiming live arrivals, abundance, location, responsiveness,
-or catch probability. Seasonal Zone is derived from the fixed calendar and the
+position without claiming live arrivals, abundance, location, responsiveness, or
+catch probability. Seasonal Zone is derived from the fixed calendar and the
 versioned river/run-specific phase plan, then clipped by presentation-state and
-species-endpoint limits. Phase-specific reach selection is engine-owned and
-must be replayed rather than duplicated in UI logic. It never crosses a barrier
-or claims current fish location.
+species-endpoint limits. Phase-specific reach selection is engine-owned and must
+be replayed rather than duplicated in UI logic. It never crosses a barrier or
+claims current fish location.
 
 Do not author `Where to Start` or present Seasonal Zone inside the Stage
 primitive. Spot Finder is the only public presentation surface for the engine's
@@ -835,14 +901,14 @@ review; it does not prove that the installed client can render a draft.
 For every new river or client-visible schema/presentation change, add a stable
 client capability ID and record this compatibility row in the dossier:
 
-| Field | Required value |
-| --- | --- |
-| Capability ID | Stable versioned identifier, such as `region-owner-review-v1` |
-| River/run IDs | Exact catalog members protected by the capability |
-| Bundled dependencies | Artwork, picker/filter mapping, access inventory, contract fields, or copy behavior |
-| First compatible client | Public app version plus iOS build and Android versionCode |
-| Server behavior without capability | Omit the incompatible river/run; never return a partially renderable catalog |
-| Verification | Admin and ordinary-user results with and without the capability on iOS and Android |
+| Field                              | Required value                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------------- |
+| Capability ID                      | Stable versioned identifier, such as `region-owner-review-v1`                       |
+| River/run IDs                      | Exact catalog members protected by the capability                                   |
+| Bundled dependencies               | Artwork, picker/filter mapping, access inventory, contract fields, or copy behavior |
+| First compatible client            | Public app version plus iOS build and Android versionCode                           |
+| Server behavior without capability | Omit the incompatible river/run; never return a partially renderable catalog        |
+| Verification                       | Admin and ordinary-user results with and without the capability on iOS and Android  |
 
 The mobile client must advertise only capabilities it actually bundles. The
 review and public catalog endpoints must filter incompatible additions before
@@ -869,17 +935,17 @@ compatibility boundary.
 Use this delivery classification before deciding whether a mobile build is
 needed:
 
-| Change | Server deployment | New mobile build |
-| --- | --- | --- |
-| Calendar, strength, Activity tuning, Presence, source/fish-count parser | Usually yes | Only if the response/UI contract changes |
-| Hidden or public catalog visibility | Yes | Required when any bundled dependency is new or changed |
-| River artwork, picker ordering/filtering, static Spot Finder inventory | No by itself | Yes |
-| Edge response field or presentation semantics | Yes | Yes unless every supported binary already handles it |
-| Database schema/data/cron | Migration/reconciliation plus deployment as applicable | Only if the client contract changes |
+| Change                                                                  | Server deployment                                      | New mobile build                                       |
+| ----------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Calendar, strength, Activity tuning, Presence, source/fish-count parser | Usually yes                                            | Only if the response/UI contract changes               |
+| Hidden or public catalog visibility                                     | Yes                                                    | Required when any bundled dependency is new or changed |
+| River artwork, picker ordering/filtering, static Spot Finder inventory  | No by itself                                           | Yes                                                    |
+| Edge response field or presentation semantics                           | Yes                                                    | Yes unless every supported binary already handles it   |
+| Database schema/data/cron                                               | Migration/reconciliation plus deployment as applicable | Only if the client contract changes                    |
 
 When uncertain, classify the change as requiring both and prove otherwise with
-the compatibility tests. A development build demonstrating a river does not
-make a store binary compatible, and a server deployment can change what an
+the compatibility tests. A development build demonstrating a river does not make
+a store binary compatible, and a server deployment can change what an
 already-installed app sees without an OTA system.
 
 ## 12. Verification and owner review
@@ -910,9 +976,9 @@ npm run qa:river-run:visuals
 npm run qa:water-reader-typecheck
 ```
 
-Run packet validation with `--stage implementation`, `--stage owner-review`,
-or `--stage release`. Pending owner acceptance and release authorization are
-valid at the owner-review gate; they are blockers only at the release gate.
+Run packet validation with `--stage implementation`, `--stage owner-review`, or
+`--stage release`. Pending owner acceptance and release authorization are valid
+at the owner-review gate; they are blockers only at the release gate.
 
 Then run the appropriate full Activity and Fishing Shape replays, Fish Counts
 freshness/revision/duplicate/parser fixtures when configured, fixture
@@ -955,8 +1021,8 @@ support decision, exact Stage date ranges, 1–10 strength and distribution scop
 calibration confidence/comparators, mean Activity for each Stage and time block,
 replay interval/coverage, and terminal semantics. A second table must show Gauge
 Read metrics and station reaches, Fishing Shape, Fish Counts, historical-only
-temperature, Spot Finder source/access reconciliation, important exclusions,
-and hidden/public state. Do not make the owner reconstruct these values from raw
+temperature, Spot Finder source/access reconciliation, important exclusions, and
+hidden/public state. Do not make the owner reconstruct these values from raw
 research or code.
 
 ## 13. Acceptance and release gate
@@ -1017,10 +1083,10 @@ The required mobile release order is:
 1. Confirm `eas.json` uses remote version authority and production
    auto-increment (`cli.appVersionSource=remote` and
    `build.production.autoIncrement=true`), or stop and repair versioning.
-2. Query the EAS remote baseline and the latest completed/submitted store builds.
-   Record the current iOS build number, Android versionCode, app version, build
-   IDs, commit hashes, and submission status. A completed EAS build is not proof
-   of store submission.
+2. Query the EAS remote baseline and the latest completed/submitted store
+   builds. Record the current iOS build number, Android versionCode, app
+   version, build IDs, commit hashes, and submission status. A completed EAS
+   build is not proof of store submission.
 3. Confirm the proposed identifiers are strictly newer. Treat a previously
    uploaded identifier as consumed even if that upload was rejected or never
    released.
@@ -1049,9 +1115,9 @@ git rev-parse @{upstream}
 ```
 
 Prefer a repository-owned preflight command that performs these comparisons and
-fails nonzero on a reused identifier, dirty/diverged worktree, mismatched commit,
-missing capability gate, or wrong artifact type. Prose review alone is not an
-acceptable long-term substitute for that guard.
+fails nonzero on a reused identifier, dirty/diverged worktree, mismatched
+commit, missing capability gate, or wrong artifact type. Prose review alone is
+not an acceptable long-term substitute for that guard.
 
 ## 14. Single-dossier record
 

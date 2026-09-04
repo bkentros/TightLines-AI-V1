@@ -61,26 +61,9 @@ Deno.test("Big Manistee Coho shares river hydraulics but retains Coho biology", 
     "big-manistee-fall-coho-conditions-v1",
   );
 
-  const push = scorePush({
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh",
-    flowSignal: "meaningful_rise",
-    currentHydraulicValue: 1650,
-    hydraulicAbsoluteChange24h: 100,
-    hydraulicPercentChange24h: 7,
-    rainSignal: "meaningful_rain",
-    temperatureSignal: "cooling",
-    temperatureSourceType: "same_gauge",
-    waterTempF: 60,
-    trackingState: "active",
-    trackingStartDate: "2026-09-10",
-    trackingEndDate: "2026-12-10",
-    localDate: "2026-10-20",
-  });
-  assert(push.score !== null);
-  assertEquals(push.components?.rainRole, "absorbed_by_gauge");
-  assertEquals(push.components?.temperatureState, "supportive");
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.temperature, "trigger_and_constraint");
+  assertEquals(run.push.directEvent?.persistenceHours, 48);
 });
 
 Deno.test("Big Manistee Coho Activity is river-scoped and continuously tapers", () => {

@@ -4,7 +4,8 @@ export type RiverRunVisualKind =
   | "run_stage"
   | "fishability"
   | "activity"
-  | "fish_in_river";
+  | "fish_in_river"
+  | "push";
 
 export type RiverRunMeterStop = {
   label: string;
@@ -80,6 +81,13 @@ const ACTIVITY_FIVE: RiverRunMeterStop[] = [
   { label: "Highly active", shortLabel: "HIGH", color: "#3DA85F" },
 ];
 
+const PUSH_FOUR: RiverRunMeterStop[] = [
+  { label: "Neutral", shortLabel: "NEUTRAL", color: "#76899B" },
+  { label: "Possible", shortLabel: "POSSIBLE", color: "#4F91BA" },
+  { label: "Elevated", shortLabel: "ELEVATED", color: "#68A17B" },
+  { label: "Strong", shortLabel: "STRONG", color: "#3DA85F" },
+];
+
 const PRESENCE_INDEX_TICKS: RiverRunMeterTick[] = [
   { label: "0", position: 0 },
   { label: "20", position: 0.2 },
@@ -107,7 +115,42 @@ export function resolveRiverRunVisualModel(input: {
       return activityModel(input.primitive);
     case "fish_in_river":
       return fishInRiverModel(input.primitive);
+    case "push":
+      return pushModel(input.primitive);
   }
+}
+
+function pushModel(
+  primitive: RiverRunPrimitiveDisplay,
+): RiverRunVisualModel {
+  const selectedIndex = indexFor(
+    ["neutral", "possible", "elevated", "strong"],
+    normalize(primitive.label),
+  );
+  const inactive = primitive.label === "Not monitoring yet" ||
+    primitive.label === "Complete" || primitive.label === "Offseason";
+  const unavailable = primitive.score == null ||
+    primitive.label === "Unavailable";
+  return baseModel({
+    kind: "push",
+    kicker: "RECENT WATER EVENT",
+    artLabel: "PUSH WATCH",
+    icon: "pulse-outline",
+    stops: PUSH_FOUR,
+    selectedIndex: inactive || unavailable ? null : selectedIndex,
+    stateLabel: primitive.label,
+    stateNote: inactive
+      ? "MONITORED FROM BEGINNING THROUGH TAPERING"
+      : unavailable
+      ? "NO QUALIFYING DIRECT WATER SOURCES"
+      : "ENVIRONMENTAL SUPPORT · NOT CONFIRMED FISH MOVEMENT",
+    specialState: inactive
+      ? "complete"
+      : unavailable
+      ? "unavailable"
+      : undefined,
+    score: primitive.score,
+  });
 }
 
 export function formatRiverRunTabStatus(

@@ -56,6 +56,7 @@ import type {
   RiverRunLiveConditionMetric,
   RiverRunLiveConditions,
   RiverRunPrimitiveDisplay,
+  RiverRunPushHistory,
   RiverRunSeason,
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
@@ -99,7 +100,7 @@ type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
 type PrimitiveTabId = Extract<
   RiverRunVisualKind,
-  "run_stage" | "activity" | "fish_in_river"
+  "run_stage" | "activity" | "fish_in_river" | "push"
 >;
 
 type PrimitiveTabDefinition = {
@@ -132,7 +133,22 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     cardTitle: "Seasonal Presence",
     icon: "fish-outline",
   },
+  {
+    id: "push",
+    index: "04",
+    tabTitle: "PUSH",
+    cardTitle: "Fresh Push Watch",
+    icon: "pulse-outline",
+  },
 ];
+
+function primitiveTabsForSnapshot(
+  snapshot: RiverRunSnapshotResponse,
+): PrimitiveTabDefinition[] {
+  return snapshot.push.model === "direct_event_state"
+    ? PRIMITIVE_TABS
+    : PRIMITIVE_TABS.filter((tab) => tab.id !== "push");
+}
 
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
@@ -1451,8 +1467,10 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of migration stage, activity, seasonal presence, and
-        river conditions.
+        Today&apos;s read of migration stage, activity, seasonal presence
+        {snapshot?.push.model === "direct_event_state" ? ", Push Watch," : ","}
+        {" "}
+        and river conditions.
       </Text>
       {speciesImage
         ? (
@@ -2700,7 +2718,8 @@ function PrimitiveTabBar({
   onChange: (tab: PrimitiveTabId) => void;
   onLayoutY: (value: number) => void;
 }) {
-  const activeIndex = PRIMITIVE_TABS.findIndex((tab) => tab.id === activeTab);
+  const tabs = primitiveTabsForSnapshot(snapshot);
+  const activeIndex = tabs.findIndex((tab) => tab.id === activeTab);
   return (
     <View
       style={styles.primitiveTabSticky}
@@ -2719,11 +2738,12 @@ function PrimitiveTabBar({
             </Text>
           </View>
           <Text style={styles.primitiveTabPosition}>
-            {String(activeIndex + 1).padStart(2, "0")} / 03
+            {String(activeIndex + 1).padStart(2, "0")} /{" "}
+            {String(tabs.length).padStart(2, "0")}
           </Text>
         </View>
         <View style={styles.primitiveTabRow}>
-          {PRIMITIVE_TABS.map((tab) => {
+          {tabs.map((tab) => {
             const primitive = primitiveForTab(snapshot, tab.id);
             const visual = resolveRiverRunVisualModel({
               kind: tab.id,
@@ -2829,8 +2849,8 @@ function SnapshotView({
   activePrimitive: PrimitiveTabId;
   species: string;
 }) {
-  const tab = PRIMITIVE_TABS.find((item) => item.id === activePrimitive) ??
-    PRIMITIVE_TABS[0];
+  const tabs = primitiveTabsForSnapshot(snapshot);
+  const tab = tabs.find((item) => item.id === activePrimitive) ?? tabs[0];
   const primitive = primitiveForTab(snapshot, tab.id);
   return (
     <View style={styles.snapshotStack}>
@@ -2842,6 +2862,8 @@ function SnapshotView({
           primitive={primitive}
           contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
+            : tab.id === "push"
+            ? <PushHistoryStrip history={snapshot.pushHistory} />
             : undefined}
         />
       </ActivePrimitivePanel>
@@ -2953,7 +2975,104 @@ function primitiveForTab(
       };
     case "fish_in_river":
       return snapshot.fishInRiver;
+    case "push":
+      return snapshot.push;
   }
+}
+
+function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
+  const reads = history.recentWindowReads ?? history.todayReads ?? [];
+  const historyScrollRef = useRef<ScrollView>(null);
+  if (history.status === "not_started" || history.status === "complete") {
+    return null;
+  }
+  return (
+    <View style={styles.pushHistory}>
+      <View style={styles.pushHistoryHeading}>
+        <Text style={styles.pushHistoryEyebrow}>48-HOUR HISTORY</Text>
+        <Text style={styles.pushHistoryMeta}>OLDEST → MOST RECENT</Text>
+      </View>
+      <Text style={styles.pushHistoryDirection}>
+        Earlier reads are left. The newest read is on the right.
+      </Text>
+      <ScrollView
+        ref={historyScrollRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.pushHistoryRow}
+        onContentSizeChange={() =>
+          historyScrollRef.current?.scrollToEnd({
+            animated: false,
+          })}
+      >
+        {reads.slice(-12).map((read) => (
+          <View
+            key={`${read.localDate}-${read.refreshSlot}`}
+            style={styles.pushHistoryItem}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel={`${formatPushHistoryDate(read.localDate)}, ${
+              formatPushHistoryTime(read.startTime)
+            }: ${read.label}${read.isCurrent ? ", current read" : ""}`}
+          >
+            <Text style={styles.pushHistoryDate}>
+              {formatPushHistoryDate(read.localDate)}
+            </Text>
+            <View
+              style={[
+                styles.pushHistoryBar,
+                { backgroundColor: pushHistoryColor(read.label, read.status) },
+                read.isCurrent && styles.pushHistoryBarCurrent,
+              ]}
+            />
+            <Text style={styles.pushHistoryTime}>
+              {formatPushHistoryTime(read.startTime)}
+            </Text>
+            <Text style={styles.pushHistoryCurrent}>
+              {read.isCurrent ? "LATEST" : " "}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+      {reads.length === 0
+        ? (
+          <Text style={styles.pushHistoryEmpty}>
+            The first four-hour read has not been recorded yet.
+          </Text>
+        )
+        : null}
+    </View>
+  );
+}
+
+function formatPushHistoryDate(localDate: string): string {
+  const parsed = new Date(`${localDate}T12:00:00Z`);
+  if (!Number.isFinite(parsed.getTime())) return localDate;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(parsed).toUpperCase();
+}
+
+function formatPushHistoryTime(time: string): string {
+  const [rawHour] = time.split(":");
+  const hour = Number(rawHour);
+  if (!Number.isInteger(hour) || hour < 0 || hour > 23) return time;
+  const suffix = hour < 12 ? "AM" : "PM";
+  const twelveHour = hour % 12 || 12;
+  return `${twelveHour} ${suffix}`;
+}
+
+function pushHistoryColor(
+  label: string,
+  status?: "recorded" | "missing",
+): string {
+  if (status === "missing") return "rgba(118,137,155,0.22)";
+  if (label === "Strong") return "#3DA85F";
+  if (label === "Elevated") return "#68A17B";
+  if (label === "Possible") return "#4F91BA";
+  return "#76899B";
 }
 
 function fallReturnCheckpoint(runId: string): {
@@ -3248,6 +3367,8 @@ function PrimitiveSection({
     ? "Seasonal timing context · not live movement or a fish-location report"
     : visualKind === "activity"
     ? "Expected responsiveness if fish are present · not abundance or catch probability"
+    : visualKind === "push"
+    ? "Recent direct water signal · not confirmed fish movement or abundance"
     : "Seasonal presence estimate · not a live fish count or today’s river conditions";
   return (
     <View style={styles.primitiveFrame}>
@@ -3292,6 +3413,21 @@ function PrimitiveSection({
           ? <Text style={styles.primitiveHeaderMeta}>{headerMeta}</Text>
           : null}
 
+        {visualKind === "run_stage"
+          ? (
+            <View style={styles.stageMeaningNotice}>
+              <Text style={styles.stageMeaningNoticeLabel}>
+                EXPECTED SEASONAL TIMING
+              </Text>
+              <Text style={styles.stageMeaningNoticeText}>
+                This shows where this species’ run is expected to be in its
+                researched seasonal cycle. It is calendar-based context—not a
+                live reading of fish movement, location, or abundance.
+              </Text>
+            </View>
+          )
+          : null}
+
         {visualKind === "activity"
           ? (
             <View style={styles.activityConditionalNotice}>
@@ -3301,6 +3437,37 @@ function PrimitiveSection({
               <Text style={styles.activityConditionalNoticeText}>
                 This estimates likely responsiveness—not whether fish are in the
                 river, how many are present, or your chance of catching one.
+              </Text>
+            </View>
+          )
+          : null}
+
+        {visualKind === "fish_in_river"
+          ? (
+            <View style={styles.presenceMeaningNotice}>
+              <Text style={styles.presenceMeaningNoticeLabel}>
+                RELATIVE SEASONAL PRESENCE
+              </Text>
+              <Text style={styles.presenceMeaningNoticeText}>
+                This shows today’s expected seasonal presence relative to this
+                species’ own peak on this river. It is not a fish count, a
+                comparison with other rivers, or a live movement signal.
+              </Text>
+            </View>
+          )
+          : null}
+
+        {visualKind === "push"
+          ? (
+            <View style={styles.pushMeaningNotice}>
+              <Text style={styles.pushMeaningNoticeLabel}>
+                ESTIMATED FRESH-PUSH SIGNAL
+              </Text>
+              <Text style={styles.pushMeaningNoticeText}>
+                This estimates whether recent measured flow and/or water
+                temperature changes support a possible new movement of fish into
+                or through the river. It does not confirm fish arrived, how many
+                moved, or where they are.
               </Text>
             </View>
           )
@@ -5368,6 +5535,30 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     color: paper.dashboardMuted,
   },
+  stageMeaningNotice: {
+    gap: 4,
+    marginTop: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "rgba(62,124,152,0.3)",
+    borderLeftWidth: 5,
+    borderLeftColor: "#3E7C98",
+    borderRadius: 8,
+    backgroundColor: "#EEF5F8",
+  },
+  stageMeaningNoticeLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.2,
+    color: "#315F74",
+  },
+  stageMeaningNoticeText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+  },
   activityConditionalNotice: {
     gap: 4,
     marginTop: 14,
@@ -5387,6 +5578,54 @@ const styles = StyleSheet.create({
     color: "#11635F",
   },
   activityConditionalNoticeText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+  },
+  presenceMeaningNotice: {
+    gap: 4,
+    marginTop: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "rgba(104,161,123,0.32)",
+    borderLeftWidth: 5,
+    borderLeftColor: "#68A17B",
+    borderRadius: 8,
+    backgroundColor: "#F0F7F2",
+  },
+  presenceMeaningNoticeLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.1,
+    color: "#477A58",
+  },
+  presenceMeaningNoticeText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+  },
+  pushMeaningNotice: {
+    gap: 4,
+    marginTop: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "rgba(79,145,186,0.32)",
+    borderLeftWidth: 5,
+    borderLeftColor: "#4F91BA",
+    borderRadius: 8,
+    backgroundColor: "#EEF6FB",
+  },
+  pushMeaningNoticeLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.1,
+    color: "#285F81",
+  },
+  pushMeaningNoticeText: {
     fontFamily: paperFonts.bodySemiBold,
     fontSize: 11.5,
     lineHeight: 17,
@@ -5849,6 +6088,82 @@ const styles = StyleSheet.create({
   activityEvidenceText: {
     minWidth: 0,
     flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
+    color: paper.dashboardMuted,
+  },
+  pushHistory: {
+    gap: 8,
+    paddingTop: 10,
+  },
+  pushHistoryHeading: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  pushHistoryEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.1,
+    color: paper.dashboardInk,
+  },
+  pushHistoryMeta: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 7.5,
+    letterSpacing: 0.8,
+    color: paper.dashboardMuted,
+  },
+  pushHistoryDirection: {
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  pushHistoryRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 6,
+    paddingHorizontal: 1,
+    paddingVertical: 2,
+  },
+  pushHistoryItem: {
+    width: 52,
+    alignItems: "center",
+    gap: 3,
+  },
+  pushHistoryDate: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 0.25,
+    color: paper.dashboardInk,
+  },
+  pushHistoryBar: {
+    width: "100%",
+    minWidth: 3,
+    height: 18,
+    borderRadius: 2,
+    opacity: 0.76,
+  },
+  pushHistoryBarCurrent: {
+    height: 25,
+    opacity: 1,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+  },
+  pushHistoryTime: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: paper.dashboardMuted,
+  },
+  pushHistoryCurrent: {
+    minHeight: 10,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    letterSpacing: 0.5,
+    color: paper.dashboardBlue,
+  },
+  pushHistoryEmpty: {
     fontFamily: paperFonts.body,
     fontSize: 11,
     lineHeight: 16,

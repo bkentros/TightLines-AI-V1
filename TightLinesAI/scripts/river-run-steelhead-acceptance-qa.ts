@@ -27,11 +27,10 @@ const expectedLabels: Record<string, Set<string>> = {
   ]),
   push: new Set([
     "Offseason",
-    "Weak",
-    "No clear push",
+    "Neutral",
     "Possible",
+    "Elevated",
     "Strong",
-    "Very strong",
     "Unavailable",
     "Waiting for migration",
     "Fall entry complete",
@@ -192,7 +191,7 @@ assert.match(
 );
 assert.match(
   waitingPush.detail ?? "",
-  /not scored as an in-season movement signal yet/i,
+  /not scored as (?:an in-season movement signal yet|a fresh-movement event until this migration reaches Beginning)/i,
 );
 assert.doesNotMatch(
   waitingPush.headline ?? "",
@@ -209,7 +208,12 @@ const coldHolding = push.find((item) =>
   item.components?.temperatureState === "cold_holding"
 );
 assert(coldHolding);
-assert((coldHolding.score ?? 100) <= 49);
+assert.equal(coldHolding.components?.temperatureModifier, 0);
+assert.match(
+  coldHolding.detail ?? "",
+  /Measured river flow is showing a recent rise/i,
+);
+assert.doesNotMatch(coldHolding.detail ?? "", /temperature limits/i);
 console.log(
-  `PM Fall Steelhead build QA passed: ${scenarioCount} scenarios, 80-point ceiling, explicit fall-entry completion, dedicated thermal states, copy safety, and visual contracts.`,
+  `PM Fall Steelhead build QA passed: ${scenarioCount} scenarios, 80-point ceiling, explicit fall-entry completion, flow-only Push isolation, copy safety, and visual contracts.`,
 );

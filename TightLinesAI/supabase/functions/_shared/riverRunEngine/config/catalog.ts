@@ -55,8 +55,7 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion:
-      "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v3",
+    configVersion: "2026-09-03-pm-direct-push-v1+seasonal-zone-v3",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -95,7 +94,7 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3",
+    configVersion: "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -119,8 +118,7 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion:
-    "2026-08-27-muskegon-fishability-reconciliation.2+seasonal-zone-v3",
+  configVersion: "2026-09-03-muskegon-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -140,7 +138,7 @@ export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 
 export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3",
+  configVersion: "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

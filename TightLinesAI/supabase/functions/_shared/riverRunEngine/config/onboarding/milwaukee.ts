@@ -3,10 +3,12 @@ import type {
   AuditedRiverRunProfile,
   FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
@@ -17,6 +19,12 @@ import { WISCONSIN_FIXED_FLOW_SEASONAL_NORMALS } from "./wisconsinFixedFlowSeaso
 
 const MILWAUKEE_ESTABROOK_ACTIVITY_SCOPE =
   "This read combines Estabrook flow, measured water temperature, and local weather for the Urban Greenway near Estabrook Park. It does not directly measure Harbor & Downtown or the North Shore above Kletzsch.";
+
+const MILWAUKEE_HYDRAULIC_TREND = {
+  rising24h: { absolute: 50, percent: 10 },
+  meaningfulRise24h: { absolute: 150, percent: 28 },
+  sharpRise24h: { absolute: 370, percent: 57 },
+};
 
 function milwaukeeObservedActivity(input: {
   version: string;
@@ -48,11 +56,7 @@ function milwaukeeObservedActivity(input: {
     weights: input.weights,
     temperature: input.temperature,
     stageResponseAdjustment: input.stageResponseAdjustment,
-    hydraulicTrend: {
-      rising24h: { absolute: 50, percent: 10 },
-      meaningfulRise24h: { absolute: 150, percent: 28 },
-      sharpRise24h: { absolute: 370, percent: 57 },
-    },
+    hydraulicTrend: MILWAUKEE_HYDRAULIC_TREND,
     caps: {
       noMeasuredRiverData: 64,
       noWaterTemperature: 64,
@@ -113,8 +117,10 @@ export const MILWAUKEE_RIVER_PROFILE: RiverProfile = {
     maxValidF: 90,
     maxRateChangeFPerHour: 4,
     maxPeerDifferenceF: 6,
+    historicalStartYear: 2026,
+    historicalEndYear: 2026,
     reachNotes:
-      "Measured at Estabrook Park in the Urban Greenway. It does not directly represent Milwaukee Harbor or the North Shore above Kletzsch.",
+      "Measured at Estabrook Park in the Urban Greenway. The series began May 4, 2026, and does not directly represent Milwaukee Harbor or the North Shore above Kletzsch.",
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
@@ -273,12 +279,28 @@ const primitiveCapabilities = {
       "No Milwaukee Migration Timing model is accepted; seasonal Migration Stage remains calendar based.",
   },
   push: {
-    status: "unavailable" as const,
-    reason: "no_accepted_historical_baseline" as const,
-    notes:
-      "No legacy Push model is accepted; current measurements must not be presented as confirmed fish movement.",
+    status: "available" as const,
   },
 };
+
+function milwaukeePush(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  temperature: Omit<PushRules["temperature"], "suitabilityLabel">;
+}): PushRules {
+  return buildDirectEventPushRules({
+    version: input.version,
+    fishability: MILWAUKEE_FISHABILITY,
+    hydraulicTrend: MILWAUKEE_HYDRAULIC_TREND,
+    activityProfile: input.profile,
+    movementTemperature: input.temperature,
+    temperatureMode: "constraint_only",
+    evidenceNotes:
+      "Fresh Push Watch uses the measured Estabrook hydraulic response for the Urban Greenway. The co-located temperature series began May 4, 2026, so absolute species limits may constrain a flow event, but cooling cannot independently create a positive Push until a multi-season fall replay is available. Precipitation and wind are unscored.",
+    sourceNotes:
+      "USGS 04087000 approved daily discharge for 2019-2025 local hydraulic calibration and provisional co-located water temperature beginning May 4, 2026. Harbor, North Shore, air-temperature, and contextual-gauge observations are excluded.",
+  });
+}
 
 function presence(input: {
   maximum: HistoricalPresenceConfig["maximum"];
@@ -393,6 +415,16 @@ export const MILWAUKEE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Estabrook-scoped observed Chinook responsiveness candidate. Measured temperature and effective light lead, river presentation remains material, precipitation is restrained same-block context, and the late semelparous lifecycle fades continuously. A bounded owner-requested five-point Building response correction preserves the rising-run opportunity without altering Stage or Fish In River. The audited 43-point warm-water ceiling preserves the 72 F barrier. Fixed replays validate behavior rather than fish abundance or catch probability.",
   }),
+  push: milwaukeePush({
+    version: "milwaukee-fall-chinook-direct-push-v1",
+    profile: "chinook_fall_reaction",
+    temperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   waterTemperature: MILWAUKEE_ESTABROOK_ACTIVITY_TEMPERATURE,
   researchNotes:
     "Hidden Gate 4B candidate with Estabrook-scoped observed Activity. Kletzsch refuge and seasonal night restrictions must precede actionable section guidance.",
@@ -477,6 +509,16 @@ export const MILWAUKEE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Estabrook-scoped observed Coho responsiveness candidate. Measured temperature leads, river presentation is secondary, effective light separates blocks, and precipitation remains restrained context. The semelparous lifecycle is continuously constrained without converting Activity into abundance or migration.",
   }),
+  push: milwaukeePush({
+    version: "milwaukee-fall-coho-direct-push-v1",
+    profile: "coho_fall_reaction",
+    temperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   waterTemperature: MILWAUKEE_ESTABROOK_ACTIVITY_TEMPERATURE,
   researchNotes:
     "Hidden Gate 4B candidate with Estabrook-scoped observed Activity. The exact 7/10 ceiling retains medium-low count confidence.",
@@ -553,6 +595,18 @@ export const MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     ending: 100,
     evidenceNotes:
       "Estabrook-scoped observed Steelhead responsiveness candidate for living fish already present. Measured temperature leads, with river presentation and light secondary. The revised curve treats 64-66F as increasing stress, 66-70F as strongly constrained, and 70F as the hard barrier. Small pre-run through peak nudges preserve the approved early-stage calibration without letting the corrected October calendar inflate Peak Activity; tapering, ending, and post-run receive no lifecycle penalty. No salmon floor, mortality ramp, ending cap, or duplicated fresh-movement bonus is allowed.",
+  }),
+  push: milwaukeePush({
+    version: "milwaukee-fall-steelhead-direct-push-v1",
+    profile: "steelhead_feeding",
+    temperature: {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
   }),
   waterTemperature: MILWAUKEE_ESTABROOK_ACTIVITY_TEMPERATURE,
   researchNotes:
@@ -632,6 +686,18 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Brown Trout observed candidate for a living repeat spawner already present. Measured Estabrook temperature leads, with light and river presentation secondary and precipitation restrained. The read represents only the Urban Greenway near Estabrook even though the migration corridor continues from Harbor & Downtown to Bridge Street Dam. No salmon floor, mortality ramp, taper penalty, ending cap, or universal post-spawn departure is allowed.",
   }),
+  push: milwaukeePush({
+    version: "milwaukee-fall-brown-direct-push-v1",
+    profile: "brown_trout_fall_reaction",
+    temperature: {
+      coldHoldingF: 38,
+      preferredMinF: 44,
+      supportiveMinF: 40,
+      supportiveMaxF: 58,
+      tooWarmF: 64,
+      migrationBarrierF: 70,
+    },
+  }),
   waterTemperature: MILWAUKEE_ESTABROOK_ACTIVITY_TEMPERATURE,
   researchNotes:
     "Hidden Gate 4B repeat-spawner candidate corrected to the common Bridge Street physical endpoint. Opportunity remains lower-river weighted, Estabrook Activity remains Urban-Greenway scoped, and copy must not claim post-spawn death or universal lake return.",
@@ -640,7 +706,7 @@ export const MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const MILWAUKEE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-29-milwaukee-four-species-release.8+seasonal-zone-v3",
+  configVersion: "2026-09-03-milwaukee-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

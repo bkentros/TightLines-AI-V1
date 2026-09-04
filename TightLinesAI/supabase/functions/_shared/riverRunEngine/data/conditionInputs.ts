@@ -1,5 +1,6 @@
 import type { RiverRunConditionRefresh } from "../snapshot/buildConditionRefresh.ts";
 import type {
+  DirectEventSample,
   FlowBand,
   ObservedConditionRunProfile,
   RawFlowTrendSignal,
@@ -36,12 +37,23 @@ export type RiverRunConditionInputs = {
   currentHydraulicValue: number | null;
   hydraulicAbsoluteChange24h: number | null;
   hydraulicPercentChange24h: number | null;
+  hydraulicChanges: Array<{
+    hours: 12 | 24 | 48;
+    absolute: number | null;
+    percent: number | null;
+  }>;
+  hydraulicFourHourSeries: DirectEventSample[];
   temperatureSignal: RawTemperatureTrendSignal;
   temperatureReasonCodes: RiverRunReasonCode[];
   temperatureSourceType: TemperatureSourceType;
   temperatureIsUpstreamFallback: boolean;
   temperaturePositiveSignalCap?: 0 | 1 | 2;
   waterTempF: number | null;
+  temperatureChanges: Array<{
+    hours: 12 | 24 | 48;
+    deltaF: number | null;
+  }>;
+  temperatureFourHourSeries: DirectEventSample[];
   missingNonGaugeInputCount: number;
   sourceMetrics: RiverRunConditionRefresh["sourceMetrics"];
 };
@@ -104,6 +116,8 @@ export function assembleConditionInputs(input: {
     currentHydraulicValue: currentValue,
     hydraulicAbsoluteChange24h: input.gauge.flowTrend.absoluteChange24h,
     hydraulicPercentChange24h: input.gauge.flowTrend.percentChange24h,
+    hydraulicChanges: input.gauge.changes,
+    hydraulicFourHourSeries: input.gauge.fourHourSeries,
     temperatureSignal,
     temperatureReasonCodes: [...temperatureReasonCodes],
     temperatureSourceType,
@@ -113,6 +127,8 @@ export function assembleConditionInputs(input: {
       ? input.run.waterTemperature.upstreamFallbackPositiveSignalCap
       : undefined,
     waterTempF: measuredTemperature?.smoothedWaterTempF ?? null,
+    temperatureChanges: measuredTemperature?.changes ?? [],
+    temperatureFourHourSeries: measuredTemperature?.fourHourSeries ?? [],
     missingNonGaugeInputCount,
     sourceMetrics: {
       gauge: {

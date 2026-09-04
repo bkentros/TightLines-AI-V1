@@ -958,7 +958,9 @@ function validateTemperatureSources(
     }
     ids.add(source.sourceId);
     if (
-      !["USGS", "MONITOR_MY_WATERSHED"].includes(source.provider) ||
+      !["USGS", "MONITOR_MY_WATERSHED", "NOAA_NDBC"].includes(
+        source.provider,
+      ) ||
       !hasText(source.siteId) || !hasText(source.name)
     ) {
       issues.push(
@@ -1196,9 +1198,15 @@ export function validateRunProfile(
     run.primitiveCapabilities?.activity.status === "available";
   const observedActivityAvailable = activityAvailable &&
     (run.activity?.dataMode ?? "observed_river") === "observed_river";
+  const pushRequiresTemperature = pushAvailable &&
+    (run.push?.model !== "direct_event_state" ||
+      run.push.directEvent?.temperature !== "disabled");
+  const pushRequiresHydraulics = pushAvailable &&
+    (run.push?.model !== "direct_event_state" ||
+      run.push.directEvent?.hydraulic !== "disabled");
   if (river) {
     if (
-      (pushAvailable || fishabilityAvailable || timingAvailable) &&
+      (pushRequiresHydraulics || fishabilityAvailable || timingAvailable) &&
       river.conditionDataCapabilities.hydraulics.status !== "available"
     ) {
       issues.push(
@@ -1210,7 +1218,7 @@ export function validateRunProfile(
       );
     }
     if (
-      (pushAvailable || timingAvailable) &&
+      (pushRequiresTemperature || timingAvailable) &&
       river.conditionDataCapabilities.waterTemperature.status !== "available"
     ) {
       issues.push(
@@ -1245,7 +1253,7 @@ export function validateRunProfile(
     validateUnsupportedField(run.push, "push", issues);
   }
   if (
-    pushAvailable || timingAvailable ||
+    pushRequiresTemperature || timingAvailable ||
     (observedActivityAvailable && run.activity!.weights.waterTemperature > 0)
   ) {
     validateRunTemperaturePolicy(run, river, issues);
@@ -1814,6 +1822,48 @@ function validatePushRules(
       ),
     );
     return;
+  }
+  if (
+    rules.model === "direct_event_state" &&
+    (!rules.directEvent || rules.directEvent.persistenceHours !== 48 ||
+      !hasNumber(rules.directEvent.buildingCoolingF) ||
+      !hasNumber(rules.directEvent.coolingF) ||
+      !hasNumber(rules.directEvent.strongCoolingF) ||
+      rules.directEvent.buildingCoolingF <= 0 ||
+      rules.directEvent.buildingCoolingF >= rules.directEvent.coolingF ||
+      rules.directEvent.coolingF >= rules.directEvent.strongCoolingF ||
+      !hasNumber(rules.directEvent.fullRetentionFraction) ||
+      !hasNumber(rules.directEvent.minimumRetentionFraction) ||
+      rules.directEvent.minimumRetentionFraction <= 0 ||
+      rules.directEvent.fullRetentionFraction <=
+        rules.directEvent.minimumRetentionFraction ||
+      rules.directEvent.fullRetentionFraction > 1 ||
+      !["trigger", "disabled"].includes(rules.directEvent.hydraulic) ||
+      !["trigger_and_constraint", "constraint_only", "disabled"].includes(
+        rules.directEvent.temperature,
+      ) ||
+      (rules.directEvent.evidenceConfidence !== undefined &&
+        !["standard", "lower"].includes(
+          rules.directEvent.evidenceConfidence,
+        )) ||
+      (rules.directEvent.maximumLevel !== undefined &&
+        ![1, 2, 3].includes(rules.directEvent.maximumLevel)) ||
+      (rules.directEvent.evidenceConfidence === "lower" &&
+        (rules.directEvent.maximumLevel === undefined ||
+          rules.directEvent.maximumLevel > 2 ||
+          rules.directEvent.hydraulic !== "trigger" ||
+          rules.directEvent.temperature !== "disabled" ||
+          !hasText(rules.directEvent.limitationCopy))) ||
+      (rules.directEvent.hydraulic === "disabled" &&
+        rules.directEvent.temperature === "disabled"))
+  ) {
+    issues.push(
+      issue(
+        "push.directEvent",
+        "Direct-event Push requires an ordered cooling threshold, a 48-hour persistence window, at least one direct signal, and a capped flow-only public limitation for lower-confidence evidence.",
+        "config_invalid_value",
+      ),
+    );
   }
   const primary =
     river?.hydraulicSources.find((source) => source.role === "primary") ?? null;

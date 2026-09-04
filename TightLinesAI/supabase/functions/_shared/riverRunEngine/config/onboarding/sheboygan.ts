@@ -1,10 +1,13 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
   FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
@@ -184,6 +187,12 @@ const SHEBOYGAN_FISHABILITY: FishabilityBands = {
     "USGS 04086000 daily mean discharge audit for Aug. 1-Jan. 31 in 2019-2025, rechecked 2026-08-27. Boundaries use p10/p25/p75/p90/p95 so exceptional high water cannot receive the same grade as an ordinary high-fishable presentation.",
 };
 
+const SHEBOYGAN_HYDRAULIC_TREND = {
+  rising24h: { absolute: 15, percent: 7 },
+  meaningfulRise24h: { absolute: 50, percent: 20 },
+  sharpRise24h: { absolute: 150, percent: 52 },
+};
+
 const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   migrationStage: { status: "available" },
   activity: {
@@ -198,12 +207,28 @@ const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
       "No measured water-temperature baseline supports a Sheboygan Migration Timing model.",
   },
   push: {
-    status: "unavailable",
-    reason: "no_accepted_historical_baseline",
-    notes:
-      "Flow alone cannot be presented as confirmed fish movement, and no measured river temperature is accepted.",
+    status: "available",
   },
 };
+
+function sheboyganPush(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  temperature: Omit<PushRules["temperature"], "suitabilityLabel">;
+}): PushRules {
+  return buildDirectEventPushRules({
+    version: input.version,
+    fishability: SHEBOYGAN_FISHABILITY,
+    hydraulicTrend: SHEBOYGAN_HYDRAULIC_TREND,
+    activityProfile: input.profile,
+    movementTemperature: input.temperature,
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured I-43 hydraulic response. In the approved 2019-2025 fall record, positive daily rises were approximately 14.5/7.2% at the median, 50/20.3% at p75, and 150/52.4% at p90; paired rounded thresholds require both absolute and percentage change. No accepted live river-temperature source exists, and precipitation and wind are unscored.",
+    sourceNotes:
+      "USGS 04086000 approved daily discharge, fixed Aug. 1-Jan. 31 windows for 2019-2025. The signal represents the Urban River near I-43, not Sheboygan Harbor or water above Waelderhaus Dam.",
+  });
+}
 
 function presence(input: {
   maximum: HistoricalPresenceConfig["maximum"];
@@ -311,6 +336,16 @@ export const SHEBOYGAN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Chinook response candidate for a fish already present in the Sheboygan corridor. It scores effective light and restrained same-block precipitation only, with conservative weather-only ceilings and a continuous terminal lifecycle decline. It cannot infer temperature, river response, movement, abundance, catch probability, access, or safety.",
   }),
+  push: sheboyganPush({
+    version: "sheboygan-fall-chinook-direct-push-v1",
+    profile: "chinook_fall_reaction",
+    temperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B broad Chinook candidate. Waelderhaus is the hard endpoint, the night restriction precedes section guidance, and Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/sheboygan/runs/fall-chinook.md",
@@ -389,6 +424,16 @@ export const SHEBOYGAN_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Coho response candidate for a fish already present in the Sheboygan corridor. It scores effective light and restrained same-block precipitation only, with conservative weather-only ceilings and a continuous terminal lifecycle decline. It cannot infer temperature, river response, movement, abundance, catch probability, access, or safety.",
   }),
+  push: sheboyganPush({
+    version: "sheboygan-fall-coho-direct-push-v1",
+    profile: "coho_fall_reaction",
+    temperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B broad Coho candidate. The 8/10 ceiling is owner calibration, not a stocking-to-return conversion, and Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/sheboygan/runs/fall-coho.md",
@@ -450,6 +495,18 @@ export const SHEBOYGAN_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "This Limited weather-only read uses modeled weather near I-43 for the Harbor, Urban River, and legal Kohler corridor below Waelderhaus Dam; it does not measure river level, clarity, or water temperature, which can differ by reach.",
     evidenceNotes:
       "Hidden Steelhead response candidate for a living fish already present in the Sheboygan corridor. It scores effective light and restrained same-block precipitation, applies the 0.80 Limited-evidence scale, and has no salmon mortality ramp, taper penalty, or ending cap. It cannot infer temperature-led feeding, river response, movement, abundance, catch probability, access, or safety.",
+  }),
+  push: sheboyganPush({
+    version: "sheboygan-fall-steelhead-direct-push-v1",
+    profile: "steelhead_feeding",
+    temperature: {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
   }),
   researchNotes:
     "Hidden Gate 4B fall-entry candidate. Completion means only that this model stops; surviving Steelhead may overwinter and later spawn or return lakeward. Activity remains explicitly Limited and weather-only.",
@@ -523,6 +580,18 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden lake-run Brown Trout response candidate for a living repeat spawner already present in the Sheboygan corridor. It scores effective light and restrained same-block precipitation, applies the 0.80 Limited-evidence scale, and uses only a five-point Peak response nudge capped at 80 to preserve lifecycle shape. It has no salmon mortality ramp, taper penalty, ending cap, or universal lake-return assumption. It cannot infer temperature-led feeding, river response, movement, abundance, catch probability, access, or safety.",
   }),
+  push: sheboyganPush({
+    version: "sheboygan-fall-brown-direct-push-v1",
+    profile: "brown_trout_fall_reaction",
+    temperature: {
+      coldHoldingF: 38,
+      preferredMinF: 44,
+      supportiveMinF: 40,
+      supportiveMaxF: 58,
+      tooWarmF: 64,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B repeat-spawner candidate. Waelderhaus is the physical endpoint, distribution is broad, post-spawn copy preserves hold-versus-lakeward uncertainty, and Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/sheboygan/runs/fall-brown-trout.md",
@@ -530,7 +599,7 @@ export const SHEBOYGAN_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const SHEBOYGAN_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-29-sheboygan-four-species-release.5+seasonal-zone-v3",
+  configVersion: "2026-09-03-sheboygan-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

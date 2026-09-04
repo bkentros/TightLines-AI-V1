@@ -100,7 +100,7 @@ Deno.test("Big Manistee foundation document binds all selectable fall runs", () 
   );
   assert(
     BIG_MANISTEE_CONFIGURATION_DOCUMENT.configVersion.includes(
-      "big-manistee-brown-release",
+      "big-manistee-direct-push-v1",
     ),
   );
 });

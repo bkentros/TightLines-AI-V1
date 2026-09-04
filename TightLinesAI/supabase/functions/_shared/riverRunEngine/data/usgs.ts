@@ -7,6 +7,8 @@ import {
   type FlowTrendResult,
   resolveFlowTrendSignal,
 } from "../metrics/flow.ts";
+import { buildDirectEventSeries } from "../metrics/directEvent.ts";
+import type { DirectEventSample } from "../types.ts";
 
 export type RiverRunFetch = (
   input: string | URL,
@@ -38,6 +40,12 @@ export type NormalizedGaugeRead = {
   prior24h: NormalizedGaugeObservation | null;
   gaugeFreshness: GaugeFreshness;
   flowTrend: FlowTrendResult;
+  changes: Array<{
+    hours: 12 | 24 | 48;
+    absolute: number | null;
+    percent: number | null;
+  }>;
+  fourHourSeries: DirectEventSample[];
   reasonCodes: RiverRunReasonCode[];
 };
 
@@ -345,6 +353,34 @@ export function normalizeGaugeRead(input: {
       : null,
     ...input.riseThresholds,
   });
+  const changes = ([12, 24, 48] as const).map((hours) => {
+    if (!current) return { hours, absolute: null, percent: null };
+    const targetMs = Date.parse(current.observedAt) - hours * 60 * 60 * 1000;
+    const prior = selectClosestObservationAtOrBefore(
+      input.observations,
+      input.primaryMetric,
+      new Date(targetMs).toISOString(),
+    );
+    const priorValue = prior ? metricValue(prior, input.primaryMetric) : null;
+    const currentValue = metricValue(current, input.primaryMetric);
+    const withinTolerance = prior && Math.abs(
+          Date.parse(prior.observedAt) - targetMs,
+        ) <= comparisonToleranceHours * 60 * 60 * 1000;
+    if (
+      !withinTolerance || priorValue == null || priorValue <= 0 ||
+      currentValue == null
+    ) {
+      return { hours, absolute: null, percent: null };
+    }
+    const absolute = currentValue - priorValue;
+    return { hours, absolute, percent: absolute / priorValue * 100 };
+  });
+  const fourHourSeries = buildDirectEventSeries({
+    observations: input.observations,
+    refreshAtUtc: input.refreshAtUtc,
+    observedAt: (observation) => observation.observedAt,
+    value: (observation) => metricValue(observation, input.primaryMetric),
+  });
   return {
     provider: "USGS",
     siteId: input.siteId,
@@ -353,6 +389,8 @@ export function normalizeGaugeRead(input: {
     prior24h: usablePrior24h,
     gaugeFreshness,
     flowTrend,
+    changes,
+    fourHourSeries,
     reasonCodes: [gaugeReasonCode(gaugeFreshness), ...flowTrend.reasonCodes],
   };
 }

@@ -179,7 +179,11 @@ for (const [species, groups] of runs) {
     if (scenario.snapshot.push.score == null) continue;
     assert.match(
       `${scenario.snapshot.push.headline} ${scenario.snapshot.push.detail} ${scenario.snapshot.push.tip}`,
-      /Niles/i,
+      /movement|water signal/i,
+    );
+    assert.match(
+      scenario.snapshot.push.detail,
+      /not fish entry or abundance/i,
     );
   }
   for (const scenario of requiredGroup(groups, "fishability").scenarios) {

@@ -7,6 +7,7 @@ import {
   compareLocalDates,
   type ConditionsSuggestEvidenceByDate,
   fetchMonitorMyWatershedTemperature,
+  fetchNdbcWaterTemperature,
   fetchRiverRunWeatherSnapshot,
   fetchUsgsInstantaneousValues,
   fetchUsgsWaterTemperature,
@@ -29,6 +30,7 @@ import {
   normalizeWeatherSnapshot,
   type ObservedConditionRunProfile,
   parseMonitorMyWatershedTemperature,
+  parseNdbcWaterTemperature,
   parseUsgsInstantaneousValues,
   parseUsgsWaterTemperature,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
@@ -89,7 +91,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.17.0";
+const ENGINE_VERSION = "river-run-v1.19.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -241,15 +243,21 @@ type PushHistoryContext = {
   recentDailyReads: PushDailyHistoryRead[];
   todayReadsStatus: "available" | "unavailable";
   todayReads: PushWindowRead[];
+  recentWindowReads?: PushWindowRead[];
   currentWindow?: PushWindowRead;
   lastSupportiveConditions?: LastSupportivePushConditions;
 };
 
-type PushWindowRead = PushWindowConditions & {
-  startTime: string;
-  endTime: string;
-  isCurrent: boolean;
-};
+type PushWindowRead =
+  & Omit<PushWindowConditions, "score" | "conditionRefreshAt">
+  & {
+    conditionRefreshAt?: string;
+    score: number | null;
+    status?: "recorded" | "missing";
+    startTime: string;
+    endTime: string;
+    isCurrent: boolean;
+  };
 
 type PushDailyHistoryRead =
   | RecentDailyPushConditions
@@ -599,6 +607,9 @@ export async function handleRiverRunRequest(
       dailySnapshot: result.dailySnapshot,
       condition: result.condition,
       rulesVersion: run.push?.version ?? "",
+      pushModel: run.push?.model === "direct_event_state"
+        ? "direct_event_state"
+        : undefined,
     });
     if (tier === "free" && freeTrialUnused) {
       const claimed = await claimFreeRiverRunTrial(
@@ -832,6 +843,9 @@ async function handleOwnerReviewSnapshot(
       dailySnapshot: result.dailySnapshot,
       condition: result.condition,
       rulesVersion: run.push?.version ?? "",
+      pushModel: run.push?.model === "direct_event_state"
+        ? "direct_event_state"
+        : undefined,
     });
     return jsonResponse(shapeSnapshotResponse({
       ...result,
@@ -862,10 +876,14 @@ async function resolvePushHistoryContext(input: {
   dailySnapshot: StoredDailySnapshot;
   condition: StoredConditionRefresh;
   rulesVersion: string;
+  pushModel?: "direct_event_state";
 }): Promise<PushHistoryContext> {
   const window = input.dailySnapshot.runStage.window;
   const trackingStartDate = window.startDate;
-  const trackingEndDate = window.endDate;
+  const directEventModel = input.pushModel === "direct_event_state";
+  const trackingEndDate = directEventModel
+    ? window.taperingEndDate
+    : window.endDate;
   const currentDate = input.dailySnapshot.localDate;
   const afterTrackingStart =
     compareLocalDates(currentDate, trackingStartDate) >= 0;
@@ -875,7 +893,9 @@ async function resolvePushHistoryContext(input: {
     ? trackingEndDate
     : currentDate;
   const base = {
-    minimumSupportiveScore: PUSH_SUPPORTIVE_SCORE_MINIMUM,
+    minimumSupportiveScore: directEventModel
+      ? 64
+      : PUSH_SUPPORTIVE_SCORE_MINIMUM,
     trackingStartDate,
     trackingEndDate,
     throughDate,
@@ -887,13 +907,23 @@ async function resolvePushHistoryContext(input: {
     score: input.condition.push.score,
     label: input.condition.push.label,
   }, true);
-  const todayResult = await getPushConditionsForDate(input.client, {
-    riverId: input.dailySnapshot.riverId,
-    runId: input.dailySnapshot.runId,
-    localDate: currentDate,
-    throughConditionRefreshAt: input.condition.conditionRefreshAt,
-    rulesVersion: input.rulesVersion,
-  });
+  const historyDates = [
+    currentDate,
+    addDays(currentDate, -1),
+    addDays(currentDate, -2),
+  ];
+  const historyResults = await Promise.all(
+    historyDates.map((localDate) =>
+      getPushConditionsForDate(input.client, {
+        riverId: input.dailySnapshot.riverId,
+        runId: input.dailySnapshot.runId,
+        localDate,
+        throughConditionRefreshAt: input.condition.conditionRefreshAt,
+        rulesVersion: input.rulesVersion,
+      })
+    ),
+  );
+  const [todayResult] = historyResults;
   const todayReadsStatus = todayResult.error
     ? "unavailable" as const
     : "available" as const;
@@ -904,6 +934,36 @@ async function resolvePushHistoryContext(input: {
     );
     return resolved ? [resolved] : [];
   });
+  const recordedWindows = historyResults.flatMap((result) => result.data ?? [])
+    .flatMap((read) => {
+      const resolved = pushWindowRead(read, false);
+      return resolved ? [resolved] : [];
+    });
+  if (currentWindow) recordedWindows.push(currentWindow);
+  const latestByWindow = new Map<string, PushWindowRead>();
+  for (const read of recordedWindows) {
+    const key = `${read.localDate}-${read.refreshSlot}`;
+    const previous = latestByWindow.get(key);
+    if (
+      !previous || (read.conditionRefreshAt ?? "") >
+        (previous.conditionRefreshAt ?? "")
+    ) latestByWindow.set(key, read);
+  }
+  const recentWindowReads = directEventModel
+    ? directEventWindowKeys(currentDate, currentWindow?.refreshSlot ?? "00:00")
+      .map(({ localDate, refreshSlot }) => {
+        const recorded = latestByWindow.get(`${localDate}-${refreshSlot}`);
+        return recorded
+          ? {
+            ...recorded,
+            isCurrent: localDate === currentWindow?.localDate &&
+              refreshSlot === currentWindow?.refreshSlot,
+          }
+          : missingPushWindow(localDate, refreshSlot);
+      })
+    : recordedWindows.toSorted((a, b) =>
+      (a.conditionRefreshAt ?? "").localeCompare(b.conditionRefreshAt ?? "")
+    ).slice(-12);
   const windowContext = {
     todayReadsStatus,
     todayReads: todayReads.length > 0
@@ -912,6 +972,11 @@ async function resolvePushHistoryContext(input: {
       ? [currentWindow]
       : [],
     ...(currentWindow ? { currentWindow } : {}),
+    ...(directEventModel
+      ? {
+        recentWindowReads,
+      }
+      : {}),
   };
 
   if (
@@ -945,6 +1010,7 @@ async function resolvePushHistoryContext(input: {
     trackingStartDate,
     throughDate: beforeTrackingEnd ? addDays(currentDate, -1) : trackingEndDate,
     rulesVersion: input.rulesVersion,
+    minimumSupportiveScore: base.minimumSupportiveScore,
   });
 
   if (!beforeTrackingEnd) {
@@ -958,7 +1024,7 @@ async function resolvePushHistoryContext(input: {
 
   if (
     typeof input.condition.push.score === "number" &&
-    input.condition.push.score >= PUSH_SUPPORTIVE_SCORE_MINIMUM
+    input.condition.push.score >= base.minimumSupportiveScore
   ) {
     return {
       ...base,
@@ -980,7 +1046,7 @@ async function resolvePushHistoryContext(input: {
     runId: input.dailySnapshot.runId,
     trackingStartDate,
     throughDate,
-    minimumScore: PUSH_SUPPORTIVE_SCORE_MINIMUM,
+    minimumScore: base.minimumSupportiveScore,
     rulesVersion: input.rulesVersion,
   });
   if (result.error) {
@@ -1020,6 +1086,7 @@ async function resolveRecentDailyPushReads(input: {
   trackingStartDate: string;
   throughDate: string;
   rulesVersion: string;
+  minimumSupportiveScore: number;
 }): Promise<
   Pick<
     PushHistoryContext,
@@ -1035,7 +1102,7 @@ async function resolveRecentDailyPushReads(input: {
   const result = await getRecentDailyPushConditions(input.client, {
     ...input,
     maximumDays: 7,
-    minimumSupportiveScore: PUSH_SUPPORTIVE_SCORE_MINIMUM,
+    minimumSupportiveScore: input.minimumSupportiveScore,
   });
   if (result.error) {
     console.error("[river-run] recent daily Push history read failed", {
@@ -1096,6 +1163,39 @@ function pushWindowRead(
     refreshSlot: effectiveSlot,
     ...resolvePushReadWindow(effectiveSlot),
     isCurrent,
+  };
+}
+
+function directEventWindowKeys(
+  localDate: string,
+  refreshSlot: string,
+): Array<{ localDate: string; refreshSlot: string }> {
+  const effectiveSlot = refreshSlot === "21:00" ? "20:00" : refreshSlot;
+  const hour = Number(effectiveSlot.slice(0, 2));
+  const anchor = Date.parse(
+    `${localDate}T${String(hour).padStart(2, "0")}:00:00Z`,
+  );
+  return Array.from({ length: 12 }, (_, index) => {
+    const at = new Date(anchor - (11 - index) * 4 * 60 * 60 * 1000);
+    return {
+      localDate: at.toISOString().slice(0, 10),
+      refreshSlot: `${String(at.getUTCHours()).padStart(2, "0")}:00`,
+    };
+  });
+}
+
+function missingPushWindow(
+  localDate: string,
+  refreshSlot: string,
+): PushWindowRead {
+  return {
+    localDate,
+    refreshSlot,
+    score: null,
+    label: "No recorded read",
+    status: "missing",
+    ...resolvePushReadWindow(refreshSlot),
+    isCurrent: false,
   };
 }
 
@@ -1548,9 +1648,14 @@ async function readOrBuildConditionRefresh(input: {
   throwOnStorageError("read prior Activity", previousActivityResult.error);
   const previousActivity = previousActivityResult.data;
 
-  const pushUnavailable =
-    input.run.primitiveCapabilities.push.status === "unavailable";
-  if (pushUnavailable) {
+  const fullObservedBundle =
+    input.run.primitiveCapabilities.migrationTiming.status === "available" &&
+    input.run.primitiveCapabilities.push.status === "available" &&
+    input.run.primitiveCapabilities.fishability.status === "available" &&
+    !!input.run.push && !!input.run.fishabilityBands &&
+    !!input.run.baselineCoverage && !!input.run.waterTemperature &&
+    !!input.run.conditionsSuggest;
+  if (!fullObservedBundle) {
     const activityTargetStage = resolveRunStage(input.run, activityTargetDate);
     const activityActive =
       input.run.primitiveCapabilities.activity?.status === "available" &&
@@ -1565,9 +1670,16 @@ async function readOrBuildConditionRefresh(input: {
     const boundedFetch = withTimeoutFetch(input.fetchFn, PROVIDER_TIMEOUT_MS);
     const fishabilityAvailable =
       input.run.primitiveCapabilities.fishability.status === "available";
+    const pushAvailable =
+      input.run.primitiveCapabilities.push.status === "available" &&
+      !!input.run.push;
+    const pushHydraulicNeeded = pushAvailable &&
+      (input.run.push?.model !== "direct_event_state" ||
+        input.run.push.directEvent?.hydraulic !== "disabled");
     const observedActivity = activityActive &&
       input.run.activity?.dataMode !== "weather_only";
-    const primaryHydraulicSource = fishabilityAvailable || observedActivity
+    const primaryHydraulicSource = fishabilityAvailable || observedActivity ||
+        pushHydraulicNeeded
       ? getPrimaryHydraulicSource(input.river)
       : null;
     const gaugeObservations = primaryHydraulicSource
@@ -1577,6 +1689,8 @@ async function readOrBuildConditionRefresh(input: {
         refreshAtUtc: input.refreshAtUtc,
       })
       : [];
+    const conditionTrendRules = input.run.push?.hydraulic ??
+      input.run.activity?.hydraulicTrend;
     const gauge = primaryHydraulicSource
       ? normalizeGaugeRead({
         observations: gaugeObservations,
@@ -1584,20 +1698,16 @@ async function readOrBuildConditionRefresh(input: {
         primaryMetric: primaryHydraulicSource.primaryMetric,
         refreshAtUtc: input.refreshAtUtc,
         maxAgeHours: primaryHydraulicSource.maxAgeHours,
-        riseThresholds: input.run.activity?.hydraulicTrend
+        riseThresholds: conditionTrendRules
           ? {
-            rising24hAbsolute:
-              input.run.activity.hydraulicTrend.rising24h.absolute,
-            rising24hPercent:
-              input.run.activity.hydraulicTrend.rising24h.percent,
+            rising24hAbsolute: conditionTrendRules.rising24h.absolute,
+            rising24hPercent: conditionTrendRules.rising24h.percent,
             meaningfulRise24hAbsolute:
-              input.run.activity.hydraulicTrend.meaningfulRise24h.absolute,
+              conditionTrendRules.meaningfulRise24h.absolute,
             meaningfulRise24hPercent:
-              input.run.activity.hydraulicTrend.meaningfulRise24h.percent,
-            sharpRise24hAbsolute:
-              input.run.activity.hydraulicTrend.sharpRise24h.absolute,
-            sharpRise24hPercent:
-              input.run.activity.hydraulicTrend.sharpRise24h.percent,
+              conditionTrendRules.meaningfulRise24h.percent,
+            sharpRise24hAbsolute: conditionTrendRules.sharpRise24h.absolute,
+            sharpRise24hPercent: conditionTrendRules.sharpRise24h.percent,
           }
           : undefined,
       })
@@ -1624,7 +1734,10 @@ async function readOrBuildConditionRefresh(input: {
       refreshAtUtc: input.refreshAtUtc,
       localDate: input.localDate,
     });
-    const temperatureSources = observedActivity && input.run.waterTemperature
+    const pushTemperatureNeeded = pushAvailable &&
+      input.run.push?.directEvent?.temperature !== "disabled";
+    const temperatureNeeded = observedActivity || pushTemperatureNeeded;
+    const temperatureSources = temperatureNeeded && input.run.waterTemperature
       ? getRunTemperatureSources(input.river, {
         waterTemperature: input.run.waterTemperature,
       })
@@ -1663,6 +1776,7 @@ async function readOrBuildConditionRefresh(input: {
       refreshSlot: input.refreshSlot,
       movementEngineId: input.run.movementEngineId,
       primitiveCapabilities: input.run.primitiveCapabilities,
+      pushRules: input.run.push,
       activityRules: activityActive ? input.run.activity : undefined,
       activityTargetDate: activityActive ? activityTargetDate : undefined,
       activityTargetStage: activityTargetStage.stage,
@@ -1684,6 +1798,8 @@ async function readOrBuildConditionRefresh(input: {
       currentHydraulicValue,
       hydraulicAbsoluteChange24h: gauge?.flowTrend.absoluteChange24h ?? null,
       hydraulicPercentChange24h: gauge?.flowTrend.percentChange24h ?? null,
+      hydraulicChanges: gauge?.changes ?? [],
+      hydraulicFourHourSeries: gauge?.fourHourSeries ?? [],
       rainSignal: "missing_rain_data",
       flowSignal: gauge?.flowTrend.rawSignal ?? "unknown",
       temperatureSignal: measuredTemperature?.trend.rawSignal ??
@@ -1692,6 +1808,8 @@ async function readOrBuildConditionRefresh(input: {
       temperatureIsUpstreamFallback: measuredTemperature?.isUpstreamFallback ??
         false,
       waterTempF: measuredTemperature?.smoothedWaterTempF ?? null,
+      temperatureChanges: measuredTemperature?.changes ?? [],
+      temperatureFourHourSeries: measuredTemperature?.fourHourSeries ?? [],
       missingNonGaugeInputCount:
         (weather.weatherFreshness === "missing" ? 1 : 0) +
         (measuredTemperature ? 0 : 1),
@@ -1728,7 +1846,7 @@ async function readOrBuildConditionRefresh(input: {
           forecastDaily: weather.forecastDaily,
           hourlyActivityWeather: weather.hourlyActivityWeather,
         },
-        ...(observedActivity
+        ...(temperatureNeeded
           ? {
             waterTemperature: measuredTemperature
               ? {
@@ -2180,6 +2298,16 @@ async function fetchLiveWaterTemperatures(input: {
         });
         const parsed = csv
           ? parseMonitorMyWatershedTemperature({ csv, source })
+          : { observations: [], rejectedObservationCount: 0 };
+        return [source.sourceId, parsed] as const;
+      }
+      if (source.provider === "NOAA_NDBC") {
+        const text = await fetchNdbcWaterTemperature({
+          fetchFn: input.fetchFn,
+          source,
+        });
+        const parsed = text
+          ? parseNdbcWaterTemperature({ text, source })
           : { observations: [], rejectedObservationCount: 0 };
         return [source.sourceId, parsed] as const;
       }

@@ -133,7 +133,7 @@ Deno.test("PM configuration document binds both implemented fall movement branch
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v3",
+    "2026-09-03-pm-direct-push-v1+seasonal-zone-v3",
   );
 });
 

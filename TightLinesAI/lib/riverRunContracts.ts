@@ -131,6 +131,22 @@ export type RiverRunFishInRiver = RiverRunPrimitiveDisplay & {
 
 export type RiverRunPush = RiverRunPrimitiveDisplay & {
   rulesVersion?: string;
+  model?: "direct_event_state";
+  evidenceConfidence?: "Standard" | "Lower";
+  directSignals?: Partial<
+    Record<"hydraulic" | "temperature", {
+      level: 0 | 1 | 2 | 3;
+      phase: "neutral" | "building" | "holding" | "fading";
+      onsetAt?: string;
+      ageHours?: number;
+      baseline?: number;
+      current?: number;
+      peakChange?: number;
+      retainedChange?: number;
+      retentionFraction?: number;
+      triggerWindowHours?: 12 | 24;
+    }>
+  >;
   components?: {
     hydraulicBase?: number;
     hydraulicAdjustment?: number;
@@ -262,7 +278,7 @@ export type RiverRunLiveConditionMetric = {
   approvalStatus?: string;
   qualifier?: string;
   sourceId: string;
-  provider: "USGS" | "MONITOR_MY_WATERSHED" | "WA_ECOLOGY";
+  provider: "USGS" | "MONITOR_MY_WATERSHED" | "NOAA_NDBC" | "WA_ECOLOGY";
   stationName: string;
   siteId: string;
   representedReach: string;
@@ -388,6 +404,7 @@ export type RiverRunPushHistory = {
   }>;
   todayReadsStatus?: "available" | "unavailable";
   todayReads?: RiverRunPushWindowRead[];
+  recentWindowReads?: RiverRunPushWindowRead[];
   currentWindow?: RiverRunPushWindowRead;
   lastSupportiveConditions?: {
     localDate: string;
@@ -401,11 +418,12 @@ export type RiverRunPushHistory = {
 export type RiverRunPushWindowRead = {
   localDate: string;
   refreshSlot: string;
-  conditionRefreshAt: string;
+  conditionRefreshAt?: string;
   startTime: string;
   endTime: string;
-  score: number;
+  score: number | null;
   label: string;
+  status?: "recorded" | "missing";
   isCurrent: boolean;
 };
 

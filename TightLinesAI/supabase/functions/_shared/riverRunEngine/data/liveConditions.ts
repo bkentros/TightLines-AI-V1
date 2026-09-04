@@ -36,9 +36,11 @@ import {
 } from "./usgs.ts";
 import {
   fetchMonitorMyWatershedTemperature,
+  fetchNdbcWaterTemperature,
   fetchUsgsWaterTemperature,
   type NormalizedWaterTemperatureObservation,
   parseMonitorMyWatershedTemperature,
+  parseNdbcWaterTemperature,
   parseUsgsWaterTemperature,
   resolveWaterTemperatureRead,
 } from "./waterTemperature.ts";
@@ -428,7 +430,7 @@ async function resolveSeasonalContext(input: {
   sourceId: string;
   siteId: string;
   metric: RiverLiveMetricId;
-  provider: "USGS" | "MONITOR_MY_WATERSHED";
+  provider: "USGS" | "MONITOR_MY_WATERSHED" | "NOAA_NDBC";
   temperatureSource?: WaterTemperatureSourceConfig;
   seasonalContextsByMetric?: Partial<
     Record<RiverLiveMetricId, RiverLiveSeasonalContext | null>
@@ -474,7 +476,7 @@ async function resolveSeasonalContext(input: {
         metric: input.metric as "flow_cfs" | "water_temp_f",
         localDate: input.localDate,
       })
-      : input.temperatureSource
+      : input.provider === "MONITOR_MY_WATERSHED" && input.temperatureSource
       ? await fetchMonitorSeasonalContext({
         fetchFn: input.fetchFn,
         river: input.river,
@@ -609,6 +611,11 @@ async function fetchTemperatureObservations(
             source,
             endAtUtc: refreshAtUtc,
           }) ?? {},
+          source,
+        })
+        : source.provider === "NOAA_NDBC"
+        ? parseNdbcWaterTemperature({
+          text: await fetchNdbcWaterTemperature({ fetchFn, source }) ?? "",
           source,
         })
         : parseMonitorMyWatershedTemperature({

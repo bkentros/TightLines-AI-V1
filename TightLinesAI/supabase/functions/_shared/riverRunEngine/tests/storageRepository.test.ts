@@ -818,7 +818,7 @@ Deno.test("draft configuration upsert validates and uses immutable revision key"
   );
   assertEquals(
     result.data?.document.configVersion,
-    "2026-08-27-pm-fishability-reconciliation.17+seasonal-zone-v3",
+    "2026-09-03-pm-direct-push-v1+seasonal-zone-v3",
   );
 });
 

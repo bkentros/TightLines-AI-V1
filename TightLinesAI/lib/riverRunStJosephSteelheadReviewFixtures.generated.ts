@@ -94,13 +94,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -489,7 +491,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -578,13 +580,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -973,7 +977,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -1063,13 +1067,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -1526,7 +1532,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -1633,30 +1639,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -2115,7 +2130,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -2222,30 +2237,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -2704,7 +2728,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -2834,30 +2858,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -3310,7 +3343,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -3440,30 +3473,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -3916,7 +3958,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -4072,30 +4114,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -4540,13 +4591,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -4554,7 +4599,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -4721,30 +4766,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -5189,13 +5243,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -5203,7 +5251,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -5370,30 +5418,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -5846,7 +5903,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -6013,31 +6070,18 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": null,
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "too_warm",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -6489,7 +6533,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -6660,13 +6704,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Fall entry complete",
             "headline": "St. Joseph Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -7066,7 +7112,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -7161,13 +7207,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -7556,7 +7604,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -7645,13 +7693,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -8040,7 +8090,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -8129,13 +8179,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -8524,7 +8576,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -8613,13 +8665,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -9008,7 +9062,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -9097,13 +9151,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -9492,7 +9548,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -9581,13 +9637,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -9976,7 +10034,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -10103,30 +10161,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -10585,7 +10652,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -10698,30 +10765,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -11180,7 +11256,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -11287,30 +11363,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -11764,7 +11849,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -11871,29 +11956,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 47,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow has started to rise. Water temperature remains too warm to support a strong Push and is cooling. Rain adds limited support while Niles begins to rise.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_partial_precursor",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 52,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
-              "rainModifier": 3,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "partial_precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -12346,7 +12441,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -12453,29 +12548,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 62,
-            "label": "Possible",
-            "headline": "Niles water offers some support for fresh movement.",
-            "detail": "Niles flow has made a clear rise. Water temperature remains too warm to support a strong Push and is cooling. Niles already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_absorbed_by_gauge",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -12934,7 +13039,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -13041,28 +13146,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 88,
-            "label": "Very strong",
-            "headline": "Niles water offers its strongest support for fresh movement.",
-            "detail": "Niles flow is rising quickly. Water is on the warm side for fall migration and is cooling sharply. Niles already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "push_rain_absorbed_by_gauge"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 8,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -13515,7 +13631,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -13622,30 +13738,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 37,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is cooling. Rain is only a precursor because Niles has not responded.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
-              "rainModifier": 10,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -14104,7 +14229,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -14211,31 +14336,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 32,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow does not have a dependable recent trend. Water temperature remains too warm to support a strong Push and is cooling. Without a dependable Niles trend, the read cannot show a clear Push.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap",
-              "push_unknown_trend_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 30,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
-              "rainModifier": 10,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -14691,7 +14824,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -14798,31 +14931,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 55,
-            "label": "Possible",
-            "headline": "Niles water offers some support for fresh movement.",
-            "detail": "Niles flow is rising quickly. Water is on the warm side for fall migration and is cooling sharply. The Niles reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "push_rain_absorbed_by_gauge",
-              "push_stale_gauge_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 8,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": [
-                55
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -15278,7 +15419,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -15385,31 +15526,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 49,
-            "label": "No clear push",
-            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
-            "detail": "Niles flow is rising quickly, while overall flow is extreme. Water is on the warm side for fall migration and is cooling sharply. Rain adds no support while Niles flow is already high.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_transitional",
-              "push_rain_suppressed_high_flow",
-              "push_severe_high_flow_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 80,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": 8,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "transitional_warm",
-              "rainRole": "suppressed_high_flow",
-              "appliedCaps": [
-                49
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -15865,7 +16014,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -15972,15 +16121,35 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_too_warm"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -16394,7 +16563,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -16501,16 +16670,34 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -16932,7 +17119,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -17021,13 +17208,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 60,
@@ -17410,7 +17599,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -17499,13 +17688,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 80,
@@ -17894,7 +18085,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -17983,13 +18174,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 80,
@@ -18378,7 +18571,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -18485,30 +18678,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise, while overall flow remains low. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "low",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -18962,7 +19164,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -19075,30 +19277,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -19551,7 +19762,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -19658,31 +19869,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap",
-              "push_severe_high_flow_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -20137,7 +20356,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -20244,29 +20463,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 35,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow has started to rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 52,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -20725,7 +20954,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -20832,29 +21061,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 68,
-            "label": "Possible",
-            "headline": "Niles water offers some support for fresh movement.",
-            "detail": "Niles flow is rising quickly. Water temperature remains too warm to support a strong Push and is relatively steady. Niles already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Keep Migration Stage’s section primary and add one Niles-area movement check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_absorbed_by_gauge",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -21310,7 +21549,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -21417,31 +21656,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow does not have a dependable recent trend. Water temperature remains too warm to support a strong Push and is relatively steady. Without a dependable Niles trend, the read cannot show a clear Push.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_unknown_trend_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 30,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -21897,7 +22144,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -22004,31 +22251,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 8,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. The Niles reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap",
-              "push_stale_gauge_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -22484,7 +22739,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -22591,15 +22846,35 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_too_warm"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -23013,7 +23288,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -23120,30 +23395,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -23602,7 +23886,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -23709,30 +23993,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -24191,7 +24484,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -24298,30 +24591,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -24774,7 +25076,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -24870,13 +25172,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -25334,7 +25638,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -25441,29 +25745,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 27,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -3,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -25922,7 +26236,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -26052,29 +26366,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -26527,7 +26851,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -26683,29 +27007,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 27,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -3,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -27150,13 +27484,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -27164,7 +27492,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -27294,29 +27622,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise, while overall flow is high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_cold_active",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_cold_active"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "cold_active",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -27769,7 +28107,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -27876,30 +28214,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -28359,7 +28706,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -28466,30 +28813,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -28949,7 +29305,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -29105,31 +29461,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Extreme Niles flow prevents a dependable fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise, while overall flow is extreme. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap",
-              "push_severe_high_flow_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -29576,13 +29940,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -29590,7 +29948,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -29757,29 +30115,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -30232,7 +30600,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -30399,30 +30767,18 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Niles water does not show a clear fresh-movement signal.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": null,
+            "label": "Fall entry complete",
+            "headline": "St. Joseph Steelhead fall-entry Push is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -30874,7 +31230,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -31045,13 +31401,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Fall entry complete",
             "headline": "St. Joseph Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -31451,7 +31809,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -31607,16 +31965,34 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -32032,7 +32408,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -32188,15 +32564,35 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_too_warm"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -32610,7 +33006,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -32705,13 +33101,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -33100,7 +33498,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -33207,30 +33605,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -33689,7 +34096,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -33796,30 +34203,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -34278,7 +34694,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -34408,30 +34824,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -34884,7 +35309,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -35014,30 +35439,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -35490,7 +35924,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -35620,30 +36054,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -36096,7 +36539,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -36252,30 +36695,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -36728,7 +37180,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -36884,30 +37336,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -37352,13 +37813,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -37366,7 +37821,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -37533,30 +37988,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -38009,7 +38473,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -38180,13 +38644,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Fall entry complete",
             "headline": "St. Joseph Steelhead fall-entry Push is complete.",
-            "detail": "Current water may affect Steelhead still in the river. This fall model no longer scores fresh-entry support.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Do not use a completed fall Push to infer current presence. Check back in early September.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -38586,7 +39052,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -38699,28 +39165,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 70,
-            "label": "Strong",
-            "headline": "Niles water strongly supports possible fresh movement.",
-            "detail": "Niles flow has made a clear rise, while overall flow is high. Water is on the warm side for fall migration and is cooling. Rain adds no support while Niles flow is already high.",
-            "tip": "Use Niles as the movement check, then verify the Lower and Upper river directly.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_transitional",
-              "push_rain_suppressed_high_flow"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 70,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": 5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "transitional_warm",
-              "rainRole": "suppressed_high_flow",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -39165,13 +39642,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
-            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
-            "reasonCodes": [
-              "strong_push_low_fishability"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
           "safety": {
             "regulationReminder": "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
@@ -39179,7 +39650,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -39286,30 +39757,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is falling. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -39763,7 +40243,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -39853,13 +40333,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -40279,7 +40761,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -40368,13 +40850,15 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable fall entry has not started, so Push is not active yet.",
-            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -40763,7 +41247,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -40876,30 +41360,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 18,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -41358,7 +41851,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -41465,31 +41958,39 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": 8,
-            "label": "Weak",
-            "headline": "Niles water shows little support for fresh movement.",
-            "detail": "Niles flow is steady without a meaningful rise. Water temperature remains too warm to support a strong Push and is relatively steady. The Niles reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift sections from this Niles read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap",
-              "push_stale_gauge_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -41945,7 +42446,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -42052,15 +42553,35 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_too_warm"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -42474,7 +42995,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -42581,16 +43102,34 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "st-joseph-niles-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "st-joseph-niles-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -43012,7 +43551,7 @@ export const RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] 
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-31-st-joseph-fish-counts.4+seasonal-zone-v3"
+          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]

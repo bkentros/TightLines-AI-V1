@@ -8,13 +8,86 @@ import {
   type NormalizedGaugeObservation,
   normalizeGaugeRead,
   normalizeWeatherSnapshot,
+  parseNdbcWaterTemperature,
   parseUsgsInstantaneousValues,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveAdminOverrideBand,
+  resolveDataQuality,
   resolveFlowBand,
   resolveRainSignal,
+  type WaterTemperatureSourceConfig,
 } from "../index.ts";
+
+Deno.test("Data Quality counts missing inputs monotonically without penalizing intentionally unused temperature", () => {
+  const common = {
+    gaugeFreshness: "fresh" as const,
+    weatherFreshness: "fresh" as const,
+    temperatureSourceType: "unavailable" as const,
+    conditionsSuggestDaysUsable: 0,
+    conditionsSuggestExpectedDays: 0,
+  };
+  assertEquals(
+    resolveDataQuality({
+      ...common,
+      temperatureExpected: false,
+      missingNonGaugeInputCount: 1,
+    }).label,
+    "Fresh",
+  );
+  assertEquals(
+    resolveDataQuality({
+      ...common,
+      temperatureExpected: true,
+      missingNonGaugeInputCount: 1,
+    }).label,
+    "Partial",
+  );
+  assertEquals(
+    resolveDataQuality({
+      ...common,
+      temperatureExpected: true,
+      missingNonGaugeInputCount: 2,
+    }).label,
+    "Limited",
+  );
+});
+
+Deno.test("NDBC realtime text normalizes measured receiving-water temperature", () => {
+  const source: WaterTemperatureSourceConfig = {
+    sourceId: "oswego_45215_temperature",
+    provider: "NOAA_NDBC",
+    siteId: "45215",
+    name: "Oswego buoy",
+    role: "primary",
+    priority: 1,
+    sourceType: "receiving_water",
+    maxAgeHours: 2,
+    smoothingWindowHours: 3,
+    minValidF: 32,
+    maxValidF: 86,
+    maxRateChangeFPerHour: 4,
+    maxPeerDifferenceF: 6,
+    reachNotes: "Measured offshore receiving-water context.",
+    attribution: "NOAA NDBC station 45215.",
+  };
+  const parsed = parseNdbcWaterTemperature({
+    source,
+    text: [
+      "#YY MM DD hh mm WDIR WSPD GST WVHT DPD APD MWD PRES ATMP WTMP DEWP VIS PTDY TIDE",
+      "#yr mo dy hr mn degT m/s m/s m sec sec degT hPa degC degC degC nmi hPa ft",
+      "2026 09 02 23 56 MM MM MM MM MM MM MM MM 23.2 22.1 MM MM MM MM",
+      "2026 09 02 23 26 MM MM MM MM MM MM MM MM 23.0 21.9 MM MM MM MM",
+    ].join("\n"),
+  });
+  assertEquals(parsed.rejectedObservationCount, 0);
+  assertEquals(parsed.observations.length, 2);
+  assertEquals(
+    parsed.observations[0].source,
+    "ndbc_realtime_standard_meteorological",
+  );
+  assertEquals(Math.round(parsed.observations[0].waterTempF * 10) / 10, 71.4);
+});
 
 Deno.test("Open-Meteo forecast retries one transient empty response", async () => {
   let calls = 0;

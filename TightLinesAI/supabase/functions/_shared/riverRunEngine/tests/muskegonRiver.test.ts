@@ -115,46 +115,17 @@ Deno.test("Muskegon flow bands honor every Croton boundary", () => {
   }
 });
 
-Deno.test("Muskegon Push requires gauge response, fails closed, and keeps Steelhead cold holding", () => {
-  const base = {
-    movementEngineId: chinook.movementEngineId,
-    rules: chinook.push,
-    gaugeFreshness: "fresh" as const,
-    currentHydraulicValue: 1500,
-    hydraulicAbsoluteChange24h: 0,
-    hydraulicPercentChange24h: 0,
-    rainSignal: "heavy_rain" as const,
-    temperatureSignal: "cooling" as const,
-    temperatureSourceType: "same_gauge" as const,
-    waterTempF: 55,
-    trackingState: "active" as const,
-    trackingStartDate: "2026-08-20",
-    trackingEndDate: "2026-11-05",
-    localDate: "2026-09-20",
-  };
-  const rainOnly = scorePush({ ...base, flowSignal: "stable" });
-  assert(!["Strong", "Very strong"].includes(rainOnly.label));
-  assertEquals(
-    scorePush({ ...base, flowSignal: "unknown", gaugeFreshness: "missing" })
-      .label,
-    "Unavailable",
-  );
-  assertEquals(
-    scorePush({ ...base, flowSignal: "meaningful_rise", waterTempF: null })
-      .label,
-    "Unavailable",
-  );
-  const cold = scorePush({
-    ...base,
-    movementEngineId: steelhead.movementEngineId,
-    rules: steelhead.push,
-    flowSignal: "meaningful_rise",
-    hydraulicAbsoluteChange24h: 160,
-    hydraulicPercentChange24h: 11,
-    waterTempF: 38,
-  });
-  assert((cold.score ?? 100) <= 49);
-  assertEquals(cold.components?.temperatureState, "cold_holding");
+Deno.test("Muskegon Push uses independent same-gauge flow and temperature events", () => {
+  for (const profile of [chinook, coho, steelhead]) {
+    assertEquals(profile.push.model, "direct_event_state");
+    assertEquals(profile.push.directEvent?.hydraulic, "trigger");
+    assertEquals(
+      profile.push.directEvent?.temperature,
+      "trigger_and_constraint",
+    );
+    assertEquals(profile.push.directEvent?.persistenceHours, 48);
+  }
+  assertEquals(steelhead.push.temperature.coldHoldingF, 39);
 });
 
 Deno.test("Muskegon Chinook Activity is independently calibrated to the Croton tailwater", () => {

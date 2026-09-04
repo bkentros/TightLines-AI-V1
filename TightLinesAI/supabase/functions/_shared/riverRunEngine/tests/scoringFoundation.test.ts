@@ -2,6 +2,7 @@ import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   type FishabilityScoreInput,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+  type PushRules,
   type PushScoreInput,
   resolveActiveRunWindow,
   resolveFlowTrendSignal,
@@ -16,6 +17,11 @@ import {
 } from "../index.ts";
 
 const pmRun = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const legacyPushRules: PushRules = {
+  ...pmRun.push,
+  model: "legacy_weighted",
+  directEvent: undefined,
+};
 
 Deno.test("unavailable Activity is explicit, deterministic, and river-neutral", () => {
   const result = unavailableActivity({
@@ -45,7 +51,7 @@ function pushWith(
 ): ReturnType<typeof scorePush> {
   return scorePush({
     movementEngineId: "fall_cooling",
-    rules: pmRun.push,
+    rules: legacyPushRules,
     gaugeFreshness: "fresh",
     flowSignal: "stable",
     currentHydraulicValue: 550,
@@ -312,7 +318,7 @@ Deno.test("sharp Scottville response plus supportive cooling produces Very stron
 Deno.test("Push copy does not expose internal source or suitability labels", () => {
   const result = pushWith({
     rules: {
-      ...pmRun.push,
+      ...legacyPushRules,
       hydraulic: {
         ...pmRun.push.hydraulic,
         sourceLabel: "Future River Gauge",

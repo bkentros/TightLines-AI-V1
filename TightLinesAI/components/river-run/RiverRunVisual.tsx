@@ -40,6 +40,7 @@ const KIND_STAGGER: Record<RiverRunVisualKind, number> = {
   activity: 460,
   fish_in_river: 920,
   fishability: 1380,
+  push: 1840,
 };
 
 export function RiverRunVisual({

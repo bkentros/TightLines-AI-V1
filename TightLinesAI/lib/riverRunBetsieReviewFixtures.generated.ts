@@ -159,7 +159,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_missing",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -395,7 +394,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -630,7 +628,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -865,7 +862,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -1100,7 +1096,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -1335,7 +1330,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -1570,7 +1564,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -1806,7 +1799,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -2042,7 +2034,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -2278,7 +2269,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -2449,7 +2439,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_missing",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -2690,7 +2679,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -2931,7 +2919,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -3172,7 +3159,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -3414,7 +3400,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -3649,7 +3634,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -3884,7 +3868,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -4119,7 +4102,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -4354,7 +4336,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -4589,7 +4570,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -4825,7 +4805,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -5061,7 +5040,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -5297,7 +5275,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -5533,7 +5510,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -5781,7 +5757,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -6016,7 +5991,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -6251,7 +6225,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -6486,7 +6459,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -6721,7 +6693,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -6956,7 +6927,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -7192,7 +7162,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -7428,7 +7397,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },
@@ -7664,7 +7632,6 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "reasonCodes": [
               "gauge_missing",
               "weather_fresh",
-              "temperature_unavailable",
               "data_quality_limited"
             ]
           },

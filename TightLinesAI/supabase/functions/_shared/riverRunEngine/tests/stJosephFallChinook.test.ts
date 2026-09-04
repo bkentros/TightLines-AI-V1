@@ -105,35 +105,9 @@ Deno.test("St. Joseph Chinook shares Niles hydraulics and owns Chinook migration
     "ideal",
   );
 
-  const base = {
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh" as const,
-    currentHydraulicValue: 2400,
-    hydraulicAbsoluteChange24h: 0,
-    hydraulicPercentChange24h: 0,
-    rainSignal: "heavy_rain" as const,
-    temperatureSignal: "cooling" as const,
-    temperatureSourceType: "same_gauge" as const,
-    waterTempF: 60,
-    trackingState: "active" as const,
-    trackingStartDate: "2026-09-01",
-    trackingEndDate: "2026-11-01",
-    localDate: "2026-09-20",
-  };
-  assert(
-    !["Strong", "Very strong"].includes(
-      scorePush({ ...base, flowSignal: "stable" as const }).label,
-    ),
-  );
-  const hot = scorePush({
-    ...base,
-    flowSignal: "sharp_rise" as const,
-    hydraulicAbsoluteChange24h: 450,
-    hydraulicPercentChange24h: 19,
-    waterTempF: 72,
-  });
-  assert((hot.score ?? 100) <= 49);
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.temperature, "trigger_and_constraint");
+  assertEquals(run.push.directEvent?.persistenceHours, 48);
 });
 
 Deno.test("St. Joseph Chinook Migration Timing is Niles-bound and dedicated", () => {

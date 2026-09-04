@@ -6,6 +6,7 @@ import {
   type ConditionsSuggestEvidence,
   type ConditionsSuggestEvidenceByDate,
   daysBetween,
+  type DirectEventSample,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
@@ -824,14 +825,56 @@ function pushGroup(): Group {
       !["temperature_cold_active", "temperature_cold_holding"].includes(id)
     ).map(([id, label, overrides]) => {
       const input = { ...base, ...overrides };
+      const directPolicy = run.push.directEvent;
+      const coolingDrop = input.temperatureSignal === "strong_cooling"
+        ? directPolicy?.strongCoolingF ?? 0
+        : input.temperatureSignal === "cooling"
+        ? directPolicy?.coolingF ?? 0
+        : 0;
+      const scoringInput = run.push.model === "direct_event_state"
+        ? {
+          ...input,
+          hydraulicFourHourSeries: directEventFixtureSeries(
+            input.currentHydraulicValue,
+            input.currentHydraulicValue == null ||
+              input.hydraulicAbsoluteChange24h == null
+              ? null
+              : input.currentHydraulicValue -
+                input.hydraulicAbsoluteChange24h,
+          ),
+          temperatureFourHourSeries: directEventFixtureSeries(
+            input.waterTempF,
+            input.waterTempF == null ? null : input.waterTempF + coolingDrop,
+          ),
+        }
+        : input;
       return snapshotScenario({
         id: `push_${id}`,
         label,
         localDate: input.localDate,
-        push: scorePush(input),
+        push: scorePush(scoringInput),
       });
     }),
   };
+}
+
+function directEventFixtureSeries(
+  currentValue: number | null,
+  priorValue: number | null,
+): DirectEventSample[] {
+  if (currentValue == null || priorValue == null) return [];
+  const values = [
+    ...Array<number>(13).fill(priorValue),
+    ...Array<number>(6).fill(currentValue),
+  ];
+  const end = Date.parse(`${reviewBaseDate}T20:00:00.000Z`);
+  return values.map((value, index) => ({
+    windowEndAt: new Date(
+      end - (values.length - 1 - index) * 4 * 3_600_000,
+    ).toISOString(),
+    value,
+    observationCount: 8,
+  }));
 }
 
 function fishabilityGroup(): Group {

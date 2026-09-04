@@ -1,5 +1,6 @@
 import type {
   ActivityRules,
+  DirectEventSample,
   FishabilityBands,
   FlowBand,
   GaugeFreshness,
@@ -132,6 +133,17 @@ export function buildConditionRefresh(input: {
   temperatureSourceType: TemperatureSourceType;
   temperatureIsUpstreamFallback?: boolean;
   temperaturePositiveSignalCap?: 0 | 1 | 2;
+  hydraulicChanges?: Array<{
+    hours: 12 | 24 | 48;
+    absolute: number | null;
+    percent: number | null;
+  }>;
+  hydraulicFourHourSeries?: DirectEventSample[];
+  temperatureChanges?: Array<{
+    hours: 12 | 24 | 48;
+    deltaF: number | null;
+  }>;
+  temperatureFourHourSeries?: DirectEventSample[];
   waterTempF: number | null;
   missingNonGaugeInputCount?: number;
   rainReasonCodes?: RiverRunReasonCode[];
@@ -143,8 +155,19 @@ export function buildConditionRefresh(input: {
 }): RiverRunConditionRefresh {
   const trackingStartDate = input.dailySnapshot.runStage.window.startDate;
   const trackingEndDate = input.dailySnapshot.runStage.window.endDate;
-  const trackingState = input.dailySnapshot.runStage.label === "Offseason" ||
-      input.dailySnapshot.runStage.label === "Fall run complete"
+  const directEventTracking = input.pushRules?.model === "direct_event_state";
+  const trackingState = directEventTracking
+    ? input.dailySnapshot.runStage.stage === "beginning" ||
+        input.dailySnapshot.runStage.stage === "building" ||
+        input.dailySnapshot.runStage.stage === "peak" ||
+        input.dailySnapshot.runStage.stage === "tapering"
+      ? "active"
+      : input.dailySnapshot.runStage.stage === "ending" ||
+          input.dailySnapshot.runStage.stage === "post_run"
+      ? "complete"
+      : "not_started"
+    : input.dailySnapshot.runStage.label === "Offseason" ||
+        input.dailySnapshot.runStage.label === "Fall run complete"
     ? "offseason"
     : input.dailySnapshot.runStage.label === "Fall entry complete"
     ? "complete"
@@ -186,6 +209,10 @@ export function buildConditionRefresh(input: {
       localDate: input.localDate,
       copyStrategy: input.dailySnapshot.runStage.copyStrategy,
       monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
+      hydraulicChanges: input.hydraulicChanges,
+      temperatureChanges: input.temperatureChanges,
+      hydraulicFourHourSeries: input.hydraulicFourHourSeries,
+      temperatureFourHourSeries: input.temperatureFourHourSeries,
     });
   const fishability = fishabilityCapability.status === "unavailable"
     ? unavailableFishability(
@@ -207,6 +234,13 @@ export function buildConditionRefresh(input: {
   const activityCapability = input.primitiveCapabilities?.activity ?? {
     status: "available" as const,
   };
+  const pushUsesTemperature = pushCapability.status === "available" &&
+    (input.pushRules?.model !== "direct_event_state" ||
+      input.pushRules.directEvent?.temperature !== "disabled");
+  const activityUsesTemperature = activityCapability.status === "available" &&
+    (input.activityRules?.weights.waterTemperature ?? 0) > 0;
+  const timingUsesTemperature =
+    input.primitiveCapabilities?.migrationTiming.status === "available";
   const activity = activityCapability.status === "unavailable"
     ? unavailableActivity({
       reason: activityCapability.reason,
@@ -246,6 +280,8 @@ export function buildConditionRefresh(input: {
     gaugeFreshness: input.gaugeFreshness,
     weatherFreshness: input.weatherFreshness,
     temperatureSourceType: input.temperatureSourceType,
+    temperatureExpected: pushUsesTemperature || activityUsesTemperature ||
+      timingUsesTemperature,
     temperatureIsUpstreamFallback: input.temperatureIsUpstreamFallback,
     conditionsSuggestDaysUsable:
       input.dailySnapshot.conditionsSuggest.usableDays,

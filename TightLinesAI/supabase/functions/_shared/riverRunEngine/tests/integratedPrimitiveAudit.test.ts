@@ -8,6 +8,7 @@ import {
   daysBetween,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   type PrimitiveDisplay,
+  type PushRules,
   resolveConditionsSuggestCheckpoints,
   resolveInterpretationNote,
   resolveRunStage,
@@ -21,6 +22,11 @@ import {
 } from "../index.ts";
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const legacyPushRules: PushRules = {
+  ...run.push,
+  model: "legacy_weighted",
+  directEvent: undefined,
+};
 const prohibitedCopy = [
   /catch probability/i,
   /\bguarantee(?:d)?\b/i,
@@ -169,7 +175,7 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
 Deno.test("integrated PM season boundaries cannot retain an active Push", () => {
   const strongInputs = {
     movementEngineId: run.movementEngineId,
-    rules: run.push,
+    rules: legacyPushRules,
     gaugeFreshness: "fresh" as const,
     rainSignal: "strong_rain" as const,
     flowSignal: "sharp_rise" as const,
@@ -421,7 +427,7 @@ function conditionsBaseline(
 function pushVariants(): PrimitiveDisplay[] {
   const base = {
     movementEngineId: run.movementEngineId,
-    rules: run.push,
+    rules: legacyPushRules,
     gaugeFreshness: "fresh" as const,
     flowSignal: "stable" as const,
     currentHydraulicValue: 550,

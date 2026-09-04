@@ -3,9 +3,11 @@ import type {
   BaselineCoverage,
   FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import { withSeasonalZonePlan } from "../seasonalZonePlans.ts";
 import {
@@ -540,10 +542,7 @@ const capabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
       "The current product does not expose a live migration-timing primitive.",
   },
   push: {
-    status: "unavailable",
-    reason: "no_accepted_water_temperature_source",
-    notes:
-      "The current product does not expose Push, and no representative live water-temperature source is accepted.",
+    status: "available",
   },
 };
 
@@ -657,6 +656,84 @@ const COWLITZ_BASELINE: BaselineCoverage = {
   sourceNotes:
     "USGS 14243000 approved daily discharge covers all 5,400 dates in the July 15-February 15 union across 2001-2025; the station's documented 1985-2000 seasonal interval is not mixed into this baseline.",
 };
+
+function washingtonMovementTemperature(
+  species: "chinook" | "coho",
+): Omit<PushRules["temperature"], "suitabilityLabel"> {
+  return species === "chinook"
+    ? {
+      supportiveMinF: 44,
+      preferredMinF: 48,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 72,
+    }
+    : {
+      supportiveMinF: 42,
+      preferredMinF: 45,
+      supportiveMaxF: 60,
+      tooWarmF: 64,
+      migrationBarrierF: 68,
+    };
+}
+
+function washingtonPush(input: {
+  runId: string;
+  riverId: "green" | "puyallup" | "cowlitz";
+  species: "chinook" | "coho";
+}): PushRules {
+  const shared = {
+    version: `${input.runId}-flow-direct-push-v1`,
+    activityProfile: input.species === "chinook"
+      ? "chinook_fall_reaction" as const
+      : "coho_fall_reaction" as const,
+    movementTemperature: washingtonMovementTemperature(input.species),
+    temperatureMode: "disabled" as const,
+  };
+  if (input.riverId === "green") {
+    return buildDirectEventPushRules({
+      ...shared,
+      fishability: GREEN_FISHABILITY,
+      hydraulicTrend: {
+        rising24h: { absolute: 11, percent: 3 },
+        meaningfulRise24h: { absolute: 38, percent: 8.5 },
+        sharpRise24h: { absolute: 144, percent: 24 },
+      },
+      evidenceNotes:
+        "Fresh Push Watch uses only Auburn's measured hydraulic response. Across the exact July 20-Nov. 15 Push union in 2019-2025, 372 consecutive-day positive rises were approximately 11/3.0% at p50, 38/8.5% at p75, and 143.6/24.0% at p90. Both absolute and percentage thresholds must pass. The gauge directly represents the Auburn/Big Soos migration reach; tidal Duwamish conditions, water temperature, precipitation, and hatchery returns are unscored.",
+      sourceNotes:
+        "USGS 12113000 approved daily discharge and live high-cadence flow near Auburn. The reading represents Auburn/Big Soos, not the tidal Duwamish or upper municipal watershed.",
+    });
+  }
+  if (input.riverId === "puyallup") {
+    return buildDirectEventPushRules({
+      ...shared,
+      fishability: PUYALLUP_FISHABILITY,
+      hydraulicTrend: {
+        rising24h: { absolute: 90, percent: 6.2 },
+        meaningfulRise24h: { absolute: 210, percent: 13.4 },
+        sharpRise24h: { absolute: 674, percent: 33.8 },
+      },
+      evidenceNotes:
+        "Fresh Push Watch uses only the lower-mainstem hydraulic response at Puyallup. Across the exact July 15-Nov. 10 Push union in 2019-2025, 342 consecutive-day positive rises were approximately 90/6.2% at p50, 210/13.4% at p75, and 674/33.8% at p90. Both absolute and percentage thresholds must pass. The model does not infer turbidity, glacier runoff cause, temperature, precipitation, or hatchery returns, and it does not represent the Carbon confluence.",
+      sourceNotes:
+        "USGS 12101500 approved daily discharge and live high-cadence flow at river mile 6.6, in the supported lower migration corridor just upstream of Clarks Creek.",
+    });
+  }
+  return buildDirectEventPushRules({
+    ...shared,
+    fishability: COWLITZ_FISHABILITY,
+    hydraulicTrend: {
+      rising24h: { absolute: 230, percent: 5.2 },
+      meaningfulRise24h: { absolute: 720, percent: 16.4 },
+      sharpRise24h: { absolute: 1310, percent: 30.8 },
+    },
+    evidenceNotes:
+      "Fresh Push Watch uses only Castle Rock's measured lower-mainstem hydraulic response. Across the exact Aug. 1-Nov. 30 Push union in 2019-2025, 311 consecutive-day positive rises were approximately 230/5.2% at p50, 720/16.4% at p75, and 1,310/30.8% at p90. Both absolute and percentage thresholds must pass. The model detects an observed lower-river event without assigning it to project releases or tributary runoff; water temperature, precipitation, below-Mayfield context, and separator counts are unscored.",
+    sourceNotes:
+      "USGS 14243000 approved daily discharge and live high-cadence flow at Castle Rock below major tributary inputs. It represents the lower mainstem, not the Barrier Dam tailwater or project-release reach.",
+  });
+}
 
 function presence(
   maximum: HistoricalPresenceConfig["maximum"],
@@ -774,6 +851,11 @@ export const GREEN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     taperingEnd: "10-25",
     lateEnd: "11-15",
   }),
+  push: washingtonPush({
+    runId: "green_fall_chinook",
+    riverId: "green",
+    species: "chinook",
+  }),
   researchNotes:
     "Hidden Washington owner-review candidate. Soos counts never alter Stage, Presence, or Activity.",
   sourceNotes: "docs/onboarding/river-run/green/river-onboarding.md",
@@ -831,6 +913,11 @@ export const GREEN_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     taperingEnd: "11-15",
     lateEnd: "12-15",
   }),
+  push: washingtonPush({
+    runId: "green_fall_coho",
+    riverId: "green",
+    species: "coho",
+  }),
 };
 
 export const PUYALLUP_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -887,6 +974,11 @@ export const PUYALLUP_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     taperingEnd: "10-01",
     lateEnd: "10-25",
   }),
+  push: washingtonPush({
+    runId: "puyallup_fall_chinook",
+    riverId: "puyallup",
+    species: "chinook",
+  }),
   researchNotes:
     "Hidden lower-Puyallup salmon-corridor candidate. No guidance above the Carbon confluence.",
   sourceNotes: "docs/onboarding/river-run/puyallup/river-onboarding.md",
@@ -939,6 +1031,11 @@ export const PUYALLUP_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     taperingEnd: "11-10",
     lateEnd: "12-05",
   }),
+  push: washingtonPush({
+    runId: "puyallup_fall_coho",
+    riverId: "puyallup",
+    species: "coho",
+  }),
 };
 
 export const COWLITZ_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -989,6 +1086,11 @@ export const COWLITZ_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     peakEnd: "09-30",
     taperingEnd: "10-20",
     lateEnd: "12-01",
+  }),
+  push: washingtonPush({
+    runId: "cowlitz_fall_chinook",
+    riverId: "cowlitz",
+    species: "chinook",
   }),
   researchNotes:
     "Hidden lower-Cowlitz candidate ending at Barrier Dam. Separator counts do not alter scored reads.",
@@ -1042,6 +1144,11 @@ export const COWLITZ_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     taperingEnd: "11-30",
     lateEnd: "02-01",
   }),
+  push: washingtonPush({
+    runId: "cowlitz_fall_coho",
+    riverId: "cowlitz",
+    species: "coho",
+  }),
 };
 
 export const WASHINGTON_DRAFT_RIVERS = [
@@ -1063,9 +1170,8 @@ function washingtonConfigurationDocument(
 ): RiverRunConfigurationDocument {
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion: river.riverId === "green"
-      ? "2026-08-31-green-washington-owner-review.2+seasonal-zone-v3"
-      : `2026-08-31-${river.riverId}-washington-owner-review.2+seasonal-zone-v3`,
+    configVersion:
+      `2026-09-03-${river.riverId}-washington-direct-push-v1+seasonal-zone-v3`,
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river,
     biologyProfiles: [

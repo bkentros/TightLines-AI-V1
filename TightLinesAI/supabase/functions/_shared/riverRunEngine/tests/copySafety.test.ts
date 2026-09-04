@@ -9,6 +9,7 @@ import {
   type FishabilityScoreInput,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   type PrimitiveDisplay,
+  type PushRules,
   type PushScoreInput,
   resolveConditionsSuggestCheckpoints,
   resolveInterpretationNote,
@@ -22,13 +23,18 @@ import {
 } from "../index.ts";
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const legacyPushRules: PushRules = {
+  ...run.push,
+  model: "legacy_weighted",
+  directEvent: undefined,
+};
 
 function pushForCopy(
   overrides: Partial<PushScoreInput> = {},
 ): ReturnType<typeof scorePush> {
   return scorePush({
     movementEngineId: "fall_cooling",
-    rules: run.push,
+    rules: legacyPushRules,
     gaugeFreshness: "fresh",
     rainSignal: "light_rain",
     flowSignal: "stable",

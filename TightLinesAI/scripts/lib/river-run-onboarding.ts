@@ -16,6 +16,7 @@ export const PUBLIC_RIVER_RUN_PRIMITIVES = [
   "run_stage",
   "activity",
   "fish_in_river",
+  "push",
 ] as const;
 
 export const RIVER_RUN_LIVE_CONDITIONS_SURFACE = "live_conditions" as const;
@@ -176,7 +177,11 @@ export function auditConfigurationDocument(
       runId: run.runId,
       species: run.species,
       publicAuditEnabled: run.publicAudit.isEnabled,
-      visiblePrimitives: PUBLIC_RIVER_RUN_PRIMITIVES,
+      visiblePrimitives: run.push?.model === "direct_event_state"
+        ? PUBLIC_RIVER_RUN_PRIMITIVES
+        : PUBLIC_RIVER_RUN_PRIMITIVES.filter((primitive) =>
+          primitive !== "push"
+        ),
       activityMode: activityMode(run),
       findings: runFindings,
     } satisfies RunOnboardingAudit;

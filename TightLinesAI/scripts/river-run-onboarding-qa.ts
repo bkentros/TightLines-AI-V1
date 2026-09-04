@@ -357,7 +357,7 @@ for (
     ],
     [
       "store version preflight",
-      /remote version authority[\s\S]*A completed EAS build is not proof[\s\S]*store submission[\s\S]*strictly newer/,
+      /remote version authority[\s\S]*A completed EAS\s+build is not proof[\s\S]*store submission[\s\S]*strictly newer/,
     ],
   ] as const
 ) {

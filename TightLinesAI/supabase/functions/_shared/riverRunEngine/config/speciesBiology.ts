@@ -27,7 +27,7 @@ export const GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     "Michigan DNR Chinook profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon ; EPA Region 10 salmonid temperature issue paper https://www.epa.gov/sites/default/files/2018-01/documents/r10-water-quality-temperature-issue-paper5-2001.pdf . Profile values are Great Lakes fall-migration defaults; each river still requires its own timing, presence, hydraulics, sources, and replay audit.",
 };
 
-/** Pacific salmon profiles do not grant movement credit to the current public reads. */
+/** Pacific salmon profiles require river-specific measured-flow calibration. */
 export const PACIFIC_FALL_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
   biologyProfileId: "pacific_fall_chinook_v1",
   species: "chinook_salmon",
@@ -45,13 +45,13 @@ export const PACIFIC_FALL_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     migrationBarrierF: 72,
   },
   environmentalResponse: {
-    risingFlow: "not_used_by_current_public_primitives",
+    risingFlow: "supportive_within_fishable_bounds",
     precipitation: "precursor_only",
     strongSignalRequiresMeasuredGaugeResponse: true,
     peakFloodIsAutomaticallyPositive: false,
   },
   evidenceNotes:
-    "Pacific fall Chinook are semelparous spawning migrants. This profile supplies conservative adult thermal constraints only. Migration Stage and Seasonal Presence remain fixed river-specific calendars, while Activity is conditional responsiveness; no current public primitive awards movement, push, or timing credit for rising flow.",
+    "Pacific fall Chinook are semelparous spawning migrants. Streamflow can alter adult migration timing, but each Push implementation must use a reach-representative gauge, river-specific rise thresholds, and a severe-flow fail-safe. Migration Stage and Seasonal Presence remain fixed river-specific calendars, while Activity remains conditional responsiveness.",
   sourceNotes:
     "NOAA Pacific salmon life-history material, EPA Region 10 salmonid temperature review, and river-specific WDFW/tribal evidence. Dates, endpoints, opportunity strength, measurements, and Activity remain river-specific.",
 };
@@ -73,13 +73,13 @@ export const PACIFIC_FALL_COHO_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     migrationBarrierF: 68,
   },
   environmentalResponse: {
-    risingFlow: "not_used_by_current_public_primitives",
+    risingFlow: "supportive_within_fishable_bounds",
     precipitation: "precursor_only",
     strongSignalRequiresMeasuredGaugeResponse: true,
     peakFloodIsAutomaticallyPositive: false,
   },
   evidenceNotes:
-    "Pacific coho are semelparous spawning migrants. This profile supplies conservative adult thermal constraints only. The current public reads do not expose Push or Migration Timing and do not infer movement from rising flow.",
+    "Pacific coho are semelparous spawning migrants. Streamflow can alter adult migration timing, but each Push implementation must use a reach-representative gauge, river-specific rise thresholds, and a severe-flow fail-safe. A hydraulic event estimates movement support only and does not establish fish entry or abundance.",
   sourceNotes:
     "NOAA Pacific coho life-history material, EPA Region 10 salmonid temperature review, and river-specific WDFW/tribal evidence. Dates, endpoints, opportunity strength, measurements, and Activity remain river-specific.",
 };

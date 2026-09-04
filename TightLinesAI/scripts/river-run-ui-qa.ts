@@ -72,7 +72,6 @@ for (const [pattern, label] of prohibitedRuntimePatterns) {
 for (
   const [pattern, label] of [
     [/"run_timing"/, "the retired Migration Timing visual kind"],
-    [/case\s+"push"/, "the retired Push visual kind"],
     [/\bTimingArt\b/, "the retired Migration Timing artwork"],
     [/\bPushArt\b/, "the retired Push artwork"],
   ] as Array<[RegExp, string]>
@@ -384,8 +383,53 @@ assert.match(
 );
 assert.equal(
   (riverRunScreen.match(/tabTitle:\s*"/g) ?? []).length,
-  3,
-  "River Run must expose exactly three public read tabs",
+  4,
+  "River Run must define exactly four possible public read tabs",
+);
+assert.match(
+  riverRunScreen,
+  /id:\s*"push"[\s\S]*?tabTitle:\s*"PUSH"[\s\S]*?cardTitle:\s*"Fresh Push Watch"/,
+  "Push Watch must be the fourth public read tab",
+);
+assert.match(
+  riverRunScreen,
+  /snapshot\.push\.model\s*===\s*"direct_event_state"[\s\S]*?PRIMITIVE_TABS\.filter\(\(tab\)\s*=>\s*tab\.id\s*!==\s*"push"\)/,
+  "Push Watch must be shown only for direct-event-capable snapshots",
+);
+assert.match(
+  riverRunVisualSources,
+  /PUSH_FOUR[\s\S]*?Neutral[\s\S]*?Possible[\s\S]*?Elevated[\s\S]*?Strong/,
+  "Push Watch must retain its positive-only Neutral-to-Strong order",
+);
+assert.match(
+  riverRunScreen,
+  /ESTIMATED FRESH-PUSH SIGNAL[\s\S]*?recent measured flow and\/or water[\s\S]*?does not confirm fish arrived/,
+  "Push Watch must permanently explain its estimate and limitations",
+);
+assert.match(
+  riverRunScreen,
+  /visualKind === "run_stage"[\s\S]*?EXPECTED SEASONAL TIMING[\s\S]*?researched seasonal cycle[\s\S]*?not a[\s\S]*?live reading of fish movement, location, or abundance/,
+  "Migration Stage must permanently explain its seasonal basis and limitations",
+);
+assert.match(
+  riverRunScreen,
+  /visualKind === "fish_in_river"[\s\S]*?RELATIVE SEASONAL PRESENCE[\s\S]*?species’ own peak on this river[\s\S]*?not a fish count[\s\S]*?live movement signal/,
+  "Seasonal Presence must permanently explain its relative basis and limitations",
+);
+assert.match(
+  riverRunScreen,
+  /48-HOUR HISTORY[\s\S]*?OLDEST → MOST RECENT[\s\S]*?Earlier reads are left[\s\S]*?newest read is on the right/,
+  "Push history must state its chronology unambiguously",
+);
+assert.match(
+  riverRunScreen,
+  /formatPushHistoryDate\(read\.localDate\)[\s\S]*?formatPushHistoryTime\(read\.startTime\)[\s\S]*?LATEST/,
+  "Push history blocks must show a date, 12-hour time, and latest marker",
+);
+assert.match(
+  riverRunScreen,
+  /const suffix = hour < 12 \? "AM" : "PM"/,
+  "Push history must render AM/PM instead of 24-hour time",
 );
 assert.match(
   riverRunScreen,
@@ -944,12 +988,17 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
     foundationReachIds: undefined,
   }];
   for (const run of document.runs) {
-    assert(run.seasonalZonePlan, `${run.runId} needs an audited Seasonal Zone plan`);
+    assert(
+      run.seasonalZonePlan,
+      `${run.runId} needs an audited Seasonal Zone plan`,
+    );
     assert(
       run.seasonalZonePlan.earlyApproach?.label,
       `${run.runId} needs river-specific early approach context`,
     );
-    for (const [phase, reachIds] of Object.entries(run.seasonalZonePlan.phases)) {
+    for (
+      const [phase, reachIds] of Object.entries(run.seasonalZonePlan.phases)
+    ) {
       assert(
         reachIds.length > 0,
         `${run.runId}/${phase} needs at least one audited phase reach`,
@@ -1239,5 +1288,5 @@ assert.equal(
 );
 
 console.log(
-  `River Run UI QA passed: ${recommendationMatrixCases} daily river/species/state Spot Finder cases, public flow retained, protected admin review, entitlement checks intact, and no internal fixture controls/copy.`,
+  `River Run UI QA passed: ${recommendationMatrixCases} daily river/species/state Spot Finder cases, capability-gated positive-only Push Watch, protected admin review, entitlement checks intact, and no internal fixture controls/copy.`,
 );

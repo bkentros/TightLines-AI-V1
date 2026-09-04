@@ -106,44 +106,12 @@ Deno.test("St. Joseph Niles Fishability honors every calibrated boundary", () =>
   assertMatch(run.fishabilityBands.evidenceNotes, /Niles reach only/i);
 });
 
-Deno.test("St. Joseph Push requires measured Niles response and retains cold fish", () => {
-  const base = {
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh" as const,
-    currentHydraulicValue: 2400,
-    hydraulicAbsoluteChange24h: 0,
-    hydraulicPercentChange24h: 0,
-    rainSignal: "heavy_rain" as const,
-    temperatureSignal: "cooling" as const,
-    temperatureSourceType: "same_gauge" as const,
-    waterTempF: 49,
-    trackingState: "active" as const,
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-12-22",
-    localDate: "2026-11-01",
-  };
-  const rainOnly = scorePush({ ...base, flowSignal: "stable" as const });
-  assert(!["Strong", "Very strong"].includes(rainOnly.label));
-
-  const meaningful = scorePush({
-    ...base,
-    flowSignal: "meaningful_rise" as const,
-    hydraulicAbsoluteChange24h: 240,
-    hydraulicPercentChange24h: 11,
-  });
-  assert(typeof meaningful.score === "number");
-  assertEquals(meaningful.components?.rainRole, "absorbed_by_gauge");
-
-  const cold = scorePush({
-    ...base,
-    flowSignal: "sharp_rise" as const,
-    hydraulicAbsoluteChange24h: 450,
-    hydraulicPercentChange24h: 19,
-    waterTempF: 38,
-  });
-  assert((cold.score ?? 100) <= 49);
-  assertEquals(cold.components?.temperatureState, "cold_holding");
+Deno.test("St. Joseph Push independently monitors same-station Niles signals", () => {
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.hydraulic, "trigger");
+  assertEquals(run.push.directEvent?.temperature, "trigger_and_constraint");
+  assertEquals(run.push.directEvent?.persistenceHours, 48);
+  assertEquals(run.push.temperature.coldHoldingF, 39);
 });
 
 Deno.test("St. Joseph snapshot keeps Activity explicit when measurements are missing", () => {

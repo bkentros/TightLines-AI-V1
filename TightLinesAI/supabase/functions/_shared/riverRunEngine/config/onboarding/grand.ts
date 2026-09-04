@@ -6,6 +6,7 @@ import type {
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
@@ -338,6 +339,7 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   primitiveCapabilities: {
     ...unavailableCapabilities(),
     activity: { status: "available" },
+    push: { status: "available" },
   },
   runWindow: {
     preRunStart: "08-01",
@@ -405,6 +407,27 @@ export const GRAND_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Observed downtown Grand Rapids candidate for Chinook already present. Fulton hydraulics, North Park measured temperature, and hourly Grand Rapids weather are independently freshness-gated; the model never extends those observations to Grand Haven or the full corridor. The 35/35/25/5 calibration preserves meaningful light and temperature influence while retaining a distinct river-response component and restrained same-block precipitation. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. It does not infer migration, abundance, catch probability, access, or safety.",
   }),
+  push: buildDirectEventPushRules({
+    version: "grand-fall-chinook-direct-push-v1",
+    fishability: fishability(),
+    hydraulicTrend: {
+      rising24h: { absolute: 150, percent: 8 },
+      meaningfulRise24h: { absolute: 300, percent: 15 },
+      sharpRise24h: { absolute: 700, percent: 30 },
+    },
+    activityProfile: "chinook_fall_reaction",
+    movementTemperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fulton Street hydraulic response. North Park temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04119000 at Fulton Street. The signal is reach-scoped and does not directly measure Grand Haven, the river mouth, or the full Grand River corridor.",
+  }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
@@ -433,6 +456,7 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   primitiveCapabilities: {
     ...unavailableCapabilities(),
     activity: { status: "available" },
+    push: { status: "available" },
   },
   runWindow: {
     preRunStart: "08-15",
@@ -501,6 +525,27 @@ export const GRAND_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Observed downtown Grand Rapids candidate for Coho already present. The 25/40/30/5 calibration makes measured temperature the leading input, followed by Fulton river behavior, while hourly light separates fishing windows. Audited stage-response adjustments restore a modest conditional lifecycle shape without bypassing warm, barrier, or blown-out caps. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It does not infer migration, abundance, catch probability, access, or safety.",
   }),
+  push: buildDirectEventPushRules({
+    version: "grand-fall-coho-direct-push-v1",
+    fishability: fishability(),
+    hydraulicTrend: {
+      rising24h: { absolute: 150, percent: 8 },
+      meaningfulRise24h: { absolute: 300, percent: 15 },
+      sharpRise24h: { absolute: 700, percent: 30 },
+    },
+    activityProfile: "coho_fall_reaction",
+    movementTemperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fulton Street hydraulic response. North Park temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04119000 at Fulton Street. The signal is reach-scoped and does not directly measure Grand Haven, the river mouth, or the full Grand River corridor.",
+  }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
@@ -529,6 +574,7 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   primitiveCapabilities: {
     ...unavailableCapabilities(),
     activity: { status: "available" },
+    push: { status: "available" },
   },
   runWindow: {
     preRunStart: "09-01",
@@ -593,6 +639,29 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Observed downtown Grand Rapids candidate for a living Steelhead already present. The 20/40/35/5 calibration makes measured temperature and Fulton river behavior dominant while hourly light separates response windows. Audited stage-response adjustments soften the warm-season cliff and preserve a Peak-led fall response shoulder; they do not imply salmon mortality and cannot bypass warm, barrier, or blown-out caps. The profile deliberately has no salmon mortality ramp, taper penalty, or ending cap. Every source is independently freshness-gated and the read is not extrapolated to Grand Haven or the upstream corridor. It cannot infer migration, abundance, catch probability, access, or safety.",
   }),
+  push: buildDirectEventPushRules({
+    version: "grand-fall-steelhead-direct-push-v1",
+    fishability: fishability(),
+    hydraulicTrend: {
+      rising24h: { absolute: 150, percent: 8 },
+      meaningfulRise24h: { absolute: 300, percent: 15 },
+      sharpRise24h: { absolute: 700, percent: 30 },
+    },
+    activityProfile: "steelhead_feeding",
+    movementTemperature: {
+      coldHoldingF: 39,
+      supportiveMinF: 40,
+      preferredMinF: 46,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fulton Street hydraulic response. North Park temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04119000 at Fulton Street. The signal is reach-scoped and does not directly measure Grand Haven, the river mouth, or the full Grand River corridor.",
+  }),
   waterTemperature: GRAND_NORTH_PARK_ACTIVITY_TEMPERATURE,
   fishabilityBands: fishability(),
   baselineCoverage: GRAND_BASELINE,
@@ -610,8 +679,7 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion:
-    "2026-08-27-grand-fishability-reconciliation.2+seasonal-zone-v3",
+  configVersion: "2026-09-03-grand-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

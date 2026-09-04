@@ -1,9 +1,13 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
+  FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
@@ -195,6 +199,57 @@ export const ROOT_RIVER_PROFILE: RiverProfile = {
     "From Sept. 15 through the first Saturday in May, Lake Michigan tributary night-fishing restrictions apply. Steelhead Facility operations can block, process, or pass fish. Verify current Wisconsin rules, facility status, advisories, signs, property access, and emergency orders.",
 };
 
+const ROOT_UPSTREAM_PROXY_BOUNDS: FishabilityBands = {
+  version: "root-horlick-upstream-proxy-bounds-2019-2025-v2",
+  metric: "flow_cfs",
+  sourceLabel: "Horlick Dam upstream proxy",
+  tooLow: { max: 11.2 },
+  lowFishable: { min: 11.2, max: 20.6 },
+  ideal: { min: 20.6, max: 88 },
+  highFishable: { min: 88, max: 204.6 },
+  blownOut: { min: 412.8 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "Hydraulic bounds exist only to keep the upstream-proxy Push model within the observed Horlick discharge regime. They do not enable Fishing Shape or describe the harbor-to-facility corridor.",
+  sourceNotes:
+    "USGS 04087240 approved daily discharge, exact Aug. 25-Dec. 25 Push coverage in 2019-2025: p10 11.2, p25 20.6, p75 88, p90 204.6, and p95 412.8 CFS.",
+};
+
+const ROOT_UPSTREAM_PROXY_TREND = {
+  rising24h: { absolute: 7, percent: 21 },
+  meaningfulRise24h: { absolute: 33, percent: 57.1 },
+  sharpRise24h: { absolute: 123, percent: 137.4 },
+};
+
+function rootProxyPush(input: {
+  version: string;
+  profile: ActivityRules["profile"];
+  temperature: Omit<PushRules["temperature"], "suitabilityLabel">;
+}): PushRules {
+  return buildDirectEventPushRules({
+    version: input.version,
+    fishability: ROOT_UPSTREAM_PROXY_BOUNDS,
+    hydraulicTrend: ROOT_UPSTREAM_PROXY_TREND,
+    activityProfile: input.profile,
+    movementTemperature: input.temperature,
+    temperatureMode: "disabled",
+    evidenceConfidence: "lower",
+    maximumLevel: 2,
+    limitationCopy:
+      "The Horlick gauge is upstream of the supported corridor and the operated Steelhead Facility, so lower-river timing and magnitude may differ; treat this as directional context only.",
+    evidenceNotes:
+      "Lower-confidence Fresh Push Watch uses only the measured Horlick hydraulic response. Across the exact Aug. 25-Dec. 25 Push coverage in 2019-2025, 302 consecutive-day positive rises were approximately 6.85/21.1% at p50, 32.75/57.1% at p75, and 122.5/137.4% at p90. Rounded paired thresholds require both absolute and percentage change. Missing calendar days are never bridged into a false 24-hour rise. The proxy is capped at Elevated; separated 60th Street temperature, precipitation, wind, and facility captures are unscored.",
+    sourceNotes:
+      "USGS 04087240 approved daily discharge. The station is 350 feet below Horlick Dam, about 5.2 miles above the mouth, and upstream of the product endpoint below the operated Steelhead Facility. It is an upstream hydraulic proxy, not a lower-river or harbor measurement.",
+  });
+}
+
 const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   migrationStage: { status: "available" },
   activity: { status: "available" },
@@ -212,10 +267,7 @@ const primitiveCapabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
       "The 60th Street temperature history has not passed the separate daily-gap and baseline audit required for Migration Timing.",
   },
   push: {
-    status: "unavailable",
-    reason: "no_accepted_historical_baseline",
-    notes:
-      "The separated upper-river sources and operational facility endpoint do not support a lower-corridor movement claim.",
+    status: "available",
   },
 };
 
@@ -322,6 +374,16 @@ export const ROOT_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Chinook response candidate for a fish already present in the Root product corridor. It scores effective light and restrained same-block precipitation only, with conservative weather-only ceilings and a continuous terminal lifecycle decline. It cannot infer temperature, river response, passage, movement, abundance, catch probability, access, or safety.",
   }),
+  push: rootProxyPush({
+    version: "root-fall-chinook-upstream-proxy-direct-push-v3",
+    profile: "chinook_fall_reaction",
+    temperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B broad Chinook candidate. The operational facility is the conservative product endpoint, not an absolute biological barrier; terminal copy retains semelparous lifecycle truth and Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/root/runs/fall-chinook.md",
@@ -400,6 +462,16 @@ export const ROOT_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden Coho response candidate for a fish already present in the Root product corridor. It scores effective light and restrained same-block precipitation only, with conservative weather-only ceilings and a continuous terminal lifecycle decline. It cannot infer temperature, river response, passage, movement, abundance, catch probability, access, or safety.",
   }),
+  push: rootProxyPush({
+    version: "root-fall-coho-upstream-proxy-direct-push-v3",
+    profile: "coho_fall_reaction",
+    temperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B broad Coho candidate. Its stronger ceiling and calendar are independent of Chinook, while post-spawn copy remains terminal and species-correct; Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/root/runs/fall-coho.md",
@@ -461,6 +533,18 @@ export const ROOT_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       "A live water-temperature gauge exists at 60th Street, but it is upstream of Horlick Dam and does not represent the supported corridor below the Steelhead Facility, so Activity excludes it. This Limited read uses modeled weather near Horlick and does not measure river level, clarity, or water temperature in the supported reaches.",
     evidenceNotes:
       "Hidden Steelhead response candidate for a living fish already present in the Root product corridor. It scores effective light and restrained same-block precipitation, applies the 0.80 Limited-evidence scale, and has no salmon mortality ramp, taper penalty, or ending cap. It cannot infer temperature-led feeding, river response, passage, movement, abundance, catch probability, access, or safety.",
+  }),
+  push: rootProxyPush({
+    version: "root-fall-steelhead-upstream-proxy-direct-push-v3",
+    profile: "steelhead_feeding",
+    temperature: {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
   }),
   researchNotes:
     "Hidden Gate 4B fall-entry candidate. Completion ends only this seasonal estimate; living Steelhead can overwinter, later spawn, or return lakeward. Activity has no salmon lifecycle penalty and remains explicitly Limited and weather-only.",
@@ -533,6 +617,18 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Hidden lake-run Brown Trout response candidate for a living repeat spawner already present in the Root product corridor. It scores effective light and restrained same-block precipitation, applies the 0.80 Limited-evidence scale, and uses only a five-point Peak response nudge capped at 80 to preserve lifecycle shape. It has no salmon mortality ramp, taper penalty, ending cap, or assumed post-spawn departure. It cannot infer temperature-led feeding, river response, passage, movement, abundance, catch probability, access, or safety.",
   }),
+  push: rootProxyPush({
+    version: "root-fall-brown-upstream-proxy-direct-push-v3",
+    profile: "brown_trout_fall_reaction",
+    temperature: {
+      coldHoldingF: 38,
+      preferredMinF: 44,
+      supportiveMinF: 40,
+      supportiveMaxF: 58,
+      tooWarmF: 64,
+      migrationBarrierF: 70,
+    },
+  }),
   researchNotes:
     "Hidden Gate 4B repeat-spawner candidate. No salmon death curve, universal winter holding, or universal lakeward-return claim is permitted; Activity remains explicitly Limited and weather-only.",
   sourceNotes: "docs/onboarding/river-run/root/runs/fall-brown-trout.md",
@@ -540,7 +636,8 @@ export const ROOT_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const ROOT_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-31-root-fish-counts.8+seasonal-zone-v3",
+  configVersion:
+    "2026-09-03-root-upstream-proxy-direct-push-v3+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -1,4 +1,5 @@
 import type {
+  DirectEventSample,
   GaugeFreshness,
   MovementEngineId,
   PrimitiveDisplay,
@@ -68,18 +69,65 @@ export type PushScoreInput = {
   localDate?: string;
   copyStrategy?: RunStageCopyStrategy;
   monitoringStartDate?: string;
+  hydraulicChanges?: Array<{
+    hours: 12 | 24 | 48;
+    absolute: number | null;
+    percent: number | null;
+  }>;
+  temperatureChanges?: Array<{
+    hours: 12 | 24 | 48;
+    deltaF: number | null;
+  }>;
+  hydraulicFourHourSeries?: DirectEventSample[];
+  temperatureFourHourSeries?: DirectEventSample[];
 };
 
 export type PushScoreResult = PrimitiveDisplay & {
   components?: PushScoreComponents;
   rulesVersion?: string;
+  model?: "direct_event_state";
+  evidenceConfidence?: "Standard" | "Lower";
+  directSignals?: {
+    hydraulic?: DirectEventSignalState;
+    temperature?: DirectEventSignalState;
+  };
+};
+
+export type DirectEventSignalState = {
+  level: 0 | 1 | 2 | 3;
+  phase: "neutral" | "building" | "holding" | "fading";
+  onsetAt?: string;
+  ageHours?: number;
+  baseline?: number;
+  current?: number;
+  peakChange?: number;
+  retainedChange?: number;
+  retentionFraction?: number;
+  triggerWindowHours?: 12 | 24;
 };
 
 export const PUSH_SUPPORTIVE_SCORE_MINIMUM = 50;
 
 export function scorePush(input: PushScoreInput): PushScoreResult {
   if (input.trackingState !== "active") {
-    return inactiveTrackingResult(input);
+    const result = inactiveTrackingResult(input);
+    const lowerConfidence =
+      input.rules.directEvent?.evidenceConfidence === "lower";
+    return input.rules.model === "direct_event_state"
+      ? {
+        ...result,
+        detail: `${directEventInactiveDetail(input)}${
+          lowerConfidence && input.rules.directEvent?.limitationCopy
+            ? ` ${input.rules.directEvent.limitationCopy}`
+            : ""
+        }`,
+        model: "direct_event_state",
+        evidenceConfidence: lowerConfidence ? "Lower" : "Standard",
+      }
+      : result;
+  }
+  if (input.rules.model === "direct_event_state") {
+    return scoreDirectEventPush(input);
   }
   if (
     input.gaugeFreshness === "missing" ||
@@ -227,6 +275,360 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+type DirectSignalLevel = 0 | 1 | 2 | 3;
+
+/**
+ * Scores a recent environmental movement-support event, not fish presence or
+ * the probability that fish entered. Neutral is the floor: absent evidence is
+ * deliberately not presented as a negative movement forecast.
+ */
+function scoreDirectEventPush(input: PushScoreInput): PushScoreResult {
+  const policy = input.rules.directEvent;
+  if (!policy) {
+    throw new Error("direct_event_state Push requires directEvent rules.");
+  }
+  const hydraulicAvailable = policy.hydraulic === "trigger" &&
+    input.gaugeFreshness !== "missing" &&
+    input.gaugeFreshness !== "older_than_24h" &&
+    isNumber(input.currentHydraulicValue);
+  const temperatureAvailable = policy.temperature !== "disabled" &&
+    input.temperatureSourceType !== "unavailable" &&
+    isNumber(input.waterTempF);
+  const temperatureCanTrigger = temperatureAvailable &&
+    policy.temperature === "trigger_and_constraint";
+  if (!hydraulicAvailable && !temperatureCanTrigger) {
+    const missingHydraulicTrigger = policy.hydraulic === "trigger";
+    const missingTemperatureTrigger =
+      policy.temperature === "trigger_and_constraint";
+    const result = unavailableResult({
+      reason: missingHydraulicTrigger && missingTemperatureTrigger
+        ? "direct_sources"
+        : missingHydraulicTrigger
+        ? "direct_gauge"
+        : "direct_temperature",
+      reasonCodes: [
+        gaugeReasonCode(input.gaugeFreshness),
+        ...(input.flowReasonCodes ?? []),
+        ...(input.temperatureReasonCodes ?? []),
+      ],
+      rules: input.rules,
+    });
+    return {
+      ...result,
+      detail: policy.evidenceConfidence === "lower" && policy.limitationCopy
+        ? `${result.detail} ${policy.limitationCopy}`
+        : result.detail,
+      model: "direct_event_state",
+      evidenceConfidence: policy.evidenceConfidence === "lower"
+        ? "Lower"
+        : "Standard",
+    };
+  }
+
+  const hydraulicState = isNumber(input.currentHydraulicValue)
+    ? resolveHydraulicState(input.currentHydraulicValue, input.rules)
+    : "normal";
+  const temperatureState = isNumber(input.waterTempF)
+    ? resolveTemperatureState(
+      input.waterTempF,
+      input.rules,
+      input.movementEngineId,
+    )
+    : "supportive";
+  const hydraulicEvent = hydraulicAvailable
+    ? resolveDirectEvent({
+      series: input.hydraulicFourHourSeries ?? [],
+      direction: "rise",
+      thresholds: [
+        input.rules.hydraulic.rising24h,
+        input.rules.hydraulic.meaningfulRise24h,
+        input.rules.hydraulic.sharpRise24h,
+      ],
+      triggerWindows: [12, 24],
+      persistenceHours: policy.persistenceHours,
+      fullRetentionFraction: policy.fullRetentionFraction,
+      minimumRetentionFraction: policy.minimumRetentionFraction,
+    })
+    : neutralDirectEvent();
+  const temperatureEvent = temperatureAvailable &&
+      policy.temperature === "trigger_and_constraint"
+    ? resolveDirectEvent({
+      series: input.temperatureFourHourSeries ?? [],
+      direction: "drop",
+      thresholds: [
+        { absolute: policy.buildingCoolingF },
+        { absolute: policy.coolingF },
+        { absolute: policy.strongCoolingF },
+      ],
+      // Temperature is compared to the same time yesterday. A 12-hour
+      // temperature comparison aliases the normal day/night cycle and can
+      // manufacture a cooling event even when the daily regime is unchanged.
+      triggerWindows: [24],
+      persistenceHours: policy.persistenceHours,
+      fullRetentionFraction: policy.fullRetentionFraction,
+      minimumRetentionFraction: policy.minimumRetentionFraction,
+    })
+    : neutralDirectEvent();
+  const hydraulicLevel = hydraulicEvent.level;
+  const temperatureLevel = temperatureEvent.level;
+
+  // Independent signals corroborate the read but do not add invented points.
+  // The stronger observed event controls, preventing flow-plus-temperature
+  // double counting when the two variables respond to the same weather event.
+  let level = Math.max(hydraulicLevel, temperatureLevel) as DirectSignalLevel;
+  const constrainedTemperature = temperatureAvailable &&
+    (temperatureState === "too_warm" ||
+      temperatureState === "migration_barrier" ||
+      temperatureState === "cold_holding");
+  if (
+    temperatureAvailable &&
+    (temperatureState === "migration_barrier" ||
+      temperatureState === "cold_holding")
+  ) level = 0;
+  else if (temperatureState === "too_warm") {
+    level = Math.min(level, 1) as DirectSignalLevel;
+  }
+  if (hydraulicState === "severe_high") level = 0;
+  level = Math.min(level, policy.maximumLevel ?? 3) as DirectSignalLevel;
+  if (input.gaugeFreshness === "stale" && hydraulicLevel >= temperatureLevel) {
+    level = Math.max(0, level - 1) as DirectSignalLevel;
+  }
+
+  const labels = ["Neutral", "Possible", "Elevated", "Strong"] as const;
+  const scores = [50, 64, 78, 92] as const;
+  const label = labels[level];
+  const sourceSummary = hydraulicLevel > 0 && temperatureLevel > 0
+    ? "Measured temperature and river flow are both showing a recent event."
+    : hydraulicLevel > 0
+    ? "Measured river flow is showing a recent rise."
+    : temperatureLevel > 0
+    ? "Measured water temperature is showing recent cooling."
+    : "No elevated direct water signal is currently detected.";
+  const constrainedSummary = hydraulicState === "severe_high"
+    ? `${
+      sourceSummary.slice(0, -1)
+    }, but exceptionally high flow keeps the event from being treated as favorable.`
+    : constrainedTemperature
+    ? `${
+      sourceSummary.slice(0, -1)
+    }, while the current absolute temperature limits the signal's strength.`
+    : sourceSummary;
+  const proxyLimitation = policy.evidenceConfidence === "lower" &&
+      policy.limitationCopy
+    ? ` ${policy.limitationCopy}`
+    : "";
+  const freshnessLimitation = input.gaugeFreshness === "stale" &&
+      hydraulicLevel >= temperatureLevel
+    ? " The flow reading is stale, so the signal is reduced by one level."
+    : "";
+  const reasonCodes = new Set<RiverRunReasonCode>([
+    gaugeReasonCode(input.gaugeFreshness),
+    ...(input.flowReasonCodes ?? []),
+    ...(input.temperatureReasonCodes ?? []),
+    hydraulicStateReasonCode(hydraulicState),
+    ...(temperatureAvailable
+      ? [temperatureStateReasonCode(temperatureState)]
+      : []),
+  ]);
+  return {
+    score: scores[level],
+    label,
+    headline: policy.evidenceConfidence === "lower"
+      ? level === 0
+        ? "The lower-confidence upstream flow proxy is neutral."
+        : `${label} support from a lower-confidence upstream flow proxy.`
+      : level === 0
+      ? "Water signals are neutral for a fresh movement event."
+      : `${label} environmental support for possible fresh movement.`,
+    detail:
+      `${constrainedSummary}${freshnessLimitation}${proxyLimitation} This estimates movement-supporting conditions, not fish entry or abundance.`,
+    tip: level >= 2
+      ? "Use this as a reason to check fresh-entry and travel water, then verify conditions directly."
+      : "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
+    reasonCodes: [...reasonCodes],
+    components: {
+      hydraulicBase: policy.evidenceConfidence === "lower"
+        ? level
+        : hydraulicLevel,
+      hydraulicAdjustment: 0,
+      temperatureModifier: temperatureLevel,
+      rainModifier: 0,
+      hydraulicState,
+      temperatureState,
+      rainRole: "missing",
+      appliedCaps: [],
+    },
+    model: "direct_event_state",
+    evidenceConfidence: policy.evidenceConfidence === "lower"
+      ? "Lower"
+      : "Standard",
+    directSignals: {
+      ...(hydraulicAvailable
+        ? {
+          hydraulic: policy.evidenceConfidence === "lower"
+            ? {
+              ...hydraulicEvent,
+              level,
+              phase: level === 0 ? "neutral" as const : hydraulicEvent.phase,
+            }
+            : hydraulicEvent,
+        }
+        : {}),
+      ...(temperatureAvailable ? { temperature: temperatureEvent } : {}),
+    },
+    rulesVersion: input.rules.version,
+    copyVersion: RIVER_RUN_COPY_VERSION,
+  };
+}
+
+function resolveDirectEvent(input: {
+  series: DirectEventSample[];
+  direction: "rise" | "drop";
+  thresholds: Array<{ absolute: number; percent?: number }>;
+  triggerWindows: Array<12 | 24>;
+  persistenceHours: number;
+  fullRetentionFraction: number;
+  minimumRetentionFraction: number;
+}): DirectEventSignalState {
+  const series = input.series.toSorted((a, b) =>
+    Date.parse(a.windowEndAt) - Date.parse(b.windowEndAt)
+  );
+  const current = series.at(-1);
+  if (!current) return neutralDirectEvent();
+  const candidates: Array<{
+    at: string;
+    baseline: number;
+    level: DirectSignalLevel;
+    hours: 12 | 24;
+  }> = [];
+  for (let index = 0; index < series.length; index++) {
+    for (const hours of input.triggerWindows) {
+      const prior = sampleAt(
+        series,
+        Date.parse(series[index].windowEndAt) -
+          hours * 60 * 60 * 1000,
+      );
+      if (!prior || prior.value <= 0) continue;
+      const change = input.direction === "rise"
+        ? series[index].value - prior.value
+        : prior.value - series[index].value;
+      const percent = change / prior.value * 100;
+      const level = thresholdLevel(change, percent, input.thresholds);
+      if (level > 0) {
+        candidates.push({
+          at: series[index].windowEndAt,
+          baseline: prior.value,
+          level,
+          hours,
+        });
+      }
+    }
+  }
+  const ordered = candidates.toSorted((a, b) =>
+    Date.parse(a.at) - Date.parse(b.at)
+  );
+  if (ordered.length === 0) {
+    return { ...neutralDirectEvent(), current: current.value };
+  }
+
+  // Treat detections no more than eight hours apart as one event and select the
+  // most recent event. Its first qualifying read freezes the baseline.
+  let clusterStart = 0;
+  for (let index = 1; index < ordered.length; index++) {
+    if (
+      Date.parse(ordered[index].at) - Date.parse(ordered[index - 1].at) >
+        8 * 60 * 60 * 1000
+    ) clusterStart = index;
+  }
+  const cluster = ordered.slice(clusterStart);
+  const onset = cluster[0];
+  const ageHours = (Date.parse(current.windowEndAt) - Date.parse(onset.at)) /
+    (60 * 60 * 1000);
+  if (ageHours > input.persistenceHours) {
+    return { ...neutralDirectEvent(), current: current.value };
+  }
+  const eventSamples = series.filter((sample) =>
+    Date.parse(sample.windowEndAt) >= Date.parse(onset.at)
+  );
+  const directionalChanges = eventSamples.map((sample) =>
+    input.direction === "rise"
+      ? sample.value - onset.baseline
+      : onset.baseline - sample.value
+  );
+  const peakChange = Math.max(0, ...directionalChanges);
+  const retainedChange = input.direction === "rise"
+    ? current.value - onset.baseline
+    : onset.baseline - current.value;
+  const retentionFraction = peakChange > 0
+    ? Math.max(0, Math.min(1, retainedChange / peakChange))
+    : 0;
+  let level = Math.max(
+    ...cluster.map((candidate) => candidate.level),
+  ) as DirectSignalLevel;
+  if (retentionFraction < input.minimumRetentionFraction) level = 0;
+  else if (retentionFraction < input.fullRetentionFraction) {
+    level = Math.max(1, level - 1) as DirectSignalLevel;
+  }
+  // A prior spike cannot keep an event alive after the current reading has
+  // surrendered even the run-specific Possible threshold.
+  const retainedPercent = onset.baseline > 0
+    ? retainedChange / onset.baseline * 100
+    : 0;
+  if (
+    thresholdLevel(retainedChange, retainedPercent, [input.thresholds[0]]) === 0
+  ) {
+    level = 0;
+  }
+  return {
+    level,
+    phase: level === 0
+      ? "neutral"
+      : ageHours <= 8
+      ? "building"
+      : retentionFraction < input.fullRetentionFraction
+      ? "fading"
+      : "holding",
+    onsetAt: onset.at,
+    ageHours,
+    baseline: onset.baseline,
+    current: current.value,
+    peakChange,
+    retainedChange,
+    retentionFraction,
+    triggerWindowHours: onset.hours,
+  };
+}
+
+function sampleAt(
+  series: DirectEventSample[],
+  targetMs: number,
+): DirectEventSample | undefined {
+  return series.find((sample) =>
+    Math.abs(Date.parse(sample.windowEndAt) - targetMs) <= 30 * 60 * 1000
+  );
+}
+
+function thresholdLevel(
+  absolute: number,
+  percent: number,
+  thresholds: Array<{ absolute: number; percent?: number }>,
+): DirectSignalLevel {
+  let level: DirectSignalLevel = 0;
+  thresholds.forEach((threshold, index) => {
+    if (
+      absolute >= threshold.absolute &&
+      (threshold.percent == null || percent >= threshold.percent)
+    ) {
+      level = (index + 1) as DirectSignalLevel;
+    }
+  });
+  return level;
+}
+
+function neutralDirectEvent(): DirectEventSignalState {
+  return { level: 0, phase: "neutral" };
 }
 
 function hydraulicBaseScore(signal: RawFlowTrendSignal): number {
@@ -972,6 +1374,27 @@ function inactiveTrackingResult(
   };
 }
 
+function directEventInactiveDetail(input: PushScoreInput): string {
+  const policy = input.rules.directEvent!;
+  const sources = policy.hydraulic === "trigger" &&
+      policy.temperature === "trigger_and_constraint"
+    ? "Measured river flow and water temperature"
+    : policy.hydraulic === "trigger"
+    ? "Measured river flow"
+    : "Measured water temperature";
+  const verb = policy.hydraulic === "trigger" &&
+      policy.temperature === "trigger_and_constraint"
+    ? "are"
+    : "is";
+  if (input.trackingState === "not_started") {
+    return `${sources} ${verb} not scored as a fresh-movement event until this migration reaches Beginning.`;
+  }
+  if (input.trackingState === "complete") {
+    return `${sources} ${verb} no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.`;
+  }
+  return `${sources} ${verb} outside this species' active Push window and does not provide an in-season fresh-movement read.`;
+}
+
 function pushHeadline(
   label: string,
   input: PushScoreInput,
@@ -1158,10 +1581,59 @@ function pushTip(
 }
 
 function unavailableResult(input: {
-  reason: "gauge" | "temperature" | "engine";
+  reason:
+    | "gauge"
+    | "temperature"
+    | "engine"
+    | "direct_gauge"
+    | "direct_temperature"
+    | "direct_sources";
   reasonCodes: RiverRunReasonCode[];
   rules: PushRules;
 }): PushScoreResult {
+  if (input.reason === "direct_gauge") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline: "A current measured river-flow reading is unavailable.",
+      detail:
+        "A direct flow event cannot be estimated until the river sensor returns a current reading.",
+      tip:
+        "Keep Migration Stage primary and check again after the next four-hour update. Do not infer a fresh movement event from weather alone.",
+      reasonCodes: [...new Set(input.reasonCodes)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (input.reason === "direct_temperature") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline: "A current measured water-temperature reading is unavailable.",
+      detail:
+        "A direct cooling event cannot be estimated until the water-temperature sensor returns a current reading.",
+      tip:
+        "Keep Migration Stage primary and check again after the next four-hour update. Do not substitute air temperature for measured water.",
+      reasonCodes: [...new Set(input.reasonCodes)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (input.reason === "direct_sources") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline:
+        "Current direct flow and water-temperature readings are unavailable.",
+      detail:
+        "A direct water event cannot be estimated until at least one required sensor returns a current reading.",
+      tip:
+        "Keep Migration Stage primary and check again after the next four-hour update. Do not substitute weather for measured water conditions.",
+      reasonCodes: [...new Set(input.reasonCodes)],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (input.rules.hydraulic.sourceLabel === "Scottville") {
     const copy = input.reason === "temperature"
       ? {

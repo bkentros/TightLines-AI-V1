@@ -81,7 +81,12 @@ for (const testCase of lifecycleCases) {
     assertEquals(after.daily.runStage.label, "Fall run complete");
     assertEquals(after.daily.conditionsSuggest.label, "Not monitoring yet");
     assertEquals(after.daily.fishInRiver.label, "Fall run complete");
-    assertEquals(after.refresh.push.label, "Offseason");
+    assertEquals(
+      after.refresh.push.label,
+      testCase.run.push.model === "direct_event_state"
+        ? "Migration complete"
+        : "Offseason",
+    );
     assert(
       after.refresh.fishability.detail.includes("not the full PM"),
       "Fishability must stay scoped to the Scottville/Lower river reach",
@@ -155,7 +160,7 @@ Deno.test("PM Fall Steelhead completes fall primitives without claiming fish lef
   assertEquals(early.daily.runStage.label, "Before migration");
   assertEquals(early.daily.conditionsSuggest.label, "Evaluating");
   assertEquals(early.refresh.push.label, "Waiting for migration");
-  assert(early.refresh.push.detail.includes("not scored as an in-season"));
+  assert(early.refresh.push.detail.includes("not scored as a fresh-movement event"));
   assertEquals(
     early.refresh.push.headline.includes("Fish have not started entering"),
     false,

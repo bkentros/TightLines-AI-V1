@@ -130,7 +130,18 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
         "PM Chinook Activity is a conditional responsiveness outlook, not catch probability. Actual versus clear-sky light is the dominant continuous block input, with cloud cover only as fallback context. Temperature retains three biological states while changing smoothly near their boundaries. Scottville flow position and precipitation also change continuously inside their accepted ranges. Missing inputs are omitted and reweighted, then receive one combined data-confidence reduction rather than stacked penalties so weather-only rivers can remain useful without fabricating gauges. Warm water and extreme flow reduce scores proportionally. After Peak, the complete-input floor fades continuously while a lifecycle deduction grows from 0 to 15 points through October 18; Ending then blends into the 49% residual constraint through October 27. This avoids artificial calendar cliffs while preserving genuinely low late response. Early lake-fresh fish retain partial responsiveness in tolerable warmth, while late biological deterioration still constrains favorable conditions.",
     },
     push: {
-      version: "pm-fall-chinook-push-v5",
+      version: "pm-fall-chinook-direct-push-v1",
+      model: "direct_event_state",
+      directEvent: {
+        hydraulic: "trigger",
+        temperature: "disabled",
+        buildingCoolingF: .75,
+        coolingF: 1.5,
+        strongCoolingF: 3,
+        persistenceHours: 48,
+        fullRetentionFraction: .65,
+        minimumRetentionFraction: .35,
+      },
       hydraulic: {
         metric: "flow_cfs",
         sourceLabel: "Scottville",
@@ -172,9 +183,9 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
         outsideExtendedWindow: 69,
       },
       evidenceNotes:
-        "Scottville 2016-2025 staging-through-late-window daily means place positive daily rises near 23/3.8% at the median, 47/7.6% at p75, and 83/13.3% at p90; rounded paired absolute/relative thresholds prevent small-base percentage spikes. PM Maple 2021-2025 daily medians show 72-hour cooling near -2.5F at p25 and -5.5F at p05. The fully supportive temperature band ends at 63F so water in the mid-to-upper 60s remains usable but receives the more conservative transitional-warm treatment. Rain is precursor-only and loses independent credit once Scottville shows a meaningful response.",
+        "Fresh Push Watch uses only the measured Scottville hydraulic response. Scottville 2016-2025 staging-through-late-window daily means place positive daily rises near 23/3.8% at the median, 47/7.6% at p75, and 83/13.3% at p90; rounded paired absolute/relative thresholds prevent small-base percentage spikes. PMTU temperature stations represent different Middle and Upper reaches and are deliberately excluded from this Lower-river movement signal. Precipitation is not scored independently.",
       sourceNotes:
-        "Hydraulics: USGS 04122500 daily means, 2016-2025. Rain calibration: Open-Meteo archive at the audited Baldwin watershed point, 2016-2025. Temperature: PMTU Maple measured water, 2021-2025. Adult fall-Chinook migration range and warm constraints: EPA temperature issue paper https://www.epa.gov/sites/default/files/2018-01/documents/r10-water-quality-temperature-issue-paper5-2001.pdf ; Michigan timing context https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon . Thresholds are PM launch calibration values subject to in-app owner review.",
+        "Hydraulics: USGS 04122500 daily means, 2016-2025. The direct-event signal is limited to the Scottville reach; it does not treat PMTU Maple Leaf, Bowman, or M-37 temperature as same-reach corroboration and does not directly measure Pere Marquette Lake or the river mouth.",
     },
     fishabilityBands: {
       version: "pm-scottville-fishability-v2",
@@ -341,7 +352,18 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
         "Big Manistee Fall Chinook Activity reuses the shared Chinook responsiveness engine while calibrating its inputs to the regulated Wellston/Tippy tailwater. Effective light remains dominant because Chinook are photosensitive, measured Wellston temperature carries more weight than in the Pere Marquette calibration because Tippy creates a distinct and continuously measured tailwater regime, accepted Wellston fishability bands describe current presentation shape without duplicating Push movement credit, and precipitation remains restrained cover context. The broader 48-62F favorable response band, 68F warm constraint, and 72F barrier preserve Great Lakes Chinook biology while acknowledging that the historical Wellston record commonly remains warm during early entry. After Peak, the complete-input floor fades out and the lifecycle penalty rises continuously each day: the taper deduction moves from 0 to 15 points through October 20, then blends into the 46% ending constraint through October 31. The residual tail holds that ending constraint. This avoids artificial stage-boundary cliffs while allowing a fresher October fish to retain strong response potential and genuinely inactive deteriorating fish to remain very low. All copy explicitly limits measured conditions to the Tippy tailwater rather than claiming the full 25-mile corridor.",
     },
     push: {
-      version: "big-manistee-fall-chinook-push-v1",
+      version: "big-manistee-fall-chinook-direct-push-v1",
+      model: "direct_event_state",
+      directEvent: {
+        hydraulic: "trigger",
+        temperature: "trigger_and_constraint",
+        buildingCoolingF: .75,
+        coolingF: 1.5,
+        strongCoolingF: 3,
+        persistenceHours: 48,
+        fullRetentionFraction: .65,
+        minimumRetentionFraction: .35,
+      },
       hydraulic: {
         metric: "flow_cfs",
         sourceLabel: "Wellston tailwater",
@@ -551,7 +573,7 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
     },
     push: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push,
-      version: "big-manistee-fall-coho-push-v1",
+      version: "big-manistee-fall-coho-direct-push-v1",
       hydraulic: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic },
       rain: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.rain },
       temperature: {
@@ -699,7 +721,7 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
     },
     push: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push,
-      version: "big-manistee-fall-steelhead-push-v1",
+      version: "big-manistee-fall-steelhead-direct-push-v1",
       hydraulic: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic },
       rain: { ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push.rain },
       temperature: {
@@ -790,7 +812,18 @@ const MUSKEGON_SHARED_FISHABILITY = {
 };
 
 const MUSKEGON_SHARED_PUSH = {
-  version: "muskegon-croton-push-v1",
+  version: "muskegon-croton-direct-push-v1",
+  model: "direct_event_state" as const,
+  directEvent: {
+    hydraulic: "trigger" as const,
+    temperature: "trigger_and_constraint" as const,
+    buildingCoolingF: .75,
+    coolingF: 1.5,
+    strongCoolingF: 3,
+    persistenceHours: 48,
+    fullRetentionFraction: .65,
+    minimumRetentionFraction: .35,
+  } as const,
   hydraulic: {
     metric: "flow_cfs" as const,
     sourceLabel: "Croton tailwater",
@@ -1044,7 +1077,7 @@ export const MUSKEGON_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
   },
   push: {
     ...MUSKEGON_SHARED_PUSH,
-    version: "muskegon-fall-coho-push-v1",
+    version: "muskegon-fall-coho-direct-push-v1",
     temperature: {
       suitabilityLabel: "Muskegon adult fall Coho migration",
       supportiveMinF: 50,
@@ -1155,7 +1188,7 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
     },
     push: {
       ...MUSKEGON_SHARED_PUSH,
-      version: "muskegon-fall-steelhead-push-v1",
+      version: "muskegon-fall-steelhead-direct-push-v1",
       temperature: {
         suitabilityLabel: "Muskegon adult fall Steelhead entry",
         coldHoldingF: 39,
@@ -1225,7 +1258,18 @@ const ST_JOSEPH_SHARED_FISHABILITY = {
 };
 
 const ST_JOSEPH_SHARED_PUSH = {
-  version: "st-joseph-niles-push-v1",
+  version: "st-joseph-niles-direct-push-v1",
+  model: "direct_event_state" as const,
+  directEvent: {
+    hydraulic: "trigger" as const,
+    temperature: "trigger_and_constraint" as const,
+    buildingCoolingF: .75,
+    coolingF: 1.5,
+    strongCoolingF: 3,
+    persistenceHours: 48,
+    fullRetentionFraction: .65,
+    minimumRetentionFraction: .35,
+  } as const,
   hydraulic: {
     metric: "flow_cfs" as const,
     sourceLabel: "Niles mainstem reach",
@@ -1352,7 +1396,7 @@ export const ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE:
     },
     push: {
       ...ST_JOSEPH_SHARED_PUSH,
-      version: "st-joseph-fall-chinook-push-v1",
+      version: "st-joseph-fall-chinook-direct-push-v1",
       temperature: {
         suitabilityLabel: "St. Joseph adult fall Chinook migration",
         coldHoldingF: 43,
@@ -1505,7 +1549,7 @@ export const ST_JOSEPH_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
   },
   push: {
     ...ST_JOSEPH_SHARED_PUSH,
-    version: "st-joseph-fall-coho-push-v1",
+    version: "st-joseph-fall-coho-direct-push-v1",
     temperature: {
       suitabilityLabel: "St. Joseph adult fall Coho migration",
       supportiveMinF: 50,
@@ -2156,7 +2200,7 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
     },
     push: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push,
-      version: "pm-fall-coho-push-v1",
+      version: "pm-fall-coho-direct-push-v1",
       hydraulic: {
         ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic,
       },
@@ -2170,9 +2214,9 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
       },
       caps: { ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push.caps },
       evidenceNotes:
-        "Coho uses the audited PM hydraulic and precipitation response because Scottville, not species identity, measures the river response. The species-specific migration band is fully supportive from 50-62F, transitional above 62F, too warm at 68F, and migration-limiting at 70F. Rain remains precursor-only and strong positive movement language still requires a measured Scottville response.",
+        "Fresh Push Watch uses only the measured Scottville hydraulic response. Coho reuses the audited river-specific rise thresholds because Scottville, not species identity, measures that response. PMTU temperature stations represent different Middle and Upper reaches and are deliberately excluded; precipitation is not scored independently.",
       sourceNotes:
-        "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point, 2016-2025. Temperature: PMTU measured water, prioritized Maple Leaf then Bowman and M-37. Coho biology: Michigan DNR Coho profile and Great Lakes/peer-reviewed migration-temperature literature recorded in great_lakes_coho_v1. The 2021-2025 Coho replay produced 446 usable dates with zero safety or copy violations; the owner accepted these values for public release.",
+        "Hydraulics: USGS 04122500 daily means, 2016-2025. The direct-event signal is limited to the Scottville reach; it does not treat PMTU Maple Leaf, Bowman, or M-37 temperature as same-reach corroboration and does not directly measure Pere Marquette Lake or the river mouth.",
     },
     fishabilityBands: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
@@ -2299,7 +2343,7 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
     },
     push: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push,
-      version: "pm-fall-steelhead-push-v1",
+      version: "pm-fall-steelhead-direct-push-v1",
       hydraulic: {
         ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push.hydraulic,
       },
@@ -2318,9 +2362,9 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
         coldHolding: 49,
       },
       evidenceNotes:
-        "Steelhead uses the audited PM hydraulic and rainfall response because Scottville measures the same river. The species branch weights temperature differently: 46-52F is the core fall-entry band, 40-45F remains movement-capable but increasingly favors holding, and approximately 39F or colder caps active-movement confidence while retaining in-river presence. Rain remains precursor-only and strong language still requires a measured Scottville response.",
+        "Fresh Push Watch uses only the measured Scottville hydraulic response. Steelhead reuses the audited river-specific rise thresholds because Scottville measures the same hydraulic reach. PMTU temperature stations represent different Middle and Upper reaches and are deliberately excluded; precipitation is not scored independently.",
       sourceNotes:
-        "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point. Temperature: prioritized PMTU measured-water stations. Species response: Michigan DNR steelhead life-history guidance and Pere Marquette/Great Lakes steelhead telemetry documenting temperature-dominant movement and a movement slowdown near 4C/39F. The launch calibration values passed the acceptance replay and explicit owner review.",
+        "Hydraulics: USGS 04122500 daily means, 2016-2025. The direct-event signal is limited to the Scottville reach; it does not treat PMTU Maple Leaf, Bowman, or M-37 temperature as same-reach corroboration and does not directly measure Pere Marquette Lake or the river mouth.",
     },
     fishabilityBands: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,

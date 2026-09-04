@@ -92,15 +92,17 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Big Manistee Push is outside its fall movement window.",
-            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
-            "tip": "Check back in early August.",
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -482,7 +484,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -571,13 +573,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -966,7 +970,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -1056,13 +1060,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -1519,7 +1525,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -1625,29 +1631,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -2106,7 +2122,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -2212,29 +2228,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -2693,7 +2719,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -2819,29 +2845,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -3300,7 +3336,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -3426,29 +3462,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -3901,7 +3947,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -4046,29 +4092,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -4521,7 +4577,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -4666,29 +4722,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -5133,13 +5199,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -5147,7 +5207,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -5308,29 +5368,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -5775,13 +5845,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -5789,7 +5853,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -5950,29 +6014,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -6426,7 +6500,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -6587,29 +6661,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -7063,7 +7147,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -7224,30 +7308,18 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -7700,7 +7772,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -7861,30 +7933,18 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -8337,7 +8397,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -8501,13 +8561,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -8966,7 +9028,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -9061,13 +9123,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -9456,7 +9520,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -9546,13 +9610,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -10009,7 +10075,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -10134,29 +10200,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -10615,7 +10691,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -10740,29 +10816,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -11221,7 +11307,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -11346,29 +11432,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -11827,7 +11923,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -11948,29 +12044,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -12429,7 +12535,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -12661,29 +12767,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -13128,13 +13244,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -13142,7 +13252,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -13293,29 +13403,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -13760,13 +13880,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -13774,7 +13888,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -13919,30 +14033,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "Upper-river water shows little support for fresh movement.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -14388,13 +14511,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -14402,7 +14519,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -14547,28 +14664,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 61,
-            "label": "Possible",
-            "headline": "Upper-river water offers some support for fresh movement.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is cooling. Rain adds limited support while Wellston begins to rise.",
-            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_partial_precursor"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 52,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 3,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "partial_precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -15021,7 +15149,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -15166,28 +15294,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 76,
-            "label": "Strong",
-            "headline": "Upper-river water strongly supports possible fresh movement.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is favorable for fall migration and is cooling. Wellston already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -15640,7 +15779,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -15785,28 +15924,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 90,
-            "label": "Very strong",
-            "headline": "Upper-river water offers its strongest support for fresh movement.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. Wellston already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 10,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -16254,13 +16404,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
-            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
-            "reasonCodes": [
-              "strong_push_low_fishability"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -16268,7 +16412,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -16413,29 +16557,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 51,
-            "label": "Possible",
-            "headline": "Upper-river water offers some support for fresh movement.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is cooling. Rain is only a precursor because Wellston has not responded.",
-            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 10,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -16888,7 +17042,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -17033,30 +17187,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 46,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is cooling. Without a dependable Wellston trend, the read cannot show a clear Push.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_precursor",
-              "push_no_gauge_response_cap",
-              "push_unknown_trend_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 30,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 6,
-              "rainModifier": 10,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "precursor",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -17504,13 +17667,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -17518,7 +17675,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -17663,31 +17820,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 55,
-            "label": "Possible",
-            "headline": "Upper-river water offers some support for fresh movement.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move. Water temperature is favorable for fall migration and is cooling sharply. The Wellston reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge",
-              "push_stale_gauge_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 80,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": 10,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": [
-                55
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -18144,7 +18309,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -18289,31 +18454,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 49,
-            "label": "No clear push",
-            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is extremely high. Water temperature is favorable for fall migration and is cooling sharply. Rain adds no support while Wellston flow is already high.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_supportive",
-              "push_rain_suppressed_high_flow",
-              "push_severe_high_flow_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 80,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": 10,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "supportive",
-              "rainRole": "suppressed_high_flow",
-              "appliedCaps": [
-                49
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -18761,13 +18934,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -18775,7 +18942,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -18920,15 +19087,35 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_supportive"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -19342,7 +19529,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -19487,16 +19674,34 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -19912,7 +20117,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -20018,29 +20223,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 27,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -3,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -20499,7 +20714,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -20605,29 +20820,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 62,
-            "label": "Possible",
-            "headline": "Upper-river water offers some support for fresh movement.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature remains too warm to support a strong Push and is cooling. Wellston already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Keep Migration Stage’s section primary and add one Lower-river fresh-entry check.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "push_rain_absorbed_by_gauge",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -8,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -21087,7 +21312,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -21193,31 +21418,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 49,
-            "label": "No clear push",
-            "headline": "Warm Upper-river water prevents a dependable fresh-movement signal.",
-            "detail": "The river has made a clear rise since yesterday. Water temperature is warm enough to seriously limit confidence in fresh movement. Wellston already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_migration_barrier",
-              "push_rain_absorbed_by_gauge",
-              "push_temperature_barrier_cap"
+              "push_temperature_migration_barrier"
             ],
             "components": {
-              "hydraulicBase": 70,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -20,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "migration_barrier",
-              "rainRole": "absorbed_by_gauge",
-              "appliedCaps": [
-                49
-              ]
+              "rainRole": "missing",
+              "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -21677,7 +21910,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -21822,29 +22055,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "low",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -22290,13 +22533,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -22304,7 +22541,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -22455,29 +22692,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow remains low. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_low_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "low",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -22922,13 +23169,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -22936,7 +23177,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -23081,30 +23322,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_severe_high_flow_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -23551,13 +23801,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -23565,7 +23809,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -23710,28 +23954,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 47,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river has started to rise since yesterday. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 52,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -24176,13 +24431,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -24190,7 +24439,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -24335,28 +24584,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 75,
-            "label": "Strong",
-            "headline": "Upper-river water strongly supports possible fresh movement.",
-            "detail": "The river is rising quickly, creating conditions fish often use to move; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Wellston already reflects the rain response, so rain adds no extra credit.",
-            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_supportive",
-              "push_rain_absorbed_by_gauge"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 80,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "supportive",
-              "rainRole": "absorbed_by_gauge",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -24804,13 +25064,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
-            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
-            "reasonCodes": [
-              "strong_push_low_fishability"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -24818,7 +25072,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -24963,30 +25217,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "There is not enough recent river-level history to tell whether the river is rising or falling. Water temperature is favorable for fall migration and is relatively steady. Without a dependable Wellston trend, the read cannot show a clear Push.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_unknown_trend_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 30,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -25434,13 +25697,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -25448,7 +25705,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -25593,30 +25850,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 20,
-            "label": "Weak",
-            "headline": "Upper-river water shows little support for fresh movement.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Wellston reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_stale_gauge_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -26064,13 +26330,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -26078,7 +26338,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -26223,15 +26483,35 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_supportive"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -26645,7 +26925,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -26790,29 +27070,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -27257,13 +27547,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -27271,7 +27555,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -27416,29 +27700,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -27883,13 +28177,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -27897,7 +28185,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -28042,29 +28330,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -28509,13 +28807,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -28523,7 +28815,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -28619,13 +28911,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -29083,7 +29377,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -29189,29 +29483,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 27,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -3,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -29670,7 +29974,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -29796,29 +30100,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -30271,7 +30585,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -30416,29 +30730,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -30883,13 +31207,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -30897,7 +31215,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -31023,29 +31341,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 13,
-            "label": "Weak",
-            "headline": "Upper-river water shows little support for fresh movement.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow is already high. Water is on the warm side for fall migration but is warming sharply. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": -12,
-              "rainModifier": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -31498,7 +31826,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -31604,29 +31932,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 27,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_transitional",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_transitional"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -3,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "transitional_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -32086,7 +32424,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -32192,30 +32530,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 10,
-            "label": "Weak",
-            "headline": "Warm Upper-river water prevents a dependable fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is warm enough to seriously limit confidence in fresh movement. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_migration_barrier",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_temperature_barrier_cap"
+              "push_temperature_migration_barrier"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -20,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "migration_barrier",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -32675,7 +33022,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -32820,30 +33167,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 25,
-            "label": "No clear push",
-            "headline": "Extreme Upper-river flow prevents a dependable fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet; overall flow is extremely high. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, but exceptionally high flow keeps the event from being treated as favorable. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_severe_high_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_severe_high_flow_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": -5,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "severe_high",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -33290,13 +33646,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -33304,7 +33654,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -33465,29 +33815,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -33941,7 +34301,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -34102,30 +34462,18 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -34578,7 +34926,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -34742,13 +35090,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -35207,7 +35557,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -35352,16 +35702,34 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -35777,7 +36145,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -35922,15 +36290,35 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_supportive"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -36344,7 +36732,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -36439,13 +36827,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Waiting for migration",
             "headline": "Dependable Big Manistee river entry has not started.",
-            "detail": "Wellston flow and temperature are not scored as an in-season fresh-movement signal yet.",
+            "detail": "Measured river flow and water temperature are not scored as a fresh-movement event until this migration reaches Beginning.",
             "tip": "Use Migration Stage. Do not move inland because offseason water resembles a Push.",
             "reasonCodes": [
               "push_tracking_not_started"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -36834,7 +37224,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -36940,29 +37330,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -37421,7 +37821,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -37527,29 +37927,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -38008,7 +38418,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -38134,29 +38544,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -38609,7 +39029,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -38735,29 +39155,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -39210,7 +39640,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -39355,29 +39785,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -39830,7 +40270,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -39975,29 +40415,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -40450,7 +40900,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -40595,29 +41045,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -41062,13 +41522,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -41076,7 +41530,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -41221,29 +41675,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -41688,13 +42152,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -41702,7 +42160,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -41863,29 +42321,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -42339,7 +42807,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -42500,29 +42968,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -42976,7 +43454,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -43137,30 +43615,18 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -43613,7 +44079,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -43774,30 +44240,18 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "gauge_fresh",
-              "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_tracking_complete"
             ],
-            "components": {
-              "hydraulicBase": 35,
-              "hydraulicAdjustment": 0,
-              "temperatureModifier": 0,
-              "rainModifier": -5,
-              "hydraulicState": "normal",
-              "temperatureState": "supportive",
-              "rainRole": "dry",
-              "appliedCaps": []
-            },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -44250,7 +44704,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -44414,13 +44868,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -44880,7 +45336,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -45044,13 +45500,15 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "score": null,
             "label": "Migration complete",
             "headline": "The season's fresh-movement read is complete.",
-            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
             "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
               "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -45509,7 +45967,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -45596,15 +46054,17 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           },
           "push": {
             "score": null,
-            "label": "Offseason",
-            "headline": "Big Manistee Push is outside its fall movement window.",
-            "detail": "Current Wellston flow and temperature do not provide an in-season fresh-movement signal for this run.",
-            "tip": "Check back in early August.",
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Measured river flow and water temperature are no longer scored for this completed seasonal Push window. This does not indicate current fish presence or absence.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
             "reasonCodes": [
-              "push_tracking_offseason"
+              "push_tracking_complete"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
-            "copyVersion": "river-run-copy-v38"
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
+            "copyVersion": "river-run-copy-v38",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard"
           },
           "fishability": {
             "score": 93,
@@ -45986,7 +46446,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -46137,28 +46597,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 71,
-            "label": "Strong",
-            "headline": "Upper-river water strongly supports possible fresh movement.",
-            "detail": "The river has made a clear rise since yesterday; overall flow is already high. Water temperature is favorable for fall migration and is cooling. Rain adds no support while Wellston flow is already high.",
-            "tip": "Use the Lower river as the fresh-entry comparison, then return to Migration Stage’s section.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_high_flow_context",
-              "push_temperature_supportive",
-              "push_rain_suppressed_high_flow"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 70,
-              "hydraulicAdjustment": -5,
-              "temperatureModifier": 6,
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
               "rainModifier": 0,
               "hydraulicState": "high",
               "temperatureState": "supportive",
-              "rainRole": "suppressed_high_flow",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -46603,13 +47074,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
-            "detail": "A strong weather-and-water event can encourage movement while also making the river high, fast, or unsettled. Leave the main channel alone; start at bank-side inside seams and protected current, and wait for the river to settle if the presentation will not stay controlled.",
-            "reasonCodes": [
-              "strong_push_low_fishability"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -46617,7 +47082,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -46762,30 +47227,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 0,
-            "label": "Weak",
-            "headline": "Upper-river water shows little support for fresh movement.",
-            "detail": "The river is falling instead of showing a fresh rise. Water temperature remains too warm to support a strong Push but is warming sharply. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected, while the current absolute temperature limits the signal's strength. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_too_warm",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "temperature_too_warm_cap"
+              "push_temperature_too_warm"
             ],
             "components": {
-              "hydraulicBase": 20,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
-              "temperatureModifier": -18,
-              "rainModifier": -5,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "too_warm",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -47231,13 +47705,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -47245,7 +47713,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -47390,16 +47858,34 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -47815,7 +48301,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -47921,29 +48407,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -48402,7 +48898,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]
@@ -48553,29 +49049,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 30,
-            "label": "No clear push",
-            "headline": "Upper-river water does not show a clear fresh-movement signal.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent watershed weather shows little rain.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -49020,13 +49526,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -49034,7 +49534,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -49179,30 +49679,39 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": 20,
-            "label": "Weak",
-            "headline": "Upper-river water shows little support for fresh movement.",
-            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. The Wellston reading is aging, so confidence is reduced.",
-            "tip": "Keep Migration Stage’s section primary. Do not shift to fresh-entry water from this read.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. The flow reading is stale, so the signal is reduced by one level. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_stale",
               "push_normal_flow_context",
-              "push_temperature_supportive",
-              "dry_72h",
-              "push_no_gauge_response_cap",
-              "push_stale_gauge_cap"
+              "push_temperature_supportive"
             ],
             "components": {
-              "hydraulicBase": 35,
+              "hydraulicBase": 0,
               "hydraulicAdjustment": 0,
               "temperatureModifier": 0,
-              "rainModifier": -5,
+              "rainModifier": 0,
               "hydraulicState": "normal",
               "temperatureState": "supportive",
-              "rainRole": "dry",
+              "rainRole": "missing",
               "appliedCaps": []
             },
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              },
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -49650,13 +50159,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "data_quality_limited"
             ]
           },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
-          },
+          "interpretationNote": null,
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It represents the Upper river (High Bridge–Tippy Dam), especially the Tippy Dam area. Conditions can differ in the Middle river, Lower river, Manistee Lake, and harbor.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
@@ -49664,7 +50167,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -49809,15 +50312,35 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current river level.",
-            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
-            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
-              "gauge_missing"
+              "gauge_missing",
+              "push_normal_flow_context",
+              "push_temperature_supportive"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "temperature": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -50231,7 +50754,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       },
       {
@@ -50376,16 +50899,34 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "recentDailyReads": []
           },
           "push": {
-            "score": null,
-            "label": "Unavailable",
-            "headline": "There is no dependable Push read without a current water temperature.",
-            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
-            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "score": 50,
+            "label": "Neutral",
+            "headline": "Water signals are neutral for a fresh movement event.",
+            "detail": "No elevated direct water signal is currently detected. This estimates movement-supporting conditions, not fish entry or abundance.",
+            "tip": "Keep Migration Stage primary and watch the next four-hour update for a developing event.",
             "reasonCodes": [
               "gauge_fresh",
-              "temperature_unavailable"
+              "push_normal_flow_context"
             ],
-            "rulesVersion": "big-manistee-fall-chinook-push-v1",
+            "components": {
+              "hydraulicBase": 0,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": 0,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "missing",
+              "appliedCaps": []
+            },
+            "model": "direct_event_state",
+            "evidenceConfidence": "Standard",
+            "directSignals": {
+              "hydraulic": {
+                "level": 0,
+                "phase": "neutral"
+              }
+            },
+            "rulesVersion": "big-manistee-fall-chinook-direct-push-v1",
             "copyVersion": "river-run-copy-v38"
           },
           "fishability": {
@@ -50801,7 +51342,7 @@ export const RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-29-big-manistee-brown-release.3+seasonal-zone-v3"
+          "configVersion": "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3"
         }
       }
     ]

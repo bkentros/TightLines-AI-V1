@@ -9,6 +9,8 @@ import {
   type TemperatureTrendResult,
 } from "../metrics/temperature.ts";
 import { fetchUsgsContinuousPages, type RiverRunFetch } from "./usgs.ts";
+import { buildDirectEventSeries } from "../metrics/directEvent.ts";
+import type { DirectEventSample } from "../types.ts";
 
 export type NormalizedWaterTemperatureObservation = {
   sourceId: string;
@@ -20,8 +22,77 @@ export type NormalizedWaterTemperatureObservation = {
   approvalStatus?: string;
   qualifier?: string;
   timeSeriesId?: string;
-  source: "monitor_my_watershed_csv" | "usgs_continuous_values";
+  source:
+    | "monitor_my_watershed_csv"
+    | "usgs_continuous_values"
+    | "ndbc_realtime_standard_meteorological";
 };
+
+export async function fetchNdbcWaterTemperature(input: {
+  fetchFn: RiverRunFetch;
+  source: WaterTemperatureSourceConfig;
+}): Promise<string | null> {
+  if (input.source.provider !== "NOAA_NDBC") return null;
+  const response = await input.fetchFn(
+    `https://www.ndbc.noaa.gov/data/realtime2/${input.source.siteId}.txt`,
+  );
+  if (!response.ok || typeof response.text !== "function") return null;
+  return await response.text();
+}
+
+export function parseNdbcWaterTemperature(input: {
+  text: string;
+  source: WaterTemperatureSourceConfig;
+}): {
+  observations: NormalizedWaterTemperatureObservation[];
+  rejectedObservationCount: number;
+} {
+  const lines = input.text.split(/\r?\n/).filter(Boolean);
+  const header = lines.find((line) => line.startsWith("#YY"));
+  if (!header) return { observations: [], rejectedObservationCount: 1 };
+  const columns = header.replace(/^#/, "").trim().split(/\s+/);
+  const indexes = Object.fromEntries(
+    columns.map((name, index) => [name, index]),
+  );
+  if (
+    ["YY", "MM", "DD", "hh", "mm", "WTMP"].some((name) => indexes[name] == null)
+  ) {
+    return { observations: [], rejectedObservationCount: 1 };
+  }
+  const observations: NormalizedWaterTemperatureObservation[] = [];
+  let rejectedObservationCount = 0;
+  for (const line of lines) {
+    if (line.startsWith("#")) continue;
+    const values = line.trim().split(/\s+/);
+    const waterTempC = Number(values[indexes.WTMP]);
+    const parts = ["YY", "MM", "DD", "hh", "mm"].map((name) =>
+      Number(values[indexes[name]])
+    );
+    if (
+      !Number.isFinite(waterTempC) ||
+      parts.some((part) => !Number.isInteger(part))
+    ) {
+      rejectedObservationCount++;
+      continue;
+    }
+    const [year, month, day, hour, minute] = parts;
+    const observedAt = new Date(Date.UTC(year, month - 1, day, hour, minute))
+      .toISOString();
+    observations.push({
+      sourceId: input.source.sourceId,
+      provider: "NOAA_NDBC",
+      siteId: input.source.siteId,
+      observedAt,
+      waterTempF: waterTempC * 9 / 5 + 32 + (input.source.adjustmentF ?? 0),
+      source: "ndbc_realtime_standard_meteorological",
+    });
+  }
+  return filterTemperatureObservations({
+    observations,
+    source: input.source,
+    rejectedObservationCount,
+  });
+}
 
 export type NormalizedWaterTemperatureRead = {
   sourceId?: string;
@@ -31,6 +102,11 @@ export type NormalizedWaterTemperatureRead = {
   smoothedWaterTempF: number | null;
   freshness: GaugeFreshness;
   trend: TemperatureTrendResult;
+  changes: Array<{
+    hours: 12 | 24 | 48;
+    deltaF: number | null;
+  }>;
+  fourHourSeries: DirectEventSample[];
   isUpstreamFallback: boolean;
   rejectedObservationCount: number;
   reasonCodes: RiverRunReasonCode[];
@@ -252,6 +328,8 @@ export function resolveWaterTemperatureRead(input: {
       sourceType: "unavailable",
       hasEnoughValues: false,
     }),
+    changes: [],
+    fourHourSeries: [],
     isUpstreamFallback: false,
     rejectedObservationCount,
     reasonCodes: [
@@ -303,6 +381,26 @@ function buildCandidateRead(input: {
     )
     : null;
   const sourceType = input.source.sourceType;
+  const changes = ([12, 24, 48] as const).map((hours) => {
+    if (smoothedWaterTempF == null || !current) {
+      return { hours, deltaF: null };
+    }
+    const targetMs = Date.parse(current.observedAt) - hours * 60 * 60 * 1000;
+    const prior = closestAtOrBefore(usableObservations, targetMs);
+    const withinTolerance = prior && Math.abs(
+          Date.parse(prior.observedAt) - targetMs,
+        ) <= 3 * 60 * 60 * 1000;
+    return {
+      hours,
+      deltaF: withinTolerance ? smoothedWaterTempF - prior.waterTempF : null,
+    };
+  });
+  const fourHourSeries = buildDirectEventSeries({
+    observations: usableObservations,
+    refreshAtUtc: input.refreshAtUtc,
+    observedAt: (observation) => observation.observedAt,
+    value: (observation) => observation.waterTempF,
+  });
   const trend = resolveTemperatureTrendSignal({
     sourceType,
     delta24hF: smoothedWaterTempF != null && prior24h
@@ -331,6 +429,8 @@ function buildCandidateRead(input: {
     smoothedWaterTempF,
     freshness,
     trend,
+    changes,
+    fourHourSeries,
     isUpstreamFallback: input.isUpstreamFallback,
     rejectedObservationCount: input.rejectedObservationCount,
     reasonCodes: [...reasonCodes],

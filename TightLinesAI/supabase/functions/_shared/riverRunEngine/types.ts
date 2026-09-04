@@ -90,13 +90,17 @@ export type MovementEngineId =
 
 export type RiverMetric = "flow_cfs" | "gage_height_ft";
 export type GaugeProvider = "USGS";
-export type TemperatureProvider = "USGS" | "MONITOR_MY_WATERSHED";
+export type TemperatureProvider =
+  | "USGS"
+  | "MONITOR_MY_WATERSHED"
+  | "NOAA_NDBC";
 export type SupportStatus = "beta" | "verified";
 export type ReachQuality = "good" | "acceptable" | "limited";
 export type TemperatureSourceType =
   | "same_gauge"
   | "nearby_gauge"
   | "adjusted_reference_gauge"
+  | "receiving_water"
   | "unavailable";
 
 export type FishabilityBandSource = "audited_absolute";
@@ -131,6 +135,13 @@ export type RawTemperatureTrendSignal =
   | "neutral"
   | "warming"
   | "strong_warming";
+
+/** A robust, trailing four-hour median used by the direct Push event model. */
+export type DirectEventSample = {
+  windowEndAt: string;
+  value: number;
+  observationCount: number;
+};
 export type RunStage =
   | "pre_run"
   | "beginning"
@@ -555,7 +566,7 @@ export type RiverLiveConditionMetric = {
   approvalStatus?: string;
   qualifier?: string;
   sourceId: string;
-  provider: "USGS" | "MONITOR_MY_WATERSHED" | "WA_ECOLOGY";
+  provider: "USGS" | "MONITOR_MY_WATERSHED" | "NOAA_NDBC" | "WA_ECOLOGY";
   stationName: string;
   siteId: string;
   representedReach: string;
@@ -815,6 +826,30 @@ export type SpeciesBiologyProfile = {
 
 export type PushRules = {
   version: string;
+  /** Legacy runs retain the weighted rain/flow/temperature model by default. */
+  model?: "legacy_weighted" | "direct_event_state";
+  /**
+   * Positive-only direct-observation policy. A source may be omitted, but
+   * modeled precipitation is never substituted for either direct signal.
+   */
+  directEvent?: {
+    hydraulic: "trigger" | "disabled";
+    temperature: "trigger_and_constraint" | "constraint_only" | "disabled";
+    /** Evidence grade for how directly the scored source represents the product corridor. */
+    evidenceConfidence?: "standard" | "lower";
+    /** Optional ceiling for proxy sources; level 2 corresponds to Elevated. */
+    maximumLevel?: 1 | 2 | 3;
+    /** Required public limitation when a lower-confidence proxy is used. */
+    limitationCopy?: string;
+    /** Smallest biologically meaningful cooling event; smaller changes stay neutral. */
+    buildingCoolingF: number;
+    coolingF: number;
+    strongCoolingF: number;
+    persistenceHours: 48;
+    /** Fraction of the peak change that must remain for full/downgraded retention. */
+    fullRetentionFraction: number;
+    minimumRetentionFraction: number;
+  };
   hydraulic: {
     metric: RiverMetric;
     sourceLabel: string;

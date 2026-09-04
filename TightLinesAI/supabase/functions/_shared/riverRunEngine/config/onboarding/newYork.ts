@@ -1,9 +1,13 @@
 import type {
+  ActivityRules,
   AuditedRiverRunProfile,
+  FishabilityBands,
   HistoricalPresenceConfig,
+  PushRules,
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import { withSeasonalZonePlan } from "../seasonalZonePlans.ts";
 import {
@@ -494,6 +498,137 @@ const capabilities: AuditedRiverRunProfile["primitiveCapabilities"] = {
   },
 };
 
+const SALMON_NY_PUSH_BOUNDS: FishabilityBands = {
+  version: "salmon-ny-pineville-push-bounds-2019-2025-v1",
+  metric: "flow_cfs",
+  sourceLabel: "Pineville regulated mainstem",
+  tooLow: { max: 219.5 },
+  lowFishable: { min: 219.5, max: 386 },
+  ideal: { min: 386, max: 716.75 },
+  highFishable: { min: 716.75, max: 1330 },
+  blownOut: { min: 1870 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "Push-only bounds constrain the direct hydraulic event to the recent Pineville operating regime; they do not enable Fishing Shape or describe the estuary.",
+  sourceNotes:
+    "USGS 04250200 approved daily discharge, exact Aug. 25-Dec. 20 Push union in 2019-2025: p10 219.5, p25 386, p75 716.75, p90 1,330, and p95 1,870 CFS.",
+};
+
+const LOWER_GENESEE_PROXY_BOUNDS: FishabilityBands = {
+  version: "lower-genesee-ford-street-proxy-bounds-2019-2025-v1",
+  metric: "flow_cfs",
+  sourceLabel: "Ford Street upstream-basin proxy",
+  tooLow: { max: 451 },
+  lowFishable: { min: 451, max: 668 },
+  ideal: { min: 668, max: 1800 },
+  highFishable: { min: 1800, max: 3658 },
+  blownOut: { min: 5040 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "Push-only bounds keep the upstream-basin proxy inside the recent Ford Street flow regime; they do not enable Fishing Shape or claim Lower Falls reach equivalence.",
+  sourceNotes:
+    "USGS 04231600 approved daily discharge, exact Sept. 5-Dec. 20 Push union in 2019-2025: p10 451, p25 668, p75 1,800, p90 3,658, and p95 5,040 CFS.",
+};
+
+function newYorkMovementTemperature(
+  profile: ActivityRules["profile"],
+): Omit<PushRules["temperature"], "suitabilityLabel"> {
+  if (profile === "chinook_fall_reaction") {
+    return {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    };
+  }
+  if (profile === "coho_fall_reaction") {
+    return {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    };
+  }
+  if (profile === "steelhead_feeding") {
+    return {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    };
+  }
+  return {
+    coldHoldingF: 38,
+    preferredMinF: 44,
+    supportiveMinF: 40,
+    supportiveMaxF: 58,
+    tooWarmF: 64,
+    migrationBarrierF: 70,
+  };
+}
+
+function newYorkPush(input: {
+  runId: string;
+  riverId: string;
+  profile: ActivityRules["profile"];
+}): PushRules | null {
+  if (input.riverId === "salmon_ny") {
+    return buildDirectEventPushRules({
+      version: `${input.runId}-pineville-flow-direct-push-v1`,
+      fishability: SALMON_NY_PUSH_BOUNDS,
+      hydraulicTrend: {
+        rising24h: { absolute: 20, percent: 4.2 },
+        meaningfulRise24h: { absolute: 80, percent: 13.8 },
+        sharpRise24h: { absolute: 354, percent: 51 },
+      },
+      activityProfile: input.profile,
+      movementTemperature: newYorkMovementTemperature(input.profile),
+      temperatureMode: "disabled",
+      evidenceNotes:
+        "Fresh Push Watch uses only Pineville's measured hydraulic response. Across the exact Aug. 25-Dec. 20 Push union in 2019-2025, 298 consecutive-day positive rises were approximately 20/4.2% at p50, 80/13.8% at p75, and 353.9/51.0% at p90. Both absolute and percentage thresholds must pass. Reservoir releases are retained as real river-flow events, but their cause and fish response are not inferred; temperature, precipitation, and fish counts are unscored.",
+      sourceNotes:
+        "USGS 04250200 approved daily discharge and live high-cadence flow at Pineville. The station represents the regulated middle/upper mainstem, not the estuary or Lake Ontario.",
+    });
+  }
+  if (input.riverId === "lower_genesee") {
+    return buildDirectEventPushRules({
+      version: `${input.runId}-ford-street-proxy-direct-push-v1`,
+      fishability: LOWER_GENESEE_PROXY_BOUNDS,
+      hydraulicTrend: {
+        rising24h: { absolute: 140, percent: 16.9 },
+        meaningfulRise24h: { absolute: 340, percent: 36.1 },
+        sharpRise24h: { absolute: 726, percent: 66 },
+      },
+      activityProfile: input.profile,
+      movementTemperature: newYorkMovementTemperature(input.profile),
+      temperatureMode: "disabled",
+      evidenceConfidence: "lower",
+      maximumLevel: 2,
+      limitationCopy:
+        "Ford Street is upstream of Rochester's falls and hydropower operations, so the timing and magnitude at Lower Falls and the harbor may differ; treat this as upstream-basin context only.",
+      evidenceNotes:
+        "Lower-confidence Fresh Push Watch uses only Ford Street's measured hydraulic response. Across the exact Sept. 5-Dec. 20 Push union in 2019-2025, 335 consecutive-day positive rises were approximately 140/16.9% at p50, 340/36.1% at p75, and 726/66.0% at p90. Both absolute and percentage thresholds must pass. The proxy is capped at Elevated; upstream temperature, precipitation, and fish counts are unscored.",
+      sourceNotes:
+        "USGS 04231600 approved daily discharge and live high-cadence flow at Ford Street. The station is above High, Middle, and Lower Falls and is not a lower-gorge, tailwater, harbor, or lake measurement.",
+    });
+  }
+  return null;
+}
+
 const releasedAudit = {
   isEnabled: true,
   auditVersion: "new-york-release-audit-v1",
@@ -613,6 +748,7 @@ function baseRun(input: {
 }): AuditedRiverRunProfile {
   const steelhead = input.species === "steelhead";
   const brownTrout = input.species === "lake_run_brown_trout";
+  const push = newYorkPush(input);
   return {
     runId: input.runId,
     riverId: input.riverId,
@@ -633,6 +769,12 @@ function baseRun(input: {
     runStageCopyStrategy: "onboarding_corridor",
     primitiveCapabilities: {
       ...capabilities,
+      push: push ? { status: "available" } : {
+        status: "unavailable",
+        reason: "no_accepted_hydraulic_or_water_temperature_source",
+        notes:
+          "Shelby flow and temperature are separated from the migratory corridor by the Erie Canal crossing, Waterport Reservoir, and Waterport Dam. Their four-hour changes cannot defensibly time a lower-creek Push, even as a proxy.",
+      },
       fishability: input.riverId === "salmon_ny" ? capabilities.fishability : {
         status: "unavailable",
         reason: "no_accepted_hydraulic_source",
@@ -652,6 +794,7 @@ function baseRun(input: {
       lateEnd: input.runWindow.lateEnd,
       excluded: input.excluded,
     }),
+    ...(push ? { push } : {}),
     researchNotes: steelhead
       ? "This profile covers the independently evidenced fall-entry Steelhead phase only. Winter holding and the separate March-April spring-entry/spawn phase are not relabeled as this run."
       : brownTrout
@@ -1198,7 +1341,7 @@ function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   return {
     schemaVersion: "river-run-config-v1",
     configVersion:
-      `2026-09-01-${river.riverId}-new-york-release.3+seasonal-zone-v3`,
+      `2026-09-03-${river.riverId}-new-york-direct-push-v1+seasonal-zone-v3`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

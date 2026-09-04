@@ -5,6 +5,7 @@ import type {
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
+import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
@@ -291,12 +292,7 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       notes:
         "No accepted same-reach paired history supports a migration-timing comparison.",
     },
-    push: {
-      status: "unavailable",
-      reason: "no_accepted_water_temperature_source",
-      notes:
-        "No measured temperature source represents the Fruitvale hydraulic reach.",
-    },
+    push: { status: "available" },
   },
   runWindow: {
     preRunStart: "08-01",
@@ -359,6 +355,27 @@ export const WHITE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     },
     evidenceNotes:
       "Observed White River Chinook response model for a fish already present below Hesperia Dam. Fruitvale hydraulics, Weaver Street measured temperature, and Pines Point weather are independently freshness-gated and combined as complementary corridor inputs. The 55/20/15/10 weighting follows the audited Big Manistee and Muskegon Chinook calibration: effective light leads, measured temperature and river behavior materially inform the score, and precipitation remains restrained. The model identifies the stations as different reaches and does not infer migration, abundance, catch probability, access, or safety.",
+  }),
+  push: buildDirectEventPushRules({
+    version: "white-fall-chinook-direct-push-v1",
+    fishability: WHITE_FISHABILITY,
+    hydraulicTrend: {
+      rising24h: { absolute: 25, percent: 8 },
+      meaningfulRise24h: { absolute: 50, percent: 15 },
+      sharpRise24h: { absolute: 100, percent: 30 },
+    },
+    activityProfile: "chinook_fall_reaction",
+    movementTemperature: {
+      supportiveMinF: 51,
+      supportiveMaxF: 63,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fruitvale Road hydraulic response. Weaver Street temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04122200 at Fruitvale Road. The signal is limited to that lower-river reach and does not directly measure White Lake, the river mouth, or the full below-Hesperia corridor.",
   }),
   waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
@@ -450,6 +467,27 @@ export const WHITE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     },
     evidenceNotes:
       "Observed White River Coho response model for an occasionally present fish below Hesperia Dam. The 50/25/15/10 weighting matches the audited Pere Marquette, Big Manistee, Muskegon, and St. Joseph Coho calibration: effective light leads, followed by Weaver Street temperature, Fruitvale river behavior, and restrained precipitation. Each source is independently freshness-gated and explicitly labeled by reach. Activity remains conditional responsiveness and cannot increase the sparse presence ceiling or infer migration, abundance, catch probability, access, or safety.",
+  }),
+  push: buildDirectEventPushRules({
+    version: "white-fall-coho-direct-push-v1",
+    fishability: WHITE_FISHABILITY,
+    hydraulicTrend: {
+      rising24h: { absolute: 25, percent: 8 },
+      meaningfulRise24h: { absolute: 50, percent: 15 },
+      sharpRise24h: { absolute: 100, percent: 30 },
+    },
+    activityProfile: "coho_fall_reaction",
+    movementTemperature: {
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fruitvale Road hydraulic response. Weaver Street temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04122200 at Fruitvale Road. The signal is limited to that lower-river reach and does not directly measure White Lake, the river mouth, or the full below-Hesperia corridor.",
   }),
   waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
@@ -547,6 +585,29 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Observed White River Steelhead response model for a living fish already present below Hesperia Dam. The 25/50/15/10 weighting matches the audited Pere Marquette, Big Manistee, Muskegon, and St. Joseph Steelhead calibration: Weaver Street measured temperature leads, hourly light separates response windows, Fruitvale river behavior remains meaningful, and precipitation is restrained. A fixed 2022-2025 replay showed that favorable early temperatures otherwise made Pre-run and Beginning exceed Peak; bounded -25/-22/0/+20/+12/-3/-10 stage adjustments restore a Peak-led lifecycle without changing the measured-input weights or bypassing temperature, blown-out, missing-data, or 96-point maximum caps. Each source is independently freshness-gated and explicitly labeled by reach. The profile has no salmon mortality ramp, taper penalty, or ending cap and cannot infer migration, abundance, catch probability, access, or safety.",
   }),
+  push: buildDirectEventPushRules({
+    version: "white-fall-steelhead-direct-push-v1",
+    fishability: WHITE_FISHABILITY,
+    hydraulicTrend: {
+      rising24h: { absolute: 25, percent: 8 },
+      meaningfulRise24h: { absolute: 50, percent: 15 },
+      sharpRise24h: { absolute: 100, percent: 30 },
+    },
+    activityProfile: "steelhead_feeding",
+    movementTemperature: {
+      coldHoldingF: 39,
+      supportiveMinF: 40,
+      preferredMinF: 46,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
+    temperatureMode: "disabled",
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured Fruitvale Road hydraulic response. Weaver Street temperature is a different reach and is deliberately excluded from this movement signal.",
+    sourceNotes:
+      "Hydraulics: USGS 04122200 at Fruitvale Road. The signal is limited to that lower-river reach and does not directly measure White Lake, the river mouth, or the full below-Hesperia corridor.",
+  }),
   waterTemperature: WHITE_WEAVER_ACTIVITY_TEMPERATURE,
   fishabilityBands: WHITE_FISHABILITY,
   baselineCoverage: WHITE_BASELINE,
@@ -564,8 +625,7 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion:
-    "2026-08-27-white-fishability-reconciliation.4+seasonal-zone-v3",
+  configVersion: "2026-09-03-white-direct-push-v1+seasonal-zone-v3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

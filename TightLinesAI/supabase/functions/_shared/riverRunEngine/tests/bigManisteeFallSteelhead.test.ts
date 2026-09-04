@@ -142,27 +142,9 @@ Deno.test("Big Manistee Steelhead shares hydraulics and uses cold-holding biolog
   assertEquals(run.conditionsSuggest.gaugeWeight, 0.4);
   assertEquals(run.conditionsSuggest.waterTemperatureWeight, 0.6);
 
-  const cold = scorePush({
-    movementEngineId: run.movementEngineId,
-    rules: run.push,
-    gaugeFreshness: "fresh",
-    flowSignal: "meaningful_rise",
-    currentHydraulicValue: 1650,
-    hydraulicAbsoluteChange24h: 100,
-    hydraulicPercentChange24h: 7,
-    rainSignal: "meaningful_rain",
-    temperatureSignal: "cooling",
-    temperatureSourceType: "same_gauge",
-    waterTempF: 38,
-    trackingState: "active",
-    trackingStartDate: "2026-09-20",
-    trackingEndDate: "2026-12-22",
-    localDate: "2026-12-10",
-  });
-  assert(typeof cold.score === "number");
-  assert(cold.score <= 49);
-  assertEquals(cold.components?.temperatureState, "cold_holding");
-  assertEquals(cold.components?.rainRole, "absorbed_by_gauge");
+  assertEquals(run.push.model, "direct_event_state");
+  assertEquals(run.push.directEvent?.temperature, "trigger_and_constraint");
+  assertEquals(run.push.directEvent?.persistenceHours, 48);
 });
 
 Deno.test("Big Manistee Steelhead copy uses early-fish language and approved sections", () => {
