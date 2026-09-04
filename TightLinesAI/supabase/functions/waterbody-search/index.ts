@@ -8,6 +8,7 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
+import { shouldSurfaceSearchUnavailable } from "./reliability.ts";
 
 const WATERBODY_SEARCH_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -1518,6 +1519,8 @@ Deno.serve(async (req: Request) => {
 
   let data: unknown[] | null = null;
   let error: { message: string } | null = null;
+  let primaryRpcFailed = false;
+  let crossStateRetryFailed = false;
   const genericType = genericWaterbodyTypeOnly(query);
   if (genericType) {
     const response = await supabase.rpc("browse_waterbodies_by_state", {
@@ -1540,6 +1543,7 @@ Deno.serve(async (req: Request) => {
   }
   if (error) {
     if (shouldTryCrossStateAliasRetry([], query, state)) {
+      primaryRpcFailed = true;
       console.info(
         "[waterbody-search] local rpc failed; trying cross-state alias retry",
         JSON.stringify({ state }),
@@ -1555,7 +1559,9 @@ Deno.serve(async (req: Request) => {
   let rawRows = Array.isArray(data) ? data as SearchRow[] : [];
   let fallbackAttempted = false;
   let fallbackIndexedCount = 0;
-  if (shouldTryRemoteFallback(rawRows, query, state)) {
+  // A failed database query is not evidence that the lake is missing. Avoid
+  // an unnecessary external 3DHP request while the local recovery path runs.
+  if (!primaryRpcFailed && shouldTryRemoteFallback(rawRows, query, state)) {
     fallbackAttempted = true;
     const indexedCount = await fetchAndIndex3DhpCandidates({
       supabase,
@@ -1587,6 +1593,7 @@ Deno.serve(async (req: Request) => {
       result_limit: limit,
     });
     if (retry.error) {
+      crossStateRetryFailed = true;
       console.error(
         "[waterbody-search] cross-state alias retry failed",
         retry.error,
@@ -1605,6 +1612,23 @@ Deno.serve(async (req: Request) => {
   }
 
   const rows = sortedRowsForDisplay(rawRows, query);
+  if (
+    shouldSurfaceSearchUnavailable({
+      primaryRpcFailed,
+      crossStateRetryFailed,
+      resultCount: rows.length,
+    })
+  ) {
+    console.error(
+      "[waterbody-search] search unavailable after database recovery failed",
+      JSON.stringify({ state }),
+    );
+    return jsonError(
+      "Waterbody search is temporarily unavailable. Please try again.",
+      "search_temporarily_unavailable",
+      503,
+    );
+  }
   const weakResult = rows.length === 0 ||
     (rows.length > 0 &&
       !rows.some((row) => rowMatchesAllQueryTokens(row, query)));
@@ -1624,6 +1648,8 @@ Deno.serve(async (req: Request) => {
         weakResult,
         fallbackAttempted,
         fallbackIndexedCount,
+        primaryRpcFailed,
+        crossStateRetryFailed,
       }),
     );
     const { error: missError } = await supabase
@@ -1642,6 +1668,8 @@ Deno.serve(async (req: Request) => {
         request_context: {
           weakResult,
           topResults,
+          primaryRpcFailed,
+          crossStateRetryFailed,
         },
       });
     if (missError) {
