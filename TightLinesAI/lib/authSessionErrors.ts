@@ -16,6 +16,9 @@ export function isRefreshTokenRevokedError(err: unknown): boolean {
         : String(err);
   const lower = message.toLowerCase();
   return (
-    lower.includes('invalid refresh token') || lower.includes('refresh token not found')
+    lower.includes('invalid refresh token') ||
+    lower.includes('refresh token not found') ||
+    lower.includes('session not found') ||
+    lower.includes('user from sub claim in jwt does not exist')
   );
 }

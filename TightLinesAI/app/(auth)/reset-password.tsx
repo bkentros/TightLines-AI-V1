@@ -44,10 +44,13 @@ import {
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
 import {
+  COMPROMISED_PASSWORD_GUIDANCE,
   getPasswordValidationError,
+  isCompromisedPasswordError,
   isPasswordValid,
   PASSWORD_POLICY_LABEL,
 } from '../../lib/passwordValidation';
+import { captureAnalytics } from '../../lib/analytics';
 import { TopographicLines } from '../../components/paper';
 import {
   AuthField,
@@ -102,10 +105,27 @@ export default function ResetPasswordScreen() {
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) {
-        setNotice({ title: 'Could not update password', message: error.message, tone: 'error' });
+        const isCompromisedPassword = isCompromisedPasswordError(error);
+        captureAnalytics('auth_password_update_failed', {
+          reason: isCompromisedPassword ? 'weak_password' : 'other',
+        });
+        setNotice(
+          isCompromisedPassword
+            ? {
+                title: 'Choose a stronger password',
+                message: COMPROMISED_PASSWORD_GUIDANCE,
+                tone: 'error',
+              }
+            : {
+                title: 'Could not update password',
+                message: error.message,
+                tone: 'error',
+              },
+        );
         return;
       }
       await signOut();
+      captureAnalytics('auth_password_updated');
       setDone(true);
     } finally {
       setLoading(false);

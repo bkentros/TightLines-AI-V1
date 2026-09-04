@@ -56,10 +56,13 @@ import {
   setAuthEmailCooldown,
 } from '../../lib/authEmailCooldown';
 import {
+  COMPROMISED_PASSWORD_GUIDANCE,
   getPasswordValidationError,
+  isCompromisedPasswordError,
   isPasswordValid,
   PASSWORD_POLICY_LABEL,
 } from '../../lib/passwordValidation';
+import { captureAnalytics } from '../../lib/analytics';
 import { TopographicLines } from '../../components/paper';
 import {
   AuthBackButton,
@@ -296,12 +299,29 @@ export default function SignUpScreen() {
 
       if (error) {
         const msg = (error.message || '').toLowerCase();
+        const isCompromisedPassword = isCompromisedPasswordError(error);
         const isRateLimit =
           msg.includes('rate limit') || msg.includes('429') || msg.includes('too many');
         const isAlreadyRegistered =
           msg.includes('already registered') || msg.includes('already exists') || msg.includes('user already');
 
-        if (isRateLimit) {
+        captureAnalytics('auth_signup_failed', {
+          reason: isCompromisedPassword
+            ? 'weak_password'
+            : isRateLimit
+              ? 'rate_limit'
+              : isAlreadyRegistered
+                ? 'account_exists'
+                : 'other',
+        });
+
+        if (isCompromisedPassword) {
+          setNotice({
+            title: 'Choose a stronger password',
+            message: COMPROMISED_PASSWORD_GUIDANCE,
+            tone: 'error',
+          });
+        } else if (isRateLimit) {
           const raw = await AsyncStorage.getItem(RATE_LIMIT_STORAGE_KEY);
           const existingUntil = raw ? parseInt(raw, 10) : 0;
           const now = Date.now();
@@ -337,6 +357,9 @@ export default function SignUpScreen() {
           (data.user.identities && data.user.identities.length === 0);
 
         if (isExistingAccount) {
+          captureAnalytics('auth_signup_failed', {
+            reason: 'account_exists',
+          });
           setEmailStatus('invalid');
           setEmailError('An account with this email already exists');
           setNotice({
@@ -352,6 +375,9 @@ export default function SignUpScreen() {
             AUTH_EMAIL_COOLDOWN_SECONDS,
           );
           setVerificationCooldownSeconds(AUTH_EMAIL_COOLDOWN_SECONDS);
+          captureAnalytics('auth_signup_verification_requested', {
+            provider: 'email',
+          });
           router.push({ pathname: '/(auth)/verify-email', params: { email: trimmedEmail } });
         }
       }
