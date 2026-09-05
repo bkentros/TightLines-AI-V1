@@ -22,8 +22,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Redirect, useRouter } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
+import { Redirect, useFocusEffect, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
