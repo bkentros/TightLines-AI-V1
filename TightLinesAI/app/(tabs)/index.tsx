@@ -1719,7 +1719,7 @@ export default function HomeScreen() {
           <View style={styles.modules}>
             <View style={styles.modulesHeader}>
               <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-              <Text style={styles.modulesCount}>4 LIVE · 1 PLANNED</Text>
+              <Text style={styles.modulesCount}>4 LIVE · 2 PLANNED</Text>
             </View>
 
             <Pressable
@@ -1818,6 +1818,17 @@ export default function HomeScreen() {
               iconBg={["#FBEBDD", "#F3C9A7"]}
               iconBorder="#D9772B"
               iconColor="#9B4E18"
+              comingSoon
+            />
+            <ModuleRow
+              code="06"
+              title="Pier Cast"
+              tag="PIER FORECAST"
+              desc="Great Lakes pier forecasts · best species & fishing windows · today + 5 days"
+              moduleId="pier-cast"
+              iconBg={["#E0F3F0", "#B8DFD8"]}
+              iconBorder="#318F83"
+              iconColor="#20665E"
               comingSoon
             />
           </View>

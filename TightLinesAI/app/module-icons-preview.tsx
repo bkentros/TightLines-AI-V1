@@ -86,6 +86,17 @@ const MODULES: ModuleSpec[] = [
     iconColor: "#9B4E18",
     legacyIcon: "color-palette-outline",
   },
+  {
+    id: "pier-cast",
+    code: "06",
+    title: "Pier Cast",
+    tag: "PIER FORECAST",
+    desc: "Great Lakes pier forecasts · best species & fishing windows · today + 5 days",
+    iconBg: ["#E0F3F0", "#B8DFD8"],
+    iconBorder: "#318F83",
+    iconColor: "#20665E",
+    legacyIcon: "boat-outline",
+  },
 ];
 
 const VARIANTS: {

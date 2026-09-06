@@ -35,7 +35,8 @@ export type IntelligenceModuleId =
   | 'tackle-box'
   | 'todays-bite'
   | 'river-run'
-  | 'color-match';
+  | 'color-match'
+  | 'pier-cast';
 
 export type IntelligenceModuleIconVariant = 'field' | 'premium' | 'legacy';
 
@@ -69,6 +70,7 @@ const SWEEP_STAGGER_MS: Record<IntelligenceModuleId, number> = {
   'todays-bite': 2600,
   'river-run': 3900,
   'color-match': 5200,
+  'pier-cast': 6500,
 };
 
 let _uidCounter = 0;
@@ -318,6 +320,7 @@ function FieldMarkArt({
   module: IntelligenceModuleId;
   color: string;
 }) {
+  if (module === 'pier-cast') return <PierCastFieldMark color={color} />;
   if (module === 'todays-bite') return <TodaysBiteFieldMark color={color} />;
   if (module === 'river-run') return <RiverMigrationFieldMark color={color} />;
   if (module === 'tackle-box') return <TackleBoxFieldMark color={color} />;
@@ -404,6 +407,20 @@ function WaterReadFieldMark({ color }: { color: string }) {
   );
 }
 
+/** Pier pilings, a casting arc, and nearshore waves. */
+function PierCastFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <InstrumentFrame color={color} />
+      <Rect x={6.5} y={14} width={12} height={2.6} rx={0.7} fill={color} fillOpacity={0.8} />
+      <Path d="M9 16.6 V23 M15.5 16.6 V21" fill="none" stroke={color} strokeWidth={1.6} strokeLinecap="round" />
+      <Path d="M14 13.8 L17 9 M17 9 Q25 6 24 17" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Circle cx={24} cy={18} r={1.2} fill={color} />
+      <Path d="M18 22 Q20 20.5 22 22 T26 22 M7 25 Q10 23.5 13 25 T19 25 T25 25" fill="none" stroke={color} strokeWidth={1.1} strokeOpacity={0.65} strokeLinecap="round" />
+    </>
+  );
+}
+
 function ColorMatchFieldMark({ color }: { color: string }) {
   return (
     <>
@@ -428,6 +445,7 @@ function EmblemArt({
   color: string;
   uid: string;
 }) {
+  if (module === 'pier-cast') return <PierCastFieldMark color={color} />;
   if (module === 'color-match') return <ColorMatchFieldMark color={color} />;
   if (module === 'water-read') return <WaterReadEmblem color={color} uid={uid} />;
   if (module === 'tackle-box') return <TackleBoxEmblem color={color} uid={uid} />;
@@ -442,6 +460,7 @@ function LegacyEmblemArt({
   module: IntelligenceModuleId;
   color: string;
 }) {
+  if (module === 'pier-cast') return <PierCastFieldMark color={color} />;
   if (module === 'color-match') {
     return <ColorMatchFieldMark color={color} />;
   }

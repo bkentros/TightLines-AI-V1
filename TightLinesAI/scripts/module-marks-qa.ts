@@ -18,7 +18,7 @@ assert.match(
 );
 assert.match(
   home,
-  /4 LIVE · 1 PLANNED/,
+  /4 LIVE · 2 PLANNED/,
   "The module count must distinguish available and planned tools",
 );
 assert.match(
@@ -54,6 +54,7 @@ for (const component of [
   "TackleBoxFieldMark",
   "WaterReadFieldMark",
   "ColorMatchFieldMark",
+  "PierCastFieldMark",
 ]) {
   assert.match(
     marks,
@@ -73,5 +74,5 @@ assert.match(
 );
 
 console.log(
-  "Module mark QA passed: compact guide CTA, shared instrument system, five refined marks, and fly-inclusive Color Match.",
+  "Module mark QA passed: compact guide CTA, shared instrument system, six refined marks, and fly-inclusive Color Match.",
 );
