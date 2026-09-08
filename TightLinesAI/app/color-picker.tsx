@@ -614,7 +614,7 @@ export default function ColorPickerScreen() {
                         <Text
                           style={[s.caption, { flex: 1, textAlign: "left" }]}
                         >
-                          Your report will show two equal-status picks for each meaningful light condition—or one shared set when the visual answer stays the same.
+                          Your report always shows two equal-status picks for sunny light and two for cloudy or shaded light.
                         </Text>
                       </View>
                     </>

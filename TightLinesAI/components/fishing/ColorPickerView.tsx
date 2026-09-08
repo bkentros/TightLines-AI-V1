@@ -16,8 +16,12 @@ function Palette({ colors }: { colors: string[] }) {
 }
 function LightHeading({ light }: { light: "sunny" | "cloudy" | "all" }) {
   const title = light === "sunny" ? "BRIGHT / DIRECT LIGHT" : light === "cloudy" ? "LOW / DIFFUSE LIGHT" : "ACROSS CHANGING LIGHT";
-  const caption = light === "all" ? "our two picks for either condition" : "our two picks for this light";
-  return <View style={s.sectionHeading}>
+  const caption = light === "sunny"
+    ? "two picks for open sun and hard surface glare"
+    : light === "cloudy"
+    ? "two picks for overcast skies, shade, and soft light"
+    : "two picks for either condition";
+  return <View style={[s.sectionHeading, light === "sunny" ? s.sunnyHeading : light === "cloudy" ? s.cloudyHeading : s.sharedHeading]}>
     <View style={s.ruleRow}><View style={s.ruleCap} /><View style={s.rule} /><Text style={s.diamond}>◆</Text></View>
     <View style={s.sectionTitleRow}>
       <Ionicons name={light === "sunny" ? "sunny-outline" : light === "cloudy" ? "cloud-outline" : "partly-sunny-outline"} size={21} color={paper.dashboardInk} />
@@ -76,16 +80,16 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
       <View style={s.briefIcon}><Ionicons name="eye-outline" size={22} color={paper.dashboardBlue} /></View>
       <View style={{ flex: 1, gap: 5 }}>
         <Text style={s.briefLabel}>YOUR VISUAL PLAN</Text>
-        <Text style={s.briefText}>Two strong starting colors for this bait and water visibility. Use the section that matches the light over the water.</Text>
+        <Text style={s.briefText}>Your report always includes two picks for sunny conditions and two for cloudy or shaded conditions. Use the section matching the light over the water.</Text>
       </View>
     </View>
     <View style={s.masthead}>
       <Text style={s.mastheadLabel}>THE COLOR CARD</Text>
-      <Text style={s.mastheadTitle}>TWO PICKS. ONE PLAN.</Text>
-      <Text style={s.intro}>Both are FinFindr picks for these visual conditions. Start with either.</Text>
+      <Text style={s.mastheadTitle}>TWO PICKS FOR EACH LIGHT.</Text>
+      <Text style={s.intro}>Both choices within a light section are equal-status FinFindr picks. Start with either.</Text>
     </View>
-    {(report.selection.sharedAcrossLight ? report.selection.groups.slice(0, 1) : report.selection.groups).map(group => <View key={group.light} style={s.group}>
-      <LightHeading light={report.selection.sharedAcrossLight ? "all" : group.light} />
+    {report.selection.groups.map(group => <View key={group.light} style={s.group}>
+      <LightHeading light={group.light} />
       {group.choices.map((choice, index) => <ColorCard key={choice.patternId} choice={choice} marker={index === 0 ? "A" : "B"} />)}
     </View>)}
     <View style={s.footer}>
@@ -156,7 +160,10 @@ const s = StyleSheet.create({
   mastheadTitle: { fontFamily: paperFonts.display, fontSize: 23, lineHeight: 27, color: paper.dashboardInk, textAlign: "center" },
   intro: { fontFamily: paperFonts.displayItalic, fontSize: 15, lineHeight: 22, textAlign: "center", color: paper.dashboardInk, opacity: 0.7 },
   group: { gap: 16 },
-  sectionHeading: { gap: 9, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine },
+  sectionHeading: { gap: 9, padding: 14, borderWidth: 1, borderRadius: paperRadius.card, overflow: "hidden" },
+  sunnyHeading: { backgroundColor: "#FBF1D9", borderColor: "#C99B2D" },
+  cloudyHeading: { backgroundColor: "#E8F1F3", borderColor: paper.dashboardBlue },
+  sharedHeading: { backgroundColor: paper.dashboardWhite, borderColor: paper.dashboardLine },
   ruleRow: { flexDirection: "row", alignItems: "center", gap: 6 },
   ruleCap: { width: 5, height: 5, borderRadius: 1, backgroundColor: paper.dashboardInk },
   rule: { height: 1, flex: 1, backgroundColor: paper.dashboardInk },
