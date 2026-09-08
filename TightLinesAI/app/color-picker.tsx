@@ -4,8 +4,6 @@ import {
   SectionEyebrow,
   TopographicLines,
 } from "../components/paper";
-import { RecommenderArtwork } from "../components/fishing/RecommenderArtwork";
-import { hapticSelection } from "../lib/safeHaptics";
 import {
   colorChoiceForType,
   colorPickerCatalog as catalog,
@@ -22,6 +20,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -225,7 +224,6 @@ export default function ColorPickerScreen() {
   })).filter(c => c.types.length > 0);
   const resultCount = sections.reduce((count, c) => count + c.types.length, 0);
   const chooseBait = (id: string) => {
-    hapticSelection();
     setTypeId(id);
     setError("");
   };
@@ -242,7 +240,6 @@ export default function ColorPickerScreen() {
       accessibilityState={{ disabled: disabled || busy }}
       disabled={disabled || busy}
       onPress={() => {
-        hapticSelection();
         onPress();
       }}
       style={(
@@ -331,7 +328,7 @@ export default function ColorPickerScreen() {
                         {catalog.categories.map(c => {
                           const active = category === c.id;
                           return <Pressable key={c.id} accessibilityRole="button" accessibilityLabel={c.label} accessibilityState={{ selected: active }}
-                            onPress={() => { hapticSelection(); setCategory(c.id); setTypeId(""); setError(""); }}
+                            onPress={() => { setCategory(c.id); setTypeId(""); setError(""); }}
                             style={[s.categoryCard, active && s.blueSelected]}>
                             <View style={[s.categoryIcon, active && s.categoryIconActive]}>
                               <Ionicons
@@ -380,7 +377,12 @@ export default function ColorPickerScreen() {
                               >
                                 {typeId === t.id && <View style={[s.blueBadge, { zIndex: 2 }]}><Ionicons name="checkmark" size={15} color="white" /></View>}
                                 <View style={s.catalogImageArea}>
-                                  <RecommenderArtwork source={colorTypeThumbnail(t.id)} style={s.baitImage} />
+                                  <Image
+                                    source={colorTypeThumbnail(t.id)}
+                                    style={s.baitImage}
+                                    contentFit="contain"
+                                    cachePolicy="memory-disk"
+                                  />
                                 </View>
                                 <View style={[s.catalogTileFooter, typeId === t.id && s.blueSelected]}>
                                   <Text style={s.catalogTileLabel}>{t.label}</Text>
@@ -432,9 +434,11 @@ export default function ColorPickerScreen() {
                         accessibilityLabel="Selected bait"
                         style={s.baitSummary}
                       >
-                        <RecommenderArtwork
+                        <Image
                           source={colorTypeThumbnail(typeId)}
                           style={s.summaryImage}
+                          contentFit="contain"
+                          cachePolicy="memory-disk"
                         />
                         <View style={{ flex: 1, gap: 4 }}>
                           <Text style={s.eyebrow}>IN YOUR TACKLE BOX</Text>
@@ -478,7 +482,6 @@ export default function ColorPickerScreen() {
                               accessibilityLabel={c === "dirty" ? "Murky" : c === "clear" ? "Clear" : "Stained"}
                               accessibilityState={{ selected: clarity === c }}
                               onPress={() => {
-                                hapticSelection();
                                 setClarity(c);
                               }}
                               style={(
@@ -489,9 +492,11 @@ export default function ColorPickerScreen() {
                                 pressed && { transform: [{ scale: .97 }] },
                               ]}
                             >
-                              <RecommenderArtwork
+                              <Image
                                 source={COLOR_CLARITY_THUMBNAILS[c]}
                                 style={s.clarityImage}
+                                contentFit="contain"
+                                cachePolicy="memory-disk"
                               />
                               <Text style={s.clarityTitle}>
                                 {c === "dirty"
