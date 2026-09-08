@@ -19,6 +19,9 @@ import {
   StyleSheet,
   Text,
   View,
+  type ImageSourcePropType,
+  type StyleProp,
+  type ViewStyle,
 } from "react-native";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
@@ -39,6 +42,27 @@ import { COLOR_CLARITY_THUMBNAILS } from "../lib/colorPickerImages";
 import { paper, paperFonts, paperShadows, paperSpacing, paperRadius } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 type Clarity = "clear" | "stained" | "dirty";
+function SelectionArtwork({
+  source,
+  style,
+  selected,
+}: {
+  source: ImageSourcePropType | null;
+  style: StyleProp<ViewStyle>;
+  selected: boolean;
+}) {
+  return (
+    <View style={[style, s.artworkFrame]}>
+      <Image
+        source={source}
+        style={StyleSheet.absoluteFill}
+        contentFit="contain"
+        cachePolicy="memory-disk"
+      />
+      {selected && <View pointerEvents="none" style={s.selectionWash} />}
+    </View>
+  );
+}
 const today = (zone: string) => {
   const p = new Intl.DateTimeFormat("en-US", {
     timeZone: zone,
@@ -383,7 +407,7 @@ export default function ColorPickerScreen() {
                           return <Pressable key={c.id} accessibilityRole="button" accessibilityLabel={c.label} accessibilityState={{ selected: active }}
                             onPress={() => { setCategory(c.id); setTypeId(""); baitScroll.current = 0; setError(""); }}
                             style={[s.categoryCard, active && s.blueSelected]}>
-                            <Image source={colorTypeThumbnail(cover[c.id])} style={s.categoryArt} contentFit="contain" cachePolicy="memory-disk" />
+                            <SelectionArtwork source={colorTypeThumbnail(cover[c.id])} style={s.categoryArt} selected={active} />
                             <View style={s.categoryFooter}>
                               <Text style={s.categoryLabel}>{c.label}</Text>
                               <Text style={s.categoryHint}>{({ soft_plastics: "Soft-bodied favorites", hard_baits: "Plugs & swimming baits", jigs_spinners: "Skirts, hair & blades", metal_baits: "Casting & fluttering", flies: "Streamers & poppers" } as Record<string, string>)[c.id]}</Text>
@@ -424,11 +448,10 @@ export default function ColorPickerScreen() {
                               >
                                 {typeId === t.id && <View style={[s.blueBadge, { zIndex: 2 }]}><Ionicons name="checkmark" size={15} color="white" /></View>}
                                 <View style={s.catalogImageArea}>
-                                  <Image
+                                  <SelectionArtwork
                                     source={colorTypeThumbnail(t.id)}
                                     style={s.baitImage}
-                                    contentFit="contain"
-                                    cachePolicy="memory-disk"
+                                    selected={typeId === t.id}
                                   />
                                 </View>
                                 <View style={[s.catalogTileFooter, typeId === t.id && s.blueSelected]}>
@@ -541,11 +564,10 @@ export default function ColorPickerScreen() {
                                 pressed && { transform: [{ scale: .97 }] },
                               ]}
                             >
-                              <Image
+                              <SelectionArtwork
                                 source={COLOR_CLARITY_THUMBNAILS[c]}
                                 style={s.clarityImage}
-                                contentFit="contain"
-                                cachePolicy="memory-disk"
+                                selected={clarity === c}
                               />
                               <Text style={s.clarityTitle}>
                                 {c === "dirty"
@@ -656,6 +678,8 @@ export default function ColorPickerScreen() {
   );
 }
 const s = StyleSheet.create({
+  artworkFrame: { overflow: "hidden", backgroundColor: paper.dashboardWhite },
+  selectionWash: { ...StyleSheet.absoluteFillObject, backgroundColor: paper.dashboardBlueLight, opacity: 0.42 },
   categoryCard: { width: "48%", borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: paperRadius.card, backgroundColor: "white", alignItems: "center", overflow: "hidden", ...paperShadows.hard },
   categoryFooter: { width: "100%", paddingHorizontal: 6, paddingVertical: 10, gap: 3, borderTopWidth: 1, borderTopColor: paper.dashboardLine },
   categoryHint: { fontFamily: paperFonts.displayItalic, fontSize: 10, lineHeight: 14, textAlign: "center", color: paper.dashboardMuted },
