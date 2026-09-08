@@ -622,7 +622,11 @@ export default function ColorPickerScreen() {
                   {step === "result" && report && (
                     <>
                       <ColorPickerView report={report} />
-                      <View style={s.actions}>{action("CHOOSE ANOTHER BAIT", editReport, false, true)}</View>
+                      <View style={s.resultActions}>
+                        <View style={s.resultButtonWrap}>
+                          {action("CHOOSE ANOTHER BAIT", editReport, false, true)}
+                        </View>
+                      </View>
                     </>
                   )}
                   {!!error && (
@@ -909,6 +913,8 @@ const s = StyleSheet.create({
     textAlign: "center",
   },
   actions: { flexDirection: "row", gap: 10 },
+  resultActions: { alignItems: "center", paddingTop: 4, paddingBottom: 12 },
+  resultButtonWrap: { width: "76%", maxWidth: 340, minWidth: 240, flexDirection: "row" },
   action: {
     flex: 1,
     flexDirection: "row",
