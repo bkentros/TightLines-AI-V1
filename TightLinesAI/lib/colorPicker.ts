@@ -13,6 +13,7 @@ export interface ReportEnvelope {
   weather?: { meanCloudPercent: number | null };
   selection: {
     report: { reportId: string; userId: string; requestId: string };
+    /** Identical pools reuse a pair; the report still renders both explicit light sections. */
     sharedAcrossLight?: boolean;
     groups: {
       light: "sunny" | "cloudy";

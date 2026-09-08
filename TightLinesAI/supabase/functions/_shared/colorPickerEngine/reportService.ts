@@ -22,7 +22,7 @@ export function parseReportRequest(value: unknown): ReportRequest {
   if (!value || typeof value !== "object" || Array.isArray(value)) return invalid("Expected a report request.");
   const x = value as Record<string, unknown>;
   if (typeof x.requestId !== "string" || !/^[A-Za-z0-9_-]{8,100}$/.test(x.requestId)) return invalid("Invalid request ID.");
-  if (typeof x.typeId !== "string" || !PICKER_CHOICES.some(t => t.id === x.typeId)) return invalid("Unknown bait type.");
+  if (typeof x.typeId !== "string" || !PICKER_CHOICES.some(t => t.id === x.typeId)) return invalid("Unknown lure or fly type.");
   if (!["clear", "stained", "dirty"].includes(x.clarity as string)) return invalid("Unknown clarity.");
   if (typeof x.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(x.date) || !Number.isFinite(Date.parse(x.date)) || new Date(x.date).toISOString().slice(0, 10) !== x.date) return invalid("Invalid local date.");
   if (typeof x.timezone !== "string") return invalid("Device timezone required.");

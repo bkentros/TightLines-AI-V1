@@ -15,12 +15,12 @@ The [simplification handoff](color-picker/simplification_decisions.md) supersede
 ## Product contract
 
 - Freshwater conventional artificial lures plus streamer flies and fly poppers. The Flies category contains Streamer fly and Fly popper. Saltwater, live bait, insect dry flies, and nymphs are outside this release. Additional surface-fly types remain proposed extensions, not committed release scope.
-- Illustrated bait category/type selection → illustrated water clarity selection → generate → two equal-status FinFindr picks for each meaningful light condition. The product presents these as its picks for the day without claiming a knowable first-place color.
-- Filter by bait type, clarity, then the reviewed bright/direct and low/diffuse light pools. Each pair is sampled uniformly without effectiveness scores or a cross-condition anti-repeat rule that would bias individual colors.
-- When the two reviewed light pools differ, show both conditional sections. When they are identical, sample once and show one “Across changing light” section instead of implying a distinction the catalog does not contain.
+- Illustrated category and lure/fly selection → illustrated water clarity selection → generate → two equal-status FinFindr picks for sunny/direct light and two for cloudy/diffuse light. The product presents these as its picks for the day without claiming a knowable first-place color.
+- Filter by lure/fly type, clarity, then the reviewed sunny/direct and cloudy/diffuse light pools. Each pair is sampled uniformly without effectiveness scores or a cross-condition anti-repeat rule that would bias individual colors.
+- Always show both labeled light sections so the field card is immediately actionable. When the reviewed pools are identical, sample once and repeat that honest pair in both sections rather than manufacturing a difference.
 - Color Match does not request or persist coordinates, forecast data, or hourly weather. Device timezone is used only to determine the authenticated user’s current local date.
 - The lure/fly color banner is removed. Both recommendation slots link to their correct broad bait unless the pattern identity is fixed or unsupported.
-- One server-cached report per authenticated user, broad bait, water clarity, and local calendar date. A different clarity is a distinct report; changing request ID or device cannot reroll the same setup. A new daily draw is available the following day, and repeats remain possible. Do not add mandatory species, depth, forage, or season questions in this release. Do not claim those variables influenced results when they did not.
+- One server-cached report per authenticated user, broad lure/fly type, water clarity, and local calendar date. A different clarity is a distinct report; changing request ID or device cannot reroll the same setup. A new daily draw is available the following day, and repeats remain possible. Do not add mandatory species, depth, forage, or season questions in this release. Do not claim those variables influenced results when they did not.
 
 ## Historical repository assessment
 
@@ -172,14 +172,14 @@ No production deployment or live schema change is part of this planning document
 
 Applied user-approved skeptical-color removals per bait and legacy alias; retained the explicitly accepted catalog-supported colors. See `color-picker/color_familiarity_review.md` for decisions and `color-picker/live_picker_pools.json` for current pools. Gold/brass + Firetiger is the separately approved murky spoon pair. All 138 live cells support two distinct colors (12 cells have exactly two). Catalog 2026-09-08.1 deployed; 34 tests, structural QA, TypeScript and live generation/cache checks pass. Existing immutable daily reports retain their saved colors; new reports use the curated pools.
 
-### September 8 — minimize repeated colors within each report
+### Historical September 8 — minimum-overlap sampler (superseded)
 
-User requested different sunny/cloudy colors whenever viable pools allow it. Catalog/replay version 2026-09-08.2 now jointly selects the two light pairs: enumerate valid pair allocations, retain those with minimum overlap, choose one uniformly, then shuffle the two display slots independently. No color scores or new eligibility rules. This supersedes the earlier independent sun/cloud draws and unconditional equal per-color probability claim: randomness is uniform over minimum-overlap allocations; individual color probabilities can differ because the pools differ.
+This implementation record predates the release correction. Version 2026-09-08.2 jointly selected the two light pairs by minimum overlap. The current 4.0.0 selection contract supersedes that sampler: distinct pools draw independently to preserve equal marginal probability within each light condition, while identical pools reuse one draw.
 
-Four distinct colors appear whenever possible; otherwise only unavoidable repeats remain. Single-light engine draws retain uniform pair selection. Historical daily snapshots stay unchanged; no cache reset. Selection envelope version stays 3.0.0 to preserve the existing daily-lock SQL contract; catalog version identifies the new draw policy. Tests cover maximum distinctness across all live bait/clarity combinations, equal allocation/order sampling in a narrow pool, eligibility, daily replay and two-choice pools. All 36 tests and structural QA pass.
+At that historical point, four distinct colors appeared whenever possible. Existing daily snapshots from that version remain immutable; they are not rerolled or rewritten.
 
 ### September 8 — verified additions for common and thin pools
 
 Implemented approved Junebug soft jerkbaits; black/blue-flake and Junebug paddletails/underspins; red/white and Five of Diamonds spoons; verified Clown topwater for stained water. Added documented Senko green-pumpkin/red-flake, green-pumpkin/watermelon, chartreuse-tail and blue/black laminate recipes with explicit clarity boundaries. Added documented chartreuse/white paddletails. See `color-picker/verified_pool_expansion.md` for exact recipes, manufacturer evidence and limitations. Prior skeptical-color exclusions remain enforced.
 
-Worm pools now contain 8–11 choices; paddletails 5–7. Murky underspins and spoons each have four. Catalog 2026-09-08.3 deployed through shared backend. 38 tests, TypeScript, structural QA and 320px/390px report-flow checks pass. Daily cache and minimum-overlap randomization remain intact; existing reports are not rerolled.
+Worm pools now contain 8–11 choices; paddletails 5–7. Murky underspins and spoons each have four. Catalog 2026-09-08.3 deployed through shared backend. At that checkpoint, 38 tests, TypeScript, structural QA and 320px/390px report-flow checks passed. Daily caching remains intact; the later release correction replaced minimum-overlap randomization, and existing reports are not rerolled.

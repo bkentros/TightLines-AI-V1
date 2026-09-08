@@ -10,9 +10,9 @@ const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SE
 const service = createReportService({ store: createReportStore(db) });
 Deno.serve(createColorHandler({ service, authorize: async request => {
   const token = request.headers.get("x-user-token") ?? request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
-  if (!token) throw new ColorServiceError("unauthorized", "Sign in to use the color picker.", 401);
+  if (!token) throw new ColorServiceError("unauthorized", "Sign in to use Color Match.", 401);
   const { data: { user }, error } = await db.auth.getUser(token);
-  if (error || !user) throw new ColorServiceError("unauthorized", "Sign in to use the color picker.", 401);
+  if (error || !user) throw new ColorServiceError("unauthorized", "Sign in to use Color Match.", 401);
   const { data: profile, error: profileError } = await db.from("profiles").select("subscription_tier").eq("id", user.id).maybeSingle();
   if (profileError) throw new ColorServiceError("access_unavailable", "Access could not be verified.", 503);
   if (resolveServerSubscriptionTier(profile?.subscription_tier, user.email) === "free") throw new ColorServiceError("subscription_required", "An Angler subscription is required.", 403);

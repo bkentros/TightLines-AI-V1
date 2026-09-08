@@ -4,8 +4,8 @@ This contract supersedes earlier ranked-card, weather, cross-section deduplicati
 
 ## Daily report
 
-- Each meaningful light condition receives two equal-status FinFindr picks, sampled uniformly without ranking. Bright/direct and low/diffuse pools draw independently and may overlap. If both reviewed pools are identical, the same pair is sampled once and presented as suitable across changing light. History does not bias a new draw; next-day repeats remain possible.
-- One schema-2 report exists per authenticated user, broad picker bait, water clarity, and local date. Changing request ID or device cannot reroll the same setup. A different bait, clarity, or next local date can generate another report. New future/past generation is rejected; archived snapshots remain readable.
+- Sunny/direct and cloudy/diffuse light each receive two equal-status FinFindr picks, sampled uniformly without ranking. Distinct pools draw independently and may overlap. If both reviewed pools are identical, the same pair is sampled once and displayed under both explicit light headings. History does not bias a new draw; next-day repeats remain possible.
+- One schema-2 report exists per authenticated user, broad lure/fly type, water clarity, and local date. Changing request ID or device cannot reroll the same setup. A different lure/fly type, clarity, or next local date can generate another report. New future/past generation is rejected; archived snapshots remain readable.
 - Database uniqueness and insert-or-return-winner RPC enforce the rule under concurrent requests. Request-ID replay remains supported. Failed generation does not reserve a daily slot.
 - The request and saved report contain no coordinates, forecast, or hourly weather. Device timezone determines the current local date. A migration redacts those fields from legacy envelopes.
 - The recommender preserves Bluegill Streamer, Mouse Fly, Sculpin Streamer, Sculpzilla, Muddler Sculpin, Crawfish Streamer, Warmwater Crawfish Fly and Frog Fly. No Color Match link is shown for these identities. This does not remove generic streamers from the standalone picker.

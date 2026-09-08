@@ -1,4 +1,4 @@
-/** Broad user-facing bait choices. poolTypeId is an explicit reviewed palette, not a depth or rig question. */
+/** Broad user-facing lure/fly choices. poolTypeId is an explicit reviewed palette, not a depth or rig question. */
 export const PICKER_CHOICES = [
   {
     "id": "soft_plastic_worm",

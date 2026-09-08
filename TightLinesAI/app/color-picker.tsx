@@ -180,7 +180,10 @@ export default function ColorPickerScreen() {
     setError("");
     try {
       const r = await reopenColorReport(id);
-      if (mounted.current && r.selection.report.userId === owner.current) {
+      if (r.selection.report.userId !== owner.current) {
+        throw new Error("This saved color report is not available.");
+      }
+      if (mounted.current) {
         setReport(r);
         setTypeId(colorChoiceForType(r.request.typeId)?.id ?? "");
         setCategory(colorChoiceForType(r.request.typeId)?.categoryId ?? "");
@@ -188,8 +191,15 @@ export default function ColorPickerScreen() {
         setStep("result");
       }
     } catch (e) {
+      const message = e instanceof Error ? e.message : "Could not reopen report.";
+      if (/report not found/i.test(message) && savedId === id && userId) {
+        setSavedId(null);
+        await AsyncStorage.removeItem(`color-picker-last:${userId}`).catch(() => {});
+      }
       if (mounted.current) {
-        setError(e instanceof Error ? e.message : "Could not reopen report.");
+        setError(/report not found/i.test(message)
+          ? "That saved color report is no longer available. Build a new report below."
+          : message);
       }
     } finally {
       running.current = false;
@@ -222,8 +232,11 @@ export default function ColorPickerScreen() {
         };
       }
       const result = await generateColorReport(pending.current.request);
+      if (result.selection.report.userId !== owner.current) {
+        throw new Error("FinFindr could not verify this color report. Please try again.");
+      }
       pending.current = null;
-      if (mounted.current && result.selection.report.userId === owner.current) {
+      if (mounted.current) {
         setReport(result);
         setTypeId(result.request.typeId);
         setClarity(result.request.clarity);
@@ -355,7 +368,7 @@ export default function ColorPickerScreen() {
                       <View style={s.progressRow}>
                         {([
                           { label: "CATEGORY", icon: "layers-outline", target: "category" },
-                          { label: "BAIT", icon: "fish-outline", target: "bait" },
+                          { label: "LURE / FLY", icon: "fish-outline", target: "bait" },
                           { label: "CLARITY", icon: "eye-outline", target: "clarity" },
                         ] as const).map((item, index) => {
                           const active = stage === index;
@@ -425,7 +438,7 @@ export default function ColorPickerScreen() {
                         <CornerMarkSet color={paper.dashboardBlue} inset={10} size={12} />
                       </View>
                       <View style={s.catalogHeading}>
-                        <Text style={s.eyebrow}>STEP 2 · BAIT</Text>
+                        <Text style={s.eyebrow}>STEP 2 · LURE / FLY</Text>
                         <Text style={s.question}>{catalog.categories.find(c => c.id === category)?.label}</Text>
                         <Text style={s.caption}>Choose the shape you’re tying on.</Text>
                       </View>
@@ -437,7 +450,7 @@ export default function ColorPickerScreen() {
                                 key={t.id}
                                 accessibilityRole="button"
                                 accessibilityLabel={t.label}
-                                accessibilityHint={`${t.description} Select this bait.`}
+                                accessibilityHint={`${t.description} Select this lure or fly.`}
                                 accessibilityState={{ selected: typeId === t.id }}
                                 onPress={() => chooseBait(t.id)}
                                 style={({ pressed }) => [s.catalogTile,
@@ -471,7 +484,7 @@ export default function ColorPickerScreen() {
                           />
                           <Text style={s.question}>Choose a category</Text>
                           <Text style={s.caption}>
-                            Go back and choose a bait category.
+                            Go back and choose a lure or fly category.
                           </Text>
                         </View>
                       )}
@@ -502,7 +515,7 @@ export default function ColorPickerScreen() {
                     <>
                       {!!typeId && <Pressable
                         accessibilityRole="button"
-                        accessibilityLabel="Change selected bait"
+                        accessibilityLabel="Change selected lure or fly"
                         onPress={() => setStep("bait")}
                         style={s.baitSummary}
                       >
@@ -515,7 +528,7 @@ export default function ColorPickerScreen() {
                         <View style={{ flex: 1, gap: 4 }}>
                           <Text style={s.eyebrow}>IN YOUR TACKLE BOX</Text>
                           <Text style={s.summaryTitle}>
-                            {selectedBait?.label ?? "Choose your bait"}
+                            {selectedBait?.label ?? "Choose your lure or fly"}
                           </Text>
                         </View>
                         <Ionicons
@@ -624,7 +637,7 @@ export default function ColorPickerScreen() {
                       <ColorPickerView report={report} />
                       <View style={s.resultActions}>
                         <View style={s.resultButtonWrap}>
-                          {action("CHOOSE ANOTHER BAIT", editReport, false, true)}
+                          {action("CHOOSE ANOTHER LURE / FLY", editReport, false, true)}
                         </View>
                       </View>
                     </>
@@ -651,7 +664,7 @@ export default function ColorPickerScreen() {
                   ? "Choose a category to see its lure and fly types"
                   : step === "bait"
                   ? "Choose the closest shape in your box"
-                  : "One daily report per bait and water clarity"}
+                  : "One daily report per lure or fly and water clarity"}
               </Text>
               <View style={s.actions}>
                 {action("BACK", back, false, true)}

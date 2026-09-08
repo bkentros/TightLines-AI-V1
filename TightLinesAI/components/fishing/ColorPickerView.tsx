@@ -9,20 +9,25 @@ import { colorTypeImage, colorTypeLabel } from "../../lib/colorPickerCatalog";
 import { paper, paperFonts, paperRadius, paperShadows } from "../../lib/theme";
 
 type Choice = ReportEnvelope["selection"]["groups"][number]["choices"][number];
-function Palette({ colors }: { colors: string[] }) {
-  return <View style={s.palette} accessibilityLabel="Approximate color reference">
-    {colors.map((color, i) => <View key={`${color}-${i}`} style={[s.colorSample, { backgroundColor: color, flex: i === 0 ? 3 : 1 }]} />)}
+function Palette({ colors, name }: { colors: string[]; name: string }) {
+  return <View
+    accessible
+    accessibilityRole="image"
+    accessibilityLabel={`${name}, approximate color reference`}
+    style={s.palette}
+  >
+    {colors.map((color, i) => <View key={`${color}-${i}`} style={[s.colorSample, { backgroundColor: color }]} />)}
   </View>;
 }
 function LightHeading({ light }: { light: "sunny" | "cloudy" }) {
-  const title = light === "sunny" ? "BRIGHT / DIRECT LIGHT" : "LOW / DIFFUSE LIGHT";
+  const title = light === "sunny" ? "SUNNY / DIRECT LIGHT" : "CLOUDY / DIFFUSE LIGHT";
   const caption = light === "sunny"
-    ? "two picks for open sun and hard surface glare"
-    : "two picks for overcast skies, shade, and soft light";
+    ? "Two picks for when direct sunlight reaches the water."
+    : "Two picks for cloud cover or shade that softens the light.";
   return <View style={[s.sectionHeading, light === "sunny" ? s.sunnyHeading : s.cloudyHeading]}>
     <View style={s.ruleRow}><View style={s.ruleCap} /><View style={s.rule} /><Text style={s.diamond}>◆</Text></View>
     <View style={s.sectionTitleRow}>
-      <Ionicons name={light === "sunny" ? "sunny-outline" : light === "cloudy" ? "cloud-outline" : "partly-sunny-outline"} size={21} color={paper.dashboardInk} />
+      <Ionicons name={light === "sunny" ? "sunny-outline" : "cloud-outline"} size={21} color={paper.dashboardInk} />
       <Text style={s.sectionTitle}>{title}</Text>
     </View>
     <Text style={s.sectionCaption}>{caption}</Text>
@@ -33,12 +38,12 @@ function ColorCard({ choice, marker }: { choice: Choice; marker: "A" | "B" }) {
   return <View style={s.card}>
     <View style={s.pickEyebrow}>
       <View style={s.pickNumber}><Text style={s.pickNumberText}>{marker}</Text></View>
-      <Text style={s.meta}>FINFINDr COLOR PICK</Text>
+      <Text style={s.meta}>FINFINDR COLOR PICK</Text>
       <Ionicons name="checkmark-circle-outline" size={18} color={paper.dashboardBlue} />
     </View>
     {colors.length > 0 && <View style={s.specimen}>
       <CornerMarkSet color={paper.dashboardBlue} inset={10} size={8} />
-      <Palette colors={colors} />
+      <Palette colors={colors} name={choice.name} />
       <Text style={s.reference}>APPROXIMATE COLOR REFERENCE</Text>
     </View>}
     <View style={s.cardBody}>
@@ -68,7 +73,7 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
         </View>
       </View>
       <View style={s.facts}>
-        <View style={s.fact}><Text style={s.factLabel}>BAIT PROFILE</Text><Text style={s.factValue}>{colorTypeLabel(report.request.typeId)}</Text></View>
+        <View style={s.fact}><Text style={s.factLabel}>LURE / FLY</Text><Text style={s.factValue}>{colorTypeLabel(report.request.typeId)}</Text></View>
         <View style={[s.fact, s.factDivider]}><Text style={s.factLabel}>WATER VISIBILITY</Text><Text style={s.factValue}>{clarity}</Text></View>
       </View>
       <Text style={s.reportDate}>FIELD CARD · {date.toUpperCase()}</Text>
@@ -92,7 +97,7 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
     <View style={s.footer}>
       <Ionicons name="bookmark-outline" size={19} color={paper.dashboardBlue} />
       <Text style={s.footerTitle}>Yours for the day.</Text>
-      <Text style={s.footerText}>Saved for this bait and water clarity. Come back tomorrow for FinFindr’s next picks.</Text>
+      <Text style={s.footerText}>Saved for this lure or fly and water clarity. Come back tomorrow for FinFindr’s next picks.</Text>
       <Text style={s.finePrint}>Color samples are approximate. Underwater appearance also depends on water tint, depth, background, and the light reaching the lure.</Text>
     </View>
   </View>;
@@ -170,7 +175,7 @@ const s = StyleSheet.create({
   pickEyebrow: { minHeight: 38, paddingHorizontal: 16, paddingVertical: 12, flexDirection: "row", alignItems: "center", gap: 7, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine },
   specimen: { minHeight: 140, paddingVertical: 18, paddingHorizontal: 18, alignItems: "center", justifyContent: "center", gap: 10, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine, backgroundColor: "#F5F1E8" },
   palette: { flexDirection: "row", width: "100%", height: 118, borderRadius: 5, overflow: "hidden", borderWidth: 1, borderColor: "rgba(11,28,42,0.28)", ...paperShadows.lift },
-  colorSample: { height: "100%" },
+  colorSample: { flex: 1, height: "100%" },
   reference: { fontFamily: paperFonts.metaMono, fontSize: 8, letterSpacing: 1.5, color: paper.dashboardMuted },
   cardBody: { padding: 18, gap: 14 },
   nameRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },

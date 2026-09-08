@@ -38,7 +38,7 @@ export interface ColorChoice {
 }
 export interface SelectionResult {
   report: SavedColorReport;
-  /** Identical reviewed pools are presented once instead of implying a light distinction. */
+  /** Identical reviewed pools reuse one draw; the UI still labels both light conditions. */
   sharedAcrossLight: boolean;
   groups: { light: LightState; choices: ColorChoice[]; poolSize: number; canRotate: boolean }[];
 }
@@ -89,8 +89,8 @@ export function createColorPickerEngine(random: RandomInt = secureRandomInt) {
   };
   function parseInput(value: unknown): DrawInput {
     const x = object(value);
-    const typeId = text(x.typeId, "bait type");
-    if (!types.has(typeId) && !PICKER_CHOICES.some(x => x.id === typeId)) return fail("INVALID_INPUT", "Unknown bait type.");
+    const typeId = text(x.typeId, "lure or fly type");
+    if (!types.has(typeId) && !PICKER_CHOICES.some(x => x.id === typeId)) return fail("INVALID_INPUT", "Unknown lure or fly type.");
     if (!CLARITIES.includes(x.clarity as Clarity)) return fail("INVALID_INPUT", "Unknown water clarity.");
     return { userId: text(x.userId, "userId"), requestId: text(x.requestId, "requestId"), reportId: text(x.reportId, "reportId"), generatedAt: date(x.generatedAt), typeId, clarity: x.clarity as Clarity, lights: lights(x.lights) };
   }
