@@ -63,6 +63,7 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
       <View style={s.heroRow}>
         <View style={s.artPlate}>
           <RecommenderArtwork source={colorTypeImage(report.request.typeId)} style={s.baitArt} />
+          <View pointerEvents="none" style={s.artWash} />
         </View>
       </View>
       <View style={s.facts}>
@@ -137,8 +138,9 @@ const s = StyleSheet.create({
   eyebrow: { fontFamily: paperFonts.bodyBold, fontSize: 9, letterSpacing: 2, color: paper.dashboardBlue },
   reportTitle: { fontFamily: paperFonts.display, fontSize: 36, lineHeight: 39, color: paper.dashboardInk },
   heroRow: { alignItems: "center", minHeight: 148 },
-  artPlate: { width: "100%", minHeight: 148, alignItems: "center", justifyContent: "center", borderTopWidth: 1, borderBottomWidth: 1, borderColor: paper.dashboardLine, backgroundColor: "rgba(229,239,242,0.48)" },
+  artPlate: { width: "100%", minHeight: 148, alignItems: "center", justifyContent: "center", borderTopWidth: 1, borderBottomWidth: 1, borderColor: paper.dashboardLine, backgroundColor: paper.dashboardWhite, overflow: "hidden" },
   baitArt: { width: "92%", height: 132 },
+  artWash: { ...StyleSheet.absoluteFillObject, backgroundColor: paper.dashboardBlueLight, opacity: 0.42 },
   facts: { flexDirection: "row", borderTopWidth: 1, borderBottomWidth: 1, borderColor: paper.dashboardLine, paddingVertical: 10 },
   fact: { flex: 1, gap: 5, paddingHorizontal: 6 },
   factDivider: { borderLeftWidth: 2, borderLeftColor: paper.dashboardInk, paddingLeft: 14 },
