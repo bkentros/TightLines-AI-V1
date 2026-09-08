@@ -61,10 +61,13 @@ export default function ColorPickerScreen() {
   const owner = useRef(userId);
   owner.current = userId;
   const initial = params.typeId ? colorChoiceForType(params.typeId) : undefined;
-  const [step, setStep] = useState<"setup" | "result">("setup");
-  const [category, setCategory] = useState(
-    initial?.categoryId ?? catalog.categories[0]?.id ?? "",
+  const [step, setStep] = useState<"category" | "bait" | "clarity" | "result">(
+    initial ? "clarity" : "category",
   );
+  const [category, setCategory] = useState(
+    initial?.categoryId ?? "",
+  );
+  const baitScroll = useRef(0);
   const [typeId, setTypeId] = useState(initial?.id ?? "");
   const [clarity, setClarity] = useState<Clarity | null>(null);
   const [busy, setBusy] = useState(false);
@@ -89,7 +92,10 @@ export default function ColorPickerScreen() {
   }, []);
   const [busyLabel, setBusyLabel] = useState("Finding your daily colors…");
   useEffect(() => {
-    requestAnimationFrame(() => scrollRef.current?.scrollTo({ y: 0, animated: false }));
+    requestAnimationFrame(() => scrollRef.current?.scrollTo({
+      y: step === "bait" ? baitScroll.current : 0,
+      animated: false,
+    }));
     reveal.stopAnimation();
     reveal.setValue(reduceMotion.current ? 1 : 0);
     if (!reduceMotion.current) {
@@ -116,6 +122,8 @@ export default function ColorPickerScreen() {
   const back = () => {
     if (busy) return;
     if (step === "result") editReport();
+    else if (step === "clarity") setStep("bait");
+    else if (step === "bait") setStep("category");
     else router.back();
   };
   useEffect(() => {
@@ -128,7 +136,7 @@ export default function ColorPickerScreen() {
   useEffect(() => {
     let active = true;
     setReport(null);
-    setStep("setup");
+    setStep(initial ? "clarity" : "category");
     setSavedId(null);
     pending.current = null;
     if (userId) {
@@ -228,6 +236,7 @@ export default function ColorPickerScreen() {
     setError("");
   };
   const selectedBait = colorChoiceForType(typeId);
+  const stage = step === "category" ? 0 : step === "bait" ? 1 : step === "clarity" ? 2 : 3;
   const action = (
     label: string,
     onPress: () => void,
@@ -255,7 +264,7 @@ export default function ColorPickerScreen() {
         {label}
       </Text>
       <Ionicons
-        name={secondary ? "arrow-back" : "color-palette-outline"}
+        name={secondary ? "arrow-back" : label === "BUILD MY COLORS" ? "color-palette-outline" : "arrow-forward"}
         size={17}
         color={secondary ? paper.dashboardInk : "white"}
       />
@@ -263,7 +272,10 @@ export default function ColorPickerScreen() {
   );
   const editReport = () => {
     setReport(null);
-    setStep("setup");
+    setTypeId("");
+    setCategory("");
+    setClarity(null);
+    setStep("category");
     pending.current = null;
   };
   return (
@@ -276,6 +288,11 @@ export default function ColorPickerScreen() {
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           scrollEventThrottle={32}
+          onScroll={event => {
+            if (step === "bait" && !busy) {
+              baitScroll.current = event.nativeEvent.contentOffset.y;
+            }
+          }}
           contentContainerStyle={s.content}
           pointerEvents={busy ? "none" : "auto"}
         >
@@ -308,35 +325,65 @@ export default function ColorPickerScreen() {
                           <Text style={s.heroAccent}>YOUR COLORS.</Text>
                         </Text>
                         <Text style={s.subtitle}>
-                          Pick your bait and water visibility in one pass. We’ll build a field-ready color card for changing light.
+                          Three focused choices. Then we’ll build your field-ready color card for changing light.
                         </Text>
+                      </View>
+                      <View style={s.progressRow}>
+                        {([
+                          { label: "CATEGORY", icon: "layers-outline", target: "category" },
+                          { label: "BAIT", icon: "fish-outline", target: "bait" },
+                          { label: "CLARITY", icon: "eye-outline", target: "clarity" },
+                        ] as const).map((item, index) => {
+                          const active = stage === index;
+                          const done = stage > index;
+                          return (
+                            <Pressable
+                              key={item.target}
+                              accessibilityRole="button"
+                              accessibilityLabel={`Step ${index + 1}: ${item.label}`}
+                              accessibilityState={{ selected: active, disabled: !done }}
+                              disabled={!done}
+                              onPress={() => setStep(item.target)}
+                              style={({ pressed }) => [
+                                s.progressTile,
+                                done && s.progressTileDone,
+                                active && s.progressTileActive,
+                                pressed && done && { opacity: 0.82 },
+                              ]}
+                            >
+                              <View style={[s.progressBadge, done && s.progressBadgeDone, active && s.progressBadgeActive]}>
+                                <Ionicons
+                                  name={done ? "checkmark" : item.icon}
+                                  size={16}
+                                  color={active ? "white" : paper.dashboardInk}
+                                />
+                              </View>
+                              <Text style={[s.progressLabel, done && s.progressLabelDone]}>{item.label}</Text>
+                            </Pressable>
+                          );
+                        })}
                       </View>
                     </>
                   )}
-                  {step !== "result" && (
+                  {step === "category" && (
                     <View style={s.stepCard}>
                       <View pointerEvents="none" style={s.cardDecoration}>
                         <TopographicLines style={StyleSheet.absoluteFill} color={paper.dashboardBlue} count={4} />
                         <CornerMarkSet color={paper.dashboardBlue} inset={10} size={12} />
                       </View>
                       <View style={s.cardHeading}>
-                        <Text style={s.eyebrow}>01 · BAIT PROFILE</Text>
+                        <Text style={s.eyebrow}>STEP 1 · CATEGORY</Text>
                         <Text style={s.question}>What are you tying on?</Text>
                         <Text style={s.caption}>Choose a family, then the closest shape in your box.</Text>
                       </View>
                       <View style={s.grid}>
                         {catalog.categories.map(c => {
+                          const cover: Record<string, string> = { soft_plastics: "soft_plastic_worm", hard_baits: "hard_jerkbait", jigs_spinners: "spinnerbait", metal_baits: "spoon", flies: "streamer" };
                           const active = category === c.id;
                           return <Pressable key={c.id} accessibilityRole="button" accessibilityLabel={c.label} accessibilityState={{ selected: active }}
-                            onPress={() => { setCategory(c.id); setTypeId(""); setError(""); }}
+                            onPress={() => { setCategory(c.id); setTypeId(""); baitScroll.current = 0; setError(""); }}
                             style={[s.categoryCard, active && s.blueSelected]}>
-                            <View style={[s.categoryIcon, active && s.categoryIconActive]}>
-                              <Ionicons
-                                name={c.id === "soft_plastics" ? "water-outline" : c.id === "hard_baits" ? "fish-outline" : c.id === "jigs_spinners" ? "flash-outline" : c.id === "metal_baits" ? "diamond-outline" : "leaf-outline"}
-                                size={22}
-                                color={active ? "white" : paper.dashboardBlue}
-                              />
-                            </View>
+                            <Image source={colorTypeThumbnail(cover[c.id])} style={s.categoryArt} contentFit="contain" cachePolicy="memory-disk" />
                             <View style={s.categoryFooter}>
                               <Text style={s.categoryLabel}>{c.label}</Text>
                               <Text style={s.categoryHint}>{({ soft_plastics: "Soft-bodied favorites", hard_baits: "Plugs & swimming baits", jigs_spinners: "Skirts, hair & blades", metal_baits: "Casting & fluttering", flies: "Streamers & poppers" } as Record<string, string>)[c.id]}</Text>
@@ -347,14 +394,14 @@ export default function ColorPickerScreen() {
                       </View>
                     </View>
                   )}
-                  {step !== "result" && (
+                  {step === "bait" && (
                     <View style={s.stepCard}>
                       <View pointerEvents="none" style={s.cardDecoration}>
                         <TopographicLines style={StyleSheet.absoluteFill} color={paper.dashboardBlue} count={4} />
                         <CornerMarkSet color={paper.dashboardBlue} inset={10} size={12} />
                       </View>
                       <View style={s.catalogHeading}>
-                        <Text style={s.eyebrow}>SELECT YOUR SHAPE</Text>
+                        <Text style={s.eyebrow}>STEP 2 · BAIT</Text>
                         <Text style={s.question}>{catalog.categories.find(c => c.id === category)?.label}</Text>
                         <Text style={s.caption}>Choose the shape you’re tying on.</Text>
                       </View>
@@ -407,7 +454,7 @@ export default function ColorPickerScreen() {
                       )}
                     </View>
                   )}
-                  {step !== "result" && savedId && (
+                  {step === "bait" && savedId && (
                     <Pressable
                       accessibilityRole="button"
                       onPress={() => void load(savedId)}
@@ -428,10 +475,12 @@ export default function ColorPickerScreen() {
                       />
                     </Pressable>
                   )}
-                  {step !== "result" && (
+                  {step === "clarity" && (
                     <>
-                      {!!typeId && <View
-                        accessibilityLabel="Selected bait"
+                      {!!typeId && <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Change selected bait"
+                        onPress={() => setStep("bait")}
                         style={s.baitSummary}
                       >
                         <Image
@@ -447,11 +496,11 @@ export default function ColorPickerScreen() {
                           </Text>
                         </View>
                         <Ionicons
-                          name="checkmark-circle"
+                          name="swap-horizontal"
                           size={21}
                           color={paper.dashboardBlue}
                         />
-                      </View>}
+                      </Pressable>}
                       <View style={s.stepCard}>
                         <View pointerEvents="none" style={s.cardDecoration}>
                           <TopographicLines
@@ -466,7 +515,7 @@ export default function ColorPickerScreen() {
                           />
                         </View>
                         <View style={s.cardHeading}>
-                          <Text style={s.eyebrow}>02 · WATER VISIBILITY</Text>
+                          <Text style={s.eyebrow}>STEP 3 · WATER CLARITY</Text>
                           <Text style={s.question}>
                             How far can you see into the water?
                           </Text>
@@ -572,10 +621,23 @@ export default function ColorPickerScreen() {
           <View style={s.dock}>
             <View style={s.dockInner}>
               <Text style={s.dockHint}>
-                {selectedBait?.label ?? "Choose a bait"} · {clarity ? `${clarity === "dirty" ? "Murky" : clarity[0].toUpperCase() + clarity.slice(1)} water` : "Choose water visibility"}
+                {step === "category"
+                  ? "Choose a category to see its lure and fly types"
+                  : step === "bait"
+                  ? "Choose the closest shape in your box"
+                  : "One daily report per bait and water clarity"}
               </Text>
               <View style={s.actions}>
-                {action("BUILD MY COLORS", () => void generate(), !typeId || !clarity)}
+                {action("BACK", back, false, true)}
+                {step === "category"
+                  ? action("CONTINUE", () => setStep("bait"), !category)
+                  : step === "bait"
+                  ? action(
+                    "CONTINUE",
+                    () => setStep("clarity"),
+                    !typeId || colorChoiceForType(typeId)?.categoryId !== category,
+                  )
+                  : action("BUILD MY COLORS", () => void generate(), !typeId || !clarity)}
               </View>
             </View>
           </View>
@@ -594,12 +656,11 @@ export default function ColorPickerScreen() {
   );
 }
 const s = StyleSheet.create({
-  categoryCard: { width: "31.5%", borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: paperRadius.card, backgroundColor: "white", alignItems: "center", overflow: "hidden", ...paperShadows.hard },
+  categoryCard: { width: "48%", borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: paperRadius.card, backgroundColor: "white", alignItems: "center", overflow: "hidden", ...paperShadows.hard },
   categoryFooter: { width: "100%", paddingHorizontal: 6, paddingVertical: 10, gap: 3, borderTopWidth: 1, borderTopColor: paper.dashboardLine },
-  categoryHint: { display: "none", fontFamily: paperFonts.displayItalic, fontSize: 10, lineHeight: 14, textAlign: "center", color: paper.dashboardMuted },
-  categoryIcon: { width: 40, height: 40, borderRadius: 20, marginTop: 12, alignItems: "center", justifyContent: "center", backgroundColor: "#E8F1F3", borderWidth: 1, borderColor: paper.dashboardBlue },
-  categoryIconActive: { backgroundColor: paper.dashboardBlue },
-  categoryLabel: { fontFamily: paperFonts.display, fontSize: 12, lineHeight: 15, color: paper.dashboardInk, textAlign: "center" },
+  categoryHint: { fontFamily: paperFonts.displayItalic, fontSize: 10, lineHeight: 14, textAlign: "center", color: paper.dashboardMuted },
+  categoryArt: { width: "92%", height: 96, marginVertical: 4 },
+  categoryLabel: { fontFamily: paperFonts.display, fontSize: 15, lineHeight: 19, color: paper.dashboardInk, textAlign: "center" },
   blueSelected: { backgroundColor: paper.dashboardBlueSky, borderColor: paper.dashboardBlue, ...paperShadows.lift },
   blueBadge: { position: "absolute", top: 8, right: 8, width: 25, height: 25, borderRadius: 13, backgroundColor: paper.dashboardBlue, alignItems: "center", justifyContent: "center" },
   catalog: { gap: 20 },
@@ -625,13 +686,13 @@ const s = StyleSheet.create({
     paddingBottom: 110,
     gap: 20,
   },
-  hero: { alignItems: "flex-start", gap: 8, paddingTop: 8, paddingBottom: 8 },
+  hero: { alignItems: "center", gap: 8, paddingTop: 8, paddingBottom: 6 },
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
     lineHeight: 36,
     color: paper.dashboardInk,
-    textAlign: "left",
+    textAlign: "center",
   },
   heroAccent: { color: paper.bandPrime },
   subtitle: {
@@ -639,9 +700,18 @@ const s = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     color: "#59636A",
-    textAlign: "left",
-    maxWidth: 390,
+    textAlign: "center",
+    maxWidth: 330,
   },
+  progressRow: { flexDirection: "row", gap: 8 },
+  progressTile: { flex: 1, minHeight: 66, alignItems: "center", justifyContent: "center", gap: 6, padding: 8, borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: 11, backgroundColor: paper.dashboardWhite },
+  progressTileActive: { borderColor: "#C99B2D", backgroundColor: "#FBF1D9", ...paperShadows.hard },
+  progressTileDone: { borderColor: paper.bandPrime, backgroundColor: paper.bandPrime },
+  progressBadge: { width: 28, height: 28, borderRadius: 14, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: paper.dashboardLine },
+  progressBadgeActive: { backgroundColor: "#C99B2D", borderColor: "#8A6A1A" },
+  progressBadgeDone: { backgroundColor: paper.dashboardWhite, borderColor: paper.dashboardWhite },
+  progressLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 1.2, color: paper.dashboardInk },
+  progressLabelDone: { color: paper.dashboardWhite },
   stepCard: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
@@ -663,7 +733,7 @@ const s = StyleSheet.create({
     overflow: "hidden",
     borderRadius: paperRadius.card,
   },
-  cardHeading: { alignItems: "flex-start", gap: 6, paddingBottom: 4 },
+  cardHeading: { alignItems: "center", gap: 6, paddingBottom: 4 },
   eyebrow: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
@@ -675,14 +745,14 @@ const s = StyleSheet.create({
     fontSize: 24,
     lineHeight: 28,
     color: paper.dashboardInk,
-    textAlign: "left",
+    textAlign: "center",
   },
   caption: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     lineHeight: 20,
     color: "#627078",
-    textAlign: "left",
+    textAlign: "center",
   },
   body: {
     fontFamily: paperFonts.body,
