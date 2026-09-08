@@ -73,7 +73,7 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
       <Ionicons name="bookmark-outline" size={19} color={paper.dashboardBlue} />
       <Text style={s.footerTitle}>Yours for the day.</Text>
       <Text style={s.footerText}>Saved for this bait and water clarity. Come back tomorrow for FinFindr’s next picks.</Text>
-      <Text style={s.finePrint}>Color samples are approximate. Fish response also depends on forage, depth, presentation, and local conditions.</Text>
+      <Text style={s.finePrint}>Color samples are approximate. Underwater appearance also depends on water tint, depth, background, and the light reaching the lure.</Text>
     </View>
   </View>;
 }

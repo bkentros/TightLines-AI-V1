@@ -29,7 +29,7 @@ export function parseReportRequest(value: unknown): ReportRequest {
   try { localDate(0, x.timezone); } catch { return invalid("Invalid IANA timezone."); }
   return { requestId: x.requestId, typeId: x.typeId, clarity: x.clarity as Clarity, date: x.date, timezone: x.timezone };
 }
-export function sameReportRequest(a: ReportRequest, b: ReportRequest): boolean { return JSON.stringify(parseReportRequest(a)) === JSON.stringify(parseReportRequest(b)); }
+export function sameReportRequest(a: unknown, b: unknown): boolean { return JSON.stringify(parseReportRequest(a)) === JSON.stringify(parseReportRequest(b)); }
 export function createReportService(deps: { store: ReportStore; now?: () => Date; uuid?: () => string; engine?: ReturnType<typeof createColorPickerEngine> }) {
   const engine = deps.engine ?? createColorPickerEngine();
   const now = deps.now ?? (() => new Date());

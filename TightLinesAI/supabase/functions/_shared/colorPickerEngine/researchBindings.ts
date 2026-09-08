@@ -3,7 +3,7 @@ import type { BaitResearchBinding } from "./researchSchema.ts";
 export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   {
     "typeId": "stick_worm",
-    "profileId": "verified_20260908_stick_worm",
+    "profileId": "visual_20260908_worm",
     "compatiblePatternIds": [
       "plastic_green_pumpkin",
       "plastic_watermelon_seed",
@@ -132,7 +132,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "soft_craw",
-    "profileId": "bottom_plastic",
+    "profileId": "visual_20260908_craw_creature",
     "compatiblePatternIds": [
       "plastic_green_pumpkin",
       "plastic_watermelon_seed",
@@ -140,7 +140,8 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
       "plastic_brown",
       "plastic_black",
       "plastic_black_blue",
-      "plastic_junebug"
+      "plastic_junebug",
+      "plastic_brown_orange_tail"
     ],
     "constructionNotes": "Craw-shaped plastic only; no hard-bait craw paint or fly-fiber record.",
     "sourceIds": [
@@ -151,7 +152,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "creature_bait",
-    "profileId": "bottom_plastic",
+    "profileId": "visual_20260908_craw_creature",
     "compatiblePatternIds": [
       "plastic_green_pumpkin",
       "plastic_watermelon_seed",
@@ -159,7 +160,8 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
       "plastic_brown",
       "plastic_black",
       "plastic_black_blue",
-      "plastic_junebug"
+      "plastic_junebug",
+      "plastic_brown_orange_tail"
     ],
     "constructionNotes": "Use the exact selected bait silhouette and only the enumerated material/pattern recipes. Shared research does not imply automatic compatibility with future colors.",
     "sourceIds": [
@@ -190,16 +192,16 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "curly_tail_grub",
-    "profileId": "bottom_plastic",
+    "profileId": "visual_20260908_grub",
     "compatiblePatternIds": [
       "plastic_green_pumpkin",
-      "plastic_watermelon_seed",
       "plastic_pumpkinseed",
+      "plastic_pearl",
+      "plastic_chartreuse",
+      "plastic_smoke_silver",
       "plastic_smoke",
-      "plastic_brown",
       "plastic_black",
-      "plastic_black_blue",
-      "plastic_junebug"
+      "plastic_black_blue"
     ],
     "constructionNotes": "Use the exact selected bait silhouette and only the enumerated material/pattern recipes. Shared research does not imply automatic compatibility with future colors.",
     "sourceIds": [
@@ -233,7 +235,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "paddle_tail_swimbait",
-    "profileId": "verified_20260908_paddle_tail_swimbait",
+    "profileId": "visual_20260908_paddletail",
     "compatiblePatternIds": [
       "plastic_pearl",
       "plastic_olive_pearl",
@@ -298,12 +300,14 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "structure_jig",
-    "profileId": "bottom_jig",
+    "profileId": "visual_20260908_skirted_jig",
     "compatiblePatternIds": [
       "jig_green_pumpkin",
       "jig_brown",
       "jig_brown_orange",
       "jig_bluegill",
+      "jig_white",
+      "jig_white_chartreuse",
       "jig_black_blue",
       "jig_black",
       "jig_pbj"
@@ -412,13 +416,14 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "bladed_jig",
-    "profileId": "bladed",
+    "profileId": "visual_20260908_bladed_jig",
     "compatiblePatternIds": [
       "bladed_white_silver",
       "bladed_white_chartreuse",
       "bladed_green_pumpkin",
       "bladed_chartreuse",
-      "bladed_black_blue"
+      "bladed_black_blue",
+      "bladed_fire_craw"
     ],
     "constructionNotes": "Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint.",
     "sourceIds": [
@@ -486,7 +491,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "underspin",
-    "profileId": "verified_20260908_underspin",
+    "profileId": "visual_20260908_underspin",
     "compatiblePatternIds": [
       "underspin_pearl_silver",
       "underspin_olive_silver",
@@ -558,7 +563,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "medium_crankbait",
-    "profileId": "hard_crank",
+    "profileId": "visual_20260908_crankbait",
     "compatiblePatternIds": [
       "hard_ghost",
       "hard_silver_black",
@@ -608,7 +613,7 @@ export const RESEARCH_BINDINGS: readonly BaitResearchBinding[] = [
   },
   {
     "typeId": "lipless_crankbait",
-    "profileId": "hard_crank",
+    "profileId": "visual_20260908_crankbait",
     "compatiblePatternIds": [
       "hard_ghost",
       "hard_silver_black",

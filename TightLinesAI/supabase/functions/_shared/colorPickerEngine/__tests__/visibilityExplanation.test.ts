@@ -66,7 +66,10 @@ test("every live eligible color has a specific brief explanation", () => {
       }
     }
   }
-  assert.equal(reviewed, 614);
+  assert.equal(reviewed, PICKER_CHOICES.reduce(
+    (total, bait) => total + pools.filter(pool => pool.typeId === bait.poolTypeId).reduce((sum, pool) => sum + pool.patternIds.length, 0),
+    0,
+  ));
 });
 
 test("new recipes retain their actual accents and concise physical explanations", () => {

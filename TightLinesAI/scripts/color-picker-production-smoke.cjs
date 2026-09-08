@@ -23,7 +23,7 @@ let temporaryUser;
  assert.deepEqual(concurrent, first);
  assert.equal(first.schemaVersion,2);
  assert(!('weather' in first)&&!('latitude' in first.request)&&!('longitude' in first.request));
- assert.equal(first.selection.report.catalogVersion,'2026-09-08.3');
+assert.equal(first.selection.report.catalogVersion,'2026-09-08.4');
  assert(first.selection.groups.every(g=>g.choices.every(c=>!['plastic_black','plastic_brown'].includes(c.patternId))));
  assert.deepEqual(first.selection.groups.map(g=>g.light),['sunny','cloudy']);
  assert(first.selection.groups.every(g=>g.choices.length===2&&!g.canRotate&&new Set(g.choices.map(x=>x.patternId)).size===2));

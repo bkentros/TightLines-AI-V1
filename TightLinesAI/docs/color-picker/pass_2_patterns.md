@@ -8,13 +8,13 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | plastic_watermelon_seed | Watermelon seed | soft_plastic | translucent / flake | Translucent soft plastic; watermelon body with separate black flakes. | documented_palette | Yes |
 | plastic_watermelon_red | Watermelon red flake | soft_plastic | translucent / flake | Translucent soft plastic; watermelon body with separate red flakes. | documented_palette | Yes |
 | plastic_pumpkinseed | Pumpkinseed | soft_plastic | translucent / flake | Translucent soft plastic; tan brown body with separate black flakes. | documented_palette | Yes |
-| plastic_smoke | Smoke | soft_plastic | translucent / satin | Translucent soft plastic; smoke body, without flakes. | documented_palette | Yes |
+| plastic_smoke | Smoke | soft_plastic | translucent / satin | Translucent soft plastic; smoke body, without flakes. | documented_palette | No |
 | plastic_black | Black | soft_plastic | opaque / satin | Opaque soft plastic; black body, without flakes. | documented_palette | Yes |
 | plastic_black_blue | Black with blue flake | soft_plastic | opaque / flake | Opaque soft plastic; black body with separate blue flakes. | documented_palette | Yes |
 | plastic_junebug | Junebug | soft_plastic | opaque / flake | Deep aubergine-purple plastic, nearly black through its thick center, with clearly separate reflective emerald-green flakes distributed throughout. Purple remains visible at thin edges; green is glitter, never the base pigment. No red or blue glitter. | documented_palette | Yes |
-| plastic_brown | Brown | soft_plastic | opaque / satin | Opaque soft plastic; brown body, without flakes. | editorial_recipe | Yes |
+| plastic_brown | Brown | soft_plastic | opaque / satin | Opaque soft plastic; brown body, without flakes. | editorial_recipe | No |
 | plastic_pearl | Pearl white | soft_plastic | opaque / pearl | Opaque soft plastic; pearl white body, without flakes. | documented_palette | Yes |
-| plastic_smoke_silver | Smoke with silver flake | soft_plastic | translucent / flake | Translucent soft plastic; smoke body with separate silver flakes. | documented_palette | Yes |
+| plastic_smoke_silver | Translucent smoke / silver flash | soft_plastic | translucent / flake | Translucent soft plastic; smoke body with separate silver flakes. | documented_palette | Yes |
 | plastic_chartreuse | Chartreuse | soft_plastic | opaque / satin | Opaque soft plastic; chartreuse body, without flakes. | editorial_recipe | Yes |
 | plastic_olive_pearl | Olive / pearl | soft_plastic | opaque / pearl | Opaque soft plastic; olive back and pearl white belly body, without flakes. | editorial_recipe | Yes |
 | jig_green_pumpkin | Green pumpkin | skirt_and_plastic | opaque / mixed | Green pumpkin skirt with a green pumpkin trailer; coordinated head. | editorial_recipe | Yes |
@@ -24,7 +24,7 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | jig_black | Black | skirt_and_plastic | opaque / mixed | Black skirt with a black trailer; coordinated head. | editorial_recipe | Yes |
 | jig_white | White | skirt_and_plastic | opaque / mixed | White skirt with a pearl white trailer; coordinated head. | editorial_recipe | Yes |
 | jig_white_chartreuse | White / chartreuse | skirt_and_plastic | opaque / mixed | White and chartreuse skirt with a pearl white trailer; coordinated head. | editorial_recipe | Yes |
-| jig_bluegill | Bluegill pattern | skirt_and_plastic | opaque / mixed | Olive and brown with a small orange accent skirt with a green pumpkin trailer; coordinated head. | editorial_recipe | Yes |
+| jig_bluegill | Olive / brown / orange | skirt_and_plastic | opaque / mixed | Olive and brown with a small orange accent skirt with a green pumpkin trailer; coordinated head. | editorial_recipe | Yes |
 | hair_black | Black | hair_feather | sparse_fiber / matte | Black hair or marabou dressing; no plastic flakes or silicone skirt. | documented_palette | Yes |
 | hair_brown | Brown | hair_feather | sparse_fiber / matte | Brown hair or marabou dressing; no plastic flakes or silicone skirt. | documented_palette | Yes |
 | hair_olive | Olive | hair_feather | sparse_fiber / matte | Olive hair or marabou dressing; no plastic flakes or silicone skirt. | editorial_recipe | Yes |
@@ -40,7 +40,7 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | hard_brown_craw | Brown craw | hard_finish | opaque / satin | Brown with dark craw markings sides, brown back and tan belly; satin finish. | editorial_recipe | Yes |
 | hard_red_craw | Red / black craw | hard_finish | opaque / satin | Red with black craw markings sides, black back and red belly; satin finish. | documented_palette | Yes |
 | hard_chartreuse_back | Chartreuse / black back | hard_finish | opaque / satin | Chartreuse sides, black back and chartreuse belly; satin finish. | editorial_recipe | Yes |
-| hard_firetiger | Firetiger | hard_finish | opaque / satin | Opaque painted hard bait with saturated green back, chartreuse-yellow sides crossed by separate black tiger bars, and orange belly; satin finish. | editorial_recipe | Yes |
+| hard_firetiger | Firetiger | hard_finish | opaque / satin | Green back, chartreuse-yellow sides with black tiger bars, and an orange belly. | editorial_recipe | Yes |
 | hard_black | Black | hard_finish | opaque / matte | Black sides, black back and black belly; matte finish. | documented_palette | Yes |
 | hard_bone | Bone | hard_finish | opaque / satin | Bone sides, bone back and bone belly; satin finish. | documented_palette | Yes |
 | metal_silver | Silver | metal | opaque / metallic | Silver metal lure surface; metallic finish. Hook stays neutral. | documented_palette | Yes |
@@ -49,15 +49,15 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | metal_silver_blue | Silver / blue | metal | opaque / metallic | Silver with blue accent metal lure surface; metallic finish. Hook stays neutral. | editorial_recipe | Yes |
 | metal_white | White | metal | opaque / satin | White metal lure surface; satin finish. Hook stays neutral. | editorial_recipe | Yes |
 | metal_chartreuse | Chartreuse | metal | opaque / satin | Chartreuse metal lure surface; satin finish. Hook stays neutral. | editorial_recipe | Yes |
-| metal_firetiger | Firetiger | metal | opaque / satin | Chartreuse yellow and orange with black bars metal lure surface; satin finish. Hook stays neutral. | documented_palette | Yes |
+| metal_firetiger | Firetiger | metal | opaque / satin | Painted spoon finish with green and chartreuse-yellow areas, black tiger bars, and orange accents. | documented_palette | Yes |
 | metal_black | Black | metal | opaque / matte | Black metal lure surface; matte finish. Hook stays neutral. | editorial_recipe | Yes |
 | spinner_white_silver | White | mixed_blade | opaque / mixed | Skirt: white; Trailer: pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | spinner_chartreuse | Chartreuse | mixed_blade | opaque / mixed | Skirt: chartreuse; Trailer: chartreuse. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | spinner_white_chartreuse | White / chartreuse | mixed_blade | opaque / mixed | Skirt: white and chartreuse; Trailer: pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
-| spinner_bluegill | Bluegill | mixed_blade | opaque / mixed | Olive and brown spinnerbait skirt with restrained orange accent strands; optional green-pumpkin trailer. No painted scales on the skirt. | editorial_recipe | Yes |
+| spinner_bluegill | Olive / brown / orange | mixed_blade | opaque / mixed | Olive and brown spinnerbait skirt with restrained orange accent strands; optional green-pumpkin trailer. No painted scales on the skirt. | editorial_recipe | Yes |
 | spinner_black_blue | Black / blue | mixed_blade | opaque / mixed | Skirt: black and blue; Trailer: black with blue flake. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | bladed_white_silver | White | mixed_blade | opaque / mixed | Skirt: white; Trailer: pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
-| bladed_chartreuse | Chartreuse | mixed_blade | opaque / mixed | Skirt: chartreuse; Trailer: chartreuse. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
+| bladed_chartreuse | Chartreuse | mixed_blade | opaque / mixed | Skirt: chartreuse; Trailer: chartreuse. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | No |
 | bladed_white_chartreuse | White / chartreuse | mixed_blade | opaque / mixed | Skirt: white and chartreuse; Trailer: pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | bladed_green_pumpkin | Green pumpkin | mixed_blade | opaque / mixed | Skirt: green pumpkin; Trailer: green pumpkin. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | bladed_black_blue | Black / blue | mixed_blade | opaque / mixed | Skirt: black and blue; Trailer: black with blue flake. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
@@ -67,17 +67,17 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | inline_silver | Silver / white | mixed_blade | opaque / mixed | Silver blade; white body/dressing and tail. | editorial_recipe | Yes |
 | inline_gold | Gold / brown | mixed_blade | opaque / mixed | Gold blade; brown body/dressing and tail. | editorial_recipe | Yes |
 | inline_copper | Copper / brown | mixed_blade | opaque / mixed | Copper blade; brown body/dressing and tail. | editorial_recipe | Yes |
-| inline_firetiger | Firetiger | mixed_blade | opaque / mixed | Chartreuse yellow orange and black blade; chartreuse body/dressing and tail. | editorial_recipe | Yes |
+| inline_firetiger | Firetiger | mixed_blade | opaque / mixed | Painted spinner blade with green and chartreuse-yellow areas, black tiger bars, and orange accents; chartreuse body and dressing. | editorial_recipe | Yes |
 | inline_black_chartreuse | Black / chartreuse | mixed_blade | opaque / mixed | Black with chartreuse dots blade; black body/dressing and tail. | editorial_recipe | Yes |
 | bucktail_silver | Silver / white | mixed_blade | opaque / mixed | Silver blade; white body/dressing and tail. | editorial_recipe | Yes |
 | bucktail_gold | Gold / brown | mixed_blade | opaque / mixed | Gold blade; brown body/dressing and tail. | editorial_recipe | Yes |
 | bucktail_copper | Copper / brown | mixed_blade | opaque / mixed | Copper blade; brown body/dressing and tail. | editorial_recipe | Yes |
-| bucktail_firetiger | Firetiger | mixed_blade | opaque / mixed | Chartreuse yellow orange and black blade; chartreuse body/dressing and tail. | editorial_recipe | Yes |
+| bucktail_firetiger | Firetiger | mixed_blade | opaque / mixed | Painted spinner blade with green and chartreuse-yellow areas, black tiger bars, and orange accents; chartreuse body and dressing. | editorial_recipe | Yes |
 | bucktail_black_chartreuse | Black / chartreuse | mixed_blade | opaque / mixed | Black with chartreuse dots blade; black body/dressing and tail. | editorial_recipe | Yes |
 | underspin_pearl_silver | Pearl white | mixed_blade | opaque / mixed | Body: pearl white; Head: pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | underspin_olive_silver | Olive / pearl | mixed_blade | opaque / mixed | Body: olive over pearl white; Head: olive over pearl white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | underspin_gold | Golden shiner | mixed_blade | opaque / mixed | Body: gold brown over white; Head: gold brown over white. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
-| underspin_chartreuse | Chartreuse | mixed_blade | opaque / mixed | Body: chartreuse; Head: chartreuse. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
+| underspin_chartreuse | Chartreuse | mixed_blade | opaque / mixed | Body: chartreuse; Head: chartreuse. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | No |
 | tailspin_pearl_silver | Pearl white | mixed_blade | opaque / mixed | Body: pearl white; Tail: neutral hook. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | tailspin_olive_silver | Olive / pearl | mixed_blade | opaque / mixed | Body: olive over pearl white; Tail: neutral hook. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | tailspin_gold | Golden shiner | mixed_blade | opaque / mixed | Body: gold brown over white; Tail: neutral hook. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
@@ -110,16 +110,16 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | popper_blue | Blue | fly_popper | opaque / satin | Blue cupped fly-popper body with blue dressed tail and barred legs; single fly hook. | editorial_recipe | Yes |
 | popper_chartreuse | Chartreuse | fly_popper | opaque / satin | Chartreuse cupped fly-popper body with chartreuse dressed tail and barred legs; single fly hook. | editorial_recipe | Yes |
 | popper_green_white | Green / white | fly_popper | opaque / satin | Olive green back with white belly cupped fly-popper body with olive dressed tail and barred legs; single fly hook. | editorial_recipe | Yes |
-| popper_yellow_orange | Yellow / orange | fly_popper | opaque / satin | Yellow with orange face and belly cupped fly-popper body with yellow dressed tail and barred legs; single fly hook. | editorial_recipe | Yes |
+| popper_yellow_orange | Yellow / orange | fly_popper | opaque / satin | Yellow with orange face and belly cupped fly-popper body with yellow dressed tail and barred legs; single fly hook. | editorial_recipe | No |
 | plastic_black_red | Black with red flake | soft_plastic | opaque / flake | Near-black soft plastic with fine separate red glitter dispersed through the body; no red belly or laminate. | editorial_recipe | Yes |
-| plastic_black_blue_tip | Black-blue flake / blue tip | soft_plastic | opaque / flake | Black plastic body with distinct blue flakes; only the final tail tip is translucent blue. Preserve the black-to-blue transition rather than tinting the entire worm blue. | editorial_recipe | Yes |
-| plastic_plum_emerald | Plum with emerald flake | soft_plastic | translucent / flake | Wine-plum purple body with fine emerald-green flakes. The base is warmer/reddish plum, not the near-black aubergine of junebug; slight edge transmission only. | editorial_recipe | Yes |
-| plastic_red_shad | Red shad laminate | soft_plastic | opaque / satin | Longitudinal two-tone plastic: opaque black back over a deep burgundy-red belly. Clearly show the seam along the length. No painted scales, no silver flakes, no bright orange. | editorial_recipe | Yes |
+| plastic_black_blue_tip | Black-blue flake / blue tip | soft_plastic | opaque / flake | Black plastic body with distinct blue flakes; only the final tail tip is translucent blue. Preserve the black-to-blue transition rather than tinting the entire worm blue. | editorial_recipe | No |
+| plastic_plum_emerald | Plum with emerald flake | soft_plastic | translucent / flake | Wine-plum purple body with fine emerald-green flakes. The base is warmer/reddish plum, not the near-black aubergine of junebug; slight edge transmission only. | editorial_recipe | No |
+| plastic_red_shad | Red shad laminate | soft_plastic | opaque / satin | Longitudinal two-tone plastic: opaque black back over a deep burgundy-red belly. Clearly show the seam along the length. No painted scales, no silver flakes, no bright orange. | editorial_recipe | No |
 | craw_black_purple | Black / purple craw | fly_fiber | sparse_fiber / satin | Tied crawfish fly: black body and head, deep-purple paired claws, black/purple legs. No baitfish wing or minnow tail. | editorial_recipe | Yes |
 | craw_brown_orange | Brown / orange craw | fly_fiber | sparse_fiber / satin | Tied crawfish fly: dark-brown body, paired brown claws tipped burnt orange, sparse orange leg accents. Orange is an accent, not a solid orange baitfish wing. | editorial_recipe | Yes |
 | craw_tan_orange | Tan / orange craw | fly_fiber | sparse_fiber / satin | Tied crawfish fly with sandy-tan body and paired claws, muted orange claw tips and leg accents. Preserve a pale tan body rather than dark brown. | editorial_recipe | Yes |
-| buzz_bluegill | Bluegill | mixed_blade | opaque / mixed | Skirt: olive and brown with restrained orange strands; Trailer: green pumpkin if used. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
-| plastic_pbj | PB&J | soft_plastic | opaque / flake | Brown and deep grape-purple soft-plastic laminate; brown portion contains separate small purple and black flakes. A defined two-tone boundary, not a uniformly purple worm. This is the selected PB&J recipe; brands vary. | editorial_recipe | Yes |
+| buzz_bluegill | Olive / brown / orange | mixed_blade | opaque / mixed | Skirt: olive and brown with restrained orange strands; Trailer: green pumpkin if used. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | No |
+| plastic_pbj | PB&J | soft_plastic | opaque / flake | Brown and deep grape-purple soft plastic in a two-tone laminate. PB&J flake blends and the shade of purple vary by maker. | editorial_recipe | Yes |
 | jig_pbj | PB&J | skirt_and_plastic | opaque / mixed | Brown jig head with separate brown and grape-purple skirt strands; brown soft-plastic trailer. Purple is in the skirt, not a purple lighting cast. | editorial_recipe | Yes |
 | buzz_white_chartreuse | White / chartreuse | mixed_blade | opaque / mixed | Skirt: white and yellow-green chartreuse strands; Trailer: white if used. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | inline_black_white | Black / white dots | mixed_blade | opaque / mixed | Black painted spinner blade with distinct white dots, black body and black tail dressing if fitted; no plastic worm is required. | editorial_recipe | Yes |
@@ -127,3 +127,15 @@ Names identify known palettes; descriptive combinations are allowed when grounde
 | tailspin_perch | Perch | mixed_blade | opaque / mixed | Body: olive back, yellow-gold barred sides, pale belly, orange throat; Tail: neutral hook. Preserve distinct colored areas and the selected bait construction. | editorial_recipe | Yes |
 | sculpin_black_white | Black / white sculpin | fly_fiber | sparse_fiber / matte | Tied sculpin fly with a broad black fiber head and black upper rabbit-fur strip over a white lower body. Preserve the broad sculpin profile and flowing fiber tail; no painted scales. | editorial_recipe | Yes |
 | underspin_white_chartreuse | White / chartreuse | mixed_blade | opaque / mixed | White soft-plastic body on a chartreuse-and-white underspin head. The white body remains the main color area; chartreuse is concentrated on the head. | editorial_recipe | Yes |
+| plastic_gp_red | Green pumpkin / red flake | soft_plastic | opaque / flake | Green-pumpkin soft plastic with small red flakes throughout the body. | documented_palette | Yes |
+| plastic_gp_watermelon | Green pumpkin / watermelon | soft_plastic | opaque / flake | A green-pumpkin upper half over a translucent watermelon-green lower half, with black pepper flakes. | documented_palette | Yes |
+| plastic_gp_chart_tail | Green pumpkin / chartreuse tail | soft_plastic | opaque / flake | Green-pumpkin soft plastic with black pepper flakes and chartreuse confined to the final tail section. | documented_palette | Yes |
+| plastic_blue_black | Blue / black laminate | soft_plastic | opaque / flake | A two-tone soft plastic with a dark-blue upper half and black lower half. | documented_palette | Yes |
+| plastic_chart_white | Chartreuse / white | soft_plastic | opaque / pearl | A chartreuse upper body over a pearl-white lower body. | documented_palette | Yes |
+| underspin_black_blue | Black / blue flake | mixed_blade | opaque / flake | A black paddletail with blue flakes, rigged on an underspin. The body carries the recommended color. | editorial_recipe | Yes |
+| underspin_junebug | Junebug | mixed_blade | opaque / flake | A deep-purple paddletail with emerald-green flakes, rigged on an underspin. The body carries the recommended color. | editorial_recipe | No |
+| metal_red_white | Red / white | metal | opaque / mixed | A red spoon face with a broad white stripe and a reflective metal reverse. | documented_palette | Yes |
+| metal_five_diamonds | Five of Diamonds | metal | opaque / mixed | A yellow spoon face with five red diamond markings and a reflective metal reverse. | documented_palette | Yes |
+| hard_clown | Clown | hard_finish | opaque / metallic | Clown topwater finish: red head, reflective gold upper sides and silver lower sides/underside. This reference follows the Heddon Super Spook Clown pattern; brand versions vary. | documented_palette | Yes |
+| plastic_brown_orange_tail | Brown / orange tail | soft_plastic | opaque / satin | Opaque soft plastic with a brown body and clearly bounded orange claws, legs or tail appendages. | documented_palette | Yes |
+| bladed_fire_craw | Fire craw | mixed_blade | opaque / mixed | Coordinated bladed-jig skirt and trailer in red and orange with distinct black accent strands; no biological or seasonal meaning is implied. | documented_palette | Yes |

@@ -1,6 +1,7 @@
 import type { PoolResearchProfile } from "./researchSchema.ts";
+import { VISUAL_CURATION_PROFILES } from "./visualCuration.ts";
 
-export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
+const BASE_RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
   {
     "id": "bottom_plastic",
     "sourceIds": [
@@ -316,7 +317,7 @@ export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
       "buzz_bluegill",
       "spinner_bluegill_known"
     ],
-    "principle": "Each choice pairs a skirt/trailer palette with an explicit blade finish.",
+    "principle": "Each choice recommends the visible skirt/trailer palette; blade hardware is intentionally outside this picker.",
     "extension": "Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes.",
     "cells": {
       "clear_sunny": [
@@ -358,12 +359,12 @@ export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
     },
     "lightPolicy": "documented_direction_editorial_application",
     "rationale": {
-      "clear_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "clear_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "stained_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "stained_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "dirty_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "dirty_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Bluegill replaces the overly specific green-pumpkin/black-blade recipe; spinnerbait application follows cited skirt palettes. Exact clarity/light membership remains an editorial application of the cited guidance."
+      "clear_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "clear_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "stained_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "stained_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "dirty_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "dirty_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance."
     }
   },
   {
@@ -375,7 +376,7 @@ export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
       "bladed_finish",
       "bladed_known"
     ],
-    "principle": "Each choice pairs a skirt/trailer palette with an explicit blade finish.",
+    "principle": "Each choice recommends the visible skirt/trailer palette; blade hardware is intentionally outside this picker.",
     "extension": "Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint.",
     "cells": {
       "clear_sunny": [
@@ -417,12 +418,12 @@ export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
     },
     "lightPolicy": "documented_direction_editorial_application",
     "rationale": {
-      "clear_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "clear_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "stained_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "stained_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "dirty_sunny": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance.",
-      "dirty_cloudy": "Each choice pairs a skirt/trailer palette with an explicit blade finish. Color choices concern the body, head or skirt palette. Neutral hardware in artwork is illustrative, not a prescribed blade finish. Hardware-only white variants are merged; no extra color choice is created from blade paint. Exact clarity/light membership remains an editorial application of the cited guidance."
+      "clear_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "clear_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "stained_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "stained_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "dirty_sunny": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance.",
+      "dirty_cloudy": "The pick recommends the visible skirt and trailer palette. Blade hardware remains neutral illustration context and is not a hidden finish recommendation. Exact clarity/light membership remains an editorial application of the cited guidance."
     }
   },
   {
@@ -2890,4 +2891,9 @@ export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
       "dirty_cloudy": "Surface-plug patterns include translucent/reflective options and distinct black, bone and chartreuse alternatives. Firetiger is documented on a hard popper. Its orange underside and barred chartreuse sides add a distinct surface recipe. Transfers to other painted topwater shapes and reduced-visibility eligibility are editorial; no claim that bars remain visible at distance. Condition membership is an editorial application of cited guidance, not a rank."
     }
   }
+];
+
+export const RESEARCH_PROFILES: readonly PoolResearchProfile[] = [
+  ...BASE_RESEARCH_PROFILES,
+  ...VISUAL_CURATION_PROFILES,
 ];

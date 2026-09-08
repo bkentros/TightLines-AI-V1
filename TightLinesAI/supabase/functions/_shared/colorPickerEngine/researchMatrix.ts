@@ -6,7 +6,7 @@ import { RESEARCH_PROFILES } from "./researchProfiles.ts";
 import { RESEARCH_SOURCES } from "./researchSources.ts";
 import { CELL_KEYS, type Clarity, type LightState, type ReviewedPool } from "./researchSchema.ts";
 
-export const RESEARCH_VERSION = "2026-09-08.3";
+export const RESEARCH_VERSION = "2026-09-08.4";
 
 export interface PatternDecision {
   typeId: string;

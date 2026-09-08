@@ -640,5 +640,45 @@ export const RESEARCH_SOURCES: readonly ResearchSource[] = [
     "accessedOn": "2026-09-08",
     "consultedVia": "page",
     "limitations": "Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer."
+  },
+  {
+    "id": "visual_palette_simplification",
+    "title": "Do bass anglers need every color of the rainbow?",
+    "url": "https://www.bassmaster.com/news/do-bass-anglers-need-every-color-of-the-rainbow/",
+    "kind": "angler_guidance",
+    "accessedOn": "2026-09-08",
+    "consultedVia": "page",
+    "supports": "Supports simplifying lure-color choices into a small number of broad visual strategies instead of treating every minor commercial variant as an independent primary option.",
+    "limitations": "Angler guidance, not a controlled optical experiment. Species, forage and regional examples are excluded from this engine's reasoning."
+  },
+  {
+    "id": "mister_twister_2026_grub",
+    "title": "Mister Twister 2026 curly-tail grub catalog",
+    "url": "https://www.mistertwister.com/catalog/",
+    "kind": "product_catalog",
+    "accessedOn": "2026-09-08",
+    "consultedVia": "page",
+    "supports": "The current manufacturer catalog documents white, pearl, chartreuse, smoke/flake, black and pumpkin-family colors on curly-tail grubs.",
+    "limitations": "Catalog existence establishes construction realism only. It does not establish a clarity/light rule or catch advantage."
+  },
+  {
+    "id": "mister_twister_2026_creature",
+    "title": "Mister Twister 2026 BUZZ Bug catalog",
+    "url": "https://www.mistertwister.com/catalog/2026/MisterTwister2026Catalog_8.pdf",
+    "kind": "product_catalog",
+    "accessedOn": "2026-09-08",
+    "consultedVia": "page",
+    "supports": "The current manufacturer catalog documents a brown body with an orange tail on a soft-plastic creature bait.",
+    "limitations": "Catalog existence establishes the two-tone construction only. It does not establish local prey color, seasonality or superiority."
+  },
+  {
+    "id": "zman_fire_craw",
+    "title": "Z-Man ChatterBait color coordination",
+    "url": "https://zmanfishing.com/blogs/news/top-9-chatterbait%C2%AE-commandments",
+    "kind": "manufacturer_guidance",
+    "accessedOn": "2026-09-08",
+    "consultedVia": "page",
+    "supports": "Z-Man currently offers Fire Craw on ChatterBait bladed jigs; its manufacturer guidance identifies it as a coordinated orange-family jig and trailer treatment.",
+    "limitations": "The engine uses only the documented red/orange/black construction. Seasonal, water-type and biological effectiveness claims are not carried into the app."
   }
 ];

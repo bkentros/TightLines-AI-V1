@@ -19,6 +19,9 @@ export function explainColorVisibility(pattern: ColorPattern, clarity: Clarity, 
   }
   if (pattern.id === "metal_red_white" || pattern.id === "metal_five_diamonds") return "The light background and red markings offer contrast at close range; filtered light can make the red markings appear darker.";
   if (pattern.id === "plastic_gp_chart_tail") return "The chartreuse tail contrasts with the darker green-pumpkin body at close range; murk limits how far the accent can be seen.";
+  if (pattern.id === "bladed_fire_craw") return clarity === "clear"
+    ? "Red, orange and black areas create strong internal contrast; the visible balance changes with the available light."
+    : "Red, orange and black areas create strong internal contrast at close range; murk limits how far the separate colors remain visible.";
   if (pattern.id.includes("firetiger")) return clarity === "clear"
     ? "Bright areas and black markings create light–dark contrast without needing direct sun."
     : "Bright areas and black markings offer contrast at close range; murk limits how far the pattern remains visible.";

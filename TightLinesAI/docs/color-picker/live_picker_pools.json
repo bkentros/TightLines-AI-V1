@@ -25,22 +25,6 @@
       {
         "id": "plastic_black",
         "name": "Black"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
-        "id": "plastic_gp_red",
-        "name": "Green pumpkin / red flake"
-      },
-      {
-        "id": "plastic_gp_watermelon",
-        "name": "Green pumpkin / watermelon"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -66,22 +50,6 @@
       {
         "id": "plastic_junebug",
         "name": "Junebug"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
-        "id": "plastic_gp_red",
-        "name": "Green pumpkin / red flake"
-      },
-      {
-        "id": "plastic_gp_watermelon",
-        "name": "Green pumpkin / watermelon"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -101,10 +69,6 @@
         "name": "Watermelon red flake"
       },
       {
-        "id": "plastic_black",
-        "name": "Black"
-      },
-      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
       },
@@ -113,28 +77,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_black_red",
-        "name": "Black with red flake"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
-        "id": "plastic_gp_red",
-        "name": "Green pumpkin / red flake"
-      },
-      {
-        "id": "plastic_gp_watermelon",
-        "name": "Green pumpkin / watermelon"
-      },
-      {
         "id": "plastic_gp_chart_tail",
         "name": "Green pumpkin / chartreuse tail"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -162,28 +106,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_black_red",
-        "name": "Black with red flake"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
-        "id": "plastic_gp_red",
-        "name": "Green pumpkin / red flake"
-      },
-      {
-        "id": "plastic_gp_watermelon",
-        "name": "Green pumpkin / watermelon"
-      },
-      {
         "id": "plastic_gp_chart_tail",
         "name": "Green pumpkin / chartreuse tail"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -207,24 +131,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
-      },
-      {
-        "id": "plastic_black_red",
-        "name": "Black with red flake"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
         "id": "plastic_gp_chart_tail",
         "name": "Green pumpkin / chartreuse tail"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -248,24 +156,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
-      },
-      {
-        "id": "plastic_black_red",
-        "name": "Black with red flake"
-      },
-      {
-        "id": "plastic_pbj",
-        "name": "PB&J"
-      },
-      {
         "id": "plastic_gp_chart_tail",
         "name": "Green pumpkin / chartreuse tail"
-      },
-      {
-        "id": "plastic_blue_black",
-        "name": "Blue / black laminate"
       }
     ]
   },
@@ -287,6 +179,10 @@
       {
         "id": "plastic_watermelon_red",
         "name": "Watermelon red flake"
+      },
+      {
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -308,6 +204,10 @@
       {
         "id": "plastic_junebug",
         "name": "Junebug"
+      },
+      {
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -323,16 +223,16 @@
         "name": "Green pumpkin"
       },
       {
-        "id": "plastic_watermelon_red",
-        "name": "Watermelon red flake"
-      },
-      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
       },
       {
         "id": "plastic_junebug",
         "name": "Junebug"
+      },
+      {
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -354,6 +254,10 @@
       {
         "id": "plastic_junebug",
         "name": "Junebug"
+      },
+      {
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -365,6 +269,10 @@
     "light": "sunny",
     "colors": [
       {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
       },
@@ -373,8 +281,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -386,6 +294,10 @@
     "light": "cloudy",
     "colors": [
       {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
       },
@@ -394,8 +306,8 @@
         "name": "Junebug"
       },
       {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "plastic_brown_orange_tail",
+        "name": "Brown / orange tail"
       }
     ]
   },
@@ -537,12 +449,12 @@
     "light": "sunny",
     "colors": [
       {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "plastic_pearl",
+        "name": "Pearl white"
       },
       {
-        "id": "plastic_watermelon_seed",
-        "name": "Watermelon seed"
+        "id": "plastic_smoke_silver",
+        "name": "Translucent smoke / silver flash"
       },
       {
         "id": "plastic_pumpkinseed",
@@ -562,20 +474,16 @@
     "light": "cloudy",
     "colors": [
       {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
         "id": "plastic_green_pumpkin",
         "name": "Green pumpkin"
       },
       {
         "id": "plastic_black",
         "name": "Black"
-      },
-      {
-        "id": "plastic_black_blue",
-        "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -587,20 +495,24 @@
     "light": "sunny",
     "colors": [
       {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "plastic_pumpkinseed",
+        "name": "Pumpkinseed"
+      },
+      {
         "id": "plastic_green_pumpkin",
         "name": "Green pumpkin"
       },
       {
         "id": "plastic_black",
         "name": "Black"
-      },
-      {
-        "id": "plastic_black_blue",
-        "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -612,20 +524,20 @@
     "light": "cloudy",
     "colors": [
       {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
         "id": "plastic_green_pumpkin",
         "name": "Green pumpkin"
       },
       {
         "id": "plastic_black",
         "name": "Black"
-      },
-      {
-        "id": "plastic_black_blue",
-        "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -637,20 +549,20 @@
     "light": "sunny",
     "colors": [
       {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
         "id": "plastic_black",
         "name": "Black"
       },
       {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
-      },
-      {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
       }
     ]
   },
@@ -662,20 +574,20 @@
     "light": "cloudy",
     "colors": [
       {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
         "id": "plastic_black",
         "name": "Black"
       },
       {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
-      },
-      {
-        "id": "plastic_green_pumpkin",
-        "name": "Green pumpkin"
       }
     ]
   },
@@ -696,7 +608,7 @@
       },
       {
         "id": "plastic_smoke_silver",
-        "name": "Smoke with silver flake"
+        "name": "Translucent smoke / silver flash"
       },
       {
         "id": "plastic_green_pumpkin",
@@ -830,15 +742,15 @@
       },
       {
         "id": "plastic_smoke_silver",
-        "name": "Smoke with silver flake"
+        "name": "Translucent smoke / silver flash"
       },
       {
         "id": "plastic_green_pumpkin",
         "name": "Green pumpkin"
       },
       {
-        "id": "plastic_black_blue",
-        "name": "Black with blue flake"
+        "id": "plastic_black",
+        "name": "Black"
       }
     ]
   },
@@ -864,10 +776,6 @@
       {
         "id": "plastic_black",
         "name": "Black"
-      },
-      {
-        "id": "plastic_black_blue",
-        "name": "Black with blue flake"
       }
     ]
   },
@@ -891,16 +799,8 @@
         "name": "Green pumpkin"
       },
       {
-        "id": "plastic_black",
-        "name": "Black"
-      },
-      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       },
       {
         "id": "plastic_chart_white",
@@ -920,8 +820,8 @@
         "name": "Pearl white"
       },
       {
-        "id": "plastic_olive_pearl",
-        "name": "Olive / pearl"
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
       },
       {
         "id": "plastic_black",
@@ -930,10 +830,6 @@
       {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       },
       {
         "id": "plastic_chart_white",
@@ -957,16 +853,8 @@
         "name": "Black"
       },
       {
-        "id": "plastic_olive_pearl",
-        "name": "Olive / pearl"
-      },
-      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       },
       {
         "id": "plastic_chart_white",
@@ -990,16 +878,8 @@
         "name": "Black"
       },
       {
-        "id": "plastic_olive_pearl",
-        "name": "Olive / pearl"
-      },
-      {
         "id": "plastic_black_blue",
         "name": "Black with blue flake"
-      },
-      {
-        "id": "plastic_junebug",
-        "name": "Junebug"
       },
       {
         "id": "plastic_chart_white",
@@ -1141,12 +1021,12 @@
     "light": "sunny",
     "colors": [
       {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "jig_white",
+        "name": "White"
       },
       {
-        "id": "jig_brown",
-        "name": "Brown"
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
       },
       {
         "id": "jig_brown_orange",
@@ -1154,11 +1034,7 @@
       },
       {
         "id": "jig_bluegill",
-        "name": "Bluegill pattern"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
+        "name": "Olive / brown / orange"
       }
     ]
   },
@@ -1170,24 +1046,20 @@
     "light": "cloudy",
     "colors": [
       {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "jig_white",
+        "name": "White"
       },
       {
-        "id": "jig_brown",
-        "name": "Brown"
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
       },
       {
         "id": "jig_brown_orange",
         "name": "Brown / orange craw"
       },
       {
-        "id": "jig_bluegill",
-        "name": "Bluegill pattern"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
+        "id": "jig_black_blue",
+        "name": "Black / blue"
       }
     ]
   },
@@ -1199,12 +1071,16 @@
     "light": "sunny",
     "colors": [
       {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "jig_white",
+        "name": "White"
       },
       {
-        "id": "jig_brown",
-        "name": "Brown"
+        "id": "jig_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
       },
       {
         "id": "jig_brown_orange",
@@ -1213,14 +1089,6 @@
       {
         "id": "jig_black_blue",
         "name": "Black / blue"
-      },
-      {
-        "id": "jig_black",
-        "name": "Black"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
       }
     ]
   },
@@ -1232,12 +1100,12 @@
     "light": "cloudy",
     "colors": [
       {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
+        "id": "jig_white",
+        "name": "White"
       },
       {
-        "id": "jig_brown",
-        "name": "Brown"
+        "id": "jig_white_chartreuse",
+        "name": "White / chartreuse"
       },
       {
         "id": "jig_brown_orange",
@@ -1250,10 +1118,6 @@
       {
         "id": "jig_black",
         "name": "Black"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
       }
     ]
   },
@@ -1265,24 +1129,20 @@
     "light": "sunny",
     "colors": [
       {
+        "id": "jig_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
         "id": "jig_black_blue",
         "name": "Black / blue"
       },
       {
         "id": "jig_black",
         "name": "Black"
-      },
-      {
-        "id": "jig_brown",
-        "name": "Brown"
-      },
-      {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
       }
     ]
   },
@@ -1294,24 +1154,20 @@
     "light": "cloudy",
     "colors": [
       {
+        "id": "jig_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
         "id": "jig_black_blue",
         "name": "Black / blue"
       },
       {
         "id": "jig_black",
         "name": "Black"
-      },
-      {
-        "id": "jig_brown",
-        "name": "Brown"
-      },
-      {
-        "id": "jig_green_pumpkin",
-        "name": "Green pumpkin"
-      },
-      {
-        "id": "jig_pbj",
-        "name": "PB&J"
       }
     ]
   },
@@ -1482,7 +1338,7 @@
       },
       {
         "id": "spinner_bluegill",
-        "name": "Bluegill"
+        "name": "Olive / brown / orange"
       }
     ]
   },
@@ -1499,7 +1355,7 @@
       },
       {
         "id": "spinner_bluegill",
-        "name": "Bluegill"
+        "name": "Olive / brown / orange"
       },
       {
         "id": "spinner_black_blue",
@@ -1524,7 +1380,7 @@
       },
       {
         "id": "spinner_bluegill",
-        "name": "Bluegill"
+        "name": "Olive / brown / orange"
       },
       {
         "id": "spinner_chartreuse",
@@ -1553,7 +1409,7 @@
       },
       {
         "id": "spinner_bluegill",
-        "name": "Bluegill"
+        "name": "Olive / brown / orange"
       },
       {
         "id": "spinner_chartreuse",
@@ -1677,12 +1533,12 @@
         "name": "Green pumpkin"
       },
       {
-        "id": "bladed_chartreuse",
-        "name": "Chartreuse"
-      },
-      {
         "id": "bladed_black_blue",
         "name": "Black / blue"
+      },
+      {
+        "id": "bladed_fire_craw",
+        "name": "Fire craw"
       }
     ]
   },
@@ -1706,12 +1562,12 @@
         "name": "Green pumpkin"
       },
       {
-        "id": "bladed_chartreuse",
-        "name": "Chartreuse"
-      },
-      {
         "id": "bladed_black_blue",
         "name": "Black / blue"
+      },
+      {
+        "id": "bladed_fire_craw",
+        "name": "Fire craw"
       }
     ]
   },
@@ -1723,8 +1579,8 @@
     "light": "sunny",
     "colors": [
       {
-        "id": "bladed_chartreuse",
-        "name": "Chartreuse"
+        "id": "bladed_white_silver",
+        "name": "White"
       },
       {
         "id": "bladed_white_chartreuse",
@@ -1735,8 +1591,8 @@
         "name": "Black / blue"
       },
       {
-        "id": "bladed_white_silver",
-        "name": "White"
+        "id": "bladed_fire_craw",
+        "name": "Fire craw"
       }
     ]
   },
@@ -1748,8 +1604,8 @@
     "light": "cloudy",
     "colors": [
       {
-        "id": "bladed_chartreuse",
-        "name": "Chartreuse"
+        "id": "bladed_white_silver",
+        "name": "White"
       },
       {
         "id": "bladed_white_chartreuse",
@@ -1760,8 +1616,8 @@
         "name": "Black / blue"
       },
       {
-        "id": "bladed_white_silver",
-        "name": "White"
+        "id": "bladed_fire_craw",
+        "name": "Fire craw"
       }
     ]
   },
@@ -2149,10 +2005,6 @@
       {
         "id": "underspin_black_blue",
         "name": "Black / blue flake"
-      },
-      {
-        "id": "underspin_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -2182,10 +2034,6 @@
       {
         "id": "underspin_black_blue",
         "name": "Black / blue flake"
-      },
-      {
-        "id": "underspin_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -2201,16 +2049,16 @@
         "name": "Pearl white"
       },
       {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      },
+      {
         "id": "underspin_white_chartreuse",
         "name": "White / chartreuse"
       },
       {
         "id": "underspin_black_blue",
         "name": "Black / blue flake"
-      },
-      {
-        "id": "underspin_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -2226,16 +2074,16 @@
         "name": "Pearl white"
       },
       {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      },
+      {
         "id": "underspin_white_chartreuse",
         "name": "White / chartreuse"
       },
       {
         "id": "underspin_black_blue",
         "name": "Black / blue flake"
-      },
-      {
-        "id": "underspin_junebug",
-        "name": "Junebug"
       }
     ]
   },
@@ -2255,20 +2103,12 @@
         "name": "Silver / black"
       },
       {
-        "id": "hard_silver_blue",
-        "name": "Silver / blue"
-      },
-      {
         "id": "hard_gold_black",
         "name": "Gold / black"
       },
       {
         "id": "hard_perch",
         "name": "Perch pattern"
-      },
-      {
-        "id": "hard_bluegill",
-        "name": "Bluegill pattern"
       },
       {
         "id": "hard_brown_craw",
@@ -2286,10 +2126,6 @@
       {
         "id": "hard_pearl",
         "name": "Pearl baitfish"
-      },
-      {
-        "id": "hard_silver_black",
-        "name": "Silver / black"
       },
       {
         "id": "hard_silver_blue",
@@ -2327,14 +2163,6 @@
       {
         "id": "hard_perch",
         "name": "Perch pattern"
-      },
-      {
-        "id": "hard_bluegill",
-        "name": "Bluegill pattern"
-      },
-      {
-        "id": "hard_brown_craw",
-        "name": "Brown craw"
       },
       {
         "id": "hard_red_craw",
@@ -2364,10 +2192,6 @@
       {
         "id": "hard_gold_black",
         "name": "Gold / black"
-      },
-      {
-        "id": "hard_brown_craw",
-        "name": "Brown craw"
       },
       {
         "id": "hard_red_craw",
@@ -2449,20 +2273,12 @@
         "name": "Silver / black"
       },
       {
-        "id": "hard_silver_blue",
-        "name": "Silver / blue"
-      },
-      {
         "id": "hard_gold_black",
         "name": "Gold / black"
       },
       {
         "id": "hard_perch",
         "name": "Perch pattern"
-      },
-      {
-        "id": "hard_bluegill",
-        "name": "Bluegill pattern"
       },
       {
         "id": "hard_brown_craw",
@@ -2480,10 +2296,6 @@
       {
         "id": "hard_pearl",
         "name": "Pearl baitfish"
-      },
-      {
-        "id": "hard_silver_black",
-        "name": "Silver / black"
       },
       {
         "id": "hard_silver_blue",
@@ -2523,14 +2335,6 @@
         "name": "Perch pattern"
       },
       {
-        "id": "hard_bluegill",
-        "name": "Bluegill pattern"
-      },
-      {
-        "id": "hard_brown_craw",
-        "name": "Brown craw"
-      },
-      {
         "id": "hard_red_craw",
         "name": "Red / black craw"
       },
@@ -2558,10 +2362,6 @@
       {
         "id": "hard_gold_black",
         "name": "Gold / black"
-      },
-      {
-        "id": "hard_brown_craw",
-        "name": "Brown craw"
       },
       {
         "id": "hard_red_craw",

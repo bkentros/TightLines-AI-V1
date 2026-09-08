@@ -168,7 +168,7 @@ test("approved familiarity exclusions apply to broad choices and all legacy alia
       assert.deepEqual(new Set(cell.patternIds), new Set(["metal_firetiger", "metal_gold", "metal_red_white", "metal_five_diamonds"]));
     }
   }
-  for (const [typeId, id] of [["stick_worm", "plastic_black"], ["paddle_tail_swimbait", "plastic_black"], ["curly_tail_grub", "plastic_black"], ["curly_tail_grub", "plastic_junebug"], ["fly_popper", "popper_blue"], ["hard_jerkbait", "hard_firetiger"], ["hard_swimbait", "hard_firetiger"], ["baitfish_streamer", "fly_black_purple"]]) {
+  for (const [typeId, id] of [["stick_worm", "plastic_black"], ["paddle_tail_swimbait", "plastic_black"], ["curly_tail_grub", "plastic_black"], ["curly_tail_grub", "plastic_pearl"], ["fly_popper", "popper_blue"], ["hard_jerkbait", "hard_firetiger"], ["hard_swimbait", "hard_firetiger"], ["baitfish_streamer", "fly_black_purple"]]) {
     assert(pools.some(p => p.typeId === typeId && p.patternIds.includes(id)), `Keep ${typeId}/${id}`);
   }
 });
@@ -224,22 +224,26 @@ test("overlapping light pools retain equal marginal probability", () => {
   assert.deepEqual(new Set(included[1].values()).size, 1);
 });
 
-test("verified additions deepen common baits without broadening unrelated pools", () => {
+test("release curation keeps popular bait pools compact and visually purposeful", () => {
   for (const cell of pools.filter(p => p.typeId === "stick_worm")) {
-    assert(cell.patternIds.length >= 8);
-    assert(cell.patternIds.includes("plastic_blue_black"));
+    assert(cell.patternIds.length >= 4 && cell.patternIds.length <= 5);
+    assert(!cell.patternIds.includes("plastic_blue_black"));
+    assert(!cell.patternIds.includes("plastic_pbj"));
     assert.equal(cell.patternIds.includes("plastic_gp_chart_tail"), cell.clarity !== "clear");
-    assert.equal(cell.patternIds.includes("plastic_gp_watermelon"), cell.clarity !== "dirty");
   }
   for (const cell of pools.filter(p => p.typeId === "paddle_tail_swimbait")) {
-    assert(cell.patternIds.length >= 5);
-    assert(cell.patternIds.includes("plastic_black_blue"));
-    if (cell.clarity !== "clear") assert(cell.patternIds.includes("plastic_junebug") && cell.patternIds.includes("plastic_chart_white"));
+    assert(cell.patternIds.length >= 4 && cell.patternIds.length <= 5);
+    assert(cell.patternIds.some(id => id === "plastic_black" || id === "plastic_black_blue"));
+    assert(!cell.patternIds.includes("plastic_junebug"));
+    if (cell.clarity !== "clear") assert(cell.patternIds.includes("plastic_chart_white"));
   }
   for (const cell of pools.filter(p => p.typeId === "underspin" && p.clarity === "dirty")) {
     assert.equal(cell.patternIds.length, 4);
-    assert(cell.patternIds.includes("underspin_black_blue") && cell.patternIds.includes("underspin_junebug"));
+    assert(cell.patternIds.includes("underspin_black_blue") && !cell.patternIds.includes("underspin_junebug"));
   }
+  assert(pools.filter(p => p.typeId === "curly_tail_grub").every(p => p.patternIds.includes("plastic_pearl")));
+  assert(pools.filter(p => p.typeId === "soft_craw").every(p => p.patternIds.includes("plastic_brown_orange_tail")));
+  assert(pools.filter(p => p.typeId === "bladed_jig" && p.clarity !== "clear").every(p => p.patternIds.includes("bladed_fire_craw")));
   assert(pools.filter(p => p.typeId === "soft_jerkbait" && p.clarity !== "clear").every(p => p.patternIds.includes("plastic_junebug")));
   assert(pools.filter(p => p.typeId === "walking_bait" && p.clarity === "stained").every(p => p.patternIds.includes("hard_clown")));
   assert(pools.filter(p => p.typeId === "walking_bait" && p.clarity === "dirty").every(p => !p.patternIds.includes("hard_clown")));

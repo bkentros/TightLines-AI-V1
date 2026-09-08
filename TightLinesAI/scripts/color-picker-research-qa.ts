@@ -10,6 +10,10 @@ import { RESEARCH_SOURCES } from "../supabase/functions/_shared/colorPickerEngin
 import { compileResearchMatrix, RESEARCH_VERSION } from "../supabase/functions/_shared/colorPickerEngine/researchMatrix.ts";
 import { CELL_KEYS } from "../supabase/functions/_shared/colorPickerEngine/researchSchema.ts";
 import { NARROW_POOL_REVIEW } from "../supabase/functions/_shared/colorPickerEngine/narrowPoolReview.ts";
+import {
+  VISUAL_CURATION_TYPE_IDS,
+  VISUAL_FAMILIES,
+} from "../supabase/functions/_shared/colorPickerEngine/visualCuration.ts";
 
 const unique = (ids: string[], label: string) => assert.equal(new Set(ids).size, ids.length, `Duplicate ${label}`);
 for (const [name, list] of [
@@ -115,10 +119,34 @@ assert(patterns.get("plastic_pbj")!.components.body.includes("brown") && pattern
 assert.equal(patterns.get("hard_firetiger")!.components.belly, "orange");
 assert(patterns.get("hard_firetiger")!.components.body.includes("black tiger bars"));
 for (const key of CELL_KEYS) {
-  assert(pool("stick_worm", key).patternIds.includes("plastic_pbj"));
+  assert(!pool("stick_worm", key).patternIds.includes("plastic_pbj"), "Minor worm variants must not dilute the primary pool");
   assert(pool("football_jig", key).patternIds.includes("jig_pbj"));
   assert(pool("sculpin_streamer", key).patternIds.includes("sculpin_black_white"));
 }
+
+// Release-facing curation guardrails: all options are equal-probability, so a
+// pool must not be padded with two names for the same visual strategy.
+for (const typeId of VISUAL_CURATION_TYPE_IDS) {
+  const binding = RESEARCH_BINDINGS.find(row => row.typeId === typeId)!;
+  assert(binding.profileId.startsWith("visual_20260908_"), `Missing visual curation profile for ${typeId}`);
+  for (const key of CELL_KEYS) {
+    const row = pool(typeId, key);
+    assert(row.patternIds.length >= 3 && row.patternIds.length <= 6, `Unfocused visual pool ${typeId}/${key}`);
+    const families = row.patternIds.map(id => VISUAL_FAMILIES[id]);
+    assert(families.every(Boolean), `Missing visual family ${typeId}/${key}`);
+    unique(families, `visual family ${typeId}/${key}`);
+  }
+}
+assert.deepEqual(pool("curly_tail_grub", "clear_sunny").patternIds, [
+  "plastic_pearl", "plastic_smoke_silver", "plastic_pumpkinseed", "plastic_black",
+]);
+assert(!pool("paddle_tail_swimbait", "dirty_cloudy").patternIds.includes("plastic_olive_pearl"));
+assert(!pool("paddle_tail_swimbait", "dirty_cloudy").patternIds.includes("plastic_junebug"));
+assert(pool("soft_craw", "stained_sunny").patternIds.includes("plastic_brown_orange_tail"));
+assert(pool("structure_jig", "clear_sunny").patternIds.includes("jig_white"));
+assert(pool("structure_jig", "dirty_cloudy").patternIds.includes("jig_black"));
+assert(pool("bladed_jig", "dirty_cloudy").patternIds.includes("bladed_fire_craw"));
+assert(!pool("underspin", "dirty_cloudy").patternIds.includes("underspin_junebug"));
 
 
 // Malformed authoring data must fail closed instead of silently topping up a pool.

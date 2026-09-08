@@ -232,8 +232,10 @@ export const COLOR_PATTERNS: readonly ColorPattern[] = [
   },
   {
     "id": "plastic_smoke_silver",
-    "name": "Smoke with silver flake",
-    "aliases": [],
+    "name": "Translucent smoke / silver flash",
+    "aliases": [
+      "Smoke with silver flake"
+    ],
     "material": "soft_plastic",
     "opacity": "translucent",
     "finish": "flake",
@@ -464,8 +466,10 @@ export const COLOR_PATTERNS: readonly ColorPattern[] = [
   },
   {
     "id": "jig_bluegill",
-    "name": "Bluegill pattern",
-    "aliases": [],
+    "name": "Olive / brown / orange",
+    "aliases": [
+      "Bluegill pattern"
+    ],
     "material": "skirt_and_plastic",
     "opacity": "opaque",
     "finish": "mixed",
@@ -1201,8 +1205,10 @@ export const COLOR_PATTERNS: readonly ColorPattern[] = [
   },
   {
     "id": "spinner_bluegill",
-    "name": "Bluegill",
-    "aliases": [],
+    "name": "Olive / brown / orange",
+    "aliases": [
+      "Bluegill"
+    ],
     "material": "mixed_blade",
     "opacity": "opaque",
     "finish": "mixed",
@@ -2810,8 +2816,10 @@ export const COLOR_PATTERNS: readonly ColorPattern[] = [
   },
   {
     "id": "buzz_bluegill",
-    "name": "Bluegill",
-    "aliases": [],
+    "name": "Olive / brown / orange",
+    "aliases": [
+      "Bluegill"
+    ],
     "material": "mixed_blade",
     "opacity": "opaque",
     "finish": "mixed",
@@ -3269,6 +3277,58 @@ export const COLOR_PATTERNS: readonly ColorPattern[] = [
     ],
     "sourceIds": [
       "verified_topwater_clown"
+    ],
+    "constructionBasis": "documented_palette"
+  },
+  {
+    "id": "plastic_brown_orange_tail",
+    "name": "Brown / orange tail",
+    "aliases": [
+      "Brown with orange tail"
+    ],
+    "material": "soft_plastic",
+    "opacity": "opaque",
+    "finish": "satin",
+    "flash": "none",
+    "visualDescription": "Opaque soft plastic with a brown body and clearly bounded orange claws, legs or tail appendages.",
+    "components": {
+      "body": "brown",
+      "appendages": "orange"
+    },
+    "swatches": [
+      "#66432D",
+      "#D96D28"
+    ],
+    "sourceIds": [
+      "mister_twister_2026_creature"
+    ],
+    "constructionBasis": "documented_palette"
+  },
+  {
+    "id": "bladed_fire_craw",
+    "name": "Fire craw",
+    "aliases": [
+      "Red / orange / black"
+    ],
+    "material": "mixed_blade",
+    "opacity": "opaque",
+    "finish": "mixed",
+    "flash": "none",
+    "visualDescription": "Coordinated bladed-jig skirt and trailer in red and orange with distinct black accent strands; no biological or seasonal meaning is implied.",
+    "components": {
+      "skirt": "red and orange with black accent strands",
+      "trailer": "coordinated red-orange"
+    },
+    "illustrationHardware": {
+      "blade": "neutral dark metal; illustration context, not a recommended finish"
+    },
+    "swatches": [
+      "#B93A27",
+      "#E06E25",
+      "#171819"
+    ],
+    "sourceIds": [
+      "zman_fire_craw"
     ],
     "constructionBasis": "documented_palette"
   }

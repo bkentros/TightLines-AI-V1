@@ -473,3 +473,75 @@ Limits: Supports recognizable skirt/trailer palettes, not a mandatory blade colo
 Documents a Bluegill spinnerbait offered by Z-Man.
 
 Limits: Retailer listing confirms the named palette and bait category. Generic skirt proportions and optional trailer are editorial, not an exact replica.
+
+## verified_senko_2026
+
+[Yamamoto Senko palette](https://www.yamamotobaits.com/products/5-senko/) — product_catalog; consulted via page.
+
+318 green pumpkin red flake, 912 green pumpkin/watermelon, 913 green pumpkin chartreuse tail, 904 blue/black laminate.
+
+Limits: Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer.
+
+## verified_keitech_2026
+
+[Keitech Swing Impact palette and rigging](https://www.keitechusa.com/catalog/swing-impact.html) — product_catalog; consulted via page.
+
+Black-blue flake, chartreuse-white, green pumpkin; explicit underspin rigging.
+
+Limits: Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer.
+
+## verified_fluke_junebug
+
+[Zoom Junebug Super Fluke](https://zoombait.com/2011/06/swimmin-super-fluke-junebug/) — product_catalog; consulted via page.
+
+Junebug on Super Fluke and Swimmin Super Fluke.
+
+Limits: Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer.
+
+## verified_dardevle_patterns
+
+[Eppinger Dardevle patterns](https://dardevle.com/product/dardevle-1oz/) — product_catalog; consulted via page.
+
+Red/white and Five of Diamonds spoon finishes.
+
+Limits: Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer.
+
+## verified_topwater_clown
+
+[Heddon Super Spook Clown](https://images.ebsco.com/pob/lurenet/catalog/heddon_catalog.pdf) — product_catalog; consulted via page.
+
+Clown topwater finish; historical manufacturer catalog.
+
+Limits: Documents bait/palette existence, not catch superiority. Condition placement and transfer to related rigs are editorial; exact colors vary by manufacturer.
+
+## visual_palette_simplification
+
+[Do bass anglers need every color of the rainbow?](https://www.bassmaster.com/news/do-bass-anglers-need-every-color-of-the-rainbow/) — angler_guidance; consulted via page.
+
+Supports simplifying lure-color choices into a small number of broad visual strategies instead of treating every minor commercial variant as an independent primary option.
+
+Limits: Angler guidance, not a controlled optical experiment. Species, forage and regional examples are excluded from this engine's reasoning.
+
+## mister_twister_2026_grub
+
+[Mister Twister 2026 curly-tail grub catalog](https://www.mistertwister.com/catalog/) — product_catalog; consulted via page.
+
+The current manufacturer catalog documents white, pearl, chartreuse, smoke/flake, black and pumpkin-family colors on curly-tail grubs.
+
+Limits: Catalog existence establishes construction realism only. It does not establish a clarity/light rule or catch advantage.
+
+## mister_twister_2026_creature
+
+[Mister Twister 2026 BUZZ Bug catalog](https://www.mistertwister.com/catalog/2026/MisterTwister2026Catalog_8.pdf) — product_catalog; consulted via page.
+
+The current manufacturer catalog documents a brown body with an orange tail on a soft-plastic creature bait.
+
+Limits: Catalog existence establishes the two-tone construction only. It does not establish local prey color, seasonality or superiority.
+
+## zman_fire_craw
+
+[Z-Man ChatterBait color coordination](https://zmanfishing.com/blogs/news/top-9-chatterbait%C2%AE-commandments) — manufacturer_guidance; consulted via page.
+
+Z-Man currently offers Fire Craw on ChatterBait bladed jigs; its manufacturer guidance identifies it as a coordinated orange-family jig and trailer treatment.
+
+Limits: The engine uses only the documented red/orange/black construction. Seasonal, water-type and biological effectiveness claims are not carried into the app.

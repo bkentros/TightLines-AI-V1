@@ -2,7 +2,7 @@
 
 The earlier 108 three-choice cells were reviewed across all 20 affected authoring profiles. The table records expansions and deliberate retentions. A retained three-choice pool is not a claim that no other color works; it is the current documented scope.
 
-Current three-choice cells: 24. Every condition is enumerated in the regenerated pool matrix.
+Current three-choice cells: 53. Every condition is enumerated in the regenerated pool matrix.
 
 | Profile | Previous three-choice cells | Decision | Reason and evidence |
 | --- | --- | --- | --- |
@@ -29,7 +29,7 @@ Current three-choice cells: 24. Every condition is enumerated in the regenerated
 
 ## Stick worm in murky water
 
-Black; Black with blue flake; Junebug; Green pumpkin; Black with red flake; Black-blue flake / blue tip; Plum with emerald flake; Red shad laminate; PB&J
+Black; Black with blue flake; Junebug; Green pumpkin / chartreuse tail
 
 New finishes are supported by manufacturer recipe descriptions and applied to the established dark/opaque-plastic rationale. Availability and efficacy evidence remain separate. No color is ranked and small flakes are not promised to stay visible underwater.
 
