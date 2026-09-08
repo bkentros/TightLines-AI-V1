@@ -1818,7 +1818,7 @@ export default function HomeScreen() {
               iconBg={["#FBEBDD", "#F3C9A7"]}
               iconBorder="#D9772B"
               iconColor="#9B4E18"
-              comingSoon
+              onPress={() => router.push({ pathname: "/color-picker", params: { ...(coords ? { latitude: String(coords.lat), longitude: String(coords.lon), location_label: locationLabel } : {}), ...(envData?.timezone ? { timezone: envData.timezone } : {}) } })}
             />
             <ModuleRow
               code="06"

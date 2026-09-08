@@ -1,23 +1,11 @@
-/**
- * waterclarityImages.ts
- *
- * Central map from WaterClarity → local image asset.
- *
- * Images live in:  assets/images/waterclarity/
- *   clear.png    — WaterClarity "clear"
- *   stained_circle.png — "stained" selector thumbnail
- *   murky_circle.png — "dirty" (UI label: Murky — see WATER_CLARITY_LABELS)
- *
- * Regenerate (field-guide style):
- *   deno run -A scripts/generate-recommender-waterclarity-images.ts
- */
+/** Recommender selectors in the shared matte field-guide illustration style. */
 
 import type { WaterClarity } from './recommenderContracts';
 
 const WATERCLARITY_IMAGES: Record<WaterClarity, ReturnType<typeof require>> = {
-  clear:   require('../assets/images/waterclarity/clear.png'),
-  stained: require('../assets/images/waterclarity/stained_circle.png'),
-  dirty:   require('../assets/images/waterclarity/murky_circle.png'),
+  clear:   require('../assets/images/color-picker/illustrated/clear.png'),
+  stained: require('../assets/images/color-picker/illustrated/stained.png'),
+  dirty:   require('../assets/images/color-picker/illustrated/dirty.png'),
 };
 
 /** Returns the image for a water clarity value. */

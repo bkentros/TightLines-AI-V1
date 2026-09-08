@@ -1,0 +1,22 @@
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import { checkUserRateLimit, rateLimitExceededResponse } from "../_shared/rateLimit.ts";
+import { createReportService } from "../_shared/colorPickerEngine/reportService.ts";
+import { ColorServiceError, fetchColorWeather } from "../_shared/colorPickerEngine/weather.ts";
+import { createReportStore } from "./store.ts";
+import { createColorHandler, COLOR_CORS } from "./handler.ts";
+const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false, autoRefreshToken: false } });
+const service = createReportService({ store: createReportStore(db), weather: request => fetchColorWeather(request, { baseUrl: Deno.env.get("OPEN_METEO_BASE_URL"), apiKey: Deno.env.get("OPEN_METEO_API_KEY") }) });
+Deno.serve(createColorHandler({ service, authorize: async request => {
+  const token = request.headers.get("x-user-token") ?? request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
+  if (!token) throw new ColorServiceError("unauthorized", "Sign in to use the color picker.", 401);
+  const { data: { user }, error } = await db.auth.getUser(token);
+  if (error || !user) throw new ColorServiceError("unauthorized", "Sign in to use the color picker.", 401);
+  const { data: profile, error: profileError } = await db.from("profiles").select("subscription_tier").eq("id", user.id).maybeSingle();
+  if (profileError) throw new ColorServiceError("access_unavailable", "Access could not be verified.", 503);
+  if (resolveServerSubscriptionTier(profile?.subscription_tier, user.email) === "free") throw new ColorServiceError("subscription_required", "An Angler subscription is required.", 403);
+  const limit = await checkUserRateLimit(db, { userId: user.id, feature: "color_picker", rules: [{ windowSeconds: 60, maxRequests: 60 }, { windowSeconds: 86400, maxRequests: 500 }] });
+  if (!limit.allowed) return rateLimitExceededResponse(limit, COLOR_CORS);
+  return user.id;
+} }));

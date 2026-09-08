@@ -27,6 +27,7 @@ import {
   View,
 } from "react-native";
 import { Image } from "expo-image";
+import { RecommenderArtwork } from "../components/fishing/RecommenderArtwork";
 import {
   hapticImpact,
   hapticSelection,
@@ -606,6 +607,15 @@ function SpeciesCard({
             contentFit="contain"
           />
         )}
+        {isActive && (
+          <View
+            pointerEvents="none"
+            style={[
+              StyleSheet.absoluteFillObject,
+              { backgroundColor: paper.dashboardBlueSky, mixBlendMode: "multiply" },
+            ]}
+          />
+        )}
       </View>
       <View style={wizardStyles.speciesFooter}>
         <Text
@@ -754,11 +764,7 @@ function ContextSelector({
               ]}
             >
               {img && (
-                <Image
-                  source={img}
-                  style={wizardStyles.contextImage}
-                  contentFit="contain"
-                />
+                <RecommenderArtwork source={img} style={wizardStyles.contextImage} selectionColor={isActive ? paper.dashboardBlueSky : undefined} />
               )}
             </View>
             <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
@@ -843,11 +849,7 @@ function ClaritySelector({
             android_ripple={RIPPLE}
           >
             <View style={wizardStyles.clarityImageArea}>
-              <Image
-                source={img}
-                style={wizardStyles.clarityImage}
-                contentFit="cover"
-              />
+              <RecommenderArtwork source={img} style={wizardStyles.clarityImage} selectionColor={isActive ? paper.dashboardBlueSky : undefined} />
             </View>
             <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
               <Text style={wizardStyles.clarityTitle} numberOfLines={1}>
@@ -916,11 +918,7 @@ function GoalSelector({
             android_ripple={RIPPLE}
           >
             <View style={wizardStyles.goalImageArea}>
-              <Image
-                source={img}
-                style={wizardStyles.goalImage}
-                contentFit="contain"
-              />
+              <RecommenderArtwork source={img} style={wizardStyles.goalImage} selectionColor={isActive ? paper.dashboardBlueSky : undefined} />
             </View>
             <View style={useNarrowCards && wizardStyles.selectorCopyNarrow}>
               <Text style={wizardStyles.goalTitle} numberOfLines={2}>
@@ -2515,6 +2513,7 @@ const wizardStyles = StyleSheet.create({
     ...paperShadows.lift,
   },
   speciesImageArea: {
+    isolation: "isolate",
     width: "100%",
     backgroundColor: paper.dashboardWhite,
     alignItems: "center",
@@ -2734,7 +2733,7 @@ const wizardStyles = StyleSheet.create({
     height: 72,
     borderRadius: 0,
     borderWidth: 0,
-    overflow: "visible",
+    overflow: "hidden",
     marginBottom: 10,
     backgroundColor: "transparent",
   },

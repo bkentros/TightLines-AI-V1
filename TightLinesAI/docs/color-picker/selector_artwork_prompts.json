@@ -1,0 +1,196 @@
+{
+  "mode": "built-in imagegen",
+  "prompts": {
+    "soft_jerkbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting an unrigged pearl-white soft plastic jerkbait with slender minnow body and forked tail, absolutely no hook. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "paddle_tail_swimbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting an unrigged pearl-white soft plastic paddletail swimbait, obvious rounded boot paddle tail, absolutely no hook. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "soft_toad": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting an unrigged green pumpkin soft plastic toad with flattened frog body and two curly swimming legs, no hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "skirted_jig": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a green pumpkin silicone skirted fishing jig with compact weighted head, weedguard and one single hook, no trailer. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "hair_jig": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting an olive marabou fishing jig with a small weighted head and ONE single hook dressed with soft olive feathers. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "spinnerbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a white and chartreuse skirted safety-pin spinnerbait, bent wire with two silver blades on upper arm, one skirted single hook below, no trailer. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "bladed_jig": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a green pumpkin skirted bladed fishing jig with one hexagonal silver vibration blade attached to front of head and one single hook, no trailer. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "buzzbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a white skirted buzzbait with bent wire upper arm and aluminum surface propeller, one skirted single hook below, no trailer. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "inline_spinner": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a brass oval-bladed inline fishing spinner on a straight wire shaft, small brass body and one plain treble hook. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "underspin": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a pearl white minnow soft bait rigged on a gray jighead with one hook and one small silver blade suspended underneath. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "crankbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a rounded shad pattern hard crankbait with blue-gray back silver sides, clear medium diving bill and two treble hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "lipless_crankbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a silver lipless crankbait with tall flat-sided body, black back, line tie on top, no diving bill, two treble hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "hard_jerkbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a slender silver and blue hard jerkbait with a small clear diving bill and two treble hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "hard_swimbait": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a realistic shad colored hard swimbait with two rigid body sections connected by one obvious joint and two treble hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "spoon": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a curved polished silver fishing spoon with a single treble hook at its trailing end. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "topwater": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a bone-white cigar-shaped hard walking topwater fishing lure, no diving bill, two treble hooks. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "hollow_frog": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a green and yellow hollow-body fishing frog lure with two silicone skirt legs and a weedless double hook hugging its back. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "streamer": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting an olive-over-white baitfish streamer fly tied from bucktail and feathers on ONE single fly hook, visible thread head and natural fibers, no jighead. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "fly_popper": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a yellow cupped foam-head fly-fishing popper with white feather tail and rubber legs tied on ONE single fly hook, not a hardbait. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "clear": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a circular underwater view of crystal clear freshwater, several river stones visible sharply at increasing distances, natural blue-green water, no fish or lure. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "stained": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a circular underwater view of moderately stained green-brown freshwater, nearby river stones visible but distant stones obscured by haze, no fish or lure. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage.",
+    "dirty": "Use case: product-mockup. Create one brand-new square fishing-app selector asset depicting a circular underwater view of muddy brown freshwater with very low visibility, only faint outline of nearest stone and everything beyond hidden by opaque brown water, no fish or lure. Premium realistic field-guide product illustration on solid warm off-white #F4F4F1 background. Neutral soft studio daylight, centered three-quarter side view, complete subject fits with 15% margins. Consistent understated catalog style. No text, labels, watermark, logo, packaging, frame or environment beyond specified subject. Single selector illustration, not a collage."
+  },
+  "earlier_selector_subjects": {
+    "soft_plastic_worm": "Unrigged green-pumpkin ribbed stick worm with tapered ends; no hook.",
+    "soft_craw": "Unrigged green-pumpkin soft crawfish with two claws and small legs; no hook.",
+    "soft_tube": "Unrigged green-pumpkin hollow soft-plastic tube with fringed tail; no hook.",
+    "curly_tail_grub": "Unrigged green-pumpkin grub with short ribbed body and crescent tail; no hook."
+  },
+  "review_notes": {
+    "topwater": "Generated as a bone popper profile, accepted for the broad Topwater lure option, which includes conventional poppers.",
+    "underspin": "Blade swivel attachment corrected to the underside of the metal jighead rather than the soft plastic body.",
+    "clarity": "Clear, stained and murky reviewed for progressively reduced visibility. Removed generated metal rims from stained and murky images."
+  },
+  "assets": [
+    {
+      "id": "bladed_jig",
+      "path": "assets/images/color-picker/selectors/bladed_jig.png",
+      "sha256": "78b4b84bf1088a3773f669a10b22bc51dac75e224ffd42ad166a8844c6722187",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "buzzbait",
+      "path": "assets/images/color-picker/selectors/buzzbait.png",
+      "sha256": "659907374f731c41601c3b0cc2945fba0841c7e070a8a267feb76ada7d20a2f4",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "clear",
+      "path": "assets/images/color-picker/selectors/clear.png",
+      "sha256": "ffc2685a391e4bdf330237288c7c64a5bac5e9057cba06a8a6690b745b726f4f",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "crankbait",
+      "path": "assets/images/color-picker/selectors/crankbait.png",
+      "sha256": "4718d5e32eb9362bf8d3ee975dda5e0ede578da55e67a413fe7201565b200a43",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "curly_tail_grub",
+      "path": "assets/images/color-picker/selectors/curly_tail_grub.png",
+      "sha256": "1fcdb0214c99ed13efead349ae2349e0e6b7ec760575ae605e497cf03c3bd520",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "dirty",
+      "path": "assets/images/color-picker/selectors/dirty.png",
+      "sha256": "e03aa5d43a776ceca04ffe458f3eebd5dc96bbfb9bb91657ba68ce9f4aeaaa22",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "fly_popper",
+      "path": "assets/images/color-picker/selectors/fly_popper.png",
+      "sha256": "4313d2d1019dc1381563cbbada3b1b9200f06c8692324056cc0b152ec8dd303f",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "hair_jig",
+      "path": "assets/images/color-picker/selectors/hair_jig.png",
+      "sha256": "c0d2782e42f8279ced01b64a9a5e2249e05778da3a9029f4f1e7f96fd3e2ece2",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "hard_jerkbait",
+      "path": "assets/images/color-picker/selectors/hard_jerkbait.png",
+      "sha256": "75bbeca899ea2a0345610bb82b6ee78ccdea3de79e16cc39a7a836819335b319",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "hard_swimbait",
+      "path": "assets/images/color-picker/selectors/hard_swimbait.png",
+      "sha256": "514e33f7d84b94478ebc428c2d0cd5d989f2da7598bca2bd877a0f326149800b",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "hollow_frog",
+      "path": "assets/images/color-picker/selectors/hollow_frog.png",
+      "sha256": "ac6bbc60636b404a5feb9a499c7711f6f2d78f0d6875943c5680ba96d9ea69e3",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "inline_spinner",
+      "path": "assets/images/color-picker/selectors/inline_spinner.png",
+      "sha256": "216aca592b7838c39a2170168da1176a315f0621e9ca1b9639433f5eeffab4cf",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "lipless_crankbait",
+      "path": "assets/images/color-picker/selectors/lipless_crankbait.png",
+      "sha256": "693fd86f6971b05ceac95a49ff12f10e9b9996c731baf65fc388497fd214e5fb",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "paddle_tail_swimbait",
+      "path": "assets/images/color-picker/selectors/paddle_tail_swimbait.png",
+      "sha256": "5837c2ed230098e2ddf05681c7adc59f0eaa99a9a2481468089ed3af7ecda097",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "skirted_jig",
+      "path": "assets/images/color-picker/selectors/skirted_jig.png",
+      "sha256": "54948331c4e22054969a8108096994d7cff6296fee877baf80824c3aac473979",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "soft_craw",
+      "path": "assets/images/color-picker/selectors/soft_craw.png",
+      "sha256": "e0751e76ff13102068e814b34808069fb33b7fe4624f09e9928ab67df70db1e6",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "soft_jerkbait",
+      "path": "assets/images/color-picker/selectors/soft_jerkbait.png",
+      "sha256": "94315aef41e16c2a6bad14ef085d770b10d168a62de9f55864beadf3f84b84c0",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "soft_plastic_worm",
+      "path": "assets/images/color-picker/selectors/soft_plastic_worm.png",
+      "sha256": "5ca1bcf501d13f628df33b1ea4561085972b6109d9c936f81bd4b68bc0c7c510",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "soft_toad",
+      "path": "assets/images/color-picker/selectors/soft_toad.png",
+      "sha256": "3041d94a2cb11069c13f1dd334ba09edb7aa15374edfaf947f7cbc13107c9be7",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "soft_tube",
+      "path": "assets/images/color-picker/selectors/soft_tube.png",
+      "sha256": "572ace277bcc7dcf5cb8b029fab6ece69062aa1d6d45112da614d27566006909",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "spinnerbait",
+      "path": "assets/images/color-picker/selectors/spinnerbait.png",
+      "sha256": "ccc80a8eaa7151a8b89c2ae1eb5fe9e3b762b54433a3d1091b2860dd28f6f195",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "spoon",
+      "path": "assets/images/color-picker/selectors/spoon.png",
+      "sha256": "572c71739ebee417b9339f8fda9e78a8c7323d784d0db06e8ad0a33ef4da366a",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "stained",
+      "path": "assets/images/color-picker/selectors/stained.png",
+      "sha256": "1dab4668878e7e1086f8d7f39f7fe6b52a96cedbc2a37d8962d12b169e994848",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "streamer",
+      "path": "assets/images/color-picker/selectors/streamer.png",
+      "sha256": "0e5b251d158f129d17cd3bcb8e56e89b7f1967ae87eb1816a796fd0e41550afc",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "topwater",
+      "path": "assets/images/color-picker/selectors/topwater.png",
+      "sha256": "05d205a8c1c9e377da3973a0ae8891b2f58c05c765c51ba2969a2f08d8f0ddab",
+      "review": "visually reviewed"
+    },
+    {
+      "id": "underspin",
+      "path": "assets/images/color-picker/selectors/underspin.png",
+      "sha256": "0e8e475e937a05259a1da18f298f3d2f4fe2494caf01684d3486bbccdc57ceff",
+      "review": "visually reviewed"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import { useRouter } from 'expo-router';
+import { colorTypeForArchetype } from '../../lib/colorPickerCatalog';
 /**
  * RecommenderView — FinFindr "What to Throw Today" experience.
  *
@@ -18,6 +20,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { Image } from 'expo-image';
+import { RecommenderArtwork } from './RecommenderArtwork';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -35,11 +38,9 @@ import {
 import { getSpeciesImage } from '../../lib/speciesImages';
 import { getFlyImage } from '../../lib/flyImages';
 import { getLureImage } from '../../lib/lureImages';
-import { getPaletteThemeImage, paletteThemeCopy } from '../../lib/colorPaletteImages';
 import { useAuthStore } from '../../store/authStore';
 import { FeedbackCard } from '../FeedbackCard';
 import type {
-  DailyPicksColorPaletteTheme,
   DailyPicksResponse,
   DailyPicksResponsePick,
   DailyPicksSpecies,
@@ -296,6 +297,27 @@ function PicksSectionMasthead({
  *   - Gold-tinted hairlines and subtle bottom edge to reinforce the
  *     "premium tier" feel.
  */
+/** Shared by both pick slots; never guess a target for an unsupported bait. */
+function ColorMatchLink({ pick }: { pick: DailyPicksResponsePick }) {
+  const router = useRouter();
+  const typeId = colorTypeForArchetype(pick.id);
+  if (!typeId) return null;
+  const label = `Best colors for this ${pick.gear_mode === 'fly' ? 'fly' : 'lure'} today`;
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${label}: ${pick.display_name}`}
+      accessibilityHint="Opens Color Match with this bait selected. Choose water clarity next."
+      onPress={() => router.push({ pathname: '/color-picker', params: { typeId } })}
+      style={({ pressed }) => [styles.colorMatchLink, pressed && { opacity: 0.65 }]}
+    >
+      <Ionicons name="color-palette-outline" size={17} color={paper.dashboardBlue} />
+      <Text style={styles.colorMatchLinkText}>{label}</Text>
+      <Ionicons name="arrow-forward" size={16} color={paper.dashboardBlue} />
+    </Pressable>
+  );
+}
+
 function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
   const image = pick.gear_mode === 'lure' ? getLureImage(pick.id) : getFlyImage(pick.id);
   const dayLabel =
@@ -379,6 +401,13 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
         <View style={styles.topPickImageTopo} pointerEvents="none">
           <TopographicLines color={GOLD_ACCENT} count={6} />
         </View>
+        {image ? (
+          <RecommenderArtwork source={image} style={[styles.topPickImage, styles.topPickImageInset]} />
+        ) : (
+          <View style={[styles.topPickImage, styles.pickImageEmpty]}>
+            <Text style={styles.pickImageEmptyText}>IMAGE PENDING</Text>
+          </View>
+        )}
         {/* Slow shimmer sweep across the image area — same anatomy as
             the score gauge polish. Native driver. */}
         <Animated.View
@@ -398,18 +427,7 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
             },
           ]}
         />
-        {image ? (
-          <Image
-            source={image}
-            style={[styles.topPickImage, styles.topPickImageInset]}
-            contentFit="contain"
-            transition={150}
-          />
-        ) : (
-          <View style={[styles.topPickImage, styles.pickImageEmpty]}>
-            <Text style={styles.pickImageEmptyText}>IMAGE PENDING</Text>
-          </View>
-        )}
+        <ColorMatchLink pick={pick} />
       </View>
 
       <View style={styles.topPickBody}>
@@ -504,12 +522,7 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
           <View style={[styles.honorableCornerTick, styles.honorableCornerBL]} />
           <View style={[styles.honorableCornerTick, styles.honorableCornerBR]} />
           {image ? (
-            <Image
-              source={image}
-              style={[styles.honorableImage, styles.honorableImageInset]}
-              contentFit="contain"
-              transition={150}
-            />
+            <RecommenderArtwork source={image} style={[styles.honorableImage, styles.honorableImageInset]} />
           ) : (
             <View style={[styles.honorableImage, styles.pickImageEmpty]}>
               <Text style={styles.pickImageEmptyText}>IMAGE PENDING</Text>
@@ -541,6 +554,7 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
         </View>
       </View>
 
+      <ColorMatchLink pick={pick} />
       <View style={styles.honorableRule} />
 
       <View style={styles.honorableReasonStack}>
@@ -597,40 +611,6 @@ function ScenarioSummary({ result }: { result: DailyPicksResponse }) {
           <Text style={[styles.preferenceChipValue, { color: confidenceColor }]} numberOfLines={1}>
             {toTitleCase(scenario.confidence)}
           </Text>
-        </View>
-      </View>
-    </View>
-  );
-}
-
-/** One editorial strip for the day's lure/fly color family (server-resolved). */
-function ColorPaletteBanner({ theme }: { theme: DailyPicksColorPaletteTheme }) {
-  const copy = paletteThemeCopy(theme);
-  const plate = getPaletteThemeImage(theme);
-
-  return (
-    <View style={styles.paletteCard}>
-      <View style={styles.paletteTopo} pointerEvents="none">
-        <TopographicLines color={paper.dashboardBlue} count={4} />
-      </View>
-      <CornerMarkSet color={paper.dashboardBlue} size={10} thickness={1.5} inset={8} />
-      <View style={styles.paletteRow}>
-        <View style={styles.palettePlateFrame}>
-          <Image source={plate} style={styles.palettePlate} resizeMode="cover" />
-        </View>
-        <View style={styles.paletteTextCol}>
-          <SectionEyebrow
-            color={paper.dashboardBlue}
-            dashes={false}
-            size={9}
-            align="left"
-            style={{ marginBottom: 2 }}
-            tracking={2}
-          >
-            COLOR OF THE DAY
-          </SectionEyebrow>
-          <Text style={styles.paletteTitle}>{copy.title}</Text>
-          <Text style={styles.paletteBody}>{copy.subtitle}</Text>
         </View>
       </View>
     </View>
@@ -841,7 +821,6 @@ export function RecommenderView({
 
         <ScenarioSummary result={result} />
 
-        <ColorPaletteBanner theme={result.scenario_summary.color_palette_theme} />
 
         <View style={styles.sectionBlock}>
           <View style={styles.sectionDivider}>
@@ -1214,61 +1193,6 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
 
-  // ── Color palette of the day (one strip for all four picks) ───────
-  paletteCard: {
-    position: 'relative',
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: paperRadius.card,
-    overflow: 'hidden',
-    ...paperShadows.lift,
-  },
-  paletteTopo: {
-    position: 'absolute',
-    top: -10,
-    right: -16,
-    opacity: 0.1,
-  },
-  paletteRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.md,
-    padding: paperSpacing.md,
-  },
-  palettePlateFrame: {
-    width: 84,
-    height: 84,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    overflow: 'hidden',
-    backgroundColor: paper.dashboardWhite,
-    flexShrink: 0,
-  },
-  palettePlate: {
-    width: '100%',
-    height: '100%',
-  },
-  paletteTextCol: {
-    flex: 1,
-    minWidth: 0,
-    gap: 5,
-  },
-  paletteTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 19,
-    lineHeight: 23,
-    fontWeight: '700',
-    color: paper.dashboardInk,
-  },
-  paletteBody: {
-    fontFamily: paperFonts.body,
-    fontSize: 12,
-    lineHeight: 16.5,
-    color: paper.dashboardMuted,
-  },
-
   sectionBlock: {
     gap: paperSpacing.sm,
   },
@@ -1492,6 +1416,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(28, 36, 25, 0.32)',
   },
 
+  colorMatchLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    gap: 8,
+    minHeight: 44,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginTop: 4,
+  },
+  colorMatchLinkText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: paper.dashboardBlue,
+    flexShrink: 1,
+  },
   topPickImageBand: {
     minHeight: 200,
     borderBottomWidth: 1,

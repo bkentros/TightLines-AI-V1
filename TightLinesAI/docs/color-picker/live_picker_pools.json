@@ -1,0 +1,3700 @@
+[
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_seed",
+        "name": "Watermelon seed"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      },
+      {
+        "id": "plastic_pumpkinseed",
+        "name": "Pumpkinseed"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_red",
+        "name": "Green pumpkin / red flake"
+      },
+      {
+        "id": "plastic_gp_watermelon",
+        "name": "Green pumpkin / watermelon"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_red",
+        "name": "Green pumpkin / red flake"
+      },
+      {
+        "id": "plastic_gp_watermelon",
+        "name": "Green pumpkin / watermelon"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_black_red",
+        "name": "Black with red flake"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_red",
+        "name": "Green pumpkin / red flake"
+      },
+      {
+        "id": "plastic_gp_watermelon",
+        "name": "Green pumpkin / watermelon"
+      },
+      {
+        "id": "plastic_gp_chart_tail",
+        "name": "Green pumpkin / chartreuse tail"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_black_red",
+        "name": "Black with red flake"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_red",
+        "name": "Green pumpkin / red flake"
+      },
+      {
+        "id": "plastic_gp_watermelon",
+        "name": "Green pumpkin / watermelon"
+      },
+      {
+        "id": "plastic_gp_chart_tail",
+        "name": "Green pumpkin / chartreuse tail"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_red",
+        "name": "Black with red flake"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_chart_tail",
+        "name": "Green pumpkin / chartreuse tail"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_plastic_worm",
+    "label": "Soft plastic worm",
+    "reviewedPalette": "stick_worm",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_red",
+        "name": "Black with red flake"
+      },
+      {
+        "id": "plastic_pbj",
+        "name": "PB&J"
+      },
+      {
+        "id": "plastic_gp_chart_tail",
+        "name": "Green pumpkin / chartreuse tail"
+      },
+      {
+        "id": "plastic_blue_black",
+        "name": "Blue / black laminate"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_seed",
+        "name": "Watermelon seed"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_craw",
+    "label": "Craw / creature bait",
+    "reviewedPalette": "soft_craw",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_seed",
+        "name": "Watermelon seed"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_red",
+        "name": "Watermelon red flake"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_tube",
+    "label": "Tube",
+    "reviewedPalette": "soft_tube",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_watermelon_seed",
+        "name": "Watermelon seed"
+      },
+      {
+        "id": "plastic_pumpkinseed",
+        "name": "Pumpkinseed"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "curly_tail_grub",
+    "label": "Grub",
+    "reviewedPalette": "curly_tail_grub",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_smoke_silver",
+        "name": "Smoke with silver flake"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_jerkbait",
+    "label": "Soft jerkbait",
+    "reviewedPalette": "soft_jerkbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_smoke_silver",
+        "name": "Smoke with silver flake"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_chart_white",
+        "name": "Chartreuse / white"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_chart_white",
+        "name": "Chartreuse / white"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_chart_white",
+        "name": "Chartreuse / white"
+      }
+    ]
+  },
+  {
+    "typeId": "paddle_tail_swimbait",
+    "label": "Paddletail",
+    "reviewedPalette": "paddle_tail_swimbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "plastic_pearl",
+        "name": "Pearl white"
+      },
+      {
+        "id": "plastic_black",
+        "name": "Black"
+      },
+      {
+        "id": "plastic_olive_pearl",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "plastic_black_blue",
+        "name": "Black with blue flake"
+      },
+      {
+        "id": "plastic_junebug",
+        "name": "Junebug"
+      },
+      {
+        "id": "plastic_chart_white",
+        "name": "Chartreuse / white"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "soft_toad",
+    "label": "Soft toad",
+    "reviewedPalette": "soft_toad",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "toad_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "toad_white",
+        "name": "White"
+      },
+      {
+        "id": "toad_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
+        "id": "jig_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
+        "id": "jig_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
+        "id": "jig_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "jig_black",
+        "name": "Black"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_brown_orange",
+        "name": "Brown / orange craw"
+      },
+      {
+        "id": "jig_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "jig_black",
+        "name": "Black"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "jig_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "jig_black",
+        "name": "Black"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "skirted_jig",
+    "label": "Skirted jig",
+    "reviewedPalette": "structure_jig",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "jig_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "jig_black",
+        "name": "Black"
+      },
+      {
+        "id": "jig_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "jig_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "jig_pbj",
+        "name": "PB&J"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "hair_olive",
+        "name": "Olive"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "hair_olive",
+        "name": "Olive"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      },
+      {
+        "id": "hair_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      },
+      {
+        "id": "hair_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      },
+      {
+        "id": "hair_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      }
+    ]
+  },
+  {
+    "typeId": "hair_jig",
+    "label": "Hair jig",
+    "reviewedPalette": "hair_jig",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hair_black",
+        "name": "Black"
+      },
+      {
+        "id": "hair_white",
+        "name": "White"
+      },
+      {
+        "id": "hair_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "hair_brown",
+        "name": "Brown"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "spinner_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "spinner_bluegill",
+        "name": "Bluegill"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "spinner_bluegill",
+        "name": "Bluegill"
+      },
+      {
+        "id": "spinner_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "spinner_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "spinner_bluegill",
+        "name": "Bluegill"
+      },
+      {
+        "id": "spinner_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "spinner_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "spinner_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "spinner_bluegill",
+        "name": "Bluegill"
+      },
+      {
+        "id": "spinner_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "spinner_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "spinner_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "spinner_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "spinner_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "spinnerbait",
+    "label": "Spinnerbait",
+    "reviewedPalette": "spinnerbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "spinner_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "spinner_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "spinner_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "spinner_white_silver",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "bladed_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "bladed_green_pumpkin",
+        "name": "Green pumpkin"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "bladed_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "bladed_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "bladed_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "bladed_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "bladed_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "bladed_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      },
+      {
+        "id": "bladed_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "bladed_green_pumpkin",
+        "name": "Green pumpkin"
+      },
+      {
+        "id": "bladed_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "bladed_black_blue",
+        "name": "Black / blue"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "bladed_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "bladed_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "bladed_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "bladed_jig",
+    "label": "Bladed jig",
+    "reviewedPalette": "bladed_jig",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "bladed_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "bladed_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "bladed_black_blue",
+        "name": "Black / blue"
+      },
+      {
+        "id": "bladed_white_silver",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "buzzbait",
+    "label": "Buzzbait",
+    "reviewedPalette": "buzzbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "buzz_white",
+        "name": "White"
+      },
+      {
+        "id": "buzz_black",
+        "name": "Black"
+      },
+      {
+        "id": "buzz_chartreuse",
+        "name": "Chartreuse"
+      },
+      {
+        "id": "buzz_white_chartreuse",
+        "name": "White / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_gold",
+        "name": "Gold / brown"
+      },
+      {
+        "id": "inline_copper",
+        "name": "Copper / brown"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_gold",
+        "name": "Gold / brown"
+      },
+      {
+        "id": "inline_copper",
+        "name": "Copper / brown"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_gold",
+        "name": "Gold / brown"
+      },
+      {
+        "id": "inline_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_gold",
+        "name": "Gold / brown"
+      },
+      {
+        "id": "inline_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      }
+    ]
+  },
+  {
+    "typeId": "inline_spinner",
+    "label": "Inline spinner",
+    "reviewedPalette": "inline_spinner",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "inline_silver",
+        "name": "Silver / white"
+      },
+      {
+        "id": "inline_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "inline_black_chartreuse",
+        "name": "Black / chartreuse"
+      },
+      {
+        "id": "inline_black_white",
+        "name": "Black / white dots"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_olive_silver",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_olive_silver",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_olive_silver",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      },
+      {
+        "id": "underspin_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "underspin_black_blue",
+        "name": "Black / blue flake"
+      },
+      {
+        "id": "underspin_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_olive_silver",
+        "name": "Olive / pearl"
+      },
+      {
+        "id": "underspin_gold",
+        "name": "Golden shiner"
+      },
+      {
+        "id": "underspin_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "underspin_black_blue",
+        "name": "Black / blue flake"
+      },
+      {
+        "id": "underspin_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "underspin_black_blue",
+        "name": "Black / blue flake"
+      },
+      {
+        "id": "underspin_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "underspin",
+    "label": "Underspin",
+    "reviewedPalette": "underspin",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "underspin_pearl_silver",
+        "name": "Pearl white"
+      },
+      {
+        "id": "underspin_white_chartreuse",
+        "name": "White / chartreuse"
+      },
+      {
+        "id": "underspin_black_blue",
+        "name": "Black / blue flake"
+      },
+      {
+        "id": "underspin_junebug",
+        "name": "Junebug"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_ghost",
+        "name": "Ghost minnow"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "crankbait",
+    "label": "Crankbait",
+    "reviewedPalette": "medium_crankbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_ghost",
+        "name": "Ghost minnow"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_brown_craw",
+        "name": "Brown craw"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "lipless_crankbait",
+    "label": "Lipless crankbait",
+    "reviewedPalette": "lipless_crankbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_red_craw",
+        "name": "Red / black craw"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_ghost",
+        "name": "Ghost minnow"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_jerkbait",
+    "label": "Jerkbait",
+    "reviewedPalette": "hard_jerkbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_chartreuse_back",
+        "name": "Chartreuse / black back"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_bluegill",
+        "name": "Bluegill pattern"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_gold_black",
+        "name": "Gold / black"
+      },
+      {
+        "id": "hard_perch",
+        "name": "Perch pattern"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "hard_swimbait",
+    "label": "Hard swimbait",
+    "reviewedPalette": "hard_swimbait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_pearl",
+        "name": "Pearl baitfish"
+      },
+      {
+        "id": "hard_firetiger",
+        "name": "Firetiger"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "metal_silver",
+        "name": "Silver"
+      },
+      {
+        "id": "metal_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      },
+      {
+        "id": "metal_copper",
+        "name": "Copper"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "metal_silver",
+        "name": "Silver"
+      },
+      {
+        "id": "metal_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      },
+      {
+        "id": "metal_copper",
+        "name": "Copper"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "metal_silver",
+        "name": "Silver"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      },
+      {
+        "id": "metal_copper",
+        "name": "Copper"
+      },
+      {
+        "id": "metal_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "metal_red_white",
+        "name": "Red / white"
+      },
+      {
+        "id": "metal_five_diamonds",
+        "name": "Five of Diamonds"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "metal_silver",
+        "name": "Silver"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      },
+      {
+        "id": "metal_copper",
+        "name": "Copper"
+      },
+      {
+        "id": "metal_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "metal_red_white",
+        "name": "Red / white"
+      },
+      {
+        "id": "metal_five_diamonds",
+        "name": "Five of Diamonds"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "metal_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "metal_red_white",
+        "name": "Red / white"
+      },
+      {
+        "id": "metal_five_diamonds",
+        "name": "Five of Diamonds"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      }
+    ]
+  },
+  {
+    "typeId": "spoon",
+    "label": "Spoon",
+    "reviewedPalette": "casting_spoon",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "metal_firetiger",
+        "name": "Firetiger"
+      },
+      {
+        "id": "metal_red_white",
+        "name": "Red / white"
+      },
+      {
+        "id": "metal_five_diamonds",
+        "name": "Five of Diamonds"
+      },
+      {
+        "id": "metal_gold",
+        "name": "Gold / brass"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_ghost",
+        "name": "Ghost minnow"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_silver_blue",
+        "name": "Silver / blue"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_black",
+        "name": "Black"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      },
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_silver_black",
+        "name": "Silver / black"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      },
+      {
+        "id": "hard_black",
+        "name": "Black"
+      },
+      {
+        "id": "hard_clown",
+        "name": "Clown"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_black",
+        "name": "Black"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      },
+      {
+        "id": "hard_clown",
+        "name": "Clown"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "hard_black",
+        "name": "Black"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      }
+    ]
+  },
+  {
+    "typeId": "topwater",
+    "label": "Topwater lure",
+    "reviewedPalette": "walking_bait",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "hard_black",
+        "name": "Black"
+      },
+      {
+        "id": "hard_bone",
+        "name": "Bone"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "hollow_frog",
+    "label": "Hollow-body frog",
+    "reviewedPalette": "hollow_frog",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "frog_black",
+        "name": "Black belly"
+      },
+      {
+        "id": "frog_white",
+        "name": "White belly"
+      },
+      {
+        "id": "frog_yellow",
+        "name": "Green / yellow belly"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      },
+      {
+        "id": "fly_gray_white",
+        "name": "Gray / white"
+      },
+      {
+        "id": "fly_olive",
+        "name": "Olive"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      },
+      {
+        "id": "fly_olive",
+        "name": "Olive"
+      },
+      {
+        "id": "fly_brown",
+        "name": "Brown"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      },
+      {
+        "id": "fly_chartreuse_white",
+        "name": "Chartreuse / white"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      },
+      {
+        "id": "fly_black_purple",
+        "name": "Black / purple"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      },
+      {
+        "id": "fly_chartreuse_white",
+        "name": "Chartreuse / white"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      },
+      {
+        "id": "fly_black_purple",
+        "name": "Black / purple"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_chartreuse_white",
+        "name": "Chartreuse / white"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      },
+      {
+        "id": "fly_black_purple",
+        "name": "Black / purple"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      }
+    ]
+  },
+  {
+    "typeId": "streamer",
+    "label": "Streamer fly",
+    "reviewedPalette": "baitfish_streamer",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "fly_white",
+        "name": "White"
+      },
+      {
+        "id": "fly_chartreuse_white",
+        "name": "Chartreuse / white"
+      },
+      {
+        "id": "fly_black",
+        "name": "Black"
+      },
+      {
+        "id": "fly_black_purple",
+        "name": "Black / purple"
+      },
+      {
+        "id": "fly_olive_white",
+        "name": "Olive / white"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "clear",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_blue",
+        "name": "Blue"
+      },
+      {
+        "id": "popper_green_white",
+        "name": "Green / white"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "clear",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_blue",
+        "name": "Blue"
+      },
+      {
+        "id": "popper_green_white",
+        "name": "Green / white"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "stained",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_chartreuse",
+        "name": "Chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "stained",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_chartreuse",
+        "name": "Chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "dirty",
+    "light": "sunny",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_chartreuse",
+        "name": "Chartreuse"
+      }
+    ]
+  },
+  {
+    "typeId": "fly_popper",
+    "label": "Fly popper",
+    "reviewedPalette": "fly_popper",
+    "clarity": "dirty",
+    "light": "cloudy",
+    "colors": [
+      {
+        "id": "popper_white",
+        "name": "White"
+      },
+      {
+        "id": "popper_black",
+        "name": "Black"
+      },
+      {
+        "id": "popper_yellow",
+        "name": "Yellow"
+      },
+      {
+        "id": "popper_chartreuse",
+        "name": "Chartreuse"
+      }
+    ]
+  }
+]

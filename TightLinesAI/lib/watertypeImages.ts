@@ -1,21 +1,10 @@
-/**
- * watertypeImages.ts
- *
- * Central map from EngineContext → local landscape image asset.
- *
- * Images live in:  assets/images/watertype/
- *   lake.png    — used for freshwater_lake_pond
- *   river_circle.png — used for freshwater_river selector thumbnail
- *
- * Regenerate (field-guide style, same pipeline as species/tackle):
- *   deno run -A scripts/generate-recommender-watertype-images.ts
- */
+/** Recommender selectors in the shared matte field-guide illustration style. */
 
 import type { EngineContext } from './recommenderContracts';
 
 const WATERTYPE_IMAGES: Partial<Record<EngineContext, ReturnType<typeof require>>> = {
-  freshwater_lake_pond: require('../assets/images/watertype/lake.png'),
-  freshwater_river:     require('../assets/images/watertype/river_circle.png'),
+  freshwater_lake_pond: require('../assets/images/recommender/illustrated/lake_pond.png'),
+  freshwater_river:     require('../assets/images/recommender/illustrated/river_stream.png'),
 };
 
 /** Returns the landscape image for a water context, or null if not available. */

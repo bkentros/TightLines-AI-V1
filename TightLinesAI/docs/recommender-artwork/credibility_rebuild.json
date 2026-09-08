@@ -1,0 +1,91 @@
+{
+  "generator": "Built-in image_gen",
+  "review": "Rebuilt following user anatomy rejection. Eight final assets visually reviewed and installed. Earlier versions and rejected intermediate images must not be treated as accepted.",
+  "jobs": [
+    {
+      "id": "balanced_leech",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A traditional balanced leech fly in side profile, gold bead at RIGHT and short black marabou tail at LEFT. SLIM cylindrical black dubbing body about four bead diameters long, sparse fibers, not a bushy baitfish wing. Small gold tungsten bead on a straight pin extending just HALF a bead diameter beyond the front of the dubbing. The pin is securely wrapped along the hook shank, largely hidden under dubbing. ONE small upward jig-hook eye rises immediately behind the bead, the attachment point. One continuous jig hook shank runs under the dubbing and curves upward at the REAR of the body, with point aiming right. Compact proportions: bead about body thickness. No eye on bead, no long exposed pin, no oversized feather fan."
+    },
+    {
+      "id": "large_pike_tube",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A large conventional soft-plastic tube jig, head LEFT and skirt RIGHT. Plain CLOSED rounded cylindrical nose and straight hollow cylindrical olive-green soft-plastic body with black glitter. Smooth rubber surface, absolutely NO fish scales, eyes, mouth, gills or fins. Body transitions directly into twelve narrow flat longitudinal skirt strips, cut from same tube wall, gently splayed at right. No flared collar. Internal jig head fully hidden, only one small metal line-tie eye protrudes on top just behind nose. A SINGLE jig hook emerges near rear of cylindrical body, curves upward, point aiming left. Long tube proportions, cylindrical body about three times its diameter, skirt about body length."
+    },
+    {
+      "id": "big_smallmouth_tube",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A conventional bass soft-plastic tube jig. CLOSED rounded nose LEFT, plain cylindrical green pumpkin rubber body with black flecks and subtle shallow rings, narrow flat skirt strips RIGHT cut continuously from the tube wall. No fish head, no mouth, no eyes, no scales, no gills, no segmented metal head. Hidden internal tube jig, only one small line-tie eye through top near nose; one hook emerges near rear body, curves UP and points left. Modest cylindrical body and straight slender skirt strips of equal length, gently separated."
+    },
+    {
+      "id": "tube_jig",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A classic smallmouth bass tube jig. Solid CLOSED rounded plain soft-plastic nose LEFT. Smooth smoke-brown translucent rubber cylindrical body with black flecks. Last half of tube is slit into many thin straight flat tentacle strips flowing RIGHT. No scales, eyes, mouth, fish head, fins or flared skirt collar. The jig weight is inside the soft tube and cannot be seen. Only one small metal tie eye at top near nose and one anatomically coherent jig hook through upper rear body, point facing left. Slim recognizable tube tackle."
+    },
+    {
+      "id": "large_profile_pike_swimbait",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A pre-rigged large soft-plastic paddle-tail swimbait in perch color, nose LEFT. One continuous soft molded fish-shaped body, olive back, cream belly, dark vertical bars, small molded pectoral fin, one inset eye, slender tail wrist and broad rounded paddle tail angled slightly toward viewer. INTERNAL weight fully hidden. ONE small nose tie and ONE strong single jig hook through back, curved upward with point toward nose. No belly treble, no external chin weight, no clips, chains, swivel, harness or extra hook. Clear simple soft swimbait silhouette, no joints."
+    },
+    {
+      "id": "warmwater_crawfish_fly",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A recognizable hand-tied crayfish fly, viewed slightly from above. Crayfish claws point LEFT; fly hook eye is at RIGHT tail end so it retrieves tail-first. Short slender rust-brown dubbed body wrapped with fine copper rib, two narrow brown rabbit-strip claws extending left in a shallow V, sparse short mottled rubber legs along body sides, two fine antenna strands left. Claws are simple soft fur strips, not giant molded lobster pincers. A single small dark dumbbell weight tied transversely near RIGHT hook-eye end. ONE hook shank hidden along body, bend at LEFT end curves upward with point facing right. Visibly made from dubbing, rabbit fur and thread. Compact natural proportions, no huge hair fan, no fish eyes."
+    },
+    {
+      "id": "pike_flash_fly",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A pike flash streamer fly in side view, head RIGHT and tail LEFT. Long tapered sparse silver pearlescent flash fibers with olive synthetic fibers across back and white belly, tied at a compact olive thread head, one small adhesive eye visible, one metal hook eye projecting at right. ONE SINGLE long-shank fly hook runs hidden through front body then bends downward at middle-left, point facing right. Exactly one bend and one point; no second hook, no tandem hook, no articulation hardware. Fibers trail naturally well past hook bend. Light airy baitfish silhouette, not solid scales."
+    },
+    {
+      "id": "drop_shot_worm",
+      "prompt": "Use case: scientific-educational. Fishing app tackle illustration. Matte watercolor with delicate ink outlines, restrained detail, white #FFFFFF background, no text, no logo, no shadow, square canvas. One complete specimen centered with 10% margins. Accurate tackle construction, not a living animal or fantasy hybrid. A correctly NOSE-TIP hooked drop-shot finesse worm rig, side view. Slim green-pumpkin soft plastic straight tapered worm extends horizontally RIGHT, small blunt nose at LEFT, delicate ribbing, black flecks, slender straight tail, no curl tail. ONE TINY short-shank drop-shot hook sits almost entirely OUTSIDE the worm, just LEFT of its nose. Its point enters the underside of the FIRST TWO MILLIMETERS of nose and exits immediately on top of same nose tip. Only the tiniest edge of rubber rests in hook bend. No buried shank, no hook further along head or body. Hook eye is in white space immediately left of nose. Continuous fine grey main line descends from above to that eye, knots there, then continuous tag descends vertically in open white space LEFT of bait to a small pencil sinker's eye below. No line touching bait, no belly attachment. Keep main line above hook short (quarter worm length), tag below hook half worm length, so full rig compact and bait legible. Full unbroken line, hook and weight visible."
+    }
+  ],
+  "edits": [
+    {
+      "id": "balanced_leech",
+      "prompt": "Edit this black leech illustration. Keep slim black dubbed body, short marabou tail, matte watercolor white background. Correct hardware: delete both existing eyes and front protruding pin stub. Place a small upward jig-hook eye just above front of body, one bead diameter LEFT of gold bead. Gold bead sits to RIGHT on short straight pin with no eye or nub on front. Body dubbing wraps pin up to bead. Replace downward hook with ONE continuous hook curving UP at left rear end of body, point facing RIGHT. Hook eye, shank and bend are one piece; no extra hardware.",
+      "ref": "/Users/brandonkentros/.codex/generated_images/01a073e7-5750-7401-b967-bf359f8433ce/exec-49ef9de3-27bf-439a-9610-31202ffba03e.png"
+    },
+    {
+      "id": "warmwater_crawfish_fly",
+      "prompt": "Correct ONLY hook location on this crayfish fly. The hook bend currently floats halfway along upper rabbit claw; remove it there completely. Place ONE short hook bend emerging UP directly at LEFT END OF THE DUBBED BODY, where the two fur claws attach. Point faces RIGHT back toward body. The hook shank is entirely inside the dubbed body and connects to rightmost tie eye. Neither claw contains any hook. Preserve two rabbit claws, fine antennae, dubbed ribbed body, legs, right-end dumbbell, white background and watercolor style.",
+      "ref": "/Users/brandonkentros/.codex/generated_images/01a073e7-5750-7401-b967-bf359f8433ce/exec-edeccf7a-f32a-40c5-b67f-32c7203f200b.png"
+    }
+  ],
+  "wormTipEdit": "Precise rigging edit. Preserve worm, line, sinker, white background and watercolor. Remove the entire current hook. Replace with a hook ONE QUARTER its current size, mostly visible in white space LEFT of worm. Tiny point pierces ONLY the extreme leftmost edge of worm: enter and exit within the first 1% of worm length, a mere pinprick at x=leftmost nose. Absolutely no hook metal above, inside or below any portion farther than 1% along worm. Bend hangs in white space left of tip, point exposed upward at tip. Eye connected to existing line. This is delicately lip-hooked through the tiniest nose edge, not threaded onto a hook. Keep worm's current outline unchanged.",
+  "sources": [
+    "https://www.strikeking.com/en/shop/soft-baits/ct3.5/CT3.5-18",
+    "https://www.flyshopnw.com/blogs/nwffo-blog/master-tying-the-balanced-leech",
+    "https://www.orvis.com/product/come-at-me-cray/18SP.html",
+    "https://www.rapala.com/us_en/wildeye-swim-shad?childSku=us-WSS06SD"
+  ],
+  "accepted": [
+    {
+      "id": "balanced_leech",
+      "path": "assets/images/recommender/illustrated/balanced_leech.png"
+    },
+    {
+      "id": "large_pike_tube",
+      "path": "assets/images/recommender/illustrated/large_pike_tube.png"
+    },
+    {
+      "id": "big_smallmouth_tube",
+      "path": "assets/images/recommender/illustrated/big_smallmouth_tube.png"
+    },
+    {
+      "id": "tube_jig",
+      "path": "assets/images/recommender/illustrated/tube_jig.png"
+    },
+    {
+      "id": "large_profile_pike_swimbait",
+      "path": "assets/images/recommender/illustrated/large_profile_pike_swimbait.png"
+    },
+    {
+      "id": "warmwater_crawfish_fly",
+      "path": "assets/images/recommender/illustrated/warmwater_crawfish_fly.png"
+    },
+    {
+      "id": "pike_flash_fly",
+      "path": "assets/images/recommender/illustrated/pike_flash_fly.png"
+    },
+    {
+      "id": "drop_shot_worm",
+      "path": "assets/images/recommender/illustrated/drop_shot_worm.png"
+    }
+  ]
+}

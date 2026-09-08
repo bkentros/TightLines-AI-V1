@@ -538,6 +538,7 @@ export default function RootLayout() {
           <Stack.Screen name="support" options={{ headerShown: false }} />
           <Stack.Screen name="how-it-works" options={{ headerShown: false }} />
           <Stack.Screen name="recommender" options={{ headerShown: false }} />
+          <Stack.Screen name="color-picker" options={{ headerShown: false }} />
           <Stack.Screen name="how-fishing" options={{ headerShown: false }} />
           <Stack.Screen
             name="how-fishing-results"

@@ -1,0 +1,42 @@
+// Run: node --env-file=.env scripts/color-picker-production-smoke.cjs
+// Creates a disposable confirmed test account; deletes it and its reports in finally.
+const assert=require('node:assert/strict');
+const {createClient}=require('@supabase/supabase-js');
+const url=process.env.EXPO_PUBLIC_SUPABASE_URL,key=process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
+const admin=createClient(url,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
+let temporaryUser;
+(async()=>{
+ const marker=crypto.randomUUID(),email=`color-match-smoke-${marker}@example.com`,password=`Smoke-${marker}-A9!`;
+ const created=await admin.auth.admin.createUser({email,password,email_confirm:true});
+ if(created.error)throw Error('Temporary test user creation failed: '+created.error.message);
+ temporaryUser=created.data.user.id;
+ const profile=await admin.from('profiles').upsert({id:temporaryUser,username:'cm_smoke_'+marker.replaceAll('-',''),subscription_tier:'angler',onboarding_complete:true});
+ if(profile.error)throw Error('Temporary test profile failed: '+profile.error.message);
+ const {data,error}=await client.auth.signInWithPassword({email,password});
+ if(error)throw Error('Temporary test login failed');
+ const token=data.session.access_token;
+ const invoke=async body=>{const r=await fetch(url+'/functions/v1/color-picker',{method:'POST',headers:{apikey:key,Authorization:'Bearer '+key,'x-user-token':token,'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw Error(JSON.stringify({status:r.status,response:j}));return j;};
+ const date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Detroit',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const request={action:'generate',requestId:crypto.randomUUID(),typeId:'soft_craw',clarity:'clear',date,timezone:'America/Detroit',latitude:42.3,longitude:-83.1};
+ const [first, concurrent] = await Promise.all([invoke(request), invoke({...request, requestId:crypto.randomUUID(), clarity:'stained'})]);
+ assert.deepEqual(concurrent, first);
+ assert.equal(first.weather.source,'open_meteo');
+ assert.equal(first.selection.report.catalogVersion,'2026-09-08.3');
+ assert.equal(new Set(first.selection.groups.flatMap(g=>g.choices.map(c=>c.patternId))).size,4);
+ assert(first.selection.groups.every(g=>g.choices.every(c=>!['plastic_black','plastic_brown'].includes(c.patternId))));
+ assert(first.weather.meanCloudPercent>=0&&first.weather.meanCloudPercent<=100);
+ assert.deepEqual(first.selection.groups.map(g=>g.light),['sunny','cloudy']);
+ assert(first.selection.groups.every(g=>g.choices.length===2&&!g.canRotate&&new Set(g.choices.map(x=>x.patternId)).size===2));
+ const replay=await invoke(first.request.action ? first.request : {action:'generate',...first.request});assert.deepEqual(replay,first);
+ const reopened=await invoke({action:'reopen',reportId:first.selection.report.reportId});assert.deepEqual(reopened,first);
+ const second=await invoke({...request,requestId:crypto.randomUUID(),clarity:'dirty',latitude:43});assert.deepEqual(second,first);
+ const other=await invoke({...request,requestId:crypto.randomUUID(),typeId:'crankbait'});assert.notEqual(other.selection.report.reportId,first.selection.report.reportId);
+ const spoon=await invoke({...request,requestId:crypto.randomUUID(),typeId:'spoon',clarity:'dirty'});
+ assert.deepEqual(new Set(spoon.selection.groups.flatMap(g=>g.choices.map(c=>c.patternId))),new Set(['metal_gold','metal_firetiger','metal_red_white','metal_five_diamonds']));
+ const stored=await admin.from('color_picker_reports').select('id,daily_date').eq('user_id',temporaryUser);
+ if(stored.error)throw Error('Could not check daily report uniqueness');
+ assert.equal(stored.data.length,3);assert(stored.data.every(r=>r.daily_date===date));
+ console.log(JSON.stringify({passed:true,weather:first.weather.source,cloudPercent:first.weather.meanCloudPercent,groups:first.selection.groups.map(g=>({light:g.light,choices:g.choices.map(c=>c.name)})),concurrentDailyWinner:true,idempotentReplay:true,reopen:true,changedSetupCannotReroll:true,separateBait:true,curatedSpoon:true,databaseDailyRows:stored.data.length}));
+ await client.auth.signOut();
+})().catch(e=>{console.error(e.message);process.exitCode=1;}).finally(async()=>{if(temporaryUser){const result=await admin.auth.admin.deleteUser(temporaryUser);if(result.error){console.error('Temporary test cleanup failed');process.exitCode=1;}else console.log('Temporary test user and reports cleaned up');}});

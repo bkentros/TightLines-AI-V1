@@ -1,0 +1,13 @@
+# Color picker — pass five UI integration
+
+The Color Match route implements category/type selection, alias search, illustrated clarity selection, date choice, GPS location, forecast/manual daylight selection, equal-treatment result cards, refresh and server-backed reopen. Existing dashboard Color Match entry now opens it. Supported top picks in the lure/fly recommender link directly to their mapped bait type. The existing recommender color advice remains until pass seven.
+
+The screen uses the existing paper header, serif typography, cream background and clarity illustrations. Selector images reuse existing mapped archetype references where available. Missing selector images use generic icons; result cards use precise text descriptions instead of pretending an unrelated bait image matches the selected color. Final category/type and 415 pattern artworks remain in pass six. This pass must not be represented as final visual/artwork acceptance.
+
+The client keeps the request ID after a failed network call and creates a new ID for refresh or changed inputs. Busy state prevents double taps and back navigation during requests. A report ID (not report contents) is stored under the authenticated user's local key for last-report reopen. Results returned after an account switch are not shown to the new user. Saved report contents come from the authenticated endpoint. Three-choice groups explain their limit; refresh is unavailable when all groups have only three choices.
+
+Date choices cover today plus six days in the selected timezone. Dashboard coordinates and timezone are forwarded; GPS resolves timezone through the existing environment service. Direct links without a location offer GPS or explicit manual daylight mode. Manual guidance requires a daylight checkbox; no timed-window UI is exposed in this initial flow. Weather errors are shown with the existing form available for correction/manual fallback. Subscription errors invoke the app's existing paywall.
+
+The client DTO describes the consumed wire shape independently of server implementation imports, avoiding bundling the selection engine into the screen. Shared taxonomy contains no recommendation computation. Final imagery has not been generated in this pass.
+
+Validation: app-wide `tsc --noEmit` passed, and Expo exported the iOS Hermes bundle and resolved assets to `/tmp/color-picker-ios`. `git diff --check` passed. Browser preview is unavailable in this checkout because react-native-web is absent. A device visual review and full live route exercise require pass-six artwork and deployment of the pass-four migration/function; neither has been claimed performed here.

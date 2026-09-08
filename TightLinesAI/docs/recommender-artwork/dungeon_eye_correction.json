@@ -1,0 +1,6 @@
+{
+  "generator": "Built-in image_gen",
+  "prompt": "Precise-object-edit of this Dungeon articulated streamer fishing fly illustration. Correct ONLY the two eyes stacked vertically on the visible side of the head. This is a strict SIDE PROFILE: the transverse dumbbell eyes show only ONE circular near-side eye, with the far-side eye completely occluded behind the head. Remove both stacked circles and replace them with ONE single round gold-and-black eye centered vertically at their former midpoint. Reconstruct surrounding fur naturally. Preserve all other fly materials, olive/tan colors, two articulated body segments, hooks, rubber legs, framing, white background, ink and watercolor illustration style. No second visible eye anywhere.",
+  "path": "assets/images/recommender/illustrated/articulated_dungeon_streamer.png",
+  "review": "Inspected final output: one visible near-side eye, retained articulated body and framing."
+}
