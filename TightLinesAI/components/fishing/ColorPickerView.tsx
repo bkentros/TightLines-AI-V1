@@ -14,14 +14,12 @@ function Palette({ colors }: { colors: string[] }) {
     {colors.map((color, i) => <View key={`${color}-${i}`} style={[s.colorSample, { backgroundColor: color, flex: i === 0 ? 3 : 1 }]} />)}
   </View>;
 }
-function LightHeading({ light }: { light: "sunny" | "cloudy" | "all" }) {
-  const title = light === "sunny" ? "BRIGHT / DIRECT LIGHT" : light === "cloudy" ? "LOW / DIFFUSE LIGHT" : "ACROSS CHANGING LIGHT";
+function LightHeading({ light }: { light: "sunny" | "cloudy" }) {
+  const title = light === "sunny" ? "BRIGHT / DIRECT LIGHT" : "LOW / DIFFUSE LIGHT";
   const caption = light === "sunny"
     ? "two picks for open sun and hard surface glare"
-    : light === "cloudy"
-    ? "two picks for overcast skies, shade, and soft light"
-    : "two picks for either condition";
-  return <View style={[s.sectionHeading, light === "sunny" ? s.sunnyHeading : light === "cloudy" ? s.cloudyHeading : s.sharedHeading]}>
+    : "two picks for overcast skies, shade, and soft light";
+  return <View style={[s.sectionHeading, light === "sunny" ? s.sunnyHeading : s.cloudyHeading]}>
     <View style={s.ruleRow}><View style={s.ruleCap} /><View style={s.rule} /><Text style={s.diamond}>◆</Text></View>
     <View style={s.sectionTitleRow}>
       <Ionicons name={light === "sunny" ? "sunny-outline" : light === "cloudy" ? "cloud-outline" : "partly-sunny-outline"} size={21} color={paper.dashboardInk} />
@@ -67,7 +65,6 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
       <View style={s.heroRow}>
         <View style={s.artPlate}>
           <RecommenderArtwork source={colorTypeImage(report.request.typeId)} style={s.baitArt} />
-          <View pointerEvents="none" style={s.artWash} />
         </View>
       </View>
       <View style={s.facts}>
@@ -142,9 +139,8 @@ const s = StyleSheet.create({
   eyebrow: { fontFamily: paperFonts.bodyBold, fontSize: 9, letterSpacing: 2, color: paper.dashboardBlue },
   reportTitle: { fontFamily: paperFonts.display, fontSize: 36, lineHeight: 39, color: paper.dashboardInk },
   heroRow: { alignItems: "center", minHeight: 148 },
-  artPlate: { width: "100%", minHeight: 148, alignItems: "center", justifyContent: "center", borderTopWidth: 1, borderBottomWidth: 1, borderColor: paper.dashboardLine, backgroundColor: paper.dashboardWhite, overflow: "hidden" },
+  artPlate: { width: "100%", minHeight: 148, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: 6, backgroundColor: paper.dashboardWhite, overflow: "hidden" },
   baitArt: { width: "92%", height: 132 },
-  artWash: { ...StyleSheet.absoluteFillObject, backgroundColor: paper.dashboardBlueLight, opacity: 0.42 },
   facts: { flexDirection: "row", borderTopWidth: 1, borderBottomWidth: 1, borderColor: paper.dashboardLine, paddingVertical: 10 },
   fact: { flex: 1, gap: 5, paddingHorizontal: 6 },
   factDivider: { borderLeftWidth: 2, borderLeftColor: paper.dashboardInk, paddingLeft: 14 },
@@ -163,7 +159,6 @@ const s = StyleSheet.create({
   sectionHeading: { gap: 9, padding: 14, borderWidth: 1, borderRadius: paperRadius.card, overflow: "hidden" },
   sunnyHeading: { backgroundColor: "#FBF1D9", borderColor: "#C99B2D" },
   cloudyHeading: { backgroundColor: "#E8F1F3", borderColor: paper.dashboardBlue },
-  sharedHeading: { backgroundColor: paper.dashboardWhite, borderColor: paper.dashboardLine },
   ruleRow: { flexDirection: "row", alignItems: "center", gap: 6 },
   ruleCap: { width: 5, height: 5, borderRadius: 1, backgroundColor: paper.dashboardInk },
   rule: { height: 1, flex: 1, backgroundColor: paper.dashboardInk },
