@@ -12,10 +12,12 @@ export const colorPickerCatalog = {
   baitTypes: PICKER_CHOICES,
 };
 export function colorTypeImage(typeId: string) {
-  return COLOR_PICKER_IMAGES[typeId] ?? null;
+  const currentId = colorChoiceForType(typeId)?.id ?? typeId;
+  return COLOR_PICKER_IMAGES[currentId] ?? null;
 }
 export function colorTypeThumbnail(typeId: string) {
-  return COLOR_PICKER_THUMBNAILS[typeId] ?? null;
+  const currentId = colorChoiceForType(typeId)?.id ?? typeId;
+  return COLOR_PICKER_THUMBNAILS[currentId] ?? null;
 }
 export { colorTypeForArchetype } from "./colorPickerRouting";
 

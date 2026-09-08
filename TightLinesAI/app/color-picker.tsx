@@ -39,6 +39,7 @@ import {
   type ReportRequest,
 } from "../lib/colorPicker";
 import { COLOR_CLARITY_THUMBNAILS } from "../lib/colorPickerImages";
+import { InvalidColorReportError } from "../lib/colorPickerReport";
 import { paper, paperFonts, paperShadows, paperSpacing, paperRadius } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 type Clarity = "clear" | "stained" | "dirty";
@@ -192,12 +193,13 @@ export default function ColorPickerScreen() {
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : "Could not reopen report.";
-      if (/report not found/i.test(message) && savedId === id && userId) {
+      const unusableSavedReport = /report not found/i.test(message) || e instanceof InvalidColorReportError;
+      if (unusableSavedReport && savedId === id && userId) {
         setSavedId(null);
         await AsyncStorage.removeItem(`color-picker-last:${userId}`).catch(() => {});
       }
       if (mounted.current) {
-        setError(/report not found/i.test(message)
+        setError(unusableSavedReport
           ? "That saved color report is no longer available. Build a new report below."
           : message);
       }
