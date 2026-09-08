@@ -3,11 +3,11 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 import { checkUserRateLimit, rateLimitExceededResponse } from "../_shared/rateLimit.ts";
 import { createReportService } from "../_shared/colorPickerEngine/reportService.ts";
-import { ColorServiceError, fetchColorWeather } from "../_shared/colorPickerEngine/weather.ts";
+import { ColorServiceError } from "../_shared/colorPickerEngine/serviceSupport.ts";
 import { createReportStore } from "./store.ts";
 import { createColorHandler, COLOR_CORS } from "./handler.ts";
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false, autoRefreshToken: false } });
-const service = createReportService({ store: createReportStore(db), weather: request => fetchColorWeather(request, { baseUrl: Deno.env.get("OPEN_METEO_BASE_URL"), apiKey: Deno.env.get("OPEN_METEO_API_KEY") }) });
+const service = createReportService({ store: createReportStore(db) });
 Deno.serve(createColorHandler({ service, authorize: async request => {
   const token = request.headers.get("x-user-token") ?? request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
   if (!token) throw new ColorServiceError("unauthorized", "Sign in to use the color picker.", 401);

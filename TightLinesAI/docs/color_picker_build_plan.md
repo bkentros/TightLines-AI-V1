@@ -1,6 +1,6 @@
 # Freshwater color picker — build plan
 
-Status: the current daily-report contract below supersedes older pass documents. Color Match is deployed. The catalog contains reviewed heuristics, not experimental proof of catch superiority. See [daily reports and color audit](color-picker/daily_report_color_audit.md).
+Status: the September 8 correction contract below supersedes older pass documents. The corrected migration and edge function are deployed; no new mobile production build was created. The catalog contains reviewed heuristics, not experimental proof of catch superiority. See [daily reports and color audit](color-picker/daily_report_color_audit.md) and [release correction](color-picker/release_correction_20260908.md).
 
 Pass-one deliverables: [decisions and handoff](color-picker/pass_1_decisions.md), [full catalog and artwork audit](color-picker/pass_1_catalog_audit.md). The executable taxonomy supersedes the proposed type table below where reconciliation introduced more precise distinctions.
 
@@ -8,20 +8,21 @@ Pass-two deliverables: [research decisions and handoff](color-picker/pass_2_deci
 
 The [UI redesign](color-picker/ui_redesign.md) brings setup, loading, and results into the lure/fly recommender’s paper design system.
 
-## Current correction contract — September 7, 2026
+## Current correction contract — September 8, 2026
 
 The [simplification handoff](color-picker/simplification_decisions.md) supersedes the original 56-type selector, image reuse, and manual-weather policy. The live picker exposes 23 broad choices in five categories. Historical pass documents and the 336-cell research matrix remain research records; they do not define current navigation.
 
 ## Product contract
 
 - Freshwater conventional artificial lures plus streamer flies and fly poppers. The Flies category contains Streamer fly and Fly popper. Saltwater, live bait, insect dry flies, and nymphs are outside this release. Additional surface-fly types remain proposed extensions, not committed release scope.
-- Illustrated bait category/type selection → Next → illustrated water clarity selection → generate → sun and cloud sections, each with Top Color of the Day and Honorable Mention.
-- Filter by bait type, clarity, then light. Uniform random selection from eligible patterns; Top and Honorable are display slots, not scientific rankings or scores.
-- Always two distinct colors for sun and two for clouds. The groups draw independently and may overlap. Weather is fetched automatically for context; cloud thresholds no longer hide a section.
+- Illustrated bait category/type selection → illustrated water clarity selection → generate → two equal-status FinFindr picks for each meaningful light condition. The product presents these as its picks for the day without claiming a knowable first-place color.
+- Filter by bait type, clarity, then the reviewed bright/direct and low/diffuse light pools. Each pair is sampled uniformly without effectiveness scores or a cross-condition anti-repeat rule that would bias individual colors.
+- When the two reviewed light pools differ, show both conditional sections. When they are identical, sample once and show one “Across changing light” section instead of implying a distinction the catalog does not contain.
+- Color Match does not request or persist coordinates, forecast data, or hourly weather. Device timezone is used only to determine the authenticated user’s current local date.
 - The lure/fly color banner is removed. Both recommendation slots link to their correct broad bait unless the pattern identity is fixed or unsupported.
-- One server-cached report per user, broad bait and local calendar date. First-generation clarity and location are fixed for that day, even if setup or request ID changes. A new daily draw is available the following day; repeats remain possible. Archived reports retain their saved date and location. Do not add mandatory species, depth, forage, or season questions in this release. Do not claim those variables influenced results when they did not.
+- One server-cached report per authenticated user, broad bait, water clarity, and local calendar date. A different clarity is a distinct report; changing request ID or device cannot reroll the same setup. A new daily draw is available the following day, and repeats remain possible. Do not add mandatory species, depth, forage, or season questions in this release. Do not claim those variables influenced results when they did not.
 
-## What exists in this repository
+## Historical repository assessment
 
 | Existing surface | Reuse or change |
 | --- | --- |
@@ -103,7 +104,7 @@ Create one row per `(bait_type, pattern_id, clarity, light_state)` with allowed/
 
 Every release cell must contain at least three distinct reviewed patterns; target six or more where defensible to permit useful rotation. A pool of exactly three cannot provide new combinations. Never invent colors, relax bait compatibility, or insert duplicates just to fill the UI. An insufficient pool fails catalog validation before release. Unexpected runtime catalog failure returns a recoverable error instead of unsuitable recommendations.
 
-## Weather contract
+## Historical weather contract (superseded)
 
 The 30% and 70% thresholds are product heuristics. It measures cloud coverage, not chance of clouds, sunlight percentage, or a fish-vision boundary.
 
@@ -119,7 +120,7 @@ Proposed precise interpretation for this release:
 
 Hourly shortwave radiation can be retained for future brightness refinement, but must not silently override the agreed 30%/70% grouping rules in this release. A brightness model would need solar-angle/clear-sky normalization, dawn/dusk handling, and validation. Surface radiation still does not account for shade, depth, or water attenuation. No fixed raw W/m² cutoff should be presented as universal.
 
-## Randomization and report stability
+## Historical randomization and report stability (superseded)
 
 - Use unbiased shuffle/sample without replacement, with an injectable RNG for tests.
 - Within a pool, all candidates remaining eligible for the draw have equal probability. No performance weights or hidden scores.
@@ -129,7 +130,7 @@ Hourly shortwave radiation can be retained for future brightness refinement, but
 - No requirement for six globally unique colors across two groups: overlapping eligibility is legitimate. Each group must have three unique colors, and a shared color must have its own condition-appropriate explanation.
 - Retry/idempotency handling must prevent one tap from consuming multiple refreshes or producing multiple saved reports.
 
-## UX and artwork
+## Historical UX and artwork plan (superseded)
 
 Step 1: “What are you using?” Five category tabs filter 23 illustrated broad bait choices. Fly popper is separate from conventional topwater lures. Selected state uses outline/checkmark and text, not color alone. Next requires a type.
 
@@ -141,7 +142,7 @@ Artwork inventory must cover category thumbnails, type thumbnails, clarity asset
 
 Use one consistent field-guide treatment, square assets on a consistent warm off-white background, controlled neutral illumination, and adequate margins for hooks/tails. Review previews against the specified body/belly colors, flakes, transparency, and finish at actual card size. Lighting must not make watermelon look like green pumpkin or hide blue flakes. Export mobile-sized derivatives after approval of the master image. The exact asset count is determined by the validated manifest, not guessed before catalog review.
 
-## Implementation sequence and completion gates
+## Historical implementation sequence (superseded)
 
 Complete the research and eligibility matrix before implementing production recommendation logic. Generic UI scaffolding may proceed independently, but no unreviewed pool enters the engine. During implementation, encode the reviewed matrix and verify every combination; corrections return to the matrix and source rationale first.
 
@@ -155,7 +156,7 @@ Complete the research and eligibility matrix before implementing production reco
 
 No production deployment or live schema change is part of this planning document. The migration is authorized work once implementation reaches its completion gate; it does not require asking again merely to remove the old feature's color guidance.
 
-## Acceptance examples
+## Historical acceptance examples (superseded)
 
 - Black/blue plastic means black with visible blue flakes when that is the recorded pattern; it never renders as a blue-skirted jig.
 - Selecting a sculpin streamer cannot draw a craw-pattern crankbait color record.

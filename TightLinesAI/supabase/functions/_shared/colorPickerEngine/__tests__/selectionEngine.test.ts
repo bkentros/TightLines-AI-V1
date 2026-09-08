@@ -51,13 +51,13 @@ test("exhaustive equal-probability random paths give uniform unweighted combinat
   assert.equal(new Set(counts.values()).size, 1);
 });
 
-test("daily draws ignore past colors while minimizing within-report overlap", () => {
+test("daily draws ignore past colors", () => {
   const engine = createColorPickerEngine(() => 0);
   const first = engine.draw(input).report;
   assert.deepEqual(engine.draw(next(1), { history: [first] }), engine.draw(next(1)));
 });
 
-test("history is isolated by user, type, clarity, light and version", () => {
+test("unrelated or stale history cannot influence a draw", () => {
   const engine = createColorPickerEngine(() => 0);
   const old = engine.draw({ ...input, lights: ["sunny"] }).report;
   const target = next(1, { lights: ["cloudy"] });
@@ -67,11 +67,13 @@ test("history is isolated by user, type, clarity, light and version", () => {
   }
 });
 
-test("two-color draws from narrow pools allow honest overlap between lights", () => {
+test("identical light pools are sampled once and presented as shared guidance", () => {
   const engine = createColorPickerEngine(() => 0);
   const first = engine.draw({ ...input, typeId: "hollow_frog" });
   assert(first.groups.every(g => !g.canRotate && g.poolSize === 3));
-  assert.equal(new Set(first.report.groups.flatMap(g => g.patternIds)).size, 3);
+  assert.equal(first.sharedAcrossLight, true);
+  assert.deepEqual(first.report.groups[0].patternIds, first.report.groups[1].patternIds);
+  assert.deepEqual(first.groups[0].choices, first.groups[1].choices);
   const second = engine.draw(next(1, { typeId: "hollow_frog" }), { history: [first.report] });
   assert.deepEqual(new Set(first.report.groups[0].patternIds), new Set(second.report.groups[0].patternIds));
 });
@@ -124,7 +126,7 @@ test("default secure random source respects bounds", () => {
   }
 });
 
-test("history is bounded per group and duplicate report rows do not consume the window", () => {
+test("history length and duplicate rows do not affect new draws", () => {
   const engine = createColorPickerEngine(() => 0);
   const history = Array.from({ length: 11 }, (_, n) => engine.draw(next(n, { lights: ["cloudy"] })).report);
   const target = next(12, { lights: ["cloudy"] });
@@ -132,14 +134,6 @@ test("history is bounded per group and duplicate report rows do not consume the 
   assert.deepEqual(engine.draw(target, { history }), engine.draw(target, { history: recent }));
   assert.deepEqual(engine.draw(target, { history: [...history, ...history] }), engine.draw(target, { history }));
 });
-
-test("fresh requests cannot reuse report IDs or move backward through relevant history", () => {
-  const engine = createColorPickerEngine(() => 0);
-  const report = engine.draw(next(2)).report;
-  assert.throws(() => engine.draw(next(3, { reportId: report.reportId }), { history: [report] }), errorCode("REQUEST_CONFLICT"));
-  assert.throws(() => engine.draw(next(1), { history: [report] }), errorCode("INVALID_INPUT"));
-});
-
 
 test("all 23 broad picker choices draw correctly in all 138 clarity/light cells", () => {
   assert.equal(PICKER_CHOICES.length, 23);
@@ -190,37 +184,44 @@ test("two-choice curated pools still draw two unique colors with either order", 
 });
 
 
-test("all live reports achieve the maximum possible distinct colors without leaving either pool", () => {
+test("all live reports stay within each reviewed light pool", () => {
   for (const bait of PICKER_CHOICES) for (const clarity of ["clear", "stained", "dirty"] as const) {
     const source = ["sunny", "cloudy"].map(light => pools.find(p => p.typeId === bait.poolTypeId && p.clarity === clarity && p.light === light)!);
-    const expected = Math.min(4, new Set(source.flatMap(p => p.patternIds)).size);
     for (const random of [() => 0, (max: number) => max - 1]) {
       const result = createColorPickerEngine(random).draw({ ...input, typeId: bait.id, clarity });
-      assert.equal(new Set(result.report.groups.flatMap(g => g.patternIds)).size, expected, `${bait.id}/${clarity}`);
       result.report.groups.forEach((g, i) => assert(g.patternIds.every(id => source[i].patternIds.includes(id))));
+      const samePool = source[0].patternIds.length === source[1].patternIds.length &&
+        source[0].patternIds.every(id => source[1].patternIds.includes(id));
+      assert.equal(result.sharedAcrossLight, samePool);
+      if (samePool) {
+        assert.deepEqual(result.report.groups[0].patternIds, result.report.groups[1].patternIds);
+        assert.deepEqual(result.groups[0].choices, result.groups[1].choices);
+      }
     }
   }
 });
 
-test("joint draws sample each minimum-overlap allocation and display order equally", () => {
-  const counts = new Map<string, number>();
+test("overlapping light pools retain equal marginal probability", () => {
+  const included = [new Map<string, number>(), new Map<string, number>()];
+  let outcomes = 0;
   function visit(path: number[]) {
     let cursor = 0;
     try {
       const result = createColorPickerEngine(max => {
         if (cursor === path.length) throw { branch: max };
         return path[cursor++];
-      }).draw({ ...input, typeId: "hollow_frog" });
-      const key = result.report.groups.map(g => g.patternIds.join(",")).join("/");
-      counts.set(key, (counts.get(key) ?? 0) + 1);
+      }).draw({ ...input, typeId: "soft_craw", clarity: "clear" });
+      outcomes++;
+      result.report.groups.forEach((group, index) => group.patternIds.forEach(id => included[index].set(id, (included[index].get(id) ?? 0) + 1)));
     } catch (e) {
       if (e && typeof e === "object" && "branch" in e) for (let i = 0; i < Number(e.branch); i++) visit([...path, i]);
       else throw e;
     }
   }
   visit([]);
-  assert.equal(counts.size, 24); // six pair allocations, two orders for each light.
-  assert.deepEqual(new Set(counts.values()), new Set([1]));
+  assert(outcomes > 1);
+  assert.deepEqual(new Set(included[0].values()).size, 1);
+  assert.deepEqual(new Set(included[1].values()).size, 1);
 });
 
 test("verified additions deepen common baits without broadening unrelated pools", () => {

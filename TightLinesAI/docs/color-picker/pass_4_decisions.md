@@ -1,5 +1,7 @@
 # Color picker — pass four weather and report service
 
+> Historical implementation record. The September 8 release correction removes the weather/location contract described here.
+
 Status: implementation and local validation completed September 6, 2026. Endpoint and migration are not deployed. UI integration is pass five.
 
 ## Implemented

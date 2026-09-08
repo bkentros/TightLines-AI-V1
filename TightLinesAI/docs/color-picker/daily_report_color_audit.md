@@ -1,13 +1,13 @@
-# Daily reports and palette audit — September 7, 2026
+# Daily reports and palette audit — September 8, 2026
 
-This contract supersedes earlier three-color, cloud-threshold and reroll behavior.
+This contract supersedes earlier ranked-card, weather, cross-section deduplication, and reroll behavior. Older verification notes below are retained as historical records and do not describe the corrected release.
 
 ## Daily report
 
-- Two independent sections, sun and clouds, always shown. Each draws two distinct colors uniformly from its bait/clarity/light pool. First position is Top Color of the Day; second is Honorable Mention. These are randomly assigned display roles, not effectiveness scores. History does not bias a new draw. Cross-section and next-day repeats are allowed.
-- One new-format report per authenticated user, broad picker bait and local date. The first report's clarity, location, weather and choices are retained. Changing setup, request ID or device cannot reroll. A different bait or next local date can generate another report. New future/past generation is rejected; archived snapshots remain readable.
+- Each meaningful light condition receives two equal-status FinFindr picks, sampled uniformly without ranking. Bright/direct and low/diffuse pools draw independently and may overlap. If both reviewed pools are identical, the same pair is sampled once and presented as suitable across changing light. History does not bias a new draw; next-day repeats remain possible.
+- One schema-2 report exists per authenticated user, broad picker bait, water clarity, and local date. Changing request ID or device cannot reroll the same setup. A different bait, clarity, or next local date can generate another report. New future/past generation is rejected; archived snapshots remain readable.
 - Database uniqueness and insert-or-return-winner RPC enforce the rule under concurrent requests. Request-ID replay remains supported. Failed generation does not reserve a daily slot.
-- Weather remains automatic, with daylight-weighted cloud cover as context. It no longer gates the light sections. No manual light input or Show Other Colors action.
+- The request and saved report contain no coordinates, forecast, or hourly weather. Device timezone determines the current local date. A migration redacts those fields from legacy envelopes.
 - The recommender preserves Bluegill Streamer, Mouse Fly, Sculpin Streamer, Sculpzilla, Muddler Sculpin, Crawfish Streamer, Warmwater Crawfish Fly and Frog Fly. No Color Match link is shown for these identities. This does not remove generic streamers from the standalone picker.
 
 ## Palette review
@@ -31,7 +31,7 @@ Explanations now state a brief mechanism: dark silhouette against a lighter back
 
 Firetiger is in both stained/murky light pools for inline spinners, crankbaits, lipless crankbaits, jerkbaits, hard swimbaits and spoons; topwater also retains it in clear-water pools. The overlap is deliberate. Bright/dark contrast can remain viable under both lighting states; the pools should not manufacture a difference merely to make reports look varied. It does not imply sun and cloud conditions are identical or that four unique colors are mandatory.
 
-## Verification
+## Historical September 7 verification
 
 - 29 engine/service/visibility tests: all reviewed cells, random combination fairness, overlap, replay, daily locking, concurrent requests, changed inputs, next local date, authorization, forecast validation and palette checks.
 - Routing audit covers all 80 recommender archetypes, including the newly preserved identities.

@@ -1,4 +1,4 @@
-import { ColorServiceError } from "../_shared/colorPickerEngine/weather.ts";
+import { ColorServiceError } from "../_shared/colorPickerEngine/serviceSupport.ts";
 import { ColorPickerError } from "../_shared/colorPickerEngine/selectionEngine.ts";
 import type { createReportService } from "../_shared/colorPickerEngine/reportService.ts";
 export const COLOR_CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token" };
@@ -16,7 +16,7 @@ export function createColorHandler(deps: { authorize: (request: Request) => Prom
       try { body = JSON.parse(raw); } catch { return json({ error: "invalid_json" }, 400); }
       if (!body || typeof body !== "object" || Array.isArray(body)) return json({ error: "invalid_input" }, 400);
       if (body.action === "reopen") {
-        if (typeof body.reportId !== "string" || !/^[0-9a-f-]{36}$/i.test(body.reportId)) return json({ error: "invalid_report_id" }, 400);
+        if (typeof body.reportId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.reportId)) return json({ error: "invalid_report_id" }, 400);
         return json(await deps.service.reopen(user, body.reportId));
       }
       if (body.action !== "generate") return json({ error: "invalid_action" }, 400);

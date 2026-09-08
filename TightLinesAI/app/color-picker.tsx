@@ -5,8 +5,6 @@ import {
   TopographicLines,
 } from "../components/paper";
 import { RecommenderArtwork } from "../components/fishing/RecommenderArtwork";
-import { useEnvStore } from "../store/envStore";
-import { useLocationStore } from "../store/locationStore";
 import { hapticSelection } from "../lib/safeHaptics";
 import { colorChoiceForType } from "../lib/colorPickerCatalog";
 import { useEffect, useRef, useState } from "react";
@@ -40,7 +38,6 @@ import {
   type ReportRequest,
 } from "../lib/colorPicker";
 import { COLOR_CLARITY_IMAGES } from "../lib/colorPickerImages";
-import { getEnvironment } from "../lib/env";
 import { paper, paperFonts, paperShadows, paperSpacing, paperRadius } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 type Clarity = "clear" | "stained" | "dirty";
@@ -58,10 +55,6 @@ export default function ColorPickerScreen() {
   const params = useLocalSearchParams<
     {
       typeId?: string;
-      latitude?: string;
-      longitude?: string;
-      timezone?: string;
-      location_label?: string;
       reportId?: string;
     }
   >();
@@ -74,18 +67,9 @@ export default function ColorPickerScreen() {
     initial ? "clarity" : "category",
   );
   const [category, setCategory] = useState(initial?.categoryId ?? "");
-  const homeCoords = useEnvStore(state => state.lastCoords);
-  const savedLocation = useLocationStore(state => state.useCustom ? state.savedLocation : null);
   const baitScroll = useRef(0);
   const [typeId, setTypeId] = useState(initial?.id ?? "");
   const [clarity, setClarity] = useState<Clarity | null>(null);
-  // Home supplies the active fishing coordinates. This screen never substitutes GPS.
-  const location = params.latitude && params.longitude &&
-      Number.isFinite(Number(params.latitude)) &&
-      Number.isFinite(Number(params.longitude))
-    ? { latitude: Number(params.latitude), longitude: Number(params.longitude) }
-    : savedLocation ? { latitude: savedLocation.lat, longitude: savedLocation.lon }
-    : homeCoords ? { latitude: homeCoords.lat, longitude: homeCoords.lon } : null;
   const [busy, setBusy] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
   const reveal = useRef(new Animated.Value(1)).current;
@@ -198,24 +182,12 @@ export default function ColorPickerScreen() {
     setBusy(true);
     setError("");
     try {
-      if (!location) {
-        throw new Error(
-          "Choose a fishing location on Home, then open Color Match again.",
-        );
-      }
-      const requestZone = params.timezone ||
-        (await getEnvironment(location)).timezone;
-      if (!requestZone) {
-        throw new Error(
-          "Could not read the forecast for your Home location. Please try again.",
-        );
-      }
+      const requestZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
       const base = {
         typeId,
         clarity: selectedClarity,
         date: today(requestZone),
         timezone: requestZone,
-        ...location,
       };
       const key = JSON.stringify(base);
       if (!pending.current || pending.current.key !== key) {
@@ -352,8 +324,8 @@ export default function ColorPickerScreen() {
                           <Text style={s.heroAccent}>YOUR COLORS.</Text>
                         </Text>
                         <Text style={s.subtitle}>
-                          Three quick steps to colors for your water.
-                          Ready for sunshine or cloud cover.
+                          Three quick steps to our colors for your water.
+                          Ready for bright or low light.
                         </Text>
                       </View>
                       <View style={s.progressRow}>
@@ -605,7 +577,7 @@ export default function ColorPickerScreen() {
                         <Text
                           style={[s.caption, { flex: 1, textAlign: "left" }]}
                         >
-                          Two picks for sun and two for clouds. Your first report saves this bait and water clarity for today.
+                          We’ll show two picks for each meaningful light condition. If the same colors fit both, we’ll show one shared set.
                         </Text>
                       </View>
                     </>
@@ -615,27 +587,6 @@ export default function ColorPickerScreen() {
                       <ColorPickerView report={report} />
                       <View style={s.actions}>{action("CHOOSE ANOTHER BAIT", editReport, false, true)}</View>
                     </>
-                  )}
-                  {!location && (
-                    <Pressable
-                      accessibilityRole="button"
-                      onPress={() => router.replace("/(tabs)")}
-                      style={s.homeNotice}
-                    >
-                      <Ionicons
-                        name="location-outline"
-                        size={20}
-                        color={paper.dashboardBlue}
-                      />
-                      <Text style={s.linkText}>
-                        Choose your fishing location on Home
-                      </Text>
-                      <Ionicons
-                        name="arrow-forward"
-                        size={18}
-                        color={paper.dashboardBlue}
-                      />
-                    </Pressable>
                   )}
                   {!!error && (
                     <View accessibilityRole="alert" style={s.error}>
@@ -655,7 +606,7 @@ export default function ColorPickerScreen() {
           <View style={s.dock}>
             <View style={s.dockInner}>
               <Text style={s.dockHint}>
-                {step === "category" ? "Choose a category to explore its baits" : step === "bait" ? "Choose your bait, then continue" : "One daily report per bait. Sun and clouds included."}
+                {step === "category" ? "Choose a category to explore its baits" : step === "bait" ? "Choose your bait, then continue" : "One daily report per bait and water clarity."}
               </Text>
               <View style={s.actions}>
                 {action(
@@ -671,7 +622,7 @@ export default function ColorPickerScreen() {
                   : action(
                     "FIND MY COLORS",
                     () => void generate(),
-                    !location || !typeId || !clarity,
+                    !typeId || !clarity,
                   )}
               </View>
             </View>
@@ -961,16 +912,6 @@ const s = StyleSheet.create({
     textAlign: "center",
     minHeight: 45,
     paddingHorizontal: 8,
-  },
-  homeNotice: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    backgroundColor: "#E4F0F5",
-    borderRadius: 12,
   },
   forecastNote: {
     flexDirection: "row",

@@ -1,5 +1,7 @@
 # Verified pool expansion — September 8, 2026
 
+> Historical catalog-expansion record. The September 8 release correction supersedes the minimum-overlap sampler, weather behavior, and daily-cache wording below. Pool membership and cited availability research remain current.
+
 User authorized the proposed additions and further verified options for sparse/common bait pools. Catalog 2026-09-08.3. Existing familiarity exclusions remain enforced. No earlier rejected plain colors were reinstated.
 
 ## Additions and eligibility

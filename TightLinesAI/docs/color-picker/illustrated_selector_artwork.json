@@ -5,7 +5,7 @@
     {
       "id": "bladed_jig",
       "path": "assets/images/color-picker/illustrated/bladed_jig.png",
-      "sha256": "66d295c790c2ba7e245a42350bbde33878899fb2b870a574814a1adb879cf44b",
+      "sha256": "26cbe16f97f90e5f38182092cce260a8e70c1e62659de77db2c8364c906a9d14",
       "references": [
         "assets/images/color-picker/selectors/bladed_jig.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -16,7 +16,7 @@
     {
       "id": "buzzbait",
       "path": "assets/images/color-picker/illustrated/buzzbait.png",
-      "sha256": "07475cda7c7db8ab80a6d33569cdeb7753eae62221ce3d4c0a50f8b7e2c60474",
+      "sha256": "7f71e06d668f79abe33baf9cc4e6e9af091434c4b5a375e85cb93795ba02fd04",
       "references": [
         "assets/images/color-picker/selectors/buzzbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -27,7 +27,7 @@
     {
       "id": "clear",
       "path": "assets/images/color-picker/illustrated/clear.png",
-      "sha256": "c7dec38f9ef52c52b8ea0b399812f87fb3d759c1307565bad1ea356df3a7ca69",
+      "sha256": "74e2cc0d72649891f4f1e7c57138898f63c8215e54dd61d5638ad3ec57195271",
       "references": [
         "assets/images/color-picker/selectors/clear.png",
         "assets/images/waterclarity/clear.png"
@@ -38,7 +38,7 @@
     {
       "id": "crankbait",
       "path": "assets/images/color-picker/illustrated/crankbait.png",
-      "sha256": "eaf0ed840bacafa8b112edd24f3cde0adae98545d4224e7a3c71cfb648641fa1",
+      "sha256": "a243c8e415cdf238b93cd3cd4ef7caa6493aacbb79d079992fc77d7bdcfaad27",
       "references": [
         "assets/images/color-picker/selectors/crankbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -49,7 +49,7 @@
     {
       "id": "curly_tail_grub",
       "path": "assets/images/color-picker/illustrated/curly_tail_grub.png",
-      "sha256": "dc714a4bcd0087e11510f77cc878a388bf1b6bc86cd1a918311598b6d170ae5c",
+      "sha256": "273cbdca289663c09a62aeca1c1cfa062473a1072fd251822dbbd9d75b37f5f0",
       "references": [
         "assets/images/color-picker/selectors/curly_tail_grub.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -60,17 +60,17 @@
     {
       "id": "dirty",
       "path": "assets/images/color-picker/illustrated/dirty.png",
-      "sha256": "d065a760e53761e01fd44d5f07c1a17b0c82a889807f624ce2462537fe56c343",
+      "sha256": "0ecdf6294d416610663d13b13144b56c5123fb330e81f260e067333e406d65b3",
       "references": [
         "assets/images/color-picker/selectors/dirty.png"
       ],
-      "prompt": "Use case: style-transfer. Redraw this MURKY WATER circular scene as a matte watercolor field-guide illustration. Water is OPAQUE MUDDY BROWN with suspended silt and extremely low visibility. Only a faint blurry trace of the nearest stone at bottom; NO distant stones visible, NO clear blue or green water, NO light shafts. Maintain the source\u2019s muddy brown hue and very low visibility. Circular vignette on completely plain solid white background, no text, no checkerboard, no metallic rim. This is specifically the LOW VISIBILITY / MURKY option.",
+      "prompt": "Use case: style-transfer. Redraw this MURKY WATER circular scene as a matte watercolor field-guide illustration. Water is OPAQUE MUDDY BROWN with suspended silt and extremely low visibility. Only a faint blurry trace of the nearest stone at bottom; NO distant stones visible, NO clear blue or green water, NO light shafts. Maintain the source’s muddy brown hue and very low visibility. Circular vignette on completely plain solid white background, no text, no checkerboard, no metallic rim. This is specifically the LOW VISIBILITY / MURKY option.",
       "review": "Visually inspected for subject, anatomy, background, and stylistic consistency."
     },
     {
       "id": "fly_popper",
       "path": "assets/images/color-picker/illustrated/fly_popper.png",
-      "sha256": "1815087c0f8d76475c916f94e727199e5192f150fb62903ed57c484ccde6ae0f",
+      "sha256": "256725955c9ff2510dacb20e0a2dade47a24d48ff6a48c36f9e99d373ffe352f",
       "references": [
         "assets/images/color-picker/selectors/fly_popper.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -81,7 +81,7 @@
     {
       "id": "hair_jig",
       "path": "assets/images/color-picker/illustrated/hair_jig.png",
-      "sha256": "50924f3587d0759ad6c763a35199b1f30726c70390f43e056f8bdbfaa1ad72d6",
+      "sha256": "3ca3018180a0a4e43c706c3c9b325065dd3dc3721f4f31d1d43dce882e28a6fa",
       "references": [
         "assets/images/color-picker/selectors/hair_jig.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -92,7 +92,7 @@
     {
       "id": "hard_jerkbait",
       "path": "assets/images/color-picker/illustrated/hard_jerkbait.png",
-      "sha256": "a674c71cb7fedcfa6f48591ac52eb39afc0665d3b8322bd2b9eedb678e00766a",
+      "sha256": "e1354345b69cf942fb0e88e1b70ab537918ebe0db467fb7ee15aebb0de11e7f6",
       "references": [
         "assets/images/color-picker/selectors/hard_jerkbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -103,7 +103,7 @@
     {
       "id": "hard_swimbait",
       "path": "assets/images/color-picker/illustrated/hard_swimbait.png",
-      "sha256": "2d93076d2fddf0069856f5ccb2fc3aa608cee07f6ed2a49b45a910726308c748",
+      "sha256": "a884de53ce02c4606768dfa92be176dda507f83554340140330358333c26f3c5",
       "references": [
         "assets/images/color-picker/selectors/hard_swimbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -115,7 +115,7 @@
     {
       "id": "hollow_frog",
       "path": "assets/images/color-picker/illustrated/hollow_frog.png",
-      "sha256": "e91eee54d02a98f45904c3eda757aca59da250b9d64ba2b8494c7a83f0ef9de6",
+      "sha256": "3071cb83824178b73680bf4bad382eb18511d4ffe815e30cf3956aa03a8f3d1e",
       "references": [
         "assets/images/color-picker/selectors/hollow_frog.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -126,7 +126,7 @@
     {
       "id": "inline_spinner",
       "path": "assets/images/color-picker/illustrated/inline_spinner.png",
-      "sha256": "2bda25dc74d56481afe313698c09313f634533c4837f0189032f2bacb0c22547",
+      "sha256": "f54eca6a02086019d7bb7626ed42d88f9aafc6d14081addff83825812b782f27",
       "references": [
         "assets/images/color-picker/selectors/inline_spinner.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -137,7 +137,7 @@
     {
       "id": "lipless_crankbait",
       "path": "assets/images/color-picker/illustrated/lipless_crankbait.png",
-      "sha256": "64a2f8868fe957e75792429d83ad6ff61c6c046010e95c94f89ba7b7d186811c",
+      "sha256": "41e6f9c2fbb224dbe3bb6b074193dd861d1add304e8634257229022f7b652f8b",
       "references": [
         "assets/images/color-picker/selectors/lipless_crankbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -148,7 +148,7 @@
     {
       "id": "paddle_tail_swimbait",
       "path": "assets/images/color-picker/illustrated/paddle_tail_swimbait.png",
-      "sha256": "022c3258264509d960dd4876bf511ab0e6065bc4781a060762232a69a0316f78",
+      "sha256": "8d6b6255c0a6e731d0089060e705ecbe0896da219cd94be7ae0fd73f8d446754",
       "references": [
         "assets/images/color-picker/selectors/paddle_tail_swimbait.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -159,7 +159,7 @@
     {
       "id": "skirted_jig",
       "path": "assets/images/color-picker/illustrated/skirted_jig.png",
-      "sha256": "a8e59042e407963575766cd1ed4e33e9a53b8496a0628d2455be3bac1462441b",
+      "sha256": "0e0273f90a5eb0bf6dd90d3660fe05677c4cb186acbf1373f3675f470d2ecfb7",
       "references": [
         "assets/images/color-picker/selectors/skirted_jig.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -170,7 +170,7 @@
     {
       "id": "soft_craw",
       "path": "assets/images/color-picker/illustrated/soft_craw.png",
-      "sha256": "e5348a7c6200c52dbc4830f47bf09f279ed51786e8943d12b9c4acbc22b57fe7",
+      "sha256": "535706e052160696b4ab14d2f65ae5b40bf5993f13af11a642fc737234c3e9d9",
       "references": [
         "assets/images/color-picker/selectors/soft_craw.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -181,7 +181,7 @@
     {
       "id": "soft_jerkbait",
       "path": "assets/images/color-picker/illustrated/soft_jerkbait.png",
-      "sha256": "aae7b4effa7f6cc9a0f6bc88cd69fee5bc2c24b11d1d321c18d449d557255370",
+      "sha256": "71ec7325fec8e48b296c2d4a92c94dd7519025b73eab3957b81ec76ea3237200",
       "references": [
         "assets/images/color-picker/selectors/soft_jerkbait.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -192,7 +192,7 @@
     {
       "id": "soft_plastic_worm",
       "path": "assets/images/color-picker/illustrated/soft_plastic_worm.png",
-      "sha256": "74dc785bc6ca5ae5745f2ec837c012cceed989695a2b18b3d6675953dcb9b58e",
+      "sha256": "a3ee4f2ebf7b88b74b1504f9e07adc3f0e51c301d13c399cac07911fcbd58c5e",
       "references": [
         "assets/images/color-picker/selectors/soft_plastic_worm.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -203,7 +203,7 @@
     {
       "id": "soft_toad",
       "path": "assets/images/color-picker/illustrated/soft_toad.png",
-      "sha256": "71c0815f72afb49686188747e6f6fd7406ad335b16696c274f1939b85a81fcc3",
+      "sha256": "dc4f6e9ebb0d51ed2e4317a6da7b6f83d357146a1084614be029903b3f72a889",
       "references": [
         "assets/images/color-picker/selectors/soft_toad.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -214,7 +214,7 @@
     {
       "id": "soft_tube",
       "path": "assets/images/color-picker/illustrated/soft_tube.png",
-      "sha256": "030566e2068c744ebdc359da4c59fe2f2eb4ab27d15ddf394ef8c65c3cdfc704",
+      "sha256": "deb5e2ae12ef136c38205d83c0ee2b7f7a7f9e0e26a8580f72d975acaa7af745",
       "references": [
         "assets/images/color-picker/selectors/soft_tube.png",
         "assets/images/lures/weightless_stick_worm.png"
@@ -225,7 +225,7 @@
     {
       "id": "spinnerbait",
       "path": "assets/images/color-picker/illustrated/spinnerbait.png",
-      "sha256": "add2fb8ec3b48da825c25acc5395337b288f89b2c52386fc1bffd4bbc80f82d8",
+      "sha256": "8db6058cb9dd1cf5c6fef91ef58084d8a53b0eacf295f21162c20434d4a4ab46",
       "references": [
         "assets/images/color-picker/selectors/spinnerbait.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -236,7 +236,7 @@
     {
       "id": "spoon",
       "path": "assets/images/color-picker/illustrated/spoon.png",
-      "sha256": "caec42a27256a523587f45890b5c40ba7e40e6ee4d8440fb3b23c0e9d0dd06f4",
+      "sha256": "5b87085f4a9c3b4072a7d051ecf615f73c2c494faee4d2c8c6b728a9f309f995",
       "references": [
         "assets/images/color-picker/selectors/spoon.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -247,7 +247,7 @@
     {
       "id": "stained",
       "path": "assets/images/color-picker/illustrated/stained.png",
-      "sha256": "22c4ceadb4d510877cf595bbcf192c872d94fab100d7fae59735571246dde75c",
+      "sha256": "ca33095117828df09d308557f68d58ccacf40ff43bc2f45a64867ecbacf9d14d",
       "references": [
         "assets/images/color-picker/selectors/stained.png",
         "assets/images/waterclarity/clear.png"
@@ -258,7 +258,7 @@
     {
       "id": "streamer",
       "path": "assets/images/color-picker/illustrated/streamer.png",
-      "sha256": "ddcfde983b49f67648049429d7858cbb116bfad562eb26a2e7de85bf3221f71e",
+      "sha256": "83971f2ad5d54735925fb323af9f0eced1bf83cb962ea750fa94516e6bffbb67",
       "references": [
         "assets/images/color-picker/selectors/streamer.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -269,7 +269,7 @@
     {
       "id": "topwater",
       "path": "assets/images/color-picker/illustrated/topwater.png",
-      "sha256": "7d7274326a253bbe75b034aee2142df7fe6e99361c15eb610382af14b9b26995",
+      "sha256": "270a02dd78afe25c516a74b3e1e435ec9d6a8f76e79d11ced69e720150610ff7",
       "references": [
         "assets/images/color-picker/selectors/topwater.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -280,7 +280,7 @@
     {
       "id": "underspin",
       "path": "assets/images/color-picker/illustrated/underspin.png",
-      "sha256": "95b178f1f82ed606ad6ac834b89cf81330f42706bb225aa0da21a1e37b842c9c",
+      "sha256": "74cdb285db2d8662e0cfd357ba2fa819c16d5c7ed078a750df0815edb746b9e1",
       "references": [
         "assets/images/color-picker/selectors/underspin.png",
         "assets/images/lures/medium_diving_crankbait.png"
@@ -288,5 +288,14 @@
       "prompt": "Use case: style-transfer. Image 1 is the asset to redraw. Image 2 is a fishing app style reference. Make a brand-new soft field-guide illustration of ONLY the subject from image 1. Delicate ink outlines, matte hand-painted shading, simplified detail. Accurate recognizable lure anatomy; retain exactly its existing hooks (unrigged soft plastics stay unrigged). Keep its colors. Avoid photographic realism, 3D rendering, bright specular reflections and studio shadows. CRITICAL BACKGROUND: completely solid uniform WHITE #FFFFFF to all four edges; NO checkerboard pattern, NO transparency grid, NO watercolor wash behind bait, NO colored circle or vignette behind bait. For water-clarity assets ONLY preserve the circular underwater scene and render it as soft watercolor; solid WHITE outside circle. No text or logo. One subject, complete silhouette, centered with 12% margins, square canvas.",
       "review": "Visually inspected for subject, anatomy, background, and stylistic consistency."
     }
-  ]
+  ],
+  "optimization": {
+    "date": "2026-09-08",
+    "maxPixels": [
+      768,
+      768
+    ],
+    "format": "PNG",
+    "reason": "Right-sized for the live selector UI while retaining high-density display detail."
+  }
 }

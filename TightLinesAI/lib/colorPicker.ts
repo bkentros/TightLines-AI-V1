@@ -5,20 +5,15 @@ export interface ReportRequest {
   clarity: "clear" | "stained" | "dirty";
   date: string;
   timezone: string;
-  latitude: number | null;
-  longitude: number | null;
-  window?: { start: string; end: string };
 }
 export interface ReportEnvelope {
-  schemaVersion: 1;
+  schemaVersion: 1 | 2;
   request: ReportRequest;
-  weather: {
-    source: "manual" | "open_meteo";
-    meanCloudPercent: number | null;
-    groups: { light: "sunny" | "cloudy"; label: string }[];
-  };
+  /** Legacy reports may include a weather snapshot; new reports do not collect it. */
+  weather?: { meanCloudPercent: number | null };
   selection: {
     report: { reportId: string; userId: string; requestId: string };
+    sharedAcrossLight?: boolean;
     groups: {
       light: "sunny" | "cloudy";
       poolSize: number;

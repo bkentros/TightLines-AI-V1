@@ -3,1192 +3,1192 @@
     {
       "path": "assets/images/color-picker/illustrated/bladed_jig.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.005518,
-        0.17378,
-        0.997671,
-        0.777576
+        0.006042,
+        0.17401,
+        0.997865,
+        0.777813
       ],
-      "sha256": "66d295c790c2ba7e245a42350bbde33878899fb2b870a574814a1adb879cf44b"
+      "sha256": "26cbe16f97f90e5f38182092cce260a8e70c1e62659de77db2c8364c906a9d14"
     },
     {
       "path": "assets/images/color-picker/illustrated/buzzbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.027847,
-        0.059745,
-        0.984912,
-        0.960989
+        0.028177,
+        0.059427,
+        0.984844,
+        0.960104
       ],
-      "sha256": "07475cda7c7db8ab80a6d33569cdeb7753eae62221ce3d4c0a50f8b7e2c60474"
+      "sha256": "7f71e06d668f79abe33baf9cc4e6e9af091434c4b5a375e85cb93795ba02fd04"
     },
     {
       "path": "assets/images/color-picker/illustrated/clear.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.050175,
-        0.048581,
-        0.950622,
-        0.949027
+        0.050312,
+        0.04901,
+        0.949688,
+        0.948385
       ],
-      "sha256": "c7dec38f9ef52c52b8ea0b399812f87fb3d759c1307565bad1ea356df3a7ca69"
+      "sha256": "74e2cc0d72649891f4f1e7c57138898f63c8215e54dd61d5638ad3ec57195271"
     },
     {
       "path": "assets/images/color-picker/illustrated/crankbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.009506,
-        0.235183,
+        0.009948,
+        0.235208,
         1,
-        0.791132
+        0.790833
       ],
-      "sha256": "eaf0ed840bacafa8b112edd24f3cde0adae98545d4224e7a3c71cfb648641fa1"
+      "sha256": "a243c8e415cdf238b93cd3cd4ef7caa6493aacbb79d079992fc77d7bdcfaad27"
     },
     {
       "path": "assets/images/color-picker/illustrated/dirty.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.031834,
-        0.025455,
-        0.972153,
-        0.969761
+        0.032083,
+        0.025573,
+        0.971823,
+        0.969219
       ],
-      "sha256": "d065a760e53761e01fd44d5f07c1a17b0c82a889807f624ce2462537fe56c343"
+      "sha256": "0ecdf6294d416610663d13b13144b56c5123fb330e81f260e067333e406d65b3"
     },
     {
       "path": "assets/images/color-picker/illustrated/fly_popper.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.039011,
-        0.216842,
-        0.953812,
-        0.800702
+        0.039896,
+        0.216979,
+        0.953594,
+        0.80125
       ],
-      "sha256": "1815087c0f8d76475c916f94e727199e5192f150fb62903ed57c484ccde6ae0f"
+      "sha256": "256725955c9ff2510dacb20e0a2dade47a24d48ff6a48c36f9e99d373ffe352f"
     },
     {
       "path": "assets/images/color-picker/illustrated/hair_jig.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.056555,
-        0.165008,
-        0.972153,
-        0.78555
+        0.056823,
+        0.164896,
+        0.970521,
+        0.785625
       ],
-      "sha256": "50924f3587d0759ad6c763a35199b1f30726c70390f43e056f8bdbfaa1ad72d6"
+      "sha256": "3ca3018180a0a4e43c706c3c9b325065dd3dc3721f4f31d1d43dce882e28a6fa"
     },
     {
       "path": "assets/images/color-picker/illustrated/hard_jerkbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.034226,
-        0.295789,
-        0.97614,
-        0.714577
+        0.034687,
+        0.296406,
+        0.977031,
+        0.71401
       ],
-      "sha256": "a674c71cb7fedcfa6f48591ac52eb39afc0665d3b8322bd2b9eedb678e00766a"
+      "sha256": "e1354345b69cf942fb0e88e1b70ab537918ebe0db467fb7ee15aebb0de11e7f6"
     },
     {
       "path": "assets/images/color-picker/illustrated/hard_swimbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
         0,
-        0.306156,
-        0.983317,
-        0.764019
+        0.305521,
+        0.983542,
+        0.76349
       ],
-      "sha256": "2d93076d2fddf0069856f5ccb2fc3aa608cee07f6ed2a49b45a910726308c748"
+      "sha256": "a884de53ce02c4606768dfa92be176dda507f83554340140330358333c26f3c5"
     },
     {
       "path": "assets/images/color-picker/illustrated/hollow_frog.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.01429,
-        0.279841,
-        0.986507,
-        0.729729
+        0.013854,
+        0.279479,
+        0.986146,
+        0.729635
       ],
-      "sha256": "e91eee54d02a98f45904c3eda757aca59da250b9d64ba2b8494c7a83f0ef9de6"
+      "sha256": "3071cb83824178b73680bf4bad382eb18511d4ffe815e30cf3956aa03a8f3d1e"
     },
     {
       "path": "assets/images/color-picker/illustrated/inline_spinner.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.033429,
-        0.314928,
-        0.969761,
-        0.752855
+        0.033385,
+        0.314635,
+        0.969219,
+        0.753073
       ],
-      "sha256": "2bda25dc74d56481afe313698c09313f634533c4837f0189032f2bacb0c22547"
+      "sha256": "f54eca6a02086019d7bb7626ed42d88f9aafc6d14081addff83825812b782f27"
     },
     {
       "path": "assets/images/color-picker/illustrated/lipless_crankbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.026252,
-        0.193716,
+        0.026875,
+        0.193542,
         1,
-        0.892408
+        0.892396
       ],
-      "sha256": "64a2f8868fe957e75792429d83ad6ff61c6c046010e95c94f89ba7b7d186811c"
+      "sha256": "41e6f9c2fbb224dbe3bb6b074193dd861d1add304e8634257229022f7b652f8b"
     },
     {
       "path": "assets/images/color-picker/illustrated/paddle_tail_swimbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.011898,
-        0.322903,
-        0.988102,
-        0.637225
+        0.012552,
+        0.322448,
+        0.987448,
+        0.637188
       ],
-      "sha256": "022c3258264509d960dd4876bf511ab0e6065bc4781a060762232a69a0316f78"
+      "sha256": "8d6b6255c0a6e731d0089060e705ecbe0896da219cd94be7ae0fd73f8d446754"
     },
     {
       "path": "assets/images/color-picker/illustrated/soft_jerkbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.004721,
-        0.326093,
-        0.995279,
-        0.606124
+        0.00474,
+        0.325052,
+        0.99526,
+        0.605938
       ],
-      "sha256": "aae7b4effa7f6cc9a0f6bc88cd69fee5bc2c24b11d1d321c18d449d557255370"
+      "sha256": "71ec7325fec8e48b296c2d4a92c94dd7519025b73eab3957b81ec76ea3237200"
     },
     {
       "path": "assets/images/color-picker/illustrated/soft_plastic_worm.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
         0,
-        0.32689,
+        0.326354,
         1,
-        0.653971
+        0.654115
       ],
-      "sha256": "74dc785bc6ca5ae5745f2ec837c012cceed989695a2b18b3d6675953dcb9b58e"
+      "sha256": "a3ee4f2ebf7b88b74b1504f9e07adc3f0e51c301d13c399cac07911fcbd58c5e"
     },
     {
       "path": "assets/images/color-picker/illustrated/spinnerbait.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.036619,
-        0.093238,
-        0.966571,
-        0.921116
+        0.037292,
+        0.093281,
+        0.966615,
+        0.921042
       ],
-      "sha256": "add2fb8ec3b48da825c25acc5395337b288f89b2c52386fc1bffd4bbc80f82d8"
+      "sha256": "8db6058cb9dd1cf5c6fef91ef58084d8a53b0eacf295f21162c20434d4a4ab46"
     },
     {
       "path": "assets/images/color-picker/illustrated/spoon.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.069314,
-        0.178565,
-        0.971356,
-        0.862105
+        0.069844,
+        0.177917,
+        0.971823,
+        0.862448
       ],
-      "sha256": "caec42a27256a523587f45890b5c40ba7e40e6ee4d8440fb3b23c0e9d0dd06f4"
+      "sha256": "5b87085f4a9c3b4072a7d051ecf615f73c2c494faee4d2c8c6b728a9f309f995"
     },
     {
       "path": "assets/images/color-picker/illustrated/stained.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.066124,
-        0.046188,
-        0.933876,
-        0.928293
+        0.065937,
+        0.046406,
+        0.934063,
+        0.927552
       ],
-      "sha256": "22c4ceadb4d510877cf595bbcf192c872d94fab100d7fae59735571246dde75c"
+      "sha256": "ca33095117828df09d308557f68d58ccacf40ff43bc2f45a64867ecbacf9d14d"
     },
     {
       "path": "assets/images/color-picker/illustrated/streamer.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.02067,
-        0.168198,
-        0.97614,
-        0.778373
+        0.021667,
+        0.168802,
+        0.975729,
+        0.779115
       ],
-      "sha256": "ddcfde983b49f67648049429d7858cbb116bfad562eb26a2e7de85bf3221f71e"
+      "sha256": "83971f2ad5d54735925fb323af9f0eced1bf83cb962ea750fa94516e6bffbb67"
     },
     {
       "path": "assets/images/color-picker/illustrated/topwater.png",
       "pixels": [
-        1254,
-        1254
+        768,
+        768
       ],
       "bounds": [
-        0.036619,
-        0.309346,
-        0.999266,
-        0.75126
+        0.03599,
+        0.309427,
+        0.999167,
+        0.750469
       ],
-      "sha256": "7d7274326a253bbe75b034aee2142df7fe6e99361c15eb610382af14b9b26995"
+      "sha256": "270a02dd78afe25c516a74b3e1e435ec9d6a8f76e79d11ced69e720150610ff7"
     },
     {
       "path": "assets/images/recommender/illustrated/articulated_baitfish_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0,
-        0.235981,
-        0.98571,
-        0.694641
+        0.000833,
+        0.23625,
+        0.985625,
+        0.693958
       ],
-      "sha256": "9c13e3a756dbf5d2d453bb1f4bbbaa8eacaee42dbd7982afc2b57903e8c6e15d"
+      "sha256": "e5c6b1ea3dcdede68acfd3bb12d124f2aed3a4173f0bc21316077f8ae2ccc741"
     },
     {
       "path": "assets/images/recommender/illustrated/articulated_dungeon_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.010303,
-        0.224019,
-        0.999266,
-        0.732121
+        0.01125,
+        0.224792,
+        0.999167,
+        0.731458
       ],
-      "sha256": "379f063207b5a68300f29a326c6bab556e71982c2a71ece90c985b9fb99a12b1"
+      "sha256": "570931e695448b53d2ee8698547e159bbdd40b10f280e853fde0c0b1add90cfd"
     },
     {
       "path": "assets/images/recommender/illustrated/baitfish_slider_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.022265,
-        0.178565,
-        0.980128,
-        0.734514
+        0.022708,
+        0.178958,
+        0.979375,
+        0.734583
       ],
-      "sha256": "0a63d2e096409c6f8858f421c98d9e1c1475b6a6f3be8ece73e850f550551d67"
+      "sha256": "768c9c71332cfa5596a73200563e7e8b59126f9f9e97c2d4f28c27012f8974a5"
     },
     {
       "path": "assets/images/recommender/illustrated/balanced_leech.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.040606,
-        0.301372,
-        0.911547,
-        0.634833
+        0.040417,
+        0.301875,
+        0.911667,
+        0.634583
       ],
-      "sha256": "cff676de16b2526398d7d29953e995c6ae8c36406d061c78ec7afaf098a2080b"
+      "sha256": "aa89208fddaa0738efcce4fd612c8c75fef4df5dc17a3f26697aff59dd757870"
     },
     {
       "path": "assets/images/recommender/illustrated/big_smallmouth_tube.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.018278,
-        0.303764,
-        0.98571,
-        0.64201
+        0.0175,
+        0.303958,
+        0.985625,
+        0.641875
       ],
-      "sha256": "113603422344ffc4f7275a63a413b7c0a2bfa5b098400a04ee9a2f89b823154d"
+      "sha256": "3a3e430051750897bef4e4a83a013082b7ea4c4ed0905cd4a4cfaeca986aa500"
     },
     {
       "path": "assets/images/recommender/illustrated/blade_bait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.01429,
-        0.244753,
-        0.983317,
-        0.847751
+        0.014375,
+        0.244583,
+        0.983542,
+        0.848125
       ],
-      "sha256": "24294ae83c5038812ec4c15934fafca662c4ee98a9a557bb8244d3a4bb3a733f"
+      "sha256": "3789ddb9ce50ab74a669f2c908c5ade0440a6c8ef64c479d7464979a3191bb34"
     },
     {
       "path": "assets/images/recommender/illustrated/bluegill_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.022265,
-        0.180159,
-        0.992089,
-        0.810271
+        0.022708,
+        0.18,
+        0.991875,
+        0.810625
       ],
-      "sha256": "3f7c1d0966e6e5c71280f41a3b7fac55dae645b029fbb47f5eae9dc5fd93a9b9"
+      "sha256": "41f6251b92c51f97230abd5f51aab4353a480c73b1ff4ee1a16b9befb0d7463f"
     },
     {
       "path": "assets/images/recommender/illustrated/carolina_rigged_stick_worm.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.452887,
+        0.452917,
         1,
-        0.568644
+        0.567917
       ],
-      "sha256": "9988405a220b28acb9fc3520f25a889ddd3a146fcc000a28adf4f76377b1d2d1"
+      "sha256": "6c0c05d2d62e62f19853d02d3bee0de321e6b4213135e6360651eed759e67694"
     },
     {
       "path": "assets/images/recommender/illustrated/clouser_minnow.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.015088,
-        0.24236,
-        0.970558,
-        0.750463
+        0.016458,
+        0.2425,
+        0.97,
+        0.75125
       ],
-      "sha256": "37f1de6e005fa7cb007c6c836d5d0a60a2cab3fc0293f4032a944fa17faffc28"
+      "sha256": "14b49b4242eca1f4e2bb817c593d903b9d760d95fdecc3c1a8db21d2867b9568"
     },
     {
       "path": "assets/images/recommender/illustrated/compact_flipping_jig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.036619,
-        0.192121,
-        0.984912,
-        0.769601
+        0.037292,
+        0.1925,
+        0.984583,
+        0.77
       ],
-      "sha256": "a4a606071bd1e4bc2ff118936a06c3d94a64e943b65279ef95b730111f65118c"
+      "sha256": "ef7f03b671b1da59fbc080d67a905d2d8ad48374bea1ce0242256460eedcf838"
     },
     {
       "path": "assets/images/recommender/illustrated/compact_glidebait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.008708,
+        0.009167,
         0.313333,
-        0.964179,
-        0.75126
+        0.96375,
+        0.75125
       ],
-      "sha256": "8e84c99d6e97835c6ad4eb1da4f77ca091fc92f2476ff0d75512372d451913a5"
+      "sha256": "25113b271cee44f4fcd752ffb11801516e47c057d2ae6421c208f1064f76ddea"
     },
     {
       "path": "assets/images/recommender/illustrated/conehead_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.018278,
-        0.180159,
+        0.018542,
+        0.18,
         1,
-        0.764817
+        0.764792
       ],
-      "sha256": "fdf5d20844e6d15b87ac5ec32e07010c72adde527ba14c587d000be2e040b5ce"
+      "sha256": "2f4f88534240f2c24d997435873a094f7301a8b60a0fe271ca4413485f361949"
     },
     {
       "path": "assets/images/recommender/illustrated/crawfish_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.027049,
-        0.181754,
-        0.978533,
-        0.733716
+        0.027917,
+        0.182083,
+        0.978333,
+        0.734583
       ],
-      "sha256": "defdf89e8ddc66c66fbf83274545901a78de17b1ad3d632673bd579634918865"
+      "sha256": "75a2fc1f0a71011f706cbd366e24220578c2c542816d521cab3c4184bd485eee"
     },
     {
       "path": "assets/images/recommender/illustrated/deceiver.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.003126,
-        0.197703,
-        0.992887,
-        0.766411
+        0.002917,
+        0.197708,
+        0.992917,
+        0.766875
       ],
-      "sha256": "ab7677f4793ff4dab2f008e6d8bc699e91461b74fc100a34f5699b01b04bc632"
+      "sha256": "3b1298bcb0bbd6128943b1610850e2e2fd1c5fb59fc6f68daf837149dd21ad95"
     },
     {
       "path": "assets/images/recommender/illustrated/deep_diving_crankbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.000734,
-        0.294195,
+        0.000833,
+        0.293542,
         1,
-        0.705805
+        0.705417
       ],
-      "sha256": "fd386579b56044ca8c0d66b2b185d454d4fd229106c4738912e616311c627879"
+      "sha256": "a9af1a60d146bee651e0d892331ee3e40bd11defc110bdf1d60a98eac5179c9b"
     },
     {
       "path": "assets/images/recommender/illustrated/deer_hair_slider.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.007911,
+        0.008125,
         0.313333,
-        0.995279,
-        0.774386
+        0.995,
+        0.774167
       ],
-      "sha256": "4ea0adb880262f558a2336d5ae737ed67824abe31351e36cd11598e545e7f1e8"
+      "sha256": "82dada7f93078dd1890293115acbb9635b20bfb4d1d9bde95cc06e09924f6d8c"
     },
     {
       "path": "assets/images/recommender/illustrated/drop_shot_minnow.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.200893,
+        0.200833,
         0,
-        0.859713,
-        0.970558
+        0.859583,
+        0.97
       ],
-      "sha256": "88c565eeff9f9317fe7fa241bbd8301f49d4770be0e7d1387e316418bbe12f9c"
+      "sha256": "3503114eb61332761c781616dad19d197fd3b6a06af6343f19827429cec82379"
     },
     {
       "path": "assets/images/recommender/illustrated/drop_shot_worm.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.062137,
-        0.003923,
-        0.969761,
-        0.950622
+        0.062292,
+        0.003958,
+        0.968958,
+        0.95125
       ],
-      "sha256": "479e98b7b432a67838aa1cff8f5cf05b8eb600c31934b41d63c37239995f0a68"
+      "sha256": "ec2817be86d539d416c30becffb9e262b6b1f413e157789bc371539de2f9d742"
     },
     {
       "path": "assets/images/recommender/illustrated/feather_jig_leech.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.042201,
-        0.259904,
-        0.921914,
-        0.770399
+        0.0425,
+        0.260208,
+        0.922083,
+        0.771042
       ],
-      "sha256": "968a80421ca393750fc2cce5f800c4babd8fddee0db1c34cf1ada93325281a90"
+      "sha256": "994c4edbc71746a6279ae23f1421cd5ffcf4e2fe5ede9590a5038dfefd8821c1"
     },
     {
       "path": "assets/images/recommender/illustrated/finesse_jig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.026252,
-        0.220829,
-        0.980925,
-        0.708198
+        0.025833,
+        0.220625,
+        0.981458,
+        0.708542
       ],
-      "sha256": "6d7da8c906aafb5e01d7531155643efd484360be2f8550e376d3dd27b6006f71"
+      "sha256": "ea3ab659d4e03c256191fd32ae20a9a95a18c6727ecf701d9bd8b7477db34087"
     },
     {
       "path": "assets/images/recommender/illustrated/flat_sided_crankbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.037416,
-        0.204083,
-        0.958596,
-        0.805486
+        0.037292,
+        0.203958,
+        0.958542,
+        0.805417
       ],
-      "sha256": "816a1c0bad66052182a641ebc7ee486c16fc3c072dc3061948862cffd83cef65"
+      "sha256": "bc656aa322938fb636a37077e926690492fde3da0d4545c386f4dfa1f8110968"
     },
     {
       "path": "assets/images/recommender/illustrated/foam_gurgler_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.018278,
-        0.230399,
-        0.989697,
-        0.763222
+        0.018542,
+        0.23,
+        0.989792,
+        0.76375
       ],
-      "sha256": "19bf55ed0f928211e07df9d34220a68204fb42714535df954187dd2cca7b0f3a"
+      "sha256": "febbaa24ec9faa43aa70a0b5a88aea7fd0422cb09695376fc5189e13bc257e74"
     },
     {
       "path": "assets/images/recommender/illustrated/football_jig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.031037,
-        0.179362,
-        0.997671,
-        0.778373
+        0.031042,
+        0.178958,
+        0.998125,
+        0.778333
       ],
-      "sha256": "8c95f037d5013ad3589f37b5182c34be4102851bc2b316840997c4e0ff71a6cc"
+      "sha256": "899e1f9f0b9bbde1e40e729effc6d27f7ba3437736ae04ca9eb982edcc49acf9"
     },
     {
       "path": "assets/images/recommender/illustrated/frog_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.048581,
-        0.189729,
-        0.968166,
-        0.774386
+        0.04875,
+        0.189375,
+        0.967917,
+        0.774167
       ],
-      "sha256": "e488ff1b7d418247125d2edce992d694d6f3d79150c8a87e7857ad82d0440701"
+      "sha256": "3e45e9ccd989f1579a3c1a3b33af50ece987edb8c161565bc6e3280ca45c697d"
     },
     {
       "path": "assets/images/recommender/illustrated/game_changer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.001531,
-        0.254322,
-        0.996874,
-        0.719362
+        0.001875,
+        0.253958,
+        0.997083,
+        0.718958
       ],
-      "sha256": "a76488d148c3269e477c06e25387ae3dec3431fe5ac43e8e651514852bc90be1"
+      "sha256": "e5b5db4612a055f47447ece20a27fa067e9f439ffc8b5479d3bd61e9172a79fb"
     },
     {
       "path": "assets/images/recommender/illustrated/jighead_marabou_leech.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.021467,
-        0.20488,
-        0.926699,
-        0.777576
+        0.021667,
+        0.205,
+        0.927292,
+        0.777292
       ],
-      "sha256": "29e07d3ec44d61f23c23dcae56819a5c8d8145fcdad6eee2d31ae3652b0333b9"
+      "sha256": "838408d0edbc3f376bacf25bdf5058b27f5ab5bd7313e9fa5ae729dcaf34e1e2"
     },
     {
       "path": "assets/images/recommender/illustrated/lake_pond.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.006316,
-        0.002329,
-        0.994482,
-        0.993684
+        0.006042,
+        0.001875,
+        0.993958,
+        0.993958
       ],
-      "sha256": "f76f022ebdba1da58f8d04a06a0e4f73cb3db4ff784b44c9414a1e032a755fe5"
+      "sha256": "aa95aa1f28ff646e3b3c86a8c9361873cbdfdd7f7af8c0834f1e8309900e59ce"
     },
     {
       "path": "assets/images/recommender/illustrated/large_articulated_pike_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.270271,
+        0.270625,
         1,
-        0.67311
+        0.673125
       ],
-      "sha256": "38a7987291630bb7d61b08aa8bfb759d4d73dda958bd0b2a52be643dd4da6a90"
+      "sha256": "9be41227af070767265cedea2dce9a5a12acb4ae64a822f589b0a6110458a069"
     },
     {
       "path": "assets/images/recommender/illustrated/large_bucktail_spinner.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.249537,
+        0.249792,
         1,
-        0.746475
+        0.747083
       ],
-      "sha256": "c5dbc5f2fb5d9928d14405a73e40c3a568685815e8ea62181f9e5b9d84eb5911"
+      "sha256": "e7f2c194e35d0a4447db01960a1470d782efea58df6b6e688e67e0a5cacb4675"
     },
     {
       "path": "assets/images/recommender/illustrated/large_pike_topwater.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.319713,
+        0.319583,
         1,
-        0.729729
+        0.729375
       ],
-      "sha256": "e4ac27ed69c37debf8be2d00faa1803e2ec61d89dc9e49918e3a0ee6186e7882"
+      "sha256": "c8716472b255b11e2401f4b1d574f6ba2216ac417087ff4636b5c9446e9ad5e1"
     },
     {
       "path": "assets/images/recommender/illustrated/large_pike_tube.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.007113,
-        0.314131,
-        0.994482,
-        0.705008
+        0.007083,
+        0.314375,
+        0.995,
+        0.705417
       ],
-      "sha256": "8ef00318a548ff7715760593d3d88bb47bd49cee6b5d4f269096747814854960"
+      "sha256": "68c84b1da15d5ef5a5c8c58960b328fa78dceefee648c4f458795c4738606b24"
     },
     {
       "path": "assets/images/recommender/illustrated/large_profile_pike_swimbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.304561,
-        0.998469,
-        0.680287
+        0.305,
+        0.999167,
+        0.680417
       ],
-      "sha256": "34e8b0177ff634f55d3895646cd3b2b2efd4e700697335e483b5b4cfbfac95f7"
+      "sha256": "74d0824cf51713864791ee05c76a0ca3912223a9eb33e0e002bec7864438264c"
     },
     {
       "path": "assets/images/recommender/illustrated/lead_eye_leech.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.016683,
-        0.205678,
-        0.98252,
-        0.748868
+        0.016458,
+        0.206042,
+        0.9825,
+        0.749167
       ],
-      "sha256": "48a7ca0155e7cdc8ee6a4b59316a57a4b5ee0d5fa4dee13e2089f0b043e46a3e"
+      "sha256": "b142109570c90a01c5924caf56a8db82114b4e43681487e19ba4de14f10f0cdd"
     },
     {
       "path": "assets/images/recommender/illustrated/magnum_jerkbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.001531,
-        0.33327,
-        0.994482,
+        0.001875,
+        0.333125,
+        0.993958,
         0.686667
       ],
-      "sha256": "93b2ac0abc43d5dd369bba0abb9778c1f05aa01a467c7c9b9ab1021727fd4dc6"
+      "sha256": "baa3a416f572f2e091fa79358fcd3d0f481eb59076e19d773a5389a5560b49ed"
     },
     {
       "path": "assets/images/recommender/illustrated/magnum_worm.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.01748,
-        0.33008,
-        0.986507,
-        0.701818
+        0.0175,
+        0.33,
+        0.986667,
+        0.702292
       ],
-      "sha256": "e986636090d3c843ded5192e27b933009cec26bcba5bca8122348add76ab90dc"
+      "sha256": "235aa84b6332684f1fc12e83eb629205941446b73ac1223bf4994e0e81efad26"
     },
     {
       "path": "assets/images/recommender/illustrated/mouse_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.003923,
-        0.261499,
-        0.997671,
-        0.740096
+        0.003958,
+        0.26125,
+        0.998125,
+        0.739792
       ],
-      "sha256": "7cd91f01f704aaf89aa0936973f38f95a7b35ad5a3085b451de4d31050166999"
+      "sha256": "9c7c2a65d172ab0b3cb03e385dfdd270f3c2ef5165e822f9324e1201aab80991"
     },
     {
       "path": "assets/images/recommender/illustrated/muddler_sculpin.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.053365,
-        0.200893,
-        0.949027,
-        0.738501
+        0.053958,
+        0.200833,
+        0.949167,
+        0.73875
       ],
-      "sha256": "e7d1e157b958f7b6d36cc1c30c667156b7b88c9ee3188d9be37a31b1abc9faa1"
+      "sha256": "80d8b453b93585a7163f4e6eb635b1b7de2b762949ee0683825212f6ccc84a45"
     },
     {
       "path": "assets/images/recommender/illustrated/ned_rig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.057352,
-        0.336459,
-        0.963381,
-        0.607719
+        0.057083,
+        0.33625,
+        0.962708,
+        0.6075
       ],
-      "sha256": "8054202f288ec3bbdd64ee227822cbf6fea8cb34b8b413b566bf4cc8119d510b"
+      "sha256": "7963a7cd1e81c65f74bff86bdd2036ad77295c6186b905efbf25ecbfe6f562a6"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_bunny_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.02067,
-        0.212057,
-        0.992887,
-        0.779171
+        0.020625,
+        0.213333,
+        0.992917,
+        0.778333
       ],
-      "sha256": "e6194e9598ec6e5a35cee6a7ef72958d9bf29c9a0e6c969ad60616bc09a88bc6"
+      "sha256": "bd7fc8873c459a5c56714520829ddc58e66032d8e82718b5b0aefe6aee76a185"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_flash_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.279043,
-        0.996077,
-        0.712185
+        0.278958,
+        0.996042,
+        0.711667
       ],
-      "sha256": "842d5cf9aecdd0e574b89ae479c00239ad2109b2fb5695eac93ea8cc655011f5"
+      "sha256": "920951b1a38514688fd0d4bc3d5c59adea9eac2bd7c77a937098a93d028206c3"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_glidebait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.298182,
-        0.997671,
-        0.770399
+        0.297708,
+        0.998125,
+        0.77
       ],
-      "sha256": "822708da515c69363ec1e2a8ff860f76cf2e5035532f1fced30920878a07242c"
+      "sha256": "c1d97d43b13d154ce0d294f5b11ea19fe4e7a9ade758ebd24adf95f2b2a23816"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_jerkbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.303764,
+        0.303958,
         1,
-        0.71378
+        0.71375
       ],
-      "sha256": "42b38e820b5370790e963ec93c56ce7a61fa50baa3ad6f8c8d2e603f47fd9833"
+      "sha256": "afd455176dd9c06bd28aaf0b9211d0a47a00c0177bfe56fdad229d471eb726c6"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_jig_and_plastic.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.010303,
-        0.271866,
-        0.999266,
-        0.603732
+        0.010208,
+        0.271667,
+        0.999167,
+        0.604375
       ],
-      "sha256": "83580aeed79f05e32c06fb21285fd52eb17416b28bbc6a133e54c9e4f8266296"
+      "sha256": "7dd2e1986ddae729d093d6792ef5533771005f1111e8a700c4c135322d104eb9"
     },
     {
       "path": "assets/images/recommender/illustrated/pike_spinnerbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.131515,
+        0.132083,
         1,
-        0.857321
+        0.8575
       ],
-      "sha256": "2f333e5338bf3c76c27a253a688dfc6016a0e5f78ee380e0eb53d3414cdda93f"
+      "sha256": "aeeba8267e0c0d88ff8a0b17014ced0b38ad992fb8ce858faf11f483cbf6cb8b"
     },
     {
       "path": "assets/images/recommender/illustrated/popping_topwater.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.041404,
-        0.265486,
-        0.97933,
-        0.801499
+        0.041458,
+        0.265417,
+        0.979375,
+        0.80125
       ],
-      "sha256": "12f073b2acf3a73b05fbda757ebee6a6dc5fb89ed115e2e100b0d6a3034ee2a1"
+      "sha256": "656dfeb973dbafd0072d8c323ec11472e8da7035120220ef96d78f2324811167"
     },
     {
       "path": "assets/images/recommender/illustrated/prop_bait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.021467,
+        0.021667,
         0,
         1,
-        1
+        0.756458
       ],
-      "sha256": "9b59c86bf3a8f6933ebcc2fd5b531f3d9b8335e08e41cb874db50c7f64087d82"
+      "sha256": "d0d6ae0457a558d487b1a0688179b192313b88255c8d649267577eb5b49dc362"
     },
     {
       "path": "assets/images/recommender/illustrated/rabbit_strip_leech.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.01748,
-        0.288612,
-        0.972951,
-        0.718565
+        0.0175,
+        0.288333,
+        0.973125,
+        0.717917
       ],
-      "sha256": "5e759f9987eda3e29b96bdafb0ab9faad1b0edd2af96665f172717d610ac9ac1"
+      "sha256": "5e118dc1b645e4d91164987d26b38c261bb1e1031148983aecaf29bcfbf5e1c0"
     },
     {
       "path": "assets/images/recommender/illustrated/river_stream.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.045391,
-        0.042998,
-        0.951419,
-        0.953014
+        0.045625,
+        0.043542,
+        0.95125,
+        0.953333
       ],
-      "sha256": "d3f5304cabf3c8749fbda09c4a32296848f23132094225a57ce71ee4307fb94c"
+      "sha256": "4ea6702eca77ef4b9737bf821d0b7080d85ceaaee089a82abc729f132a67c35a"
     },
     {
       "path": "assets/images/recommender/illustrated/sculpin_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
         0,
-        0.216045,
+        0.216458,
         1,
-        0.763222
+        0.76375
       ],
-      "sha256": "4fb0593da6196b7db9cb644a73241084d0b721976df6a6295937f0e176c3faef"
+      "sha256": "f5e2d1de5c629809e25efd1a57d9a6129a1b465f9d5a952b5313db9c9d599ec0"
     },
     {
       "path": "assets/images/recommender/illustrated/sculpzilla.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.010303,
-        0.234386,
-        0.984912,
-        0.760829
+        0.01125,
+        0.234167,
+        0.984583,
+        0.760625
       ],
-      "sha256": "277cc0ab28a4be8f97e68294153c749cc6de835b69e6a4b9d4210f00841c47eb"
+      "sha256": "9020bafe959b3aaea5c749e2162d1ec6f5107ee7aa57d8b8cc00eb08c0022ec3"
     },
     {
       "path": "assets/images/recommender/illustrated/shaky_head_worm.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.019872,
-        0.335662,
-        0.997671,
-        0.567847
+        0.019583,
+        0.33625,
+        0.998125,
+        0.567917
       ],
-      "sha256": "3cd968b936b59a076be1055ea9a702475512590d6c30a26feeb583e5cedde727"
+      "sha256": "b890518e7b1ec7b5dc553369982dfeb23628f49e234ad560750cb8321900d77d"
     },
     {
       "path": "assets/images/recommender/illustrated/shallow_minnowbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.015088,
-        0.315726,
-        0.992089,
-        0.705805
+        0.014375,
+        0.315417,
+        0.991875,
+        0.706458
       ],
-      "sha256": "19448abb94d82bfc69075805314c3304775b2c060204d6b585a355e7cedc4d55"
+      "sha256": "06f1d8c704ee52e55eec8aea3e8b588f788a2185f9b0d283753e94826b45d696"
     },
     {
       "path": "assets/images/recommender/illustrated/slim_minnow_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.018278,
-        0.314928,
-        0.980925,
-        0.685869
+        0.018542,
+        0.314375,
+        0.981458,
+        0.685625
       ],
-      "sha256": "ce97294bd92041ebb5d36433468110200b13f286cd0aa71e0a7f49993f9cfcfb"
+      "sha256": "67cdd27b3a1d0d70ddf8ebcdbae08a967569cbf342ab53975724e009462ade89"
     },
     {
       "path": "assets/images/recommender/illustrated/small_floating_trout_plug.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.048581,
-        0.318118,
-        0.960989,
-        0.735311
+        0.04875,
+        0.3175,
+        0.960625,
+        0.735625
       ],
-      "sha256": "6705728e9c664ab047c725ac7b5f81c34ff8ad346d4ff562b0c1befe922737c7"
+      "sha256": "e68c59eb291f9ca325e96c81b983627af5121032061cdb69c65257f1d2c1c5d1"
     },
     {
       "path": "assets/images/recommender/illustrated/squarebill_crankbait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.042998,
-        0.256715,
-        0.976938,
-        0.807879
+        0.0425,
+        0.257083,
+        0.977292,
+        0.808542
       ],
-      "sha256": "da2fc50c3287550c1518e75b2ccff1bf3ddf7fea723ec38ac12604929e5b12e5"
+      "sha256": "9ab559bb6fbd301a9aeb9639e08472317a7355a1ff51b821dd640c6fa5a8b8f3"
     },
     {
       "path": "assets/images/recommender/illustrated/swim_jig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.027847,
-        0.21126,
-        0.973748,
-        0.763222
+        0.027917,
+        0.21125,
+        0.974167,
+        0.762708
       ],
-      "sha256": "2a37ae4f773554571bb223d9f66673f033ee40cb7b51ca84dce436b744c4cb35"
+      "sha256": "405862181e95995e412aa8f9e4c4aabce2e90d18d44d7b8aa78ea17d4ad0eb27"
     },
     {
       "path": "assets/images/recommender/illustrated/texas_rigged_soft_plastic_craw.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.003923,
-        0.317321,
-        0.986507,
-        0.64201
+        0.003958,
+        0.316458,
+        0.986667,
+        0.641875
       ],
-      "sha256": "73796306fdf339e9b1ce1e0a29c57e5e13ce2ec81ebce96f5ab99ff928aa6692"
+      "sha256": "e4f9cd04019344d9cdb0a1dfd20fa758d15f0e9b7d5d6bc74c912e68eaeff094"
     },
     {
       "path": "assets/images/recommender/illustrated/tube_jig.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.007113,
-        0.294992,
-        0.988102,
-        0.661946
+        0.007083,
+        0.294583,
+        0.987708,
+        0.661667
       ],
-      "sha256": "4f98106dada9b2ed1b64f918b33fd25976b74207e4c362032a52ff0f031bd15a"
+      "sha256": "aefb7b23fd23059e1792a073bd35cb89b67f4aed8f037bc9227533bfb0b0df1b"
     },
     {
       "path": "assets/images/recommender/illustrated/unweighted_baitfish_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.02067,
-        0.169793,
-        0.978533,
-        0.778373
+        0.020625,
+        0.170625,
+        0.978333,
+        0.778333
       ],
-      "sha256": "555f609db7aa7005c6531f8108a860b5b66690fc16af732acc216b441c74ac0a"
+      "sha256": "63a73a8cf0fed56491c0b19d01a38000f5052a63a0cd045dbcf998dadc7fc1ce"
     },
     {
       "path": "assets/images/recommender/illustrated/wake_bait.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.036619,
-        0.258309,
-        0.980128,
-        0.831005
+        0.03625,
+        0.258125,
+        0.980417,
+        0.831458
       ],
-      "sha256": "e6c24e80961bd92e9fc445e0f51cb7285d1be905b6724143b91903d4fcc0cdef"
+      "sha256": "eaab59a1524d5af710ddb36217f6ef9b51ff495cce2be6152b67d8e571eda922"
     },
     {
       "path": "assets/images/recommender/illustrated/warmwater_crawfish_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.01429,
-        0.238373,
-        0.988102,
-        0.725742
+        0.014375,
+        0.238333,
+        0.98875,
+        0.725208
       ],
-      "sha256": "991e07c5bbca36b5450bb0fea8a73c43d5901263a93c8f9ac76951c0ea19b6ef"
+      "sha256": "bcb385fe55bfd5eacb5a4e9003c117887f67dc8c2e6681db48b6c029302af53b"
     },
     {
       "path": "assets/images/recommender/illustrated/warmwater_worm_fly.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.02067,
-        0.288612,
-        0.984912,
-        0.669123
+        0.020625,
+        0.289375,
+        0.984583,
+        0.668958
       ],
-      "sha256": "c4f8ddd671bf0d80f6bb771140d8b130b8f40e2a5512f90321165af96a54517c"
+      "sha256": "ef1cd96f7d193277a3ce2e3efbfed4d05b8e1d47088a7dbc3ef656c612b93054"
     },
     {
       "path": "assets/images/recommender/illustrated/weedless_spoon.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.008708,
-        0.311738,
-        0.993684,
-        0.645199
+        0.009167,
+        0.312292,
+        0.992917,
+        0.645
       ],
-      "sha256": "d262fbd2d02001085f9bdda8b95c9bc13956728c85cedb96ab4375ce588a3589"
+      "sha256": "0fcb48989ce421600b566247b472dd3dbc9b6ab3c0e86007c8925045d265b0a0"
     },
     {
       "path": "assets/images/recommender/illustrated/woolly_bugger.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.015885,
-        0.195311,
-        0.981722,
-        0.799904
+        0.016458,
+        0.195625,
+        0.981458,
+        0.800208
       ],
-      "sha256": "f38e58df9a2e4002c861e6493a4c1f6252d4ef789730d28f8a74f3732ab64a6e"
+      "sha256": "9171f5a44c3ef7519b27feeb4d447f21264fb53b3d4d1a5492485c43752e897e"
     },
     {
       "path": "assets/images/recommender/illustrated/zonker_streamer.png",
       "pixels": [
-        1254,
-        1254
+        960,
+        960
       ],
       "bounds": [
-        0.012695,
-        0.314131,
-        0.986507,
-        0.704211
+        0.015417,
+        0.315417,
+        0.986667,
+        0.704375
       ],
-      "sha256": "2ff6fd86bfd41360afcc747badb30ec97e74abf0573de66c7e23d3310a6873db"
+      "sha256": "701c60b616ab6a259c2686280fdc58b2e841917087a66474d98eb2cec1b0eba3"
     }
   ],
   "missing": []

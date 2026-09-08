@@ -1,9 +1,11 @@
 import type { Clarity, ColorPattern, LightState } from "./researchSchema.ts";
 
+type LightContext = LightState | "shared";
+
 /** Visibility mechanisms, not measured catch advantages. Background, depth and
  * turbidity composition are unknown: never infer a guaranteed visible hue or range.
  * Inspect the viewing surface first; incidental metal hardware is not a color choice. */
-export function explainColorVisibility(pattern: ColorPattern, clarity: Clarity, light: LightState, typeId: string): string {
+export function explainColorVisibility(pattern: ColorPattern, clarity: Clarity, light: LightContext, typeId: string): string {
   const c = pattern.components;
   const primary = c.skirt ?? c.body ?? c.belly ?? c.wing ?? "";
   const surface = ["topwater", "hollow_frog", "soft_toad", "fly_popper", "buzzbait", "walking_bait", "hard_popper", "walking_topwater", "popping_topwater", "prop_bait", "wake_bait"].includes(typeId);
@@ -21,7 +23,11 @@ export function explainColorVisibility(pattern: ColorPattern, clarity: Clarity, 
     ? "Bright areas and black markings create light–dark contrast without needing direct sun."
     : "Bright areas and black markings offer contrast at close range; murk limits how far the pattern remains visible.";
   if (pattern.id.startsWith("inline_black_")) return "Light dots contrast with the black blade as it turns; the pattern does not need metallic flash to create contrast.";
-  if (pattern.finish === "metallic" || (pattern.flash === "strong" && c.blade)) return light === "sunny"
+  if (pattern.finish === "metallic" || (pattern.flash === "strong" && c.blade)) return light === "shared"
+    ? clarity === "clear"
+      ? "Reflective surfaces can flash as the bait moves; intensity depends on the available light and viewing angle."
+      : "Reflective surfaces can flash at close range; available light, viewing angle, and reduced clarity limit that flash."
+    : light === "sunny"
     ? clarity === "clear"
       ? "Reflective surfaces can catch sunlight and flash as the bait moves."
       : "Reflective surfaces can catch sunlight at close range; reduced clarity limits how far the flash travels."
@@ -31,7 +37,9 @@ export function explainColorVisibility(pattern: ColorPattern, clarity: Clarity, 
     : "The dark body can contrast with a lighter background at close range; murk still reduces visibility.";
   if (pattern.opacity === "translucent") {
     if (clarity !== "clear") return "Translucency gives a subtler profile at close range; reduced clarity limits how far it can be seen.";
-    return light === "sunny"
+    return light === "shared"
+      ? "The partly see-through body offers a subtle profile; its outline changes with the available light and background."
+      : light === "sunny"
       ? "Light can pass through the body, softening its outline in clear, sunlit water."
       : "The partly see-through body offers a subtle profile where clear water still preserves detail under clouds.";
   }

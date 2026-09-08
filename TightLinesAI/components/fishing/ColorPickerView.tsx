@@ -6,52 +6,42 @@ import { RecommenderArtwork } from "./RecommenderArtwork";
 import { usePaperBonePulse } from "../../lib/usePaperBonePulse";
 import type { ReportEnvelope } from "../../lib/colorPicker";
 import { colorTypeImage, colorTypeLabel } from "../../lib/colorPickerCatalog";
-import { COLOR_PATTERNS } from "../../supabase/functions/_shared/colorPickerEngine/colorPatterns";
 import { paper, paperFonts, paperRadius, paperShadows } from "../../lib/theme";
 
-const gold = "#C99B2D", goldInk = "#8A6A1A", goldPaper = "#FBF1D9";
-const recipes = new Map(COLOR_PATTERNS.map(p => [p.id, p]));
 type Choice = ReportEnvelope["selection"]["groups"][number]["choices"][number];
-function palette(choice: Choice) {
-  const recipe = recipes.get(choice.patternId);
-  return choice.swatches ?? (recipe?.name === choice.name && recipe.visualDescription === choice.visualDescription ? recipe.swatches : []);
-}
-function Palette({ colors, compact = false }: { colors: string[]; compact?: boolean }) {
-  return <View style={[s.palette, compact && s.paletteCompact]} accessibilityLabel="Approximate color reference">
+function Palette({ colors }: { colors: string[] }) {
+  return <View style={s.palette} accessibilityLabel="Approximate color reference">
     {colors.map((color, i) => <View key={`${color}-${i}`} style={[s.colorSample, { backgroundColor: color, flex: i === 0 ? 3 : 1 }]} />)}
   </View>;
 }
-function LightHeading({ light }: { light: string }) {
+function LightHeading({ light }: { light: "sunny" | "cloudy" | "all" }) {
+  const title = light === "sunny" ? "BRIGHT / DIRECT LIGHT" : light === "cloudy" ? "LOW / DIFFUSE LIGHT" : "ACROSS CHANGING LIGHT";
+  const caption = light === "all" ? "our two picks for either condition" : "our two picks for this light";
   return <View style={s.sectionHeading}>
     <View style={s.ruleRow}><View style={s.ruleCap} /><View style={s.rule} /><Text style={s.diamond}>◆</Text></View>
     <View style={s.sectionTitleRow}>
-      <Ionicons name={light === "sunny" ? "sunny-outline" : "cloud-outline"} size={21} color={paper.dashboardInk} />
-      <Text style={s.sectionTitle}>{light === "sunny" ? "WHEN THE SUN IS OUT" : "UNDER CLOUD COVER"}</Text>
+      <Ionicons name={light === "sunny" ? "sunny-outline" : light === "cloudy" ? "cloud-outline" : "partly-sunny-outline"} size={21} color={paper.dashboardInk} />
+      <Text style={s.sectionTitle}>{title}</Text>
     </View>
-    <Text style={s.sectionCaption}>top color · honorable mention</Text>
+    <Text style={s.sectionCaption}>{caption}</Text>
   </View>;
 }
-function ColorCard({ choice, top }: { choice: Choice; top: boolean }) {
-  const colors = palette(choice);
-  return <View style={[s.card, !top && s.honorable]}>
-    {top ? <View style={s.ribbon}>
-      <Ionicons name="star" size={12} color={goldInk} />
-      <Text style={s.ribbonText}>TOP COLOR OF THE DAY</Text><Text style={s.ribbonDiamond}>◆</Text>
-    </View> : <View style={s.honorableEyebrow}><View style={s.blueDot} /><Text style={s.meta}>HONORABLE MENTION</Text></View>}
-    {top && colors.length > 0 && <View style={s.specimen}>
+function ColorCard({ choice }: { choice: Choice }) {
+  const colors = choice.swatches ?? [];
+  return <View style={s.card}>
+    <View style={s.pickEyebrow}><View style={s.blueDot} /><Text style={s.meta}>FINFINDr PICK</Text></View>
+    {colors.length > 0 && <View style={s.specimen}>
       <CornerMarkSet color={paper.dashboardBlue} inset={10} size={8} />
       <Palette colors={colors} />
       <Text style={s.reference}>COLOR REFERENCE</Text>
     </View>}
-    <View style={[s.cardBody, !top && s.honorableBody]}>
+    <View style={s.cardBody}>
       <View style={s.nameRow}>
-        <Text style={[s.colorName, !top && s.honorableName]}>{choice.name}</Text>
-
+        <Text style={s.colorName}>{choice.name}</Text>
       </View>
-      {!top && colors.length > 0 && <Palette colors={colors} compact />}
       <Text style={s.description}>{choice.visualDescription}</Text>
-      <View style={[s.reason, !top && { borderLeftColor: paper.dashboardBlue }]}>
-        <Text style={[s.reasonLabel, !top && { color: paper.dashboardBlue }]}>— WHY IT FITS</Text>
+      <View style={s.reason}>
+        <Text style={s.reasonLabel}>— WHY IT FITS</Text>
         <Text style={s.reasonText}>{choice.explanation}</Text>
       </View>
     </View>
@@ -73,18 +63,17 @@ export function ColorPickerView({ report }: { report: ReportEnvelope }) {
         <View style={s.fact}><Text style={s.factLabel}>WATER CLARITY</Text><Text style={s.factValue}>{clarity}</Text></View>
         <View style={[s.fact, s.factDivider]}><Text style={s.factLabel}>YOUR REPORT</Text><Text style={s.factValue}>{date}</Text></View>
       </View>
-      <View style={s.forecast}><Ionicons name="partly-sunny-outline" size={16} color={paper.dashboardBlue} /><Text style={s.forecastText}>{report.weather.meanCloudPercent == null ? "Saved light conditions" : `${Math.round(report.weather.meanCloudPercent)}% daylight cloud cover`} · at generation</Text></View>
     </View>
-    <Text style={s.intro}>Two ways to meet the light.{"\n"}Your colors for sunshine and cloud cover.</Text>
-    {report.selection.groups.map(group => <View key={group.light} style={s.group}>
-      <LightHeading light={group.light} />
-      {group.choices.map((choice, index) => <ColorCard key={choice.patternId} choice={choice} top={index === 0} />)}
+    <Text style={s.intro}>Our picks for today, matched to your bait, water clarity, and the light you are fishing.</Text>
+    {(report.selection.sharedAcrossLight ? report.selection.groups.slice(0, 1) : report.selection.groups).map(group => <View key={group.light} style={s.group}>
+      <LightHeading light={report.selection.sharedAcrossLight ? "all" : group.light} />
+      {group.choices.map(choice => <ColorCard key={choice.patternId} choice={choice} />)}
     </View>)}
     <View style={s.footer}>
       <Ionicons name="bookmark-outline" size={19} color={paper.dashboardBlue} />
       <Text style={s.footerTitle}>Yours for the day.</Text>
-      <Text style={s.footerText}>Saved for this bait and water clarity. New daily picks tomorrow.</Text>
-      <Text style={s.finePrint}>Both picks are randomly selected from viable colors. Color samples are approximate.</Text>
+      <Text style={s.footerText}>Saved for this bait and water clarity. Come back tomorrow for FinFindr’s next picks.</Text>
+      <Text style={s.finePrint}>Color samples are approximate. Fish response also depends on forage, depth, presentation, and local conditions.</Text>
     </View>
   </View>;
 }
@@ -109,14 +98,14 @@ export function ColorPickerLoadingSkeleton({ label = "Finding your daily colors"
         <View style={s.facts}>{[0, 1].map(i => <View key={i} style={[s.fact, i > 0 && s.factDivider]}>{bone({ width: "70%", height: 8 })}{bone({ width: "55%", height: 18 })}</View>)}</View>
         {bone({ width: "80%", height: 9 })}
       </View>
-      {["sunny", "cloudy"].map(light => <View key={light} style={s.group}>
+      {(["sunny", "cloudy"] as const).map(light => <View key={light} style={s.group}>
         <LightHeading light={light} />
         <View style={s.card}>
-          <View style={s.ribbon}>{bone({ width: "60%", height: 10 })}</View>
+          <View style={s.pickEyebrow}>{bone({ width: "60%", height: 10 })}</View>
           <View style={s.specimen}>{bone({ width: "100%", height: 112, borderRadius: 10 })}{bone({ width: 86, height: 7 })}</View>
           <View style={s.cardBody}>{bone({ width: "70%", height: 28 })}{bone({ width: "100%", height: 10 })}{bone({ width: "80%", height: 10 })}<View style={s.reason}>{bone({ width: "40%", height: 8 })}{bone({ width: "95%", height: 10 })}{bone({ width: "75%", height: 10 })}</View></View>
         </View>
-        <View style={[s.card, s.honorable]}><View style={s.honorableEyebrow}>{bone({ width: "60%", height: 8 })}</View><View style={s.cardBody}>{bone({ width: "65%", height: 23 })}{bone({ width: "100%", height: 72, borderRadius: 10 })}{bone({ width: "95%", height: 10 })}{bone({ width: "80%", height: 10 })}</View></View>
+        <View style={s.card}><View style={s.pickEyebrow}>{bone({ width: "60%", height: 8 })}</View><View style={s.cardBody}>{bone({ width: "65%", height: 23 })}{bone({ width: "100%", height: 72, borderRadius: 10 })}{bone({ width: "95%", height: 10 })}{bone({ width: "80%", height: 10 })}</View></View>
       </View>)}
     </View>
   </View>;
@@ -134,8 +123,6 @@ const s = StyleSheet.create({
   factDivider: { borderLeftWidth: 2, borderLeftColor: paper.dashboardInk, paddingLeft: 14 },
   factLabel: { fontFamily: paperFonts.metaMono, fontSize: 9, color: paper.dashboardMuted },
   factValue: { fontFamily: paperFonts.bodyBold, fontSize: 17, color: paper.dashboardInk },
-  forecast: { flexDirection: "row", gap: 7, alignItems: "center" },
-  forecastText: { flex: 1, fontFamily: paperFonts.body, fontSize: 10, lineHeight: 15, color: paper.dashboardMuted },
   intro: { fontFamily: paperFonts.displayItalic, fontSize: 15, lineHeight: 22, textAlign: "center", color: paper.dashboardInk, opacity: 0.7 },
   group: { gap: 16 },
   sectionHeading: { gap: 9, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine },
@@ -147,9 +134,7 @@ const s = StyleSheet.create({
   sectionTitle: { flex: 1, fontFamily: paperFonts.bodyBold, fontSize: 12, letterSpacing: 1.8, color: paper.dashboardInk },
   sectionCaption: { fontFamily: paperFonts.displayItalic, fontSize: 12, color: paper.dashboardMuted },
   card: { backgroundColor: paper.dashboardWhite, borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: paperRadius.card, overflow: "hidden", ...paperShadows.hard },
-  ribbon: { minHeight: 38, paddingHorizontal: 16, paddingVertical: 12, flexDirection: "row", alignItems: "center", gap: 7, backgroundColor: goldPaper, borderBottomWidth: 1, borderBottomColor: gold },
-  ribbonText: { flex: 1, fontFamily: paperFonts.bodyBold, fontSize: 10, letterSpacing: 1.8, color: goldInk },
-  ribbonDiamond: { fontSize: 10, color: gold },
+  pickEyebrow: { minHeight: 38, paddingHorizontal: 16, paddingVertical: 12, flexDirection: "row", alignItems: "center", gap: 7, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine },
   specimen: { minHeight: 112, paddingVertical: 22, paddingHorizontal: 18, alignItems: "center", justifyContent: "center", gap: 12, borderBottomWidth: 1, borderBottomColor: paper.dashboardLine },
   palette: { flexDirection: "row", width: "100%", height: 112, borderRadius: 10, overflow: "hidden", borderWidth: 1, borderColor: "rgba(11,28,42,0.15)" },
   colorSample: { height: "100%" },
@@ -158,16 +143,11 @@ const s = StyleSheet.create({
   nameRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
   colorName: { flexGrow: 1, flexShrink: 1, fontFamily: paperFonts.display, fontSize: 30, lineHeight: 34, color: paper.dashboardInk },
   description: { fontFamily: paperFonts.body, fontSize: 13, lineHeight: 20, color: paper.dashboardMuted },
-  reason: { gap: 8, paddingLeft: 12, borderLeftWidth: 3, borderLeftColor: gold },
-  reasonLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.8, color: goldInk },
+  reason: { gap: 8, paddingLeft: 12, borderLeftWidth: 3, borderLeftColor: paper.dashboardBlue },
+  reasonLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.8, color: paper.dashboardBlue },
   reasonText: { fontFamily: paperFonts.body, fontSize: 14, lineHeight: 21, color: paper.dashboardInk },
-  honorable: { borderLeftWidth: 3, borderLeftColor: paper.dashboardBlue },
-  honorableEyebrow: { flexDirection: "row", alignItems: "center", gap: 7, paddingTop: 16, paddingHorizontal: 16 },
   blueDot: { width: 5, height: 5, borderRadius: 3, backgroundColor: paper.dashboardBlue },
   meta: { fontFamily: paperFonts.bodyBold, fontSize: 9, letterSpacing: 1.6, color: paper.dashboardBlue },
-  honorableBody: { paddingTop: 12 },
-  honorableName: { fontSize: 23, lineHeight: 28 },
-  paletteCompact: { height: 72 },
   footer: { alignItems: "center", paddingVertical: 12, gap: 8 },
   footerTitle: { fontFamily: paperFonts.displayItalic, fontSize: 21, color: paper.dashboardInk },
   footerText: { fontFamily: paperFonts.body, fontSize: 12, lineHeight: 18, textAlign: "center", color: paper.dashboardMuted },

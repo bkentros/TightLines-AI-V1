@@ -1,5 +1,7 @@
 # Color picker — pass three selection engine
 
+> Historical implementation record. The September 8 release correction supersedes its history-aware sampler and weather handoff.
+
 Status: completed. Catalog `2026-09-05.4`, selection version `1.0.0`, saved schema `1`. The engine lives in `supabase/functions/_shared/colorPickerEngine/selectionEngine.ts` and has no network, persistence, UI or implicit clock dependency.
 
 ## Implemented behavior

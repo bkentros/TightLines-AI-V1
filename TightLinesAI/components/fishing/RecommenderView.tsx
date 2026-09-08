@@ -302,7 +302,7 @@ function ColorMatchLink({ pick }: { pick: DailyPicksResponsePick }) {
   const router = useRouter();
   const typeId = colorTypeForArchetype(pick.id);
   if (!typeId) return null;
-  const label = `Best colors for this ${pick.gear_mode === 'fly' ? 'fly' : 'lure'} today`;
+  const label = `See today’s colors for this ${pick.gear_mode === 'fly' ? 'fly' : 'lure'}`;
   return (
     <Pressable
       accessibilityRole="button"

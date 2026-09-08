@@ -5,9 +5,8 @@ import { COLOR_PATTERNS } from "./colorPatterns.ts";
 import { compileResearchMatrix, RESEARCH_VERSION } from "./researchMatrix.ts";
 import { CLARITIES, LIGHT_STATES, type Clarity, type LightState, type ColorPattern } from "./researchSchema.ts";
 
-export const SELECTION_VERSION = "3.0.0";
+export const SELECTION_VERSION = "4.0.0";
 export const COLORS_PER_LIGHT = 2;
-export const HISTORY_LIMIT_PER_GROUP = 10;
 export type EngineErrorCode = "INVALID_INPUT" | "INVALID_CATALOG" | "INVALID_RANDOM" | "INVALID_REPORT" | "VERSION_MISMATCH" | "REQUEST_CONFLICT";
 export class ColorPickerError extends Error {
   constructor(public readonly code: EngineErrorCode, message: string) { super(message); this.name = "ColorPickerError"; }
@@ -39,6 +38,8 @@ export interface ColorChoice {
 }
 export interface SelectionResult {
   report: SavedColorReport;
+  /** Identical reviewed pools are presented once instead of implying a light distinction. */
+  sharedAcrossLight: boolean;
   groups: { light: LightState; choices: ColorChoice[]; poolSize: number; canRotate: boolean }[];
 }
 /** Returns a uniformly distributed integer in [0, exclusiveMax). */
@@ -70,6 +71,8 @@ const lights = (value: unknown): LightState[] => {
   return LIGHT_STATES.filter(x => value.includes(x));
 };
 const clone = <T>(value: T): T => structuredClone(value);
+const samePatternPool = (a: readonly string[], b: readonly string[]) =>
+  a.length === b.length && a.every(id => b.includes(id));
 
 /** No IO, clock reads, writes or rerolls during replay. Callers supply saved history. */
 export function createColorPickerEngine(random: RandomInt = secureRandomInt) {
@@ -111,13 +114,16 @@ export function createColorPickerEngine(random: RandomInt = secureRandomInt) {
     }
   }
   function render(report: SavedColorReport): SelectionResult {
-    return { report: clone(report), groups: report.groups.map(group => {
-      const pool = getPool(report.typeId, report.clarity, group.light);
+    const renderedPools = report.groups.map(group => getPool(report.typeId, report.clarity, group.light));
+    const sharedAcrossLight = renderedPools.length === 2 &&
+      samePatternPool(renderedPools[0].patternIds, renderedPools[1].patternIds);
+    return { report: clone(report), sharedAcrossLight, groups: report.groups.map((group, index) => {
+      const pool = renderedPools[index];
       return { light: group.light, poolSize: pool.patternIds.length, canRotate: false,
         choices: group.patternIds.map(patternId => {
           const pattern = patterns.get(patternId)!;
           return { patternId, name: pattern.name, visualDescription: pattern.visualDescription,
-            explanation: explainColorVisibility(pattern, report.clarity, group.light, report.typeId),
+            explanation: explainColorVisibility(pattern, report.clarity, sharedAcrossLight ? "shared" : group.light, report.typeId),
             swatches: [...pattern.swatches],
             imageId: `${report.typeId}__${patternId}` };
         }) };
@@ -147,30 +153,15 @@ export function createColorPickerEngine(random: RandomInt = secureRandomInt) {
       if (!sameRequest(report) || report.typeId !== input.typeId || report.clarity !== input.clarity || JSON.stringify(report.groups.map(g => g.light)) !== JSON.stringify(input.lights)) return fail("REQUEST_CONFLICT", "Request key already belongs to a different selection.");
       return render(report);
     }
-    const history = (options.history ?? []).filter(r => r.userId === input.userId && r.typeId === input.typeId && r.clarity === input.clarity && r.catalogVersion === RESEARCH_VERSION && r.selectionVersion === SELECTION_VERSION).map(parseReport);
-    if (history.some(r => r.reportId === input.reportId)) return fail("REQUEST_CONFLICT", "A new draw requires a new report ID.");
-    if (history.some(r => r.generatedAt > input.generatedAt)) return fail("INVALID_INPUT", "Draw time precedes relevant history.");
     const selectedPools = input.lights.map(light => getPool(input.typeId, input.clarity, light));
-    let selected: string[][];
-    if (selectedPools.length === 1) {
-      selected = [shuffle(selectedPools[0].patternIds).slice(0, COLORS_PER_LIGHT)];
-    } else {
-      // Choose jointly: a greedy sunny draw could consume the only cloudy options.
-      // Every pair-of-pairs with the minimum unavoidable overlap has equal chance.
-      const pairs = (ids: string[]) => ids.flatMap((a, i) => ids.slice(i + 1).map(b => [a, b]));
-      let minimumOverlap = Infinity;
-      let candidates: string[][][] = [];
-      for (const sun of pairs(selectedPools[0].patternIds)) {
-        for (const cloud of pairs(selectedPools[1].patternIds)) {
-          const overlap = sun.filter(id => cloud.includes(id)).length;
-          if (overlap < minimumOverlap) { minimumOverlap = overlap; candidates = []; }
-          if (overlap === minimumOverlap) candidates.push([sun, cloud]);
-        }
-      }
-      const index = random(candidates.length);
-      if (!Number.isInteger(index) || index < 0 || index >= candidates.length) return fail("INVALID_RANDOM", "Random source returned an out-of-range index.");
-      selected = candidates[index].map(pair => shuffle(pair));
-    }
+    // Sample each condition independently. Avoiding cross-condition repeats biases
+    // marginal color probabilities whenever the two reviewed pools overlap.
+    const first = shuffle(selectedPools[0].patternIds).slice(0, COLORS_PER_LIGHT);
+    const sharedAcrossLight = selectedPools.length === 2 &&
+      samePatternPool(selectedPools[0].patternIds, selectedPools[1].patternIds);
+    const selected = selectedPools.map((pool, index) =>
+      sharedAcrossLight && index > 0 ? [...first] : index === 0 ? first : shuffle(pool.patternIds).slice(0, COLORS_PER_LIGHT)
+    );
     const groups = input.lights.map((light, i) => ({ light, patternIds: selected[i] }));
     const { lights: _, ...fields } = input;
     return render({ ...fields, schemaVersion: 1, catalogVersion: RESEARCH_VERSION, selectionVersion: SELECTION_VERSION, groups });

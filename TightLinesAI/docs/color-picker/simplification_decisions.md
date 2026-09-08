@@ -1,5 +1,7 @@
 # Color Match simplification — September 6, 2026
 
+> Historical implementation record. The September 8 release correction supersedes its weather, recency, artwork-path, and daily-cache behavior.
+
 ## Current behavior
 
 The picker exposes 23 broad choices across Soft plastics, Jigs & spinners, Hard baits, Spoons, and Flies. Worm profiles and crankbait diving depths are searchable aliases, not extra questions. Streamer fly and Fly popper remain separate options. Conventional poppers appear under Topwater lure.
