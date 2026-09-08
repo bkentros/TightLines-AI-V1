@@ -1,6 +1,6 @@
 import { COLOR_PICKER_TAXONOMY } from "../supabase/functions/_shared/colorPickerEngine/taxonomy";
 import { PICKER_CHOICES } from "../supabase/functions/_shared/colorPickerEngine/pickerChoices";
-import { COLOR_PICKER_IMAGES } from "./colorPickerImages";
+import { COLOR_PICKER_IMAGES, COLOR_PICKER_THUMBNAILS } from "./colorPickerImages";
 export const colorPickerCatalog = {
   categories: [
     { id: "soft_plastics", label: "Soft plastics" },
@@ -13,6 +13,9 @@ export const colorPickerCatalog = {
 };
 export function colorTypeImage(typeId: string) {
   return COLOR_PICKER_IMAGES[typeId] ?? null;
+}
+export function colorTypeThumbnail(typeId: string) {
+  return COLOR_PICKER_THUMBNAILS[typeId] ?? null;
 }
 export { colorTypeForArchetype } from "./colorPickerRouting";
 

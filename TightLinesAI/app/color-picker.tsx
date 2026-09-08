@@ -6,7 +6,11 @@ import {
 } from "../components/paper";
 import { RecommenderArtwork } from "../components/fishing/RecommenderArtwork";
 import { hapticSelection } from "../lib/safeHaptics";
-import { colorChoiceForType } from "../lib/colorPickerCatalog";
+import {
+  colorChoiceForType,
+  colorPickerCatalog as catalog,
+  colorTypeThumbnail,
+} from "../lib/colorPickerCatalog";
 import { useEffect, useRef, useState } from "react";
 import {
   AccessibilityInfo,
@@ -27,16 +31,12 @@ import { PaperNavHeader } from "../components/paper/PaperNavHeader";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import { ColorPickerView, ColorPickerLoadingSkeleton } from "../components/fishing/ColorPickerView";
 import {
-  colorPickerCatalog as catalog,
-  colorTypeImage,
-} from "../lib/colorPickerCatalog";
-import {
   generateColorReport,
   reopenColorReport,
   type ReportEnvelope,
   type ReportRequest,
 } from "../lib/colorPicker";
-import { COLOR_CLARITY_IMAGES } from "../lib/colorPickerImages";
+import { COLOR_CLARITY_THUMBNAILS } from "../lib/colorPickerImages";
 import { paper, paperFonts, paperShadows, paperSpacing, paperRadius } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 type Clarity = "clear" | "stained" | "dirty";
@@ -329,12 +329,17 @@ export default function ColorPickerScreen() {
                       </View>
                       <View style={s.grid}>
                         {catalog.categories.map(c => {
-                          const cover: Record<string, string> = { soft_plastics: "soft_plastic_worm", hard_baits: "hard_jerkbait", jigs_spinners: "spinnerbait", metal_baits: "spoon", flies: "streamer" };
                           const active = category === c.id;
                           return <Pressable key={c.id} accessibilityRole="button" accessibilityLabel={c.label} accessibilityState={{ selected: active }}
                             onPress={() => { hapticSelection(); setCategory(c.id); setTypeId(""); setError(""); }}
                             style={[s.categoryCard, active && s.blueSelected]}>
-                            <RecommenderArtwork source={colorTypeImage(cover[c.id])} style={s.categoryArt} selectionColor={active ? paper.dashboardBlueSky : undefined} />
+                            <View style={[s.categoryIcon, active && s.categoryIconActive]}>
+                              <Ionicons
+                                name={c.id === "soft_plastics" ? "water-outline" : c.id === "hard_baits" ? "fish-outline" : c.id === "jigs_spinners" ? "flash-outline" : c.id === "metal_baits" ? "diamond-outline" : "leaf-outline"}
+                                size={22}
+                                color={active ? "white" : paper.dashboardBlue}
+                              />
+                            </View>
                             <View style={s.categoryFooter}>
                               <Text style={s.categoryLabel}>{c.label}</Text>
                               <Text style={s.categoryHint}>{({ soft_plastics: "Soft-bodied favorites", hard_baits: "Plugs & swimming baits", jigs_spinners: "Skirts, hair & blades", metal_baits: "Casting & fluttering", flies: "Streamers & poppers" } as Record<string, string>)[c.id]}</Text>
@@ -375,7 +380,7 @@ export default function ColorPickerScreen() {
                               >
                                 {typeId === t.id && <View style={[s.blueBadge, { zIndex: 2 }]}><Ionicons name="checkmark" size={15} color="white" /></View>}
                                 <View style={s.catalogImageArea}>
-                                  <RecommenderArtwork source={colorTypeImage(t.id)} style={s.baitImage} selectionColor={typeId === t.id ? paper.dashboardBlueSky : undefined} />
+                                  <RecommenderArtwork source={colorTypeThumbnail(t.id)} style={s.baitImage} />
                                 </View>
                                 <View style={[s.catalogTileFooter, typeId === t.id && s.blueSelected]}>
                                   <Text style={s.catalogTileLabel}>{t.label}</Text>
@@ -428,7 +433,7 @@ export default function ColorPickerScreen() {
                         style={s.baitSummary}
                       >
                         <RecommenderArtwork
-                          source={colorTypeImage(typeId)}
+                          source={colorTypeThumbnail(typeId)}
                           style={s.summaryImage}
                         />
                         <View style={{ flex: 1, gap: 4 }}>
@@ -485,9 +490,8 @@ export default function ColorPickerScreen() {
                               ]}
                             >
                               <RecommenderArtwork
-                                source={COLOR_CLARITY_IMAGES[c]}
+                                source={COLOR_CLARITY_THUMBNAILS[c]}
                                 style={s.clarityImage}
-                                selectionColor={clarity === c ? paper.dashboardBlueSky : undefined}
                               />
                               <Text style={s.clarityTitle}>
                                 {c === "dirty"
@@ -588,7 +592,8 @@ const s = StyleSheet.create({
   categoryCard: { width: "31.5%", borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: paperRadius.card, backgroundColor: "white", alignItems: "center", overflow: "hidden", ...paperShadows.hard },
   categoryFooter: { width: "100%", paddingHorizontal: 6, paddingVertical: 10, gap: 3, borderTopWidth: 1, borderTopColor: paper.dashboardLine },
   categoryHint: { display: "none", fontFamily: paperFonts.displayItalic, fontSize: 10, lineHeight: 14, textAlign: "center", color: paper.dashboardMuted },
-  categoryArt: { width: "92%", height: 66, marginVertical: 2 },
+  categoryIcon: { width: 40, height: 40, borderRadius: 20, marginTop: 12, alignItems: "center", justifyContent: "center", backgroundColor: "#E8F1F3", borderWidth: 1, borderColor: paper.dashboardBlue },
+  categoryIconActive: { backgroundColor: paper.dashboardBlue },
   categoryLabel: { fontFamily: paperFonts.display, fontSize: 12, lineHeight: 15, color: paper.dashboardInk, textAlign: "center" },
   blueSelected: { backgroundColor: paper.dashboardBlueSky, borderColor: paper.dashboardBlue, ...paperShadows.lift },
   blueBadge: { position: "absolute", top: 8, right: 8, width: 25, height: 25, borderRadius: 13, backgroundColor: paper.dashboardBlue, alignItems: "center", justifyContent: "center" },
