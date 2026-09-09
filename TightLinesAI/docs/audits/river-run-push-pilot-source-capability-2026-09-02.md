@@ -10,8 +10,8 @@ pilot configurations implemented; no public release authorized
 ## 1. Purpose and provisional product boundary
 
 This audit asks whether each pilot river has enough live evidence to support a
-positive-only Push Watch that refreshes every four hours and shows the last 48
-hours. `Neutral` means only that no elevated signal was detected. It must never
+positive-only Push Watch that refreshes every four hours and shows the last four
+days. `Neutral` means only that no elevated signal was detected. It must never
 mean that fish did not move.
 
 The pilot does not assume a Great Lakes lake-flip mechanism applies to western

@@ -77,7 +77,7 @@ the access disclaimer make the direction look like a passive warning.
 | Migration Stage   | Fixed researched seasonal phase and one shared concise phase-interpretation sentence                                    | Location or access guidance, live movement, abundance, responsiveness, or catch probability                           |
 | Activity Outlook  | Conditional responsiveness by four time blocks if fish are present, with a prominent permanent conditional notice       | Abundance, migration progress, feeding proof, fish presence, or catch probability                                     |
 | Seasonal Presence | Historical seasonal presence relative to this river/run ceiling                                                         | A fish count, today's movement, bite quality, or current conditions                                                   |
-| Push Watch        | Positive-only recent direct water event from accepted temperature and/or hydraulics, with twelve four-hour reads        | Confirmed fish entry, abundance, catch probability, or evidence that fish did not move during Neutral conditions      |
+| Push Watch        | Positive-only recent direct water event from accepted temperature and/or hydraulics, with twenty-four four-hour reads   | Confirmed fish entry, abundance, catch probability, or evidence that fish did not move during Neutral conditions      |
 
 Do not author or expose `WHERE TO START`, `WHY THIS READ`, `GUIDE'S READ`, a
 standalone Fishability tab, or public Migration Timing. Legacy API or
@@ -101,7 +101,7 @@ only public presentation surface. The Stage primitive presents timing only.
 
 Push Watch is optional per river and species. Activate it only from Beginning
 through the end of Tapering. It refreshes at the normal four-hour slots and
-shows the most recent twelve recorded slots (up to 48 hours).
+shows the most recent twenty-four recorded slots (up to 4 days).
 
 - `Neutral` is the floor and means only that no elevated direct signal was
   detected. Never render a negative/red Push state.

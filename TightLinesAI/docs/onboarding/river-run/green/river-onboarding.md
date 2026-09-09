@@ -36,6 +36,7 @@ Independent falsification review by/date: separate evidence-review pass / 2026-0
 | G-13 | WDFW current emergency-rule index | https://wdfw.wa.gov/fishing/regulations/emergency-rules | effective dates checked 2026-08-30 | Chinook retention closed Aug. 17-Dec. 14, 2026; upper Green fishing closure Sep. 16-Oct. 31, 2026 | Volatile; must be rechecked immediately before release and every trip |
 | G-14 | USGS annual water-data reports, Green River near Auburn 12113000 | https://pubs.usgs.gov/wdr/1983/wa-83-1/report.pdf | approved archival daily means; water years 1982, 1983, 1984, 1986 parsed 2026-08-31 | Discontinued Auburn water-temperature record; qualifying July-December same-calendar-date ±3-day historical averages | Sparse legacy tables; missing dates are not imputed; never a live reading |
 | G-15 | USGS approved daily discharge, Green River near Auburn 12113000 | https://waterdata.usgs.gov/nwis/dv?site_no=12113000 | 5,662/5,662 July 20-Dec. 15 dates, water years 1988-2025 | Fixed Auburn Fishability presentation bands: p5 231, p25 291, median 420, p75 1,000, p95 3,000, p99 6,834 CFS | Auburn/Big Soos mainstem shape only; not access, safety, abundance, tidal Duwamish, or upper-river thresholds |
+| G-16 | City of Kent, Van Doren's Landing | https://www.kentwa.gov/departments/kent-parks/parks-places/parks-trails/van-doren-s-landing-park | reopened/current, checked 2026-09-08 | Parking, Green River Trail access, and hand-carry boat ramp | Not a trailered launch or blanket shore-fishing designation |
 
 ## 2. Identity and corridor
 
@@ -93,7 +94,7 @@ Accepted for hidden owner review with two audited sections, not a fabricated who
 | Public section | Foundation reach | Access | Fishing/access proof | Release treatment |
 | --- | --- | --- | --- | --- |
 | Lower Run Section — Tukwila International Boulevard to South 212th Street Bridge | `green_middle_auburn` | Three Friends Fishing Hole | City of Kent explicitly lists fishing, parking, trail access, and dawn-to-dusk hours | Show with current-rule warning; 2026 emergency rule closes Chinook retention |
-| Middle Run Section — South 212th Street Bridge to Highway 18 Eastbound Bridge | `green_middle_auburn` | Fenster Nature Park | City of Auburn explicitly identifies direct Green River public fishing access and dawn-to-dusk hours | End at Highway 18; never imply access in the closed gap |
+| Middle Run Section — South 212th Street Bridge to Highway 18 Eastbound Bridge | `green_middle_auburn` | Van Doren's Landing; Fenster Nature Park | City of Kent documents Van Doren's reopened hand-carry ramp and trail access; City of Auburn identifies direct public fishing access at Fenster | End at Highway 18; Van Doren is carry-in only; never imply access in the closed gap |
 
 The tidal Duwamish has no accepted fishing-oriented access listing in this pass. Flaming Geyser and Green River Natural Area prove upper public angling, but the permanent upper salmon season begins November 1 and a 2026 emergency closure applies September 16-October 31. They are documented research exclusions, not static recommendations. This is intentional section-level fail-closed behavior.
 

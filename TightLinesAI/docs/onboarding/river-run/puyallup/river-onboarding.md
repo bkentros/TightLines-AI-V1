@@ -34,6 +34,7 @@ Independent falsification review by/date: separate evidence-review pass / 2026-0
 | P-11 | WDFW Weiss water access | https://wdfw.wa.gov/places-to-go/water-access-sites/weiss-220 | current, checked 2026-08-30 | Parking, unimproved ramp, vehicle access during regulated sport-fishing seasons | Glacial-river and ramp-condition warning required |
 | P-12 | Tacoma waterfront lands analysis | https://cms.cityoftacoma.org/Planning/Shoreline/Presentations/Waterfront_Lands_Study.pdf | official shoreline analysis | No general-public lower-river waterfront facilities | Supports omission, not an access listing |
 | P-13 | Ecology 10A040 station/export | https://apps.ecology.wa.gov/continuousflowandwq/StationDetails?sta=10A040 | 2023-25 tables; checked 2026-08-31 | Mean-daily lower-mainstem water temperature at the USGS Puyallup site | Station currently inactive; provisional archive is historical context only |
+| P-14 | Pierce County Riverside Park | https://www.piercecountywa.gov/1331/Riverside-Park | current, checked 2026-09-08 | Puyallup River hand-launch/takeout and parking | Permit with 24-hour notice; March 1-October 31; future closure/relocation is signaled; not blanket bank-fishing access |
 
 ## 2. Identity and corridor
 
@@ -89,9 +90,9 @@ Accepted for hidden owner review as a sparse two-section inventory. The data mod
 | Public section | Foundation reach | Access | Fishing/access proof | Release treatment |
 | --- | --- | --- | --- | --- |
 | Middle Run Section — 400 feet upstream of Clarks Creek to East Main Bridge | `puyallup_middle` | Puyallup Riverwalk Fishing Access | City shoreline inventory identifies gated riverbank access and fishing at multiple trail locations | Explicitly exclude 400 feet below/above Clarks Creek; use signed public gates only |
-| Upper Run Section — East Main Bridge to Carbon River | `puyallup_upper_salmon` | Weiss | WDFW water-access page lists parking, unimproved ramp, and vehicle access during regulated sport-fishing seasons | Warn for glacial flow and require current site/rule verification |
+| Upper Run Section — East Main Bridge to Carbon River | `puyallup_upper_salmon` | Riverside Park Boat Slide; Weiss | Pierce County documents the permit-controlled hand launch; WDFW lists Weiss parking and an unimproved ramp | Riverside requires 24-hour advance permit and operates March 1-October 31; warn for glacial flow and verify both sites |
 
-The 11th Street Bridge-to-Clarks lower section remains absent. Official Tacoma material states there are no general-public waterfront facilities in that lower shoreline, and no stronger fishing-oriented access source displaced that finding. Riverside Park's permit-only hand launch and general levee/trail pages were rejected because they did not independently establish public fishing access.
+The 11th Street Bridge-to-Clarks lower section remains absent. Official Tacoma material states there are no general-public waterfront facilities in that lower shoreline, and no stronger fishing-oriented access source displaced that finding. Riverside Park is retained in the upper section strictly as a permit-controlled carry-in launch, not as a bank-fishing claim. General levee/trail pages remain excluded where they do not establish a discrete public access.
 
 ### Early approach and per-run phase plan
 

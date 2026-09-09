@@ -4,8 +4,8 @@ Audited: 2026-09-08
 
 ## Decision
 
-Expand the seven supported Michigan River Run inventories from 81 to 95
-source-listed public access points. The release adds 14 entries, corrects one
+Expand the seven supported Michigan River Run inventories from 81 to 97
+source-listed public access points. The release adds 16 entries, corrects one
 conflated Pere Marquette record, separates the two distinct Bass River launches,
 and corrects Grand River Park's access types. No River Run reach, seasonal-zone
 rule, or biological recommendation changes as part of this work.
@@ -26,7 +26,7 @@ excluded.
 | Betsie         |      5 |     5 | No addition. The supported corridor already matches the state-listed lower accesses through the signed Homestead closure; upstream Grass Lake access is outside the River Run corridor.                                                             |
 | Big Manistee   |      9 |     9 | No addition. The Forest Service's below-Tippy access sequence is already represented. Hodenpyl/backwaters and upper-Manistee sites are outside the migratory corridor.                                                                              |
 | Muskegon       |     14 |    14 | No addition. The existing Muskegon Lake-to-Croton inventory matches the DNR fisheries unit's named public access list.                                                                                                                              |
-| Grand          |     19 |    26 | Added the Grand Haven mouth pier/boardwalk, Connor Bayou, Ottawa County Riverside Park, the second Bass River launch, Eastmanville Bayou, Deer Creek and Grand Ravines. Corrected Grand River Park from carry-in-only to boat plus carry-in access. |
+| Grand          |     19 |    28 | Added the Grand Haven mouth pier/boardwalk, Ottawa Sands Sag kayak launch, Connor Bayou, Ottawa County Riverside Park, the second Bass River launch, Bur Oak Landing, Eastmanville Bayou, Deer Creek and Grand Ravines. Corrected Grand River Park from carry-in-only to boat plus carry-in access. |
 | White          |      9 |    10 | Added Lions Park's designated carry-in access. It is not labeled shore or wade fishing because the source describes soft, vegetated shoreline. White Lake-only sites were not mixed into the river-access list.                                     |
 | St. Joseph     |     13 |    15 | Added Tiscornia's north-pier access and the Marina Island municipal boat launch. Both are distinct from the existing Silver Beach south pier and Benton Harbor launch.                                                                              |
 
@@ -39,10 +39,14 @@ excluded.
 - **Pere Marquette — Elk and Logmark:** these are canoe-oriented rest/camp sites
   without ordinary public vehicle access. Jorgenson's Tract was also omitted
   because its access identity was unresolved in the cited management plan.
-- **Grand — Bur Oak Landing:** public ownership and fishing are documented, but
-  the open-space page does not establish a designated river launch or a reliably
-  defined fishing entrance. It remains excluded rather than implying an access
-  path through floodplain/wetland frontage.
+- **Grand — Bur Oak Landing limitations:** retained as shore/walk-in access after
+  the current county page confirmed two public parking/entrance areas, fishing,
+  and 1.4 miles of Grand River frontage. It is not labeled as a launch or
+  accessible facility because it has no designated trails, restrooms, or
+  ADA-accessible amenities and crosses floodplain/wetland terrain.
+- **Grand — Ottawa Sands limitations:** retained only as carry-in/walk-in access
+  to the Sag of the Grand River. The inland lake's catch-and-release, artificial-
+  bait, and no-watercraft rules are not presented as mainstem river rules.
 - **Grand Rapids — Fish Ladder conceptual improvements:** future angling and
   boating elements shown in planning material are not treated as current
   facilities.
@@ -74,6 +78,8 @@ excluded.
 - [Custer Weir & Boat Launch — Michigan Water Trails](https://www.michiganwatertrails.org/location.asp?aid=1206&ait=av)
 - [U.S. Forest Service Manistee River below Tippy Dam brochure](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprd3807298.pdf)
 - [Grand Haven State Park — Michigan DNR](https://www.michigan.gov/recsearch/parks/grandhaven)
+- [Ottawa Sands — Ottawa County](https://miottawa.org/park-locations/ottawa-sands/)
+- [Bur Oak Landing — Ottawa County](https://miottawa.org/park-locations/bur-oak-landing/)
 - [Bass River Recreation Area — Michigan DNR](https://www.michigan.gov/recsearch/parks/bassriver)
 - [Ottawa County public boating access](https://miottawa.org/parks/boating/)
 - [Connor Bayou — Ottawa County](https://miottawa.org/park-locations/connor-bayou/)

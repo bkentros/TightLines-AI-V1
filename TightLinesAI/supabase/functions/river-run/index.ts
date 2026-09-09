@@ -98,6 +98,8 @@ const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 86400, maxRequests: 1000 },
 ];
 const PROVIDER_TIMEOUT_MS = 8_000;
+const PUSH_HISTORY_WINDOW_COUNT = 24;
+const PUSH_HISTORY_DATE_LOOKBACK_DAYS = 4;
 const INTERNAL_KEY_HEADER = "x-river-run-internal-key";
 const CLIENT_CAPABILITIES_HEADER = "x-finfindr-river-run-capabilities";
 const MIDWEST_OWNER_REVIEW_CAPABILITY = "midwest-owner-review-v1";
@@ -900,18 +902,25 @@ async function resolvePushHistoryContext(input: {
     trackingEndDate,
     throughDate,
   };
-  const currentWindow = pushWindowRead({
-    localDate: input.condition.localDate,
-    refreshSlot: input.condition.refreshSlot,
-    conditionRefreshAt: input.condition.conditionRefreshAt,
-    score: input.condition.push.score,
-    label: input.condition.push.label,
-  }, true);
-  const historyDates = [
-    currentDate,
-    addDays(currentDate, -1),
-    addDays(currentDate, -2),
-  ];
+  // The 21:00 condition refresh is an Activity-forecast rollover, not a new
+  // Push checkpoint. The stored 20:00 read remains the latest Push-history
+  // window until midnight instead of being relabeled and overwritten.
+  const currentWindow = input.condition.refreshSlot === "21:00"
+    ? undefined
+    : pushWindowRead({
+      localDate: input.condition.localDate,
+      refreshSlot: input.condition.refreshSlot,
+      conditionRefreshAt: input.condition.conditionRefreshAt,
+      score: input.condition.push.score,
+      label: input.condition.push.label,
+    }, true);
+  // A trailing 96-hour series can cross five local calendar dates when the
+  // current window ends near midnight. Query all five so stored reads can
+  // backfill every one of the 24 four-hour windows.
+  const historyDates = Array.from(
+    { length: PUSH_HISTORY_DATE_LOOKBACK_DAYS + 1 },
+    (_, index) => addDays(currentDate, -index),
+  );
   const historyResults = await Promise.all(
     historyDates.map((localDate) =>
       getPushConditionsForDate(input.client, {
@@ -967,7 +976,7 @@ async function resolvePushHistoryContext(input: {
       })
     : recordedWindows.toSorted((a, b) =>
       (a.conditionRefreshAt ?? "").localeCompare(b.conditionRefreshAt ?? "")
-    ).slice(-12);
+    ).slice(-PUSH_HISTORY_WINDOW_COUNT);
   const windowContext = {
     todayReadsStatus,
     todayReads: todayReads.length > 0
@@ -1158,14 +1167,10 @@ function pushWindowRead(
   if (typeof read.score !== "number" || !Number.isFinite(read.score)) {
     return undefined;
   }
-  const effectiveSlot = read.refreshSlot === "21:00"
-    ? "20:00"
-    : read.refreshSlot;
   return {
     ...read,
     score: read.score,
-    refreshSlot: effectiveSlot,
-    ...resolvePushReadWindow(effectiveSlot),
+    ...resolvePushReadWindow(read.refreshSlot),
     isCurrent,
   };
 }
@@ -1179,8 +1184,10 @@ function directEventWindowKeys(
   const anchor = Date.parse(
     `${localDate}T${String(hour).padStart(2, "0")}:00:00Z`,
   );
-  return Array.from({ length: 12 }, (_, index) => {
-    const at = new Date(anchor - (11 - index) * 4 * 60 * 60 * 1000);
+  return Array.from({ length: PUSH_HISTORY_WINDOW_COUNT }, (_, index) => {
+    const at = new Date(
+      anchor - (PUSH_HISTORY_WINDOW_COUNT - 1 - index) * 4 * 60 * 60 * 1000,
+    );
     return {
       localDate: at.toISOString().slice(0, 10),
       refreshSlot: `${String(at.getUTCHours()).padStart(2, "0")}:00`,

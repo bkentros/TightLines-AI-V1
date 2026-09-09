@@ -18,7 +18,7 @@ Foundation/run truth version `clackamas-foundation-v2-owner-review`, reviewed 20
 | E-003 | PGE fishing/recreation | https://portlandgeneral.com/about/recreation-fish-wildlife/clackamas-river/clackamas-fishing-recreation | timing and River Mill endpoint | conservatively calibrated |
 | E-004 | PGE fish protection | https://portlandgeneral.com/about/recreation-fish-wildlife/clackamas-river/protecting-fish | River Mill ladder and North Fork sorter | operations can change |
 | E-005 | Oregon DFW Willamette Zone | https://myodfw.com/fishing/willamette-zone | regulation and named-run context | recheck at release |
-| E-006 | Oregon DFW access guide | https://myodfw.com/sites/default/files/2026-04/50_in_60_flyer.pdf | seven retained public accesses, including Bonnie Lure and coho-only Estacada Lake | park entry is not blanket frontage |
+| E-006 | Oregon DFW access guide | https://myodfw.com/sites/default/files/2026-04/50_in_60_flyer.pdf | eight retained public accesses, including Riverside, Bonnie Lure and coho-only Estacada Lake | park entry is not blanket frontage; current species seasons control |
 | E-007 | USGS 14211010 | https://waterdata.usgs.gov/monitoring-location/14211010/ | live flow/height/temp and approved history | lower river; provisional live data |
 
 ### Delivery contract
@@ -78,7 +78,7 @@ Early approach is the lower Willamette confluence and river mouth. Chinook uses 
 
 ## 6. Spot Finder
 
-Lower: Clackamette, Cross Memorial, Carver. Middle: Barton, Bonnie Lure, and Milo McIver. Coho-only upper corridor: Estacada Lake, with an explicit statement that the fall-Chinook product ends below River Mill. All are government-documented and verified 2026-09-02 with fee, facility-boundary, and non-blanket-access cautions. High Rocks and generic road-frontage references remain excluded because they are not among the safest, clearest discrete recommendations.
+Lower: Clackamette, Cross Memorial, Riverside, and Carver. Middle: Barton, Bonnie Lure, and Milo McIver. Coho-only upper corridor: Estacada Lake, with an explicit statement that the fall-Chinook product ends below River Mill. All are government-documented and verified through 2026-09-08 with fee, season, facility-boundary, and non-blanket-access cautions. High Rocks and generic road-frontage references remain excluded because they are not among the safest, clearest discrete recommendations.
 
 ## 7. Reconciliation and acceptance
 

@@ -419,7 +419,7 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /48-HOUR PUSH HISTORY[\s\S]*?OLDEST → MOST RECENT[\s\S]*?12 four-hour periods spanning the last 48 hours, in local river time[\s\S]*?latest is on the right/,
+  /4-DAY PUSH HISTORY[\s\S]*?OLDEST → MOST RECENT[\s\S]*?24 four-hour periods spanning the last 4 days, in local river time[\s\S]*?latest is on the right/,
   "Push history must state its chronology unambiguously",
 );
 assert.match(
@@ -686,6 +686,11 @@ for (
         "www.mylongview.com",
         "www.mytpu.org",
         "wdfw.wa.gov",
+        "www.oswegony.gov",
+        "www.piercecountywa.gov",
+        "ci.castle-rock.wa.us",
+        "www.ci.castle-rock.wa.us",
+        "www.toledowa.us",
       ].includes(new URL(spot.sourceUrl).hostname),
       `${spot.id} must use an approved government, land-manager, or regional public-access source`,
     );
@@ -707,7 +712,7 @@ const michiganSpotCounts = {
   big_manistee: 9,
   muskegon: 14,
   st_joseph: 15,
-  grand: 26,
+  grand: 28,
   white: 10,
 } as const;
 const allSpotIds = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
@@ -717,6 +722,11 @@ assert.equal(
   new Set(allSpotIds).size,
   allSpotIds.length,
   "Spot Finder IDs must remain globally unique",
+);
+assert.equal(
+  allSpotIds.length,
+  220,
+  "The source-audited River Run inventory must contain 220 public access points",
 );
 for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
   const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
@@ -731,8 +741,8 @@ for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
 }
 assert.equal(
   Object.values(michiganSpotCounts).reduce((total, count) => total + count, 0),
-  95,
-  "The audited Michigan River Run inventory must contain 95 access points",
+  97,
+  "The audited Michigan River Run inventory must contain 97 access points",
 );
 
 for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
@@ -1006,8 +1016,8 @@ for (const species of ["chinook_salmon", "coho_salmon"] as const) {
   );
   assert.deepEqual(
     cowlitzFinder.sections.at(-1)?.spots.map((spot) => spot.name),
-    ["Wallace Bar", "Blue Creek", "Barrier Dam"],
-    "Cowlitz terminal access must retain the three source-audited sites and stop at the Barrier deadline",
+    ["Wallace Bar", "Toledo Boat Launch", "Blue Creek", "Barrier Dam"],
+    "Cowlitz terminal access must retain the source-audited sites and stop at the Barrier deadline",
   );
 }
 for (const riverId of ["green", "puyallup", "cowlitz"]) {
@@ -1194,11 +1204,50 @@ assert.deepEqual(
   sectionSpotNames("grand", "grand_lower")?.slice(0, 4),
   [
     "Grand Haven State Park Pier & Boardwalk",
+    "Ottawa Sands — Sag Kayak Launch",
     "Connor Bayou",
     "Riverside Park Boat Launch",
-    "Indian Channel",
   ],
   "Grand lower access must begin at the public mouth and lower-corridor sites",
+);
+assert.deepEqual(
+  sectionSpotNames("clackamas", "clackamas_lower_river"),
+  ["Clackamette Park", "Cross Memorial Park", "Riverside Park", "Carver Park"],
+  "Clackamas lower access must retain Riverside Park in downstream-to-upstream order",
+);
+const henrySchuette = RIVER_RUN_SPOT_FINDERS.manitowoc.sections
+  .flatMap((section) => section.spots)
+  .find((spot) => spot.id === "manitowoc_schuette");
+assert(henrySchuette?.accessKinds.includes("carry_in"));
+assert(!henrySchuette?.accessKinds.includes("boat_ramp"));
+assert.deepEqual(
+  sectionSpotNames("oswego", "oswego_terminal_tailwater"),
+  [
+    "Linear Park",
+    "Oswego River Walk East",
+    "Oswego River Municipal Launch near Lock O8",
+  ],
+  "Oswego terminal access must distinguish the public east-bank river walk",
+);
+assert.deepEqual(
+  sectionSpotNames("green", "green_middle_audited"),
+  ["Van Doren's Landing", "Fenster Nature Park"],
+  "Green middle access must retain the reopened hand-carry launch",
+);
+assert.deepEqual(
+  sectionSpotNames("puyallup", "puyallup_upper_audited"),
+  ["Riverside Park Boat Slide", "Weiss"],
+  "Puyallup upper access must retain the permit-controlled Riverside boat slide",
+);
+assert.deepEqual(
+  sectionSpotNames("cowlitz", "cowlitz_middle_audited"),
+  [
+    "Cook Ferry Trail System",
+    "Al Helenberg Memorial Boat Launch",
+    "Hog Island Access",
+    "Olequa Crossing",
+  ],
+  "Cowlitz middle access must retain the audited Castle Rock-to-Olequa sequence",
 );
 assert.deepEqual(
   sectionSpotNames("st_joseph", "stjoe_lower")?.slice(0, 4),

@@ -39,12 +39,19 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "myodfw.com",
   "www.manitowoc.org",
   "manitowoccountywi.gov",
+  "www.oswegony.gov",
+  "www.piercecountywa.gov",
+  "ci.castle-rock.wa.us",
+  "www.ci.castle-rock.wa.us",
+  "www.toledowa.us",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1";
 const DEAD_PAGE_COPY =
   /page not found|resource cannot be found|404(?:\s|&nbsp;)+(?:error|not found)/i;
+const BROWSER_CHALLENGE_HOSTS = new Set(["www.piercecountywa.gov"]);
+const BROWSER_CHALLENGE_COPY = /challenges\.cloudflare\.com|Just a moment/i;
 
 const spots = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
   finder.sections.flatMap((section) => section.spots)
@@ -80,13 +87,26 @@ const checkSource = async (sourceUrl: string) => {
       redirect: "follow",
       signal: controller.signal,
     });
+    const responseHost = new URL(response.url).hostname;
+    if (
+      response.status === 403 &&
+      BROWSER_CHALLENGE_HOSTS.has(responseHost)
+    ) {
+      const body = await response.text();
+      assert.match(
+        body.slice(0, 50_000),
+        BROWSER_CHALLENGE_COPY,
+        `${sourceUrl} returned an unrecognized forbidden response`,
+      );
+      return;
+    }
     assert.equal(
       response.status,
       200,
       `${sourceUrl} returned HTTP ${response.status}`,
     );
     assert(
-      TRUSTED_SOURCE_HOSTS.has(new URL(response.url).hostname),
+      TRUSTED_SOURCE_HOSTS.has(responseHost),
       `${sourceUrl} redirected outside the approved source hosts to ${response.url}`,
     );
 
@@ -116,7 +136,7 @@ const main = async () => {
   }
 
   console.log(
-    `Spot Finder live source audit passed: ${spots.length} entries, ${sourceUrls.length} unique reputable URLs, zero HTTP or page-not-found failures.`,
+    `Spot Finder live source audit passed: ${spots.length} entries, ${sourceUrls.length} unique reputable URLs, zero dead-page or unexpected HTTP failures.`,
   );
 };
 

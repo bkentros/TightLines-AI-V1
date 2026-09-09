@@ -2989,11 +2989,11 @@ function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
   return (
     <View style={styles.pushHistory}>
       <View style={styles.pushHistoryHeading}>
-        <Text style={styles.pushHistoryEyebrow}>48-HOUR PUSH HISTORY</Text>
+        <Text style={styles.pushHistoryEyebrow}>4-DAY PUSH HISTORY</Text>
         <Text style={styles.pushHistoryMeta}>OLDEST → MOST RECENT</Text>
       </View>
       <Text style={styles.pushHistoryDirection}>
-        12 four-hour periods spanning the last 48 hours, in local river time.
+        24 four-hour periods spanning the last 4 days, in local river time.
         Swipe to review earlier periods; the latest is on the right.
       </Text>
       <ScrollView
@@ -3006,7 +3006,7 @@ function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
             animated: false,
           })}
       >
-        {reads.slice(-12).map((read) => {
+        {reads.slice(-24).map((read) => {
           const window = normalizePushHistoryWindow(read);
           const status = read.status === "missing"
             ? "NO READ"
@@ -3082,10 +3082,7 @@ function normalizePushHistoryWindow(
   startTime: string;
   endTime: string;
 } {
-  const effectiveSlot = read.refreshSlot === "21:00"
-    ? "20:00"
-    : read.refreshSlot;
-  const [rawHour] = effectiveSlot.split(":");
+  const [rawHour] = read.refreshSlot.split(":");
   const endHour = Number(rawHour);
   if (!Number.isInteger(endHour) || endHour < 0 || endHour > 23) {
     return {

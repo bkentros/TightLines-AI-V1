@@ -68,7 +68,7 @@ Early approach is Lake Michigan, harbor, and mouth. Each run uses the audited lo
 
 ## 5. Spot Finder
 
-Lower: Henry Schuette Park and Manitou Park. Middle: County Manitowoc River Access. Upper: Lower Cato Falls County Park, retained with a prominent April 1-October 31, dawn-to-dusk closure warning. Map-only Danmar and private/unclear Fish & Game frontage remain excluded; Branch River/Country Club are outside the modeled mainstem. Included sites were individually verified 2026-09-02.
+Lower: Henry Schuette Park and Manitou Park. Henry Schuette is correctly classified as a seasonal canoe/kayak carry-in—not a trailered boat ramp—while Manitou retains its documented boat and kayak launch. Middle: County Manitowoc River Access. Upper: Lower Cato Falls County Park, retained with a prominent April 1-October 31, dawn-to-dusk closure warning. Map-only Danmar and private/unclear Fish & Game frontage remain excluded; Branch River/Country Club are outside the modeled mainstem. Included sites were individually verified through 2026-09-08.
 
 ## 6. Reconciliation and acceptance
 

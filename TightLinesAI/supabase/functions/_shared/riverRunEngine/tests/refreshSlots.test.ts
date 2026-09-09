@@ -65,7 +65,7 @@ Deno.test("every configured river publishes the same 21:00 Activity forecast rol
   }
 });
 
-Deno.test("Push read windows label the trailing four hours and fold the Activity rollover into the 8 PM read", () => {
+Deno.test("Push read windows label their actual trailing four hours", () => {
   assertEquals(resolvePushReadWindow("08:00"), {
     startTime: "04:00",
     endTime: "08:00",
@@ -75,8 +75,8 @@ Deno.test("Push read windows label the trailing four hours and fold the Activity
     endTime: "20:00",
   });
   assertEquals(resolvePushReadWindow("21:00"), {
-    startTime: "16:00",
-    endTime: "20:00",
+    startTime: "17:00",
+    endTime: "21:00",
   });
   assertEquals(resolvePushReadWindow("00:00"), {
     startTime: "20:00",

@@ -889,12 +889,12 @@ Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or 
     "oswego-fall-chinook-direct-push-pilot-v3",
   );
   assertEquals(body.waterTemperature.sourceType, "unavailable");
-  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(body.pushHistory.recentWindowReads.length, 24);
   assertEquals(
     body.pushHistory.recentWindowReads.filter(
       (read: { status?: string }) => read.status === "missing",
     ).length,
-    11,
+    23,
   );
 });
 
@@ -2086,9 +2086,9 @@ Deno.test("Push history reports supportive conditions active now", async () => {
   assertEquals(body.pushHistory.currentWindow.label, "Strong");
   assertEquals(body.pushHistory.currentWindow.isCurrent, true);
   assertEquals(body.pushHistory.lastSupportiveConditions.score, 74);
-  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(body.pushHistory.recentWindowReads.length, 24);
   assertEquals(body.pushHistory.recentWindowReads[0], {
-    localDate: "2026-09-18",
+    localDate: "2026-09-16",
     refreshSlot: "20:00",
     score: null,
     label: "No recorded read",
@@ -2101,6 +2101,51 @@ Deno.test("Push history reports supportive conditions active now", async () => {
   assertEquals(body.pushHistory.recentWindowReads.at(-1).label, "Strong");
   assertEquals(body.pushHistory.recentWindowReads.at(-1).startTime, "12:00");
   assertEquals(body.pushHistory.recentWindowReads.at(-1).endTime, "16:00");
+});
+
+Deno.test("Push history backfills a stored read from the fourth day", async () => {
+  const client = new MockClient();
+  const current = conditionRow();
+  const historical = conditionRow("2026-09-17");
+  historical.push = {
+    ...historical.push,
+    score: 64,
+    label: "Possible",
+  };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [historical, current];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.pushHistory.recentWindowReads.length, 24);
+  assertEquals(
+    body.pushHistory.recentWindowReads.find(
+      (read: { localDate: string; refreshSlot: string }) =>
+        read.localDate === "2026-09-17" && read.refreshSlot === "16:00",
+    ),
+    {
+      localDate: "2026-09-17",
+      refreshSlot: "16:00",
+      conditionRefreshAt: "2026-09-17T20:10:00.000Z",
+      score: 64,
+      label: "Possible",
+      startTime: "12:00",
+      endTime: "16:00",
+      isCurrent: false,
+    },
+  );
 });
 
 Deno.test("Push history stays anchored to the current period when its read is missing", async () => {
@@ -2129,12 +2174,54 @@ Deno.test("Push history stays anchored to the current period when its read is mi
   const latest = body.pushHistory.recentWindowReads.at(-1);
 
   assertEquals(response.status, 200);
-  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(body.pushHistory.recentWindowReads.length, 24);
   assertEquals(latest.localDate, "2026-09-20");
   assertEquals(latest.refreshSlot, "16:00");
   assertEquals(latest.startTime, "12:00");
   assertEquals(latest.endTime, "16:00");
   assertEquals(latest.status, "missing");
+  assertEquals(latest.isCurrent, true);
+});
+
+Deno.test("the 21:00 Activity rollover cannot replace the 20:00 Push checkpoint", async () => {
+  const client = new MockClient();
+  const eightPm = conditionRow();
+  eightPm.refresh_slot = "20:00";
+  eightPm.condition_refresh_at = "2026-09-21T00:10:00.000Z";
+  eightPm.push = { ...eightPm.push, score: 64, label: "Possible" };
+  const activityRollover = conditionRow();
+  activityRollover.refresh_slot = "21:00";
+  activityRollover.condition_refresh_at = "2026-09-21T01:10:00.000Z";
+  activityRollover.push = {
+    ...activityRollover.push,
+    score: 92,
+    label: "Strong",
+  };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [eightPm, activityRollover];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=21:30&refreshAtUtc=2026-09-21T01:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+  const latest = body.pushHistory.recentWindowReads.at(-1);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.pushHistory.currentWindow, undefined);
+  assertEquals(latest.refreshSlot, "20:00");
+  assertEquals(latest.startTime, "16:00");
+  assertEquals(latest.endTime, "20:00");
+  assertEquals(latest.score, 64);
+  assertEquals(latest.label, "Possible");
+  assertEquals(latest.conditionRefreshAt, "2026-09-21T00:10:00.000Z");
   assertEquals(latest.isCurrent, true);
 });
 

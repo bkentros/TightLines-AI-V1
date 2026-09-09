@@ -18,7 +18,8 @@ Foundation/run truth `oswego-foundation-v2-owner-review`, reviewed 2026-09-02. S
 | E-003 | DEC steelhead | https://dec.ny.gov/things-to-do/freshwater-fishing/places-to-fish/great-lakes-niagara-river-st-lawrence-river/steelhead-fishing-lake-ontario-tributaries | fall entry/winter holding; no spring product |
 | E-004 | DEC tributary rules | https://dec.ny.gov/things-to-do/freshwater-fishing/regulations/great-lakes-tributaries | Utica–Varick special rules; recheck emergencies |
 | E-005 | DEC launches | https://dec.ny.gov/things-to-do/boating/launch-sites/oswego-county | Wright's Landing and Oswego launch; no blanket shore access |
-| E-006 | USGS 04249000 | https://waterdata.usgs.gov/monitoring-location/04249000/ | flow/height/history; canal/power/backwater limitations |
+| E-006 | City of Oswego waterfront facilities | https://www.oswegony.gov/departments/marina_waterfront.php | Oswego River Walk East and West are maintained public fishing walkways | Hydropower, mandatory-PFD, and posted boundaries still control |
+| E-007 | USGS 04249000 | https://waterdata.usgs.gov/monitoring-location/04249000/ | flow/height/history; canal/power/backwater limitations |
 
 ### Delivery contract
 
@@ -62,7 +63,7 @@ Early approach is Lake Ontario/harbor/mouth. Salmon and brown use a two-reach sp
 
 ## 5. Spot Finder
 
-Lower: Wright's Landing municipal boat launch only—no shore-fishing permission is inferred. Terminal: Linear Park shore/platform access and the municipal hard-surface Oswego launch near Lock O8 listed in DEC's inventory. Government sources were verified 2026-09-02. Records preserve launch/fee, mandatory-PFD, hydropower, Leto Island, navigation, and non-blanket-access cautions. Informal/east-bank locations without clear government access proof were excluded.
+Lower: Wright's Landing municipal boat launch only—no shore-fishing permission is inferred. Terminal: west-side Linear Park shore/platform access, the separately documented Oswego River Walk East, and the municipal hard-surface Oswego launch near Lock O8. Government sources were verified through 2026-09-08. Records preserve launch/fee, mandatory-PFD, hydropower, Leto Island, navigation, and non-blanket-access cautions. Informal east-bank locations remain excluded; only the city-documented River Walk East is retained.
 
 ## 6. Reconciliation and acceptance
 

@@ -616,7 +616,7 @@ Deno.test("recent Push history keeps each day's strongest supportive window", as
   });
 });
 
-Deno.test("today's Push reads retain each four-hour window and fold the Activity rollover into 8 PM", async () => {
+Deno.test("today's Push reads retain each four-hour window and exclude the Activity rollover", async () => {
   const client = new MockSupabaseClient();
   client.listResponse = {
     data: [
@@ -683,9 +683,9 @@ Deno.test("today's Push reads retain each four-hour window and fold the Activity
     {
       localDate: "2026-09-20",
       refreshSlot: "20:00",
-      conditionRefreshAt: "2026-09-21T01:10:00Z",
-      score: 68,
-      label: "Strong",
+      conditionRefreshAt: "2026-09-21T00:10:00Z",
+      score: 54,
+      label: "Possible",
     },
   ]);
   assertEquals(

@@ -383,6 +383,10 @@ export async function getPushConditionsForDate(
 
   const latestByWindow = new Map<string, PushWindowConditions>();
   for (const row of result.data ?? []) {
+    // The 21:00 refresh exists to publish tomorrow's Activity outlook. It is
+    // not one of Push's six four-hour checkpoints and must never replace the
+    // actual 20:00 Push read in history.
+    if (row.refresh_slot === "21:00") continue;
     const score = row.push?.score;
     if (row.push?.rulesVersion !== key.rulesVersion) continue;
     if (
@@ -393,9 +397,7 @@ export async function getPushConditionsForDate(
       !Number.isFinite(score) ||
       typeof row.push?.label !== "string"
     ) continue;
-    const refreshSlot = row.refresh_slot === "21:00"
-      ? "20:00"
-      : row.refresh_slot;
+    const refreshSlot = row.refresh_slot;
     const candidate = {
       localDate: row.local_date,
       refreshSlot,

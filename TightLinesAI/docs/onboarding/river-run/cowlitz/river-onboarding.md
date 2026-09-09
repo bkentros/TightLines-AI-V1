@@ -35,6 +35,10 @@ Independent falsification review by/date: separate evidence-review pass / 2026-0
 | C-12 | Cowlitz County, Cook Ferry Trail System | https://www.co.cowlitz.wa.us/2280/Cook-Ferry-Trail-System | current, checked 2026-08-30 | River trailheads, parking, restroom, and fishing opportunity | Does not authorize neighboring land entry |
 | C-13 | WDFW Blue Creek access | https://wdfw.wa.gov/places-to-go/water-access-sites/blue-creek-268 | current, checked 2026-08-30 | Parking and three ADA fishing platforms | Hatchery-outfall exclusion/eligibility applies |
 | C-14 | Tacoma Power Cowlitz Salmon Hatchery/Barrier access | https://www.mytpu.org/community-environment-parks/hydropower-natural-resources/cowlitz-river-project/cowlitz-fisheries-programs/cowlitz-salmon-hatchery/ | current, checked 2026-08-30 | No-fee launch, parking, restrooms, ADA fishing ramp, access hours | Posted Barrier closure controls; hours can change |
+| C-15 | City of Castle Rock, Al Helenberg Memorial Boat Launch | https://www.ci.castle-rock.wa.us/download/MemorialBoatLaunch/7_Mitigation-Plan_Boat-Launch-Dredging.pdf | current facility, checked 2026-09-08 | Two-lane ramp, floats, parking, restroom, canoe/kayak slip | Current, sediment, and woody debris can limit safe use |
+| C-16 | Cowlitz County Comprehensive Parks Plan, Hog Island | https://www.co.cowlitz.wa.us/DocumentCenter/View/35527/Parks-Comp-Plan-Final | current plan, checked 2026-09-08 | Primitive bank fishing and kayak/small-boat launch | No developed lot; very limited parking and shoreline access |
+| C-17 | WDFW Olequa Crossing | https://wdfw.wa.gov/places-to-go/water-access-sites/olequa-crossing-322 | current, checked 2026-09-08 | Concrete Cowlitz ramp, parking, restroom, year-round access | Pass may be required; no boarding float |
+| C-18 | City of Toledo Boat Launch | https://www.toledowa.us/1367/Boat-Launch-Details | current, checked 2026-09-08 | Year-round public launch, fishing access and parking | Fee and temporary condition closures apply |
 
 ## 2. Identity and corridor
 
@@ -90,8 +94,8 @@ Accepted for hidden owner review with all three canonical sections.
 | Public section | Foundation reach | Access | Fishing/access proof | Release treatment |
 | --- | --- | --- | --- | --- |
 | Lower Run Section — mouth boundary markers to Lexington Bridge | `cowlitz_lower` | Gerhart Gardens Park | City of Longview lists fishing and boat launch; city facility document places it on the Cowlitz | Verify posted park and launch condition |
-| Middle Run Section — Lexington Bridge to Mill Creek | `cowlitz_middle` | Cook Ferry Trail System | Cowlitz County lists three trailheads, parking, restroom, river trail, and fishing | Designated trailheads only |
-| Upper Run Section — Mill Creek to posted markers below Barrier Dam | `cowlitz_barrier_reach` | Wallace Bar; Blue Creek; Barrier Dam | WDFW sport-fishing easement/platform pages and Tacoma Power fishing-ramp/launch page | Encode private-easement strip, outfall, disability exception, Barrier exclusion, and seasonal hours in cautions |
+| Middle Run Section — Lexington Bridge to Mill Creek | `cowlitz_middle` | Cook Ferry Trail System; Al Helenberg Memorial Boat Launch; Hog Island Access; Olequa Crossing | City, county, and WDFW sources document the two developed ramps, trail fishing, and primitive bank/carry-in access | Preserve current/debris, designated-trail, minimal-parking, pass, and no-float cautions |
+| Upper Run Section — Mill Creek to posted markers below Barrier Dam | `cowlitz_barrier_reach` | Wallace Bar; Toledo Boat Launch; Blue Creek; Barrier Dam | WDFW sport-fishing easement/platform pages, City of Toledo launch page, and Tacoma Power fishing-ramp/launch page | Encode fee, private-easement strip, outfall, disability exception, Barrier exclusion, and seasonal hours in cautions |
 
 Rejected candidates include generic parks, Tower Bridge on the Toutle system, and launch pages lacking fishing compatibility. The terminal section never crosses the posted 400-foot-or-marker Barrier deadline.
 
