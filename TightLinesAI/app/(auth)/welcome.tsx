@@ -9,10 +9,10 @@
  *  - The three-fish pin sits in a dashboard-blue orbital stage built for the
  *    white cover: rotating signal nodes, a soft breathing aura, and a clipped
  *    light sweep keep the mark alive without competing with its silhouette.
- *  - The hero card is short — everything (hero + value props + CTAs +
- *    footer) fits on a single iPhone screen without scrolling.
- *  - The three value props are presented as numbered field-guide entries
- *    (I · II · III) on a cream ground with subtle navy icon chips, with
+ *  - The hero card stays compact so the complete module list and auth actions
+ *    remain quick to scan on the surrounding responsive scroll view.
+ *  - The five value props are presented as numbered field-guide entries
+ *    (I · II · III · IV · V) on a cream ground with subtle navy icon chips, with
  *    enough vertical breathing room to read at a glance.
  */
 
@@ -123,6 +123,16 @@ const FEATURES: {
     iconBg: ["#E8F2FA", "#C8DFF2"],
     iconBorder: "#0F63B0",
     iconColor: "#0A4A87",
+  },
+  {
+    numeral: "V",
+    moduleId: "color-match",
+    title: "Color Match",
+    tag: "COLOR GUIDE",
+    blurb: "Two reviewed lure or fly color picks for direct light and two for diffuse light, matched to water clarity.",
+    iconBg: ["#FBEBDD", "#F3C9A7"],
+    iconBorder: "#D9772B",
+    iconColor: "#9B4E18",
   },
 ];
 
@@ -397,7 +407,7 @@ export default function WelcomeScreen() {
             )
             : null}
 
-          {/* ─── Field-guide entries — I · II · III · IV ───────────────── */}
+          {/* ─── Field-guide entries — I · II · III · IV · V ─────────────── */}
           <View style={styles.valuePropsBlock}>
             <View style={styles.valuePropsHeader}>
               <Text
@@ -1001,7 +1011,7 @@ const styles = StyleSheet.create({
   },
   valueModuleCompact: {
     // Compact widths wrap the longer title/tag pairs while Water Read stays
-    // on one line. Keep the four modules visually equal without fixing their
+    // on one line. Keep the five modules visually equal without fixing their
     // height, so larger text can still grow instead of clipping.
     minHeight: 106,
   },

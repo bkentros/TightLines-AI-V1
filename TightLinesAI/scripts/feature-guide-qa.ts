@@ -38,7 +38,7 @@ assert.match(
 
 assert.match(
   guide,
-  /title: "Today's Bite"[\s\S]*?title: "River Migration"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "Water Read"/,
+  /title: "Today's Bite"[\s\S]*?title: "River Migration"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "Water Read"[\s\S]*?title: "Color Match"/,
   "Feature guidance must follow the product-priority order",
 );
 
@@ -54,6 +54,12 @@ assert.match(
   guide,
   /warmwater species[\s\S]*?trout and other coldwater species in fall, winter, and spring[\s\S]*?Do not rely on it for coldwater species in summer/,
   "Today's Bite must carry the owner-approved species and season boundary",
+);
+
+assert.match(
+  guide,
+  /module: "color-match"[\s\S]*?route: "\/color-picker"[\s\S]*?two equal-status picks for direct light and two for diffuse light/,
+  "Color Match must be openable and describe its honest two-by-two guidance",
 );
 
 assert.match(
@@ -75,5 +81,5 @@ assert.doesNotMatch(
 );
 
 console.log(
-  "Feature guide QA passed: concise four-tool order, structured guidance, and seasonal product boundaries.",
+  "Feature guide QA passed: concise five-tool order, structured guidance, and seasonal product boundaries.",
 );

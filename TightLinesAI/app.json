@@ -14,7 +14,6 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finseekr.finfindr",
-      "buildNumber": "31",
       "infoPlist": {
         "CFBundleDisplayName": "FinFindr",
         "CFBundleName": "FinFindr",
@@ -28,8 +27,7 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#0a1628"
       },
-      "package": "com.finseekr.finfindr",
-      "versionCode": 13
+      "package": "com.finseekr.finfindr"
     },
     "web": {
       "favicon": "./assets/favicon.png"

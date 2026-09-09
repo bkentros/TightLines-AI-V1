@@ -31,7 +31,8 @@ type FeatureRoute =
   | "/how-fishing"
   | "/river-run"
   | "/recommender"
-  | "/water-reader";
+  | "/water-reader"
+  | "/color-picker";
 
 type FeatureGuide = {
   code: string;
@@ -129,6 +130,25 @@ const FEATURE_GUIDES: FeatureGuide[] = [
       "It is not a depth chart, sonar view, live-position tool, or promise of exact fish locations.",
     supporting: true,
   },
+  {
+    code: "05",
+    title: "Color Match",
+    tag: "COLOR GUIDE",
+    tagline: "Choose a color starting point.",
+    module: "color-match",
+    route: "/color-picker",
+    action: "OPEN COLOR MATCH",
+    iconBg: ["#FBEBDD", "#F3C9A7"],
+    accent: "#D9772B",
+    iconColor: "#9B4E18",
+    tint: "#FFF5EB",
+    whenToUse:
+      "Open it after choosing a lure or fly when water clarity and available light are your next questions.",
+    howItReads:
+      "It matches the bait type and clear, stained, or murky water to reviewed color pools, then shows two equal-status picks for direct light and two for diffuse light.",
+    guidesNote:
+      "Treat the picks as practical starting points. Local forage, depth, presentation, and fish response still belong to your on-water adjustment.",
+  },
 ];
 
 export default function FeatureGuideScreen() {
@@ -209,7 +229,7 @@ export default function FeatureGuideScreen() {
             <CornerMarkSet color={paper.red} size={17} thickness={2} inset={12} />
             <View style={styles.heroPill}>
               <Ionicons name="compass-outline" size={13} color={paper.redDk} />
-              <Text style={styles.heroPillText}>FOUR TOOLS · FOUR JOBS</Text>
+              <Text style={styles.heroPillText}>FIVE TOOLS · FIVE JOBS</Text>
             </View>
             <Text style={styles.heroTitle} allowFontScaling={false}>
               PICK A QUESTION.{"\n"}
@@ -227,6 +247,8 @@ export default function FeatureGuideScreen() {
               <QuestionCue icon="color-wand-outline" label="THE TACKLE" />
               <View style={styles.questionRule} />
               <QuestionCue icon="map-outline" label="THE WATER" />
+              <View style={styles.questionRule} />
+              <QuestionCue icon="color-palette-outline" label="THE COLOR" />
             </View>
           </View>
 

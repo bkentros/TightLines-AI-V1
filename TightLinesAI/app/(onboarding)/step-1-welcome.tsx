@@ -223,10 +223,10 @@ export default function OnboardingStep1() {
                 <View style={styles.chapterTextCol}>
                   <Text style={styles.chapterTitle}>The Tackle Box</Text>
                   <Text style={styles.chapterBlurb}>
-                    Two lures, two flies — ranked for today.
+                    Two lures, two flies — tuned for today.
                   </Text>
                   <View style={[styles.chapterTagPill, { borderColor: `${paper.dashboardBlue}60`, backgroundColor: `${paper.dashboardBlueSky}55` }]}>
-                    <Text style={[styles.chapterTagText, { color: paper.dashboardBlue }]}>LURES · FLIES · COLORS</Text>
+                    <Text style={[styles.chapterTagText, { color: paper.dashboardBlue }]}>LURES · FLIES · PRESENTATION</Text>
                   </View>
                 </View>
               </View>

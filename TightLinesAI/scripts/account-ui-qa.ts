@@ -6,6 +6,7 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const tabs = readFileSync(`${projectRoot}app/(tabs)/_layout.tsx`, "utf8");
 const settings = readFileSync(`${projectRoot}app/(tabs)/settings.tsx`, "utf8");
 const membership = readFileSync(`${projectRoot}app/subscribe.tsx`, "utf8");
+const welcome = readFileSync(`${projectRoot}app/(auth)/welcome.tsx`, "utf8");
 const unlockedModal = readFileSync(
   `${projectRoot}components/paper/AnglerUnlockedModal.tsx`,
   "utf8",
@@ -54,9 +55,14 @@ assert.match(
   "River Migration must be listed as included with Angler",
 );
 assert.match(
+  welcome,
+  /moduleId: "todays-bite"[\s\S]*?moduleId: "river-run"[\s\S]*?moduleId: "tackle-box"[\s\S]*?moduleId: "water-read"[\s\S]*?moduleId: "color-match"/,
+  "The public welcome screen must show all five live Angler modules",
+);
+assert.match(
   membership,
-  /module: 'todays-bite'[\s\S]*?module: 'river-run'[\s\S]*?module: 'tackle-box'[\s\S]*?module: 'water-read'/,
-  "Angler benefits must follow the current four-feature product order",
+  /module: 'todays-bite'[\s\S]*?module: 'river-run'[\s\S]*?module: 'tackle-box'[\s\S]*?module: 'water-read'[\s\S]*?module: 'color-match'/,
+  "Angler benefits must follow the current five-feature product order",
 );
 assert.match(
   membership,
@@ -65,10 +71,10 @@ assert.match(
 );
 assert.match(
   unlockedModal,
-  /Today's Bite, River Migration, Tackle Box, and Water Read/,
-  "The Angler unlock confirmation must name all four included features",
+  /Today's Bite, River Migration, Tackle Box, Water Read, and Color Match/,
+  "The Angler unlock confirmation must name all five included features",
 );
 
 console.log(
-  "Account UI QA passed: two-tab shell, premium Settings, and four-feature Angler membership.",
+  "Account UI QA passed: two-tab shell, premium Settings, and five-feature Angler membership.",
 );

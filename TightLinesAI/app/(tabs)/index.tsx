@@ -1719,7 +1719,7 @@ export default function HomeScreen() {
           <View style={styles.modules}>
             <View style={styles.modulesHeader}>
               <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-              <Text style={styles.modulesCount}>4 LIVE · 2 PLANNED</Text>
+              <Text style={styles.modulesCount}>5 LIVE · 1 PLANNED</Text>
             </View>
 
             <Pressable

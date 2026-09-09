@@ -81,6 +81,14 @@ const ANGLER_FEATURES: Array<{
     accent: paper.dashboardBlue,
     iconColor: '#0A4A87',
   },
+  {
+    module: 'color-match',
+    title: 'Color Match',
+    copy: 'Reviewed lure and fly color starting points for clear, stained, or murky water and changing light.',
+    iconBg: ['#FBEBDD', '#F3C9A7'],
+    accent: '#D9772B',
+    iconColor: '#9B4E18',
+  },
 ];
 
 export default function SubscribeScreen() {
@@ -124,8 +132,8 @@ export default function SubscribeScreen() {
       </>
     );
   const heroCopy = hasAngler
-    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, River Migration, Tackle Box, and Water Read are unlocked.`
-    : "One membership unlocks Today's Bite, River Migration, Tackle Box, and Water Read.";
+    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, River Migration, Tackle Box, Water Read, and Color Match are unlocked.`
+    : "One membership unlocks Today's Bite, River Migration, Tackle Box, Water Read, and Color Match.";
 
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -206,7 +214,7 @@ export default function SubscribeScreen() {
             <View style={styles.heroMembershipStamp}>
               <Ionicons name="sparkles" size={12} color={paper.bandFair} />
               <Text style={styles.heroMembershipStampText}>
-                FOUR INTELLIGENCE TOOLS · ONE MEMBERSHIP
+                FIVE INTELLIGENCE TOOLS · ONE MEMBERSHIP
               </Text>
             </View>
           </View>

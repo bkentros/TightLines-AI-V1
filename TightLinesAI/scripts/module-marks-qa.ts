@@ -13,12 +13,12 @@ const preview = readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8
 
 assert.match(
   home,
-  /title="Water Read"[\s\S]*?code="05"[\s\S]*?title="Color Match"[\s\S]*?tag="COLOR GUIDE"[\s\S]*?moduleId="color-match"[\s\S]*?iconBorder="#D9772B"[\s\S]*?comingSoon/,
-  "Color Match must be the orange, disabled fifth module",
+  /title="Water Read"[\s\S]*?code="05"[\s\S]*?title="Color Match"[\s\S]*?tag="COLOR GUIDE"[\s\S]*?moduleId="color-match"[\s\S]*?iconBorder="#D9772B"[\s\S]*?onPress=\{\(\) => router\.push\("\/color-picker"\)\}/,
+  "Color Match must be the orange, openable fifth module",
 );
 assert.match(
   home,
-  /4 LIVE · 2 PLANNED/,
+  /5 LIVE · 1 PLANNED/,
   "The module count must distinguish available and planned tools",
 );
 assert.match(
