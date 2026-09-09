@@ -32,8 +32,10 @@
 /TightLinesAI/.env.local
 /TightLinesAI/.env.*.local
 
-# Backend, audit, and documentation sources are not part of the mobile binary
-/TightLinesAI/supabase/
+# Backend, audit, and documentation sources are not part of the mobile binary.
+# Color Match imports shared runtime code from supabase/functions, so retain it.
+/TightLinesAI/supabase/.temp/
+/TightLinesAI/supabase/migrations/
 /TightLinesAI/scripts/
 /TightLinesAI/docs/
 /TightLinesAI/tmp/

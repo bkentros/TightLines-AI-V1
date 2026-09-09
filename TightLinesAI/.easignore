@@ -17,7 +17,10 @@ android/
 
 # Local tooling and non-mobile build artifacts
 scripts/
-supabase/
+# The app imports the Color Match catalog from the shared Edge Function code.
+# Include functions in EAS archives, but omit local state and large SQL history.
+supabase/.temp/
+supabase/migrations/
 docs/
 tmp/
 assets/store-listing/
