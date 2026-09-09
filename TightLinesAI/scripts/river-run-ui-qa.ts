@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   riverRunRiverChoices,
   riverRunStateChoices,
@@ -27,7 +28,7 @@ const FULL_YEAR_REPLAY_DATES = Array.from({ length: 365 }, (_, offset) => {
   return date.toISOString().slice(0, 10);
 });
 
-const root = resolve(import.meta.dirname, "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
 const catalogSelection = readFileSync(
   resolve(root, "lib/riverRunCatalogSelection.ts"),
@@ -418,13 +419,18 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /48-HOUR HISTORY[\s\S]*?OLDEST → MOST RECENT[\s\S]*?Earlier reads are left[\s\S]*?newest read is on the right/,
+  /48-HOUR PUSH HISTORY[\s\S]*?OLDEST → MOST RECENT[\s\S]*?12 four-hour periods spanning the last 48 hours, in local river time[\s\S]*?latest is on the right/,
   "Push history must state its chronology unambiguously",
 );
 assert.match(
   riverRunScreen,
-  /formatPushHistoryDate\(read\.localDate\)[\s\S]*?formatPushHistoryTime\(read\.startTime\)[\s\S]*?LATEST/,
-  "Push history blocks must show a date, 12-hour time, and latest marker",
+  /normalizePushHistoryWindow\(read\)[\s\S]*?formatPushHistoryDate\(window\.startDate\)[\s\S]*?formatPushHistoryTime\(window\.startTime\)[\s\S]*?formatPushHistoryTime\(window\.endTime\)[\s\S]*?status[\s\S]*?LATEST/,
+  "Push history blocks must show the period's date, full time range, status, and latest marker",
+);
+assert.match(
+  riverRunScreen,
+  /const startHour = \(endHour - 4 \+ 24\) % 24[\s\S]*?shiftPushHistoryDate\(read\.localDate, -1\)/,
+  "Push history must normalize legacy response windows to trailing four-hour local periods with midnight rollover",
 );
 assert.match(
   riverRunScreen,
@@ -666,6 +672,8 @@ for (
         "www.michigan.gov",
         "www.michiganwatertrails.org",
         "www.nilesmi.org",
+        "www.fws.gov",
+        "www.sjcity.com",
         "www.villageofberriensprings.com",
         "dnr.wisconsin.gov",
         "www.village.thiensville.wi.us",
@@ -692,6 +700,40 @@ for (
     );
   }
 }
+
+const michiganSpotCounts = {
+  pere_marquette: 16,
+  betsie: 5,
+  big_manistee: 9,
+  muskegon: 14,
+  st_joseph: 15,
+  grand: 26,
+  white: 10,
+} as const;
+const allSpotIds = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
+  finder.sections.flatMap((section) => section.spots.map((spot) => spot.id))
+);
+assert.equal(
+  new Set(allSpotIds).size,
+  allSpotIds.length,
+  "Spot Finder IDs must remain globally unique",
+);
+for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
+  const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
+    (total, section) => total + section.spots.length,
+    0,
+  );
+  assert.equal(
+    actualCount,
+    expectedCount,
+    `${riverId} must retain its audited Michigan public-access inventory`,
+  );
+}
+assert.equal(
+  Object.values(michiganSpotCounts).reduce((total, count) => total + count, 0),
+  95,
+  "The audited Michigan River Run inventory must contain 95 access points",
+);
 
 for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
   if (finder.riverRunAligned === false) continue;
@@ -881,8 +923,8 @@ for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
   );
   assert.equal(
     finder.sections.reduce((total, section) => total + section.spots.length, 0),
-    13,
-    `Michigan St. Joseph Spot Finder must retain all 13 access points for ${species}`,
+    15,
+    `Michigan St. Joseph Spot Finder must retain all 15 access points for ${species}`,
   );
   assert.equal(
     riverRunSpotFinderForRiver("st_joseph", species, "IN"),
@@ -1123,19 +1165,23 @@ const sectionSpotNames = (riverId: string, sectionId: string) =>
     section.id === sectionId
   )?.spots.map((spot) => spot.name);
 assert.deepEqual(
-  sectionSpotNames("pere_marquette", "pm_middle")?.slice(0, 3),
+  sectionSpotNames("pere_marquette", "pm_middle"),
   [
+    "Custer Weir & Boat Launch",
     "Indian Bridge River Access",
     "Walhalla Road Bridge",
-    "Sulak / Upper Branch",
+    "Maple Leaf Angler Access",
   ],
   "Pere Marquette middle access must follow the audited downstream-to-upstream order",
 );
 assert.deepEqual(
   sectionSpotNames("pere_marquette", "pm_upper"),
   [
+    "Upper Branch Bridge Landing",
+    "Sulak River Access",
     "Rainbow Rapids Access",
     "Bowman Bridge River Access",
+    "Rosebush Bend Angler Access",
     "Gleason's Landing",
     "Claybanks River Access",
     "Green Cottage Access",
@@ -1143,6 +1189,26 @@ assert.deepEqual(
     "M-37 Bridge Access",
   ],
   "Pere Marquette upper access must follow the audited downstream-to-upstream order",
+);
+assert.deepEqual(
+  sectionSpotNames("grand", "grand_lower")?.slice(0, 4),
+  [
+    "Grand Haven State Park Pier & Boardwalk",
+    "Connor Bayou",
+    "Riverside Park Boat Launch",
+    "Indian Channel",
+  ],
+  "Grand lower access must begin at the public mouth and lower-corridor sites",
+);
+assert.deepEqual(
+  sectionSpotNames("st_joseph", "stjoe_lower")?.slice(0, 4),
+  [
+    "Silver Beach South Pier Access",
+    "Tiscornia North Pier Access",
+    "Marina Island City Boat Launch",
+    "Paddler Park at East Basin",
+  ],
+  "St. Joseph lower access must distinguish both piers and the municipal launch",
 );
 assert.deepEqual(
   sectionSpotNames("big_manistee", "manistee_middle"),

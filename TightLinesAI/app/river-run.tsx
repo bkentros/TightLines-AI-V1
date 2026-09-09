@@ -56,6 +56,7 @@ import type {
   RiverRunLiveConditions,
   RiverRunPrimitiveDisplay,
   RiverRunPushHistory,
+  RiverRunPushWindowRead,
   RiverRunSeason,
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
@@ -2988,11 +2989,12 @@ function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
   return (
     <View style={styles.pushHistory}>
       <View style={styles.pushHistoryHeading}>
-        <Text style={styles.pushHistoryEyebrow}>48-HOUR HISTORY</Text>
+        <Text style={styles.pushHistoryEyebrow}>48-HOUR PUSH HISTORY</Text>
         <Text style={styles.pushHistoryMeta}>OLDEST → MOST RECENT</Text>
       </View>
       <Text style={styles.pushHistoryDirection}>
-        Earlier reads are left. The newest read is on the right.
+        12 four-hour periods spanning the last 48 hours, in local river time.
+        Swipe to review earlier periods; the latest is on the right.
       </Text>
       <ScrollView
         ref={historyScrollRef}
@@ -3004,34 +3006,63 @@ function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
             animated: false,
           })}
       >
-        {reads.slice(-12).map((read) => (
-          <View
-            key={`${read.localDate}-${read.refreshSlot}`}
-            style={styles.pushHistoryItem}
-            accessible
-            accessibilityRole="text"
-            accessibilityLabel={`${formatPushHistoryDate(read.localDate)}, ${
-              formatPushHistoryTime(read.startTime)
-            }: ${read.label}${read.isCurrent ? ", current read" : ""}`}
-          >
-            <Text style={styles.pushHistoryDate}>
-              {formatPushHistoryDate(read.localDate)}
-            </Text>
+        {reads.slice(-12).map((read) => {
+          const window = normalizePushHistoryWindow(read);
+          const status = read.status === "missing"
+            ? "NO READ"
+            : read.label.toUpperCase();
+          return (
             <View
+              key={`${read.localDate}-${read.refreshSlot}`}
               style={[
-                styles.pushHistoryBar,
-                { backgroundColor: pushHistoryColor(read.label, read.status) },
-                read.isCurrent && styles.pushHistoryBarCurrent,
+                styles.pushHistoryItem,
+                read.isCurrent && styles.pushHistoryItemCurrent,
               ]}
-            />
-            <Text style={styles.pushHistoryTime}>
-              {formatPushHistoryTime(read.startTime)}
-            </Text>
-            <Text style={styles.pushHistoryCurrent}>
-              {read.isCurrent ? "LATEST" : " "}
-            </Text>
-          </View>
-        ))}
+              accessible
+              accessibilityRole="text"
+              accessibilityLabel={`${
+                formatPushHistoryDate(window.startDate)
+              }, ${formatPushHistoryTime(window.startTime)} to ${
+                formatPushHistoryTime(window.endTime)
+              }: ${status}${read.isCurrent ? ", latest read" : ""}`}
+            >
+              <Text style={styles.pushHistoryDate}>
+                {formatPushHistoryDate(window.startDate)}
+              </Text>
+              <Text style={styles.pushHistoryTime}>
+                {formatPushHistoryTime(
+                  window.startTime,
+                )}–{formatPushHistoryTime(window.endTime)}
+              </Text>
+              <View
+                style={[
+                  styles.pushHistoryBar,
+                  {
+                    backgroundColor: pushHistoryColor(
+                      read.label,
+                      read.status,
+                    ),
+                  },
+                  read.isCurrent && styles.pushHistoryBarCurrent,
+                ]}
+              />
+              <Text
+                style={[
+                  styles.pushHistoryStatus,
+                  read.status === "missing" && styles.pushHistoryStatusMissing,
+                ]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.72}
+              >
+                {status}
+              </Text>
+              <Text style={styles.pushHistoryCurrent}>
+                {read.isCurrent ? "LATEST" : " "}
+              </Text>
+            </View>
+          );
+        })}
       </ScrollView>
       {reads.length === 0
         ? (
@@ -3042,6 +3073,44 @@ function PushHistoryStrip({ history }: { history: RiverRunPushHistory }) {
         : null}
     </View>
   );
+}
+
+function normalizePushHistoryWindow(
+  read: RiverRunPushWindowRead,
+): {
+  startDate: string;
+  startTime: string;
+  endTime: string;
+} {
+  const effectiveSlot = read.refreshSlot === "21:00"
+    ? "20:00"
+    : read.refreshSlot;
+  const [rawHour] = effectiveSlot.split(":");
+  const endHour = Number(rawHour);
+  if (!Number.isInteger(endHour) || endHour < 0 || endHour > 23) {
+    return {
+      startDate: read.localDate,
+      startTime: read.startTime,
+      endTime: read.endTime,
+    };
+  }
+  const startHour = (endHour - 4 + 24) % 24;
+  const startTime = `${String(startHour).padStart(2, "0")}:00`;
+  const endTime = `${String(endHour).padStart(2, "0")}:00`;
+  return {
+    startDate: startHour > endHour
+      ? shiftPushHistoryDate(read.localDate, -1)
+      : read.localDate,
+    startTime,
+    endTime,
+  };
+}
+
+function shiftPushHistoryDate(localDate: string, days: number): string {
+  const parsed = new Date(`${localDate}T12:00:00Z`);
+  if (!Number.isFinite(parsed.getTime())) return localDate;
+  parsed.setUTCDate(parsed.getUTCDate() + days);
+  return parsed.toISOString().slice(0, 10);
 }
 
 function formatPushHistoryDate(localDate: string): string {
@@ -6121,38 +6190,56 @@ const styles = StyleSheet.create({
   },
   pushHistoryRow: {
     flexDirection: "row",
-    alignItems: "flex-end",
-    gap: 6,
+    alignItems: "stretch",
+    gap: 8,
     paddingHorizontal: 1,
     paddingVertical: 2,
   },
   pushHistoryItem: {
-    width: 52,
+    width: 98,
     alignItems: "center",
-    gap: 3,
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingTop: 8,
+    paddingBottom: 6,
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.16)",
+    borderRadius: 8,
+    backgroundColor: "rgba(255,255,255,0.72)",
+  },
+  pushHistoryItemCurrent: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: "#F3F8FB",
   },
   pushHistoryDate: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
+    fontSize: 8,
     letterSpacing: 0.25,
     color: paper.dashboardInk,
   },
   pushHistoryBar: {
     width: "100%",
     minWidth: 3,
-    height: 18,
-    borderRadius: 2,
+    height: 10,
+    borderRadius: 5,
     opacity: 0.76,
   },
   pushHistoryBarCurrent: {
-    height: 25,
     opacity: 1,
-    borderWidth: 1,
-    borderColor: paper.dashboardInk,
   },
   pushHistoryTime: {
     fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: -0.15,
+    color: paper.dashboardInk,
+  },
+  pushHistoryStatus: {
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 8,
+    letterSpacing: 0.35,
+    color: paper.dashboardInk,
+  },
+  pushHistoryStatusMissing: {
     color: paper.dashboardMuted,
   },
   pushHistoryCurrent: {

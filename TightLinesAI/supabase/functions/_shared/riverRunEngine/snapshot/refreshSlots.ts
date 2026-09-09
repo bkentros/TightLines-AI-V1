@@ -86,8 +86,8 @@ export function resolvePushReadWindow(refreshSlot: RefreshSlot): {
 } {
   const effectiveSlot = refreshSlot === "21:00" ? "20:00" : refreshSlot;
   const minutes = parseLocalTimeMinutes(effectiveSlot);
-  const startHour = Math.floor(minutes / 60);
-  const endHour = (startHour + 4) % 24;
+  const endHour = Math.floor(minutes / 60);
+  const startHour = (endHour - 4 + 24) % 24;
   return {
     startTime: `${String(startHour).padStart(2, "0")}:00`,
     endTime: `${String(endHour).padStart(2, "0")}:00`,

@@ -2087,8 +2087,55 @@ Deno.test("Push history reports supportive conditions active now", async () => {
   assertEquals(body.pushHistory.currentWindow.isCurrent, true);
   assertEquals(body.pushHistory.lastSupportiveConditions.score, 74);
   assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(body.pushHistory.recentWindowReads[0], {
+    localDate: "2026-09-18",
+    refreshSlot: "20:00",
+    score: null,
+    label: "No recorded read",
+    status: "missing",
+    startTime: "16:00",
+    endTime: "20:00",
+    isCurrent: false,
+  });
   assertEquals(body.pushHistory.recentWindowReads.at(-1).isCurrent, true);
   assertEquals(body.pushHistory.recentWindowReads.at(-1).label, "Strong");
+  assertEquals(body.pushHistory.recentWindowReads.at(-1).startTime, "12:00");
+  assertEquals(body.pushHistory.recentWindowReads.at(-1).endTime, "16:00");
+});
+
+Deno.test("Push history stays anchored to the current period when its read is missing", async () => {
+  const client = new MockClient();
+  const current = conditionRow();
+  current.push = {
+    ...current.push,
+    score: null,
+    label: "Unavailable",
+  };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [current];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+  const latest = body.pushHistory.recentWindowReads.at(-1);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.pushHistory.recentWindowReads.length, 12);
+  assertEquals(latest.localDate, "2026-09-20");
+  assertEquals(latest.refreshSlot, "16:00");
+  assertEquals(latest.startTime, "12:00");
+  assertEquals(latest.endTime, "16:00");
+  assertEquals(latest.status, "missing");
+  assertEquals(latest.isCurrent, true);
 });
 
 Deno.test("Push history survives engine and copy configuration changes when Push rules remain compatible", async () => {

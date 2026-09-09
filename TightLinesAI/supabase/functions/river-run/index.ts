@@ -949,17 +949,21 @@ async function resolvePushHistoryContext(input: {
         (previous.conditionRefreshAt ?? "")
     ) latestByWindow.set(key, read);
   }
+  const currentHistorySlot = input.condition.refreshSlot === "21:00"
+    ? "20:00"
+    : input.condition.refreshSlot;
   const recentWindowReads = directEventModel
-    ? directEventWindowKeys(currentDate, currentWindow?.refreshSlot ?? "00:00")
+    ? directEventWindowKeys(currentDate, currentHistorySlot)
       .map(({ localDate, refreshSlot }) => {
         const recorded = latestByWindow.get(`${localDate}-${refreshSlot}`);
+        const isCurrent = localDate === currentDate &&
+          refreshSlot === currentHistorySlot;
         return recorded
           ? {
             ...recorded,
-            isCurrent: localDate === currentWindow?.localDate &&
-              refreshSlot === currentWindow?.refreshSlot,
+            isCurrent,
           }
-          : missingPushWindow(localDate, refreshSlot);
+          : missingPushWindow(localDate, refreshSlot, isCurrent);
       })
     : recordedWindows.toSorted((a, b) =>
       (a.conditionRefreshAt ?? "").localeCompare(b.conditionRefreshAt ?? "")
@@ -1187,6 +1191,7 @@ function directEventWindowKeys(
 function missingPushWindow(
   localDate: string,
   refreshSlot: string,
+  isCurrent = false,
 ): PushWindowRead {
   return {
     localDate,
@@ -1195,7 +1200,7 @@ function missingPushWindow(
     label: "No recorded read",
     status: "missing",
     ...resolvePushReadWindow(refreshSlot),
-    isCurrent: false,
+    isCurrent,
   };
 }
 

@@ -121,6 +121,8 @@ const DNR_CENTRAL_FISHERIES_SOURCE =
 const DNR_CLOSURES = "https://www.michigan.gov/dnr/about/newsroom/closures";
 const PM_DNR_MAP =
   "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/PublicLands/LandUse/PereMarquette_WandSCorr_BAS.pdf?hash=ABAC24175FEE11C3485EE721B453B6D5&rev=d2b6e8bef18642bab650618c7a6c4471";
+const PM_FOREST_SERVICE_PLAN =
+  "https://www.fws.gov/rivers/sites/rivers/files/documents/plans/pere-marquette-plan.pdf";
 const NILES_RECREATION_PLAN =
   "https://www.nilesmi.org/document_center/department/DPW/City%20of%20Niles%2021-26%20PR%20Plan%20Final.pdf";
 const WHITE_RIVER_MAP =
@@ -202,6 +204,9 @@ const SOURCE_LOCATOR_OVERRIDES: Record<string, string> = {
 const directSourceLocator = (name: string) =>
   `The linked source names “${name}” and describes its public access.`;
 
+const namedSourceLocator = (name: string) =>
+  `Use the linked site or facility details to confirm “${name}” and the stated public access.`;
+
 const dnrSpot = (
   id: string,
   name: string,
@@ -239,6 +244,8 @@ const namedSpot = (
   sourceLabel: string,
   sourceUrl: string,
   caution?: string,
+  verifiedOn = "2026-08-30",
+  sourceLocator = namedSourceLocator(name),
 ): RiverAccessSpot => ({
   id,
   name,
@@ -248,8 +255,8 @@ const namedSpot = (
   caution,
   sourceLabel,
   sourceUrl,
-  sourceLocator: directSourceLocator(name),
-  verifiedOn: "2026-08-30",
+  sourceLocator,
+  verifiedOn,
 });
 
 const sourcedCoordinateSpot = (
@@ -425,6 +432,17 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         position: "middle",
         rangeLabel: "Scottville to Maple Leaf",
         spots: [
+          namedSpot(
+            "pm_custer",
+            "Custer Weir & Boat Launch",
+            "Custer Weir & Boat Launch, Custer, MI",
+            ["boat_ramp", "shore_fishing"],
+            "Township-owned public access with two paved launches, parking and fishing access.",
+            "Michigan Water Trails / Custer Township",
+            "https://www.michiganwatertrails.org/location.asp?aid=1206&ait=av",
+            undefined,
+            "2026-09-08",
+          ),
           sourcedCoordinateSpot(
             "pm_indian_bridge",
             "Indian Bridge River Access",
@@ -446,15 +464,17 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             undefined,
             PM_DNR_MAP,
           ),
-          dnrSpot(
-            "pm_sulak",
-            "Sulak / Upper Branch",
-            43.92605939,
-            -86.00571588,
-            ["boat_ramp"],
-            "Gravel public launch; Recreation Passport required.",
-            undefined,
-            PM_DNR_MAP,
+          namedSpot(
+            "pm_maple_leaf",
+            "Maple Leaf Angler Access",
+            "Maple Leaf Angler Access, Pere Marquette River, Michigan",
+            ["walk_in", "shore_fishing"],
+            "Forest Service walk-in fishing access with designated parking at the middle/upper section boundary.",
+            "U.S. Forest Service",
+            PM_FOREST_SERVICE_PLAN,
+            "Use only the signed access trails; dispersed camping is not permitted at this site.",
+            "2026-09-08",
+            "In Table 5, find access site 16, “Maple Leaf,” and its walk-in-access description.",
           ),
         ],
       },
@@ -464,6 +484,30 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         position: "upper",
         rangeLabel: "Maple Leaf to M-37",
         spots: [
+          namedSpot(
+            "pm_upper_branch",
+            "Upper Branch Bridge Landing",
+            "Upper Branch Bridge Landing, Pere Marquette River, Michigan",
+            ["boat_ramp", "carry_in"],
+            "Forest Service watercraft access with separate canoe and back-in boat launches.",
+            "U.S. Forest Service",
+            PM_FOREST_SERVICE_PLAN,
+            "Seasonal watercraft permits and site fees may apply; use only the signed public launch.",
+            "2026-09-08",
+            "In Table 5, find access site 12, “Upper Branch Bridge Landing,” and its two launch types.",
+          ),
+          namedSpot(
+            "pm_sulak",
+            "Sulak River Access",
+            "Sulak River Access, Pere Marquette River, Michigan",
+            ["boat_ramp", "shore_fishing", "wade_access"],
+            "Public watercraft access used for both boat and wade fishing in the national scenic corridor.",
+            "U.S. Forest Service / Michigan DNR",
+            PM_FOREST_SERVICE_PLAN,
+            "Seasonal watercraft permits, site fees and posted camping rules may apply.",
+            "2026-09-08",
+            "In Table 5, find access site 11, “Sulak,” and its boat- and wade-fishing description.",
+          ),
           namedSpot(
             "pm_rainbow_rapids",
             "Rainbow Rapids Access",
@@ -482,6 +526,18 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "U.S. Forest Service",
             "https://www.fs.usda.gov/r09/huron-manistee/recreation/bowman-bridge-river-access",
             "Campground or day-use fees and seasonal watercraft permits may apply.",
+          ),
+          namedSpot(
+            "pm_rosebush",
+            "Rosebush Bend Angler Access",
+            "Rosebush Bend Angler Access, Pere Marquette River, Michigan",
+            ["walk_in", "shore_fishing"],
+            "Designated Forest Service walk-in fishing access with public parking.",
+            "U.S. Forest Service",
+            PM_FOREST_SERVICE_PLAN,
+            undefined,
+            "2026-09-08",
+            "In Table 5, find access site 8, “Rosebush Bend Angler Access,” and its walk-in-fishing description.",
           ),
           sourcedCoordinateSpot(
             "pm_gleasons",
@@ -738,6 +794,17 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
               "The linked Michigan Water Trails page names Covell Park and lists its address and public amenities.",
             verifiedOn: "2026-08-30",
           },
+          namedSpot(
+            "white_lions",
+            "Lions Park Access",
+            "132 E Hanson Street, Whitehall, MI 49461",
+            ["carry_in", "walk_in"],
+            "City park carry-in access with an accessible boardwalk, stairway and floating docks on the White River.",
+            "Michigan Water Trails / City of Whitehall",
+            "https://www.michiganwatertrails.org/location.asp?aid=203&ait=av",
+            "The shoreline is soft and heavily vegetated; use the designated launch rather than treating the bank as wade access.",
+            "2026-09-08",
+          ),
         ],
       },
       {
@@ -968,6 +1035,28 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "The pier is an unguarded navigation structure. Stay off during storms, ice and high seas.",
           ),
           namedSpot(
+            "stjoe_tiscornia",
+            "Tiscornia North Pier Access",
+            "80 Ridgeway Street, St Joseph, MI 49085",
+            ["shore_fishing", "fishing_platform", "walk_in"],
+            "City park provides public access to the north pier and lighthouse at the river mouth.",
+            "Berrien County Parks / City of St. Joseph",
+            "https://www.berriencounty.org/1295/Silver-Beach-County-Park",
+            "The pier is an exposed navigation structure. Stay off during storms, ice and high seas; seasonal parking fees apply.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "stjoe_marina_island",
+            "Marina Island City Boat Launch",
+            "282 Anchor's Court, St Joseph, MI 49085",
+            ["boat_ramp"],
+            "Municipal public launch on Marina Island with river access near the harbor mouth.",
+            "City of St. Joseph",
+            "https://www.sjcity.com/842/West-Basin-Marina",
+            "Daily or seasonal launch parking fees apply; harbor and no-wake rules control.",
+            "2026-09-08",
+          ),
+          namedSpot(
             "stjoe_paddler_park",
             "Paddler Park at East Basin",
             "213 Upton Dr, St Joseph, MI 49085",
@@ -1108,6 +1197,39 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         position: "lower",
         rangeLabel: "Grand Haven to Sixth Street",
         spots: [
+          namedSpot(
+            "grand_grand_haven_state_park",
+            "Grand Haven State Park Pier & Boardwalk",
+            "1001 S Harbor Drive, Grand Haven, MI 49417",
+            ["shore_fishing", "fishing_platform", "walk_in"],
+            "State park pier and boardwalk fishing access at the mouth of the Grand River.",
+            "Michigan DNR — Grand Haven State Park",
+            "https://www.michigan.gov/recsearch/parks/grandhaven",
+            "The pier is exposed to Lake Michigan weather and waves; Recreation Passport and posted safety restrictions apply.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_connor_bayou",
+            "Connor Bayou",
+            "12945 North Cedar Drive, Grand Haven, MI 49417",
+            ["carry_in", "fishing_platform", "shore_fishing", "walk_in"],
+            "County park with an accessible canoe/kayak launch and accessible fishing dock on nearly a mile of Grand River frontage.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/connor-bayou/",
+            undefined,
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_ottawa_riverside",
+            "Riverside Park Boat Launch",
+            "10317 North Cedar Drive, Grand Haven, MI 49417",
+            ["boat_ramp", "shore_fishing", "walk_in"],
+            "County launch and public riverbank fishing along nearly one mile of the south bank.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/riverside-park/",
+            "A motor-vehicle permit is required at the boat launch from Memorial Day weekend through Labor Day.",
+            "2026-09-08",
+          ),
           dnrSpot("grand_indian", "Indian Channel", 43.03227719, -86.14577446, [
             "boat_ramp",
           ], "Gravel public launch; Recreation Passport required."),
@@ -1119,23 +1241,68 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             ["boat_ramp"],
             "Gravel public launch; Recreation Passport required.",
           ),
-          sourcedCoordinateSpot(
-            "grand_bass",
-            "Bass River Recreation Area",
-            43.00551647,
-            -86.01357259,
+          namedSpot(
+            "grand_bass_104th",
+            "Bass River — 104th Avenue Launch",
+            "104th Avenue and Bass River Road, Allendale, MI",
             ["boat_ramp"],
-            "Two-lane gravel launch; Recreation Passport and posted hours apply.",
+            "Gravel state launch providing access to the south bank of the Grand River through Max Lake.",
             "Michigan DNR — Bass River Recreation Area",
             "https://www.michigan.gov/recsearch/parks/bassriver",
+            "Recreation Passport and posted hours apply.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_bass_lincoln",
+            "Bass River — Lincoln Street Launch",
+            "Lincoln Street and South Cedar Drive, Allendale, MI",
+            ["boat_ramp"],
+            "State boating access with a courtesy pier on the south bank of the Grand River.",
+            "Michigan DNR — Bass River Recreation Area",
+            "https://www.michigan.gov/recsearch/parks/bassriver",
+            "Recreation Passport and posted hours apply.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_eastmanville",
+            "Eastmanville Bayou",
+            "13507 68th Avenue, Allendale, MI 49401",
+            ["boat_ramp", "carry_in", "shore_fishing", "walk_in"],
+            "County access with a small-boat launch, accessible canoe/kayak launch and fishing on Grand River frontage.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/eastmanville-bayou/",
+            "This open-space property permits hunting; remain alert during open seasons and follow posted rules.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_deer_creek",
+            "Deer Creek Park",
+            "13426 60th Avenue, Coopersville, MI 49404",
+            ["boat_ramp", "carry_in", "shore_fishing"],
+            "County park at Deer Creek with fishing and a launch for small boats and canoes into the Grand River.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/deer-creek-park/",
+            "The launch is limited to small boats and canoes.",
+            "2026-09-08",
+          ),
+          namedSpot(
+            "grand_grand_ravines",
+            "Grand Ravines",
+            "9920 42nd Avenue, Jenison, MI 49428",
+            ["carry_in", "shore_fishing", "walk_in"],
+            "County park with a public kayak launch, fishing and a half-mile of Grand River frontage.",
+            "Ottawa County Parks",
+            "https://miottawa.org/park-locations/grand-ravines/",
+            "Use the north access for the kayak launch and check current seasonal parking-lot status.",
+            "2026-09-08",
           ),
           sourcedCoordinateSpot(
             "grand_grandriverpark",
             "Grand River Park",
             42.94450465,
             -85.85465797,
-            ["carry_in"],
-            "Municipal paved carry-down with posted park hours.",
+            ["boat_ramp", "carry_in"],
+            "County park with a public boat launch and accessible canoe/kayak launch; posted park hours apply.",
             "Ottawa County Parks",
             "https://miottawa.org/park-locations/grand-river-park/",
           ),
