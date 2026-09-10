@@ -1,8 +1,8 @@
 # Grand River Live Conditions Audit
 
 **River ID:** `grand`
-**Created/researched:** 2026-08-24
-**Status:** `owner_approved_implementation_pending`
+**Created/researched:** 2026-08-24; turbidity amendment verified 2026-09-10
+**Status:** `implemented_automated_QA_pass_rendered_review_pending`
 
 Gauge Read is an unscored measurement surface. It does not determine Stage,
 Activity, Fish In River, Fishability, clarity, access, or safety. Evidence IDs
@@ -15,9 +15,10 @@ resolve to the ledger in `river-foundation.md`.
 | Discharge | USGS 04119000, 04119070, 04119400 | **USGS 04119000 / parameter 00060 / statistic 00000** | yes | yes: daily mean 00060/00003 | CFS, whole number | Long, nearly continuous daily record and active 15-minute downtown series. One source avoids averaging. Claim is limited to the Fulton Street/downtown reach and must be re-audited during dam-removal construction. |
 | Gauge height | USGS 04119000, 04118564, 04119070, 04119400 | **USGS 04119000 / parameter 00065 / statistic 00000** | yes | raw history exists from 2017, but no accepted datum-consistent date-average baseline | ft, 0.01 | Same station/reach as discharge; render current/trend only and always show `No average`. Stage is especially local and construction-sensitive. |
 | Measured water temperature | USGS 04118564; USGS 04119400 | **USGS 04118564 / parameter 00010 / statistic 00000** | yes | yes: daily 00010/00001 max, /00002 min, /00003 mean from July 2020 | °F, 0.1 after °C conversion | North Park returns current 15-minute measured temperature and exceeds five historical years. Eastmanville is rejected as live fallback: its last valid temperature was 2024-10-01 and its 2026 payload contains discontinuation sentinels. |
+| Optical turbidity | USGS 04118564; USGS 04118997; USGS 04119400 | **USGS 04118564 / parameter 63680 / statistic 00011** | yes | continuous record since 2020; no public typical-range contract in v1 | FNU, 0.1 | North Park is current and represents the same downtown reach as accepted measured temperature. Render raw FNU, age, and 24-hour change only. Never convert it to visibility, water color, fishing quality, or a scored input. |
 
-Not accepted for public rendering: USGS precipitation, turbidity, dissolved
-oxygen, specific conductance, water-level elevation, or modeled weather.
+Not accepted for public rendering: USGS precipitation, dissolved oxygen,
+specific conductance, water-level elevation, or modeled weather.
 
 ## 2. Accepted source verification
 
@@ -86,7 +87,24 @@ oxygen, specific conductance, water-level elevation, or modeled weather.
   through 2024-10-01; its 2026 IV response contains only `-999999` with `Dis`.
   Those sentinels must parse as missing, never as temperature.
 
-### 2.3 Attribution and timezone
+### 2.3 Display-only optical turbidity — USGS 04118564
+
+- Provider/site/series: U.S. Geological Survey, site `04118564`, parameter
+  `63680`, statistic `00011`, optical turbidity reported as `_FNU` by the OGC
+  feed and normalized for display as `FNU`.
+- Public section/reach: North Park Street/downtown Grand Rapids only. It does
+  not represent Grand Haven or the full Grand River.
+- Live verification, 2026-09-10: 191 usable observations in the preceding two
+  days; latest 1.2 FNU at 2026-09-10 11:00 UTC, provisional. Exact values are
+  probe evidence, never seeded product data.
+- Freshness: current at age ≤2 hours, delayed at >2–24 hours, and numeric value
+  suppressed after 24 hours. Null, negative, wrong-unit, and `EQUIP`-qualified
+  observations fail closed.
+- Interpretation: raw optical FNU plus observation age and a bounded 24-hour
+  delta. No universal clarity category, visibility-depth conversion, historical
+  normal, Activity weight, Push weight, or Fishing Shape weight is permitted.
+
+### 2.4 Attribution and timezone
 
 - Public provider label: `U.S. Geological Survey`.
 - Attribution: `Data courtesy of the U.S. Geological Survey.`
@@ -124,6 +142,7 @@ oxygen, specific conductance, water-level elevation, or modeled weather.
 | Discharge | closest accepted observation at or before roughly 24 h under the engine tolerance; source cadence is 15 min | existing engine contract; owner must verify it is sensible at this reach | Unknown trend |
 | Gauge height | same | existing engine contract | Unknown trend |
 | Water temperature | same prior-time and smoothing contract used for current read | existing engine contract after °C normalization | Unknown trend |
+| Optical turbidity | closest accepted observation at or before 24 h, within 3 h | absolute delta below 0.2 FNU | Unknown trend |
 
 Trend describes only the named station measurement. It never claims fish
 movement, migration, clarity, safety, or a whole-river change. No prior
@@ -134,8 +153,9 @@ observation means unknown, not stable.
 - Gauge Read limitation sentence: `Grand Rapids readings describe the Fulton Street and North Park reaches, not the full Grand River.`
 - Discharge public station label: `Grand River at Grand Rapids`.
 - Temperature public station label: `Grand River at North Park Street`.
+- Turbidity public station label: `Downtown Turbidity` / `Grand River at North Park Street`.
 - Gauge-height public station label: `Grand River at Grand Rapids`.
-- Reach explanation: `Flow and gauge height are measured near Fulton Street; water temperature is measured upstream at North Park Street.`
+- Reach explanation: `Flow and gauge height are measured near Fulton Street; water temperature and optical turbidity are measured upstream at North Park Street.`
 - No-gauge/partial-data message: `Some Grand Rapids station measurements are unavailable. Available values still describe only their named reach.`
 - Public provider label: `U.S. Geological Survey`.
 - Attribution: `Data courtesy of the U.S. Geological Survey. Provisional readings may be revised.`
@@ -163,12 +183,14 @@ observation means unknown, not stable.
 | 04119000 DV, 1900–2026 | 36,791 discharge daily means; 1901–1905 and 1930–present with gaps | pass with gap disclosure |
 | 04118564 IV, 00010/00065 | temperature and local stage live at 15-minute cadence; temperature accepted | pass for temperature |
 | 04118564 DV, 00010 | max/min/mean daily series, >6 calendar years but material gaps | pass for ±3-day temperature context subject to per-date sample sufficiency |
+| 04118564 OGC continuous, 63680 | current 15-minute optical turbidity; provider unit `_FNU`; provisional numeric values | pass for raw reach-specific FNU display only |
 | 04119400 IV/DV, 00010 | historical daily record; last valid IV 2024-10-01; 2026 discontinuation sentinels | reject live/fallback |
 | Open-Meteo current Activity adapter and archive replay | actual/clear-sky radiation, cloud, and precipitation are normalized per local hour; six fixed seasons replayed | pass for downtown Activity; fail closed on missing hourly weather |
 
 ## 8. Test matrix required before acceptance
 
-- [x] All three accepted metrics fresh.
+- [x] Discharge, height, and measured temperature fresh.
+- [x] Turbidity parsing, unit normalization, freshness, bounded trend, stale suppression, and equipment-fault rejection.
 - [x] Each single metric missing and partial combinations.
 - [ ] Delayed reading under owner-approved threshold.
 - [ ] Older-than-24-hours suppression.
@@ -187,6 +209,6 @@ observation means unknown, not stable.
 - [ ] Lower Reach construction fixture makes no safety/access claim.
 - [ ] Post-2026 and post-2027 dam-removal rating/datum/source re-audit completed.
 
-**Live Conditions decision:** `owner_approved_source_capability_automated_QA_pass_rendered_review_pending`
-**Audit version:** `grand-live-conditions-research-v1-2026-08-24`
+**Live Conditions decision:** `owner_approved_source_capability_implemented_automated_QA_pass_rendered_review_pending`
+**Audit version:** `grand-live-conditions-research-v2-2026-09-10`
 **Owner acceptance/date:** approved / 2026-08-24

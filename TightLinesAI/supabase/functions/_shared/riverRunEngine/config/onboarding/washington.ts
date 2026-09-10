@@ -54,6 +54,38 @@ export const GREEN_RIVER_PROFILE: RiverProfile = {
       "The station represents the Auburn/Big Soos mainstem reach. It does not represent the tidally affected Duwamish, the upper gorge, or the municipal watershed.",
   }],
   waterTemperatureSources: [],
+  turbiditySources: [
+    {
+      sourceId: "green_duwamish_tukwila_turbidity",
+      provider: "USGS",
+      siteId: "12113390",
+      parameterCode: "63680",
+      name: "Duwamish River at Golf Course at Tukwila — optical turbidity",
+      displayLabel: "Lower Duwamish Turbidity",
+      priority: 1,
+      maxAgeHours: 2,
+      reachQuality: "good",
+      reachNotes:
+        "Measured in the tidally influenced lower Duwamish at Tukwila. It is a local lower-reach optical reading, not an Auburn or upper-Green reading, and FNU is not visibility depth.",
+      attribution:
+        "U.S. Geological Survey Water Data for the Nation, parameter 63680; optical turbidity in FNU. This station is tidally influenced, and recent readings are provisional and subject to revision.",
+    },
+    {
+      sourceId: "green_auburn_turbidity",
+      provider: "USGS",
+      siteId: "12113000",
+      parameterCode: "63680",
+      name: "Green River near Auburn — optical turbidity",
+      displayLabel: "Middle Green Turbidity",
+      priority: 2,
+      maxAgeHours: 2,
+      reachQuality: "good",
+      reachNotes:
+        "Measured in the Auburn/Big Soos mainstem reach. It is not extrapolated to the tidally influenced Duwamish or upper Green, and FNU is not visibility depth.",
+      attribution:
+        "U.S. Geological Survey Water Data for the Nation, parameter 63680; optical turbidity in FNU. Recent readings are provisional and subject to revision.",
+    },
+  ],
   historicalWaterTemperatureSource: {
     sourceId: "green_auburn_historical_temperature",
     provider: "USGS",
@@ -188,7 +220,7 @@ export const GREEN_RIVER_PROFILE: RiverProfile = {
     activeSlots: ACTIVE_SLOTS,
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "USGS 12113000 reports 15-minute discharge and gage height. Its water-temperature record is discontinued; qualifying calendar-date ±3-day 1981-1986 archival averages are static context only.",
+      "USGS 12113000 reports discharge, gage height, and middle-reach optical turbidity; USGS 12113390 independently reports lower-Duwamish optical turbidity. Turbidity is display-only. The Auburn water-temperature record is discontinued; qualifying calendar-date ±3-day 1981-1986 archival averages are static context only.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
@@ -197,10 +229,11 @@ export const GREEN_RIVER_PROFILE: RiverProfile = {
       notes:
         "USGS 12113000 returned no current parameter 00010 observations. Where archival coverage qualifies, the app may show an explicitly historical same-calendar-date ±3-day average only.",
     },
+    turbidity: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Flow and height are live near Auburn and describe that mainstem reach. The lower Duwamish is tidal, the upper river can differ, and there is no live representative water-temperature sensor; any temperature shown is a 1981-1986 historical same-calendar-date ±3-day average, not today's reading.",
+    "Flow and height describe the Auburn mainstem. Optical turbidity is reported separately for the tidal lower Duwamish at Tukwila and the middle Green near Auburn; neither is extrapolated to the other reach or converted to visibility or water-color labels. There is no live representative water-temperature sensor; any temperature shown is a 1981-1986 historical same-calendar-date ±3-day average, not today's reading.",
   regulationReminderCopy: WA_REGULATION_COPY,
 };
 
@@ -1170,8 +1203,9 @@ function washingtonConfigurationDocument(
 ): RiverRunConfigurationDocument {
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion:
-      `2026-09-03-${river.riverId}-washington-direct-push-v1+seasonal-zone-v3`,
+    configVersion: river.riverId === "green"
+      ? "2026-09-03-green-washington-direct-push-v1+seasonal-zone-v3+turbidity-v1"
+      : `2026-09-03-${river.riverId}-washington-direct-push-v1+seasonal-zone-v3`,
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river,
     biologyProfiles: [

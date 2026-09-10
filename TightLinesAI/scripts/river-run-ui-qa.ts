@@ -1350,6 +1350,21 @@ assert.match(
   /Real provider readings · observation age shown\./,
   "Gauge Read must retain customer-facing live-provider provenance",
 );
+assert.match(
+  riverRunScreen,
+  /OPTICAL SENSOR · RAW FNU[\s\S]*?NOT VISIBILITY/,
+  "Turbidity tiles must label FNU as an optical reading rather than visibility",
+);
+assert.match(
+  riverRunScreen,
+  /does not affect River Run scores/,
+  "Gauge Read must keep turbidity explicitly outside every scored primitive",
+);
+assert.match(
+  riverRunScreen,
+  /orderedMetrics\.length === 4 \? 2 : 3/,
+  "Gauge Read must use a balanced two-by-two grid for four metrics and three columns for five or six",
+);
 assert.doesNotMatch(
   riverRunScreen,
   /style=\{styles\.liveMetricFreshness\}/,

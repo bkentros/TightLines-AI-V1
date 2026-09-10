@@ -4,15 +4,15 @@ const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
 const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
-const expectedEngineVersion = "river-run-v1.17.0";
-const expectedDataVersion = "river-live-conditions-v5";
+const expectedEngineVersion = "river-run-v1.19.0";
+const expectedDataVersion = "river-live-conditions-v6";
 const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   betsie: [],
   big_manistee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   muskegon: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   st_joseph: ["flow_cfs", "gage_height_ft", "water_temp_f"],
-  grand: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  grand: ["flow_cfs", "gage_height_ft", "water_temp_f", "turbidity_fnu"],
   platte: ["flow_cfs", "gage_height_ft"],
   white: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   milwaukee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -20,7 +20,12 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
   root: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   bois_brule: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   salmon_ny: ["flow_cfs", "gage_height_ft"],
-  oak_orchard: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  oak_orchard: [
+    "flow_cfs",
+    "gage_height_ft",
+    "water_temp_f",
+    "turbidity_fnu",
+  ],
   lower_genesee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
@@ -74,6 +79,7 @@ try {
 const commonHeaders = {
   apikey: anonKey,
   Authorization: `Bearer ${anonKey}`,
+  "x-finfindr-river-run-capabilities": "river-turbidity-v1",
 };
 const catalog = await requestJson(`${functionUrl}/rivers`, {
   headers: commonHeaders,
@@ -290,6 +296,7 @@ function auditMetric(
     flow_cfs: [0, 100_000],
     gage_height_ft: [-10, 100],
     water_temp_f: [30, 90],
+    turbidity_fnu: [-0.01, 10_000],
   };
   if (value != null) {
     const [minimum, maximum] = bounds[id] ?? [-Infinity, Infinity];
@@ -309,7 +316,16 @@ function auditMetric(
   } else {
     warning.push("current reading unavailable");
   }
-  if (id === "gage_height_ft") {
+  if (id === "turbidity_fnu") {
+    if (stringField(metric, "unit") !== "FNU") {
+      throw new Error(`${riverId} turbidity must retain the FNU unit.`);
+    }
+    if (Object.keys(seasonal).length) {
+      throw new Error(
+        `${riverId} turbidity must not claim unaudited seasonal context.`,
+      );
+    }
+  } else if (id === "gage_height_ft") {
     if (Object.keys(seasonal).length) {
       throw new Error(
         `${riverId} gauge height must not claim a seasonal average.`,

@@ -241,7 +241,8 @@ export type RiverRunWaterTemperature = {
 export type RiverRunLiveMetricId =
   | "flow_cfs"
   | "gage_height_ft"
-  | "water_temp_f";
+  | "water_temp_f"
+  | "turbidity_fnu";
 
 export type RiverRunLiveSeasonalContext = {
   average: number;
@@ -272,7 +273,7 @@ export type RiverRunLiveConditionMetric = {
   metric: RiverRunLiveMetricId;
   label: string;
   value: number | null;
-  unit: "CFS" | "ft" | "°F";
+  unit: "CFS" | "ft" | "°F" | "FNU";
   observedAt?: string;
   freshness: "fresh" | "delayed" | "older_than_24h" | "missing";
   approvalStatus?: string;
@@ -287,6 +288,8 @@ export type RiverRunLiveConditionMetric = {
     direction:
       | "rising"
       | "falling"
+      | "increasing"
+      | "decreasing"
       | "warming"
       | "cooling"
       | "stable"

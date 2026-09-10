@@ -58,7 +58,7 @@ River Mill is the conservative fall-Chinook endpoint. Early coho can pass toward
 
 | Capability | Decision | Limitation |
 | --- | --- | --- |
-| Gauge Read | flow CFS, height ft, measured temp °F at 14211010 | metrics fail closed independently; lower river only |
+| Gauge Read | flow CFS, height ft, measured temp °F, and optical turbidity FNU at 14211010 | metrics fail closed independently; lower river only; turbidity is raw display-only FNU, not visibility or a scored input |
 | Historical temperature | no separate tile | current measured source suffices; no duplicate archive product |
 | Fish Counts | verified source, unavailable in product | PGE publishes daily North Fork sorter XLSX files; facility passage is not whole-river abundance and no revision-tested parser is implemented. Early coho alone reaches this modeled facility; fall Chinook ends below River Mill. |
 | Fishing Shape | available | 2012-2025 Aug.1-Jan.15, 2,337 days; 772/886/3290/5870/8580 CFS p10/p25/p75/p90/p95 |

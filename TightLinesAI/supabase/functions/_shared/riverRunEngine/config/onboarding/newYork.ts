@@ -212,6 +212,21 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  turbiditySources: [{
+    sourceId: "oak_orchard_bridges_turbidity",
+    provider: "USGS",
+    siteId: "0422018610",
+    parameterCode: "63680",
+    name: "Oak Orchard Creek at The Bridges, NY — optical turbidity",
+    displayLabel: "Lower Creek Turbidity",
+    priority: 1,
+    maxAgeHours: 2,
+    reachQuality: "good",
+    reachNotes:
+      "Measured at The Bridges in the supported lower Oak Orchard corridor below Waterport Dam. It is a local optical reading, not a reading for Waterport tailrace, the reservoir, or upstream Shelby, and FNU is not visibility depth.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation, parameter 63680; optical turbidity in FNU. Recent readings are provisional and subject to revision.",
+  }],
   fishCountSources: [],
   weatherPoints: [{
     weatherPointId: "oak_orchard_waterport_weather",
@@ -285,7 +300,7 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
         "NYSDEC Oak Orchard PFR map and Lake Ontario sportfish restoration plan.",
     }],
     primaryGaugeReachId: null,
-    contextualGaugeSiteIds: ["04220045"],
+    contextualGaugeSiteIds: ["04220045", "0422018610"],
     weatherStrategy: {
       mode: "single_point",
       primaryWeatherPointId: "oak_orchard_waterport_weather",
@@ -311,15 +326,16 @@ export const OAK_ORCHARD_RIVER_PROFILE: RiverProfile = {
     activeSlots: ACTIVE_SLOTS,
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "USGS 04220045 supplies current 15-minute flow, height, and measured temperature as upstream context only. It remains excluded from Activity and Fishing Shape across Waterport Reservoir and Dam.",
+      "USGS 04220045 supplies current 15-minute flow, height, and measured temperature as upstream context only. USGS 0422018610 independently supplies lower-corridor optical turbidity for display only. Neither turbidity nor the upstream Shelby readings drive Activity or Fishing Shape.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
     waterTemperature: { status: "available" },
+    turbidity: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Live flow, height, and measured temperature are from USGS Shelby, roughly 20 river miles upstream and separated from the fishing corridor by the Erie Canal crossing, Waterport Reservoir, and Waterport Dam. They are upstream watershed context only—not tailrace conditions—and do not drive Activity or Fishing Shape.",
+    "Flow, height, and measured temperature come from upstream Shelby and remain watershed context only across Waterport Reservoir and Dam. Optical turbidity is measured separately at The Bridges in the lower fishing corridor and is shown as raw FNU—not visibility depth or a clear/stained/muddy label. None of these readings drives Activity or Fishing Shape.",
   regulationReminderCopy: NY_RULE_COPY,
 };
 
@@ -1340,8 +1356,9 @@ function documentFor(river: RiverProfile): RiverRunConfigurationDocument {
   const biologyIds = new Set(runs.map((run) => run.biologyProfileId));
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion:
-      `2026-09-03-${river.riverId}-new-york-direct-push-v1+seasonal-zone-v3`,
+    configVersion: river.riverId === "oak_orchard"
+      ? "2026-09-03-oak_orchard-new-york-direct-push-v1+seasonal-zone-v3+turbidity-v1"
+      : `2026-09-03-${river.riverId}-new-york-direct-push-v1+seasonal-zone-v3`,
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

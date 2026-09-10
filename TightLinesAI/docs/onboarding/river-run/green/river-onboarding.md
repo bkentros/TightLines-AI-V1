@@ -74,7 +74,7 @@ Rules differ by reach and can change by emergency action. Current rules include 
 
 | Capability | Decision | Exact limitation |
 | --- | --- | --- |
-| Gauge Read | available | Auburn flow/height only; 2-hour freshness; production timestamps/units/cadence verified |
+| Gauge Read | available | Auburn flow/height plus separate optical turbidity readings at Tukwila (`12113390`, lower Duwamish) and Auburn (`12113000`, middle Green); 2-hour freshness; raw FNU only; no visibility or scoring inference |
 | Live water temperature | unavailable | Auburn returned zero `00010`; Tukwila tidal temperature is not silently combined |
 | Historical temperature | available where qualified | Same-calendar-date ±3-day average from approved 1981-1986 Auburn archival tables, requiring observations from at least two years; gaps are withheld; explicitly not live and excluded from scoring |
 | Fishing Shape | available for owner review | Flow-only fixed bands calibrated from 38 complete fall seasons; applies only to the Auburn/Big Soos mainstem and never implies legal access or fish abundance |

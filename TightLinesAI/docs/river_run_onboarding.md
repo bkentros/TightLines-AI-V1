@@ -335,7 +335,7 @@ entry.
 ## 5. Gauge Read and source capability
 
 Probe real provider endpoints; station metadata alone is insufficient. For each
-candidate hydraulic or measured-temperature source record:
+candidate hydraulic, measured-temperature, or turbidity source record:
 
 - provider, source/site/series/parameter IDs and public station name;
 - coordinates, physical reach, represented reach, and explicit exclusions;
@@ -369,15 +369,20 @@ discharge is not ordinary downstream river flow and cannot drive trend, Fishing
 Shape, or Activity without a specific normalization, reach contract, historical
 replay, and fail-closed QA.
 
-Gauge Read supports discharge, gauge height, and measured water temperature
-only. Every metric independently owns freshness, observation age, 24-hour trend,
-station, and reach. Provider `observedAt`, FinFindr `refreshedAt`, and device
-time must remain distinct.
+Gauge Read supports discharge, gauge height, measured water temperature, and
+separately audited optical turbidity. Every metric independently owns freshness,
+observation age, 24-hour trend, station, and reach. Provider `observedAt`,
+FinFindr `refreshedAt`, and device time must remain distinct.
 
 Display source-appropriate precision: normally whole CFS, hundredths of a foot
 when the station supports it, and tenths of a degree after the accepted
-conversion/smoothing contract. Additional metrics require a separately approved
-provider, unit, freshness, historical, interpretation, UI, and QA contract.
+conversion/smoothing contract. Accepted turbidity uses USGS parameter `63680`,
+retains the provider's FNU unit, rejects wrong-unit/null/equipment-fault values,
+and is displayed as an optical sensor reading—not visibility depth or a
+clear/stained/muddy rating. It contributes zero to every scored primitive and
+has no typical-range label until a station-specific historical contract is
+separately audited. Additional metrics require a separately approved provider,
+unit, freshness, historical, interpretation, UI, and QA contract.
 Gauge Read uses an hourly, species-independent refresh key; do not add hourly
 scoring slots merely to obtain fresher measurements.
 

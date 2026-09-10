@@ -92,6 +92,7 @@ type ScenarioInput = {
   flowDelta24h?: number | null;
   flowPercentDelta24h?: number | null;
   waterTempF?: number | null;
+  turbidityFnu?: number | null;
   gaugeFreshness?: "fresh" | "stale" | "missing";
   waterTemperatureFreshness?: "fresh" | "stale" | "missing";
   weatherFreshness?: "fresh" | "stale" | "missing";
@@ -454,6 +455,17 @@ function buildGroups(target: DraftTarget): RiverRunReviewGroup[] {
         ),
       ]
       : []),
+    ...((target.river.turbiditySources ?? []).length > 0
+      ? [
+        scenario(
+          target,
+          "conditions_missing_turbidity",
+          "Gauge Read · turbidity missing",
+          reviewDate,
+          { turbidityFnu: null },
+        ),
+      ]
+      : []),
     scenario(
       target,
       "conditions_recovered",
@@ -537,6 +549,7 @@ function scenario(
     flowPercentDelta24h: condition.sourceMetrics.gauge?.percentChange24h ??
       null,
     waterTempF: condition.sourceMetrics.waterTemperature?.waterTempF ?? null,
+    turbidityFnu: overrides.turbidityFnu,
   });
   const snapshot: RiverRunSnapshotResponse = {
     riverId: target.run.riverId,

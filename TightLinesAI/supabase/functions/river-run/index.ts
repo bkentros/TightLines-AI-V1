@@ -25,6 +25,7 @@ import {
   listVisibleRiverRuns,
   metricValue,
   type NormalizedGaugeObservation,
+  type NormalizedTurbidityObservation,
   type NormalizedWaterTemperatureObservation,
   normalizeGaugeRead,
   normalizeWeatherSnapshot,
@@ -108,11 +109,39 @@ const MIDWEST_OWNER_REVIEW_RIVER_IDS = new Set([
   "kewaunee_river",
 ]);
 const FALL_2026_OWNER_REVIEW_CAPABILITY = "fall-2026-owner-review-v1";
+const TURBIDITY_CLIENT_CAPABILITY = "river-turbidity-v1";
 const FALL_2026_OWNER_REVIEW_RIVER_IDS = new Set([
   "clackamas",
   "manitowoc",
   "oswego",
 ]);
+
+function clientHasCapability(req: Request, capability: string): boolean {
+  return (req.headers.get(CLIENT_CAPABILITIES_HEADER) ?? "")
+    .split(",")
+    .some((candidate) => candidate.trim() === capability);
+}
+
+function riverConditionsForClient(
+  req: Request,
+  conditions: RiverLiveConditions,
+): RiverLiveConditions {
+  if (clientHasCapability(req, TURBIDITY_CLIENT_CAPABILITY)) return conditions;
+  const metrics = conditions.metrics.filter((metric) =>
+    metric.metric !== "turbidity_fnu"
+  );
+  const availableCount = metrics.filter((metric) => metric.value != null)
+    .length;
+  return {
+    ...conditions,
+    metrics,
+    status: availableCount === 0
+      ? "unavailable"
+      : availableCount === metrics.length
+      ? "available"
+      : "partial",
+  };
+}
 
 function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
   const capabilities = new Set(
@@ -164,6 +193,10 @@ export type RiverRunHandlerDeps = {
   waterTemperatureObservationsBySource?: Record<
     string,
     NormalizedWaterTemperatureObservation[]
+  >;
+  turbidityObservationsBySource?: Record<
+    string,
+    NormalizedTurbidityObservation[]
   >;
   weatherSnapshot?: Record<string, unknown>;
   seasonalContextsByMetric?: Partial<
@@ -594,6 +627,7 @@ export async function handleRiverRunRequest(
         gaugeObservations: deps.gaugeObservations,
         waterTemperatureObservationsBySource:
           deps.waterTemperatureObservationsBySource,
+        turbidityObservationsBySource: deps.turbidityObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
       }),
       readOrRefreshRiverRunFishCount({
@@ -635,7 +669,7 @@ export async function handleRiverRunRequest(
         timing,
         pushHistory,
         presentation,
-        riverConditions,
+        riverConditions: riverConditionsForClient(req, riverConditions),
         fishCounts,
       }),
       accessTier: tier === "free" ? "free_trial" : "angler",
@@ -830,6 +864,7 @@ async function handleOwnerReviewSnapshot(
         gaugeObservations: deps.gaugeObservations,
         waterTemperatureObservationsBySource:
           deps.waterTemperatureObservationsBySource,
+        turbidityObservationsBySource: deps.turbidityObservationsBySource,
         seasonalContextsByMetric: deps.seasonalContextsByMetric,
       }),
       readOrRefreshRiverRunFishCount({
@@ -856,7 +891,7 @@ async function handleOwnerReviewSnapshot(
       timing,
       pushHistory,
       presentation,
-      riverConditions,
+      riverConditions: riverConditionsForClient(req, riverConditions),
       fishCounts,
     }));
   } catch (error) {
@@ -1342,6 +1377,7 @@ async function handleInternalRefresh(
           gaugeObservations: deps.gaugeObservations,
           waterTemperatureObservationsBySource:
             deps.waterTemperatureObservationsBySource,
+          turbidityObservationsBySource: deps.turbidityObservationsBySource,
           seasonalContextsByMetric: deps.seasonalContextsByMetric,
         }),
       ]);

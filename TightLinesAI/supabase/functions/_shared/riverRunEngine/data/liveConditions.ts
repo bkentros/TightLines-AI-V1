@@ -8,6 +8,7 @@ import type {
   RiverLiveSeasonalContext,
   RiverMetric,
   RiverProfile,
+  TurbiditySourceConfig,
   WaterTemperatureSourceConfig,
 } from "../types.ts";
 import {
@@ -44,8 +45,14 @@ import {
   parseUsgsWaterTemperature,
   resolveWaterTemperatureRead,
 } from "./waterTemperature.ts";
+import {
+  fetchUsgsTurbidity,
+  type NormalizedTurbidityObservation,
+  parseUsgsTurbidity,
+  resolveTurbidityRead,
+} from "./turbidity.ts";
 
-export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v5";
+export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v6";
 const USGS_ATTRIBUTION =
   "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.";
 
@@ -60,6 +67,10 @@ export async function readOrBuildRiverLiveConditions(input: {
   waterTemperatureObservationsBySource?: Record<
     string,
     NormalizedWaterTemperatureObservation[]
+  >;
+  turbidityObservationsBySource?: Record<
+    string,
+    NormalizedTurbidityObservation[]
   >;
   seasonalContextsByMetric?: Partial<
     Record<RiverLiveMetricId, RiverLiveSeasonalContext | null>
@@ -102,6 +113,10 @@ export async function buildRiverLiveConditions(input: {
     string,
     NormalizedWaterTemperatureObservation[]
   >;
+  turbidityObservationsBySource?: Record<
+    string,
+    NormalizedTurbidityObservation[]
+  >;
   seasonalContextsByMetric?: Partial<
     Record<RiverLiveMetricId, RiverLiveSeasonalContext | null>
   >;
@@ -111,25 +126,35 @@ export async function buildRiverLiveConditions(input: {
   );
   const temperatureSources = [...input.river.waterTemperatureSources]
     .sort((left, right) => left.priority - right.priority);
-  const [gaugeObservations, temperaturePayload] = await Promise.all([
-    primaryHydraulic
-      ? input.gaugeObservations ?? fetchGaugeObservations(
-        input.fetchFn,
-        primaryHydraulic,
-        input.refreshAtUtc,
-      )
-      : Promise.resolve([]),
-    input.waterTemperatureObservationsBySource
-      ? Promise.resolve({
-        observations: input.waterTemperatureObservationsBySource,
-        rejected: {},
-      })
-      : fetchTemperatureObservations(
-        input.fetchFn,
-        temperatureSources,
-        input.refreshAtUtc,
-      ),
-  ]);
+  const turbiditySources = [...(input.river.turbiditySources ?? [])]
+    .sort((left, right) => left.priority - right.priority);
+  const [gaugeObservations, temperaturePayload, turbidityObservations] =
+    await Promise.all([
+      primaryHydraulic
+        ? input.gaugeObservations ?? fetchGaugeObservations(
+          input.fetchFn,
+          primaryHydraulic,
+          input.refreshAtUtc,
+        )
+        : Promise.resolve([]),
+      input.waterTemperatureObservationsBySource
+        ? Promise.resolve({
+          observations: input.waterTemperatureObservationsBySource,
+          rejected: {},
+        })
+        : fetchTemperatureObservations(
+          input.fetchFn,
+          temperatureSources,
+          input.refreshAtUtc,
+        ),
+      input.turbidityObservationsBySource
+        ? Promise.resolve(input.turbidityObservationsBySource)
+        : fetchTurbidityObservations(
+          input.fetchFn,
+          turbiditySources,
+          input.refreshAtUtc,
+        ),
+    ]);
 
   const metrics: RiverLiveConditionMetric[] = [];
   if (primaryHydraulic) {
@@ -188,6 +213,14 @@ export async function buildRiverLiveConditions(input: {
     }));
   }
 
+  for (const source of turbiditySources) {
+    metrics.push(buildTurbidityMetric({
+      source,
+      observations: turbidityObservations[source.sourceId] ?? [],
+      refreshAtUtc: input.refreshAtUtc,
+    }));
+  }
+
   const availableCount =
     metrics.filter((metric) => metric.value != null).length;
   return {
@@ -203,6 +236,52 @@ export async function buildRiverLiveConditions(input: {
     metrics,
     limitation: input.river.gaugeLimitationCopy,
     dataVersion: RIVER_LIVE_CONDITIONS_VERSION,
+  };
+}
+
+function buildTurbidityMetric(input: {
+  source: TurbiditySourceConfig;
+  observations: NormalizedTurbidityObservation[];
+  refreshAtUtc: string;
+}): RiverLiveConditionMetric {
+  const read = resolveTurbidityRead({
+    observations: input.observations,
+    refreshAtUtc: input.refreshAtUtc,
+    maxAgeHours: input.source.maxAgeHours,
+  });
+  const delta = read.current && read.prior24h
+    ? roundTo(read.current.turbidityFnu - read.prior24h.turbidityFnu, 1)
+    : null;
+  const freshness = publicFreshness(read.freshness);
+  return {
+    metric: "turbidity_fnu",
+    label: input.source.displayLabel,
+    value: freshness === "older_than_24h" || freshness === "missing"
+      ? null
+      : read.current?.turbidityFnu ?? null,
+    unit: "FNU",
+    observedAt: read.current?.observedAt,
+    freshness,
+    approvalStatus: read.current?.approvalStatus,
+    qualifier: read.current?.qualifier,
+    sourceId: input.source.sourceId,
+    provider: "USGS",
+    stationName: input.source.name,
+    siteId: input.source.siteId,
+    representedReach: input.source.reachNotes,
+    attribution: input.source.attribution,
+    trend24h: {
+      direction: delta == null
+        ? "unknown"
+        : Math.abs(delta) < .2
+        ? "stable"
+        : delta > 0
+        ? "increasing"
+        : "decreasing",
+      delta,
+      percentDelta: null,
+      comparisonObservedAt: read.prior24h?.observedAt,
+    },
   };
 }
 
@@ -645,6 +724,32 @@ async function fetchTemperatureObservations(
       ]),
     ),
   };
+}
+
+async function fetchTurbidityObservations(
+  fetchFn: RiverRunFetch,
+  sources: TurbiditySourceConfig[],
+  refreshAtUtc: string,
+): Promise<Record<string, NormalizedTurbidityObservation[]>> {
+  const entries = await Promise.all(sources.map(async (source) => {
+    try {
+      const payload = await fetchUsgsTurbidity({
+        fetchFn,
+        source,
+        endAtUtc: refreshAtUtc,
+      });
+      return [
+        source.sourceId,
+        parseUsgsTurbidity({
+          payload: payload ?? {},
+          source,
+        }),
+      ] as const;
+    } catch {
+      return [source.sourceId, [] as NormalizedTurbidityObservation[]] as const;
+    }
+  }));
+  return Object.fromEntries(entries);
 }
 
 function publicFreshness(value: GaugeFreshness): RiverLiveMetricFreshness {

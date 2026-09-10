@@ -94,7 +94,7 @@ uniform reach legality.
 
 | Capability                        | Decision              | Exact limitation                                                                                |
 | --------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------- |
-| Gauge Read                        | upstream context available | Shelby flow/height/temperature are displayed with exact station location and separation; not tailrace/lower-creek conditions |
+| Gauge Read                        | split-source context available | Shelby flow/height/temperature remain explicitly upstream context; optical turbidity comes separately from `0422018610` at The Bridges in the lower supported corridor and is raw FNU only—not visibility or a scored input |
 | Historical water-temperature norm | unavailable | Shelby has a continuous temperature archive since 2020, but the USGS same-date statistics probe returned no qualifying norm; no average is fabricated |
 | Fish Counts                       | unavailable           | no official recurring facility feed with observation/freshness/revision semantics               |
 | Fishing Shape                     | unavailable           | no accepted live corridor hydraulics; overflow/visibility are unmeasured                        |

@@ -1259,9 +1259,77 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v5",
+    "river-live-conditions-v6",
+  );
+  assertEquals(
+    body.riverConditions.metrics.some(
+      (metric: { metric: string }) => metric.metric === "turbidity_fnu",
+    ),
+    false,
   );
   assertEquals(body.activity.label, "Unavailable");
+});
+
+Deno.test("turbidity is returned only to capable clients and remains a raw reach read", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=grand&runId=grand_fall_chinook&presentationState=MI",
+      { clientCapabilities: "river-turbidity-v1" },
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-08-24T23:00:00.000Z"),
+      gaugeObservations: [{
+        provider: "USGS",
+        siteId: "04119000",
+        observedAt: "2026-08-24T22:45:00.000Z",
+        flow_cfs: 2_500,
+        gage_height_ft: 5.42,
+        source: "usgs_continuous_values",
+      }],
+      waterTemperatureObservationsBySource: {
+        grand_north_park_temperature: [{
+          provider: "USGS",
+          sourceId: "grand_north_park_temperature",
+          siteId: "04118564",
+          observedAt: "2026-08-24T22:45:00.000Z",
+          waterTempF: 74.7,
+          source: "usgs_continuous_values",
+        }],
+      },
+      turbidityObservationsBySource: {
+        grand_north_park_turbidity: [{
+          provider: "USGS",
+          sourceId: "grand_north_park_turbidity",
+          siteId: "04118564",
+          observedAt: "2026-08-24T22:45:00.000Z",
+          turbidityFnu: 3.4,
+          approvalStatus: "Provisional",
+          source: "usgs_continuous_values",
+        }],
+      },
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+        turbidity_fnu: null,
+      },
+    },
+  );
+  const body = await json(response);
+  const turbidity = body.riverConditions.metrics.find(
+    (metric: { metric: string }) => metric.metric === "turbidity_fnu",
+  );
+
+  assertEquals(response.status, 200);
+  assertEquals(body.riverConditions.status, "available");
+  assertEquals(turbidity.value, 3.4);
+  assertEquals(turbidity.unit, "FNU");
+  assertEquals(turbidity.label, "Downtown Turbidity");
+  assertMatch(turbidity.representedReach, /North Park Street/i);
+  assertEquals(turbidity.seasonalContext, undefined);
 });
 
 Deno.test("owner-review snapshot fails closed when current providers have no usable readings", async () => {

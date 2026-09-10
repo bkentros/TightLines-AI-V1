@@ -115,6 +115,21 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  turbiditySources: [{
+    sourceId: "grand_north_park_turbidity",
+    provider: "USGS",
+    siteId: "04118564",
+    parameterCode: "63680",
+    name: "Grand River at North Park Street — optical turbidity",
+    displayLabel: "Downtown Turbidity",
+    priority: 1,
+    maxAgeHours: 2,
+    reachQuality: "acceptable",
+    reachNotes:
+      "Measured at North Park Street for the downtown Grand Rapids reach. It does not describe Grand Haven, the full Lower river, or reaches upstream of North Park, and FNU is not a visibility-depth measurement.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation, parameter 63680; optical turbidity in FNU. Recent readings are provisional and subject to revision.",
+  }],
   weatherPoints: [{
     weatherPointId: "grand_rapids_weather",
     lat: 42.963082,
@@ -220,15 +235,16 @@ export const GRAND_RIVER_PROFILE: RiverProfile = {
     ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "Gauge Read refreshes Fulton hydraulics and North Park temperature independently. Reach-scoped Activity requires Grand Rapids hourly weather plus at least one fresh river measurement, and reports Full confidence only when all three inputs are present.",
+      "Gauge Read refreshes Fulton hydraulics plus North Park temperature and optical turbidity independently. Turbidity is display-only. Reach-scoped Activity requires Grand Rapids hourly weather plus at least one fresh scored river measurement, and reports Full confidence only when all three scored inputs are present.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
     waterTemperature: { status: "available" },
+    turbidity: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Flow and height describe Fulton Street below Sixth Street; water temperature describes North Park Street above Sixth Street. Neither station represents the full Grand River.",
+    "Flow and height describe Fulton Street below Sixth Street; water temperature and optical turbidity describe North Park Street above Sixth Street. FNU is a raw sensor reading, not visibility depth or a clear/stained/muddy label. Neither station represents the full Grand River.",
   regulationReminderCopy:
     "Verify current regulations, construction, ladder operations, and the complete species-specific passage route before using any section above the Lower river.",
 };
@@ -679,7 +695,8 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
 
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-03-grand-direct-push-v1+seasonal-zone-v3",
+  configVersion:
+    "2026-09-03-grand-direct-push-v1+seasonal-zone-v3+turbidity-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

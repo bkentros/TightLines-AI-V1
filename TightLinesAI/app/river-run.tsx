@@ -1584,7 +1584,6 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
 }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { width, fontScale } = useWindowDimensions();
-  const metricColumns = fontScale >= 1.25 ? 1 : width >= 380 ? 3 : 2;
   const hasMeasurements = conditions.metrics.some((metric) =>
     metric.value != null
   );
@@ -1602,10 +1601,16 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
     const priority: Record<RiverRunLiveConditionMetric["metric"], number> = {
       flow_cfs: 0,
       water_temp_f: 1,
-      gage_height_ft: 2,
+      turbidity_fnu: 2,
+      gage_height_ft: 3,
     };
     return priority[left.metric] - priority[right.metric];
   });
+  const metricColumns = fontScale >= 1.25
+    ? 1
+    : width >= 380
+    ? orderedMetrics.length === 4 ? 2 : 3
+    : 2;
   return (
     <View
       style={styles.liveConditionsCard}
@@ -1827,7 +1832,11 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
               </Text>
             </View>
             <Text style={styles.liveConditionsMethodNote}>
-              {orderedMetrics.some(isHistoricalOnlyMetric)
+              {orderedMetrics.some((metric) =>
+                  metric.metric === "turbidity_fnu"
+                )
+                ? "Turbidity is a raw optical reading in FNU. It is not visibility depth or a clear/stained/muddy rating and does not affect River Run scores. Provider readings may be revised."
+                : orderedMetrics.some(isHistoricalOnlyMetric)
                 ? "Flow typical ranges use the same calendar date ±3 days. Historical-only water temperature shows its labeled archival calendar window and qualifying-year count; it is not today's temperature. Provider readings may be revised."
                 : "Typical ranges and medians use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
             </Text>
@@ -2358,6 +2367,7 @@ function LiveMetricTile({
     ? formatLiveMetricValue(metric, metric.seasonalContext.average)
     : null;
   const historicalOnly = isHistoricalOnlyMetric(metric);
+  const turbidity = metric.metric === "turbidity_fnu";
   const accessibilityLabel = [
     metric.label,
     metric.value == null
@@ -2370,6 +2380,9 @@ function LiveMetricTile({
       : "Historical context unavailable",
     liveMetricDetailedTrendCopy(metric),
     metric.seasonalContext?.comparisonLabel,
+    turbidity
+      ? "Raw optical FNU; not visibility depth and not used in River Run scores"
+      : null,
     freshness,
   ].filter(Boolean).join(". ");
   return (
@@ -2397,7 +2410,7 @@ function LiveMetricTile({
           adjustsFontSizeToFit
           minimumFontScale={0.78}
         >
-          {liveMetricShortLabel(metric.metric)}
+          {liveMetricShortLabel(metric)}
         </Text>
       </View>
       {historicalOnly
@@ -2441,11 +2454,29 @@ function LiveMetricTile({
         adjustsFontSizeToFit
         minimumFontScale={0.8}
       >
-        {historicalOnly
+        {turbidity
+          ? "OPTICAL SENSOR · RAW FNU"
+          : historicalOnly
           ? "HISTORICAL DATE AVG"
           : `Typical · ${typicalRange ?? "Unavailable"}`}
       </Text>
-      {historicalOnly
+      {turbidity
+        ? (
+          <View
+            style={[
+              styles.liveMetricComparisonPill,
+              { backgroundColor: visual.tint },
+            ]}
+          >
+            <Text
+              style={[styles.liveMetricComparison, { color: visual.accent }]}
+              numberOfLines={1}
+            >
+              NOT VISIBILITY
+            </Text>
+          </View>
+        )
+        : historicalOnly
         ? (
           <View
             style={[
@@ -2506,10 +2537,11 @@ function LiveMetricTile({
 }
 
 function liveMetricShortLabel(
-  metric: RiverRunLiveConditionMetric["metric"],
+  metric: RiverRunLiveConditionMetric,
 ): string {
-  if (metric === "flow_cfs") return "FLOW";
-  if (metric === "water_temp_f") return "WATER TEMP";
+  if (metric.metric === "flow_cfs") return "FLOW";
+  if (metric.metric === "water_temp_f") return "WATER TEMP";
+  if (metric.metric === "turbidity_fnu") return metric.label.toUpperCase();
   return "GAUGE HEIGHT";
 }
 
@@ -2551,6 +2583,9 @@ function liveMetricVisual(metric: RiverRunLiveConditionMetric["metric"]): {
   if (metric === "gage_height_ft") {
     return { icon: "resize-outline", accent: "#236B63", tint: "#E8F5F2" };
   }
+  if (metric === "turbidity_fnu") {
+    return { icon: "contrast-outline", accent: "#75613D", tint: "#F4EFE3" };
+  }
   return {
     icon: "water-outline",
     accent: paper.dashboardBlue,
@@ -2566,6 +2601,7 @@ function formatLiveMetricValue(
     return Math.round(value).toLocaleString("en-US") + " CFS";
   }
   if (metric.metric === "gage_height_ft") return value.toFixed(2) + " ft";
+  if (metric.metric === "turbidity_fnu") return value.toFixed(1) + " FNU";
   return value.toFixed(1) + "°F";
 }
 
@@ -2578,6 +2614,8 @@ function liveMetricTrendCopy(metric: RiverRunLiveConditionMetric): string {
     ? sign + Math.round(absolute).toLocaleString("en-US") + " CFS"
     : metric.metric === "gage_height_ft"
     ? sign + absolute.toFixed(2) + " ft"
+    : metric.metric === "turbidity_fnu"
+    ? sign + absolute.toFixed(1) + " FNU"
     : sign + absolute.toFixed(1) + "°F";
   const direction = metric.trend24h.direction;
   return formatted + " · " +
@@ -2652,6 +2690,7 @@ function liveMetricTypicalRange(
   if (metric.metric === "gage_height_ft") {
     return `${context.p25.toFixed(2)}–${context.p75.toFixed(2)} ft`;
   }
+  if (metric.metric === "turbidity_fnu") return null;
   return `${context.p25.toFixed(1)}–${context.p75.toFixed(1)}°F`;
 }
 

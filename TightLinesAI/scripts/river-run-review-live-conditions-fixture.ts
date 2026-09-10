@@ -16,6 +16,7 @@ const REVIEW_VALUES: Record<
     flowAverage: number;
     gageHeight: number;
     waterTemperatureAverage: number | null;
+    turbidityFnu?: number;
   }
 > = {
   pere_marquette: {
@@ -42,6 +43,7 @@ const REVIEW_VALUES: Record<
     flowAverage: 2_700,
     gageHeight: 1.25,
     waterTemperatureAverage: 64.2,
+    turbidityFnu: 1.2,
   },
   platte: {
     flowAverage: 165,
@@ -62,6 +64,7 @@ const REVIEW_VALUES: Record<
     flowAverage: 510,
     gageHeight: 54.7,
     waterTemperatureAverage: null,
+    turbidityFnu: 2.4,
   },
   puyallup: {
     flowAverage: 1_050,
@@ -94,6 +97,7 @@ export function buildReviewLiveConditionsFixture(input: {
   flowDelta24h?: number | null;
   flowPercentDelta24h?: number | null;
   waterTempF: number | null;
+  turbidityFnu?: number | null;
 }): RiverRunLiveConditions {
   const hydraulic = input.river.hydraulicSources.find((source) =>
     source.role === "primary"
@@ -248,6 +252,42 @@ export function buildReviewLiveConditionsFixture(input: {
             : "usgs_approved_calendar_window_archive",
         }
         : undefined,
+    });
+  }
+
+  for (
+    const [index, source] of (input.river.turbiditySources ?? []).entries()
+  ) {
+    const value = input.turbidityFnu === undefined
+      ? (values?.turbidityFnu ?? 4.2) + index * .6
+      : input.turbidityFnu;
+    const delta = value == null ? null : index === 0 ? .4 : -.3;
+    metrics.push({
+      metric: "turbidity_fnu",
+      label: source.displayLabel,
+      value,
+      unit: "FNU",
+      observedAt: value == null ? undefined : input.refreshedAt,
+      freshness: value == null ? "missing" : "fresh",
+      approvalStatus: value == null ? undefined : "Provisional",
+      sourceId: source.sourceId,
+      provider: "USGS",
+      stationName: source.name,
+      siteId: source.siteId,
+      representedReach: source.reachNotes,
+      attribution: source.attribution,
+      trend24h: {
+        direction: delta == null
+          ? "unknown"
+          : delta > 0
+          ? "increasing"
+          : "decreasing",
+        delta,
+        percentDelta: null,
+        comparisonObservedAt: delta == null
+          ? undefined
+          : shiftIsoHours(input.refreshedAt, -24),
+      },
     });
   }
 

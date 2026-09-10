@@ -78,6 +78,21 @@ export const CLACKAMAS_RIVER_PROFILE: RiverProfile = {
     attribution:
       "U.S. Geological Survey Water Data for the Nation; recent readings are provisional and subject to revision.",
   }],
+  turbiditySources: [{
+    sourceId: "clackamas_oregon_city_turbidity",
+    provider: "USGS",
+    siteId: "14211010",
+    parameterCode: "63680",
+    name: "Clackamas River near Oregon City — optical turbidity",
+    displayLabel: "Turbidity",
+    priority: 1,
+    maxAgeHours: 2,
+    reachQuality: "good",
+    reachNotes:
+      "Co-located lower-river optical measurement near Oregon City. It does not directly represent River Mill, Estacada, or North Fork, and FNU is not a visibility-depth measurement.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation, parameter 63680; optical turbidity in FNU. Recent readings are provisional and subject to revision.",
+  }],
   weatherPoints: [{
     weatherPointId: "clackamas_oregon_city_weather",
     lat: 45.377,
@@ -149,15 +164,16 @@ export const CLACKAMAS_RIVER_PROFILE: RiverProfile = {
     activeSlots: ACTIVE_SLOTS,
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "Flow, height, and measured temperature resolve independently at USGS 14211010; invalid or stale metrics fail closed.",
+      "Flow, height, measured temperature, and optical turbidity resolve independently at USGS 14211010; invalid or stale metrics fail closed. Turbidity remains display-only.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
     waterTemperature: { status: "available" },
+    turbidity: { status: "available" },
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "Measured near Oregon City in the lower river, not at River Mill, Estacada, or North Fork. PGE operations influence the corridor; the gauge is not fish passage, abundance, access, or safety evidence.",
+    "Measured near Oregon City in the lower river, not at River Mill, Estacada, or North Fork. Turbidity is shown as raw optical FNU—not visibility depth or a clear/stained/muddy label. PGE operations influence the corridor; the gauge is not fish passage, abundance, access, or safety evidence.",
   regulationReminderCopy: OR_RULES,
 };
 
@@ -1267,7 +1283,7 @@ export const FALL_2026_DRAFT_CONFIGURATION_DOCUMENTS:
   RiverRunConfigurationDocument[] = [
     {
       schemaVersion: "river-run-config-v1",
-      configVersion: "2026-09-02-clackamas-owner-review.2",
+      configVersion: "2026-09-02-clackamas-owner-review.2+turbidity-v1",
       movementEngineVersion:
         getMovementEngineDefinition("fall_cooling").version,
       river: CLACKAMAS_RIVER_PROFILE,

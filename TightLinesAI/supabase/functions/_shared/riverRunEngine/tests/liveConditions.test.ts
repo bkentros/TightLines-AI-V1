@@ -3,7 +3,9 @@ import {
   BETSIE_RIVER_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
   buildRiverLiveConditions,
+  GRAND_RIVER_PROFILE,
   type NormalizedGaugeObservation,
+  type NormalizedTurbidityObservation,
   type NormalizedWaterTemperatureObservation,
   type RiverLiveSeasonalContext,
   type SupabaseLikeClient,
@@ -83,6 +85,75 @@ Deno.test("river live conditions expose all accepted metrics, averages, and boun
     "Warmer than average",
   );
   assertEquals(temperature.stationName.includes("Wellston"), true);
+});
+
+Deno.test("river live conditions add reach-labeled raw FNU without seasonal interpretation", async () => {
+  const turbidity = (
+    observedAt: string,
+    turbidityFnu: number,
+  ): NormalizedTurbidityObservation => ({
+    provider: "USGS",
+    sourceId: "grand_north_park_turbidity",
+    siteId: "04118564",
+    observedAt,
+    turbidityFnu,
+    approvalStatus: "Provisional",
+    source: "usgs_continuous_values",
+  });
+  const conditions = await buildRiverLiveConditions({
+    client: {} as SupabaseLikeClient,
+    river: GRAND_RIVER_PROFILE,
+    localDate: "2026-09-09",
+    refreshSlot: "08:00",
+    refreshAtUtc: "2026-09-09T13:00:00Z",
+    fetchFn: () => {
+      throw new Error("provider should not be called");
+    },
+    gaugeObservations: [
+      {
+        provider: "USGS",
+        siteId: "04119000",
+        observedAt: "2026-09-09T12:45:00Z",
+        flow_cfs: 2_100,
+        gage_height_ft: 4.8,
+        source: "usgs_continuous_values",
+      },
+    ],
+    waterTemperatureObservationsBySource: {
+      grand_north_park_temperature: [{
+        provider: "USGS",
+        sourceId: "grand_north_park_temperature",
+        siteId: "04118564",
+        observedAt: "2026-09-09T12:45:00Z",
+        waterTempF: 68.2,
+        source: "usgs_continuous_values",
+      }],
+    },
+    turbidityObservationsBySource: {
+      grand_north_park_turbidity: [
+        turbidity("2026-09-08T12:45:00Z", 2.1),
+        turbidity("2026-09-09T12:45:00Z", 3.4),
+      ],
+    },
+    seasonalContextsByMetric: {
+      flow_cfs: null,
+      gage_height_ft: null,
+      water_temp_f: null,
+      turbidity_fnu: null,
+    },
+  });
+
+  const metric = conditions.metrics.find((candidate) =>
+    candidate.metric === "turbidity_fnu"
+  );
+  assert(metric);
+  assertEquals(metric.label, "Downtown Turbidity");
+  assertEquals(metric.value, 3.4);
+  assertEquals(metric.unit, "FNU");
+  assertEquals(metric.trend24h.delta, 1.3);
+  assertEquals(metric.trend24h.direction, "increasing");
+  assertEquals(metric.seasonalContext, undefined);
+  assertEquals(conditions.dataVersion, "river-live-conditions-v6");
 });
 
 Deno.test("river live conditions suppress readings older than 24 hours", async () => {

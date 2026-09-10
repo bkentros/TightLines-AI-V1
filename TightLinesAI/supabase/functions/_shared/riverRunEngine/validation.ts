@@ -328,6 +328,7 @@ export function validateRiverProfile(
 
   validateHydraulicSources(river, issues);
   validateTemperatureSources(river, issues);
+  validateTurbiditySources(river, issues);
   validateFishCountSources(river, issues);
   validateWeatherPoints(river, issues);
   validateRiverFoundation(river, issues);
@@ -1057,6 +1058,74 @@ function validateTemperatureSources(
       ),
     );
   }
+}
+
+function validateTurbiditySources(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const sources = river.turbiditySources ?? [];
+  const capability = river.conditionDataCapabilities?.turbidity;
+  if (sources.length === 0) {
+    if (capability?.status === "available") {
+      issues.push(issue(
+        "turbiditySources",
+        "A river marked with available turbidity requires an accepted source.",
+        "config_source_invalid",
+      ));
+    }
+    return;
+  }
+  if (capability?.status !== "available") {
+    issues.push(issue(
+      "conditionDataCapabilities.turbidity",
+      "Configured turbidity sources require an explicit available capability.",
+      "config_invalid_value",
+    ));
+  }
+  const ids = new Set<string>();
+  const priorities = new Set<number>();
+  sources.forEach((source, index) => {
+    const field = `turbiditySources[${index}]`;
+    if (!hasText(source.sourceId) || ids.has(source.sourceId)) {
+      issues.push(issue(
+        `${field}.sourceId`,
+        "Turbidity source IDs must be present and unique.",
+        "config_source_invalid",
+      ));
+    }
+    ids.add(source.sourceId);
+    if (
+      source.provider !== "USGS" || source.parameterCode !== "63680" ||
+      !hasText(source.siteId) || !hasText(source.name) ||
+      !hasText(source.displayLabel)
+    ) {
+      issues.push(issue(
+        field,
+        "Turbidity sources require USGS parameter 63680, a site ID, name, and display label.",
+        "config_source_invalid",
+      ));
+    }
+    if (
+      !Number.isInteger(source.priority) || source.priority < 1 ||
+      priorities.has(source.priority) || !hasNumber(source.maxAgeHours) ||
+      source.maxAgeHours <= 0
+    ) {
+      issues.push(issue(
+        field,
+        "Turbidity priority must be unique and freshness limits must be positive.",
+        "config_source_invalid",
+      ));
+    }
+    priorities.add(source.priority);
+    if (!hasText(source.reachNotes) || !hasText(source.attribution)) {
+      issues.push(issue(
+        field,
+        "Turbidity reach notes and attribution are required.",
+        "config_source_invalid",
+      ));
+    }
+  });
 }
 
 function validateWeatherPoints(

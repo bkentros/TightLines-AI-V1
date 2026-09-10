@@ -226,6 +226,9 @@ export function expectedLiveMetrics(river: RiverProfile): RiverLiveMetricId[] {
   );
   for (const metric of primary?.availableMetrics ?? []) metrics.add(metric);
   if (river.waterTemperatureSources.length > 0) metrics.add("water_temp_f");
+  if ((river.turbiditySources ?? []).length > 0) {
+    metrics.add("turbidity_fnu");
+  }
   return [...metrics];
 }
 

@@ -7,6 +7,7 @@ export * from "./baselineGeneration.ts";
 export * from "./baselineSqlExport.ts";
 export * from "./conditionInputs.ts";
 export * from "./waterTemperature.ts";
+export * from "./turbidity.ts";
 export * from "./seasonalContext.ts";
 export * from "./liveConditions.ts";
 export * from "./fishCounts.ts";

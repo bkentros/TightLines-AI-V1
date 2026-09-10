@@ -386,6 +386,24 @@ export type WaterTemperatureSourceConfig = {
   attribution: string;
 };
 
+/**
+ * A reach-scoped optical turbidity observation. Turbidity is display-only:
+ * it is never treated as visibility and never feeds a scored primitive.
+ */
+export type TurbiditySourceConfig = {
+  sourceId: string;
+  provider: "USGS";
+  siteId: string;
+  parameterCode: "63680";
+  name: string;
+  displayLabel: string;
+  priority: number;
+  maxAgeHours: number;
+  reachQuality: ReachQuality;
+  reachNotes: string;
+  attribution: string;
+};
+
 export type FishCountObservationType =
   | "hatchery_return"
   | "ladder_passage"
@@ -493,7 +511,8 @@ export type HistoricalWaterTemperatureSourceConfig = {
 export type RiverLiveMetricId =
   | "flow_cfs"
   | "gage_height_ft"
-  | "water_temp_f";
+  | "water_temp_f"
+  | "turbidity_fnu";
 
 export type RiverLiveMetricFreshness =
   | "fresh"
@@ -504,6 +523,8 @@ export type RiverLiveMetricFreshness =
 export type RiverLiveMetricTrendDirection =
   | "rising"
   | "falling"
+  | "increasing"
+  | "decreasing"
   | "warming"
   | "cooling"
   | "stable"
@@ -560,7 +581,7 @@ export type RiverLiveConditionMetric = {
   metric: RiverLiveMetricId;
   label: string;
   value: number | null;
-  unit: "CFS" | "ft" | "°F";
+  unit: "CFS" | "ft" | "°F" | "FNU";
   observedAt?: string;
   freshness: RiverLiveMetricFreshness;
   approvalStatus?: string;
@@ -739,6 +760,8 @@ export type RiverProfile = {
   mouthLon: number;
   hydraulicSources: HydraulicSourceConfig[];
   waterTemperatureSources: WaterTemperatureSourceConfig[];
+  /** Optional accepted, reach-specific sources for raw FNU display only. */
+  turbiditySources?: TurbiditySourceConfig[];
   /** Optional official facility observations; never an input to scored primitives. */
   fishCountSources?: FishCountSourceConfig[];
   /** Optional historical-only context; never a current measured reading. */
@@ -752,6 +775,7 @@ export type RiverProfile = {
   conditionDataCapabilities: {
     hydraulics: RiverConditionDataCapability;
     waterTemperature: RiverConditionDataCapability;
+    turbidity?: RiverConditionDataCapability;
   };
 
   supportStatus: SupportStatus;
